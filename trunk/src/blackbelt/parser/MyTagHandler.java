@@ -25,7 +25,7 @@ public class MyTagHandler extends BlackBeltTagHandlerStringGenerator{
 	@Override
 	public void onCodeTag(String textCode, boolean inline, boolean escape,
 			String lang, boolean num) {
-		// TODO Auto-generated method stub
+		addResultTextBlock("<i>"+ textCode + "</i>", true);
 		
 	}
 
