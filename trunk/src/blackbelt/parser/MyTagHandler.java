@@ -34,6 +34,6 @@ public class MyTagHandler extends BlackBeltTagHandlerStringGenerator{
 		// TODO Auto-generated method stub
 		
 	}
-		
+
 
 }
