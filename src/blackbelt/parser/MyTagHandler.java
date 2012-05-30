@@ -31,8 +31,8 @@ public class MyTagHandler extends BlackBeltTagHandlerStringGenerator{
 
 	@Override
 	public void onQuoteTag(String innerText) {
-		// TODO Auto-generated method stub
-		
+		addResultTextBlock("<quote>"+ innerText + "</quote>", true);
+
 	}
 
 
