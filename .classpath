@@ -4,6 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="lib" path="S:/Parser.jar"/>
 	<classpathentry kind="lib" path="S:/cayenne-2.0.4.jar"/>
-	<classpathentry kind="lib" path="C:/PorteJar/spring-core-1.2.5.jar"/>
+	<classpathentry kind="lib" path="S:/spring-core-1.2.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
