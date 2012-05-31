@@ -57,13 +57,6 @@ public class BlackBeltTagParser {
 			int currentIndexBeforeNextElement = currentIndex;
 			Element element = findNextElement();
 		
-			while(findNextElement()==null ? true : false) {//TODO
-				MyTagHandler mth = new MyTagHandler();
-				BlackBeltTagParser parser = new BlackBeltTagParser(mth,
-						element.innerText);
-				parser.shouldWePutParagraphTagsInsideTheCurrentTextBlock = true;
-				element.innerText = parser.parse();
-			}
 			while (element != null && errorCount == 0) {
 				// Insert text before the element found.
 				blackBeltTagHandler.onText(input.substring(
@@ -146,8 +139,6 @@ public class BlackBeltTagParser {
 			//fireError("Tag name \"" + element.name + "\" not supported.");
 		}
 	}
-	
-
 	protected Element findNextElement() {
 	    String lowerCaseInput = input.toLowerCase();
 	    
