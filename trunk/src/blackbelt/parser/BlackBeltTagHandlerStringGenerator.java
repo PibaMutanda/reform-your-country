@@ -41,6 +41,7 @@ public abstract class BlackBeltTagHandlerStringGenerator implements BlackBeltTag
 	
 	
 	
+	
 	/** Inserts error text in red */
 	@Override
 	public void onError(String errorText) {
