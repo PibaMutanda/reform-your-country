@@ -57,22 +57,32 @@ public class BlackBeltTagParser {
 			int currentIndexBeforeNextElement = currentIndex;
 			Element element = findNextElement();
 		
+			while(findNextElement()==null ? true : false) {//TODO
+				MyTagHandler mth = new MyTagHandler();
+				BlackBeltTagParser parser = new BlackBeltTagParser(mth,
+						element.innerText);
+				parser.shouldWePutParagraphTagsInsideTheCurrentTextBlock = true;
+				element.innerText = parser.parse();
+			}
 			while (element != null && errorCount == 0) {
 				// Insert text before the element found.
 				blackBeltTagHandler.onText(input.substring(
-						currentIndexBeforeNextElement, element.startPosition));
+						currentIndexBeforeNextElement,
+						element.startPosition));
 
 				onElement(element);
-				
+
 				currentIndexBeforeNextElement = currentIndex;
 				element = findNextElement();
 			}
-			if (errorCount!=0) {
+			if (errorCount != 0) {
 				errorFormat = true;
 			}
 			//Call the TagHandler
-				blackBeltTagHandler.onText(StringUtils.substring(input, currentIndex));// apache substring to allow currentIndex to be too big.
-			
+			blackBeltTagHandler.onText(StringUtils.substring(input,
+					currentIndex));// apache substring to allow currentIndex to be too big.
+
+
 		} catch (Exception e) {
 			fireError("Unidentified problem while parsing the tags in your text. Tags are elements like [image src='filename'], or [code] ... [/code]. It is probably a mistake in your text, but it may also be a bug. If you are convinced that it's a bug, please copy it on the forum.");
 		}
@@ -136,6 +146,7 @@ public class BlackBeltTagParser {
 			//fireError("Tag name \"" + element.name + "\" not supported.");
 		}
 	}
+	
 
 	protected Element findNextElement() {
 	    String lowerCaseInput = input.toLowerCase();
@@ -223,23 +234,25 @@ public class BlackBeltTagParser {
 		element.endPosition = input.indexOf(']', nextCloseTagSameName);
 
 		currentIndex = element.endPosition + 1;
-		//
-		//
-		//
-		//   CODE MODIFIE
-		//
-		//
-		//
-		MyTagHandler mth = new MyTagHandler();
-		BlackBeltTagParser parser = new BlackBeltTagParser(mth,element.innerText);
-		parser.shouldWePutParagraphTagsInsideTheCurrentTextBlock= true;
-		element.innerText =parser.parse();
-		//
-		//
-		//
-		//
-		//
-		
+		if (/*TODO Method that checks if element.innertext  contains a tag*/false) {
+			//
+			//
+			//
+			//   CODE MODIFIE
+			//
+			//
+			//
+			MyTagHandler mth = new MyTagHandler();
+			BlackBeltTagParser parser = new BlackBeltTagParser(mth,
+					element.innerText);
+			parser.shouldWePutParagraphTagsInsideTheCurrentTextBlock = true;
+			element.innerText = parser.parse();
+			//
+			//
+			//
+			//
+			//
+		}
 		return element;
 	}
 
