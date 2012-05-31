@@ -25,15 +25,21 @@ public class MyTagHandler extends BlackBeltTagHandlerStringGenerator{
 	@Override
 	public void onCodeTag(String textCode, boolean inline, boolean escape,
 			String lang, boolean num) {
-		addResultTextBlock("<code>"+ textCode + "</code>", true);
+		addResultTextBlock("<code>"+ textCode + "</code>", false);
 		
 	}
 
 	@Override
 	public void onQuoteTag(String innerText) {
-		addResultTextBlock("<quote>"+ innerText + "</quote>", true);
+		addResultTextBlock("<quote>"+ innerText + "</quote>", false);
 
 	}
 
-
+	@Override
+	public void onText(String text,boolean newLine){
+		
+	}
+	public String addParagraph(String textCode){
+		return "<p>"+textCode+"</p>";	
+	}
 }

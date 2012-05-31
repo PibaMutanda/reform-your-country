@@ -36,7 +36,7 @@ public abstract class BlackBeltTagHandlerStringGenerator implements BlackBeltTag
 
 	@Override
 	public void onText(String text){
-		addResultTextBlock(text, true);
+		addResultTextBlock(text, false);
 	}
 	
 	

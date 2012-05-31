@@ -7,7 +7,7 @@ public class Main {
 //		MyTagHandler tg = null;
 		BlackBeltTagParser parser = new BlackBeltTagParser(tg, "[quote]test [code]double balise[/code][/quote] blabla [code]ceci est du code[/code]");
 		
-		System.out.println(tg.getOutputString(parser.parse()));
+		System.out.println(tg.addParagraph(tg.getOutputString(parser.parse())));
 		
 	}
 }
