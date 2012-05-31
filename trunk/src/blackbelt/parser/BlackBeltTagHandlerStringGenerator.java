@@ -58,12 +58,10 @@ public abstract class BlackBeltTagHandlerStringGenerator implements BlackBeltTag
 	 * PTagsGenerator will transform the list of TextBlocks into the output String.
 	 * */
 	protected void addResultTextBlock(String text, boolean shouldWePutParagraphTagsInsideTheCurrentTextBlock) {
-		if (true/*TODO Method that check if text contains a tag*/) {
-			TextBlock textBlock = new TextBlock();
-			textBlock.text = text;
-			textBlock.insertParagraphs = shouldWePutParagraphTagsInsideTheCurrentTextBlock;
-			this.textBlocks.add(textBlock);
-		}
+		TextBlock textBlock = new TextBlock();
+		textBlock.text = text;
+		textBlock.insertParagraphs = shouldWePutParagraphTagsInsideTheCurrentTextBlock;
+		this.textBlocks.add(textBlock);
 	}
 
 	/** Inserts <p> tags to form paragraphs
