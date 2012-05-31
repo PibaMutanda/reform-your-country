@@ -141,80 +141,9 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 		MR, MRS, MSS;
 	}
 
-	// TODO delete?
-	// /**
-	// * Good Contributor Rate Status
-	// */
-	// public enum ContributorCredibility {
-	// GOOD("Good",
-	// "Normal user that does great contributions to the site. People are expected to be between 100% and "
-	// + (100-UserServiceImpl.BAD_CONTRIBUTOR_THRESHOLD_TRIGGER_PERCENTAGE) +
-	// "%"),
-	// BELOW_THRESHOLD("Below Threshold", "User GCR is between" +
-	// (100-UserServiceImpl.BAD_CONTRIBUTOR_THRESHOLD_TRIGGER_PERCENTAGE) +
-	// "% and " + (100 -
-	// 2*UserServiceImpl.BAD_CONTRIBUTOR_THRESHOLD_TRIGGER_PERCENTAGE) +
-	// "%, a warning mail has been sent"),
-	// BAD("Bad", "User GCR is under " + (100 -
-	// 2*UserServiceImpl.BAD_CONTRIBUTOR_THRESHOLD_TRIGGER_PERCENTAGE) +
-	// "%, a mail was sent and contribution are not allowed anymore"),
-	// REINSTATED("Reinstated",
-	// "User was falgged as a bad contributor but was manually reinstated by an administrator");
-	//
-	// private String displayName;
-	// private String description;
-	//
-	// ContributorCredibility(String displayName, String description){
-	// this.displayName = displayName;
-	// this.description = description;
-	// }
-	//
-	// public String getDisplayName() {
-	// return displayName;
-	// }
-	//
-	// public String getDescription() {
-	// return description;
-	// }
-	// }
 
-	/**
-	 * EmailsPolicies:<br />
-	 * INDIVIDUAL: User wants to receive an e-mail as soon as something happen
-	 * to one of its questions.<br />
-	 * DAILY: User wants to receive an e-mail at most every day.<br />
-	 * MONTHLY: User wants to receive an e-mail at most every month.<br />
-	 * NEVER: User don't want to receive e-mail.
-	 */
-	@Deprecated
-	// TODO Remove this when we remove Struts -- John 2011-02-10
-	public enum EmailsPolicy {
-		INDIVIDUAL(
-				"Individuals",
-				"A mail is sent as soon as an event occur (for example, sombody edit one of your question)."), DAYLY(
-				"Daily",
-				"The notification mails are grouped and sent once a day in a single mail."), MONTHLY(
-				"Monthly",
-				"The notification mails are grouped and sent once a month in a single mail."), NEVER(
-				"Never", "");
 
-		String name;
-		String description;
 
-		EmailsPolicy(String aName, String aDescription) {
-			this.name = aName;
-			this.description = aDescription;
-		}
-
-		public String getName() {
-			return name;
-		}
-
-		public String getDescription() {
-			return description;
-		}
-
-	}
 
 	 public enum CommunityRole {
 	 NONE("non", -1), ADMIN("Administrator", 10), COMMUNITY_MANAGER(
@@ -305,39 +234,16 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 								// that in the UI too (userName sounds more
 								// natural to users).
 
-	// TODO delete?
-	// private String jlUserName; // TODO: remove this field from DB and entity.
+
 
 	private String mail;
-	// TODO delete?
-	// private String skypeId;
+
 
 	private String password;
 
-	// TODO delete?
-	// @Lob
-	// private String nameChangeLog; // record the name changes
+	 @Lob
+	 private String nameChangeLog; // record the name changes
 
-	// TODO delete?
-	// @Deprecated
-	// /** TODO: delete. Seems to be not used .... John 2009-07-02 */
-	// private String signature;
-
-	// TODO delete?
-	// @ManyToOne(fetch = FetchType.EAGER)
-	// @JoinColumn(name = "countryId")
-	// private Country country;
-
-	// TODO delete?
-	// private String state; // TODO: remove field --- John 2008-09-19
-
-	// TODO delete?
-	// @Column(columnDefinition = "text")
-	// private String shortInfo;
-
-	// TODO delete?
-	// @Column(columnDefinition = "text")
-	// private String longInfo;
 
 	@Column(nullable = true)
 	@Enumerated(EnumType.STRING)
@@ -349,62 +255,12 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 
 	private String pictureName;
 
-	//TODO delete?
-//	private Float globalSatisfactionScoreCoach; // Ideally, should not be null
-//												// if endDate is not null
-//												// (course is over).
-	//TODO delete?
-//	private int globalSatisfactionCountCoach; // Amount of evals filled (that
-//												// resulted in the score
-//												// globalSatisfactionScoreCoach).
-	
-	//TODO uncomment
-//	@Enumerated(EnumType.STRING)
-//	private MailingDelayType mailingDelayType = MailingDelayType.IMMEDIATELY;// a
-//																				// user
-//																				// has
-//																				// three
-//																				// kinds
-//																				// of
-//																				// mail
-//																				// :
-//																				// immediate,
-//																				// groupable,
-//																				// slow_not_groupable
-
 	private Date lastMailSentDate;
 
-	//TODO delete?
-//	@ManyToOne(fetch = FetchType.EAGER)
-//	@JoinColumn(name = "beltId")
-//	private Belt belt = Belt.WHITE;
-
-	//TODO delete?
-//	@OneToMany(mappedBy = "user")
-//	@OrderBy("beltType DESC")
-//	private List<BeltV5> belts = new ArrayList<BeltV5>();
-
-	//TODO delete?
-//	@OneToMany(mappedBy = "user")
-//	@OrderBy("specialtyLevelType DESC")
-//	private Set<SpecialtyLevel> specialtyLevels = new HashSet<SpecialtyLevel>();
-
-	//TODO delete?
-//	@ManyToMany(targetEntity = be.loop.jbb.bo.Decoration.class, cascade = { CascadeType.ALL })
-//	@JoinTable(name = "users_decorations", joinColumns = { @JoinColumn(name = "userId") }, inverseJoinColumns = { @JoinColumn(name = "decorationId") })
-//	private List<Decoration> decorations = new ArrayList<Decoration>(); // TODO:
-//																		// remove
-//																		// this
-//																		// field
-//																		// ----
-//																		// John
-//																		// 2009-07-15
 
 	private boolean guest;
 
-	//TODO delete?
-//	@Column(columnDefinition = "text")
-//	private String beltManipExplanation;
+
 
 	//TODO uncomment
 //	@ElementCollection(targetClass = Privilege.class, fetch = FetchType.EAGER)
@@ -436,45 +292,11 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	private boolean nlSubscriber = true; //TODO maxime : use?
 
 	//TODO delete?
-//	@Deprecated
-//	// TODO V5 remove knowlegdePoint, the knpoint are computed (BeltService, by
-//	// community) and not stored anymore
-//	private int knowledgePoint = 0;
-
-	//TODO delete?
-//	private Float levelContributionPointsEarned;
-
-	//TODO delete?
-//	private float contributionPointsEarned;
-
-	//TODO delete?
-//	private float contributionPointsSpent;
-
-	//TODO delete?
-//	// Amount of contribution points that the user had, the last time a
-//	// threshold notification mail has been sent.
-//	private float lastContribMailPoints = 0;
-
-	//TODO delete?
-//	private double questionAverage;
-	//TODO delete?
-//	private int numberQuestions;
-	//TODO delete?
-//	private boolean displayBelt = true;
-	//TODO delete?
 //	private String videoId; // Id on Youtube or Vimeo.
 
 	//TODO uncomment or delete?
 //	@Enumerated(EnumType.STRING)
 //	private VideoType videoType;
-	//TODO delete?
-//	private boolean convertedToV5 = false;
-
-	//TODO delete?
-//	// temporary flag to restore the belt problem due to the v4 to v5 data
-//	// conversion
-//	@Column(nullable = false)
-//	private boolean beltV5Restored = false;
 
 	private boolean spammer = false;
 
@@ -506,51 +328,9 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 									// influence field. Can be null (system
 									// gives influence when new belt or root
 									// influencers, as John & Nicolas).
-
-	
-	//TODO delete?
-//	@ManyToMany(fetch = FetchType.LAZY)
-//	@JoinTable(name = "questionnaires_users", joinColumns = { @JoinColumn(name = "userid") }, inverseJoinColumns = { @JoinColumn(name = "questid") })
-//	private Set<Questionnaire> questionnaires = new HashSet<Questionnaire>();
-
-	//TODO delete?
-//	@ManyToMany(fetch = FetchType.LAZY)
-//	@JoinTable(name = "examtasksperformed_users", joinColumns = { @JoinColumn(name = "userid") }, inverseJoinColumns = { @JoinColumn(name = "etpid") })
-//	private Set<ExamTaskPerformed> examTasksPerformed = new HashSet<ExamTaskPerformed>();
-
-	//TODO delete?
-//	@ManyToMany(fetch = FetchType.LAZY)
-//	@JoinTable(name = "examsperformed_users", joinColumns = { @JoinColumn(name = "userid") }, inverseJoinColumns = { @JoinColumn(name = "epid") })
-//	private Set<ExamPerformed> examsPerformed = new HashSet<ExamPerformed>();
-
-	//TODO delete?
-//	@OneToMany(mappedBy = "user")
-//	private Set<SocialIntegration> oAuthCredentials = new HashSet<SocialIntegration>();
-
-	//TODO delete?
-//	@OneToMany(mappedBy = "student")
-//	private Set<CourseReg> studentCourseRegs = new HashSet<CourseReg>();
-
-	//TODO delete?
-//	@OneToMany(mappedBy = "coach")
-//	private Set<CourseReg> coachCourseRegs = new HashSet<CourseReg>();
-
-	//TODO delete?
-//	@OneToMany(mappedBy = "coach")
-//	private Set<CourseRegApply> courseRegApplies = new HashSet<CourseRegApply>(); // Interviews
-																					// as
-																					// coach.
-	//TODO delete?
-//	@OneToMany(mappedBy = "coach")
-//	@Sort(type = SortType.NATURAL)
-//	private SortedSet<CoachOffering> coachOfferings = new TreeSet<CoachOffering>();
 	//TODO delete?
 //	@OneToMany(mappedBy = "user")
 //	private Set<Badge> badges = new HashSet<Badge>();
-	//TODO delete?
-//	@ManyToMany(fetch = FetchType.EAGER)
-//	@JoinTable(name = "coach_country", joinColumns = @JoinColumn(name = "coach_id"), inverseJoinColumns = @JoinColumn(name = "country_id"))
-//	private Set<Country> coachCountriesSelection = new HashSet<Country>();
 	//TODO delete?
 //	// Contains all groups link including the primary group as well
 //	@OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
@@ -561,14 +341,7 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 //	@OneToOne(fetch = FetchType.EAGER)
 //	@JoinColumn(name = "primaryGroupRegId")
 //	private GroupReg primaryGroupReg;
-	//TODO delete?
-//	@Enumerated(EnumType.STRING)
-//	private CoachMailOption coachMailOption = CoachMailOption.ALL;
-//	private boolean showAsCoach = false; // Should we list this user as an
-//											// available coach (false = he is no
-//											// coach yet or he wants to make a
-//											// break and get no student
-//											// anymore).
+										// anymore).
 	//TODO delete?
 //	@ManyToOne(fetch = FetchType.LAZY)
 //	@JoinColumn(name = "recruiterId")
@@ -577,10 +350,7 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 //	@ManyToOne(fetch = FetchType.LAZY)
 //	@JoinColumn(name = "reactivatorId")
 //	private User reactivator;
-	//TODO delete?
-//	@Enumerated(EnumType.STRING)
-//	@Column(nullable = false)
-//	private ContributorCredibility credibility = ContributorCredibility.GOOD;
+
 	//TODO delete?
 //	@Enumerated(EnumType.STRING)
 //	private CommunityRole communityRole = CommunityRole.USER;
@@ -592,14 +362,7 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 //						.notNull()));
 //		return orgs.size() >= 1;
 //	}
-	//TODO delete?
-//	public int getHighestBeltRank() {
-//		if (getBelts() == null || getBelts().isEmpty()) {
-//			return 0;
-//		}
-//
-//		return getBelts().iterator().next().getBeltType().getRank();
-//	}
+
 	
 //	public CommunityRole getCommunityRole() {
 //		return communityRole;
@@ -775,23 +538,6 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 		this.dev = dev;
 	}
 
-//	@Deprecated
-//	public Belt getBelt() {
-//		return belt;
-//	}
-//
-//	public void setBelt(Belt belt) {
-//		this.belt = belt;
-//	}
-//
-//	public String getState() {
-//		return state;
-//	}
-//
-//	public void setState(String state) {
-//		this.state = state;
-//	}
-
 	public boolean isPicture() {
 		return picture;
 	}
@@ -799,14 +545,6 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	public void setPicture(boolean picture) {
 		this.picture = picture;
 	}
-
-//	public String getBeltManipExplanation() {
-//		return beltManipExplanation;
-//	}
-//
-//	public void setBeltManipExplanation(String beltManipExplanation) {
-//		this.beltManipExplanation = beltManipExplanation;
-//	}
 
 	public String getPictureName() {
 		return pictureName;
@@ -848,48 +586,6 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 		this.birthDate = birthDate;
 	}
 
-//	@Deprecated
-//	public int getKnowledgePoint() {
-//		return knowledgePoint;
-//	}
-//
-//	@Deprecated
-//	public void setKnowledgePoint(int knowledgePoint) {
-//		this.knowledgePoint = knowledgePoint;
-//	}
-//
-//	public float getContributionPointsEarned() {
-//		return contributionPointsEarned;
-//	}
-//
-//	public void setContributionPointsEarned(float availablePoints) {
-//		this.contributionPointsEarned = availablePoints;
-//	}
-//
-//	public int getNumberQuestions() {
-//		return numberQuestions;
-//	}
-//
-//	public void setNumberQuestions(int numberQuestions) {
-//		this.numberQuestions = numberQuestions;
-//	}
-//
-//	public double getQuestionAverage() {
-//		return questionAverage;
-//	}
-//
-//	public void setQuestionAverage(double questionAverage) {
-//		this.questionAverage = questionAverage;
-//	}
-//
-//	public float getContributionPointsSpent() {
-//		return contributionPointsSpent;
-//	}
-//
-//	public void setContributionPointsSpent(float spentPoints) {
-//		this.contributionPointsSpent = spentPoints;
-//	}
-
 	public String getFullName() {
 		String lnChar = (lastName == null || lastName.isEmpty()) ? "" : " "
 				+ StringUtils.capitalize(lastName);
@@ -930,50 +626,6 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 //
 //	public void setLongInfo(String longInfo) {
 //		this.longInfo = longInfo;
-//	}
-//
-//	public String getJlUserName() {
-//		return jlUserName;
-//	}
-//
-//	public void setJlUserName(String jlUserName) {
-//		this.jlUserName = jlUserName;
-//	}
-//
-//	public boolean isDisplayBelt() {
-//		return displayBelt;
-//	}
-//
-//	public void setDisplayBelt(boolean displayBelt) {
-//		this.displayBelt = displayBelt;
-//	}
-//
-//	public double getPointsForDisplay() {
-//		return Math.round(this.getContributionPointsEarned());
-//	}
-//
-//	public Set<ExamTaskPerformed> getExamTasksPerformed() {
-//		return examTasksPerformed;
-//	}
-//
-//	public void setExamTasksPerformed(Set<ExamTaskPerformed> etps) {
-//		this.examTasksPerformed = etps;
-//	}
-//
-//	public Set<ExamPerformed> getExamsPerformed() {
-//		return examsPerformed;
-//	}
-//
-//	public void setExamsPerformed(Set<ExamPerformed> examPerformeds) {
-//		this.examsPerformed = examPerformeds;
-//	}
-//
-//	public Set<Questionnaire> getQuestionnaires() {
-//		return questionnaires;
-//	}
-//
-//	public void setQuestionnaires(Set<Questionnaire> questionnaires) {
-//		this.questionnaires = questionnaires;
 //	}
 
 	public String getLastLoginIp() {
@@ -1182,54 +834,17 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 //		return reactivator;
 //	}
 //
-//	public String getNameChangeLog() {
-//		return nameChangeLog;
-//	}
-//
-//	public void addNameChangeLog(String nameChange) {
-//		if (this.nameChangeLog == null) {
-//			this.nameChangeLog = nameChange;
-//		} else {
-//			this.nameChangeLog += "\n" + nameChange;
-//		}
-//	}
-//
-//	public Float getLevelContributionPointsEarned() {
-//		return levelContributionPointsEarned;
-//	}
-//
-//	public void setLevelContributionPointsEarned(
-//			Float levelContributionPointsEarned) {
-//		this.levelContributionPointsEarned = levelContributionPointsEarned;
-//	}
-//
-//	public List<BeltV5> getBelts() {
-//		return belts;
-//	}
-//
-//	public Set<SpecialtyLevel> getSpecialtyLevels() {
-//		return specialtyLevels;
-//	}
-//
-//	public void setSpecialtyLevels(Set<SpecialtyLevel> specialtyLevels) {
-//		this.specialtyLevels = specialtyLevels;
-//	}
-//
-//	public boolean isConvertedToV5() {
-//		return convertedToV5;
-//	}
-//
-//	public void setConvertedToV5(boolean convertedToV5) {
-//		this.convertedToV5 = convertedToV5;
-//	}
-//
-//	public boolean isBeltV5Restored() {
-//		return beltV5Restored;
-//	}
-//
-//	public void setBeltV5Restored(boolean beltV5Restored) {
-//		this.beltV5Restored = beltV5Restored;
-//	}
+	public String getNameChangeLog() {
+		return nameChangeLog;
+	}
+
+	public void addNameChangeLog(String nameChange) {
+		if (this.nameChangeLog == null) {
+			this.nameChangeLog = nameChange;
+		} else {
+			this.nameChangeLog += "\n" + nameChange;
+		}
+	}
 
 	public void setInfluenceAutoComputed(boolean influenceAutoComputed) {
 		this.influenceAutoComputed = influenceAutoComputed;
