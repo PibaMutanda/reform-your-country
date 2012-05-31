@@ -56,7 +56,7 @@ public class BlackBeltTagParser {
 		try {
 			int currentIndexBeforeNextElement = currentIndex;
 			Element element = findNextElement();
-			
+		
 			while (element != null && errorCount == 0) {
 				// Insert text before the element found.
 				blackBeltTagHandler.onText(input.substring(
