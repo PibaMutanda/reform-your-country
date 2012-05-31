@@ -252,6 +252,18 @@ public class BlackBeltTagParser {
 			//fireError("Tag name \"" + element.name + "\" not supported.");
 		}
 	}
+//	public void process(List<Element> elemList){
+//
+//		for(Element e : elemList){
+//			if(!e.subElement.isEmpty()){
+//				onElement(e);
+//				process(e.subElement);
+//			}else{
+//			onElement(e);
+//			}
+//		}
+//	}
+
 	protected Element findNextElement() {
 	    String lowerCaseInput = input.toLowerCase();
 	    
@@ -438,6 +450,8 @@ public class BlackBeltTagParser {
 		String name;
 		Map<String, String> params = new HashMap<String, String>();
 		private String innerText; // For elements have an open tag and a close tag.
+		private String beforeParseText;
+		private String afterParseText;
 		List<Element> subElement = new 	ArrayList<Element>();				// "[code] inner text [/code]"
 		int startPosition;
 		int endPosition; // end position of the closing tag (or the only tag if
