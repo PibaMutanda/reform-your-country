@@ -87,15 +87,15 @@ public class BlackBeltTagParser {
 		
 
 		try {
-			Element element = findNextElement();
+			Element element = findNextElement(index,text);
 		
 			while (element != null && errorCount == 0) {
+				index = element.CurrentPosition;
+				element.subElement =getElementList(0,element.innerText); 
 				elmList.add(element);
 				// Insert text before the element found.
 				onElement(element);
 				element = findNextElement(index,text);
-				element.subElement =getElementList(0,element.innerText); 
-				index = element.CurrentPosition;
 				
 			}
 			if (errorCount != 0) {
@@ -125,8 +125,8 @@ public class BlackBeltTagParser {
 		}
 		if (nextOpenBracketIndex == nextCloseBracketIndex - 1) { // "[]"
 			fireError("This tag is empty, it has no name. You can either enclose your text in between " +
-                    "[CODE escape='true' inline='true'] and [/CODE] or else you can escape your " +
-                    "brackets with html '&amp;#91;' and '&amp;#93;' escape characters (respectively for '[' and ']' characters).");
+                   "[CODE escape='true' inline='true'] and [/CODE] or else you can escape your " +
+                   "brackets with html '&amp;#91;' and '&amp;#93;' escape characters (respectively for '[' and ']' characters).");
 			return null; 
 		}
 
@@ -152,8 +152,8 @@ public class BlackBeltTagParser {
 		//Test if the searched tag is supported
 		if(!isInSupportedTagNames(element.name)){
 		    fireError("This tag '" + element.name + "' is not supported. " +
-                    "You can either enclose your text in between [CODE escape='true' inline='true'] and [/CODE]" +
-                    " or else you can escape your brackets with html '&amp;#91;' and '&amp;#93;' escape characters (respectively for '[' and ']' characters)."); 
+                   "You can either enclose your text in between [CODE escape='true' inline='true'] and [/CODE]" +
+                   " or else you can escape your brackets with html '&amp;#91;' and '&amp;#93;' escape characters (respectively for '[' and ']' characters)."); 
 		    return null; 
 		}
 
@@ -164,28 +164,30 @@ public class BlackBeltTagParser {
 			param = findNextParam(tagWithParams, param.endIndexWithinTag + 1);
 		}
 
-		element.CurrentPosition = nextCloseBracketIndex + 1; // we are after the opening tag.
-
+		//element.CurrentPosition = nextCloseBracketIndex + 1; // we are after the opening tag.
+       int EndOfTag;
 		// ////////// Closing Tag.
 		// /// Is there an "[/*tagName] before an opening tag of the same name
 		// (we don't support nested tags with same name) ?
 		int nextCloseTagSameName = lowerCaseInput.indexOf("[/" + element.name+"]",  // lowerCaseInput because element.name has been lowerCased.
-				element.CurrentPosition);
+				 nextCloseBracketIndex + 1);
+		EndOfTag= nextCloseTagSameName+3+element.name.length();
 		if (nextCloseTagSameName == -1) { // Not found
 			return element; // there is no close tag for the current element.
 		}
 		// But is it the close tag of out current element or of a further element?
 		// -> is there a further element starting before the close tag?
 		int nextOpenTagSameName = lowerCaseInput.indexOf("[" + element.name,  // lowerCaseInput because element.name has been lowerCased.
-				element.CurrentPosition);
+				 nextCloseBracketIndex + 1);
 		if (nextOpenTagSameName != -1) { // Found
 			if (nextOpenTagSameName < nextCloseTagSameName) { // It's before
 				return element; // there is no close tag for the current element.
 			} // else, ok, it's our close tag.
-
 		} // else ok, it's our close tag.
 
-		element.innerText = text.substring(element.CurrentPosition, nextCloseTagSameName);
+	
+		element.innerText = text.substring(nextCloseBracketIndex + 1, nextCloseTagSameName);
+		element.beforeParseText = text.substring(element.CurrentPosition, EndOfTag);
 		if (element.innerText.startsWith("\n")) {  // i.e. "[code]\npublic class...[/code]
 		    // We remove this first line return
 		    element.innerText = element.innerText.replaceFirst("\n", "");
