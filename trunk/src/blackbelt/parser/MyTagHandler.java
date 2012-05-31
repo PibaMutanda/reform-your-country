@@ -25,7 +25,9 @@ public class MyTagHandler extends BlackBeltTagHandlerStringGenerator{
 	@Override
 	public void onCodeTag(String textCode, boolean inline, boolean escape,
 			String lang, boolean num) {
-		addResultTextBlock("<code>"+ textCode + "</code>", false);
+		if (findNextElement()==null ? true : false) {
+			addResultTextBlock("<code>" + textCode + "</code>", false);
+		}
 		
 	}
 
@@ -42,4 +44,5 @@ public class MyTagHandler extends BlackBeltTagHandlerStringGenerator{
 	public String addParagraph(String textCode){
 		return "<p>"+textCode+"</p>";	
 	}
+
 }
