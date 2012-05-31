@@ -10,6 +10,7 @@ public interface BlackBeltTagHandler {
 	void onCodeTag(String textCode,boolean inline, boolean escape, String lang, boolean num);
 	void onQuoteTag(String innerText);
 	void onText(String text);
+	void onText(String text,boolean newLine);
 	void onError(String errorText);
 	void onUnknownElement(Element element);
 	

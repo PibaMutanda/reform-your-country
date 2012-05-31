@@ -71,9 +71,7 @@ public class BlackBeltTagParser {
 				errorFormat = true;
 			}
 			//Call the TagHandler
-			if(!shouldWePutParagraphTagsInsideTheCurrentTextBlock)
-				blackBeltTagHandler.onText(StringUtils.substring(input, currentIndex));
-			else // apache substring to allow currentIndex to be too big.
+				blackBeltTagHandler.onText(StringUtils.substring(input, currentIndex));// apache substring to allow currentIndex to be too big.
 			
 		} catch (Exception e) {
 			fireError("Unidentified problem while parsing the tags in your text. Tags are elements like [image src='filename'], or [code] ... [/code]. It is probably a mistake in your text, but it may also be a bug. If you are convinced that it's a bug, please copy it on the forum.");
