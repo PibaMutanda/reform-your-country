@@ -152,13 +152,13 @@ public class BlackBeltTagParser {
 			fireError("This tag has an opening bracket '[', but no corresponding closing bracket. " +
 					  "You can either enclose your text in between [CODE escape='true' inline='true'] and [/CODE]" +
 					  " or else you can escape your brackets with html '&amp;#91;' and '&amp;#93;' escape characters (respectively for '[' and ']' characters)."); 
-			return null; // TODO: insert something in output about the error.
+			return null; 
 		}
 		if (nextOpenBracketIndex == nextCloseBracketIndex - 1) { // "[]"
 			fireError("This tag is empty, it has no name. You can either enclose your text in between " +
                     "[CODE escape='true' inline='true'] and [/CODE] or else you can escape your " +
                     "brackets with html '&amp;#91;' and '&amp;#93;' escape characters (respectively for '[' and ']' characters).");
-			return null; // TODO: insert something in output a bout the error.
+			return null; 
 		}
 
 		// ////////// Opening Tag.
