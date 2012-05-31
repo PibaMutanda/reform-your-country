@@ -1,9 +1,7 @@
 //TagPArser / StringGenerator /TagHandler
 package blackbelt.parser;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -19,7 +17,7 @@ public class BlackBeltTagParser {
     
     
     private static final String[] SUPPORTED_TAG_NAMES = {"attachment","code","image","quote","video"};
-	
+	public List<Element> subElement = new 	ArrayList<Element>();		
 	protected BlackBeltTagHandler blackBeltTagHandler;
 	protected boolean shouldWePutParagraphTagsInsideTheCurrentTextBlock = true; // Tells if the PTagGenerator can put a textBlock in the tags <p></p>
 	protected boolean instanceUsed = false;  // Parser is not reusable.
@@ -46,6 +44,7 @@ public class BlackBeltTagParser {
 	 * when it find the element, it call the right method to change the inner text in HTML balises
 	 *  */
 	public String parse() {
+		subElement = getElementList(currentIndex,input);
 		if (instanceUsed) {
 			throw new IllegalStateException(
 					"Instances of this class are like condoms: not thread safe and not reusable. Should be thrown away after use.");
@@ -82,8 +81,122 @@ public class BlackBeltTagParser {
 		
 		return blackBeltTagHandler.getOutputString(input);
 	}
+	// TODO Create elementList and SubElementList
+	public List<Element> getElementList(int index, String text) {
+		 List<Element> elmList = new ArrayList<Element>();
+		
+
+		try {
+			Element element = findNextElement();
+		
+			while (element != null && errorCount == 0) {
+				elmList.add(element);
+				// Insert text before the element found.
+				onElement(element);
+				element = findNextElement(index,text);
+				element.subElement =getElementList(0,element.innerText); 
+				index = element.CurrentPosition;
+				
+			}
+			if (errorCount != 0) {
+				errorFormat = true;
+			}
+		} catch (Exception e) {
+			fireError("Unidentified problem while parsing the tags in your text. Tags are elements like [image src='filename'], or [code] ... [/code]. It is probably a mistake in your text, but it may also be a bug. If you are convinced that it's a bug, please copy it on the forum.");
+		}
+		return elmList;
+	}
 	
-	
+	private Element findNextElement(int index, String text)  {
+	    String lowerCaseInput = text.toLowerCase();
+	    
+		// ///// Look for brackets [ ... ]
+		int nextOpenBracketIndex = text.indexOf('[', index);
+		if (nextOpenBracketIndex == -1) { // not found
+			return null;
+		}
+		int nextCloseBracketIndex = text.indexOf(']', index);
+		if (nextCloseBracketIndex == -1) { // not found -> this is an error (not
+											// correctly closed tag)
+			fireError("This tag has an opening bracket '[', but no corresponding closing bracket. " +
+					  "You can either enclose your text in between [CODE escape='true' inline='true'] and [/CODE]" +
+					  " or else you can escape your brackets with html '&amp;#91;' and '&amp;#93;' escape characters (respectively for '[' and ']' characters)."); 
+			return null; 
+		}
+		if (nextOpenBracketIndex == nextCloseBracketIndex - 1) { // "[]"
+			fireError("This tag is empty, it has no name. You can either enclose your text in between " +
+                    "[CODE escape='true' inline='true'] and [/CODE] or else you can escape your " +
+                    "brackets with html '&amp;#91;' and '&amp;#93;' escape characters (respectively for '[' and ']' characters).");
+			return null; 
+		}
+
+		// ////////// Opening Tag.
+		// //// Look for tagName
+		// From "bla bla bla [tagName param='abc'] bla bla",
+		// we isolate "tagName param='abc'"
+		String tagWithParams = text.substring(nextOpenBracketIndex + 1,
+				nextCloseBracketIndex).trim();
+
+		Element element = new Element();
+		element.startPosition = nextOpenBracketIndex;
+		element.endPosition = nextCloseBracketIndex;
+
+		// Take the word after the bracket.
+		int endOfTagNameIndex = tagWithParams.indexOf(' ');
+		if (endOfTagNameIndex == -1) {
+			// There is no parameter (like "[code]")
+			endOfTagNameIndex = tagWithParams.length();
+		}
+		element.name = tagWithParams.substring(0, endOfTagNameIndex);
+		element.name = element.name.trim().toLowerCase();
+		//Test if the searched tag is supported
+		if(!isInSupportedTagNames(element.name)){
+		    fireError("This tag '" + element.name + "' is not supported. " +
+                    "You can either enclose your text in between [CODE escape='true' inline='true'] and [/CODE]" +
+                    " or else you can escape your brackets with html '&amp;#91;' and '&amp;#93;' escape characters (respectively for '[' and ']' characters)."); 
+		    return null; 
+		}
+
+		// //// Look for parameters.
+		Param param = findNextParam(tagWithParams, endOfTagNameIndex + 1);
+		while (param != null) { // More parameters
+			element.params.put(param.name, param.value);
+			param = findNextParam(tagWithParams, param.endIndexWithinTag + 1);
+		}
+
+		element.CurrentPosition = nextCloseBracketIndex + 1; // we are after the opening tag.
+
+		// ////////// Closing Tag.
+		// /// Is there an "[/*tagName] before an opening tag of the same name
+		// (we don't support nested tags with same name) ?
+		int nextCloseTagSameName = lowerCaseInput.indexOf("[/" + element.name+"]",  // lowerCaseInput because element.name has been lowerCased.
+				element.CurrentPosition);
+		if (nextCloseTagSameName == -1) { // Not found
+			return element; // there is no close tag for the current element.
+		}
+		// But is it the close tag of out current element or of a further element?
+		// -> is there a further element starting before the close tag?
+		int nextOpenTagSameName = lowerCaseInput.indexOf("[" + element.name,  // lowerCaseInput because element.name has been lowerCased.
+				element.CurrentPosition);
+		if (nextOpenTagSameName != -1) { // Found
+			if (nextOpenTagSameName < nextCloseTagSameName) { // It's before
+				return element; // there is no close tag for the current element.
+			} // else, ok, it's our close tag.
+
+		} // else ok, it's our close tag.
+
+		element.innerText = text.substring(element.CurrentPosition, nextCloseTagSameName);
+		if (element.innerText.startsWith("\n")) {  // i.e. "[code]\npublic class...[/code]
+		    // We remove this first line return
+		    element.innerText = element.innerText.replaceFirst("\n", "");
+		}
+		element.endPosition = input.indexOf(']', nextCloseTagSameName);
+
+		element.CurrentPosition = element.endPosition + 1;
+		
+		return element;
+	}
+
 	public boolean questionIsErrorFormat(){
 		parse();		
 		return errorFormat;
@@ -324,12 +437,20 @@ public class BlackBeltTagParser {
 	protected class Element {
 		String name;
 		Map<String, String> params = new HashMap<String, String>();
-		String innerText; // For elements have an open tag and a close tag.
-							// "[code] inner text [/code]"
+		private String innerText; // For elements have an open tag and a close tag.
+		List<Element> subElement = new 	ArrayList<Element>();				// "[code] inner text [/code]"
 		int startPosition;
 		int endPosition; // end position of the closing tag (or the only tag if
-							// there is no closing tag and innerText)
-
+		int CurrentPosition;					// there is no closing tag and innerText)
+		public String getInnerText()
+		{
+			return this.innerText;
+		}
+		public void setInnerText(String text)
+		{
+			this.innerText = text;
+			
+		}
 		String getMandatoryValue(String paramName)
 				throws MandatoryParameterNotFoundException {
 			String value = params.get(paramName);
