@@ -76,7 +76,7 @@ public class BBDomParser {
                         }
                         break;
                     case Value:
-                        if (Character.isSpaceChar(c) || openQuote != null && openQuote == c) {
+                        if (/*Character.isSpaceChar(c) ||*/ openQuote != null && openQuote == c) {
                             // Attribute value ended.
                             state = ReadAttributeState.Null;
                             addAttribute(tag, name, buf.toString());
