@@ -164,6 +164,8 @@ public class DefaultBBTag extends ABBTag {
 //        return out.toString();
 //    }
     
+    //Modified by cedric F
+    //Transform the bbcode in html.
     @Override
     public String toString() {
         StringBuilder out = new StringBuilder();
@@ -176,7 +178,28 @@ public class DefaultBBTag extends ABBTag {
         		out.append(this.name);
         	}
         	else {
-        		out = new StringBuilder("<"+this.name+">"+out+"</"+this.name+">");
+        	String attributeAsString ="";
+        	String bibSignature="";
+              if (attributes.size() > 0) {
+            	  BBAttribute defAttribute = attributes.get(null);
+            	  if (defAttribute != null) {
+            		  out.append('=');
+            		  out.append(defAttribute.getValue());
+            	  }
+  
+            	  for (BBAttribute a : attributes.values()) {
+            		  if (a.getName() != null) {
+            			  if(a.getName().toLowerCase().equals("bib")){
+            				  bibSignature= "<i>\""+a.getValue()+ "\"<i>";
+            			  }else
+            			  {
+            				  attributeAsString=" "+ a.getName() +"=\""+a.getValue()+"\"";
+            			  }
+            			 
+            		  }
+            	  }
+              }
+              out = new StringBuilder("<"+this.name+attributeAsString+">"+out+"</"+this.name+">");
         	}
         }
         
