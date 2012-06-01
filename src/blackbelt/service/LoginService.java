@@ -9,7 +9,7 @@ import java.util.Set;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang.time.DateUtils;
+import org.apache.commons.lang3.time.DateUtils;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.stereotype.Component;
 
@@ -18,7 +18,7 @@ import org.apache.commons.lang.time.DateUtils;
 //import be.loop.jbb.bl.exceptions.UserNotFoundException;
 //import be.loop.jbb.bl.exceptions.UserNotValidatedException;
 //import be.loop.jbb.bo.CommunityUser;
-//import be.loop.jbb.dao.CommunityUserDao;
+//import be.loop.jbb.dao.UserDao;
 import be.loop.jbb.util.SecurityUtils;
 import be.loop.jbb.web.HttpSessionTracker;
 //import be.loop.jbb.web.SessionObject;
@@ -27,18 +27,18 @@ import blackbelt.dao.UserDao;
 //import blackbelt.model.Privilege;
 import blackbelt.model.User;
 import blackbelt.model.User.AccountStatus;
-import blackbelt.model.User.CommunityRole;
+//import blackbelt.model.User.CommunityRole;
 //import blackbelt.ui.application.BlackBeltApplication;
 import blackbelt.web.ContextUtil;
 import blackbelt.web.Cookies;
 import blackbelt.web.CurrentEnvironment;
-import blackbelt.web.UrlUtil;
+//import blackbelt.web.UrlUtil;
 
 //TODO uncomment
 //@Component
 public class LoginService {
 	//TODO uncomment
-//	@Autowired	CommunityUserDao communityUserDao;  // TODO: This Dao should probably disapear once the corp side is gone -- John 2009-07-02 
+//	@Autowired	UserDao UserDao;  // TODO: This Dao should probably disapear once the corp side is gone -- John 2009-07-02 
 //	@Autowired  OrganizationService organizationService;
 	
 	//TODO uncomment
@@ -112,6 +112,7 @@ public class LoginService {
         if (user.getConsecutiveFailedLogins() > SUSPICIOUS_AMOUNT_OF_LOGIN_TRY) {  // Suspicious, let's introduce the delay
             // Wait 1 minute that doubles each time you fail. You failed 10 times, you wait 2^(10-SUSPICIOUS_AMOUNT_OF_LOGIN_TRY)=2^5=32 minutes before the next try.
             Date nextPossibleLoginDate = DateUtils.addMinutes(user.getLastFailedLoginDate(), 
+            		                     
                     2^(user.getConsecutiveFailedLogins()-SUSPICIOUS_AMOUNT_OF_LOGIN_TRY));
             if (nextPossibleLoginDate.after(new Date())) {  // Have to wait.
                 throw new WaitDelayNotReachedException(nextPossibleLoginDate);
@@ -174,10 +175,10 @@ public class LoginService {
 		}
 
 		identifier = identifier.toLowerCase();
-		result = communityUserDao.getUserByEmail(identifier);
+		result = UserDao.getUserByEmail(identifier);
 
 		if (result == null) {
-			result = communityUserDao.getUserByEmail(identifier);
+			result = UserDao.getUserByNickName(identifier);
 		}
 
 		return result;
