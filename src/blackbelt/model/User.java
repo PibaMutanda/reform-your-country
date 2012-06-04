@@ -356,7 +356,7 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 
 	//TODO delete?
 //	@Enumerated(EnumType.STRING)
-//	private CommunityRole communityRole = CommunityRole.USER;
+	private CommunityRole communityRole = CommunityRole.USER;
 	//TODO delete?
 //	public boolean isCorpUser() {
 //		Collection<Organization> orgs = new HashSet<Organization>(
@@ -367,13 +367,13 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 //	}
 
 	
-//	public CommunityRole getCommunityRole() {
-//		return communityRole;
-//	}
-//
-//	public void setCommunityRole(CommunityRole communityRole) {
-//		this.communityRole = communityRole;
-//	}
+	public CommunityRole getCommunityRole() {
+		return communityRole;
+	}
+
+	public void setCommunityRole(CommunityRole communityRole) {
+		this.communityRole = communityRole;
+	}
 //
 //	public boolean hasAdminPrivileges() {
 //		return communityRole == CommunityRole.ADMIN;
@@ -542,14 +542,6 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 //
 //	public void setSignature(String signature) {
 //		this.signature = signature;
-//	}
-//
-//	public Country getCountry() {
-//		return country;
-//	}
-//
-//	public void setCountry(Country country) {
-//		this.country = country;
 //	}
 
 	public String getLockReason() {
