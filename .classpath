@@ -2,20 +2,12 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/home/maxime/Documents/Projets/RefromYourCountry/ReformYourCountry/cayenne-2.0.4.jar"/>
-	<classpathentry kind="lib" path="/home/maxime/Documents/Projets/RefromYourCountry/ReformYourCountry/commons-codec-1.6.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/home/maxime/Documents/Projets/RefromYourCountry/ReformYourCountry/commons-codec-1.6-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/maxime/opt/jboss-as-web-7.0.2.Final/jboss-modules.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.jboss.ide.eclipse.as.core.server.runtime.runtimeTarget/JBoss 7.0 Runtime"/>
-	<classpathentry kind="lib" path="/home/maxime/Documents/Projets/RefromYourCountry/ReformYourCountry/vaadin-6.7.9.jar"/>
-	<classpathentry kind="lib" path="/home/maxime/Documents/Projets/RefromYourCountry/ReformYourCountry/commons-lang3-3.1.jar" sourcepath="/home/maxime/Documents/Projets/RefromYourCountry/ReformYourCountry/commons-lang3-3.1-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/home/maxime/Documents/Projets/RefromYourCountry/ReformYourCountry/commons-lang3-3.1-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/maxime/Documents/Projets/RefromYourCountry/ReformYourCountry/spring-core-1.2.5.jar"/>
+	<classpathentry kind="lib" path="lib/cayenne-2.0.4.jar"/>
+	<classpathentry kind="lib" path="lib/commons-codec-1.6.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang3-3.1.jar"/>
+	<classpathentry kind="lib" path="lib/Parser.jar"/>
+	<classpathentry kind="lib" path="lib/spring-core-1.2.5.jar"/>
+	<classpathentry kind="lib" path="lib/vaadin-6.7.9.jar"/>
+	<classpathentry kind="lib" path="lib/javax.servlet.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
