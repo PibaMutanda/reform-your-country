@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Scanner;
+
+import com.sun.xml.internal.ws.api.pipe.NextAction;
 
 import blackbelt.dao.UserDao;
 import blackbelt.exceptions.InvalidPasswordException;
@@ -26,7 +29,7 @@ public class MainTestUser {
 				"max", "max", "max@home.be");
 		UserServiceImpl.registerUser(true, "piba", "mutunba", Gender.MR,
 				"piba", "max", "piba@home.be");
-
+		consoleFormRegistration();
 		try {
 			System.out.println("recherche par le dao"
 					+ UserDao.getUserByNickName("max"));
@@ -50,7 +53,55 @@ public class MainTestUser {
 	}
 
 	public static void consoleFormRegistration() {
+		Scanner scan = new Scanner(System.in);
+		String firstname, name, nickname, password, mail;
+		Gender gender = null;
+		System.out
+				.println("welcome to the registration console\n we gonna register you\nplease enter your firstname");
+		firstname = scan.next();
+		System.out.println("please enter your lastname");
+		name = scan.next();
+		System.out.println("please enter your nickname");
+		nickname = scan.next();
+		System.out.println("please select your gender\n1."
+				+ Gender.MR.toString() + "\n2." + Gender.MRS.toString()
+				+ "\n3." + Gender.MSS.toString()
+				+ "\n\nplease select a gender : ");
+		int genderId = scan.nextInt();
+		switch (genderId) {
+		case 1:
+			gender = Gender.MR;
+			break;
+		case 2:
+			gender = Gender.MRS;
+			break;
+		case 3:
+			gender = Gender.MSS;
+			break;
+		default:
+			break;
+		}
+		System.out.println("please enter your password");
+		password = scan.next();
+		System.out.println("please enter your email");
+		mail = scan.next();
+		UserServiceImpl.registerUser(true, firstname, name, gender, nickname,
+				password, mail);
 
+	}
+
+	public static void consoleFromLogin() throws Exception {
+		String identifier, password;
+		Scanner scan = new Scanner(System.in);
+		System.out
+				.println("welcome to the registration console\nplease enter your nickname or email\n");
+		identifier = scan.next();
+		System.out.println("please enter your password\n");
+		password = scan.next();
+		User loggedIn = testLogin(identifier, password);
+		if (loggedIn != null)
+			System.out.println("succesfull logged in as "
+					+ loggedIn.getNickName());
 	}
 
 	public static User testLogin(String identifier, String clearPassword)
