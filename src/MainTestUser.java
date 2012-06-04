@@ -13,12 +13,13 @@ public class MainTestUser {
 	public static void main(String[] args) {
 
 	UserDao userdao=new UserDao();
-	ArrayList myListe=(ArrayList<User>)userdao.createListeUser();
+	ArrayList myListe=(ArrayList<User>)userdao.createListeUser();          
 	Iterator it=myListe.iterator();
 	while(it.hasNext()){
 		User user=(User) it.next();
-		System.out.println(user.toString());
+		System.out.println(user.toString()+"\n");
 	}
+
 	
 	}
 
