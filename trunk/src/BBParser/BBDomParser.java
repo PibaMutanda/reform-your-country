@@ -57,7 +57,18 @@ public class BBDomParser {
                             } else {
                                 name = null;
                             }
-                        } else if (Character.isSpaceChar(c)) {
+                        } else if (Character.isSpaceChar(c)|| part.charAt(pos+1)==']') {
+                        	int i = pos;
+                        	char testChar= part.charAt(i);
+                        	while (i< part.length() - 1 && Character.isSpaceChar(testChar)){
+                        		i = i+1;
+                        		testChar= part.charAt(i);
+                        	}
+                        	if (testChar!='=' ){
+                        		state = ReadAttributeState.Null;
+                        	    addAttribute(tag, "error no value", name);
+                        		continue;
+                        	}
                             // Attribute name ended - no value
                             state = ReadAttributeState.Null;
                             addAttribute(tag, buf.toString(), "");
@@ -104,7 +115,7 @@ public class BBDomParser {
                         break;
                 }
             }
-
+             
             // Make last step according state
             switch (state) {
                 case Name:

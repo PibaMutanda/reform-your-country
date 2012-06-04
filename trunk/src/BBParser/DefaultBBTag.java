@@ -199,7 +199,10 @@ public class DefaultBBTag extends ABBTag {
             	  for (BBAttribute a : attributes.values()) {
             		  if (a.getName() != null) {
             			  //if it's a "bib" we have to send the value as a signature at the end of the BBTag.
-            			  if(a.getName().toLowerCase().equals("bib")){
+            			  if(a.getName().toLowerCase().contains("error")){
+            				  out.append("<span style='color:red;'>the attribute "+a.getValue()+" throws some exception: "+a.getName()+"</span>");
+            			  }
+            			  else if(a.getName().toLowerCase().equals("bib")){
             				  bibSignature= "<br><i>\""+a.getValue()+ "\"<i>";
             			  }
             			  else{
