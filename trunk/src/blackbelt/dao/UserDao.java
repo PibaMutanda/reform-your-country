@@ -13,22 +13,20 @@ public class UserDao {
 	// TODO maxime delete static modifier when using JPA
 	public static void save(User user) {
 		listeUser.add(user);
-	}	
-	
+	}
+
 	// TODO maxime delete static modifier when using JPA
 	public static User get(Long id) {
-		User user = new User();
 
-		Iterator it = listeUser.iterator();
-
-		while (it.hasNext()) {
-			user = (User) it.next();
+		for (User user : listeUser) {
 			return id == user.getId() ? user : null;
 		}
 
 		return null;
 	}
 
+	// use createTestUser() user in main instead
+	@Deprecated
 	public List<User> createListeUser() {
 
 		User user = new User();
@@ -39,6 +37,7 @@ public class UserDao {
 
 		return listeUser;
 	}
+
 	// TODO maxime delete static modifier when using JPA
 	public static User getUserByEmail(String identifier) {
 		for (User user : listeUser) {
