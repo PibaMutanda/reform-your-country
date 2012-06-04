@@ -1,4 +1,4 @@
-package be.loop.jbb.bl.impl;
+package blackbelt.impl;
 
 import java.io.InputStream;
 import java.sql.Timestamp;
