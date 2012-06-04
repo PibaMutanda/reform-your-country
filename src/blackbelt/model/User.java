@@ -46,7 +46,7 @@ import org.apache.commons.lang.StringUtils;
 //import org.hibernate.annotations.SortType;
 //import org.hibernate.annotations.Type;
 
-import be.loop.jbb.bl.impl.UserServiceImpl;
+import blackbelt.impl.UserServiceImpl;
 //import be.loop.jbb.bo.Belt;
 //import be.loop.jbb.bo.Decoration;
 //import be.loop.jbb.bo.tests.ExamPerformed;

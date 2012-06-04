@@ -40,7 +40,7 @@ import org.apache.log4j.Logger;
 //import be.loop.jbb.comparators.ExamTaskPerformedDateDescComparator;
 //import be.loop.jbb.dao.CommunityUserDao;
 //import be.loop.jbb.util.DateUtil;
-import be.loop.jbb.util.SecurityUtils;
+import blackbelt.util.SecurityUtils;
 //import blackbelt.dao.QuestionCriteriaVoteDao;
 import blackbelt.dao.UserDao;
 //import blackbelt.dao.V5QuestionDao;
