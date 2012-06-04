@@ -19,6 +19,8 @@ import org.apache.commons.lang3.time.DateUtils;
 //import be.loop.jbb.bl.exceptions.UserNotValidatedException;
 //import be.loop.jbb.bo.CommunityUser;
 //import be.loop.jbb.dao.UserDao;
+import be.loop.jbb.bl.exceptions.InvalidPasswordException;
+import be.loop.jbb.bl.exceptions.UserNotFoundException;
 import be.loop.jbb.util.SecurityUtils;
 import be.loop.jbb.web.HttpSessionTracker;
 //import be.loop.jbb.web.SessionObject;
