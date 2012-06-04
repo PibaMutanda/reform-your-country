@@ -6,5 +6,6 @@ package BBParser;
 public enum BBTagType {
     Root,
     Tag,
-    Text
+    Text,
+    Error
 }
