@@ -11,7 +11,7 @@ import org.apache.commons.lang.StringUtils;
 //import org.vaadin.navigator7.uri.ParamPageResource;
 
 //import be.loop.jbb.dao.exception.ConstraintViolatingEntityException;
-import be.loop.jbb.util.SecurityUtils;
+import blackbelt.util.SecurityUtils;
 import blackbelt.dao.UserDao;
 //import blackbelt.model.Group;
 //import blackbelt.model.GroupCandidacy;

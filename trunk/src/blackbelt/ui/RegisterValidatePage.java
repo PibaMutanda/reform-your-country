@@ -10,9 +10,9 @@ package blackbelt.ui;
 //import org.vaadin.navigator7.uri.Param;
 //import org.vaadin.navigator7.uri.ParamPageResource;
 
-import be.loop.jbb.bl.exceptions.InvalidPasswordException;
+import blackbelt.exceptions.InvalidPasswordException;
 //import be.loop.jbb.bl.exceptions.UserLockedException;
-import be.loop.jbb.bl.exceptions.UserNotFoundException;
+import blackbelt.exceptions.UserNotFoundException;
 //import be.loop.jbb.bl.exceptions.UserNotValidatedException;
 //import be.loop.jbb.util.DateUtil;
 import blackbelt.dao.UserDao;
