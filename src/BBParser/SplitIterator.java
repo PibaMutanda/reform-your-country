@@ -23,6 +23,10 @@ class SplitIterator implements Iterator<Part> {
     public SplitIterator(Reader source) {
         this.source = source;
     }
+    
+    public boolean getError(){
+    	return this.error;
+    }
 
 
     @Override
