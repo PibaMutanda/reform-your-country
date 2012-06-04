@@ -100,12 +100,17 @@ public class BBDomParser {
                         }
                         break;
                     case Value:
-                        if (/*Character.isSpaceChar(c) ||*/ openQuote != null && openQuote == c) {
+                        if (openQuote != null && openQuote == c) {
                             // Attribute value ended.
+                        	
                             state = ReadAttributeState.Null;
                             addAttribute(tag, name, buf.toString());
                             buf.setLength(0);
-                        } else {
+                        }/*else if(part.charAt(pos)==']'){
+                        	state = ReadAttributeState.Null;
+                            addAttribute(tag, "error no end quotes for the attribute"+name, buf.toString());
+                            buf.setLength(0);
+                        }*/else {
                             buf.append(c);
                         }
                         break;
