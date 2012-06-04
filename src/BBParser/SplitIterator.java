@@ -57,12 +57,12 @@ class SplitIterator implements Iterator<Part> {
                     if (buf.length() > 0) {
                         result = new Part(buf.toString());
                         buf.setLength(0);
-                    }else{
-                    	error=true;
-                        result = new Part(buf.toString());
-                        return result;
                     }
                     braceOpen = true;
+                }else{
+                	error=true;
+                    result = new Part(buf.toString());
+                    return result;
                 }
                 buf.append(c);
             } else if ((c == '"' || c == '\'') && braceOpen) {
