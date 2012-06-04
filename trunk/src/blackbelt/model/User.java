@@ -273,7 +273,7 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 
 	private Date lastAccess;
 
-	private Timestamp registrationDate;
+	private Date registrationDate;
 
 	private String lastLoginIp;
 
@@ -521,12 +521,12 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 		this.password = password != null ? password.toLowerCase() : password;
 	}
 
-	public Timestamp getRegistrationDate() {
+	public Date getRegistrationDate() {
 		return registrationDate;
 	}
 
-	public void setRegistrationDate(Timestamp registrationDate) {
-		this.registrationDate = registrationDate;
+	public void setRegistrationDate(Date now) {
+		this.registrationDate = now;
 	}
 
 	public Date getLastAccess() {
@@ -609,14 +609,6 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 		this.gender = gender;
 	}
 
-//	public String getShortInfo() {
-//		return shortInfo;
-//	}
-//
-//	public void setShortInfo(String shortInfo) {
-//		this.shortInfo = shortInfo;
-//	}
-
 	public Timestamp getBirthDate() {
 		return birthDate;
 	}
@@ -658,14 +650,6 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	public int compareTo(User o) {
 		return this.getLastName().compareTo(o.getLastName());
 	}
-
-//	public String getLongInfo() {
-//		return longInfo;
-//	}
-//
-//	public void setLongInfo(String longInfo) {
-//		this.longInfo = longInfo;
-//	}
 
 	public String getLastLoginIp() {
 		return lastLoginIp;
