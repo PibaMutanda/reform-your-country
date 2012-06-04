@@ -58,21 +58,29 @@ public class BBDomParser {
                                 name = null;
                             }
                         } else if (Character.isSpaceChar(c)|| part.charAt(pos+1)==']') {
+                            buf.append(c);
+                            if (part.charAt(pos+1)==']')  {
+                            	buf.append(part.charAt(pos));
+                            	pos++;
+                            }
+                            
                         	int i = pos;
                         	char testChar= part.charAt(i);
-                        	while (i< part.length() - 1 && Character.isSpaceChar(testChar)){
+                        	while (i< part.length()  && Character.isSpaceChar(testChar)){
                         		i = i+1;
                         		testChar= part.charAt(i);
                         	}
                         	if (testChar!='=' ){
                         		state = ReadAttributeState.Null;
-                        	    addAttribute(tag, "error no value", name);
+                        	    addAttribute(tag, "error no value for "+buf.toString(), buf.toString());
+                                name = null;
                         		continue;
                         	}
                             // Attribute name ended - no value
                             state = ReadAttributeState.Null;
                             addAttribute(tag, buf.toString(), "");
                             buf.setLength(0);
+                            pos++;
                         } else {
                             buf.append(c);
                         }
