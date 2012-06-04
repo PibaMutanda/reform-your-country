@@ -23,13 +23,13 @@ public class UserDao {
 	}
 
 	// TODO maxime delete static modifier when using JPA
-	public static User get(Long id) throws UserNotFoundException {
+	public static User get(Long id) {
 
 		for (User user : listeUser) {
 			if (id.equals(user.getId()))
 				return user;
 		}
-		throw new UserNotFoundException(id.toString());
+		return null;
 	}
 
 	// use createTestUser() user in main instead
@@ -46,12 +46,12 @@ public class UserDao {
 	}
 
 	// TODO maxime delete static modifier when using JPA
-	public static User getUserByEmail(String identifier) throws UserNotFoundException {
+	public static User getUserByEmail(String identifier)  {
 			for (User user : listeUser) {
 				if (identifier.equals(user.getMail()))
 					return user;
 			}
-			throw new UserNotFoundException(identifier);
+			return null;
 	}
 
 	// TODO maxime delete static modifier when using JPA
@@ -61,8 +61,7 @@ public class UserDao {
 			if (identifier.equals(user.getNickName()))
 				return user;
 		}
-		throw new UserNotFoundException(identifier,
-				"le user avnt le nickname précédent n'a pu être trouvé");
+		return null;
 	}
 
 }
