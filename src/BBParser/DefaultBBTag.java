@@ -169,6 +169,9 @@ public class DefaultBBTag extends ABBTag {
     //Transform the bbcode in html.
     @Override
     public String toString() {
+
+    	String attributeAsString ="";
+    	String bibSignature="";
         StringBuilder out = new StringBuilder();
         //Foreach BBtag contained in the innertext of this bbtag, transform these BBtag in html
         for (BBTag t : children) {
@@ -186,8 +189,6 @@ public class DefaultBBTag extends ABBTag {
         	}
         	else {
         	//if it's a Bbcode tag, we had the attributes in the html tag
-        	String attributeAsString ="";
-        	String bibSignature="";
               if (attributes.size() > 0) {
 //            	  BBAttribute defAttribute = attributes.get(null);
 //            	  if (defAttribute != null) {
@@ -203,7 +204,7 @@ public class DefaultBBTag extends ABBTag {
             				  out.append("<span style='color:red;'>the attribute "+a.getValue()+" throws some exception: "+a.getName()+"</span>");
             			  }
             			  else if(a.getName().toLowerCase().equals("bib")){
-            				  bibSignature= "<br><i>\""+a.getValue()+ "\"<i>";
+            				  bibSignature= "<span class=\"bibref\"><a href=\"/Bibliography/"+a.getValue()+"\">["+a.getValue()+ "]</a></span>";
             			  }
             			  else{
             				  attributeAsString=" "+ a.getName() +"=\""+a.getValue()+"\"";
@@ -211,41 +212,39 @@ public class DefaultBBTag extends ABBTag {
             			 
             		  }
             	  }
+            	  
               }
-              out = new StringBuilder("<"+this.name+attributeAsString+">"+out+bibSignature+"</"+this.name+">");
+              out = new StringBuilder(GetHtmlOpenTag()+out+bibSignature+GetHtmlClosingTag() );
         	}
         }
-        
-//        out.append('[');
-//        out.append(name);
-//        if (attributes.size() > 0) {
-//            BBAttribute defAttribute = attributes.get(null);
-//            if (defAttribute != null) {
-//                out.append('=');
-//                out.append(defAttribute.getValue());
-//            }
-//
-//            for (BBAttribute a : attributes.values()) {
-//                if (a.getName() != null) {
-//                    out.append(' ');
-//                    out.append(a.getName());
-//                    out.append("=\"");
-//                    out.append(a.getValue());
-//                    out.append('"');
-//                }
-//            }
-//        }
-//
-//        out.append("] { ");
-//        for (BBTag t : children) {
-//            out.append(t.toString());
-//            out.append(' ');
-//        }
-//        out.append('}');
 
         return out.toString();
     }
-    
+    private String GetHtmlOpenTag()
+    {
+    	switch(this.name.toLowerCase()){
+    		case "quote":
+    			String specialValue ="";
+    			System.out.println(this.attributes.get("inline").getValue().toLowerCase());
+    			if ((this.attributes.get("inline")!=null) && (this.attributes.get("inline").getValue().toLowerCase().contains("true")))
+    			{
+    				specialValue = "quote-inline";
+    			}else
+    			{
+    				specialValue = "quote-block";
+    			}
+    			return "<div class=\""+specialValue+"\">";
+    	}
+		return "";
+    }
+    private String GetHtmlClosingTag()
+    {
+    	switch(this.name.toLowerCase()){
+    		case "quote":
+    			return "</div>";
+    	}
+		return "";
+    }
     private void updateParent(BBTag bbTag) {
         if (bbTag == null) {
             throw new NullPointerException("Can not add null");

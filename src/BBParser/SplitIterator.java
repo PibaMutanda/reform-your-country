@@ -76,7 +76,7 @@ class SplitIterator implements Iterator<Part> {
                     openQuote = 0;
                 }
                 buf.append(c);
-            } else if (c == ']' && braceOpen && openQuote == 0) {
+            } else if (c == ']' && braceOpen) {
                 buf.append(c);
                 if (buf.length() > 0) {
                     result = new Part(buf.toString());
