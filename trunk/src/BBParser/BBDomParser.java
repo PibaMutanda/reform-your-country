@@ -132,13 +132,13 @@ public class BBDomParser {
 
         int size = tag.length();
         boolean closing = tag.charAt(1) == '/';
-        int curr = closing ? 2 : 1;
+        int curr = closing ? 2 : 1; //if the tag is a closing tag ([/...]) curr = 2, if the tag is opening ([...]), curr = 1
 
         if (curr >= size) {
-            return null;
+            return null; //check if the tag is empty ([] or [/])
         }
 
-        char currChar = Character.toLowerCase(tag.charAt(curr++));
+        char currChar = Character.toLowerCase(tag.charAt(curr++)); //first character of the tag
         while (curr < size && Character.isLetterOrDigit(currChar)) {
             str.append(currChar);
             currChar = Character.toLowerCase(tag.charAt(curr++));
@@ -150,13 +150,24 @@ public class BBDomParser {
 
         return str.toString();
     }
-
+/**
+ * Add an Attribute to the Tag.
+ * Attribute is additional informations regarding the tag, for instance "href=" for a [a]
+ * 
+ * @param tag 
+ * @param name
+ * @param value 
+ */
     private static void addAttribute(BBTag tag, String name, String value) {
         BBAttribute a = new DefaultBBAttribute(name);
         a.setValue(value);
         tag.add(a);
     }
-
+/**
+ * 
+ * @param r
+ * @throws BBParserException
+ */
     public BBTag parse(Reader r) throws BBParserException {
         Iterator<Part> i = new SplitIterator(r);
 
