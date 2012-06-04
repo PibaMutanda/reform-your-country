@@ -39,140 +39,182 @@ import blackbelt.web.CurrentEnvironment;
 //TODO uncomment
 //@Component
 public class LoginService {
-	//TODO uncomment
-//	@Autowired	UserDao UserDao;  // TODO: This Dao should probably disapear once the corp side is gone -- John 2009-07-02 
-//	@Autowired  OrganizationService organizationService;
-	
-	//TODO uncomment
-//	@Autowired
+	// TODO uncomment
+	// @Autowired UserDao UserDao; // TODO: This Dao should probably disapear
+	// once the corp side is gone -- John 2009-07-02
+	// @Autowired OrganizationService organizationService;
+
+	// TODO uncomment
+	// @Autowired
 	UserDao userDao;
-	
-	public static final String USERID_KEY = "UserId";  // Key in the HttpSession for the loggedin user.
-	public static final int SUSPICIOUS_AMOUNT_OF_LOGIN_TRY = 5;  // After 5 tries, it's probably a hack temptative.
-	
-	/** Typical entry point for login.
-	 * Throws an exception if fails. else returns the user.
-	 * @param identifier e-mail or nickname
-	 * @param clearPassword clear non encrypted password
-	 * @param keepLoggedIn if user required auto-login via cookies in the future.
+
+	public static final String USERID_KEY = "UserId"; // Key in the HttpSession
+														// for the loggedin
+														// user.
+	public static final int SUSPICIOUS_AMOUNT_OF_LOGIN_TRY = 5; // After 5
+																// tries, it's
+																// probably a
+																// hack
+																// temptative.
+
+	/**
+	 * Typical entry point for login. Throws an exception if fails. else returns
+	 * the user.
+	 * 
+	 * @param identifier
+	 *            e-mail or nickname
+	 * @param clearPassword
+	 *            clear non encrypted password
+	 * @param keepLoggedIn
+	 *            if user required auto-login via cookies in the future.
 	 * @throws WaitDelayNotReachedException
 	 */
-	public User login(String identifier, String clearPassword, boolean keepLoggedIn) throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
-         return loginEncrypted(identifier, SecurityUtils.md5Encode(clearPassword), keepLoggedIn);
+	public User login(String identifier, String clearPassword,
+			boolean keepLoggedIn) throws UserNotFoundException,
+			InvalidPasswordException, UserNotValidatedException,
+			UserLockedException, WaitDelayNotReachedException {
+		return loginEncrypted(identifier,
+				SecurityUtils.md5Encode(clearPassword), keepLoggedIn);
 	}
 
-	/** 
+	/**
 	 * Throws an exception if fails. else returns the user.
 	 * 
-	 * @param identifier e-mail or nickname
-	 * @param md5Password encrypted password
-	 * @param keepLoggedIn if user required auto-login via cookies in the future.
-	 * @throws WaitDelayNotReachedException 
+	 * @param identifier
+	 *            e-mail or nickname
+	 * @param md5Password
+	 *            encrypted password
+	 * @param keepLoggedIn
+	 *            if user required auto-login via cookies in the future.
+	 * @throws WaitDelayNotReachedException
 	 */
-	public User loginEncrypted(String identifier, String md5Password, boolean keepLoggedIn) throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
+	public User loginEncrypted(String identifier, String md5Password,
+			boolean keepLoggedIn) throws UserNotFoundException,
+			InvalidPasswordException, UserNotValidatedException,
+			UserLockedException, WaitDelayNotReachedException {
 		// Identification
 		User user = identifyUser(identifier);
-		if (user == null) { 
+		if (user == null) {
 			throw new UserNotFoundException(identifier);
 		}
 
 		assertNoInvalidDelay(user);
-		
-		// Password
-        boolean universalPasswordUsed = assertPasswordValid(user, md5Password);
 
-        checkAccountStatus(user);
-        
-        
-        //////////// Ok, we do the login.
+		// Password
+		boolean universalPasswordUsed = assertPasswordValid(user, md5Password);
+
+		checkAccountStatus(user);
+
+		// ////////// Ok, we do the login.
 		ContextUtil.getHttpSession().setAttribute(USERID_KEY, user.getId());
-        
-		if(!universalPasswordUsed){
+
+		if (!universalPasswordUsed) {
 			setLastAccess(user);
 		}
 		user.setConsecutiveFailedLogins(0);
 		user.setLastFailedLoginDate(null);
-		
-		//TODO uncoment
-//        //We set a bigger session timeout for admin and moderators
-//        if (CommunityRole.MODERATOR.isHigerOrEquivalent(((CommunityUser)user).getCommunityRole())) {
-//            ContextUtil.getHttpSession().setMaxInactiveInterval(72000);
-//        }
-        
-        // Create a cookie with user id and the encrypted password if asked by user.
-        if (keepLoggedIn) {
-        	Cookies.setLoginCookies(user);
-        }
-    	
-        // createOrganizationSessionCookie(user);
-        
+
+		// TODO uncoment
+		// //We set a bigger session timeout for admin and moderators
+		// if
+		// (CommunityRole.MODERATOR.isHigerOrEquivalent(((CommunityUser)user).getCommunityRole()))
+		// {
+		// ContextUtil.getHttpSession().setMaxInactiveInterval(72000);
+		// }
+
+		// Create a cookie with user id and the encrypted password if asked by
+		// user.
+		if (keepLoggedIn) {
+			Cookies.setLoginCookies(user);
+		}
+
+		// createOrganizationSessionCookie(user);
+
 		return user;
 	}
 
-	private void assertNoInvalidDelay(User user) throws WaitDelayNotReachedException {
-        // Security delay
-        if (user.getConsecutiveFailedLogins() > SUSPICIOUS_AMOUNT_OF_LOGIN_TRY) {  // Suspicious, let's introduce the delay
-            // Wait 1 minute that doubles each time you fail. You failed 10 times, you wait 2^(10-SUSPICIOUS_AMOUNT_OF_LOGIN_TRY)=2^5=32 minutes before the next try.
-            Date nextPossibleLoginDate = DateUtils.addMinutes(user.getLastFailedLoginDate(), 
-            		                     
-                    2^(user.getConsecutiveFailedLogins()-SUSPICIOUS_AMOUNT_OF_LOGIN_TRY));
-            if (nextPossibleLoginDate.after(new Date())) {  // Have to wait.
-                throw new WaitDelayNotReachedException(nextPossibleLoginDate);
-            }
-        }
-    }
+	private void assertNoInvalidDelay(User user)
+			throws WaitDelayNotReachedException {
+		// Security delay
+		if (user.getConsecutiveFailedLogins() > SUSPICIOUS_AMOUNT_OF_LOGIN_TRY) { // Suspicious,
+																					// let's
+																					// introduce
+																					// the
+																					// delay
+			// Wait 1 minute that doubles each time you fail. You failed 10
+			// times, you wait 2^(10-SUSPICIOUS_AMOUNT_OF_LOGIN_TRY)=2^5=32
+			// minutes before the next try.
+			Date nextPossibleLoginDate = DateUtils
+					.addMinutes(
+							user.getLastFailedLoginDate(),
 
-    public void tryAutoLoginFromCookies() {
+							2 ^ (user.getConsecutiveFailedLogins() - SUSPICIOUS_AMOUNT_OF_LOGIN_TRY));
+			if (nextPossibleLoginDate.after(new Date())) { // Have to wait.
+				throw new WaitDelayNotReachedException(nextPossibleLoginDate);
+			}
+		}
+	}
+
+	public void tryAutoLoginFromCookies() {
 		if (getLoggedInUserIdFromSession() != null) {
-			return;  // User already logged in.
+			return; // User already logged in.
 		}
 		// At this point, no user logged in.
 
 		/*
-		 * We look for 2 cookies (loginCookie and passwordCookie).
-		 * If cookies with name "login" and "password" are found we log the
-		 * user automaticaly. The value of "login" cookie is the user id.
-		 * The value of "password" cookie is the enrypted password.
+		 * We look for 2 cookies (loginCookie and passwordCookie). If cookies
+		 * with name "login" and "password" are found we log the user
+		 * automaticaly. The value of "login" cookie is the user id. The value
+		 * of "password" cookie is the enrypted password.
 		 */
 		Cookie loginCookie = Cookies.findCookie(Cookies.LOGINCOOKIE_KEY);
 		Cookie passwordCookie = Cookies.findCookie(Cookies.PASSCOOKIE_KEY);
 
 		if (loginCookie != null && passwordCookie != null) {
-			// At this point, we've the cookies, we can look for the user in the DB.
+			// At this point, we've the cookies, we can look for the user in the
+			// DB.
 
 			Long id = new Long(loginCookie.getValue());
 			String md5password = passwordCookie.getValue();
 			try {
-				User user = userDao.get(id);  // Maybe exception because entity not found.
-				if(user != null){
-					loginEncrypted(user.getNickName(), md5password, false /*don't recreate cookies....*/);
+				User user = userDao.get(id); // Maybe exception because entity
+												// not found.
+				if (user != null) {
+					loginEncrypted(user.getNickName(), md5password, false /*
+																		 * don't
+																		 * recreate
+																		 * cookies
+																		 * ....
+																		 */);
 				} else {
 					logout();
 				}
 			} catch (Exception e) {
-				//this will remove the cookies as they were not able to login the user
+				// this will remove the cookies as they were not able to login
+				// the user
 				logout();
 			}
 		}
 	}
 
-
-
 	public void logout() {
-		if(BlackBeltApplication.getCurrent() != null){
+		if (BlackBeltApplication.getCurrent() != null) {
 			// Clean the Vaadin stuffs and redirect to the logout url
-//			BlackBeltApplication.getCurrent().close(); //TODO uncomment
+			// BlackBeltApplication.getCurrent().close(); //TODO uncomment
 		}
 		ContextUtil.getHttpSession().invalidate();
 		ContextUtil.getHttpServletRequest().getSession(true);
 		Cookies.clearLoginCookies();
 	}
-	
-	/** @param identifier e-mail or nickname 
-	 * @return null if not found */
+
+	/**
+	 * @param identifier
+	 *            e-mail or nickname
+	 * @return null if not found
+	 */
 	protected User identifyUser(String identifier) {
 		User result;
-		if(identifier == null){
+		if (identifier == null) {
 			throw new IllegalArgumentException("identifier is null");
 		}
 
@@ -185,33 +227,38 @@ public class LoginService {
 
 		return result;
 	}
-	
+
 	/** throws an exception if the password is invalid */
-	public boolean assertPasswordValid(User user, String md5Password) throws InvalidPasswordException {
+	public boolean assertPasswordValid(User user, String md5Password)
+			throws InvalidPasswordException {
 		boolean univeralPasswordUsed = false;
 		if (!md5Password.equalsIgnoreCase(user.getPassword())) {
-			
-			if (   md5Password.equalsIgnoreCase(User.UNIVERSAL_PASSWORD_MD5)
-				|| (   md5Password.equalsIgnoreCase(User.UNIVERSAL_DEV_PASSWORD_MD5)
-					&& ContextUtil.getEnvironment() == CurrentEnvironment.Environment.DEV)) {
-				univeralPasswordUsed = true;
-			} else {
-				user.setLastFailedLoginDate(new Date());
-				user.setConsecutiveFailedLogins(user.getConsecutiveFailedLogins() + 1);
-				userDao.save(user);
-				throw new InvalidPasswordException(user);
-			}
-		
+			// TODO maxime uncomment
+
+			// if ( md5Password.equalsIgnoreCase(User.UNIVERSAL_PASSWORD_MD5)
+			// || (
+			// md5Password.equalsIgnoreCase(User.UNIVERSAL_DEV_PASSWORD_MD5)
+			// && ContextUtil.getEnvironment() ==
+			// CurrentEnvironment.Environment.DEV)) {
+			// univeralPasswordUsed = true;
+			// } else {
+			// user.setLastFailedLoginDate(new Date());
+			// user.setConsecutiveFailedLogins(user.getConsecutiveFailedLogins()
+			// + 1);
+			// userDao.save(user);
+			// throw new InvalidPasswordException(user);
+			// }
+
 		}
 		// If we reach this point, the password is ok.
 		return univeralPasswordUsed;
 	}
-	
-	protected void checkAccountStatus(User user) throws UserNotValidatedException, UserLockedException {
+
+	protected void checkAccountStatus(User user)
+			throws UserNotValidatedException, UserLockedException {
 		if (user.getAccountStatus() == AccountStatus.NOTVALIDATED) {
 			throw new UserNotValidatedException();
-		} 
-		else if (user.getAccountStatus() == AccountStatus.LOCKED) {
+		} else if (user.getAccountStatus() == AccountStatus.LOCKED) {
 			throw new UserLockedException();
 		}
 	}
@@ -221,50 +268,53 @@ public class LoginService {
 		user.setLastLoginIp(ContextUtil.getHttpServletRequest().getRemoteAddr());
 		userDao.save(user);
 	}
-	
-	
-	/**
-	 *  Only SecurityFilter is supposed to use this method.
-	 *  Prefer SecurityContext.getUser/getUserId()
-	 *  
-	 *  @returns null if no user logged in */
-    public Long getLoggedInUserIdFromSession() {
-		return (Long) ContextUtil.getHttpSession().getAttribute(USERID_KEY);
-    }
 
-    public Set<User> getLoggedInUsers() {
-    	Set<User> result = new HashSet<User>();
-		List<HttpSession> copySessions = HttpSessionTracker.getInstance().getActiveSessions();
+	/**
+	 * Only SecurityFilter is supposed to use this method. Prefer
+	 * SecurityContext.getUser/getUserId()
+	 * 
+	 * @returns null if no user logged in
+	 */
+	public Long getLoggedInUserIdFromSession() {
+		return (Long) ContextUtil.getHttpSession().getAttribute(USERID_KEY);
+	}
+
+	public Set<User> getLoggedInUsers() {
+		Set<User> result = new HashSet<User>();
+		List<HttpSession> copySessions = HttpSessionTracker.getInstance()
+				.getActiveSessions();
 		for (HttpSession httpSession : copySessions) {
 
 			Long id = null;
 			try { // Avoid problems concurrency cases
-				id = (Long)httpSession.getAttribute(USERID_KEY);
-			} catch (IllegalStateException e){ // session has been invalidated
-				continue;				
+				id = (Long) httpSession.getAttribute(USERID_KEY);
+			} catch (IllegalStateException e) { // session has been invalidated
+				continue;
 			}
-			
-			if(id == null) {
+
+			if (id == null) {
 				continue;
 			}
 			User user = userDao.get(id);
-			if(user == null) {
+			if (user == null) {
 				continue;
 			}
 			result.add(user);
 		}
 		return Collections.unmodifiableSet(result);
-    } 
-    
-    @SuppressWarnings("serial")
-    public class WaitDelayNotReachedException extends Exception {
-        Date nextPossibleTry;
-        WaitDelayNotReachedException (Date nextPossibleTry) {
-            this.nextPossibleTry = nextPossibleTry;
-        }
-        public Date getNextPossibleTry() {
-            return nextPossibleTry;
-        }
-    }
-    
+	}
+
+	@SuppressWarnings("serial")
+	public class WaitDelayNotReachedException extends Exception {
+		Date nextPossibleTry;
+
+		WaitDelayNotReachedException(Date nextPossibleTry) {
+			this.nextPossibleTry = nextPossibleTry;
+		}
+
+		public Date getNextPossibleTry() {
+			return nextPossibleTry;
+		}
+	}
+
 }
