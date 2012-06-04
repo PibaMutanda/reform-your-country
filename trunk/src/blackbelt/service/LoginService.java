@@ -213,8 +213,9 @@ public class LoginService {
 	 * @param identifier
 	 *            e-mail or nickname
 	 * @return null if not found
+	 * @throws UserNotFoundException 
 	 */
-	protected User identifyUser(String identifier) {
+	protected User identifyUser(String identifier) throws UserNotFoundException {
 		User result;
 		if (identifier == null) {
 			throw new IllegalArgumentException("identifier is null");
@@ -237,19 +238,18 @@ public class LoginService {
 		if (!md5Password.equalsIgnoreCase(user.getPassword())) {
 			// TODO maxime uncomment
 
-			// if ( md5Password.equalsIgnoreCase(User.UNIVERSAL_PASSWORD_MD5)
-			// || (
-			// md5Password.equalsIgnoreCase(User.UNIVERSAL_DEV_PASSWORD_MD5)
-			// && ContextUtil.getEnvironment() ==
-			// CurrentEnvironment.Environment.DEV)) {
-			// univeralPasswordUsed = true;
-			// } else {
-			// user.setLastFailedLoginDate(new Date());
-			// user.setConsecutiveFailedLogins(user.getConsecutiveFailedLogins()
-			// + 1);
-			// userDao.save(user);
-			// throw new InvalidPasswordException(user);
-			// }
+			if (md5Password.equalsIgnoreCase(User.UNIVERSAL_PASSWORD_MD5)
+					|| (md5Password
+							.equalsIgnoreCase(User.UNIVERSAL_DEV_PASSWORD_MD5) /*&& ContextUtil
+							.getEnvironment() == CurrentEnvironment.Environment.DEV*/)) {
+				univeralPasswordUsed = true;
+			} else {
+				user.setLastFailedLoginDate(new Date());
+				user.setConsecutiveFailedLogins(user
+						.getConsecutiveFailedLogins() + 1);
+				userDao.save(user);
+				throw new InvalidPasswordException(user);
+			}
 
 		}
 		// If we reach this point, the password is ok.
@@ -281,7 +281,7 @@ public class LoginService {
 		return (Long) ContextUtil.getHttpSession().getAttribute(USERID_KEY);
 	}
 
-	public Set<User> getLoggedInUsers() {
+	public Set<User> getLoggedInUsers() throws UserNotFoundException {
 		Set<User> result = new HashSet<User>();
 		List<HttpSession> copySessions = HttpSessionTracker.getInstance()
 				.getActiveSessions();
