@@ -109,6 +109,12 @@ public class UserServiceImpl /* extends BaseService */implements UserService {
 	// @Autowired private CourseRegService courseRegService;
 	// @Autowired private OrganizationService organizationService;
 
+	//TODO maxime javadoc
+	/**
+	 * register a user in the db
+	 * @param user : a user
+	 * @param directValidation : validate an account directly
+	 */
 	public void registerUser(User user, boolean directValidation) {
 		Date now = new Date();
 		user.setRegistrationDate(now);
@@ -391,7 +397,7 @@ public class UserServiceImpl /* extends BaseService */implements UserService {
 	//
 	// }
 
-	// TODO delete?
+	// TODO maxime delete?
 	// /**
 	// * Substract contribution points from User's spentPoints. Points are
 	// refund
@@ -612,13 +618,14 @@ public class UserServiceImpl /* extends BaseService */implements UserService {
 	// return false;
 	// }
 
-	public void changeInflucenceField(User assigner, User target,
-			float newInfluence) {
-		target.setInfluence(newInfluence);
-		target.setInfluenceAutoComputed(false);
-		target.setInfluenceAssigner(assigner);
-		UserDao.save(target);
-	}
+	//TODO delete?
+//	public void changeInflucenceField(User assigner, User target,
+//			float newInfluence) {
+//		target.setInfluence(newInfluence);
+//		target.setInfluenceAutoComputed(false);
+//		target.setInfluenceAssigner(assigner);
+//		UserDao.save(target);
+//	}
 
 	// TODO uncomment
 	// /**
