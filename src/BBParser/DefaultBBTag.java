@@ -180,6 +180,9 @@ public class DefaultBBTag extends ABBTag {
         	//If it's a text tag just add the text
         	if (this.getType()==BBTagType.Text){
         		out.append(this.name);
+        	}else 
+        	if (this.getType()== BBTagType.Error){
+        		out.append("<span style='color:red;'>"+this.getName()+"</span>");
         	}
         	else {
         	//if it's a Bbcode tag, we had the attributes in the html tag
@@ -198,8 +201,8 @@ public class DefaultBBTag extends ABBTag {
             			  //if it's a "bib" we have to send the value as a signature at the end of the BBTag.
             			  if(a.getName().toLowerCase().equals("bib")){
             				  bibSignature= "<br><i>\""+a.getValue()+ "\"<i>";
-            			  }else
-            			  {
+            			  }
+            			  else{
             				  attributeAsString=" "+ a.getName() +"=\""+a.getValue()+"\"";
             			  }
             			 

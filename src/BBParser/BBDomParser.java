@@ -189,7 +189,7 @@ public class BBDomParser {
             String part = i.next().getContent();
             SplitIterator testError = (SplitIterator)i;
             if (testError.getError()){
-            	root.add(new DefaultBBTag("The tag \""+part.toString()+"\" has no end brackets",BBTagType.Text, ""));
+            	root.add(new DefaultBBTag("The tag \""+part.toString()+"\" has no end brackets",BBTagType.Error, ""));
             	return root;
             }
             if (isTag(part)) {
