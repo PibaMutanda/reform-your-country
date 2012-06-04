@@ -11,6 +11,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import javax.management.RuntimeErrorException;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 //import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +67,7 @@ import blackbelt.dao.UserDao;
 //import blackbelt.ui.ReactivatePage;
 import blackbelt.model.User;
 import blackbelt.model.User.AccountStatus;
+import blackbelt.service.UserService;
 import blackbelt.ui.RegisterPage;
 import blackbelt.ui.RegisterValidatePage;
 //import blackbelt.ui.document.DocumentPage;
@@ -793,75 +796,6 @@ public class UserServiceImpl /* extends BaseService */implements UserService {
 	// user)));
 	// }
 
-	// ////////////// V5 Influence /////////////////////////////////////////
-	/**
-	 * Recompute the influence based on the following formula Base = 1 +1 per 50
-	 * questions authored released +1 when 90% of the last 20 released questions
-	 * had no concerne raised x level of coaching REM: If you change this
-	 * business logic, you should also change the computeInfluenceReasons()
-	 * method
-	 */
-	public String recomputeAndStoreInfluence(User user) {
-		if (user == null) {
-			throw new BlackBeltException("User cannot be null");
-		}
-
-		if (!user.isInfluenceAutoComputed()) { // Rare case : John, Nicolas,
-												// Henryk, ...
-			return null;
-		}
-
-		float oldInfluence = user.getInfluence();
-		float influence = 1; // base
-
-		// TODO delete?
-		// // +1 if no concern raised on the last 20 authored questions
-		// if (amountOfReleasedQuestions >=
-		// INFLUENCE_AMOUNT_OF_RELEASED_QUESTIONS_WITH_NO_CONCERNS
-		// && computePercentageOfReleasedQuestionsAuthoredByWithNoConcern(
-		// user,
-		// INFLUENCE_AMOUNT_OF_RELEASED_QUESTIONS_WITH_NO_CONCERNS) <
-		// INFLUENCE_PERCENTAGE_OF_RELEASED_QUESTIONS_WITH_NO_CONCERNS) {
-		// influence += 1;
-		// }
-		//
-		// // influence = influence X COACH_LEVEL. Rem: people with no coach
-		// level
-		// // have are equivalent to people with level 1
-		// Badge badge = badgeService.getBadgeOfTypeGroup(user,
-		// BadgeTypeGroup.COACH_LEVEL);
-		// influence *= (badge != null ? badge.getBadgeType().getLevel() : 1);
-
-		if (oldInfluence != influence) {
-			user.setInfluence(influence);
-			UserDao.save(user);
-			return String.format("Influence changed from %s to %s",
-					oldInfluence, influence); // TODO format float
-		}
-		return null;
-	}
-
-	/**
-	 * Generates a String that describes the influence factor calculation
-	 * details This method is build based on the logic of the
-	 * recomputeAndStoreInfluence(User user) method
-	 */
-	public String computeInfluenceReasons(User user) {
-		if (user == null) {
-			throw new BlackBeltException("User cannot be null");
-		}
-
-		if (!user.isInfluenceAutoComputed()) { // Rare case : John, Nicolas,
-												// Henryk, ...
-			return String.format("Influence manually set to %s by %s", user
-					.getInfluence(), user.getInfluenceAssigner().getFullName());
-		}
-
-		StringBuilder result = new StringBuilder("Base = 1\n");
-
-		return result.toString();
-	}
-
 	/**
 	 * Ensure a potential nickname does not already exist Append a number at the
 	 * end until not found in DB
@@ -902,15 +836,15 @@ public class UserServiceImpl /* extends BaseService */implements UserService {
 		}
 		return result;
 	}
-
-	public String[] getEMailsByPrivilege(Privilege privilege) {
-		List<User> courseManagers = UserDao.getUsersHavingPrivilege(privilege);
-		List<String> mails = new ArrayList<String>();
-		for (User courseManager : courseManagers) {
-			mails.add(courseManager.getMail());
-		}
-		return mails.toArray(new String[mails.size()]);
-	}
+//TODO maxime uncomment
+//	public String[] getEMailsByPrivilege(Privilege privilege) {
+//		List<User> courseManagers = UserDao.getUsersHavingPrivilege(privilege);
+//		List<String> mails = new ArrayList<String>();
+//		for (User courseManager : courseManagers) {
+//			mails.add(courseManager.getMail());
+//		}
+//		return mails.toArray(new String[mails.size()]);
+//	}
 
 
 }
