@@ -12,12 +12,12 @@ public class BBDomParser {
     public static boolean isTag(Part p) {
         return isTag(p.getContent());
     }
-/**
- * Simply check if the String is a tag ([...])
- * 
- * @param content
- * @return
- */
+    /**
+     * Simply check if the String is a tag ([...])
+     * 
+     * @param content
+     * @return
+     */
     public static boolean isTag(String content) {
         return content != null &&
                 content.length() >= 3 &&
@@ -32,7 +32,7 @@ public class BBDomParser {
             return null;
         }
 
-        BBTag tag = new DefaultBBTag(tagName, BBTagType.Tag, part);
+        DefaultBBTag tag = new DefaultBBTag(tagName, BBTagType.Tag, part);
 
         ReadAttributeState state = ReadAttributeState.Null;
 
@@ -137,7 +137,7 @@ public class BBDomParser {
 
         int size = tag.length();
         boolean closing = tag.charAt(1) == '/';
-        int curr = closing ? 2 : 1; //curr = 2 if the tag is a closing tag ([/...]) , curr = 1 if the tag is opening ([...]).
+        int curr = closing ? 2 : 1;//curr = 2 if the tag is a closing tag ([/...]) , curr = 1 if the tag is opening ([...]).
 
         if (curr >= size) {
             return null; //check if the tag is empty ([] or [/])
@@ -149,7 +149,7 @@ public class BBDomParser {
             currChar = Character.toLowerCase(tag.charAt(curr++));
         }
 
-        if (str.length() == 0) {//TODO I don't understand the purpose of this statement. (Check if an empty tag made it to this point ?)
+        if (str.length() == 0) { //first character of the tag (that isn't "/)
             return null;
         }
 
@@ -163,92 +163,92 @@ public class BBDomParser {
  * @param name
  * @param value 
  */
-    private static void addAttribute(BBTag tag, String name, String value) {
-        BBAttribute a = new DefaultBBAttribute(name);
+    private static void addAttribute(DefaultBBTag tag, String name, String value) {
+        BBAttribute a = new DefaultBBAttribute(name,tag);
         a.setValue(value);
         tag.add(a);
     }
-/**
- * The main parser.
- * Extract a Tag and its content.
- * 
- * @param r 
- * @return
- * @throws BBParserException
- */
+    /**
+     * The main parser.
+     * Extract a Tag and its content.
+     * 
+     * @param r 
+     * @return
+     * @throws BBParserException
+     */
     public BBTag parse(Reader r) throws BBParserException {
-    	Iterator<Part> i = new SplitIterator(r);
+        Iterator<Part> i = new SplitIterator(r);
 
-    	BBTag root = new DefaultBBTag("", BBTagType.Root, "");
+        BBTag root = new DefaultBBTag("", BBTagType.Root, "");
 
-    	BBTag currentTag = root;
+        BBTag currentTag = root;
 
-    	Deque<BBTag> tagStack = new LinkedList<BBTag>();
+        Deque<BBTag> tagStack = new LinkedList<BBTag>();
 
-    	while (i.hasNext()) {
-    		String part = i.next().getContent();
+        while (i.hasNext()) {
+            String part = i.next().getContent();
 
-    		if (isTag(part)) {
-    			String tagName = getTagName(part);
-    			if (part.charAt(1) == '/') {
-    				// The tag is closing tag.
+            if (isTag(part)) {
+                String tagName = getTagName(part);
+                if (part.charAt(1) == '/') {
+                    // The tag is closing tag.
 
-    				// Look for open tag in stack. If match is not found - treat the tag as plain text.
+                    // Look for open tag in stack. If match is not found - treat the tag as plain text.
 
-    				// Simple check - is closing current tag?
-    				if (tagName.equals(currentTag.getName())) {
-    					currentTag = tagStack.pollFirst();
+                    // Simple check - is closing current tag?
+                    if (tagName.equals(currentTag.getName())) {
+                        currentTag = tagStack.pollFirst();
 
-    					// Checks successful - ignore text content.
-    					continue;
-    				}
+                        // Checks successful - ignore text content.
+                        continue;
+                    }
 
-    				// Worse way - one of tags is not closed or open.
-    				boolean hasOpenTag = false;
-    				for (BBTag t : tagStack) {
-    					if (tagName.equals(t.getName())) {
-    						hasOpenTag = true;
-    						break;
-    					}
-    				}
+                    // Worse way - one of tags is not closed or open.
+                    boolean hasOpenTag = false;
+                    for (BBTag t : tagStack) {
+                        if (tagName.equals(t.getName())) {
+                            hasOpenTag = true;
+                            break;
+                        }
+                    }
 
-    				if (!hasOpenTag) {
-    					// The tag has not been open: treat as plain text
-    					currentTag.add(new TextBBTag(part));
-    					continue;
-    				}
+                    if (!hasOpenTag) {
+                        // The tag has not been open: treat as plain text
+                        currentTag.add(new TextBBTag(part));
+                        continue;
+                    }
 
-    				do {
-    					BBTag lastTagParent = currentTag.getParent();
-    					lastTagParent.remove(currentTag);
-    					StringBuilder content = new StringBuilder(currentTag.getContent());
-    					for (BBTag t : currentTag) {
-    						content.append(t.getContent());
-    					}
-    					lastTagParent.add(new TextBBTag(content.toString()));
-    					currentTag = tagStack.pollFirst();
-    				} while (currentTag != null && currentTag != root && !currentTag.getName().equals(tagName));
+                    do {
+                        BBTag lastTagParent = currentTag.getParent();
+                        lastTagParent.remove(currentTag);
+                        StringBuilder content = new StringBuilder(currentTag.getContent());
+                        for (BBTag t : currentTag) {
+                            content.append(t.getContent());
+                        }
+                        lastTagParent.add(new TextBBTag(content.toString()));
+                        currentTag = tagStack.pollFirst();
+                    } while (currentTag != null && currentTag != root && !currentTag.getName().equals(tagName));
 
-    				if (currentTag == null) {
-    					// No more tags in stack: it is can not be at all.
-    					throw new BBParserException("Expecting open tag in stack.");
-    				}
+                    if (currentTag == null) {
+                        // No more tags in stack: it is can not be at all.
+                        throw new BBParserException("Expecting open tag in stack.");
+                    }
 
-    				// Open tag was found - close it
-    				currentTag = tagStack.pollFirst();
-    			} else {
-    				BBTag tag = parseOpenTag(part);
-    				currentTag.add(tag);
-    				tagStack.addFirst(currentTag);
+                    // Open tag was found - close it
+                    currentTag = tagStack.pollFirst();
+                } else {
+                    BBTag tag = parseOpenTag(part);
+                    currentTag.add(tag);
+                    tagStack.addFirst(currentTag);
 
-    				currentTag = tag;
-    			}
-    		} else {
-    			currentTag.add(new TextBBTag(part)); //If part isn't a a tag, it's a text.
+                    currentTag = tag;
+                }
+            } else {
+                currentTag.add(new TextBBTag(part)); //If part isn't a a tag, it's a text.
     		}
-    	}
+        }
 
-    	return root;
+        return root;
     }
 
     private static enum ReadAttributeState {
