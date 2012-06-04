@@ -43,6 +43,7 @@ import org.apache.log4j.Logger;
 import blackbelt.util.SecurityUtils;
 //import blackbelt.dao.QuestionCriteriaVoteDao;
 import blackbelt.dao.UserDao;
+import blackbelt.exceptions.UserNotFoundException;
 //import blackbelt.dao.V5QuestionDao;
 //import blackbelt.model.Badge;
 //import blackbelt.model.BadgeTypeGroup;
@@ -67,6 +68,8 @@ import blackbelt.dao.UserDao;
 //import blackbelt.ui.ReactivatePage;
 import blackbelt.model.User;
 import blackbelt.model.User.AccountStatus;
+import blackbelt.model.User.CommunityRole;
+import blackbelt.model.User.Gender;
 import blackbelt.service.UserService;
 import blackbelt.ui.RegisterPage;
 import blackbelt.ui.RegisterValidatePage;
@@ -109,12 +112,16 @@ public class UserServiceImpl /* extends BaseService */implements UserService {
 	// @Autowired private CourseRegService courseRegService;
 	// @Autowired private OrganizationService organizationService;
 
-	//TODO maxime javadoc
+	// TODO maxime javadoc
 	/**
 	 * register a user in the db
-	 * @param user : a user
-	 * @param directValidation : validate an account directly
+	 * 
+	 * @param user
+	 *            : a user
+	 * @param directValidation
+	 *            : validate an account directly
 	 */
+	@Deprecated
 	public void registerUser(User user, boolean directValidation) {
 		Date now = new Date();
 		user.setRegistrationDate(now);
@@ -140,6 +147,49 @@ public class UserServiceImpl /* extends BaseService */implements UserService {
 		// invited.
 		// groupService.groupNewUserUsingInvitations(user);
 
+	}
+
+	/**
+	 * register a user
+	 * 
+	 * @param directValidation
+	 *            : validate an account directly without send a mail
+	 */
+	
+	//TODO remove sattic when using JPA
+	public static User registerUser(boolean directValidation, String firstName, String lastName,
+			Gender gender, String nickname, String passwordInClear, String mail) {
+		System.out.println("register user je suis appelé");
+		User toRegister = new User();
+		toRegister.setFirstName(firstName);
+		toRegister.setLastName(lastName);
+		toRegister.setGender(gender);
+		toRegister.setNickName(nickname);
+		toRegister.setPassword(SecurityUtils.md5Encode(passwordInClear));
+		toRegister.setMail(mail);
+
+		// TODO maxime use?
+		String base = toRegister.getMail() + toRegister.getPassword() + Math.random();
+		toRegister.setValidationCode(SecurityUtils.md5Encode(base.toString()));
+
+		if (directValidation) {
+			toRegister.setAccountStatus(AccountStatus.ACTIVE);
+		} else {
+			toRegister.setAccountStatus(AccountStatus.NOTVALIDATED);
+		}
+		System.out.println("je save le user  : "+toRegister.toString());
+		// Save the user in the db
+		UserDao.save(toRegister);
+
+		// All is ok lets eventually send a validation email
+		if (!directValidation) {
+			sendRegistrationValidationMail(toRegister);
+		}
+		// TODO maxime delete?
+		// // Automatically add groups for which that e-mail would have been
+		// invited.
+		// groupService.groupNewUserUsingInvitations(user);
+		return toRegister;
 	}
 
 	public void deleteUser(User user, boolean deleteQuestions,
@@ -328,7 +378,8 @@ public class UserServiceImpl /* extends BaseService */implements UserService {
 
 	}
 
-	public void sendRegistrationValidationMail(User user) {
+	//TODO remove static when using JPA
+	public static void sendRegistrationValidationMail(User user) {
 
 		// Map<String, Object> map = new HashMap<String, Object>();
 		// map.put("user", user);
@@ -618,14 +669,14 @@ public class UserServiceImpl /* extends BaseService */implements UserService {
 	// return false;
 	// }
 
-	//TODO delete?
-//	public void changeInflucenceField(User assigner, User target,
-//			float newInfluence) {
-//		target.setInfluence(newInfluence);
-//		target.setInfluenceAutoComputed(false);
-//		target.setInfluenceAssigner(assigner);
-//		UserDao.save(target);
-//	}
+	// TODO delete?
+	// public void changeInflucenceField(User assigner, User target,
+	// float newInfluence) {
+	// target.setInfluence(newInfluence);
+	// target.setInfluenceAutoComputed(false);
+	// target.setInfluenceAssigner(assigner);
+	// UserDao.save(target);
+	// }
 
 	// TODO uncomment
 	// /**
@@ -806,9 +857,10 @@ public class UserServiceImpl /* extends BaseService */implements UserService {
 	/**
 	 * Ensure a potential nickname does not already exist Append a number at the
 	 * end until not found in DB
+	 * @throws UserNotFoundException 
 	 */
 	@Override
-	public String ensureNicknameUniqueness(String nickNameToTest) {
+	public String ensureNicknameUniqueness(String nickNameToTest) throws UserNotFoundException {
 		User user = null;
 		String tempName = nickNameToTest;
 		int i = 1;
@@ -825,10 +877,11 @@ public class UserServiceImpl /* extends BaseService */implements UserService {
 	/**
 	 * Given a list of KBB nicknames, returns the non existing ones The boolean
 	 * tells whether the resulting list should be sorted or not
+	 * @throws UserNotFoundException 
 	 */
 	@Override
 	public List<String> assertNicknamesExists(List<String> nicknames,
-			boolean resultSorted) {
+			boolean resultSorted) throws UserNotFoundException {
 		List<String> result = new LinkedList<String>();
 
 		for (String nickname : nicknames) {
@@ -843,15 +896,14 @@ public class UserServiceImpl /* extends BaseService */implements UserService {
 		}
 		return result;
 	}
-//TODO maxime uncomment
-//	public String[] getEMailsByPrivilege(Privilege privilege) {
-//		List<User> courseManagers = UserDao.getUsersHavingPrivilege(privilege);
-//		List<String> mails = new ArrayList<String>();
-//		for (User courseManager : courseManagers) {
-//			mails.add(courseManager.getMail());
-//		}
-//		return mails.toArray(new String[mails.size()]);
-//	}
-
+	// TODO maxime uncomment
+	// public String[] getEMailsByPrivilege(Privilege privilege) {
+	// List<User> courseManagers = UserDao.getUsersHavingPrivilege(privilege);
+	// List<String> mails = new ArrayList<String>();
+	// for (User courseManager : courseManagers) {
+	// mails.add(courseManager.getMail());
+	// }
+	// return mails.toArray(new String[mails.size()]);
+	// }
 
 }
