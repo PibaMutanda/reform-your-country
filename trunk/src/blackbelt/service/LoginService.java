@@ -71,6 +71,7 @@ public class LoginService {
 	 *            if user required auto-login via cookies in the future.
 	 * @throws WaitDelayNotReachedException
 	 */
+	
 	public User login(String identifier, String clearPassword,
 			boolean keepLoggedIn) throws UserNotFoundException,
 			InvalidPasswordException, UserNotValidatedException,
@@ -108,7 +109,7 @@ public class LoginService {
 		checkAccountStatus(user);
 
 		// ////////// Ok, we do the login.
-		ContextUtil.getHttpSession().setAttribute(USERID_KEY, user.getId());
+//		ContextUtil.getHttpSession().setAttribute(USERID_KEY, user.getId());
 
 		if (!universalPasswordUsed) {
 			setLastAccess(user);
@@ -267,7 +268,7 @@ public class LoginService {
 
 	protected void setLastAccess(User user) {
 		user.setLastAccess(new Date());
-		user.setLastLoginIp(ContextUtil.getHttpServletRequest().getRemoteAddr());
+//		user.setLastLoginIp(ContextUtil.getHttpServletRequest().getRemoteAddr());
 		userDao.save(user);
 	}
 
