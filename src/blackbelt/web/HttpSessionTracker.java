@@ -1,5 +1,5 @@
 
-package be.loop.jbb.web;
+package blackbelt.web;
 
 import java.util.ArrayList;
 import java.util.Collections;

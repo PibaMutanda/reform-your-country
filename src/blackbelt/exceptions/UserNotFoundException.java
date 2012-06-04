@@ -1,4 +1,4 @@
-package be.loop.jbb.bl.exceptions;
+package blackbelt.exceptions;
 
 /**
  * @author Lionel Bartel

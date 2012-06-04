@@ -1,4 +1,4 @@
-package be.loop.jbb.util;
+package blackbelt.util;
 
 import java.security.MessageDigest;
 
