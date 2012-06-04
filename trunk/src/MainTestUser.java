@@ -12,7 +12,11 @@ public class MainTestUser {
 	 */
 	public static void main(String[] args) {
 
-		User test = createTestUser("maxime", "Sauvage", Gender.MR, "max","max");
+		User test = createTestUser("maxime", "Sauvage", Gender.MR, "max", "max");
+		UserDao.save(test);
+		System.out.println(UserDao.getUserByNickName("max"));
+		
+		
 		UserDao userdao = new UserDao();
 		ArrayList myListe = (ArrayList<User>) userdao.createListeUser();
 		Iterator it = myListe.iterator();
