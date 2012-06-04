@@ -14,42 +14,47 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+//TODO maxime uncomment
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
-
-import be.loop.jbb.bl.BLFacade;
-import blackbelt.web.CurrentEnvironment.Environment;
+//import org.springframework.context.ApplicationContext;
+//import org.springframework.web.context.support.WebApplicationContextUtils;
+//
+//import be.loop.jbb.bl.BLFacade;
+//import blackbelt.web.CurrentEnvironment.Environment;
 
 public class ContextUtil implements Filter, ServletContextListener {
 
-	
+	//TODO maxime uncomment
+
 	public static ServletContext servletContext;  // Remembers the servlet context and exposes useful values to the application through static methods.
-    public static  ApplicationContext springContext;
+//    public static  ApplicationContext springContext;
     public static boolean devMode;
-    public static Environment environment;
+//    public static Environment environment;
     
     // Initialized by filter
     private static ThreadLocal<HttpServletRequest> httpServletRequest = new ThreadLocal<HttpServletRequest>();
     private static ThreadLocal<HttpServletResponse> httpServletResponse = new ThreadLocal<HttpServletResponse>();
     
+  //TODO maxime uncomment
 	
-    @Override
+//    @Override
     public void contextInitialized(ServletContextEvent ev) {
         servletContext = ev.getServletContext();
-        contextInitialized( WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext) );
+//        contextInitialized( WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext) );
     }
+  //TODO maxime uncomment
 
-    public static void contextInitialized(ApplicationContext ac) {
-        springContext = ac;
-        
-		environment = springContext.getBean(CurrentEnvironment.class).getEnvironment();
-		devMode = (environment == Environment.DEV); 
-    }
-    
+//    public static void contextInitialized(ApplicationContext ac) {
+//        springContext = ac;
+//        
+//		environment = springContext.getBean(CurrentEnvironment.class).getEnvironment();
+//		devMode = (environment == Environment.DEV); 
+//    }
+  //TODO maxime uncomment
+   
 	public void contextDestroyed(ServletContextEvent ev) {
 		servletContext = null;
-		springContext = null;
+//		springContext = null;
 	}
 	
 //	public static String getProdContextPath() {
@@ -60,13 +65,14 @@ public class ContextUtil implements Filter, ServletContextListener {
 //			return "http://www.blackbeltfactory.com";   //   "/";
 //		}
 //    }
-	
-	public static Environment getEnvironment(){
-		if(environment == null){
-			environment = springContext.getBean(CurrentEnvironment.class).getEnvironment();
-		}
-		return environment;
-	}
+  //TODO maxime uncomment
+
+//	public static Environment getEnvironment(){
+//		if(environment == null){
+//			environment = springContext.getBean(CurrentEnvironment.class).getEnvironment();
+//		}
+//		return environment;
+//	}
 	
 	/** Returns "/KnowledgeBlackBelt" in dev, and "/" in prod. */
 	public static String getRealContextPath() {
@@ -82,18 +88,18 @@ public class ContextUtil implements Filter, ServletContextListener {
     	return getServletContext() == null;
     }
 
-    public static Object getSpringBean(String name) {
-		return springContext.getBean(name);
-	}
+//    public static Object getSpringBean(String name) {
+//		return springContext.getBean(name);
+//	}
 
-    public static <T> T getSpringBean(Class<? extends T> beanClass) {
-        return (T)springContext.getBean(beanClass);
-    }
+//    public static <T> T getSpringBean(Class<? extends T> beanClass) {
+//        return (T)springContext.getBean(beanClass);
+//    }
 
-    @Deprecated  // In the new code, use @Autowired to refer a service. -- John 2009-08-04
-	public static BLFacade getBLFacade() {
-    	return (BLFacade)getSpringBean("blFacade");
-    }
+//    @Deprecated  // In the new code, use @Autowired to refer a service. -- John 2009-08-04
+//	public static BLFacade getBLFacade() {
+//    	return (BLFacade)getSpringBean("blFacade");
+//    }
 	//// Request/Response/Session methods.
 
 	@Override

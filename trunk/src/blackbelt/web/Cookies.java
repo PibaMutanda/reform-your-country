@@ -5,12 +5,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.codec.binary.Base64;
+//TODO maxime uncomment
 
 import be.loop.jbb.util.SecurityUtils;
-import be.loop.jbb.web.SessionObject;
-import be.loop.jbb.web.WebUtil;
+//import be.loop.jbb.web.SessionObject;
+//import be.loop.jbb.web.WebUtil;
 import blackbelt.model.User;
-import blackbelt.security.SecurityContext;
+//import blackbelt.security.SecurityContext;
 
 public class Cookies {
 
@@ -107,32 +108,6 @@ public class Cookies {
         ContextUtil.getHttpServletResponse().addCookie(cookie);
     }
     
-	@Deprecated //by Lebrun 2011-03, because we don't use JForum anymore after the migration.
-    public static void createjForumSSOCookie(boolean keep){
-    	
-    	User user = SecurityContext.getUser();
-    	if(user!= null && ! user.isCorpUser()){
-		 	StringBuffer jForumSsoCookieValue = new StringBuffer();
-	        jForumSsoCookieValue.append(user.getFullName());
-	        jForumSsoCookieValue.append("{}");
-	        jForumSsoCookieValue.append(user.getMail());
-	        jForumSsoCookieValue.append("{}");
-	        jForumSsoCookieValue.append(SecurityUtils.md5Encode(user.getFullName()+user.getMail()+SSO_HASH_SALT));
-	        
-
-	        // Fix for bug http://jira.javablackbelt.com/browse/JBB-335
-	        // Base64 encoding added
-	        // Decoding is done in JbbSSO class (see svn JForumJbbSSO project)
-	        byte[] encodedBytes  = Base64.encodeBase64(jForumSsoCookieValue.toString().getBytes());	    	        
-	        
-	        Cookie jForumSsoCookie = new Cookie(SessionObject.SSO_JBB_COOKIE_NAME,  new String(encodedBytes));
-	        jForumSsoCookie.setMaxAge(keep ? 15552000 : -1);
-	        jForumSsoCookie.setPath("/");
-	        jForumSsoCookie.setVersion(1);
-	        
-	        ContextUtil.getHttpServletResponse().addCookie(jForumSsoCookie);
-    	}
-    }
 
 	public static void setLoginCookies(User user) {
 		createCookie(LOGINCOOKIE_KEY, user.getId().toString());
