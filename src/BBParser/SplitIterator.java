@@ -17,6 +17,8 @@ class SplitIterator implements Iterator<Part> {
     private final Reader source;
 
     private Part nextPart;
+    
+    private boolean error=false;
 
     public SplitIterator(Reader source) {
         this.source = source;
@@ -55,6 +57,10 @@ class SplitIterator implements Iterator<Part> {
                     if (buf.length() > 0) {
                         result = new Part(buf.toString());
                         buf.setLength(0);
+                    }else{
+                    	error=true;
+                        result = new Part(buf.toString());
+                        return result;
                     }
                     braceOpen = true;
                 }
