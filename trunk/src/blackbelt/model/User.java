@@ -67,6 +67,7 @@ import be.loop.jbb.bl.impl.UserServiceImpl;
 //@DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
 public class User /*extends Identifiable*/ implements Cloneable, Comparable<User>,
 		Serializable {
+	private static long generated_id ; 
 
 	private static final long serialVersionUID = 4144665927166518905L;
 
@@ -449,7 +450,8 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	}
 
 	public User() {
-		// TODO Auto-generated constructor stub
+
+		this.id = generated_id++;
 	}
 
 	@Override
@@ -485,9 +487,6 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 		this.lastName = lastName;
 	}
 	
-	public static long idGeneration(){
-		   return (long)(1+Math.random()*9);
-	}
 
 //	public MailingDelayType getMailingDelay() {
 //		return mailingDelayType;
@@ -609,6 +608,14 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 		this.gender = gender;
 	}
 
+//	public String getShortInfo() {
+//		return shortInfo;
+//	}
+//
+//	public void setShortInfo(String shortInfo) {
+//		this.shortInfo = shortInfo;
+//	}
+
 	public Timestamp getBirthDate() {
 		return birthDate;
 	}
@@ -650,6 +657,14 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	public int compareTo(User o) {
 		return this.getLastName().compareTo(o.getLastName());
 	}
+
+//	public String getLongInfo() {
+//		return longInfo;
+//	}
+//
+//	public void setLongInfo(String longInfo) {
+//		this.longInfo = longInfo;
+//	}
 
 	public String getLastLoginIp() {
 		return lastLoginIp;
