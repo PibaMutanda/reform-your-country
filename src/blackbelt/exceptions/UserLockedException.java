@@ -1,4 +1,4 @@
-package blackbelt.service;
+package blackbelt.exceptions;
 
 public class UserLockedException extends Exception {
 
