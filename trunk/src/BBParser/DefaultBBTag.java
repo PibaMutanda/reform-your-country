@@ -58,6 +58,7 @@ public class DefaultBBTag extends ABBTag {
 
     @Override
     public boolean add(BBAttribute bbAttribute) {
+    	
         return attributes.put(bbAttribute.getName(), bbAttribute) != null;
     }
 
@@ -169,28 +170,34 @@ public class DefaultBBTag extends ABBTag {
     @Override
     public String toString() {
         StringBuilder out = new StringBuilder();
+        //Foreach BBtag contained in the innertext of this bbtag, transform these BBtag in html
         for (BBTag t : children) {
             out.append(t.toString());
             out.append(' ');
         }
+        //If it's not the Level 0 tag
         if (!(this.getName().equals(""))){
+        	//If it's a text tag just add the text
         	if (this.getType()==BBTagType.Text){
         		out.append(this.name);
         	}
         	else {
+        	//if it's a Bbcode tag, we had the attributes in the html tag
         	String attributeAsString ="";
         	String bibSignature="";
               if (attributes.size() > 0) {
-            	  BBAttribute defAttribute = attributes.get(null);
-            	  if (defAttribute != null) {
-            		  out.append('=');
-            		  out.append(defAttribute.getValue());
-            	  }
-  
+//            	  BBAttribute defAttribute = attributes.get(null);
+//            	  if (defAttribute != null) {
+//            		  out.append('=');
+//            		  out.append(defAttribute.getValue());
+//            	  }
+            	  
+            	  //We build differently the special attributes
             	  for (BBAttribute a : attributes.values()) {
             		  if (a.getName() != null) {
+            			  //if it's a "bib" we have to send the value as a signature at the end of the BBTag.
             			  if(a.getName().toLowerCase().equals("bib")){
-            				  bibSignature= "<i>\""+a.getValue()+ "\"<i>";
+            				  bibSignature= "<br><i>\""+a.getValue()+ "\"<i>";
             			  }else
             			  {
             				  attributeAsString=" "+ a.getName() +"=\""+a.getValue()+"\"";
@@ -199,7 +206,7 @@ public class DefaultBBTag extends ABBTag {
             		  }
             	  }
               }
-              out = new StringBuilder("<"+this.name+attributeAsString+">"+out+"</"+this.name+">");
+              out = new StringBuilder("<"+this.name+attributeAsString+">"+out+bibSignature+"</"+this.name+">");
         	}
         }
         

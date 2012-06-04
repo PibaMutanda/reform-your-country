@@ -6,9 +6,14 @@ package BBParser;
 public class DefaultBBAttribute implements BBAttribute {
     private final String name;
     private String value;
-
-    public DefaultBBAttribute(String name) {
+    private DefaultBBTag parent;
+    public DefaultBBAttribute(String name,DefaultBBTag parent) {
         this.name = name;
+        this.parent = parent;
+        if (this.name == null || this.name=="")
+        {
+        	
+        }
     }
 
     public String getName() {
@@ -37,5 +42,14 @@ public class DefaultBBAttribute implements BBAttribute {
     @Override
     public int hashCode() {
         return name != null ? name.hashCode() : 0;
+    }
+    
+    //Exception if name is null, name must exist
+    public class AttributeNameException extends Exception
+    {
+    	public AttributeNameException(DefaultBBAttribute attribute){
+    		attribute.parent.content = "!!! Some attribute(s) have no name !!! "+attribute.parent.content;
+    		parent.attributes.remove(attribute.name);
+    	}
     }
 }
