@@ -23,7 +23,7 @@ public class BBDomParser {
                 content.length() >= 3 &&
                 content.charAt(0) == '[' &&
                 content.charAt(content.length() - 1) == ']';
-
+                
     }
 
     protected BBTag parseOpenTag(String part) {
