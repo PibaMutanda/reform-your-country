@@ -177,7 +177,7 @@ public class BBDomParser {
      * @throws BBParserException
      */
     public BBTag parse(Reader r) throws BBParserException {
-        Iterator<Part> i = new SplitIterator(r);
+       Iterator<Part> i = new SplitIterator(r);
 
         BBTag root = new DefaultBBTag("", BBTagType.Root, "");
 
@@ -187,7 +187,11 @@ public class BBDomParser {
 
         while (i.hasNext()) {
             String part = i.next().getContent();
-
+            SplitIterator testError = (SplitIterator)i;
+            if (testError.getError()){
+            	root.add(new DefaultBBTag("The tag \""+part.toString()+"\" has no end brackets",BBTagType.Text, ""));
+            	return root;
+            }
             if (isTag(part)) {
                 String tagName = getTagName(part);
                 if (part.charAt(1) == '/') {
