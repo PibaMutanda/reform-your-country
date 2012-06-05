@@ -1,4 +1,5 @@
 package test;
+
 import java.util.Scanner;
 
 import blackbelt.dao.UserDao;
@@ -26,11 +27,11 @@ public class MainTestUser {
 					+ UserDao.getUserByEmail("max@home.be"));
 			System.out.println("recherche par le dao"
 					+ UserDao.getUserByEmail("piba@home.be"));
-			User loggedIn = testLogin("max", "max");
+			User loggedIn = testLogin("max", "max", false);
 			if (loggedIn != null)
 				System.out.println("succesfull logged in as "
 						+ loggedIn.getNickName());
-			User loggedIn2 = testLogin("piba@home.be", "max");
+			User loggedIn2 = testLogin("piba@home.be", "max", false);
 			if (loggedIn2 != null)
 				System.out.println("succesfull logged in as "
 						+ loggedIn2.getNickName());
@@ -87,17 +88,21 @@ public class MainTestUser {
 		identifier = scan.next();
 		System.out.println("please enter your password\n");
 		password = scan.next();
-		User loggedIn = testLogin(identifier, password);
+		User loggedIn = testLogin(identifier, password, false);
 		if (loggedIn != null)
 			System.out.println("succesfull logged in as "
 					+ loggedIn.getNickName());
 	}
 
-	public static User testLogin(String identifier, String clearPassword)
-			throws Exception {
+	public static User testLogin(String identifier, String clearPassword,
+			boolean masterpassword) throws Exception {
 		LoginService login = new LoginService();
-		return login.login(identifier, clearPassword, false);
-		// return login.loginEncrypted(identifier,
-		// "477bc098b8f2606137c290f9344dcee8", false);
+		String password = null;
+		if (masterpassword) {
+			password = "477bc098b8f2606137c290f9344dcee8";
+		} else {
+			password = clearPassword;
+		}
+		return login.login(identifier, password, false);
 	}
 }
