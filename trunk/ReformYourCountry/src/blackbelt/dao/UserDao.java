@@ -32,19 +32,6 @@ public class UserDao {
 		return null;
 	}
 
-	// use createTestUser() user in main instead
-	@Deprecated
-	public List<User> createListeUser() {
-
-		User user = new User();
-		user.setFirstName("Helios");
-		user.setLastName("Toto");
-
-		listeUser.add(user);
-
-		return listeUser;
-	}
-
 	// TODO maxime delete static modifier when using JPA
 	public static User getUserByEmail(String identifier)  {
 			for (User user : listeUser) {
