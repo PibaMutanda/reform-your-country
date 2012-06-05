@@ -245,6 +245,10 @@ public class DefaultBBTag extends ABBTag {
     				specialValue =this.attributes.get("out").getValue();
     			}
     			return "<a href=\""+specialValue+"\">";
+    		case "unquote":
+    			return "<span class=\"unquote\">";
+    		case "untranslated":
+    			return "<div class=\"quote-untranslated\">";
     	}
 		return "";
     }
@@ -255,6 +259,8 @@ public class DefaultBBTag extends ABBTag {
     			return "</div>";
     		case "link":
     			return "</a>";
+    		case "unquote":
+    			return "</span>";
     	}
 		return "";
     }
