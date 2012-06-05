@@ -222,10 +222,10 @@ public class DefaultBBTag extends ABBTag {
     }
     private String GetHtmlOpenTag()
     {
+		String specialValue ="";
     	switch(this.name.toLowerCase()){
     		case "quote":
-    			String specialValue ="";
-    			System.out.println(this.attributes.get("inline").getValue().toLowerCase());
+    			specialValue="";
     			if ((this.attributes.get("inline")!=null) && (this.attributes.get("inline").getValue().toLowerCase().contains("true")))
     			{
     				specialValue = "quote-inline";
@@ -234,6 +234,17 @@ public class DefaultBBTag extends ABBTag {
     				specialValue = "quote-block";
     			}
     			return "<div class=\""+specialValue+"\">";
+    		case "link":
+    			specialValue="";
+    			if (this.attributes.get("article")!=null)
+    			{
+    				specialValue = "/Article/"+this.attributes.get("article").getValue();
+    			}
+    			else if (this.attributes.get("out")!=null)
+    			{
+    				specialValue =this.attributes.get("out").getValue();
+    			}
+    			return "<a href=\""+specialValue+"\">";
     	}
 		return "";
     }
@@ -242,6 +253,8 @@ public class DefaultBBTag extends ABBTag {
     	switch(this.name.toLowerCase()){
     		case "quote":
     			return "</div>";
+    		case "link":
+    			return "</a>";
     	}
 		return "";
     }
