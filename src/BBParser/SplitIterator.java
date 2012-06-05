@@ -2,6 +2,7 @@ package BBParser;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.io.StringReader;
 import java.util.Iterator;
 
 /**
@@ -48,7 +49,21 @@ class SplitIterator implements Iterator<Part> {
     @Override
     public void remove() {
     }
-
+    public Part  readNextEscapedPart() throws IOException{
+    	Part result = null;
+    	int v;
+    	String txt ="";
+        while ((v = source.read()) != -1) {
+        	char c = (char) v;
+        	txt += c;
+        	 if (txt.contains("[/escape]")){
+             	String test = txt.substring(0,txt.indexOf("[/escape]"));
+             	return new Part(test);
+             }
+        }
+       
+    	return result;
+    }
     private Part readNextPart() throws IOException {
         Part result = null;
 

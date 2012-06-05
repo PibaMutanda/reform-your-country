@@ -1,5 +1,6 @@
 package BBParser;
 
+import java.io.IOException;
 import java.io.Reader;
 import java.util.Deque;
 import java.util.Iterator;
@@ -212,12 +213,31 @@ public class BBDomParser {
         while (i.hasNext()) {
             String part = i.next().getContent();
             SplitIterator testError = (SplitIterator)i;
+            if (currentTag.getName().equals("escape")){
+            	Part test;
+				try {
+					test = testError.readNextEscapedPart();
+	            	String test2 = test.getContent();
+	            	currentTag = new DefaultBBTag("escape",BBTagType.Tag,test2);
+	            	while (i.hasNext()){
+	            		if (i.next().getContent().contains("[/escape]"))
+	            		{
+	            			break;
+	            		}
+	            	}
+	            	continue;
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+            }
             if (testError.getError()){
             	root.add(new DefaultBBTag("The tag \""+part.toString()+"\" has no end brackets",BBTagType.Error, ""));
             	return root;
             }
             if (isTag(part)) {
                 String tagName = getTagName(part);
+               
                 if (part.charAt(1) == '/') {
                     // The tag is closing tag.
 
