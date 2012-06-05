@@ -10,7 +10,7 @@ public class MainTestParser {
 		BBDomParser dp = new BBDomParser();
 		BBTag tg = null;
 		try {
-			tg = dp.parse(new StringReader("[h1 \"123\"]Article n�128[/h1][/a][quote][a href=\"www.google.com\"]<br>[Quote bib=\"dixit CF\"]ceci est un paragraphe de test avec du [code]code <br> <p>test de paragraphe</p>[/code][/Quote]"));
+			tg = dp.parse(new StringReader("[h1 \"123\"]Article n°128[/h1][/a][quote][a href=\"www.google.com\"]<br>[Quote bib=\"dixit CF\"]ceci est un paragraphe de test avec du [code]code <br> <p>test de paragraphe</p>[/code][/Quote]"));
 		    
 			System.out.println(tg.toString());
 
