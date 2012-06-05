@@ -1,22 +1,10 @@
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Scanner;
 
-import com.sun.xml.internal.ws.api.pipe.NextAction;
-
 import blackbelt.dao.UserDao;
-import blackbelt.exceptions.InvalidPasswordException;
-import blackbelt.exceptions.UserLockedException;
-import blackbelt.exceptions.UserNotFoundException;
-import blackbelt.exceptions.UserNotValidatedException;
 import blackbelt.impl.UserServiceImpl;
 import blackbelt.model.User;
 import blackbelt.model.User.Gender;
 import blackbelt.service.LoginService;
-import blackbelt.service.LoginService.WaitDelayNotReachedException;
-import blackbelt.service.UserService;
-import blackbelt.util.SecurityUtils;
 
 public class MainTestUser {
 
