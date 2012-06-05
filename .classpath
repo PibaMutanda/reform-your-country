@@ -3,8 +3,16 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/cayenne-2.0.4.jar"/>
-	<classpathentry kind="lib" path="lib/commons-codec-1.6.jar"/>
-	<classpathentry kind="lib" path="lib/commons-lang3-3.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-codec-1.6.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/ReformYourCountry/lib/commons-codec-1.6-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/commons-lang3-3.1.jar" sourcepath="lib/commons-lang3-3.1-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/ReformYourCountry/lib/commons-lang3-3.1-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="lib/Parser.jar"/>
 	<classpathentry kind="lib" path="lib/spring-core-1.2.5.jar"/>
 	<classpathentry kind="lib" path="lib/vaadin-6.7.9.jar"/>
