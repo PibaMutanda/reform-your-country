@@ -173,6 +173,10 @@ public class DefaultBBTag extends ABBTag {
     	String attributeAsString ="";
     	String bibSignature="";
         StringBuilder out = new StringBuilder();
+        if (this.name.equals("escape"))
+        {
+        	return this.content;
+        }
         //Foreach BBtag contained in the innertext of this bbtag, transform these BBtag in html
         for (BBTag t : children) {
             out.append(t.toString());
