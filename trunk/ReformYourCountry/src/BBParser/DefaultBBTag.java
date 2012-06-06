@@ -210,7 +210,10 @@ public class DefaultBBTag extends ABBTag {
             				  bibSignature = " "+a.getValue()+bibSignature;
             			  }
             			  else if(a.getName().toLowerCase().equals("out")){
-            				  bibSignature = "(<a href=\""+a.getValue()+"\">";
+            				  if (this.name.equals("bib"))
+            					  bibSignature = "(<a href=\""+a.getValue()+"\">";
+            				  else if (this.name.equals("link")) 
+            					  bibSignature= "<a href=\""+a.getValue()+"\">";
             			  }
             			  else{
             				  attributeAsString=" "+ a.getName() +"=\""+a.getValue()+"\"";
@@ -231,7 +234,9 @@ public class DefaultBBTag extends ABBTag {
             	  else if (this.name.equals("bib")){
             		  return GetHtmlOpenTag()+bibSignature+out+GetHtmlClosingTag();
             	  }
-            	  
+            	  else if (this.name.equals("link")){
+            		  return bibSignature+out+"</a>";
+            	  }
               }
               out = new StringBuilder(GetHtmlOpenTag()+out+GetHtmlClosingTag()+bibSignature );
         	}
