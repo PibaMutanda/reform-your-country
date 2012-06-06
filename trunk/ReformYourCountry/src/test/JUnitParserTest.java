@@ -28,11 +28,11 @@ public class JUnitParserTest {
 	public void test3(){
 		assertEquals(new BBDomParser().parse(new StringReader("[ActionPoint id=\"34\"/]")),"<div class=\"actionpoint-title\">Coca gratuit</div><div class=\"actionpoint-body\">Il faut que le coca-cola soit gratuit chez TechnofuturTIC</div>");
 	}
-	@Test
-	public void test4(){
-		assertEquals(new BBDomParser().parse(new StringReader("[quote bib=\"Gargamel66\"]Il était un fois [...] fin[/quote]")),"<div class=\"quote-block\">Il était un fois [...] fin</div><div class=\"bibref-after-block\"><a href=\"/Bibliography#Gargamel666\">[Gargamel66]</a></div>");
-
-	}
+//	@Test
+//	public void test4(){
+//		assertEquals(new BBDomParser().parse(new StringReader("[quote bib=\"Gargamel66\"]Il était un fois [...] fin[/quote]")),"<div class=\"quote-block\">Il était un fois [...] fin</div><div class=\"bibref-after-block\"><a href=\"/Bibliography#Gargamel666\">[Gargamel66]</a></div>");
+//
+//	}
 	@Test
 	public void test5(){
 		assertEquals(new BBDomParser().parse(new StringReader("Allez voir [Link article=\"abcd\"]cette page[/link]")),"Allez voir <a href=\"Article/abcd\">cette page</a>");
