@@ -204,10 +204,13 @@ public class DefaultBBTag extends ABBTag {
             				  out.append("<span style='color:red;'>the attribute "+a.getValue()+" throws some exception: "+a.getName()+"</span>");
             			  }
             			  else if(a.getName().toLowerCase().equals("bib")){
-            				  bibSignature+= "<a href=\"/Bibliography#"+a.getValue()+"\">["+a.getValue()+ "]</a>";
+            				  bibSignature = "<a href=\"/Bibliography#"+a.getValue()+"\">["+a.getValue()+ "]</a>"+bibSignature;
             			  }
             			  else if(a.getName().toLowerCase().equals("addbib")){
-            				  bibSignature+= " "+a.getValue();
+            				  bibSignature = " "+a.getValue()+bibSignature;
+            			  }
+            			  else if(a.getName().toLowerCase().equals("out")){
+            				  bibSignature = "(<a href=\""+a.getValue()+"\">";
             			  }
             			  else{
             				  attributeAsString=" "+ a.getName() +"=\""+a.getValue()+"\"";
@@ -221,9 +224,14 @@ public class DefaultBBTag extends ABBTag {
             	  String endTag= GetHtmlClosingTag();
             	  if (endTag.contains("span")){
             		  bibSignature="<span class=\"bibref\">"+bibSignature+endTag;
-            	  }else{
+            	  }
+            	  else  if (endTag.contains("div")){
             		  bibSignature="<div class=\"bibref-after-block\">"+bibSignature+endTag;
             	  }
+            	  else if (this.name.equals("bib")){
+            		  return GetHtmlOpenTag()+bibSignature+out+GetHtmlClosingTag();
+            	  }
+            	  
               }
               out = new StringBuilder(GetHtmlOpenTag()+out+GetHtmlClosingTag()+bibSignature );
         	}
@@ -259,6 +267,17 @@ public class DefaultBBTag extends ABBTag {
     			return "<span class=\"unquote\">";
     		case "untranslated":
     			return "<div class=\"quote-untranslated\">";
+    		case "bib":
+    			DefaultBBTag tag = (DefaultBBTag)this.parent;
+    			if (tag!=null){
+    				if ((tag.attributes.get("inline")!=null) && (tag.attributes.get("inline").getValue().toLowerCase().contains("true")))
+    				{
+    					return "</span><span class=\"bibref\">";
+    				}else
+    				{
+    					return "</div><div class=\"bibref-after-block\">";
+    				}
+    			}
     	}
 		return "";
     }
@@ -283,6 +302,7 @@ public class DefaultBBTag extends ABBTag {
     			if (this.attributes.get("id").getValue()!=null)
     				return GetActionPoint(this.attributes.get("id").getValue());
     			else return "ActionPoint error";
+    		case "bib": return "</a>)";
     	}
 		return "";
     }
