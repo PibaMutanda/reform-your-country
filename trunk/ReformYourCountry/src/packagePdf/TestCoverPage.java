@@ -14,9 +14,7 @@ import org.zefer.pd4ml.PD4PageMark;
 
 public class TestCoverPage {
 
-	private final String ASIAN_WOMAN_IMG_NAME="/VAADIN/themes/blackbelt/image/bgphoto/asianWomanSword.jpg";
-	private final String KBB_LOGO_IMG_NAME="/imgs/logos/KnowledgeBlackBelt-logo-950x338.png";
-	
+
 	private PD4ML pd4ml;
 
 	private String logoUrl;
@@ -117,10 +115,7 @@ public class TestCoverPage {
 		
 	
 	    this.doTheUserWantACoverPage = doTheUserWantACoverPage;
-		
-		
-		
-		
+			
 		
 		/** Html header */
         String finalResult = "<html><head><title>"+"Hello world"+"</title><META http-equiv=Content-Type content=\"text/html; charset=utf-8\"></head><body>";
@@ -167,8 +162,8 @@ public class TestCoverPage {
 	}
     public String createCoverHtml(){
         String result = new String("");
-        String link="S:\\BlackBeltFactory-logo-500x317.jpg";
-        File filetest = new File("S:\\BlackBeltFactory-logo-500x317.jpg");
+        String link=new String("S:\\blackbeltfactory.jpg");
+        File filetest = new File("S:\\blackbeltfactory.jpg");
         if(filetest.exists()==true)
         {
         	System.out.println("trouvé");
