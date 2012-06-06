@@ -133,7 +133,7 @@ public class CoursePdfGenerator {
 	public void generatePdf (FileOutputStream outputStream,
 			boolean doTheUserWantACoverPage, boolean doTheUserWantAToc) {
 		
-		
+	
 	    this.doTheUserWantACoverPage = doTheUserWantACoverPage;
 		
 		
