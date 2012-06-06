@@ -1,0 +1,77 @@
+<!--%canvas:pagelight.htm%-->
+<!--%title:PD4ML Cookbook - HTML-to-PDF converter for Java and .NET%-->
+<!--%keywords:java, create pdf from php, create pdf, html pdf, html to pdf, html to pdf java, java create pdf, php generate pdf, php pdf generator, php pdf generation%-->
+<!--%description:PD4ML reference. PD4ML is a Java library, which allows to create PDF documents from Java/JSP applications using HTML as template language%-->
+
+<link rel="stylesheet" type="text/css" href="../i/docs.css">
+<link rel="stylesheet" type="text/css" href="../main.css">
+
+<link type="text/css" rel="stylesheet" href="../i/SyntaxHighlighter/Styles/SyntaxHighlighter.css"></link>
+ 
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shCore.js"></script>
+ 
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCSharp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCss.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJava.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJScript.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPhp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPython.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushRuby.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushSql.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushVb.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushXml.js"></script>
+ 
+ 
+<script language="javascript"> 
+function dpOnLoad() {
+	dp.SyntaxHighlighter.ClipboardSwf = '../i/SyntaxHighlighter/Scripts/clipboard.swf';
+	dp.SyntaxHighlighter.HighlightAll('code');
+}
+</script>
+
+</head>
+
+<body onload="dpOnLoad()">
+
+ 
+
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top" class="content" width="99%">
+<a href="/cookbook/"><< <b>back</b></a><b> </b>
+
+<h3>PD4ML Footnotes</h3>
+PD4ML introduces two proprietary tags to define footnotes.<p>
+<b>&lt;pd4ml:footnote&gt;</b> (or
+&lt;pd4ml-footnote&gt;) - defines footnote text to be moved to the bottom part 
+of the current page; may have <b>noref</b> and <b>nr</b> attributes</p><p>
+<b>&lt;pd4ml:footnote.caption&gt;</b> (or
+&lt;pd4ml-footnote-caption&gt;) - defines separator between main content and 
+footnotes area. May appear at any place of the document. In the example below it 
+defines <b>&lt;hr&gt;</b> as a separator.</p>
+<p>
+Also PD4ML implicitly creates <b>&lt;pd4ml:footnote.ref&gt;</b> (or
+&lt;pd4ml-footnote-ref&gt;) for footnote referencing from the main content.</p>
+<p>
+It works quite simple: you only need to enclose a portion of content with
+<b>&lt;pd4ml:footnote&gt; </b>and  
+<b>&lt;/pd4ml:footnote&gt;</b>. PD4ML moves the content to the page bottom and 
+inserts to the current position  <b>&lt;pd4ml:footnote.ref&gt;1&lt;/pd4ml:footnote.ref&gt;</b> 
+reference tag, where &quot;1&quot; is a value of document footnotes counter. You 
+may apply your own CSS style to the reference tag if needed.</p>
+<p>
+If the footnote referencing is not desired - for example, you only want to use 
+the feature as a quick page footer definition - just add <b>noref</b> attribute 
+to the tag:
+<b>&lt;pd4ml:footnote noref&gt;...</b></p>
+<p>
+If you would prefer alternative footnote numbering, you may explicitly define another value:&nbsp;
+<b>&lt;pd4ml:footnote nr=&quot;100&quot;&gt;...</b></p>
+
+<p>&nbsp;</p>
+<p>
+
+<img src="../i/screenshot012.png">
+
+</td></tr></table>

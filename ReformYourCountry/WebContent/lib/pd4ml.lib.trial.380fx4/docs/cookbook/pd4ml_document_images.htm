@@ -1,0 +1,137 @@
+<!--%canvas:pagelight.htm%-->
+<!--%title:PD4ML Cookbook - HTML-to-PDF converter for Java and .NET%-->
+<!--%keywords:java, create pdf from php, create pdf, html pdf, html to pdf, html to pdf java, java create pdf, php generate pdf, php pdf generator, php pdf generation%-->
+<!--%description:PD4ML cookbook. Image references to PDF conversion%-->
+
+<link rel="stylesheet" type="text/css" href="../i/docs.css">
+<link rel="stylesheet" type="text/css" href="../main.css">
+
+<link type="text/css" rel="stylesheet" href="../i/SyntaxHighlighter/Styles/SyntaxHighlighter.css"></link>
+ 
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shCore.js"></script>
+ 
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCSharp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCss.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJava.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJScript.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPhp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPython.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushRuby.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushSql.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushVb.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushXml.js"></script>
+ 
+ 
+<script language="javascript"> 
+function dpOnLoad() {
+	dp.SyntaxHighlighter.ClipboardSwf = '../i/SyntaxHighlighter/Scripts/clipboard.swf';
+	dp.SyntaxHighlighter.HighlightAll('code');
+}
+</script>
+
+</head>
+
+<body onload="dpOnLoad()">
+
+ 
+
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top" class="content" width="99%">
+<a href="/cookbook/"><< <b>back</b></a><b> </b>
+
+<h3>PD4ML document images</h3>
+PD4ML supports conversion to PDF of the following image formats: JPEG, GIF, PNG, 
+popular BMP species and fax-specific TIFF.
+<p>In most of the cases source HTML document needs no adjustments for correct 
+image processing. If for some reason images are missing in the resulting PDF, 
+the first diagnostic step is to enable debug info output and to inspect 
+application console or server's log.</p>
+<b>pd4ml.enableDebugInfo();</b>
+
+
+
+<p>PD4ML supports the following image references:
+
+
+
+</p>
+
+
+
+<p><font size="4">1.</font> Relative path. Image is located in the same or a neighbor directory where 
+the main document is.<b><br>
+<font color="tomato">&lt;img src=&quot;images/logo.gif&quot;&gt;</font></b> <br>
+As a rule the referencing works with no problems. 
+But in a case you pass the source HTML to PD4ML as a string object (wrapped to a
+<b>StringReader</b>), 
+there is no base directory to compute relative paths. Make sure you call a <b>
+pd4ml.render()</b> method with an explicit <b>URL base</b> parameter.
+</p>
+
+
+
+<p><font size="4">2.</font> Absolute path. Not recommended.<b><br>
+<font color="tomato">&lt;img src=&quot;/images/logo.gif&quot;&gt;</font></b><font color="tomato">
+</font> <br>
+By default PD4ML interprets the reference as a local file system path (<b>file:/images/logo.gif</b>) 
+and it is not what expected. Usually an image reference like&nbsp; &quot;/images/logo.gif&quot; 
+assumes an image path starting from the web application root, not from the file 
+system root. But by default, PD4ML has no access to web path -&gt; physical 
+path mapping info.</p><p>A quick hack is to change the path to a relative one or to extend the URL to a fully-specified one: 
+<b>http://localhost/webappname/images/logo.gif</b> (would only work if the server does not host multiple domains, 
+otherwise it must be a real server name instead of
+<b>localhost</b>).
+
+</p>
+
+<p>A more sophisticated approach is to pass <b>ServletContext</b> instance to <b>pd4ml.useServletContext()</b> method or 
+<b>HttpServletRequest/Response </b>instances to <b>pd4ml.useHttpRequest() </b>and 
+to let PD4ML to try to resolve the web application paths.</p>
+
+<font size="4">3.
+</font>Fully specified URL.
+<b><br>
+<font color="tomato">&lt;img src=&quot;http://pd4ml.com/i/logo.png&quot;&gt;</font></b><font color="#FF0000">
+</font>
+<br>
+Potential problems can happen in web application scenarios, when the server, where PD4ML is, cannot resolve 
+URL server name to IP address or has no routing to the remote server.
+Also PD4ML oficially does not support HTTPS protocol. In most of the cases HTTPS references to image work. There is a number of application servers 
+(i.e. Weblogic, WebSphere) implement their own SSL layer, not derived from the 
+standard JDK classes. In the case <b>ClassCastExceptionon</b> is thrown. A 
+possible workaround is <a href="custom_rc_loaders.htm">PD4ML custom resource 
+loaders</a>.
+<p>
+<font size="4">4.</font> <b>data</b> protocol makes possible to embed image bytes into HTML document 
+text. The &quot;reference&quot; starts with &quot;<b>data:image/gif;base64,</b>&quot; prefix, 
+followed by base64-encoded image bytes. <b><br>
+<font color="tomato">&lt;img src=&quot;data:image/gif;base64,R0lGODlhkwAYAPcAAA.....DCkFAADs=&quot;&gt;</font></b><font color="#FF0000">
+</font>
+<br>
+
+Note: PD4ML ignores the MIME type <b>image/gif</b> there, as it detects actual image type by the image data.
+</p>
+<p>
+<font size="4">5.</font> Proprietary <b>java</b> protocol allows to extract image from Java application resources using 
+a variety of Java <b>ClassLoader</b>s. <b><font color="tomato"><br>
+&lt;img src=&quot;java:resources/logo.gif&quot;&gt;</font></b> <br>
+
+&nbsp;</p>
+<p>
+Internally
+
+PD4ML tries to load an image, referenced that way, in three attempts.
+</p>
+<pre name="code" class="Java">
+...
+resource = Thread.currentThread().getContextClassLoader().getResource(resourcePath);
+...
+resource = this.getClass().getClassLoader().getResource(resourcePath);
+...
+resource = callingClass.getClassLoader().getResource(resourcePath);
+...
+</pre>
+
+</td></tr></table>

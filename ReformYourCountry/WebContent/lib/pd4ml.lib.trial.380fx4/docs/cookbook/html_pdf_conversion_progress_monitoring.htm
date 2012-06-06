@@ -1,0 +1,95 @@
+<!--%canvas:pagelight.htm%-->
+<!--%title:PD4ML Reference Manual - HTML-to-PDF converter for Java and .NET%-->
+<!--%keywords:java, create pdf from php, create pdf, html pdf, html to pdf, html to pdf java, java create pdf, php generate pdf, php pdf generator, php pdf generation%-->
+<!--%description:PD4ML reference. PD4ML is a Java library, which allows to create PDF documents from Java/JSP applications using HTML as template language%-->
+
+<link rel="stylesheet" type="text/css" href="../i/docs.css">
+<link rel="stylesheet" type="text/css" href="../main.css">
+
+<link type="text/css" rel="stylesheet" href="../i/SyntaxHighlighter/Styles/SyntaxHighlighter.css"></link>
+ 
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shCore.js"></script>
+ 
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCSharp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCss.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJava.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJScript.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPhp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPython.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushRuby.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushSql.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushVb.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushXml.js"></script>
+ 
+ 
+<script language="javascript"> 
+function dpOnLoad() {
+	dp.SyntaxHighlighter.ClipboardSwf = '../i/SyntaxHighlighter/Scripts/clipboard.swf';
+	dp.SyntaxHighlighter.HighlightAll('code');
+}
+</script>
+
+</head>
+
+<body onload="dpOnLoad()">
+
+ 
+
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top" class="content" width="99%">
+<a href="/cookbook/"><< <b>back</b></a><b> </b>
+
+<h3>PD4ML: PDF Output Progress Monitoring</h3>
+&nbsp;<p>
+
+Since version 3.80 PD4ML can provide conversion progress information. Below is an example, which dumps all progress update messages to STDOUT. 
+In real-life usage scenarios you would probably prefer to pass <b>int progress</b> 
+parameter value to a progress bar GUI component etc. The value range is from 0 to 100.
+
+<pre name="code" class="java">pd4ml.monitorProgress&#40;new ProgressMeter&#40;&#41;&#41;;
+...
+public class ProgressMeter implements PD4ProgressListener {
+ 
+	public void progressUpdate&#40;int messageID, int <span class="posthilit">progress</span>, String note, long msec&#41; {
+		String tick = String.format&#40; &quot;%7d&quot;, msec &#41;;
+		String progressString = String.format&#40; &quot;%3d&quot;, <span class="posthilit">progress</span> &#41;;
+ 
+		String step = &quot;&quot;;
+		switch &#40; messageID &#41; {
+			case CONVERSION_BEGIN:
+				step = &quot;conversion begin&quot;;
+				break;
+			case HTML_PARSED:
+				step = &quot;html parsed&quot;;
+				break;
+			case DOC_TREE_BUILT:
+				step = &quot;document tree structure built&quot;;
+				break;
+			case HTML_LAYOUT_IN_PROGRESS:
+				step = &quot;layouting...&quot;;
+				break;
+			case HTML_LAYOUT_DONE:
+				step = &quot;layout done&quot;;
+				break;
+			case TOC_GENERATED:
+				step = &quot;TOC generated&quot;;
+				break;
+			case DOC_OUTPUT_IN_PROGRESS:
+				step = &quot;generating PDF...&quot;;
+				break;
+			case NEW_SRC_DOC_BEGIN:
+				step = &quot;proceed to new source document&quot;;
+				break;
+			case CONVERSION_END:
+				step = &quot;done.&quot;;
+				break;
+		}
+			
+		System.out.println&#40; tick + &quot; &quot; + progressString + &quot; &quot; + step + &quot; &quot; + note &#41;;
+		
+	}
+}</pre>
+
+</td></tr></table>

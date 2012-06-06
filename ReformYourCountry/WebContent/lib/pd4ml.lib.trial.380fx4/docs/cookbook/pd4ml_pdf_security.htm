@@ -1,0 +1,81 @@
+<!--%canvas:pagelight.htm%-->
+<!--%title:PD4ML Cookbook - HTML-to-PDF converter for Java and .NET%-->
+<!--%keywords:java, create pdf from php, create pdf, html pdf, html to pdf, html to pdf java, java create pdf, php generate pdf, php pdf generator, php pdf generation%-->
+<!--%description:PD4ML reference. PD4ML is a Java library, which allows to create PDF documents from Java/JSP applications using HTML as template language%-->
+
+<link rel="stylesheet" type="text/css" href="../i/docs.css">
+<link rel="stylesheet" type="text/css" href="../main.css">
+
+<link type="text/css" rel="stylesheet" href="../i/SyntaxHighlighter/Styles/SyntaxHighlighter.css"></link>
+ 
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shCore.js"></script>
+ 
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCSharp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCss.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJava.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJScript.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPhp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPython.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushRuby.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushSql.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushVb.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushXml.js"></script>
+ 
+ 
+<script language="javascript"> 
+function dpOnLoad() {
+	dp.SyntaxHighlighter.ClipboardSwf = '../i/SyntaxHighlighter/Scripts/clipboard.swf';
+	dp.SyntaxHighlighter.HighlightAll('code');
+}
+</script>
+
+</head>
+
+<body onload="dpOnLoad()">
+
+ 
+
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top" class="content" width="99%">
+<a href="/cookbook/"><< <b>back</b></a><b> </b>
+
+<h3>PDF document security</h3>
+<p>
+A PDF document can be encrypted to protect its contents from unauthorized
+access or modifications.
+
+PD4ML can be forced to perform PDF document encryption by pd4ml.setPermissions() 
+API call.<p>
+PD4ML supports the following PDF security features.<p>
+Protecting PDF document with a password.<pre name="code" class="Java">
+pd4ml.setPermissions("my_secret_password", 0xffffffff, true);
+</pre>
+The above example only defines document password, and does not impact document access permissions (all permissions bits are set to TRUE in 0xffffffff). 
+If a document reader types the correct password, he is alowed to print, annotate etc.
+
+<p>&nbsp;<p>
+
+<pre name="code" class="Java">
+pd4ml.setPermissions("empty", 0xffffffff ^ PD4Constants.AllowPrint, true);
+</pre>
+The example does not defines any password (<b>"empty"</b> is a special keyword there, means no password protection to enable). 
+But it explicitly disables document printing with <b>0xffffffff ^ PD4Constants.AllowPrint</b> permissions mask. 
+<p>Need to disable more permissions?
+
+Just cascade them: <b><br>
+0xffffffff ^ PD4Constants.AllowPrint</b> <b>&nbsp;^ 
+PD4Constants.AllowContentExtraction ^ PD4Constants.AllowFillingForms.</b></p>
+<p>&nbsp;<p>
+
+<pre name="code" class="Java">
+pd4ml.setPermissions("my_secret_password&quot;, PD4Constants.AllowFillingForms | PD4Constants.AllowPrint, true);
+</pre>
+This API call combines the password protection and the permission control.
+In the case it does not disable permissions, but enables them. All other 
+permissions are implicitly disabled.<p>The third <b>setPermissions() </b>parameter controls if the 
+encryption must be strong (<b>128bit</b>) or not (<b>40bit</b>). Nowadays there 
+is no good reason to use the weak encryption - any saved CPU time by the 
+encryption is not going to be noticeable - so the recommended value for the 
+parameter is <b>true</b>.</td></tr></table>

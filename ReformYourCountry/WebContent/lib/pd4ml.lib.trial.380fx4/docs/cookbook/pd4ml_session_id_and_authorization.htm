@@ -1,0 +1,143 @@
+<!--%canvas:pagelight.htm%-->
+<!--%title:PD4ML Cookbook - HTML-to-PDF converter for Java and .NET%-->
+<!--%keywords:java, create pdf from php, create pdf, html pdf, html to pdf, html to pdf java, java create pdf, php generate pdf, php pdf generator, php pdf generation%-->
+<!--%description:PD4ML reference. PD4ML is a Java library, which allows to create PDF documents from Java/JSP applications using HTML as template language%-->
+
+<link rel="stylesheet" type="text/css" href="../i/docs.css">
+<link rel="stylesheet" type="text/css" href="../main.css">
+
+<link type="text/css" rel="stylesheet" href="../i/SyntaxHighlighter/Styles/SyntaxHighlighter.css"></link>
+ 
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shCore.js"></script>
+ 
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCSharp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCss.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJava.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJScript.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPhp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPython.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushRuby.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushSql.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushVb.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushXml.js"></script>
+ 
+ 
+<script language="javascript"> 
+function dpOnLoad() {
+	dp.SyntaxHighlighter.ClipboardSwf = '../i/SyntaxHighlighter/Scripts/clipboard.swf';
+	dp.SyntaxHighlighter.HighlightAll('code');
+}
+</script>
+
+</head>
+
+<body onload="dpOnLoad()">
+
+ 
+
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top" class="content" width="99%">
+<a href="/cookbook/"><< <b>back</b></a><b> </b>
+<h3>PD4ML: HTTP request authorization and Session ID</h3>
+&nbsp;<p>
+Very often a source URL for PDF conversion requires a "user" to explicitly authorize himself - in other words to enter login and password 
+in order to get an access to the document. As an HTTP request originated by PD4ML does not assume any 
+user interactions the PDF conversion either fails in the case, or its result 
+represents the web-application login page layout converted to PDF.
+
+<p>
+Another identical situation: an URL to be converted to PDF includes a valid 
+session identifier, so there is no explicit login needed. But all subsequent 
+requests (to load referenced images or stylesheets) do not include the session 
+ID, the resources are failed to load and the resulting PDF layout is broken.<p>
+The following explains how to workaround the typical situations.<p>
+<font size="4">1.</font> Running PD4ML in authenticated context. <p>
+If PD4ML library and source HTML/JSP documents belong to the same Web application, there is a big probability there is no need 
+to explicitly authenticate HTTP requests, originated by PD4ML. You only need to associate PD4ML instance with the current HTTP session.
+<pre name="code" class="Java">
+public void doGet(HttpServletRequest request, HttpServletResponse response) {
+    ...
+    pd4ml.useHttpRequest(request, response)
+    ...
+    pd4ml.render( ... );
+}
+</pre>
+
+PD4ML JSP taglib invokes the metod implicitly.
+
+</p>
+
+<font size="4">2.</font> The basic HTTP authentication. <pre name="code" class="Java">
+Map m = new HashMap();
+m.put(PD4Constants.PD4ML_BASIC_AUTHENTICATION, "mylogin:mypassword");
+pd4ml.setDynamicParams(m);
+</pre>
+
+The parameter forces PD4ML to supply each outgoing HTTP request with the given 
+authentication info. According to HTTP spec, it appears in HTTP headers 
+base64-encoded, which is probably not the best way to secure your login 
+credentials.<p>&nbsp;<p>
+<font size="4">3.</font> Java Web application session ID.<p>
+Comparing to the basic HTTP authentication, Java Web applications does not 
+follow any standard way to submit user login and password. It is up to web 
+developers which HTML form fields to be used to hold a user identifier or 
+password. So PD4ML does not implement an authentication technique. 
+But it can take part in an already existing HTTP session (authenticated by a 
+user), using a session ID to &quot;implicitly login&quot; and to propagate the 
+ID to derived 
+HTTP requests.<p>
+It can be done by the following ways.<ul>
+	<li>embedding a session ID into URL. The session ID appears in URL like 
+	that: <br>
+	<br>
+	<font face="Courier New"><font color="#0000FF">http://pd4ml.com/app/page.jsp</font><font color="#FF0000"><b>;jsessionid=0928346576</b></font></font><font color="#0000FF"><font face="Courier New">?param1=val1&amp;param2=val2<br>
+	</font><br>
+	</font>The URL, passed to <b>PD4ML.render()</b> method must have the session 
+	info embedded. If the source HTML document, references images or stylesheets, 
+	and the resources also require an authorization, <b>PD4ML.setSessionID()</b>&nbsp; 
+	forces PD4ML to embed the session ID to all outgoing HTTP request URLs.<br>
+	<br>
+	<b>jsessionid</b> is the default variable name. If a particular Web 
+	application changes the defaults, PD4ML can be adjusted correspondingly.
+<pre name="code" class="Java">
+Map m = new HashMap();
+m.put(PD4Constants.PD4ML_SESSIONID_VARNAME, "customsessionidname");
+pd4ml.setDynamicParams(m);
+</pre>
+	</li>
+	<li>passing a session ID with HTTP cookies. The code<br>
+	<br>
+<pre name="code" class="Java">
+pd4ml.setCookie("JSESSIONID", sessionID + ";path=/");</li>
+</pre>
+forces PD4ML
+	to add the session cookie to all outgoing HTTP requests (including the 
+	&quot;main&quot; URL, passed to <b>PD4ML.render()</b>). The <b>";path=/&quot;</b> suffix is 
+	important - it limits URI scope, the cookie is applied to. In our case the 
+	most important thing that without the suffix, the cookies are simply 
+	ignored.</ul>
+<p>
+<font size="4">4.</font> Session ID in PHP and on other platforms.
+
+&nbsp; 
+<p>
+PD4ML does not officially support session ID propagation for other environments 
+than Java. On the other hand the Java techniques can be used on other platforms.<p>
+First, try to use cookies. For example the default session ID cookie can be set like that:
+<pre name="code" class="Java">
+pd4ml.setCookie("PHPSESSID", sessionID + ";path=/");</li>
+</pre>
+<b>PHPSESSID</b> is only a proposed name from PHP documentation, which can be easily overriden in
+<b>php.ini</b>. Make sure it matches your config.<p>If the session management 
+does not permit a session ID propagation via cookies, the only remaining method 
+is URL rewriting: to pass <b>PHPSESSID=&lt;sessionID&gt;</b> HTTP parameter along 
+with URL to inform the server about the active session.
+<p>
+<sessionID> Note: Modern PHP versions have turned this off using
+
+<b>session.use_trans_sid=0</b>
+in <b>php.ini</b>
+
+<p>&nbsp;</td></tr></table>

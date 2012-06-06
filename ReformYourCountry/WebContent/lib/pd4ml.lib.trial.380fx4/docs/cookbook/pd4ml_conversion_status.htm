@@ -1,0 +1,76 @@
+<!--%canvas:pagelight.htm%-->
+<!--%title:PD4ML Cookbook - HTML-to-PDF converter for Java and .NET%-->
+<!--%keywords:java, create pdf from php, create pdf, html pdf, html to pdf, html to pdf java, java create pdf, php generate pdf, php pdf generator, php pdf generation%-->
+<!--%description:PD4ML reference. PD4ML is a Java library, which allows to create PDF documents from Java/JSP applications using HTML as template language%-->
+
+<link rel="stylesheet" type="text/css" href="../i/docs.css">
+<link rel="stylesheet" type="text/css" href="../main.css">
+
+<link type="text/css" rel="stylesheet" href="../i/SyntaxHighlighter/Styles/SyntaxHighlighter.css"></link>
+ 
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shCore.js"></script>
+ 
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCSharp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCss.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJava.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJScript.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPhp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPython.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushRuby.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushSql.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushVb.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushXml.js"></script>
+ 
+ 
+<script language="javascript"> 
+function dpOnLoad() {
+	dp.SyntaxHighlighter.ClipboardSwf = '../i/SyntaxHighlighter/Scripts/clipboard.swf';
+	dp.SyntaxHighlighter.HighlightAll('code');
+}
+</script>
+
+</head>
+
+<body onload="dpOnLoad()">
+
+ 
+
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top" class="content" width="99%">
+<a href="/cookbook/"><< <b>back</b></a><b> </b>
+
+<h3>PD4ML Conversion Status</h3>
+After <b>render()</b> call is invoked and a PDF document produced, PD4ML allows 
+to report some conversion info.
+<p>
+
+<pre name="code" class="Java">
+// reports number of generated pages
+System.out.println("pages: " + (Long)pd4ml.getLastRenderInfo(PD4Constants.PD4ML_TOTAL_PAGES));
+
+// reports actual HTML document layout height in pixels 
+// (as a rule the value depends on htmlWidth conversion parameter)
+System.out.println("height: " + (Long)pd4ml.getLastRenderInfo(PD4Constants.PD4ML_DOCUMENT_HEIGHT_PX));
+
+// reports default width of the HTML document layout in pixels. 
+// If the document has root-level elements with width="100%", 
+// the returned value is almost always going to be equal htmlWidth parameter.
+// If the returned value is smaller htmlWidth, probably it is optimal htmlWidth for the given document.
+System.out.println("right edge: " + (Long)pd4ml.getLastRenderInfo(PD4Constants.PD4ML_RIGHT_EDGE_PX));
+</pre>
+
+Also there is a possibility to request <b>PDF/A</b> conversion status (relevant for <b>PD4ML Volume DMS</b> and <b>PD4ML Source Code</b> licenses)
+
+<pre name="code" class="Java">
+PD4ML.StatusMessage[] msgs = 
+		(PD4ML.StatusMessage[])pd4ml.getLastRenderInfo(PD4Constants.PD4ML_PDFA_STATUS);
+
+for ( int i = 0; i < msgs.length; i++ ) {
+	System.out.println( (msgs[i].isError() ? "ERROR: " : "WARNING: ") + msgs[i].getMessage());
+}
+</pre>
+
+
+</td></tr></table>

@@ -1,0 +1,160 @@
+<!--%canvas:pagelight.htm%-->
+<!--%title:PD4ML Reference Manual - HTML-to-PDF converter for Java and .NET%-->
+<!--%keywords:java, create pdf from php, create pdf, html pdf, html to pdf, html to pdf java, java create pdf, php generate pdf, php pdf generator, php pdf generation%-->
+<!--%description:PD4ML reference. PD4ML is a Java library, which allows to create PDF documents from Java/JSP applications using HTML as template language%-->
+<link rel="stylesheet" type="text/css" href="../i/docs.css">
+<link rel="stylesheet" type="text/css" href="../main.css">
+<link type="text/css" rel="stylesheet" href="../i/SyntaxHighlighter/Styles/SyntaxHighlighter.css">
+</link>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shCore.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCSharp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCss.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJava.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJScript.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPhp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPython.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushRuby.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushSql.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushVb.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushXml.js"></script>
+<script language="javascript"> 
+function dpOnLoad() {
+	dp.SyntaxHighlighter.ClipboardSwf = '../i/SyntaxHighlighter/Scripts/clipboard.swf';
+	dp.SyntaxHighlighter.HighlightAll('code');
+}
+</script>
+</head>
+
+<body onload="dpOnLoad()">
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td valign="top" class="content" width="99%">
+<a href="/cookbook/"><< <b>back</b></a><b> </b>
+		<h3>PD4ML: PDF Header/Footer Generation</h3>
+&nbsp;<p>PD4ML provides 3 types of headers/footers.<br />
+		<br />
+		</p>
+		<ol style="list-style-type: arabic-numbers">
+			<li>text-only</li>
+			<li>html (PD4ML Pro)</li>
+			<li>inline (PD4ML Pro)</li>
+		</ol>
+		<br />
+		The first 2 options are available by PD4ML Java API calls (or as JSP custom 
+		tags mapped to PD4ML API): i.e. <br />
+		<span style="font-weight: bold">&lt;pd4ml:footer&gt;</span> -&gt;
+		<span style="font-weight: bold">pd4ml.setPageFooter();</span><br />
+		<br />
+		<span style="font-weight: bold"><span style="color: #FF0000">1.</span> Text 
+		only</span> (in such form can be used only in JSP):<br />
+		<pre name="code" class="xml">&lt;pd4ml:footer
+    pageNumberTemplate=&quot;page $[page] of $[total]&quot;
+    titleAlignment=&quot;left&quot;
+    pageNumberAlignment=&quot;right&quot;
+    color=&quot;#008000&quot;
+    initialPageNumber=&quot;1&quot;
+    pagesToSkip=&quot;1&quot;
+    fontSize=&quot;14&quot;
+    areaHeight=&quot;18&quot;/&gt;</pre>
+		<br />
+		Java version:<br />
+		<pre name="code" class="java">PD4PageMark footer = new PD4PageMark();
+footer.setPageNumberTemplate(&quot;page $[page] of $[total]&quot;);
+footer.setTitleAlignment(PD4PageMark.LEFT_ALIGN);
+footer.setPageNumberAlignment(PD4PageMark.RIGHT_ALIGN);
+footer.setColor(new Color(0x008000));
+footer.setInitialPageNumber(1);
+footer.setPagesToSkip(1);
+footer.setFontSize(14);
+footer.setAreaHeight(18);	
+pd4ml.setPageFooter(footer);</pre>
+		<br />
+		<br />
+		<br />
+		<span style="font-weight: bold"><span style="color: #FF4000">2.</span> HTML 
+		formatted footer</span> (in such form can be used only in JSP)<br />
+		<br />
+		<pre name="code" class="xml">&lt;pd4ml:footer areaHeight=&quot;-1&quot;&gt;
+&lt;font color=&quot;red&quot;&gt;&lt;i&gt;page $[page] of $[total]&lt;/i&gt;&lt;/font&gt;
+&lt;/pd4ml:footer&gt;</pre>
+		<br />
+		Java version:<br />
+		<pre name="code" class="java">PD4PageMark footer = new PD4PageMark();
+footer.setHtmlTemplate(&quot;&lt;font color=\&quot;red\&quot;&gt;&lt;i&gt;page $[page] of $[total]&lt;/i&gt;&lt;/font&gt;&quot;);
+footer.setAreaHeight(-1);	
+pd4ml.setPageFooter(footer);</pre>
+		<br />
+		<br />
+		<span style="font-weight: bold">areaHeight=&quot;-1&quot;</span> means
+		<span style="font-weight: bold">&quot;autocompute&quot;</span> there<br />
+		<br />
+		<br />
+		<br />
+		<span style="font-weight: bold"><span style="color: #FF0000">3.</span></span> 
+		The third option, <span style="font-weight: bold">inline footer</span>, 
+		allows to define footer body in HTML/PHP document:<br />
+		<br />
+		<pre name="code" class="xml">&lt;pd4ml:page.footer&gt;
+footer: $[page] of $[total]
+&lt;/pd4ml:page.footer&gt;</pre>
+		<br />
+		<br />
+		The definition impacts all subsequent pages after the page, where the footer 
+		defined. A new appearance of the footer overrides previously defined one.<br />
+		In order to define the footer for the first page, you need to place the 
+		definition immediately after &lt;body&gt; tag or before &lt;html&gt;.<br />
+		<br />
+		Also you may explicitly define pages, where the footer needs to be applied:<br />
+		<br />
+		<pre name="code" class="xml">&lt;pd4ml:page.footer scope=&quot;1&quot;&gt;
+first page footer: $[page] of $[total]&lt;br&gt; &lt;img src=&quot;img1.gif&quot;&gt;
+&lt;/pd4ml:page.footer&gt;
+&lt;pd4ml:page.footer scope=&quot;2+&quot;&gt;
+footer: $[page] of $[total]&lt;br&gt;
+&lt;img src=&quot;img2.gif&quot;&gt;
+&lt;/pd4ml:page.footer&gt;
+&lt;html&gt;
+&lt;head&gt;
+...</pre>
+		<br />
+		The above defines different footers for the first page and for the rest 
+		of the pages (the second and others). Also &quot;scope&quot; understands &quot;even&quot;, &quot;odd&quot; 
+		and &quot;skiplast&quot; modifiers. Example:<br />
+		<br />
+		<span style="font-weight: bold">scope=&quot;2,5-10,even,skiplast&quot; </span>
+		<p>&nbsp;</p>
+		<p>You may control header/footer appearance scope also if header/footer 
+		defined via API (the first two header/footer types). It can be achieved 
+		by an overriding relevant methods:</p>
+		<pre name="code" class="java">PD4PageMark footer = new PD4PageMark() {
+	public String getHtmlTemplate(int pageNumber) {
+		if ( pageNumber % 2 == 0 ) {
+			return &quot;&lt;html&gt;&lt;body&gt;some left aligned stuff...&quot;;
+		} else {
+			return &quot;&lt;html&gt;&lt;body&gt;some right aligned stuff...&quot;;
+		}
+	}
+};
+pd4ml.setPageFooter(footer);</pre>
+		<br />
+		<br />
+		The above example defines page-specific HTML footer. Such type of footers 
+		is not supported by PD4ML Std. For the Std verison you may override:<br />
+		<br />
+		<span style="font-weight: bold">PD4PageMark.getPageNumberTemplate(int pageNr);<br />
+		PD4PageMark.getPageNumberAlignment(int pageNr);<br />
+		PD4PageMark.getTitleTemplate(int pageNr);</span><br />
+		etc
+		<p><font color="#FF0000"><b>Note:</b></font> by the approach it will 
+		allocate header or footer space even if for particular pages the 
+		overridden methods return no header/footer data.</p>
+		<p>&nbsp;</p>
+		<p>PDF header/footer discussion is
+		<a href="http://pd4ml.com/support/html-pdf-faq-f1/pdf-page-headers-footers-definition-options-t41.html">
+		here</a></p>
+		</td>
+	</tr>
+</table>
+
+</body>

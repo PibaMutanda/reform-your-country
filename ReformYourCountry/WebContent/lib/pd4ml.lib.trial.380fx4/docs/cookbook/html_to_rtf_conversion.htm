@@ -1,0 +1,99 @@
+<!--%canvas:pagelight.htm%-->
+<!--%title:PD4ML Cookbook - HTML-to-RTF converter for Java and .NET%-->
+<!--%keywords:java, create rtf from php, create rtf, html rtf, html to rtf, html to rtf java, java create rtf, php generate rtf, php rtf generator, php rtf generation%-->
+<!--%description:PD4ML reference. PD4ML is a Java library, which allows to create PDF and RTF documents from Java/JSP/.NET applications using HTML as template language%-->
+
+<link rel="stylesheet" type="text/css" href="../i/docs.css">
+<link rel="stylesheet" type="text/css" href="../main.css">
+
+<link type="text/css" rel="stylesheet" href="../i/SyntaxHighlighter/Styles/SyntaxHighlighter.css"></link>
+ 
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shCore.js"></script>
+ 
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCSharp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCss.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJava.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJScript.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPhp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPython.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushRuby.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushSql.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushVb.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushXml.js"></script>
+ 
+ 
+<script language="javascript"> 
+function dpOnLoad() {
+	dp.SyntaxHighlighter.ClipboardSwf = '../i/SyntaxHighlighter/Scripts/clipboard.swf';
+	dp.SyntaxHighlighter.HighlightAll('code');
+}
+</script>
+
+</head>
+
+<body onload="dpOnLoad()">
+
+ 
+
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top" class="content" width="99%">
+<a href="/cookbook/"><< <b>back</b></a><b> </b>
+
+<h3>PD4ML: HTML-to-RTF conversion</h3>
+The main purpose of PD4ML is generation of PDF documents from HTML templates. 
+However it also can output some other formats, including RTF. 
+<p>The feature has been initially developed as an option to produce editable document drafts (for remarks, annotations etc). But now it's grown up 
+to a mature product.</p>
+<p>A switch to RTF generation can be done with one of the following API calls:</p>
+<p>
+
+<pre name="code" class="Java">
+pd4ml.outputFormat(PD4Constants.RTF);
+// or optionally...
+pd4ml.outputFormat(PD4Constants.RTF_WMF);
+</pre>
+
+The equivalents in JSP taglib:
+
+<pre name="code" class="Xml">&lt;pd4ml:transform ... outputFormat=&quot;rtf&quot;&gt; ... &lt;/pd4ml:transform&gt;
+
+&lt;pd4ml:transform ... outputFormat=&quot;rtfwmf&quot;&gt; ... &lt;/pd4ml:transform&gt;</pre>
+
+
+(in the case the transform tag automatically sets corresponding <b>Content-type</b> 
+HTTP header &quot;<b>application/rtf</b>&quot;)<p>In the command line tool: 
+
+</p>
+
+<pre name="code" class="Java">
+java -Xmx512m -Djava.awt.headless=true -cp ./pd4ml.jar Pd4Cmd &lt;URL&gt; 1200 -out doc.rtf -outformat rtf
+
+java -Xmx512m -Djava.awt.headless=true -cp ./pd4ml.jar Pd4Cmd &lt;URL&gt; 1200 -out doc.rtf -outformat rtfwmf
+</pre>
+
+The only difference between RTF and RTF_WMF is in embedded images: with RTF it 
+embeds to RTF images &quot;as is&quot;: PNG, JPEG etc. In RTF_WMF mode it converts al 
+images to WMF format for compatibility with <b>WordPad.exe</b>. As a drawback of 
+the image compatibility is a significantly bigger output file size.<p>PD4ML is 
+able to convert from rendered HTML layout to RTF the following elements:</p>
+<ul>
+	<li>Page margins</li>
+	<li>Text styles and fonts</li>
+	<li>Text backgrounds</li>
+	<li>Text indentation</li>
+	<li>Tables (with correct table nesting). It supports col- and row-spans, 
+	table and cell backgrounds, cell paddings. Border style (color, width) is 
+	not supported for the time being.</li>
+	<li>Images</li>
+	<li>Hyperlinks (external and internal), image hyperlinks</li>
+	<li>Headers / footers. There is a possibility to define individual header 
+	and footer for title page.</li>
+</ul>
+<p>Despite the fact RTF format is quite old and standardized, only few viewers 
+implement all its features. For example on MacOS platform tables appear 
+corrupted (as a set of text paragraphs) and images are not shown at all. <b>MS 
+Word</b> probably is the most features-rich RTF viewer/editor application.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</td></tr></table>

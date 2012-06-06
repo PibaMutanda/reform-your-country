@@ -1,0 +1,130 @@
+<!--%canvas:pagelight.htm%-->
+<!--%title:PD4ML Reference Manual - HTML-to-PDF converter for Java and .NET%-->
+<!--%keywords:java, create pdf from php, create pdf, html pdf, html to pdf, html to pdf java, java create pdf, php generate pdf, php pdf generator, php pdf generation%-->
+<!--%description:PD4ML reference. PD4ML is a Java library, which allows to create PDF documents from Java/JSP applications using HTML as template language%-->
+
+<link rel="stylesheet" type="text/css" href="../i/docs.css">
+<link rel="stylesheet" type="text/css" href="../main.css">
+
+<link type="text/css" rel="stylesheet" href="../i/SyntaxHighlighter/Styles/SyntaxHighlighter.css"></link>
+ 
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shCore.js"></script>
+ 
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCSharp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCss.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJava.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJScript.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPhp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPython.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushRuby.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushSql.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushVb.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushXml.js"></script>
+ 
+ 
+<script language="javascript"> 
+function dpOnLoad() {
+	dp.SyntaxHighlighter.ClipboardSwf = '../i/SyntaxHighlighter/Scripts/clipboard.swf';
+	dp.SyntaxHighlighter.HighlightAll('code');
+}
+</script>
+
+</head>
+
+<body onload="dpOnLoad()">
+
+ 
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top" class="content" width="99%">
+<a href="/cookbook/"><< <b>back</b></a><b> </b>
+
+<h3>PD4ML: PDF Document Watermarking</h3>
+&nbsp;<p>
+
+To watermark resulting document PD4ML uses <b>PD4PageMark</b> class, primarily 
+used for definition of page headers and footers.
+
+<p>
+
+If <b>areaHeight</b> attribute of a class object is not set to any positive value, it 
+defines no header, no footer. In the case the instance can be used for pure watermarking. 
+Of course you may combine both: watermark and header definitions.<br>
+<br>
+PD4ML API has 2 methods, which accept <b>PD4PageMark</b> objects as parameter; you may define 2 watermark images for resulting documents 
+if needed.
+<p>
+
+<b>PD4PageMark.setWatermark()</b> method allows you to control image opacity. 
+Technically speaking, it embeds to PDF an image and adds to it a soft mask to it.<p>
+
+<b><font color="#FF0000">Important to know:</font></b> Adobe Acroread uses different page rendering algorithms depending if a 
+particular PDF page has images with soft masks (alpha channels) or does not. In 
+a case of watermarks it definitely has. For some strange reasons an existence of 
+a soft mask makes font glyphs appear with rough edges (it does not impact print output - it is only a problem of screen view).<pre name="code" class="Java">
+
+package samples;;
+
+import java.awt.Insets;
+import java.awt.Rectangle;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.security.InvalidParameterException;
+
+import org.zefer.pd4ml.PD4Constants;
+import org.zefer.pd4ml.PD4ML;
+import org.zefer.pd4ml.PD4PageMark;
+
+public class PD4Watermarks {
+	protected int topValue = 10;
+	protected int leftValue = 20;
+	protected int rightValue = 10;
+	protected int bottomValue = 10;
+	protected int userSpaceWidth = 1300;
+
+	public static void main(String[] args) {
+		try {
+			PD4Watermarks jt = new PD4Watermarks();
+			jt.doConversion("http://pd4ml.com/sample.htm", "c:/pd4ml.pdf");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void doConversion( String url, String outputPath ) 
+					throws InvalidParameterException, MalformedURLException, IOException {
+			File output = new File(outputPath);
+			java.io.FileOutputStream fos = new java.io.FileOutputStream(output);
+
+			PD4ML pd4ml = new PD4ML();
+			pd4ml.setHtmlWidth(userSpaceWidth);
+			pd4ml.setPageSize(pd4ml.changePageOrientation(PD4Constants.A4));
+			pd4ml.setPageInsetsMM(new Insets(topValue, leftValue, bottomValue, rightValue));
+			pd4ml.useTTF("c:/windows/fonts", true);
+
+			PD4PageMark footer = new PD4PageMark();
+			footer.setWatermark(
+					// watermark image location URL. 
+					// For local images use "file:" protocol i.e. "file:images/logo.png"
+					"http://pd4ml.com/i/logo.png", 
+					// watermark image position
+					new Rectangle(10,10,300,200),  
+					// watermark opacity in percents
+					30);                           							
+			pd4ml.setPageFooter(footer); 
+			// or pd4ml.setPageHeader(footer); which takes the same effect by watermarking
+			
+			pd4ml.render(new URL(url), fos);
+			fos.close();
+			
+			System.out.println( outputPath + "\ndone." );
+	}
+}
+
+
+</pre>
+
+
+</td></tr></table>

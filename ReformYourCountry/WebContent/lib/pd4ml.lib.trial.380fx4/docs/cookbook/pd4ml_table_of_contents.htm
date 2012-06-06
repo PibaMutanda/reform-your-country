@@ -1,0 +1,111 @@
+<!--%canvas:pagelight.htm%-->
+<!--%title:PD4ML Cookbook - HTML-to-PDF converter for Java and .NET%-->
+<!--%keywords:java, create pdf from php, create pdf, html pdf, html to pdf, html to pdf java, java create pdf, php generate pdf, php pdf generator, php pdf generation%-->
+<!--%description:PD4ML reference. PD4ML is a Java library, which allows to create PDF documents from Java/JSP applications using HTML as template language%-->
+
+<link rel="stylesheet" type="text/css" href="../i/docs.css">
+<link rel="stylesheet" type="text/css" href="../main.css">
+
+<link type="text/css" rel="stylesheet" href="../i/SyntaxHighlighter/Styles/SyntaxHighlighter.css"></link>
+ 
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shCore.js"></script>
+ 
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCSharp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCss.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJava.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJScript.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPhp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPython.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushRuby.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushSql.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushVb.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushXml.js"></script>
+ 
+ 
+<script language="javascript"> 
+function dpOnLoad() {
+	dp.SyntaxHighlighter.ClipboardSwf = '../i/SyntaxHighlighter/Scripts/clipboard.swf';
+	dp.SyntaxHighlighter.HighlightAll('code');
+}
+</script>
+
+</head>
+
+<body onload="dpOnLoad()">
+
+ 
+
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top" class="content" width="99%">
+<a href="/cookbook/"><< <b>back</b></a><b> </b>
+
+<h3>PD4ML Table Of Contents</h3>
+PD4ML supports automatic TOC generation with a proprietary tag <b>&lt;pd4ml:toc&gt;</b> 
+The tag builds TOC table from H1-H6 headings structure.<p>The result looks like 
+that:</p>
+<p><img border="0" src="../i/screenshot006.png" width="715" height="651"></p>
+<p>On practice you may face with a necessity to suppress some minor TOC levels, 
+or to remove paging info of major TOC levels.</p>
+<p>It can be achieved via an applying of CSS style to relevant elements.</p>
+<p>PD4ML replaces &lt;pd4ml:toc&gt; tag with a table like the following:</p>
+<p>
+
+<pre name="code" class="Xml">
+
+&lt;table class=&quot;ptoc-table&quot; cellspacing=&quot;0&quot;&gt;
+&lt;tr class=&quot;ptoc1-row&quot;&gt;
+    &lt;td class=&quot;ptoc-left-col&quot;&gt;&lt;a class=&quot;ptoc-link&quot; href=&quot;#ptoc_1&quot;&gt;
+        &lt;div class=&quot;ptoc1-style-left&quot;&gt;Chapter 1&lt;pd4ml-dots&gt;&lt;/div&gt;&lt;/a&gt;&lt;/td&gt;
+    &lt;td class=&quot;ptoc-right-col&quot;&gt;&lt;a class=&quot;ptoc-link&quot; href=&quot;#ptoc_1&quot;&gt;
+        &lt;div class=&quot;ptoc1-style-right&quot;&gt;1&lt;/div&gt;&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/tr&gt;
+&lt;tr class=&quot;ptoc2-row&quot;&gt;
+    &lt;td class=&quot;ptoc-left-col&quot;&gt;&lt;a class=&quot;ptoc-link&quot; href=&quot;#ptoc_2&quot;&gt;
+        &lt;div class=&quot;ptoc2-style-left&quot;&gt;Chapter 1.1&lt;pd4ml-dots&gt;&lt;/div&gt;&lt;/a&gt;&lt;/td&gt;
+    &lt;td class=&quot;ptoc-right-col&quot;&gt;&lt;a class=&quot;ptoc-link&quot; href=&quot;#ptoc_2&quot;&gt;
+        &lt;div class=&quot;ptoc2-style-right&quot;&gt;2&lt;/div&gt;&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/tr&gt;
+&lt;tr class=&quot;ptoc2-row&quot;&gt;
+    &lt;td class=&quot;ptoc-left-col&quot;&gt;&lt;a class=&quot;ptoc-link&quot; href=&quot;#ptoc_3&quot;&gt;
+        &lt;div class=&quot;ptoc2-style-left&quot;&gt;Chapter 1.2&lt;pd4ml-dots&gt;&lt;/div&gt;&lt;/a&gt;&lt;/td&gt;
+    &lt;td class=&quot;ptoc-right-col&quot;&gt;&lt;a class=&quot;ptoc-link&quot; href=&quot;#ptoc_3&quot;&gt;
+        &lt;div class=&quot;ptoc2-style-right&quot;&gt;2&lt;/div&gt;&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/tr&gt;
+&lt;tr class=&quot;ptoc3-row&quot;&gt;
+    &lt;td class=&quot;ptoc-left-col&quot;&gt;&lt;a class=&quot;ptoc-link&quot; href=&quot;#ptoc_4&quot;&gt;
+        &lt;div class=&quot;ptoc3-style-left&quot;&gt;Chapter 1.2.1&lt;pd4ml-dots&gt;&lt;/div&gt;&lt;/a&gt;&lt;/td&gt;
+    &lt;td class=&quot;ptoc-right-col&quot;&gt;&lt;a class=&quot;ptoc-link&quot; href=&quot;#ptoc_4&quot;&gt;
+        &lt;div class=&quot;ptoc3-style-right&quot;&gt;3&lt;/div&gt;&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+</pre>
+
+In order to suppress page number info for, let's say, level H3, an obvious CSS approach is
+
+<pre name="code" class="Java">
+div.ptoc3-style-left pd4ml-dots, div.ptoc3-style-right {visibility: hidden}
+</pre>
+
+
+<p><img border="0" src="../i/screenshot007.png" width="715" height="651"></p>
+<p>Another way is to apply a special CSS property to H3 tags itself:&nbsp; </p>
+<pre name="code" class="Java">
+H3 {pd4toc: nopagenum}
+</pre>
+
+
+<p>That also allows you to apply the property to individual H3 tags. For 
+example: <b>&lt;h3 pd4toc=&quot;nopagenum&quot;&gt;</b><p>If you need to 
+completely remove some TOC levels, here is a solution:
+
+<pre name="code" class="Java">
+TR.ptoc3-row { display: none; visibility: hidden }
+</pre>
+
+<img src="../i/screenshot008.png">
+
+
+
+</td></tr></table>

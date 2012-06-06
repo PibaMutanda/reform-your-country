@@ -1,0 +1,122 @@
+<!--%canvas:pagelight.htm%-->
+<!--%title:PD4ML Cookbook - HTML-to-PDF converter for Java and .NET%-->
+<!--%keywords:java, create pdf from php, create pdf, html pdf, html to pdf, html to pdf java, java create pdf, php generate pdf, php pdf generator, php pdf generation%-->
+<!--%description:PD4ML cookbook. Dynamic PDF page format changes%-->
+
+<link rel="stylesheet" type="text/css" href="../i/docs.css">
+<link rel="stylesheet" type="text/css" href="../main.css">
+
+<link type="text/css" rel="stylesheet" href="../i/SyntaxHighlighter/Styles/SyntaxHighlighter.css"></link>
+ 
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shCore.js"></script>
+ 
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCSharp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCss.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJava.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJScript.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPhp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPython.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushRuby.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushSql.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushVb.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushXml.js"></script>
+ 
+ 
+<script language="javascript"> 
+function dpOnLoad() {
+	dp.SyntaxHighlighter.ClipboardSwf = '../i/SyntaxHighlighter/Scripts/clipboard.swf';
+	dp.SyntaxHighlighter.HighlightAll('code');
+}
+</script>
+
+</head>
+
+<body onload="dpOnLoad()">
+
+ 
+
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top" class="content" width="99%">
+<a href="/cookbook/"><< <b>back</b></a><b> </b>
+
+<h3>PDF dynamic format change</h3>
+<p>PD4ML page format output basics explained <a href="pdf_page_formatting.htm">
+here</a></p>
+There are situations, when the initial page format conversion parameters need to 
+be changed to reflect content specifics. For example a wide table among &quot;normal&quot; 
+document text. An adjusting of <b>htmlWidth</b> to match the table width is a 
+solution, but (1) it scales down the entire document content and (2) makes text 
+lines longer if they are not limited by a block element box. Both negatively 
+impact a document readability.<p>A better solution would be to change <b>
+pageFormat</b> or <b>htmlWidth</b> for particular pages only.</p>
+<p>1. A wide portion of document is slightly wider than the main content. </p>
+<p>In the 
+case probably a dynamic change from <b>portrait</b> to <b>landscape</b> page 
+orientation is a solution. The benefit of the approach is that it does not 
+impact the actual HTML-to-PDF scale factor.</p>
+<p>It can be achieved by a parameterized page break tag:</p>
+
+<pre name="code" class="Xml">
+... main content ...
+&lt;pd4ml:page.break pageFormat=&quot;rotate&quot;&gt;
+... wide data ...
+&lt;pd4ml:page.break pageFormat=&quot;reset&quot;&gt;
+... main content (continued) ...
+</pre>
+
+<p>
+
+
+<img border="0" src="../i/screenshot004.png" width="715" height="651"><p>
+
+
+&nbsp;<p>
+
+
+2. Wide content portion is slightly wider the main document content, but page 
+orientation change still gives not enough horizontal space. In the case probably 
+an additional slight scaling down of the content helps.<p>
+
+
+It can be achieved by a temporal impact to the actual <b>htmlWidth</b> value. Making it a 
+bit greater scales the content down correspondingly.<p>
+
+<pre name="code" class="Xml">
+... main content, htmlWidth is 600 ...
+&lt;pd4ml:page.break pageFormat=&quot;rotate&quot; htmlWidth=&quot;700&quot;&gt;
+... wide data ...
+&lt;pd4ml:page.break pageFormat=&quot;reset&quot; htmlWidth=&quot;reset&quot;&gt;
+... main content (continued) ...
+</pre>
+
+
+
+<p><img border="0" src="../i/screenshot005.png" width="715" height="651"></p>
+<p>This time there is enough space for 6 columns, however the content is scaled 
+down.</p>
+<p>&nbsp;</p>
+
+
+
+3. Wide content portion significantly wider the main document layout.<p>
+
+
+The best solution would be to re-think the document layout and the way the data 
+organized. If it is not possible, probably a solution would be to change page 
+format to a greater one: for instance from A4 to A3 or to an arbitrary dimensions (WxH in typographical points), 
+hoping the target printer is clever enough to print the oversized formats as stitchable segments<p>
+
+<pre name="code" class="Xml">
+...
+&lt;pd4ml:page.break pageFormat=&quot;A3&quot;&gt;
+...
+&lt;pd4ml:page.break pageFormat=&quot;2000x1000&quot;&gt;
+...
+</pre>
+
+Hopefully a playing with <b>pageFormat </b>and <b>htmlWidth </b>attributes will help you to produce an acceptable document layout yet readable in printed form.<p>
+
+
+&nbsp;</td></tr></table>
