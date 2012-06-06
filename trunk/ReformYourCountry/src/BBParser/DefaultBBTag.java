@@ -204,7 +204,10 @@ public class DefaultBBTag extends ABBTag {
             				  out.append("<span style='color:red;'>the attribute "+a.getValue()+" throws some exception: "+a.getName()+"</span>");
             			  }
             			  else if(a.getName().toLowerCase().equals("bib")){
-            				  bibSignature= "<span class=\"bibref\"><a href=\"/Bibliography/"+a.getValue()+"\">["+a.getValue()+ "]</a></span>";
+            				  bibSignature+= "<a href=\"/Bibliography#"+a.getValue()+"\">["+a.getValue()+ "]</a>";
+            			  }
+            			  else if(a.getName().toLowerCase().equals("addbib")){
+            				  bibSignature+= " "+a.getValue();
             			  }
             			  else{
             				  attributeAsString=" "+ a.getName() +"=\""+a.getValue()+"\"";
@@ -214,7 +217,15 @@ public class DefaultBBTag extends ABBTag {
             	  }
             	  
               }
-              out = new StringBuilder(GetHtmlOpenTag()+out+bibSignature+GetHtmlClosingTag() );
+              if (!bibSignature.equals("")){
+            	  String endTag= GetHtmlClosingTag();
+            	  if (endTag.contains("span")){
+            		  bibSignature="<span class=\"bibref\">"+bibSignature+endTag;
+            	  }else{
+            		  bibSignature="<div class=\"bibref-after-block\">"+bibSignature+endTag;
+            	  }
+              }
+              out = new StringBuilder(GetHtmlOpenTag()+out+GetHtmlClosingTag()+bibSignature );
         	}
         }
 
@@ -228,12 +239,11 @@ public class DefaultBBTag extends ABBTag {
     			specialValue="";
     			if ((this.attributes.get("inline")!=null) && (this.attributes.get("inline").getValue().toLowerCase().contains("true")))
     			{
-    				specialValue = "quote-inline";
+    				return "<span class=\"quote-inline\">";
     			}else
     			{
-    				specialValue = "quote-block";
+    				return "<div class=\"quote-block\">";
     			}
-    			return "<div class=\""+specialValue+"\">";
     		case "link":
     			specialValue="";
     			if (this.attributes.get("article")!=null)
@@ -256,7 +266,13 @@ public class DefaultBBTag extends ABBTag {
     {
     	switch(this.name.toLowerCase()){
     		case "quote":
-    			return "</div>";
+    			if ((this.attributes.get("inline")!=null) && (this.attributes.get("inline").getValue().toLowerCase().contains("true")))
+    			{
+    				return "</span>";
+    			}else
+    			{
+    				return "</div>";
+    			}
     		case "link":
     			return "</a>";
     		case "unquote":
