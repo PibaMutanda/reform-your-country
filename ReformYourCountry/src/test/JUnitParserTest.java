@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import BBParser.BBDomParser;
 
-public class JUnitTest1 {
+public class JUnitParserTest {
 
 	@Before
 	public void setUp() throws Exception {
