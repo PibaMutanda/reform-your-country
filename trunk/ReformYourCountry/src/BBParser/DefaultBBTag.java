@@ -176,7 +176,7 @@ public class DefaultBBTag extends ABBTag {
         //Foreach BBtag contained in the innertext of this bbtag, transform these BBtag in html
         for (BBTag t : children) {
             out.append(t.toString());
-            out.append(' ');
+            //out.append(' ');
         }
         //If it's not the Level 0 tag
         if (!(this.getName().equals(""))){
@@ -261,10 +261,23 @@ public class DefaultBBTag extends ABBTag {
     			return "</a>";
     		case "unquote":
     			return "</span>";
+    		case "untranslated":
+    			return "</div>";
+    		case "actionpoint":
+    			if (this.attributes.get("id").getValue()!=null)
+    				return GetActionPoint(this.attributes.get("id").getValue());
+    			else return "ActionPoint error";
     	}
 		return "";
     }
-    private void updateParent(BBTag bbTag) {
+    private String GetActionPoint(String value) {
+    	String result="<div class=\"actionpoint-title\">";
+		if (value.equals("34"))
+			result+="Coca gratuit</div><div class=\"actionpoint-body\">Il faut que le coca-cola soit gratuit chez TechnoFuturTIC</div>";
+		return result;
+	}
+
+	private void updateParent(BBTag bbTag) {
         if (bbTag == null) {
             throw new NullPointerException("Can not add null");
         }
