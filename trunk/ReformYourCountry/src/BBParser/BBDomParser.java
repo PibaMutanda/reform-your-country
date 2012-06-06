@@ -28,6 +28,8 @@ public class BBDomParser {
 
     protected BBTag parseOpenTag(String part) {
         String tagName = getTagName(part);
+        if (part.equals("[...]"))
+        	return new DefaultBBTag(part, BBTagType.Text, part);
         if (tagName == null || !Character.isLetter(part.charAt(1))) {
             return null;
         }
