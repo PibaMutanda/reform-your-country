@@ -1,0 +1,78 @@
+<!--%canvas:pagelight.htm%-->
+<!--%title:PD4ML Cookbook - HTML-to-PDF converter for Java and .NET%-->
+<!--%keywords:java, create pdf from php, create pdf, html pdf, html to pdf, html to pdf java, java create pdf, php generate pdf, php pdf generator, php pdf generation%-->
+<!--%description:PD4ML reference. PD4ML is a Java library, which allows to create PDF documents from Java/JSP applications using HTML as template language%-->
+
+<link rel="stylesheet" type="text/css" href="../i/docs.css">
+<link rel="stylesheet" type="text/css" href="../main.css">
+
+<link type="text/css" rel="stylesheet" href="../i/SyntaxHighlighter/Styles/SyntaxHighlighter.css"></link>
+ 
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shCore.js"></script>
+ 
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCSharp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCss.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJava.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJScript.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPhp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPython.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushRuby.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushSql.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushVb.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushXml.js"></script>
+ 
+ 
+<script language="javascript"> 
+function dpOnLoad() {
+	dp.SyntaxHighlighter.ClipboardSwf = '../i/SyntaxHighlighter/Scripts/clipboard.swf';
+	dp.SyntaxHighlighter.HighlightAll('code');
+}
+</script>
+
+</head>
+
+<body onload="dpOnLoad()">
+
+ 
+
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top" class="content" width="99%">
+<a href="/cookbook/"><< <b>back</b></a><b> </b>
+
+<h3>PD4ML: HTTP Proxy </h3>
+&nbsp;<p>
+If source HTML is behind a proxy, PD4ML can use the standard proxy settings, 
+defined for JVM. They can be set also in your Java code:
+
+<pre name="code" class="Java">
+if (proxyHost != null && proxyHost.length() != 0 && proxyPort != 0) {
+   	System.getProperties().setProperty("http.proxySet", "true");
+   	System.getProperties().setProperty("http.proxyHost", proxyHost);
+   	System.getProperties().setProperty("http.proxyPort", "" + proxyPort);
+}
+</pre>
+
+For older JVM (deprecated variable names):
+
+<pre name="code" class="Java">
+if (proxyHost != null && proxyHost.length() != 0 && proxyPort != 0) {
+   	System.getProperties().setProperty("proxySet", "true");
+   	System.getProperties().setProperty("proxyHost", proxyHost);
+   	System.getProperties().setProperty("proxyPort", "" + proxyPort);
+}
+</pre>
+
+The above approach has the major disadvantage - it is JVM-wide and can impact 
+functionality of "neighbor" Java applications.
+
+<p>If you need to define a proxy for PD4ML requests only, do it like that:</p>
+
+<pre name="code" class="Java">
+Map m = new HashMap();
+m.put(PD4Constants.PD4ML_HTTP_PROXY, proxyHost + ":" + proxyPort);
+pd4ml.setDynamicParams(m);
+</pre>
+
+</td></tr></table>

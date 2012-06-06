@@ -1,0 +1,131 @@
+<!--%canvas:pagelight.htm%-->
+<!--%title:PD4ML Reference Manual - HTML-to-PDF converter for Java and .NET%-->
+<!--%keywords:java, create pdf from php, create pdf, html pdf, html to pdf, html to pdf java, java create pdf, php generate pdf, php pdf generator, php pdf generation%-->
+<!--%description:PD4ML reference. PD4ML is a Java library, which allows to create PDF documents from Java/JSP applications using HTML as template language%-->
+<link rel="stylesheet" type="text/css" href="../i/docs.css">
+<link rel="stylesheet" type="text/css" href="../main.css">
+<link type="text/css" rel="stylesheet" href="../i/SyntaxHighlighter/Styles/SyntaxHighlighter.css">
+</link>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shCore.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCSharp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCss.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJava.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJScript.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPhp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPython.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushRuby.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushSql.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushVb.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushXml.js"></script>
+<script language="javascript"> 
+function dpOnLoad() {
+	dp.SyntaxHighlighter.ClipboardSwf = '../i/SyntaxHighlighter/Scripts/clipboard.swf';
+	dp.SyntaxHighlighter.HighlightAll('code');
+}
+</script>
+</head>
+
+<body onload="dpOnLoad()">
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td valign="top" class="content" width="99%">
+<a href="/cookbook/"><< <b>back</b></a><b> </b>
+		<h3>PD4ML: Custom Resource Loaders</h3>
+&nbsp;<p></p>
+		
+		
+		In most of the situations PD4ML is able to resolve relative or absolute 
+		resource references (to images, to CSS etc) and load them. However there 
+		are special cases, when the default mechanisms are not sufficient.<br />
+		<br />
+		For example:<br />
+		<br />
+		<ul>
+			<li>The resources are stored in an unusual place, i.e. in a database.</li>
+			<li>The resources are referenced by an &quot;exotic&quot; or non-standard protocol. 
+			For instance, Weblogic and WebSphere SSL implementations are not derived 
+			from the standard JDK SSL classes PD4ML relies on, so it causes ClassCastException.</li>
+		</ul>
+		<br />
+		As a workaround PD4ML allows you to create your own resource loader, which 
+		takes an URL as a parameter, and should return the loaded resource as an 
+		array of bytes.<br />
+		<br />
+		<pre name="code" class="java">import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
+ 
+import org.zefer.cache.ResourceProvider;
+ 
+public class CustomFileResourceProvider extends ResourceProvider {
+ 
+	public byte[] getResourceAsBytes(String resource, boolean debugOn) throws IOException {
+		ByteArrayOutputStream fos = new ByteArrayOutputStream();
+		byte buffer[] = new byte[2048];
+ 
+		InputStream is = null;
+		
+		resource = &quot;http://pd4ml.com/i/&quot; + resource;
+		
+		URL src = new URL(resource);
+		URLConnection urlConnect = src.openConnection();
+		try {
+			urlConnect.connect();
+		} catch (Throwable e) {
+			return new byte[0];
+		}
+		is = urlConnect.getInputStream();
+		BufferedInputStream bis = new BufferedInputStream(is);
+ 
+		int read;
+		do {
+			read = is.read(buffer, 0, buffer.length);
+			if (read &gt; 0) { // something to put down
+				fos.write(buffer, 0, read);
+			}
+		} while (read &gt; -1);
+ 
+		fos.close();
+		bis.close();
+		is.close();
+ 
+		return fos.toByteArray();
+	}
+}</pre>
+		<br />
+		<br />
+		<br />
+		In order to enable the loader, you may either pass to PD4ML the class name 
+		with an environment variable (add the following to JVM command line):
+		<br />
+		<br />
+		<span style="font-weight: bold">-Dpd4ml.extra.resource.loaders=CustomFileResourceProvider</span><br />
+		<br />
+		or via API call:<br />
+		<br />
+		<pre name="code" class="java">HashMap map = new HashMap();
+map.put( &quot;pd4ml.extra.resource.loaders&quot;, &quot;CustomFileResourceProvider&quot; );
+pd4ml.setDynamicParams(map);</pre>
+		<br />
+		<br />
+		It may also be a coma-separated list of multiple resource loaders. 
+		<p><font color="#FF0000"><b>Note:</b></font> a custom resource loader 
+		can be called twice for each resource reference: first time it assumes 
+		the resource URL is a relative path, so it sets <b>resource</b> 
+		parameter to an URL, resolved according to a document base. If the first 
+		attempt has been responded with <b>null</b>, it is called with the 
+		original string from <b>SRC</b> attribute of <b>&lt;img&gt;</b> tag, for 
+		example. If the second time the resource loader responded with <b>null</b>, 
+		PD4ML tries to load the reference resource the regular way.</p>
+		<p>Custom resource loaders topic discussion is
+		<a href="http://pd4ml.com/support/pd4ml-html-css-pdf-tips-tricks-f7/a-definition-of-custom-resource-loaders-t40.html">
+		here</a>.</p>
+		<p>&nbsp;</td>
+	</tr>
+</table>
+
+</body>

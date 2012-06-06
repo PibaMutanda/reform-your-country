@@ -1,0 +1,136 @@
+<!--%canvas:pagelight.htm%-->
+<!--%title:PD4ML Reference Manual - HTML-to-PDF converter for Java and .NET%-->
+<!--%keywords:java, create pdf from php, create pdf, html pdf, html to pdf, html to pdf java, java create pdf, php generate pdf, php pdf generator, php pdf generation%-->
+<!--%description:PD4ML reference. PD4ML is a Java library, which allows to create PDF documents from Java/JSP applications using HTML as template language%-->
+
+<link rel="stylesheet" type="text/css" href="../i/docs.css">
+<link rel="stylesheet" type="text/css" href="../main.css">
+
+<link type="text/css" rel="stylesheet" href="../i/SyntaxHighlighter/Styles/SyntaxHighlighter.css"></link>
+ 
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shCore.js"></script>
+ 
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCSharp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCss.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJava.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJScript.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPhp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPython.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushRuby.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushSql.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushVb.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushXml.js"></script>
+ 
+ 
+<script language="javascript"> 
+function dpOnLoad() {
+	dp.SyntaxHighlighter.ClipboardSwf = '../i/SyntaxHighlighter/Scripts/clipboard.swf';
+	dp.SyntaxHighlighter.HighlightAll('code');
+}
+</script>
+
+</head>
+
+<body onload="dpOnLoad()">
+
+ 
+
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top" class="content" width="99%">
+<a href="/cookbook/"><< <b>back</b></a><b> </b>
+
+<h3>PD4ML: Substitution of placeholders with dynamic values.</h3>
+&nbsp;<p>
+
+HTML is a quite simple file format and normally there is no big problem to generate entire 
+dynamic HTML document on-a-fly: 
+either completely from scratch or by populating of a template.
+
+However there are situations, when a passing of HTML template plus a list of 
+dynamic values directly to PD4ML is more preferrable. For example in a case you 
+use <b>PD4Cmd</b> (command-line wrapper tool).<p>
+
+PD4ML defines a placeholder format like the following: <b>$[var]</b>, where
+<b>var</b> is a variable name.<p>
+
+A map with varname-&gt;value pairs is passed to PD4ML with <b>pd4ml.setDynamicParams()</b> API call.
+<b>Pd4Cmd</b> accepts the pairs in  <b>-param &lt;name&gt; &lt;value&gt;</b> form.<p>
+
+There are 3 built-in placeholders: <b>$[page]</b>, <b>$[total]</b> and <b>
+$[title]</b> used in headers/footers. Their names are reserved. Unfortunately 
+you cannot use the built-in placeholders in the document body, as page numbering 
+info and the total page number is known only at the very final stages of conversion 
+process.<p>
+
+&nbsp;<pre name="code" class="Java">
+package samples;
+
+import java.awt.Color;
+import java.awt.Insets;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.security.InvalidParameterException;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.zefer.pd4ml.PD4Constants;
+import org.zefer.pd4ml.PD4ML;
+import org.zefer.pd4ml.PD4PageMark;
+
+public class DynamicValues {
+	protected int topValue = 10;
+	protected int leftValue = 20;
+	protected int rightValue = 10;
+	protected int bottomValue = 10;
+	protected int userSpaceWidth = 1300;
+
+	public static void main(String[] args) {
+		try {
+			DynamicValues jt = new DynamicValues();
+			jt.doConversion("http://pd4ml.com/dynsample.htm", "c:/pd4ml.pdf");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void doConversion( String url, String outputPath ) 
+					throws InvalidParameterException, MalformedURLException, IOException {
+			File output = new File(outputPath);
+			java.io.FileOutputStream fos = new java.io.FileOutputStream(output);
+
+			PD4ML pd4ml = new PD4ML();
+			pd4ml.setHtmlWidth(userSpaceWidth);
+			pd4ml.setPageSize(pd4ml.changePageOrientation(PD4Constants.A4));
+			pd4ml.setPageInsetsMM(new Insets(topValue, leftValue, bottomValue, rightValue));
+			pd4ml.useTTF("c:/windows/fonts", true);
+
+			PD4PageMark footer = new PD4PageMark();
+			footer.setPageNumberTemplate("page $[page] of $[total]");
+			footer.setTitleTemplate("Title: $[title]");
+			footer.setTitleAlignment(PD4PageMark.LEFT_ALIGN);
+			footer.setPageNumberAlignment(PD4PageMark.RIGHT_ALIGN);
+			footer.setColor(new Color(0x008000));
+			footer.setFontSize(14);
+			footer.setAreaHeight(18);	
+			pd4ml.setPageFooter(footer);
+
+			Map m = new HashMap();
+			m.put("product",   "DJVU to PDF eBook Converter");
+			m.put("price", "$9.99");
+			pd4ml.setDynamicParams( m );
+			
+			pd4ml.render(new URL(url), fos);
+			fos.close();
+			
+			System.out.println( outputPath + "\ndone." );
+	}
+}
+
+</pre>
+
+
+</td></tr></table>

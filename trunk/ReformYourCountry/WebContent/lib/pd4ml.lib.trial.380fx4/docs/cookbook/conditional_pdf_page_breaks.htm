@@ -1,0 +1,83 @@
+<!--%canvas:pagelight.htm%-->
+<!--%title:PD4ML Cookbook - HTML-to-PDF converter for Java and .NET%-->
+<!--%keywords:java, create pdf from php, create pdf, html pdf, html to pdf, html to pdf java, java create pdf, php generate pdf, php pdf generator, php pdf generation%-->
+<!--%description:PD4ML reference. PD4ML is a Java library, which allows to create PDF documents from Java/JSP applications using HTML as template language%-->
+
+<link rel="stylesheet" type="text/css" href="../i/docs.css">
+<link rel="stylesheet" type="text/css" href="../main.css">
+
+<link type="text/css" rel="stylesheet" href="../i/SyntaxHighlighter/Styles/SyntaxHighlighter.css"></link>
+ 
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shCore.js"></script>
+ 
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCSharp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCss.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJava.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJScript.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPhp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPython.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushRuby.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushSql.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushVb.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushXml.js"></script>
+ 
+ 
+<script language="javascript"> 
+function dpOnLoad() {
+	dp.SyntaxHighlighter.ClipboardSwf = '../i/SyntaxHighlighter/Scripts/clipboard.swf';
+	dp.SyntaxHighlighter.HighlightAll('code');
+}
+</script>
+
+</head>
+
+<body onload="dpOnLoad()">
+
+ 
+
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top" class="content" width="99%">
+<a href="/cookbook/"><< <b>back</b></a><b> </b>
+
+<h3>PD4ML: Conditional PDF page breaks. Widows and Orphans</h3>
+PD4ML introduces a proprietary page break tag: <b>&lt;pd4ml:page.break&gt;</b> (and 
+its synonym <b>&lt;pd4ml-page-break&gt;</b> for strict contexts).<p>Without parameters 
+it just forces a pagebreak. But its <b>ifSpaceBelowLessThan</b> attribute allows us to keep some content portions on the same page.</p>
+<p>Let's say we have an image and a caption, belongs to it:</p>
+<p>
+
+<pre name="code" class="Xml">
+Chart #4.2&lt;br&gt;
+&lt;img src=&quot;images/chart42.png&quot; width=&quot;400&quot; height=&quot;300&quot;&gt;
+</pre>
+If we want to be 100% sure the caption and the image are on the same page,&nbsp; 
+we could put a page break tag before the caption definition. But that can result an inefficient previous page space usage or 
+can even result
+a blank page.<p>If we place a conditional page break tag:
+
+<pre name="code" class="Xml">
+&lt;pd4ml:page.break ifSpaceBelowLessThan=&quot;330&quot;&gt;
+Chart #4.2&lt;br&gt;
+&lt;img src=&quot;images/chart42.png&quot; width=&quot;400&quot; height=&quot;300&quot;&gt;
+</pre>
+it will break only if the remaining space on the current page is less than 330px
+
+
+
+(and the image 300px high and the caption - let's say 30px - do not fit the 
+space).<p>&nbsp;</p>
+<p>Another option to achieve similar functionality is to use CSS page break 
+control:</p>
+
+<pre name="code" class="Xml">
+&lt;table style=&quot;page-break-inside: avoid&quot;&gt;
+&lt;tr&gt;&lt;td&gt;
+Chart #4.2&lt;br&gt;
+&lt;img src=&quot;images/chart42.png&quot; width=&quot;400&quot; height=&quot;300&quot;&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;</pre>
+
+
+</td></tr></table>

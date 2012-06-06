@@ -1,0 +1,149 @@
+<!--%canvas:pagelight.htm%-->
+<!--%title:PD4ML Reference Manual - HTML-to-PDF converter for Java and .NET%-->
+<!--%keywords:java, create pdf from php, create pdf, html pdf, html to pdf, html to pdf java, java create pdf, php generate pdf, php pdf generator, php pdf generation%-->
+<!--%description:PD4ML reference. PD4ML is a Java library, which allows to create PDF documents from Java/JSP applications using HTML as template language%-->
+
+<link rel="stylesheet" type="text/css" href="../i/docs.css">
+<link rel="stylesheet" type="text/css" href="../main.css">
+
+<link type="text/css" rel="stylesheet" href="../i/SyntaxHighlighter/Styles/SyntaxHighlighter.css"></link>
+ 
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shCore.js"></script>
+ 
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCSharp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCss.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJava.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJScript.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPhp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPython.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushRuby.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushSql.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushVb.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushXml.js"></script>
+ 
+ 
+<script language="javascript"> 
+function dpOnLoad() {
+	dp.SyntaxHighlighter.ClipboardSwf = '../i/SyntaxHighlighter/Scripts/clipboard.swf';
+	dp.SyntaxHighlighter.HighlightAll('code');
+}
+</script>
+
+</head>
+
+<body onload="dpOnLoad()">
+
+ 
+
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top" class="content" width="99%">
+<a href="/cookbook/"><< <b>back</b></a><b> </b>
+
+<h3>PDF forms with PD4ML </h3>
+PD4ML API supports <b>generatePdfForms</b> conversion parameter, which forces 
+PD4ML to 
+convert HTML forms to corresponding PDF forms.<p>
+
+Below is a simple PDF-forms based server-side "calculator". It submits PDF form input to server-side script and recieves the form update as FDF data. 
+
+<b><br>
+<br>
+Note:</b> Preview.app of Mac OS X (default PDF reader of Safari browser) does not seem to support PDF form submitting.  
+
+<b><br>
+<br>
+index.jsp</b>
+<pre name="code" class="xml">&lt;%@ taglib uri="http://pd4ml.com/tlds/pd4ml/2.6" prefix="pd4ml" %>&lt;%@page
+contentType="text/html; charset=ISO8859_1"%>&lt;pd4ml:transform
+	screenWidth="300"
+	pageFormat="A5"
+	pageOrientation="landscape"
+	pageInsets="100,100,100,100,points"
+	enableImageSplit="false"
+	generatePdfForms="true"
+	enable="true">
+
+&lt;html>
+	&lt;head>
+		&lt;title>pd4ml test&lt;/title>
+		&lt;style type="text/css">
+			body {
+				color: #000000;
+				background-color: #FFFFFF;
+				font-family: Tahoma, "Sans-Serif";
+				font-size: 10pt;
+			}
+		&lt;/style>
+	&lt;/head>
+	&lt;body>
+
+&lt;form action="fdf.jsp" method=get name=test>
+&lt;table border=0>
+&lt;tr>
+&lt;td>Field 1:&lt;/td>&lt;td>&lt;input name=field1>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Field 2:&lt;/td>&lt;td>&lt;input name=field2>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Popup message:&lt;/td>&lt;td>&lt;input type=checkbox name=status value=ON>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Result:&lt;/td>&lt;td>&lt;input name=result readonly>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&nbsp;&lt;/td>&lt;td>&lt;input type=submit value=ADD>&lt;/td>
+&lt;/tr>
+&lt;/table>
+&lt;/form>
+
+	&lt;/body>
+&lt;/html>
+&lt;/pd4ml:transform></pre>
+
+
+<b>fdf.jsp</b>
+
+<pre name="code" class="xml"><%@page contentType="application/vnd.fdf"%>&lt;%
+int v1 = 0;
+int v2 = 0;
+try {
+	v1 = Integer.parseInt(request.getParameter("field1"));
+} catch ( NumberFormatException e ) {
+}
+try {
+	v2 = Integer.parseInt(request.getParameter("field2"));
+} catch ( NumberFormatException e ) {
+}
+int res = v1 + v2; // business logic of the script
+
+String status = request.getParameter("status");
+String message = ( status != null && status.length() > 0 ) ? "/Status (Well done!)" : "";
+%>
+%FDF-1.2
+1 0 obj
+&lt;&lt;/FDF
+   &lt;&lt;
+   	  &lt;%=message%>
+      /Fields
+      [
+		&lt;&lt; /T(result) /V(&lt;%=res%>) >>
+		&lt;&lt; /T(field1) /V(&lt;%=v1%>) >>
+		&lt;&lt; /T(field2) /V(&lt;%=v2%>) >>
+%		&lt;&lt; /T(status) /V(&lt;%=(message.length() > 0?"Yes":"Off")%>) >> % Checkbox init does not work for some reason
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ]
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /UF(&lt;%=request.getHeader("referer") %>)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /F(&lt;%=request.getHeader("referer") %>)
+&nbsp;&nbsp; >>
+>>
+endobj
+trailer
+&lt;&lt;/Root 1 0 R>>
+%%EOF</pre>
+
+<a href="http://pd4ml.com/support/download/file.php?id=101">Download the example 
+sources</a>
+
+</td></tr></table>

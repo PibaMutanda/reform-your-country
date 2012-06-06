@@ -1,0 +1,101 @@
+<!--%canvas:pagelight.htm%-->
+<!--%title:PD4ML Cookbook - HTML-to-PDF converter for Java and .NET%-->
+<!--%keywords:java, create pdf from php, create pdf, html pdf, html to pdf, html to pdf java, java create pdf, php generate pdf, php pdf generator, php pdf generation%-->
+<!--%description:PD4ML cookbook. PD4ML conversion parameters impact resulting page format and content scale%-->
+
+<link rel="stylesheet" type="text/css" href="../i/docs.css">
+<link rel="stylesheet" type="text/css" href="../main.css">
+
+<link type="text/css" rel="stylesheet" href="../i/SyntaxHighlighter/Styles/SyntaxHighlighter.css"></link>
+ 
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shCore.js"></script>
+ 
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCSharp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCss.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJava.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJScript.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPhp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPython.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushRuby.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushSql.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushVb.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushXml.js"></script>
+ 
+ 
+<script language="javascript"> 
+function dpOnLoad() {
+	dp.SyntaxHighlighter.ClipboardSwf = '../i/SyntaxHighlighter/Scripts/clipboard.swf';
+	dp.SyntaxHighlighter.HighlightAll('code');
+}
+</script>
+
+</head>
+
+<body onload="dpOnLoad()">
+
+ 
+
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top" class="content" width="99%">
+<a href="/cookbook/"><< <b>back</b></a><b> </b>
+
+<h3>PDF page format and content scaling</h3>
+There are 3 important PD4ML properties, impact resulting PDF page format and 
+layout: <b>pageSize</b>, <b>pageInsets</b> (margins), <b>htmlWidth</b> (also known as 
+userSpaceWidth in some contexts).<p><b>pageSize</b> defines output paper file format: <b>A4</b>, 
+<b>ISOB4</b>, <b>LETTER</b>, <b>LEGAL</b> etc. Corresponding constants are 
+defined in <b>PD4Constants</b> class, but you may define any non-standard page 
+dimension with, for instance, <b>new Dimension(400,400)</b> and pass it to <b>pd4ml.setPageSize()</b> method if the dimension are specified in typographical points, or to
+<b>pd4ml.setPageSizeMM()</b> if they are in millimeters.</p>
+<p>Default page format is <b>A4</b>, orientation <b>portrait</b>.</p>
+<p>PDF file format does not explicitly specifies on meta level if a particular 
+page is <b>landscape</b>- or <b>portrait</b>-oriented. If a page has its width greater than height - it is landscape, otherwise it is portait. 
+PD4ML implements &quot;page rotation&quot; by a simple swapping of page height and withs. 
+There is an utility method for that: </p>
+
+<pre name="code" class="Java">
+Dimension landscapeA4 = pd4ml.changePageOrientation(PD4Constants.A4);
+pd4ml.setPageSize(landscapeA4);
+</pre>
+</font>
+<p><b>pageInsets</b> define blank page area width around the page content 
+(margins). The default value for it <b>new Insets( 25, 50, 25, 25 )</b>, which 
+represents top, left, bottom, right margins correspondingly, given in 
+typographical points.</p>
+<p>Also the insets can be increased by HTML document margins (i.e. <b>&lt;body 
+style=&quot;margin: 50&quot;&gt;</b>). The HTML document margins have some specifics, when 
+converted to PDF: the top margin is applied on the first page only, the bottom 
+margin on the last page only.</p>
+<p>Document with no margins:</p>
+<p><img border="0" src="../i/screenshot002.png" width="715" height="651"></p>
+<p>Note:<b> PD4ML.addStyle() t</b>akes effect only in <b>PD4ML Pro</b> and 
+derived products. For <b>PD4ML Std</b> the style must be defined in HTML 
+document itself.</p>
+<p><b>htmlWidth</b> value defines &quot;virtual web browser&quot; frame width (in screen 
+pixels), and by default is set to <b>640</b>.</p>
+<p>PD4ML renders source HTML page using <b>htmlWidth</b> parameter and maps the 
+resulting layout to the efficient PDF page width (which is <b>pageFormat.width - 
+pageInsets.left - pageInsets.right</b>).</p>
+<p>That makes HTML-to-PDF scale factor computed like that:</p>
+<p><b>scale = (pageFormat.width - pageInsets.left - pageInsets.right) / htmlWidth</b></p>
+<p>From the above it is obvious, that an increasing htmlWidth makes the resulting document content appears smaller.</p>
+<p>Examples:</p>
+<b>htmlWidth = 800</b><br>
+
+<img border="0" src="../i/screenshot001.png" width="715" height="651">
+<p>&nbsp;</p>
+
+<b>htmlWidth = 1200</b>
+<br>
+&nbsp;<img border="0" src="../i/screenshot003.png" width="715" height="651">
+
+&nbsp;
+
+</p>
+<p>See also: <a href="pdf_dynamic_format_change.htm">Output page format change on-a-fly</a>
+</p>
+
+
+</td></tr></table>

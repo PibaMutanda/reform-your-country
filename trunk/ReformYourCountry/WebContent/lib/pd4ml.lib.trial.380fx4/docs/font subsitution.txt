@@ -1,0 +1,22 @@
+Input:
+
+List of font faces
+Default font faces
+useTTF flag
+TTF directory content
+pdf/a flag
+Default TTF directory
+List of default adobe fonts
+Default font substitution rules
+Java font substitution rules (.properties)
+Content string or character code ranges
+
+Output:
+
+For TTF embedding = true
+TTF font metrics
+Adobe font name (metrics)
+For PDF/A = true
+TTF font metrics
+For TTF embedding = false
+Adobe font name (metrics

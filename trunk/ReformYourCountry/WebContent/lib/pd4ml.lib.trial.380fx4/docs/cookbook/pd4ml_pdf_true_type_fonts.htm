@@ -1,0 +1,258 @@
+<!--%canvas:pagelight.htm%-->
+<!--%title:PD4ML Cookbook - HTML-to-PDF converter for Java and .NET%-->
+<!--%keywords:java, create pdf from php, create pdf, html pdf, html to pdf, html to pdf java, java create pdf, php generate pdf, php pdf generator, php pdf generation%-->
+<!--%description:PD4ML cookbook. Embedding TTF fonts to PDF%-->
+<link rel="stylesheet" type="text/css" href="../i/docs.css">
+<link rel="stylesheet" type="text/css" href="../main.css">
+<link type="text/css" rel="stylesheet" href="../i/SyntaxHighlighter/Styles/SyntaxHighlighter.css">
+</link>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shCore.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCSharp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCss.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJava.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJScript.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPhp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPython.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushRuby.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushSql.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushVb.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushXml.js"></script>
+<script language="javascript"> 
+function dpOnLoad() {
+	dp.SyntaxHighlighter.ClipboardSwf = '../i/SyntaxHighlighter/Scripts/clipboard.swf';
+	dp.SyntaxHighlighter.HighlightAll('code');
+}
+</script>
+</head>
+
+<body onload="dpOnLoad()">
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td valign="top" class="content" width="99%">
+<a href="/cookbook/"><< <b>back</b></a><b> </b>
+		<h3>PDF and True Type fonts</h3>
+		<p>As a rule PDF viewers include a set of built-in Type1 fonts like Times, 
+		Helvetica, Courier. It is guaranteeed, that PDFs with the fonts are shown 
+		correctly on any platform. Despite the fact, the fonts include most of UNICODE 
+		glyphs, PD4ML only addresses Latin subset of the fonts (ISO-8859-1). There 
+		are some technical issues behind the restriction.</p>
+		<p>The built-in Type1 fonts are the only fonts, you can use with PD4ML Std.</p>
+		<p>PD4ML Pro and derived licenses allow you to use all UNICODE space of 
+		custom TTF/OTF fonts in PDFs (if the fonts are not buggy and are compatible 
+		with Java runtime environment).</p>
+		<p>In order to do that, PD4ML requires you to configure and to use <b>TTF 
+		embedding feature</b> (<!-- m --><a class="postlink" href="http://pd4ml.com/reference.htm#7.1">http://pd4ml.com/reference.htm#7.1</a><!-- m -->)<br />
+		<br />
+		The way TTF embedding is implemented by PD4ML may look overcomplicated at 
+		first glance. On practice it is not so; also there are reasons why TTF usage 
+		is not as transparent as in regular Java applications.<br />
+		<br />
+		In Java you may easily instantiate Font object for any font face name and 
+		to use it for text output. But for PDF generation PD4ML needs an access 
+		not only to <span style="font-style: italic">java.awt.Font</span> objects, 
+		but to the corresponding physical .ttf files (to parse them and to extract 
+		a subset of used glyphs). Unfortunately Java does not offer a way to locate 
+		TTF file for a particular <span style="font-style: italic">java.awt.Font
+		</span>object.<br />
+		<br />
+		For that reason we introduced the <span style="font-weight: bold">font face 
+		-&gt; font file </span>mapping appraoch (with
+		<span style="font-weight: bold">pd4fonts.properties</span>).<br />
+		<br />
+		The needed actions are straightforward:<br />
+		</p>
+		<ol style="list-style-type: arabic-numbers">
+			<li>create fonts/ directory (i.e <span style="font-weight: bold">/path/to/my/fonts/</span>) 
+			and copy needed TTFs into it. </li>
+			<li>run pd4font.properties generation command <br />
+			<span style="font-weight: bold">java -jar pd4ml.jar -configure.fonts 
+			/path/to/my/fonts/</span><br />
+			(as a result it should produce <span style="font-weight: bold">/path/to/my/fonts/pd4font.properties</span>)</li>
+			<li>reference <span style="font-weight: bold">/path/to/my/fonts/</span> 
+			directory from your Java/JSP/... code.</li>
+		</ol>
+		<br />
+		<br />
+		If you want to avoid binding to a local directory, you may pack the fonts/ 
+		directory into a JAR, place it to classpath and access them via classloader.<br />
+		<br />
+		<!-- m --><a class="postlink" href="http://pd4ml.com/examples.zip">http://pd4ml.com/examples.zip</a><!-- m --> 
+		(~2MB) contains <span style="font-weight: bold">chinese_ttf</span> sample, 
+		which illustrates how to do that.<p>&nbsp;</p>
+		<p> <b>pd4fonts.properties </b>supports a special entry <b>ttf.fonts.dir</b>, 
+		which makes possible to store <b>pd4fonts.properties </b>separately from 
+		the font files. For example in a case you have no permission to write 
+		anything to the system font directory:</p>
+		<p><b>ttf.fonts.dir=c:/windows/fonts</b><br />
+		<br />
+		You do not need to add the entry manually. You may add second
+			<span style="font-weight: bold">-configure.fonts </span>parameter 
+		with a desired <b>pd4fonts.properties </b>location.</p>
+		<p>
+			<span style="font-weight: bold">java -jar pd4ml.jar -configure.fonts&nbsp;&nbsp; </span>
+		<b>c:/windows/fonts&nbsp;&nbsp; c:/work/fontmappings/</b><br />
+			or even more specific<br>
+			<span style="font-weight: bold">java -jar pd4ml.jar -configure.fonts&nbsp;&nbsp; </span>
+		<b>c:/windows/fonts&nbsp;&nbsp; c:/work/fontmappings/myfontmapping.properties</b></p>
+		<p>In the case PD4ML will insert automatically <b>ttf.fonts.dir</b>,
+		points to the given font directory.</p>
+		<p><b>Note:</b> in the second command-line example above, it produces 
+		.properties file with an arbitrary name:
+		<b>myfontmapping.properties</b>. That would require explicit file name 
+		in <b>useTTF()</b> call (or in the call equivalents):</p>
+		<p><b>pd4ml.useTTF( &quot;/work/fontmappings/myfontmapping.properties&quot;, true );</b></p>
+		<p>&nbsp;</p>
+		<p>Very often there is no necessity to support multiple font faces, but missing 
+		of special characters (like &amp;delta;, &amp;laquo; ...) or charsets (like Cyrillic, 
+		Arabic) support is critical.<br />
+		<br />
+		For the case we created a &quot;quick hack&quot; solution with easy-to-use TTF embedding.
+		<br />
+		<br />
+		There is a JAR with 3 fonts for serif, sansserif and monospaced types (the 
+		fonts do not contain CJK glyphs): <br />
+		<br />
+		<!-- m -->
+		<a class="postlink" href="http://pd4ml.com/i/easyfonts/fonts.jar">http://pd4ml.com/i/easyfonts/fonts.jar</a><!-- m --> 
+		(~2MB)<br />
+		<br />
+		Add the JAR to application&#39;s classpath (or put to
+		<span style="font-weight: bold">WEB-INF/lib</span> in webapp scenarios), 
+		address the fonts via Java classloader and specify, that the 3 fonts should 
+		be used as defaults:<br />
+		<br />
+		</p>
+		<pre name="code" class="java">
+pd4ml.useTTF( &quot;java:fonts&quot;, true );
+pd4ml.setDefaultTTFs(&quot;Times New Roman&quot;, &quot;Arial&quot;, &quot;Courier New&quot;);
+</pre>
+		<br />
+		<br />
+		(Full Java API example:
+		<!-- m -->
+		<a class="postlink" href="http://pd4ml.com/i/easyfonts/EasyFonts.java">http://pd4ml.com/i/easyfonts/EasyFonts.java</a><!-- m -->)<br />
+		<br />
+		JSP equivalent:<br />
+		<br />
+		<pre name="code" class="xml">&lt;pd4ml:usettf from=&quot;java:fonts&quot; serif=&quot;Times New Roman&quot; sansserif=&quot;Arial&quot; monospace=&quot;Courier New&quot;&gt;</pre>
+		<br />
+		<br />
+		The same for the PHP wrapper (assuming that
+		<span style="font-weight: bold">fonts.jar </span>is in the same dir where
+		<span style="font-weight: bold">pd4ml(_demo).jar </span>is):<br />
+		<br />
+		<pre name="code" class="php">passthru(&#39;java -Xmx512m -Djava.awt.headless=true -cp .:pd4ml_demo.jar:fonts.jar Pd4Php \&#39;&#39; . 
+                   $_POST[&#39;url&#39;] . &#39;\&#39; 800 A4 -ttf java:fonts 2&gt;&gt;stderr.txt&#39;);
+ 
+// Win32 version
+// passthru(&#39;java -Xmx512m -cp .;pd4ml_demo.jar;fonts.jar Pd4Cmd &#39; . 
+//                 $_POST[&#39;url&#39;] . &#39; 800 A4 -ttf fonts:jar&#39;);</pre>
+&nbsp;<p><b><font size="4">1.</font></b> What happens if HTML references a font 
+		like <b>Comic Sans MS</b>, but the font name-to-file mapping is missing 
+		in <b>pd4fonts.properties</b>? </p>
+		<p>In the case PD4ML tries to determine which group the font belongs to: 
+		Serif, SansSerif or Monospace. (For <b>Comic <font color="#FF0000">Sans</font> 
+		MS</b> it is <b><font color="#FF0000">Sans</font>Serif</b>). </p>
+		<p>After that it tries to load default group font: <b>Times New Roman</b>,
+		<b>Arial</b> or <b>Courier New</b> (or corresponding fonts, overridden 
+		with <b>pd4ml.<font SIZE="2">setDefaultTTFs()</font></b>)</p>
+		<p>If the fonts are missing as well, PD4ML walks so-called fallback tables to find any present font of the group 
+		to be used as a substitution.</p>
+		<p>Here are the substitution tables:</p>
+<pre name="code" class="java">
+private static String[] serifFallback = new String[] {
+	&quot;Times New Roman&quot;,
+	&quot;MS Mincho&quot;,
+	&quot;MingLiU&quot;,
+	&quot;SimSun&quot;,
+	&quot;Mangal&quot;,
+	&quot;David&quot;,
+	&quot;Batang&quot;,
+	&quot;Wingdings&quot;,
+	&quot;Symbol&quot;,
+	&quot;Lucida Sans Regular&quot;,
+};
+		
+private static String[] sansFallback = new String[] {
+	&quot;Arial&quot;,
+	&quot;MS Gothic&quot;,
+	&quot;MingLiU&quot;,
+	&quot;SimSun&quot;,
+	&quot;Mangal&quot;,
+	&quot;David&quot;,
+	&quot;Gulim&quot;,
+	&quot;Wingdings&quot;,
+	&quot;Symbol&quot;,
+	&quot;Lucida Sans Regular&quot;,
+};
+		
+private static String[] monoFallback = new String[] {
+	&quot;Courier New&quot;,
+	&quot;MS Gothic&quot;,
+	&quot;MingLiU&quot;,
+	&quot;SimSun&quot;,
+	&quot;Mangal&quot;,
+	&quot;David&quot;,
+	&quot;GulimChe&quot;,
+	&quot;Wingdings&quot;,
+	&quot;Symbol&quot;,
+	&quot;Lucida Sans Regular&quot;,
+};</pre>
+		<p>If nothing found, it uses corresponding built-in Type1 font.</p>
+
+		<p><b><font size="4">2.</font></b> What 
+		happens, when Chinese text is styled to be shown with <b>Arial</b>, 
+		however <b>Arial</b> font does not define <b>CJK</b> glyphs?<p>PD4ML 
+		performs a test if a particular content can be displayed with a chosen 
+		font. If not, it splits the text into smaller portions, differ by 
+		UNICODE group. It again checks each portion if it can be displayed with 
+		Arial; if not, it walks <b>sansFallback</b> table in order to find a 
+		font, that has needed glyphs and applies the font.<p><b><font size="4">3.</font></b> 
+		Can I override a fallback table with font faces of my choice?<p>No. But 
+		there is a workaround. The names in the fallback tables refer to font 
+		face names in <b>pd4fonts.properties</b>. So you may override the mapping in the 
+		<b>.properties</b> file.<p>For example, usually <b>Arial</b> is mapped 
+		to <b>arial.ttf</b><p><b>Arial=arial.ttf</b><p>If you change the entry 
+		in the 
+		<b>.properties</b> file to<p><b>Arial=comic.ttf</b></p>
+		<p>It will always use another font (<b>Comic Sans MS</b>) instead 
+		of Arial.</p><p><b><font size="4">4.</font></b> How font styles 
+		(bold/italic) correlate with TTF embedding logic?<p>TTF font files as a 
+		rule implement only one font style. For example <b>arial.ttf </b>- 
+		regular Arial, <b>arialbd.ttf </b>- Arial Bold. That means there is a 
+		separate mapping in <b>pd4fonts.properties </b>for each existing font 
+		style.<p>
+<pre name="code" class="java">Arial=arial.ttf
+Arial\ Italic=ariali.ttf
+Arial\ Bold=arialbd.ttf
+Arial\ Bold\ Italic=arialbi.ttf</pre>
+(spaces in font face names or style separating spaces are escaped with a backslash)
+		<p>The above notation means, for <b>&lt;font 
+		face=&quot;Arial&quot;&gt;&lt;b&gt;Text&lt;/b&gt;&lt;/font&gt;</b> PD4ML looks up <b>&quot;Arial Bold&quot;</b> 
+		entry in <b>pd4fonts.properties</b>, <br>
+		for <b>&lt;font 
+		face=&quot;Arial&quot;&gt;&lt;i&gt;&lt;b&gt;Text&lt;/b&gt;&lt;/i&gt;&lt;/font&gt;</b> 
+		is is <b>&quot;Arial Bold Italic&quot;</b>.</p>
+		<p>(Note: <b>&lt;font 
+		face=&quot;Arial Bold&quot;&gt;Text&lt;/font&gt;</b> and <b>&lt;font 
+		face=&quot;Arial Bold Italic&quot;&gt;Text&lt;/font&gt;</b> would take 
+		the same effect, but it is not a portable solution and it is not 
+		recommended in general).</p>
+		<p>There are some special cases. </p>
+		<p>For example <b>Copperplate Gothic Bold</b> has only one 
+		known style - bold. That means <b>&lt;font 
+		face=&quot;Copperplate Gothic&quot;&gt;&lt;b&gt;Text&lt;/b&gt;&lt;/font&gt; </b>
+		code correctly refers the font, but <b>&lt;font 
+		face=&quot;Copperplate Gothic&quot;&gt;Text&lt;/font&gt;</b> will fail, and 
+		a substitution font will be used.</p>
+		<p>Some fonts have only regular (not Bold, not Italic) style - it is 
+		true for most of CJK fonts. If there is no matching substitution, PD4ML 
+		emulates missing styles. Italic is emulated by an area tilt, Bold is by 
+		a font glyph stroke out.</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</td>
+	</tr>
+</table>
+
+</body>

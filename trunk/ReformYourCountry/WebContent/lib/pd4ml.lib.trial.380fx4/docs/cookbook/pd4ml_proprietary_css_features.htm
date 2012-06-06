@@ -1,0 +1,139 @@
+<!--%canvas:pagelight.htm%-->
+<!--%title:PD4ML Cookbook - HTML-to-PDF converter for Java and .NET%-->
+<!--%keywords:java, create pdf from php, create pdf, html pdf, html to pdf, html to pdf java, java create pdf, php generate pdf, php pdf generator, php pdf generation%-->
+<!--%description:PD4ML reference. PD4ML is a Java library, which allows to create PDF documents from Java/JSP applications using HTML as template language%-->
+
+<link rel="stylesheet" type="text/css" href="../i/docs.css">
+<link rel="stylesheet" type="text/css" href="../main.css">
+
+<link type="text/css" rel="stylesheet" href="../i/SyntaxHighlighter/Styles/SyntaxHighlighter.css"></link>
+ 
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shCore.js"></script>
+ 
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCSharp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushCss.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJava.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushJScript.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPhp.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushPython.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushRuby.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushSql.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushVb.js"></script>
+<script language="javascript" src="../i/SyntaxHighlighter/Scripts/shBrushXml.js"></script>
+ 
+ 
+<script language="javascript"> 
+function dpOnLoad() {
+	dp.SyntaxHighlighter.ClipboardSwf = '../i/SyntaxHighlighter/Scripts/clipboard.swf';
+	dp.SyntaxHighlighter.HighlightAll('code');
+}
+</script>
+
+</head>
+
+<body onload="dpOnLoad()">
+
+ 
+
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top" class="content" width="99%">
+<a href="/cookbook/"><< <b>back</b></a><b> </b>
+
+<h3>PD4ML: Proprietary CSS features</h3>
+As you know, PD4ML supports rendering/conversion of CSS-styled HTML 
+documents. However we never claim that PD4ML is CSS2 or CSS3 compliant. There 
+are some CSS features, whose implementation we decide to skip due to technical 
+complexities or potential performance issues; there are some features we ignored 
+as they are not that popular (from our perspective); some features are not 
+supported by our CSS parser.<p>FYI: PD4ML utilizes a third-party library <b>ss_css2.jar</b> of open-source 
+CSS Parser project. The library &quot;officially&quot; supports <b>CSS Level 2</b>, that 
+makes an implementation of highly demanded popular CSS3 features complicated, or 
+even impossible. We patched the library to workaround some limitations, however 
+there is still a number of open issues. <font size="1">(The patched source code 
+of the library is available for download from our site).</font></p>
+<p>By the <a href="http://pd4ml.com/css.htm">link</a> you can find the list of currently 
+supported CSS properties. As you may see the list ends with some non-standard 
+PD4ML-specific properties. Below we'll try to shed light on them.</p>
+<p>But first, we start with supported CSS media types and a proprietary type '<b>pdf</b>'.</p>
+<p><font size="4">1.</font> Media type '<b>pdf</b>'</p>
+<p>By default PD4ML applies CSS properties, defined for media type '<b>screen</b>' 
+(if a media type specified). Of course, it also applies styles of media type '<b>all</b>', 
+but '<b>print</b>' is ignored. If for some reason print styles must be applied, 
+PD4ML allows to enable them with the API call:</p>
+
+<pre name="code" class="Java">
+Map m = new HashMap();  
+m.put(PD4Constants.PD4ML_MEDIA_TYPE_PRINT, "add");  
+pd4ml.setDynamicParams(m); 
+</pre>
+The above code
+enables '<b>print</b>' media type in addition to '<b>screen</b>'. If '<b>screen</b>' 
+styles are undesired, the following disables '<b>screen</b>' and enables '<b>print</b>'.<pre name="code" class="Java">
+Map m = new HashMap();  
+m.put(PD4Constants.PD4ML_MEDIA_TYPE_PRINT, "override");  
+pd4ml.setDynamicParams(m); 
+</pre>
+
+In situations, when very special styles are required for pdf conversions only, there is a proprietary media type '<b>pdf</b>'. 
+As the type is known to PD4ML only, it will be ignored by the 
+regular web browsers.<p>
+
+<pre name="code" class="Css">
+@media pdf {
+	TR, IMG {page-break-inside: avoid;}
+}
+</pre>
+<b>CSS media queries</b> are not supported.
+<p>
+<font size="4">2.</font> Proprietary CSS properties</p>
+<ul>
+	<li><div><b>pd4ml-visibility</b> and <b>pd4ml-display</b>
+
+<p>With PD4ML-specific CSS properties <b>pd4ml-visibility</b> and <b>pd4ml-display</b> 
+there is a possibility to exclude particular elements from a resulting PDF 
+document. The properties syntax is more-less identical to the standard <b>
+display</b> and <b>visibility</b>.</p><pre name="code" class="Html">
+&nbsp;&lt;input style="pd4ml-display: none; pd4ml-visibility: hidden"&nbsp;
+&nbsp;&nbsp;&nbsp; type=submit value="Get the page as PDF"&gt;</pre><p>An opposite
+
+effect can be achieved with the code below. As you see, the proprietary 
+properties take precedence over the standard <b>visibility</b> and<b> display</b> in PD4ML 
+environment. But by the regular web browser they are not known and just ignored.<pre name="code" class="Html">
+&lt;div style="display: none; visibility: hidden; pd4ml-display: block; pd4ml-visibility: visible"&gt;
+The section is visible only in PDF report
+&lt;/div&gt;
+</pre></div></li><li><b>pd4toc</b> - CSS property to be applied to &lt;H1&gt;-&lt;H6&gt; heading tags to 
+	suppress page numbering in the table of contents (if defined with <b>
+	<a href="pd4ml_table_of_contents.htm">&lt;pd4ml:toc&gt;</a></b>). It can be 
+	applied to all headings of a particular level:<pre name="code" class="Css">
+H3 {pd4toc: nopagenum}
+</pre>or to selected tags individually.
+	<br>
+&nbsp;<p>
+</li>
+<li><b>pd4ml-bookmark-visibility</b> - makes possible to exclude some items from
+<a href="pdf_bookmarks.htm">PDF bookmarks structure</a>.<br>
+<pre name="code" class="Java">
+H3 { pd4ml-bookmark-visibility: hidden }
+</pre>or <b>&lt;h3 style=&quot;pd4ml-bookmark-visibility: hidden&quot;&gt;</b> for a 
+single bookmark exclusion.<br>
+&nbsp;</li>
+	<li><b>pd4ml-page-break-border-top</b> and <b>pd4ml-page-break-border-bottom</b> - 
+	the properties define borders for tables, broken by a page break.
+<pre name="code" class="Java">
+TR { page-break-inside: avoid;
+pd4ml-page-break-border-top: 1 solid red;
+pd4ml-page-break-border-bottom: 1 solid blue; }	
+</pre><br>&nbsp;</li>
+</ul>
+<font size="4">3.</font> Supported CSS selectors.<p>PD4ML supports most of CSS2 
+selectors including some popular CSS3 constructs. Here is the list.</p><table cellpadding=4>
+<tr><td><b>*</b></td><td>Universal selector </td><td>Matches any element</td></tr><tr><td><b>E</b></td><td>Type selectors</td><td>Matches any E element (i.e., an element of type E)</td></tr><tr><td><b>E.foo</b></td><td>Class selector</td><td>Matches E element of class &quot;foo&quot;</td></tr><tr><td><b>.foo </b>(or <b>*.foo</b>)</td><td>Class selector</td><td>Matches any element of class &quot;foo&quot;</td></tr><tr><td><b>E.foo.bar</b></td><td> Multi-class selector</td><td> Matches E element of 
+	both classes &quot;foo&quot; and &quot;bar&quot;</td></tr><tr><td><b>.foo.bar </b>(or <b>*.foo.bar</b>)</td><td> Multi-class selector</td><td> Matches any element of 
+	both classes &quot;foo&quot; and &quot;bar&quot;</td></tr><tr><td><b>E F</b></td><td>Descendant selectors </td><td>Matches any F element that is a child of an element E</td></tr><tr><td><b>E > F</b></td><td>Child selectors </td><td>Matches any F element that is a child of an element E</td></tr><tr><td><b>E:first-child </b> </td><td>The :first-child pseudo-class </td><td>Matches element E when E is the first child of its parent</td></tr><tr><td><b>E:nth-child(even|odd)</b></td><td>Structural pseudo-class selector</td><td> Matches E element, the even or odd child of its parent</td></tr><tr><td><b>E + F</b></td><td>Adjacent selectors </td><td>Matches any F element immediately preceded by a sibling element E</td></tr><tr><td><b>E[foo] </b> </td><td>Attribute selectors </td><td>Matches any E element with the &quot;foo&quot; attribute set (whatever the value)</td></tr><tr><td><b>E[foo="warning"] </b> </td><td>Attribute selectors </td><td>Matches any E element whose &quot;foo&quot; attribute value is exactly equal to &quot;warning&quot;</td></tr></table><p>The selectors can be combined or chained.</p></p><p>
+
+<p>
+
+</td></tr></table>
