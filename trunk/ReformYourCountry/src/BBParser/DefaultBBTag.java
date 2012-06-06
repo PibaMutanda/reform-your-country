@@ -170,7 +170,7 @@ public class DefaultBBTag extends ABBTag {
     @Override
     public String toString() {
 
-    	String attributeAsString ="";
+    	String notRecognizedAttribute ="";
     	String bibSignature="";
         StringBuilder out = new StringBuilder();
         //Foreach BBtag contained in the innertext of this bbtag, transform these BBtag in html
@@ -184,7 +184,7 @@ public class DefaultBBTag extends ABBTag {
         	if (this.getType()==BBTagType.Text){
         		out.append(this.name);
         	}else 
-        	if (this.getType()== BBTagType.Error){
+        	if (this.getType()== BBTagType.Error || GetHtmlOpenTag().equals("error")){
         		out.append("<span style='color:red;'>"+this.getName()+"</span>");
         	}
         	else {
@@ -215,8 +215,14 @@ public class DefaultBBTag extends ABBTag {
             				  else if (this.name.equals("link")) 
             					  bibSignature= "<a href=\""+a.getValue()+"\">";
             			  }
+            			  else if (a.getName().toLowerCase().equals("article")
+            					  ||a.getName().toLowerCase().equals("id")
+            					  ||a.getName().toLowerCase().equals("label")
+            					  ||a.getName().toLowerCase().equals("inline")){
+
+            			  }
             			  else{
-            				  attributeAsString=" "+ a.getName() +"=\""+a.getValue()+"\"";
+            				  notRecognizedAttribute="<span style='color:red;'>the attribute "+ a.getName() +" with value=\""+a.getValue()+"\" is not recognized</span>";
             			  }
             			 
             		  }
@@ -232,13 +238,13 @@ public class DefaultBBTag extends ABBTag {
             		  bibSignature="<div class=\"bibref-after-block\">"+bibSignature+endTag;
             	  }
             	  else if (this.name.equals("bib")){
-            		  return GetHtmlOpenTag()+bibSignature+out+GetHtmlClosingTag();
+            		  return GetHtmlOpenTag()+bibSignature+out+GetHtmlClosingTag()+ notRecognizedAttribute;
             	  }
             	  else if (this.name.equals("link")){
-            		  return bibSignature+out+"</a>";
+            		  return bibSignature+out+"</a>"+ notRecognizedAttribute;
             	  }
               }
-              out = new StringBuilder(GetHtmlOpenTag()+out+GetHtmlClosingTag()+bibSignature );
+              out = new StringBuilder(GetHtmlOpenTag()+out+GetHtmlClosingTag()+bibSignature+ notRecognizedAttribute );
         	}
         }
 
@@ -283,8 +289,11 @@ public class DefaultBBTag extends ABBTag {
     					return "</div><div class=\"bibref-after-block\">";
     				}
     			}
+    		case "actionpoint": return "";
+    		case "escape": return "";
     	}
-		return "";
+    	this.name +=" is not a recognized BB Tag.";
+		return "error";
     }
     private String GetHtmlClosingTag()
     {
