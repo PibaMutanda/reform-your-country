@@ -42,7 +42,7 @@ public class JUnitParserTest {
 	}
 	@Test
 	public void test7(){
-		assertEquals(new BBDomParser().parse(new StringReader("[quote bib=\"Gargamel66\" addbib=\"page 145-147\"]Je suis une citation d’un livre.[/quote]")).toString(),"<div class=\"quote-block\">Je suis une citation d’un livre.<div class=\"bibref-after-block\"><a href=\"/Bibliography#Gargamel666\">[Gargamel66]</a> page 145-147</div>");
+		assertEquals(new BBDomParser().parse(new StringReader("[quote bib=\"Gargamel66\" addbib=\"page 145-147\"]Je suis une citation d’un livre.[/quote]")).toString(),"<div class=\"quote-block\">Je suis une citation d’un livre.</div><div class=\"bibref-after-block\"><a href=\"/Bibliography#Gargamel66\">[Gargamel66]</a> page 145-147</div>");
 	}
 	@Test
 	public void test8(){
