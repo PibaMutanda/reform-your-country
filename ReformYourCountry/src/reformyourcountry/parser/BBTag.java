@@ -1,6 +1,7 @@
 package reformyourcountry.parser;
 
 import java.util.Collection;
+import java.util.List;
 
 public interface BBTag extends Iterable<BBTag> {
     BBTagType getType();
@@ -34,6 +35,9 @@ public interface BBTag extends Iterable<BBTag> {
     String getContent();
 
     boolean remove(BBAttribute o);
-
+    
     Collection<BBAttribute> attributes();
+    List<BBTag> getChildrenList();
+    void setErrorText(String text);
+    String getErrorText();
 }

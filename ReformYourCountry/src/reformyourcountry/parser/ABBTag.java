@@ -1,5 +1,8 @@
 package reformyourcountry.parser;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /** 
  * This holds the information of a tag in the tree. 
  * For example, in "blabla [quote inline'tru']abc[/quote]"
@@ -13,6 +16,19 @@ public abstract class ABBTag implements BBTag {
     protected BBTagType type;
     protected BBTag parent;
     protected String content;  // Would be "abc" in the example above
+    protected String errorText;
+    protected List<BBTag> children = new ArrayList<BBTag>();
+    
+    @Override
+    public String getErrorText(){
+    	return errorText;
+    }
+    @Override
+    public void setErrorText(String text){
+    	errorText = text;
+    	this.type = BBTagType.Error;
+    }
+
 
     //Constructor with no parent
     protected ABBTag(BBTagType type, String name, String content) {
@@ -68,5 +84,11 @@ public abstract class ABBTag implements BBTag {
     @Override
     public String getContent() {
         return content;
+    }
+    
+
+    @Override
+    public List<BBTag> getChildrenList(){
+    	return this.children;
     }
 }

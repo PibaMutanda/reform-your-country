@@ -2,13 +2,15 @@ package reformyourcountry.parser;
 
 import java.util.*;
 
+
+import reformyourcountry.parser.*;
+
 /**
  * @author xBlackCat
  */
 public class DefaultBBTag extends ABBTag {
-    protected List<BBTag> children = new ArrayList<BBTag>();
     protected Map<String, BBAttribute> attributes = new HashMap<String, BBAttribute>();
-
+    
     protected DefaultBBTag(String name, BBTagType type, String content) {
 	this(null, name, type, content);
     }
@@ -97,7 +99,10 @@ public class DefaultBBTag extends ABBTag {
 	updateParent(bbTag);
 	return children.set(index, bbTag);
     }
-
+    public Map<String, BBAttribute> getAttributes(){
+    	return this.attributes;
+    }
+    
     // @Override
     // public String getContent() {
     // StringBuilder content = new StringBuilder();
@@ -266,84 +271,7 @@ public class DefaultBBTag extends ABBTag {
 //
 //	return out.toString();
 //    }
-    private String GetHtmlOpenTag() {
-	String specialValue = "";
-	switch (this.name.toLowerCase()) {
-	case "quote":
-	    specialValue = "";
-	    if ((this.attributes.get("inline") != null)
-		    && (this.attributes.get("inline").getValue().toLowerCase()
-			    .contains("true"))) {
-		return "<span class=\"quote-inline\">";
-	    } else {
-		return "<div class=\"quote-block\">";
-	    }
-	case "link":
-	    specialValue = "";
-	    if (this.attributes.get("article") != null) {
-		specialValue = "/Article/"
-			+ this.attributes.get("article").getValue();
-	    } else if (this.attributes.get("out") != null) {
-		specialValue = this.attributes.get("out").getValue();
-	    }
-	    return "<a href=\"" + specialValue + "\">";
-	case "unquote":
-	    return "<span class=\"unquote\">";
-	case "untranslated":
-	    return "<div class=\"quote-untranslated\">";
-	case "bib":
-	    DefaultBBTag tag = (DefaultBBTag) this.parent;
-	    if (tag != null) {
-		if ((tag.attributes.get("inline") != null)
-			&& (tag.attributes.get("inline").getValue()
-				.toLowerCase().contains("true"))) {
-		    return "</span><span class=\"bibref\">";
-		} else {
-		    return "</div><div class=\"bibref-after-block\">";
-		}
-	    }
-	case "actionpoint":
-	    return "";
-	case "escape":
-	    return "";
-	}
-	this.name += " is not a recognized BB Tag.";
-	return "error";
-    }
-
-    private String GetHtmlClosingTag() {
-	switch (this.name.toLowerCase()) {
-	case "quote":
-	    if ((this.attributes.get("inline") != null)
-		    && (this.attributes.get("inline").getValue().toLowerCase()
-			    .contains("true"))) {
-		return "</span>";
-	    } else {
-		return "</div>";
-	    }
-	case "link":
-	    return "</a>";
-	case "unquote":
-	    return "</span>";
-	case "untranslated":
-	    return "</div>";
-	case "actionpoint":
-	    if (this.attributes.get("id").getValue() != null)
-		return GetActionPoint(this.attributes.get("id").getValue());
-	    else
-		return "ActionPoint error";
-	case "bib":
-	    return "</a>)";
-	}
-	return "";
-    }
-
-    private String GetActionPoint(String value) {
-	String result = "<div class=\"actionpoint-title\">";
-	if (value.equals("34"))
-	    result += "Coca gratuit</div><div class=\"actionpoint-body\">Il faut que le coca-cola soit gratuit chez TechnoFuturTIC</div>";
-	return result;
-    }
+   
 
     private void updateParent(BBTag bbTag) {
 	if (bbTag == null) {
