@@ -46,15 +46,15 @@ public class MainTestUser {
 
 	public static void consoleFormRegistration() {
 		Scanner scan = new Scanner(System.in);
-		String firstname, name, nickname, password, mail;
+		String firstname, name, username, password, mail;
 		Gender gender = null;
 		System.out
 				.println("welcome to the registration console\n we gonna register you\nplease enter your firstname");
 		firstname = scan.next();
 		System.out.println("please enter your lastname");
 		name = scan.next();
-		System.out.println("please enter your nickname");
-		nickname = scan.next();
+		System.out.println("please enter your username");
+		username = scan.next();
 		System.out.println("please select your gender\n1."
 				+ Gender.MALE.toString() + "\n2." + Gender.FEMALE.toString()
 				+ "\n\nplease select a gender : ");
@@ -73,7 +73,7 @@ public class MainTestUser {
 		password = scan.next();
 		System.out.println("please enter your email");
 		mail = scan.next();
-		userService.registerUser(true, firstname, name, gender, nickname,
+		userService.registerUser(true, firstname, name, gender, username,
 				password, mail);
 
 	}
@@ -82,7 +82,7 @@ public class MainTestUser {
 		String identifier, password;
 		Scanner scan = new Scanner(System.in);
 		System.out
-				.println("welcome to the registration console\nplease enter your nickname or email\n");
+				.println("welcome to the registration console\nplease enter your username or email\n");
 		identifier = scan.next();
 		System.out.println("please enter your password\n");
 		password = scan.next();

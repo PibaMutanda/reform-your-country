@@ -56,7 +56,7 @@ public class LoginService {
     /**
      * Typical entry point for login. Throws an exception if fails. else returns the user.
      * 
-     * @param identifier     e-mail or nickname
+     * @param identifier     e-mail or username
      * @param clearPassword  clear non encrypted password
      * @param keepLoggedIn   if user required auto-login via cookies in the future.
      * @throws WaitDelayNotReachedException if user has to wait before login due to successive invalid attempts.
@@ -70,7 +70,7 @@ public class LoginService {
     /**
      * Throws an exception if fails. else returns the user.
      * 
-     * @param identifier     e-mail or nickname
+     * @param identifier     e-mail or username
      * @param clearPassword  clear non encrypted password
      * @param keepLoggedIn   if user required auto-login via cookies in the future.
      * @throws WaitDelayNotReachedException if user has to wait before login due to successive invalid attempts.
@@ -181,7 +181,7 @@ public class LoginService {
 
     /**
      * @param identifier
-     *            e-mail or nickname
+     *            e-mail or username
      * @return null if not found
      * @throws UserNotFoundException 
      */
