@@ -94,7 +94,7 @@ public class BBConverter {
 		 		return tg.getContent();
 		 	}
 		 	if (tg.getType()== BBTagType.Error){
-		 		return "<span class=\"parse-error\">"+tg.getErrorText()+": "+tg.getContent()+"</span>";
+		 		return "<span class=\"parse-error\">"+tg.getErrorText()+": "+tg.getName()+"</span>";
 		 	}
 		 	DefaultBBTag tag = (DefaultBBTag) tg;
 			String notRecognizedAttribute = "";
