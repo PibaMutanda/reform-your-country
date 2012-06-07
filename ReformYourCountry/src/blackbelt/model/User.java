@@ -46,7 +46,7 @@ import org.apache.commons.lang.StringUtils;
 //import org.hibernate.annotations.SortType;
 //import org.hibernate.annotations.Type;
 
-import blackbelt.impl.UserServiceImpl;
+
 //import be.loop.jbb.bo.Belt;
 //import be.loop.jbb.bo.Decoration;
 //import be.loop.jbb.bo.tests.ExamPerformed;
@@ -586,13 +586,6 @@ public void setUserName(String userName) {
 		this.pictureName = pictureName;
 	}
 
-//	public String getSkypeId() {
-//		return skypeId;
-//	}
-//
-//	public void setSkypeId(String skypeId) {
-//		this.skypeId = skypeId;
-//	}
 
 	public Gender getGender() {
 		return gender;
