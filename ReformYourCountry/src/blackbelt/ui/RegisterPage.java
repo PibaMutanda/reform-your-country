@@ -154,7 +154,7 @@ public class RegisterPage extends VerticalLayout /*implements ParamChangeListene
 //		privatePanel.addComponent(recruiterHLayout);
 //	    }
 //
-//	    final NickNameField nickNameField = new NickNameField("nickname", true);
+//	    final NickNameField nickNameField = new NickNameField("username", true);
 	    final TextField firstNameField = new TextField("first name");
 	    final TextField lastNameField = new TextField("last name");
 	    final TextField emailField = new TextField("e-mail");
@@ -178,7 +178,7 @@ public class RegisterPage extends VerticalLayout /*implements ParamChangeListene
 		  //TODO maxime uncomment when using web
 		    //UrlUtil.getAbsoluteUrl(new PageResource(UserPage.class))+
 		    "/<b>YourNickName</b><br/>" +
-		    "Do NOT use your e-mail address as nickname (if you don't want to be spammed).<br>" +
+		    "Do NOT use your e-mail address as username (if you don't want to be spammed).<br>" +
 		    "Nickname should only contain the following characters : a-z, A-Z, 0-9, -, ., _", Label.CONTENT_XHTML);
 	    nickNameLabel.addStyleName("smallText");
 	    nickNameLabel.addStyleName("lightGrey");
@@ -203,7 +203,7 @@ public class RegisterPage extends VerticalLayout /*implements ParamChangeListene
 	    passwordLabel.addStyleName("smallText");
 	    passwordLabel.addStyleName("lightGrey");
 
-	    Label recruiterLabel = new Label("<br>Optional: nickname of the user who made you know KnowledgeBlackBelt<br>(he will receive points).", Label.CONTENT_XHTML);
+	    Label recruiterLabel = new Label("<br>Optional: username of the user who made you know KnowledgeBlackBelt<br>(he will receive points).", Label.CONTENT_XHTML);
 	    recruiterLabel.addStyleName("smallText");
 	    recruiterLabel.addStyleName("lightGrey");
 	  //TODO maxime uncomment when using web
@@ -262,12 +262,12 @@ public class RegisterPage extends VerticalLayout /*implements ParamChangeListene
 		    // We don't directly call field.isValid() on fields having multiple validators (because we could not know which validator made the validation fail => we'd not know what error message to display).
 		    //				if(!duplicateNickNameValidator.isValid(nickNameField.getValue())) {
 		    //					NotificationUtil.showNotification(duplicateNickNameValidator.getErrorMessageWithValue(),
-		    //					"Please choose another nickname.");
+		    //					"Please choose another username.");
 		    //				} else
 		  //TODO maxime uncomment when using web
 //		    if(!nickNameField.isValid()) {
 //			NotificationUtil.showNotification(nickNameField.getNiceErrorMessage(),
-//				"Please choose another nickname for your new user.");
+//				"Please choose another username for your new user.");
 //
 //		    } else if(!duplicateEmailValidator.isValid(emailField.getValue())) {
 //			NotificationUtil.showNotification(duplicateEmailValidator.getErrorMessageWithValue(),
@@ -282,7 +282,7 @@ public class RegisterPage extends VerticalLayout /*implements ParamChangeListene
 //
 //		    } else if(!recruiterField.isValid()) {
 //			NotificationUtil.showNotification(recruiterField.getNiceErrorMessage(),
-//				"Please choose another nickname for the RECRUITER.");
+//				"Please choose another username for the RECRUITER.");
 //		    } else {
 //			try {
 //			    User user = new User();
@@ -312,8 +312,8 @@ public class RegisterPage extends VerticalLayout /*implements ParamChangeListene
 //
 //			    WindowUtil.forward(HomePage.class);
 //			} catch (ConstraintViolatingEntityException e) {
-//			    // We should never come here, unless a rare concurrency race (because we checked the nickname and e-mail before).
-//			    NotificationUtil.showNotification("A user with the same nickname or e-mail already exists",
+//			    // We should never come here, unless a rare concurrency race (because we checked the username and e-mail before).
+//			    NotificationUtil.showNotification("A user with the same username or e-mail already exists",
 //				    "Please choose another username or email");
 //			}
 		    }

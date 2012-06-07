@@ -100,7 +100,7 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 																	// users
 																	// changes
 																	// their
-																	// nickname
+																	// username
 	public static final String JAVA_TECH_LEADER_NICKNAME = null; // =
 																	// "hekonsek";
 	public static final float DEFAULT_INFLUENCE = 1f;
@@ -234,8 +234,8 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	private String lastName;
 
 	// @Column(unique = true)
-	// @Index(name = "nickname_idx")
-	private String userName; // TODO V5: Rename nickname to userName, and change
+	// @Index(name = "username_idx")
+	private String userName; // TODO V5: Rename username to userName, and change
 								// that in the UI too (userName sounds more
 								// natural to users).
 
