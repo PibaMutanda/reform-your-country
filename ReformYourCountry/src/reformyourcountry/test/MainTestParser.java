@@ -5,20 +5,19 @@ import reformyourcountry.converter.BBConverter;
 import reformyourcountry.parser.*;
 public class MainTestParser {
 	public static void main(String[] args){
+		ExportToHtml("[quote]Je suis une citation avec [link article=\"the-great-article-inside\"]un hyperlien[/link] "
+					+"vers un autre article dedans, ainsi qu�un [link out=\"http://lesoir.be/toto\" label=\"Journal le soir, article du 11 mai 2012\"]" +
+					"hyperlien[/link] vers un site web.[/quote]");
+	}
+	public static void ExportToHtml(String txt){
 		BBDomParser dp = new BBDomParser();
 		BBTag tg = null;
-		try {
-			tg = dp.parse(new StringReader("[h1 \"123\"]Article n°128[/h1][/a][quote][a href=\"www.google.com\"]<br>[Quote bib=\"dixit CF\"]ceci est un paragraphe de test avec du [code]code <br> <p>test de paragraphe</p>[/code][/Quote]"));
-			DefaultBBTag tag = (DefaultBBTag)tg;
-			
-			BBConverter.IsTagValid(tag);
-			
-		    
-			System.out.println(BBConverter.BBTagToHtml(tag));
-
-		} catch (BBParserException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		tg = dp.parse(new StringReader(txt));
+		DefaultBBTag tag = (DefaultBBTag)tg;
+		
+		BBConverter.IsTagValid(tag);
+		
+	    
+		System.out.println(BBConverter.BBTagToHtml(tag));
 	}
 }
