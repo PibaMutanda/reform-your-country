@@ -7,16 +7,19 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import reformyourcountry.service.UserService;
+
+
 import blackbelt.model.User;
 
 public class UserServiceTest {
 
-	private UserServiceImpl userImp;
+	private UserService userImp;
 
 	
 	@Before
 	public void setUp() throws Exception {
-		userImp=new UserServiceImpl();
+		userImp=new UserService();
 	}
 
 	@After
