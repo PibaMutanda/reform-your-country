@@ -39,7 +39,7 @@ public class TestLoad {
 			
 			CoursePdfGenerator pdfgen = new CoursePdfGenerator();
 			
-			File filetest = new File("P:\\timmerman\\Documents\\WSReformYourCountry\\ReformYourCountry\\pdf4ml\\pd4mlwiki.pdf");
+			File filetest = new File("S:\\FichiersSorties(ne pas sup)\\pdf4ml\\pd4mlwiki.pdf");
 			try {
 				FileOutputStream fos =new FileOutputStream(filetest);
 			
