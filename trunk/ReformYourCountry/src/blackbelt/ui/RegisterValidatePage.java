@@ -10,6 +10,8 @@ package blackbelt.ui;
 //import org.vaadin.navigator7.uri.Param;
 //import org.vaadin.navigator7.uri.ParamPageResource;
 
+import reformyourcountry.service.LoginService;
+import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
 import blackbelt.exceptions.InvalidPasswordException;
 //import be.loop.jbb.bl.exceptions.UserLockedException;
 import blackbelt.exceptions.UserNotFoundException;
@@ -18,8 +20,6 @@ import blackbelt.exceptions.UserNotFoundException;
 import blackbelt.dao.UserDao;
 import blackbelt.model.User;
 import blackbelt.model.User.AccountStatus;
-import blackbelt.service.LoginService;
-import blackbelt.service.LoginService.WaitDelayNotReachedException;
 //import blackbelt.ui.common.ComponentFactory;
 //import blackbelt.ui.common.NotificationUtil;
 //import blackbelt.ui.common.PictureResource;
