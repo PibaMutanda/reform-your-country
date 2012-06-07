@@ -10,7 +10,7 @@ public class MainPdf {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		File filetest = new File("C:\\Users\\forma309\\Documents\\workspace\\ReformYourCountry\\pdf4ml\\pdf4ml.pdf");
+		File filetest = new File("P:\\timmerman\\Documents\\WSReformYourCountry\\ReformYourCountry\\pdf4ml\\pd4ml.pdf");
 		try {
 			FileOutputStream fos =new FileOutputStream(filetest);
 			CoursePdfGenerator cPdf = new CoursePdfGenerator();
