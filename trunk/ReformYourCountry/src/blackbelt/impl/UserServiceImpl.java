@@ -143,7 +143,7 @@ public class UserServiceImpl /* extends BaseService */implements UserService {
 			sendRegistrationValidationMail(user);
 		}
 		// TODO maxime delete?
-		// // Automatically add groups for which that e-mail would have been
+		// // Automatically add groups for which that e-mail would have been 
 		// invited.
 		// groupService.groupNewUserUsingInvitations(user);
 
