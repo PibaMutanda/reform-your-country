@@ -155,7 +155,7 @@ public class LoginService {
 		User user = userDao.get(id); // Maybe exception because entity
 		// not found.
 		if (user != null) {
-		    loginEncrypted(user.getNickName(), md5password, false /*
+		    loginEncrypted(user.getUserName(), md5password, false /*
 		     * don't
 		     * recreate
 		     * cookies
@@ -195,7 +195,7 @@ public class LoginService {
 	result = userDao.getUserByEmail(identifier);
 
 	if (result == null) {
-	    result = userDao.getUserByNickName(identifier);
+	    result = userDao.getUserByUserName(identifier);
 	}
 
 	return result;

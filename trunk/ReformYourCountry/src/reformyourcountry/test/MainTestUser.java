@@ -17,14 +17,14 @@ public class MainTestUser {
 	 */
 	public static void main(String[] args) {
 
-		userService.registerUser(true, "maxime", "Sauvage", Gender.MR,
+		userService.registerUser(true, "maxime", "Sauvage", Gender.MALE,
 				"max", "max", "max@home.be");
-		userService.registerUser(true, "piba", "mutunba", Gender.MR,
+		userService.registerUser(true, "piba", "mutunba", Gender.MALE,
 				"piba", "max", "piba@home.be");
 		consoleFormRegistration();
 		try {
 			System.out.println("recherche par le dao"
-					+ UserDao.getUserByNickName("max"));
+					+ UserDao.getUserByUserName("max"));
 			System.out.println("recherche par le dao"
 					+ UserDao.getUserByEmail("max@home.be"));
 			System.out.println("recherche par le dao"
@@ -32,11 +32,11 @@ public class MainTestUser {
 			User loggedIn = testLogin("max", "max", false);
 			if (loggedIn != null)
 				System.out.println("succesfull logged in as "
-						+ loggedIn.getNickName());
+						+ loggedIn.getUserName());
 			User loggedIn2 = testLogin("piba@home.be", "max", false);
 			if (loggedIn2 != null)
 				System.out.println("succesfull logged in as "
-						+ loggedIn2.getNickName());
+						+ loggedIn2.getUserName());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -56,19 +56,15 @@ public class MainTestUser {
 		System.out.println("please enter your nickname");
 		nickname = scan.next();
 		System.out.println("please select your gender\n1."
-				+ Gender.MR.toString() + "\n2." + Gender.MRS.toString()
-				+ "\n3." + Gender.MSS.toString()
+				+ Gender.MALE.toString() + "\n2." + Gender.FEMALE.toString()
 				+ "\n\nplease select a gender : ");
 		int genderId = scan.nextInt();
 		switch (genderId) {
 		case 1:
-			gender = Gender.MR;
+			gender = Gender.MALE;
 			break;
 		case 2:
-			gender = Gender.MRS;
-			break;
-		case 3:
-			gender = Gender.MSS;
+			gender = Gender.FEMALE;
 			break;
 		default:
 			break;
@@ -93,7 +89,7 @@ public class MainTestUser {
 		User loggedIn = testLogin(identifier, password, false);
 		if (loggedIn != null)
 			System.out.println("succesfull logged in as "
-					+ loggedIn.getNickName());
+					+ loggedIn.getUserName());
 	}
 
 	public static User testLogin(String identifier, String clearPassword,
