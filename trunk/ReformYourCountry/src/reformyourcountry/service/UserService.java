@@ -16,6 +16,9 @@ import javax.management.RuntimeErrorException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
+import reformyourcountry.exception.UseAlreadyExistsException;
+import reformyourcountry.exception.UseAlreadyExistsException.identifierType;
+
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.vaadin.navigator7.PageResource;
 //import org.vaadin.navigator7.uri.ParamPageResource;
@@ -144,14 +147,14 @@ public class UserService {
      */
 
     public User registerUser(boolean directValidation, String firstName, String lastName,
-	    Gender gender, String username, String passwordInClear, String mail) {
+	    Gender gender, String username, String passwordInClear, String mail) throws UseAlreadyExistsException {
 	if(UserDao.getUserByUserName(username) != null)
 	{
-	    //TODO throw user alreadyexist exception
+	    throw new UseAlreadyExistsException(identifierType.USERNAME, username);
 	}
 	if(UserDao.getUserByEmail(mail) != null)
 	{
-	    //TODO throw user alreadyexist exception
+	    throw new UseAlreadyExistsException(identifierType.MAIL, username);
 	}
 	System.out.println("register user je suis appelé");
 	User toRegister = new User();
