@@ -140,7 +140,7 @@ public class CoursePdfGenerator {
 	        	pd4ml.addStyle(css,true);
 	        //	pd4ml.useTTF("java:fonts",true);  
 	        //	pd4ml.setDefaultTTFs("arial", "helvetica", "Courier New");
-                pd4ml.setHtmlWidth(1000);
+	        	pd4ml.setHtmlWidth(1000);
 	        	PD4PageMark header = new PD4PageMark();
 	        	
 	        	
@@ -293,19 +293,22 @@ public class CoursePdfGenerator {
 	/** Creation of the cover page */
 	public String createCoverHtml(){
         String result = new String("");
+        String linklogo=new String("http://knowledgeblackbelt.com/image/KnowledgeBlackBelt-Logo-Header.png");
+        String linkbottom = new String("http://3.bp.blogspot.com/-QqRJffxgYOQ/T5AXnhlDAZI/AAAAAAAAAzk/lUbL8noFzgs/s400/black+belt.jpg");
         result +=
                 // BBF Logo
                 "<div align='center' class='logo'>" +
-               
+                "<img width='357' height='127' alt='fichier existant mais non affichable' src='"+linklogo+"'></div><br/><br/>"+ 
                 "</div><br/><br/>" +
                 
                 // Titles
                 "<div align='center' style='font-size:24px;color: #AA0000;font-weight: bold;'>"+
-               "Bonjour le monde"+"</div><br/><br/>" +
+               "Bienvenue sur le site"+"</div><br/><br/>" +
 
                 // The logo is in a table to not deforme the logo
                 "<div  width='650' height='430' align='center'>"+
                 "<table align='center'><tr><td>" +
+                "<img src='"+linkbottom+"'>"+
                // getHtmlResizedImg(logoImage, true)+
                 "</td></tr></table></div>"+
                 "<br/><br/><br/>";
