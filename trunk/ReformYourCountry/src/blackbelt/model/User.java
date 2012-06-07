@@ -40,24 +40,13 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table; */
 
 import org.apache.commons.lang.StringUtils;
+
 //import org.hibernate.annotations.Index;
 //import org.hibernate.annotations.Parameter;
 //import org.hibernate.annotations.Sort;
 //import org.hibernate.annotations.SortType;
 //import org.hibernate.annotations.Type;
 
-import blackbelt.impl.UserServiceImpl;
-//import be.loop.jbb.bo.Belt;
-//import be.loop.jbb.bo.Decoration;
-//import be.loop.jbb.bo.tests.ExamPerformed;
-//import be.loop.jbb.bo.tests.ExamTaskPerformed;
-//import be.loop.jbb.bo.tests.Questionnaire;
-//import blackbelt.hibernate.util.EnumSetType;
-//import blackbelt.ui.coach.CoachMailOption;
-//import blackbelt.util.collection.BBCollectionUtils;
-//
-//import com.google.common.base.Predicates;
-//import com.google.common.collect.Collections2;
 
 
 //TODO piba uncomment
