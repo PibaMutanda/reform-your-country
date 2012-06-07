@@ -1,4 +1,4 @@
-package blackbelt.parser;
+package blackbelt.parser.deprecated;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Configurable;
 
 import be.loop.jbb.bl.FileService;
 import blackbelt.model.exam.V5QuestionVersion;
-import blackbelt.parser.BlackBeltTagParser.Element;
-import blackbelt.parser.BlackBeltTagParser.MandatoryParameterNotFoundException;
+import blackbelt.parser.deprecated.BlackBeltTagParser.Element;
+import blackbelt.parser.deprecated.BlackBeltTagParser.MandatoryParameterNotFoundException;
 import blackbelt.service.QuestionImageService;
 import blackbelt.ui.common.ComponentFactory;
 import blackbelt.ui.common.PictureResource;

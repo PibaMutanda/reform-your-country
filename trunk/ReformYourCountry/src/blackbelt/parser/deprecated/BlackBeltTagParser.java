@@ -1,5 +1,5 @@
 //TagPArser / StringGenerator /TagHandler
-package blackbelt.parser;
+package blackbelt.parser.deprecated;
 
 import java.util.*;
 

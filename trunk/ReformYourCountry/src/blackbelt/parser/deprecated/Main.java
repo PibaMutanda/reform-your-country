@@ -1,4 +1,4 @@
-package blackbelt.parser;
+package blackbelt.parser.deprecated;
 
 
 public class Main {

@@ -1,11 +1,11 @@
-package blackbelt.parser;
+package blackbelt.parser.deprecated;
 
 import org.apache.commons.lang.StringEscapeUtils;
 
 import blackbelt.model.Course;
 import blackbelt.model.SectionText;
-import blackbelt.parser.BlackBeltTagParser.Element;
-import blackbelt.parser.BlackBeltTagParser.MandatoryParameterNotFoundException;
+import blackbelt.parser.deprecated.BlackBeltTagParser.Element;
+import blackbelt.parser.deprecated.BlackBeltTagParser.MandatoryParameterNotFoundException;
 import blackbelt.ui.common.Video;
 import blackbelt.ui.common.VimeoVideo;
 import blackbelt.ui.common.YoutubeVideo;
