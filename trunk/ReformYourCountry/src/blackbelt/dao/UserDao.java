@@ -9,21 +9,21 @@ import blackbelt.model.User;
 
 public class UserDao {
 
-	private static List<User> listeUser = new ArrayList<User>();
+	private  List<User> listeUser = new ArrayList<User>();
 
-	public static List<User> getListeUser() {
+	public  List<User> getListeUser() {
 		return listeUser;
 	}
 
 	// TODO maxime delete static modifier when using JPA
-	public static void save(User user) {
+	public  void save(User user) {
 		System.out.println("dao je save " + user);
 		listeUser.add(user);
 		System.out.println(listeUser.size());
 	}
 
 	// TODO maxime delete static modifier when using JPA
-	public static User get(Long id) {
+	public  User get(Long id) {
 
 		for (User user : listeUser) {
 			if (id.equals(user.getId()))
@@ -33,7 +33,7 @@ public class UserDao {
 	}
 
 	// TODO maxime delete static modifier when using JPA
-	public static User getUserByEmail(String identifier)  {
+	public  User getUserByEmail(String identifier)  {
 			for (User user : listeUser) {
 				if (identifier.equals(user.getMail()))
 					return user;
@@ -42,7 +42,7 @@ public class UserDao {
 	}
 
 	// TODO maxime delete static modifier when using JPA
-	public static User getUserByNickName(String identifier)
+	public  User getUserByNickName(String identifier)
 			throws UserNotFoundException {
 		for (User user : listeUser) {
 			if (identifier.equals(user.getNickName()))
