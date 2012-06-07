@@ -37,104 +37,96 @@ import com.vaadin.ui.VerticalLayout;
 //@Page
 //@Configurable
 public class RegisterValidatePage extends HorizontalLayout /*
-															 * implements
-															 * ParamChangeListener
-															 */{
+ * implements
+ * ParamChangeListener
+ */{
 
-	// TODO maxime uncomment
-	// Getting the user param
-	/* @Param(pos = 0, required = true) */User user;
-	/* @Param(pos = 1, required = true) */String validation;
+    // TODO maxime uncomment
+    // Getting the user param
+    /* @Param(pos = 0, required = true) */User user;
+    /* @Param(pos = 1, required = true) */String validation;
 
-	/* @Autowired */private LoginService loginService;
+    /* @Autowired */private LoginService loginService;
 
-	/* @Autowired */private UserDao userDao; // injected by Spring
+    /* @Autowired */private UserDao userDao; // TODO: Use autowiring with Spring instead of new.
 
-	private Label registrationValidationLabel = new Label("",
-			Label.CONTENT_XHTML);
+    private Label registrationValidationLabel = new Label("",
+	    Label.CONTENT_XHTML);
 
-	public RegisterValidatePage() {
+    public RegisterValidatePage() {
+    }
+    // TODO maxime uncomment when using web
+    // @Override
+    public void paramChanged(/*NavigationEvent navigationEvent*/) {
+
+
+	removeAllComponents();
+
+	this.setMargin(true);
+	this.setSpacing(true);
+
+	VerticalLayout textVerticalLayout = new VerticalLayout();
+	textVerticalLayout.setMargin(true);
+	textVerticalLayout.setSpacing(true);
+
+	// TODO maxime uncomment when using web
+	////// Decorative image on the left.
+	//PictureResource resource = new PictureResource(PicturePath.IMAGE, "Blackbelt.jpg");
+	//Embedded image = new Embedded("", resource);
+	//addComponent(image);
+
+	//textVerticalLayout.addComponent(ComponentFactory.createPageTitle("Registration validation"));
+	textVerticalLayout.addComponent(registrationValidationLabel);
+	addComponent(textVerticalLayout);
+	this.setExpandRatio(textVerticalLayout, 1);
+
+	if(!user.getValidationCode().equals(validation)){
+	    registrationValidationLabel.setValue("<strong>An error occured!</strong><br><br>" +
+		    "<p>We could not validate your account, because your validation code is invalid.<br/>" +
+		    "Are you sure you clicked the link from the e-mail to come here?</p>" +
+		    "<p>If you have any problem validating your account, please <a href='"+ 
+		    // TODO maxime uncomment when using web
+		    //UrlUtil.getAbsoluteUrl(new PageResource(DocumentPage.class, "ContactUs")) +
+		    "'>contact us</a>");
 	}
-	// TODO maxime uncomment
-	// @Override
-	// public void paramChanged(NavigationEvent navigationEvent) {
-	//
-	// removeAllComponents();
-	//
-	// this.setMargin(true);
-	// this.setSpacing(true);
-	//
-	// VerticalLayout textVerticalLayout = new VerticalLayout();
-	// textVerticalLayout.setMargin(true);
-	// textVerticalLayout.setSpacing(true);
-	//
-	// ////// Decorative image on the left.
-	// PictureResource resource = new PictureResource(PicturePath.IMAGE,
-	// "Blackbelt.jpg");
-	// Embedded image = new Embedded("", resource);
-	// addComponent(image);
-	//
-	// textVerticalLayout.addComponent(ComponentFactory.createPageTitle("Registration validation"));
-	// textVerticalLayout.addComponent(registrationValidationLabel);
-	// addComponent(textVerticalLayout);
-	// this.setExpandRatio(textVerticalLayout, 1);
-	//
-	// if(!user.getValidationCode().equals(validation)){
-	// registrationValidationLabel.setValue("<strong>An error occured!</strong><br><br>"
-	// +
-	// "<p>We could not validate your account, because your validation code is invalid.<br/>"
-	// +
-	// "Are you sure you clicked the link from the e-mail to come here?</p>" +
-	// "<p>If you have any problem validating your account, please <a href='"+
-	// UrlUtil.getAbsoluteUrl(new PageResource(DocumentPage.class, "ContactUs"))
-	// +"'>contact us</a>");
-	// }
-	// // That user is already validated
-	// else if((user.getAccountStatus() == AccountStatus.ACTIVE) ||
-	// (user.getAccountStatus() == AccountStatus.LOCKED)){
-	// registrationValidationLabel.setValue("<strong>This account has already been validated!</strong>");
-	// }
-	// // that the user is now validated
-	// else{
-	// registrationValidationLabel.setValue("Thank your for validating!<br/>" +
-	// "<p>Your account has been validated and is now ready to be used. " +
-	// "Right now, you're logged on KnowledgeBlackBelt and you can: " +
-	// "<ul>"+
-	// "<li>access to different communities content like Java, .Net, DB...</li>"
-	// +
-	// "<li>see your user page by clicking on your fullname (top right of the page)</li>"
-	// +
-	// "<li>improve courses and exams to obtain contribution points</li>" +
-	// "<li>test your skills in exams and get belts (contribution points required)</li>"
-	// +
-	// "</ul></p>" +
-	// "All communities first exams are free.<br/><p>Your next step is to pass a free exam and get your community Yellow Belt!</p>");
-	//
-	// user.setAccountStatus(AccountStatus.ACTIVE);
-	// userDao.save(user);
-	//
-	// try {
-	// loginService.loginEncrypted(user.getMail(), user.getPassword(), true);
-	//
-	// WindowUtil.refreshHeaders();
-	// } catch (UserNotFoundException e) {
-	// NotificationUtil.showNotification("That user has not been found",
-	// user.getFullName());
-	// } catch (InvalidPasswordException e) {
-	// NotificationUtil.showNotification("The password is invalid for that user",
-	// "");
-	// } catch (UserNotValidatedException e) {
-	// NotificationUtil.showNotification("This user has not yet been validated.",
-	// "Please check your mails.");
-	// } catch (UserLockedException e) {
-	// NotificationUtil.showNotification("This user has been locked", "");
-	// } catch (WaitDelayNotReachedException e) {
-	// NotificationUtil.showNotification("This user has to wait before trying to login, because of too many invalid attempts (wrong password)."
-	// +
-	// " Next try will be possilbe  " +
-	// DateUtil.formatIntervalFromToNow(e.getNextPossibleTry()),
-	// "The more you'll fail, the more you'll have to wait before the next possible attempt. If you think that somebody else tried to hack your account, please contact us.");
-	// }
-	// }
-	// }
+	// That user is already validated
+	else if((user.getAccountStatus() == AccountStatus.ACTIVE) || (user.getAccountStatus() == AccountStatus.LOCKED)){
+	    registrationValidationLabel.setValue("<strong>This account has already been validated!</strong>");
+	}
+	// that the user is now validated
+	else{		
+	    registrationValidationLabel.setValue("Thank your for validating!<br/>" +
+		    "<p>Your account has been validated and is now ready to be used. " +
+		    "Right now, you're logged on KnowledgeBlackBelt and you can: " +
+		    "<ul>"+
+		    "<li>access to different communities content like Java, .Net, DB...</li>" + 
+		    "<li>see your user page by clicking on your fullname (top right of the page)</li>" + 
+		    "<li>improve courses and exams to obtain contribution points</li>" + 
+		    "<li>test your skills in exams and get belts (contribution points required)</li>" + 
+		    "</ul></p>" + 
+		    "All communities first exams are free.<br/><p>Your next step is to pass a free exam and get your community Yellow Belt!</p>");
+
+	    user.setAccountStatus(AccountStatus.ACTIVE);
+	    userDao.save(user);
+	    // TODO maxime uncomment when using web
+//	    try {
+//		loginService.loginEncrypted(user.getMail(), user.getPassword(), true);
+//
+//		WindowUtil.refreshHeaders();
+//	    } catch (UserNotFoundException e) {
+//		NotificationUtil.showNotification("That user has not been found", user.getFullName());
+//	    } catch (InvalidPasswordException e) {
+//		NotificationUtil.showNotification("The password is invalid for that user", "");
+//	    } catch (UserNotValidatedException e) {
+//		NotificationUtil.showNotification("This user has not yet been validated.", "Please check your mails.");
+//	    } catch (UserLockedException e) {
+//		NotificationUtil.showNotification("This user has been locked", "");
+//	    } catch (WaitDelayNotReachedException e) {
+//		NotificationUtil.showNotification("This user has to wait before trying to login, because of too many invalid attempts (wrong password)." +
+//			" Next try will be possilbe  " + DateUtil.formatIntervalFromToNow(e.getNextPossibleTry()),
+//			"The more you'll fail, the more you'll have to wait before the next possible attempt. If you think that somebody else tried to hack your account, please contact us.");
+//	    }
+	}
+    }	
+
 }
