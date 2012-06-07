@@ -154,7 +154,7 @@ public class BBDomParser {
         int curr = emptyTagSize;
 
         char currChar = Character.toLowerCase(tag.charAt(curr++));
-        while (curr < size && Character.isLetterOrDigit(currChar)) {
+        while (curr < size && !Character.isSpaceChar(currChar)) {
             tagName+=currChar;
             currChar = Character.toLowerCase(tag.charAt(curr++));
         }
