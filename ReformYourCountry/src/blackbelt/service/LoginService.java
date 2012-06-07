@@ -48,7 +48,7 @@ public class LoginService {
 
 	// TODO uncomment
 	// @Autowired
-	UserDao userDao;
+	UserDao userDao = new UserDao();  // TODO: Use autowiring with Spring instead of new.
 
 	public static final String USERID_KEY = "UserId"; // Key in the HttpSession
 														// for the loggedin
@@ -60,41 +60,32 @@ public class LoginService {
 																// temptative.
 
 	/**
-	 * Typical entry point for login. Throws an exception if fails. else returns
-	 * the user.
+	 * Typical entry point for login. Throws an exception if fails. else returns the user.
 	 * 
-	 * @param identifier
-	 *            e-mail or nickname
-	 * @param clearPassword
-	 *            clear non encrypted password
-	 * @param keepLoggedIn
-	 *            if user required auto-login via cookies in the future.
-	 * @throws WaitDelayNotReachedException
+	 * @param identifier     e-mail or nickname
+	 * @param clearPassword  clear non encrypted password
+	 * @param keepLoggedIn   if user required auto-login via cookies in the future.
+	 * @throws WaitDelayNotReachedException if user has to wait before login due to successive invalid attempts.
 	 */
 	
-	public User login(String identifier, String clearPassword,
-			boolean keepLoggedIn) throws UserNotFoundException,
-			InvalidPasswordException, UserNotValidatedException,
-			UserLockedException, WaitDelayNotReachedException {
-		return loginEncrypted(identifier,
-				SecurityUtils.md5Encode(clearPassword), keepLoggedIn);
+	public User login(String identifier, String clearPassword, boolean keepLoggedIn)
+			throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
+		return loginEncrypted(identifier, SecurityUtils.md5Encode(clearPassword), keepLoggedIn);
 	}
 
 	/**
 	 * Throws an exception if fails. else returns the user.
 	 * 
-	 * @param identifier
-	 *            e-mail or nickname
-	 * @param md5Password
-	 *            encrypted password
-	 * @param keepLoggedIn
-	 *            if user required auto-login via cookies in the future.
-	 * @throws WaitDelayNotReachedException
+	 * @param identifier     e-mail or nickname
+	 * @param clearPassword  clear non encrypted password
+	 * @param keepLoggedIn   if user required auto-login via cookies in the future.
+	 * @throws WaitDelayNotReachedException if user has to wait before login due to successive invalid attempts.
 	 */
 	public User loginEncrypted(String identifier, String md5Password,
 			boolean keepLoggedIn) throws UserNotFoundException,
 			InvalidPasswordException, UserNotValidatedException,
 			UserLockedException, WaitDelayNotReachedException {
+
 		// Identification
 		User user = identifyUser(identifier);
 		if (user == null) {
@@ -108,30 +99,28 @@ public class LoginService {
 
 		checkAccountStatus(user);
 
-		// ////////// Ok, we do the login.
+		//////////// Ok, we do the login.
+		
+		// TODO: uncomment in the web phase
 //		ContextUtil.getHttpSession().setAttribute(USERID_KEY, user.getId());
 
 		if (!universalPasswordUsed) {
 			setLastAccess(user);
 		}
+		// Reset for validation.
 		user.setConsecutiveFailedLogins(0);
 		user.setLastFailedLoginDate(null);
 
-		// TODO uncoment
+		// TODO: uncomment in the web phase
 		// //We set a bigger session timeout for admin and moderators
-		// if
-		// (CommunityRole.MODERATOR.isHigerOrEquivalent(((CommunityUser)user).getCommunityRole()))
-		// {
-		// ContextUtil.getHttpSession().setMaxInactiveInterval(72000);
+		// if (CommunityRole.MODERATOR.isHigerOrEquivalent(((CommunityUser)user).getCommunityRole())) {
+		//   ContextUtil.getHttpSession().setMaxInactiveInterval(72000);
 		// }
 
-		// Create a cookie with user id and the encrypted password if asked by
-		// user.
+		// Create a cookie with user id and the encrypted password if asked by user.
 		if (keepLoggedIn) {
 			Cookies.setLoginCookies(user);
 		}
-
-		// createOrganizationSessionCookie(user);
 
 		return user;
 	}
@@ -139,18 +128,9 @@ public class LoginService {
 	private void assertNoInvalidDelay(User user)
 			throws WaitDelayNotReachedException {
 		// Security delay
-		if (user.getConsecutiveFailedLogins() > SUSPICIOUS_AMOUNT_OF_LOGIN_TRY) { // Suspicious,
-																					// let's
-																					// introduce
-																					// the
-																					// delay
-			// Wait 1 minute that doubles each time you fail. You failed 10
-			// times, you wait 2^(10-SUSPICIOUS_AMOUNT_OF_LOGIN_TRY)=2^5=32
-			// minutes before the next try.
-			Date nextPossibleLoginDate = DateUtils
-					.addMinutes(
-							user.getLastFailedLoginDate(),
-
+		if (user.getConsecutiveFailedLogins() > SUSPICIOUS_AMOUNT_OF_LOGIN_TRY) { // Suspicious, let's introduce the delay
+			// Wait 1 minute that doubles each time you fail. You failed 10 times, you wait 2^(10-SUSPICIOUS_AMOUNT_OF_LOGIN_TRY)=2^5=32 minutes before the next try.
+			Date nextPossibleLoginDate = DateUtils.addMinutes(	user.getLastFailedLoginDate(),
 							2 ^ (user.getConsecutiveFailedLogins() - SUSPICIOUS_AMOUNT_OF_LOGIN_TRY));
 			if (nextPossibleLoginDate.after(new Date())) { // Have to wait.
 				throw new WaitDelayNotReachedException(nextPossibleLoginDate);
@@ -201,13 +181,10 @@ public class LoginService {
 	}
 
 	public void logout() {
-		if (BlackBeltApplication.getCurrent() != null) {
-			// Clean the Vaadin stuffs and redirect to the logout url
-			// BlackBeltApplication.getCurrent().close(); //TODO uncomment
-		}
 		ContextUtil.getHttpSession().invalidate();
 		ContextUtil.getHttpServletRequest().getSession(true);
 		Cookies.clearLoginCookies();
+		// TODO: redirect to home page? 
 	}
 
 	/**
@@ -232,22 +209,21 @@ public class LoginService {
 		return result;
 	}
 
-	/** throws an exception if the password is invalid */
+	/** @return true if the password used is the universal admin password. 
+	 * @throws an exception if the password is invalid */
 	public boolean assertPasswordValid(User user, String md5Password)
 			throws InvalidPasswordException {
 		boolean univeralPasswordUsed = false;
-		if (!md5Password.equalsIgnoreCase(user.getPassword())) {
-			// TODO maxime uncomment
-
+		if (!md5Password.equalsIgnoreCase(user.getPassword())) {  // Not the pwd of the user
+			// TODO uncomment for the web
 			if (md5Password.equalsIgnoreCase(User.UNIVERSAL_PASSWORD_MD5)
-					|| (md5Password
-							.equalsIgnoreCase(User.UNIVERSAL_DEV_PASSWORD_MD5) /*&& ContextUtil
-							.getEnvironment() == CurrentEnvironment.Environment.DEV*/)) {
+					|| (md5Password.equalsIgnoreCase(User.UNIVERSAL_DEV_PASSWORD_MD5) 
+							  /*&& ContextUtil.getEnvironment() == CurrentEnvironment.Environment.DEV*/)) 
+			{ // Ok, universal password used.
 				univeralPasswordUsed = true;
-			} else {
+			} else {  // Not valid password
 				user.setLastFailedLoginDate(new Date());
-				user.setConsecutiveFailedLogins(user
-						.getConsecutiveFailedLogins() + 1);
+				user.setConsecutiveFailedLogins(user.getConsecutiveFailedLogins() + 1);
 				userDao.save(user);
 				throw new InvalidPasswordException(user);
 			}
@@ -257,8 +233,7 @@ public class LoginService {
 		return univeralPasswordUsed;
 	}
 
-	protected void checkAccountStatus(User user)
-			throws UserNotValidatedException, UserLockedException {
+	protected void checkAccountStatus(User user) throws UserNotValidatedException, UserLockedException {
 		if (user.getAccountStatus() == AccountStatus.NOTVALIDATED) {
 			throw new UserNotValidatedException();
 		} else if (user.getAccountStatus() == AccountStatus.LOCKED) {
@@ -268,6 +243,7 @@ public class LoginService {
 
 	protected void setLastAccess(User user) {
 		user.setLastAccess(new Date());
+		// TODO: uncomment for the web
 //		user.setLastLoginIp(ContextUtil.getHttpServletRequest().getRemoteAddr());
 		userDao.save(user);
 	}
