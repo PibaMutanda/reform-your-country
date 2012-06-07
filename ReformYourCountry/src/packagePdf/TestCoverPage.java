@@ -11,12 +11,14 @@ import java.util.Date;
 
 import org.zefer.pd4ml.PD4ML;
 import org.zefer.pd4ml.PD4PageMark;
+import blackbelt.web.ContextUtil;
+import blackbelt.web.UrlUtil;
 
 public class TestCoverPage {
 
 
 	private PD4ML pd4ml;
-
+	private final String KBB_LOGO_IMG_NAME="/imgs/logos/KnowledgeBlackBelt-logo-950x338.png";
 	private String logoUrl;
 	private BufferedImage logoImage;
 	
@@ -111,7 +113,7 @@ public class TestCoverPage {
 		
 	}
     public void generatePdf (FileOutputStream outputStream,
-			boolean doTheUserWantACoverPage, boolean doTheUserWantAToc) {
+			boolean doTheUserWantACoverPage) {
 		
 	
 	    this.doTheUserWantACoverPage = doTheUserWantACoverPage;
@@ -125,11 +127,7 @@ public class TestCoverPage {
             finalResult+=createCoverHtml();
         }
         
-        /** Table of contents */
-     /*   if(doTheUserWantAToc){
-            finalResult+=createToc();
-        }*/
-        
+       
    
       
         
@@ -145,13 +143,7 @@ public class TestCoverPage {
         /*	createHeader();
         	createFooter();*/
         	pd4ml.enableImgSplit(false); //Do not split an image
-        	
-        	/*USE THIS FOR DEBUG INFOS
-        	 * pd4ml.enableDebugInfo();
-        	 * prod console issue on : http://www.KnowledgeBlackBelt.com/static/catalina.out
-        	 * */
-
-        	
+        	        	     	
         	//final rendering
         	pd4ml.render(new StringReader(finalResult), outputStream); //Start creating PDF //TODO faire marcher ce bazar
         } catch (InvalidParameterException e) {
@@ -162,28 +154,18 @@ public class TestCoverPage {
 	}
     public String createCoverHtml(){
         String result = new String("");
-        String link=new String("S:\\blackbeltfactory.jpg");
-        File filetest = new File("S:\\blackbeltfactory.jpg");
-        if(filetest.exists()==true)
-        {
-        	System.out.println("trouvé");
-        }
+        String link=new String("http://knowledgeblackbelt.com/image/KnowledgeBlackBelt-Logo-Header.png");
+       
         result +=
                 // BBF Logo
-                              
+        		"<div align='center' class='logo'>" +
+        		"<img width='357' height='127' alt='fichier existant mais non affichable' src='"+link+"'></div><br/><br/>"+             
                 // Titles
                 "<div align='center' style='font-size:24px;color: #AA0000;font-weight: bold;'>"+
-               "Bonjour le monde"+"<img align='bottom' alt='fichier existant mais non affichable' src='"+link+"'></div><br/><br/>" +
-
+                ""+"</div><br/><br/>"+
+               
   				"<div align='bottom'>" +
-  				//"<img align='Bottom' src='"+link+"'>"+
-  				"</div><br/><br/>" +
-                // The logo is in a table to not deforme the logo
-              /*  "<div  width='650' height='430' align='center'>"+
-                "<table align='center'><tr><td>" +
-               // getHtmlResizedImg(logoImage, true)+
-                "</td></tr></table></div>"+*/
-                "<br/><br/><br/>";
+  				"</div><br/><br/><br/><br/><br/>";
         
         result+="<table width='100%'><tr><td width='45px'>"
             +"</td><td class='valignMiddle'><span class='small'>Download by :</span><br/><i>"+
