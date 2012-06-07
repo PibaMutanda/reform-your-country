@@ -140,7 +140,7 @@ public class CoursePdfGenerator {
 	        	pd4ml.addStyle(css,true);
 	        //	pd4ml.useTTF("java:fonts",true);  
 	        //	pd4ml.setDefaultTTFs("arial", "helvetica", "Courier New");
-
+                pd4ml.setHtmlWidth(1000);
 	        	PD4PageMark header = new PD4PageMark();
 	        	
 	        	
