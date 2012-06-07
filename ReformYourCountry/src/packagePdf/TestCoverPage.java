@@ -154,21 +154,22 @@ public class TestCoverPage {
 	}
     public String createCoverHtml(){
         String result = new String("");
-        String link=new String("http://knowledgeblackbelt.com/image/KnowledgeBlackBelt-Logo-Header.png");
-       
+        String linklogo=new String("http://knowledgeblackbelt.com/image/KnowledgeBlackBelt-Logo-Header.png");
+        String linkbottom = new String("http://3.bp.blogspot.com/-QqRJffxgYOQ/T5AXnhlDAZI/AAAAAAAAAzk/lUbL8noFzgs/s400/black+belt.jpg");
         result +=
                 // BBF Logo
         		"<div align='center' class='logo'>" +
-        		"<img width='357' height='127' alt='fichier existant mais non affichable' src='"+link+"'></div><br/><br/>"+             
+        		"<img width='357' height='127' alt='fichier existant mais non affichable' src='"+linklogo+"'></div><br/><br/>"+             
                 // Titles
                 "<div align='center' style='font-size:24px;color: #AA0000;font-weight: bold;'>"+
-                ""+"</div><br/><br/>"+
+                "Bienvenue sur le site"+"</div><br/><br/><br/><br/><br/>"+
                
-  				"<div align='bottom'>" +
+  				"<div align='center'>" +
+  				"<img src='"+linkbottom+"'>"+
   				"</div><br/><br/><br/><br/><br/>";
         
         result+="<table width='100%'><tr><td width='45px'>"
-            +"</td><td class='valignMiddle'><span class='small'>Download by :</span><br/><i>"+
+            +"</td><td class='valignMiddle'><span class='small'>Download by : programmeur1</span><br/><i>"+
             "</i><br/><span class='small'>"+
             "</span></td></tr></table><pd4ml:page.break>";
         return result;
