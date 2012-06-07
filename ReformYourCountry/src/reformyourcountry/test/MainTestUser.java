@@ -3,23 +3,23 @@ package reformyourcountry.test;
 import java.util.Scanner;
 
 import reformyourcountry.service.LoginService;
-import reformyourcountry.service.UserServiceImpl;
-
+import reformyourcountry.service.UserService;
 import blackbelt.dao.UserDao;
 import blackbelt.model.User;
 import blackbelt.model.User.Gender;
 
 public class MainTestUser {
+    private static UserDao UserDao = new UserDao();
+    private static UserService userService = new UserService();
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-	    UserDao UserDao = new UserDao();
 
-		UserServiceImpl.registerUser(true, "maxime", "Sauvage", Gender.MR,
+		userService.registerUser(true, "maxime", "Sauvage", Gender.MR,
 				"max", "max", "max@home.be");
-		UserServiceImpl.registerUser(true, "piba", "mutunba", Gender.MR,
+		userService.registerUser(true, "piba", "mutunba", Gender.MR,
 				"piba", "max", "piba@home.be");
 		consoleFormRegistration();
 		try {
@@ -77,7 +77,7 @@ public class MainTestUser {
 		password = scan.next();
 		System.out.println("please enter your email");
 		mail = scan.next();
-		UserServiceImpl.registerUser(true, firstname, name, gender, nickname,
+		userService.registerUser(true, firstname, name, gender, nickname,
 				password, mail);
 
 	}
