@@ -42,7 +42,7 @@ public class UserDao {
 	}
 
 	// TODO maxime delete static modifier when using JPA
-	public  User getUserByNickName(String identifier)
+	public  User getUserByUserName(String identifier)
 			throws UserNotFoundException {
 		for (User user : listeUser) {
 			if (identifier.equals(user.getUserName()))
