@@ -206,7 +206,8 @@ public class CoursePdfGenerator {
         "<td class=\"ptoc-left-col\"><a class=\"ptoc-link\" href=\"#ptoc_2\">"+
                 "<div class=\"ptoc2-style-left\">Chapter 1.1<pd4ml-dots></div></a></td>"+
        "<td class=\"ptoc-right-col\"><a class=\"ptoc-link\" href=\"#ptoc_2\">"+
-                "<div class=\"ptoc2-style-right\">2</div></a></td></tr>";
+                "<div class=\"ptoc2-style-right\">2</div></a></td></tr>"+
+       "</table>";
    
         
         /** Cover page */
