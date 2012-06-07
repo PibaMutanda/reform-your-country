@@ -24,7 +24,7 @@ public class BBDomParser {
 
     protected BBTag parseOpenTag(String part) {
         String tagName = getTagName(part);
-        if (tagName == null || !Character.isLetter(part.charAt(1))) {
+        if (tagName == null /*|| !Character.isLetter(part.charAt(1))*/) {
             return null;
         }
 
@@ -154,7 +154,7 @@ public class BBDomParser {
         int curr = emptyTagSize;
 
         char currChar = Character.toLowerCase(tag.charAt(curr++));
-        while (curr < size && Character.isLetterOrDigit(currChar)) {
+        while (curr < size /*&& Character.isLetterOrDigit(currChar)*/) {
             tagName+=currChar;
             currChar = Character.toLowerCase(tag.charAt(curr++));
         }
