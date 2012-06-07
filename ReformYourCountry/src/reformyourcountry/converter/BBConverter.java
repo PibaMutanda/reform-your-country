@@ -76,7 +76,9 @@ public class BBConverter {
 			 					return false;
 		 					}
 		 				}
+		 				return true;
 		 			case "untranslated":
+		 				return true;
 		 			default:
 		 				tag.setErrorText("The tag is not recognized");
 		 				return false;
