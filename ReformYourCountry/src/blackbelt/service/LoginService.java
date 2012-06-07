@@ -200,10 +200,10 @@ public class LoginService {
 		}
 
 		identifier = identifier.toLowerCase();
-		result = UserDao.getUserByEmail(identifier);
+		result = userDao.getUserByEmail(identifier);
 
 		if (result == null) {
-			result = UserDao.getUserByNickName(identifier);
+			result = userDao.getUserByNickName(identifier);
 		}
 
 		return result;
