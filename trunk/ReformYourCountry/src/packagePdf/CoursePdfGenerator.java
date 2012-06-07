@@ -1,9 +1,11 @@
 package packagePdf;
 
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
+import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.StringReader;
 import java.security.InvalidParameterException;
 import java.text.SimpleDateFormat;
@@ -125,6 +127,56 @@ public class CoursePdfGenerator {
 		
 	}
 	
+	
+	public void generatePdf(String result,OutputStream fos,BufferedReader incss) {
+		
+		
+		  
+		  
+		  try { 
+	        	/** PDF document setting */
+			  
+		        String css=	incss.toString();
+	        	pd4ml.addStyle(css,true);
+	        //	pd4ml.useTTF("java:fonts",true);  
+	        //	pd4ml.setDefaultTTFs("arial", "helvetica", "Courier New");
+
+	        	PD4PageMark header = new PD4PageMark();
+	        	
+	        	
+	        	  header.setAreaHeight( 20 );
+	              header.setTitleTemplate( "title: $[title]" );
+	              header.setTitleAlignment( PD4PageMark.CENTER_ALIGN );
+	              header.setPageNumberAlignment( PD4PageMark.LEFT_ALIGN );
+	              header.setPageNumberTemplate( "#$[page]" );
+	    		pd4ml.setPageHeader(header);
+	    		
+	    		
+	    		
+	       // 	createFooter();
+	        	pd4ml.enableImgSplit(false); //Do not split an image
+	        	
+	        	/*USE THIS FOR DEBUG INFOS
+	        	 * pd4ml.enableDebugInfo();
+	        	 * prod console issue on : http://www.KnowledgeBlackBelt.com/static/catalina.out
+	        	 * */
+	        	/** Html header */
+	          //  String finalResult = "<html><head><title>"+"Hello world"+"</title><META http-equiv=Content-Type content=\"text/html; charset=utf-8\"></head><body>";
+	            
+	            /** Html close */
+	          //  finalResult+="</body></html>";
+	        	//final rendering
+	        	pd4ml.render(new StringReader(result),fos); //Start creating PDF //TODO faire marcher ce bazar
+	        } catch (InvalidParameterException e) {
+	        	throw new RuntimeException(e);
+	        } catch (IOException e) {
+	        	throw new RuntimeException(e);
+	        }
+		  
+		
+		
+	}
+	
     //2nd constuctor with a user	
 
 	
@@ -141,7 +193,21 @@ public class CoursePdfGenerator {
 		
 		
 		/** Html header */
-        String finalResult = "<html><head><title>"+"Hello world"+"</title><META http-equiv=Content-Type content=\"text/html; charset=utf-8\"></head><body>";
+        String finalResult = "<html><head><title>"+"Hello world"+"</title><META http-equiv=Content-Type content=\"text/html; charset=utf-8\"></head><body><pd4ml:toc> <table id=\"toc\" class=\"toc\">"+
+    "<tbody><tr>"+
+    "<table class=\"ptoc-table\" cellspacing=\"0\">" +
+     " <tr>"+
+      "<td class=\"ptoc-left-col\"><a class=\"ptoc-link\" href=\"#ptoc_1\">"+
+                "<div class=\"ptoc1-style-left\">Chapter 1<pd4ml-dots></div></a></td></pd4ml:toc>"+
+        "<td class=\"ptoc-right-col\"><a class=\"ptoc-link\" href=\"#ptoc_1\">"+
+                "<div class=\"ptoc1-style-right\">1</div></a></td></tr>"+
+        "</tr>"+
+       " <tr>"+
+        "<td class=\"ptoc-left-col\"><a class=\"ptoc-link\" href=\"#ptoc_2\">"+
+                "<div class=\"ptoc2-style-left\">Chapter 1.1<pd4ml-dots></div></a></td>"+
+       "<td class=\"ptoc-right-col\"><a class=\"ptoc-link\" href=\"#ptoc_2\">"+
+                "<div class=\"ptoc2-style-right\">2</div></a></td></tr>";
+   
         
         /** Cover page */
         if (doTheUserWantACoverPage){
@@ -277,7 +343,7 @@ public class CoursePdfGenerator {
 			maxW = 40.0f;
 			align = "align='right'";
 		}
-		if((float)image.getWidth()/maxW>(float)image.getHeight()/maxH){
+		if((float)image.getWidth()/maxW > (float)image.getHeight()/maxH){
 			imgHtmlTag +="<img src ='"+this.logoUrl+"' width='"+maxW+"' "+align+">";
 		}else{
 			imgHtmlTag +="<img src ='"+this.logoUrl+"' height='"+maxH+"' "+align+">";
