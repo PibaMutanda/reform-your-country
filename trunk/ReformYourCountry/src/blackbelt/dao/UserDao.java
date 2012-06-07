@@ -45,7 +45,7 @@ public class UserDao {
 	public  User getUserByNickName(String identifier)
 			throws UserNotFoundException {
 		for (User user : listeUser) {
-			if (identifier.equals(user.getNickName()))
+			if (identifier.equals(user.getUserName()))
 				return user;
 		}
 		return null;
