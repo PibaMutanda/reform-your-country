@@ -40,13 +40,24 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table; */
 
 import org.apache.commons.lang.StringUtils;
-
 //import org.hibernate.annotations.Index;
 //import org.hibernate.annotations.Parameter;
 //import org.hibernate.annotations.Sort;
 //import org.hibernate.annotations.SortType;
 //import org.hibernate.annotations.Type;
 
+import blackbelt.impl.UserServiceImpl;
+//import be.loop.jbb.bo.Belt;
+//import be.loop.jbb.bo.Decoration;
+//import be.loop.jbb.bo.tests.ExamPerformed;
+//import be.loop.jbb.bo.tests.ExamTaskPerformed;
+//import be.loop.jbb.bo.tests.Questionnaire;
+//import blackbelt.hibernate.util.EnumSetType;
+//import blackbelt.ui.coach.CoachMailOption;
+//import blackbelt.util.collection.BBCollectionUtils;
+//
+//import com.google.common.base.Predicates;
+//import com.google.common.collect.Collections2;
 
 
 //TODO piba uncomment
@@ -132,7 +143,7 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	 * Genders for a user
 	 */
 	public enum Gender {
-		MR, MRS, MSS;
+		FEMALE,MALE;
 	}
 
 
@@ -224,7 +235,7 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 
 	// @Column(unique = true)
 	// @Index(name = "nickname_idx")
-	private String nickName; // TODO V5: Rename nickname to userName, and change
+	private String userName; // TODO V5: Rename nickname to userName, and change
 								// that in the UI too (userName sounds more
 								// natural to users).
 
@@ -417,15 +428,17 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 		this.firstName = firstName;
 	}
 
-	public String getNickName() {
-		return nickName;
+	
+
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setNickName(String nickName) {
-		this.nickName = nickName.toLowerCase();
+public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
-//	@Override
+	//	@Override
 	public Long getId() {
 		return id;
 	}
@@ -446,7 +459,7 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName="
-				+ lastName + ", nickName=" + nickName + ", mail=" + mail
+				+ lastName + ", userName=" + userName + ", mail=" + mail
 				+ ", password=" + password + ", gender=" + gender
 				+ ", birthDate=" + birthDate + ", picture=" + picture
 				+ ", pictureName=" + pictureName + ", lastMailSentDate="
