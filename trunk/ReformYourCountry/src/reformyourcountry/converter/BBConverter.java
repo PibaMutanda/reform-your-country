@@ -52,23 +52,29 @@ public class BBConverter {
 		 				}
 		 				return true;
 		 			case "bib":
-		 				if (!tag.attributes().contains("out")){
-		 					tag.setErrorText("bib tag need an article an out attribute");
-		 					return false;
+		 				for(BBAttribute attr :tag.attributes() ){
+		 					if (attr.getName().equals("out")){
+				 				return true;
+		 					}
 		 				}
-		 				break;
+	 					tag.setErrorText("bib tag need an article an out attribute");
+ 						return false;
 		 			case "link":
-		 				if (!tag.attributes().contains("article")^!tag.attributes().contains("out")){
-		 					tag.setErrorText("link tag need an article or an out attribute");
-		 					return false;
+		 				for(BBAttribute attr :tag.attributes() ){
+		 					if (attr.getName().equals("article")^attr.getName().equals("out")){
+				 				return true;
+		 					}
 		 				}
-		 				break;
+	 					tag.setErrorText("bib tag need an article an out attribute");
+ 						return false;
 		 			case "actionpoint":
-		 				if (!tag.attributes().contains("id")){
-		 					tag.setErrorText("actionpoint tag need an id attribute");
-		 					return false;
+		 				for(BBAttribute attr :tag.attributes() ){
+		 					if (attr.getName().equals("id")){
+				 				return true;
+		 					}
 		 				}
-		 				return true;
+	 					tag.setErrorText("bib tag need an article an out attribute");
+ 						return false;
 		 			case "escape":
 		 				for (BBTag subTag:tag.getChildrenList()){
 		 					if (subTag.getType() != BBTagType.Text){
@@ -84,7 +90,6 @@ public class BBConverter {
 		 				return false;
 		 					
 		 		}
-		 		break;
 		 	case Root:
 		 		break;
 		 }
@@ -263,6 +268,8 @@ public class BBConverter {
 		    			return "ActionPoint error";
 		    	case "bib":
 		    		return "</a>)";
+		    	case "escape":
+		    		return "";
 		    	default:
 		    		return "</span>";
 		    	}
