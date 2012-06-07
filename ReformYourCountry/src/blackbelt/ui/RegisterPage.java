@@ -1,6 +1,8 @@
 package blackbelt.ui;
 //TODO uncoment import
 import org.apache.commons.lang.StringUtils;
+
+import reformyourcountry.service.UserService;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.beans.factory.annotation.Configurable;
 //import org.vaadin.navigator7.Page;
@@ -19,7 +21,6 @@ import blackbelt.model.User;
 import blackbelt.model.User.CommunityRole;
 //import blackbelt.security.SecurityContext;
 //import blackbelt.service.GroupService;
-import blackbelt.service.UserService;
 //import blackbelt.ui.common.ComponentFactory;
 //import blackbelt.ui.common.NotificationUtil;
 //import blackbelt.ui.common.PictureResource;
