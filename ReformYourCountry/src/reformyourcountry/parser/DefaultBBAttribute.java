@@ -6,8 +6,8 @@ package reformyourcountry.parser;
 public class DefaultBBAttribute implements BBAttribute {
     private final String name;
     private String value;
-    private DefaultBBTag parent;
-    public DefaultBBAttribute(String name,DefaultBBTag parent) {
+    private BBTag parent;
+    public DefaultBBAttribute(String name,BBTag parent) {
         this.name = name;
         this.parent = parent;
         if (this.name == null || this.name=="")
@@ -47,9 +47,9 @@ public class DefaultBBAttribute implements BBAttribute {
     //Exception if name is null, name must exist
     public class AttributeNameException extends Exception
     {
-    	public AttributeNameException(DefaultBBAttribute attribute){
-    		attribute.parent.content = "!!! Some attribute(s) have no name !!! "+attribute.parent.content;
-    		parent.attributes.remove(attribute.name);
-    	}
+//    	public AttributeNameException(DefaultBBAttribute attribute){
+//    		attribute.parent.content = "!!! Some attribute(s) have no name !!! "+attribute.parent.content;
+//    		parent.attributes.remove(attribute.name);
+//    	}
     }
 }

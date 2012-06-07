@@ -1,6 +1,6 @@
-package blackbelt.parser;
+package blackbelt.parser.deprecated;
 
-import blackbelt.parser.BlackBeltTagParser.Element;
+import blackbelt.parser.deprecated.BlackBeltTagParser.Element;
 
 //TODO Comment
 public class BlackBeltTagHandlerLuceneSearch extends BlackBeltTagHandlerStringGenerator{

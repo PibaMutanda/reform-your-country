@@ -1,4 +1,4 @@
-package blackbelt.parser;
+package blackbelt.parser.deprecated;
 
 
 
@@ -9,8 +9,8 @@ import org.vaadin.navigator7.PageResource;
 
 import blackbelt.dao.SectionDao;
 import blackbelt.model.SectionText;
-import blackbelt.parser.BlackBeltTagParser.Element;
-import blackbelt.parser.BlackBeltTagParser.MandatoryParameterNotFoundException;
+import blackbelt.parser.deprecated.BlackBeltTagParser.Element;
+import blackbelt.parser.deprecated.BlackBeltTagParser.MandatoryParameterNotFoundException;
 import blackbelt.ui.application.BlackBeltUriAnalyzer;
 import blackbelt.ui.common.PictureResource;
 import blackbelt.ui.common.PictureResource.PicturePath;

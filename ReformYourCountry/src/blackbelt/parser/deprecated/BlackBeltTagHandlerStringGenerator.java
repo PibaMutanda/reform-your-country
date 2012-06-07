@@ -1,4 +1,4 @@
-package blackbelt.parser;
+package blackbelt.parser.deprecated;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,7 +8,7 @@ import java.util.Map;
 
 import org.springframework.util.StringUtils;
 
-import blackbelt.parser.BlackBeltTagParser.Element;
+import blackbelt.parser.deprecated.BlackBeltTagParser.Element;
 
 public abstract class BlackBeltTagHandlerStringGenerator implements BlackBeltTagHandler{
 
