@@ -1,4 +1,4 @@
-package test;
+package reformyouorcountry.test;
 
 import java.util.Scanner;
 

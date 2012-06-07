@@ -1,10 +1,6 @@
-package test;
+package reformyouorcountry.test;
 import java.io.StringReader;
-import java.util.HashMap;
-import java.util.Map;
-
-import BBParser.*;
-import blackbelt.parser.*;
+import reformyourcountry.parser.*;
 public class MainTestParser {
 	public static void main(String[] args){
 		BBDomParser dp = new BBDomParser();
