@@ -144,13 +144,13 @@ public class UserService {
 	 */
 	
 	public User registerUser(boolean directValidation, String firstName, String lastName,
-			Gender gender, String nickname, String passwordInClear, String mail) {
+			Gender gender, String username, String passwordInClear, String mail) {
 		System.out.println("register user je suis appelé");
 		User toRegister = new User();
 		toRegister.setFirstName(firstName);
 		toRegister.setLastName(lastName);
 		toRegister.setGender(gender);
-		toRegister.setNickName(nickname);
+		toRegister.setUserName(username);
 		toRegister.setPassword(SecurityUtils.md5Encode(passwordInClear));
 		toRegister.setMail(mail);
 
@@ -185,7 +185,7 @@ public void deleteUser(User user, boolean deleteQuestions, boolean deleteVotes) 
     	// ---> See comment in Fixme of CorpUserManager
     	throw new UnsupportedOperationException("Not supported yet");
     	
-//    	User specialUser = this.getDaoFacade().getUserDao().getUserByNickName("unsubscribeuser");
+//    	User specialUser = this.getDaoFacade().getUserDao().getUserByUserName("unsubscribeuser");
 //    	
 //    	List<Question> questions = this.getDaoFacade().getQuestionDao().getAllQuestionsByUser(user.getId());
 //    	
@@ -428,7 +428,7 @@ public void deleteUser(User user, boolean deleteQuestions, boolean deleteVotes) 
 
 		// TODO maxime uncomment when mail service available
 //  			mailService.sendMail(user.getMail(), "Password Recovery",
-//  					"You requested a new password for your account '"+ user.getNickName()+"' on KnowledgeBlackBelt.com<br/>" + 
+//  					"You requested a new password for your account '"+ user.getUserName()+"' on KnowledgeBlackBelt.com<br/>" + 
 //  					"We could not give you back your old password because we do not store it directly, for security and (your own) privacy reason it is encrypted in a non reversible way. <br/><br/>" + 
 //  					"Here is your new password : "+ newPassword + 
 //  					"<ol>" +  
