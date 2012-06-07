@@ -7,7 +7,8 @@ import java.io.StringReader;
 import org.junit.Before;
 import org.junit.Test;
 
-import BBParser.BBDomParser;
+import reformyourcountry.parser.BBDomParser;
+
 
 public class JUnitParserTest {
 
