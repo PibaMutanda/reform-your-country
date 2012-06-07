@@ -16,7 +16,7 @@ public class MainCoverPage {
 		try {
 			FileOutputStream fos =new FileOutputStream(filetest);
 			TestCoverPage cPdf = new TestCoverPage();
-			cPdf.generatePdf(fos, true, false);
+			cPdf.generatePdf(fos, true);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
