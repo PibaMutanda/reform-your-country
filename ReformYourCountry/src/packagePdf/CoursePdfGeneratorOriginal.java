@@ -13,6 +13,8 @@ import org.vaadin.navigator7.PageResource;
 import org.zefer.pd4ml.PD4ML;
 import org.zefer.pd4ml.PD4PageMark;
 
+import reformyourcountry.model.User;
+
 import be.loop.jbb.util.DateUtil;
 import be.loop.jbb.util.image.ImageUtil;
 import blackbelt.dao.UserDao;
@@ -21,7 +23,6 @@ import blackbelt.model.BeltV5;
 import blackbelt.model.Language;
 import blackbelt.model.Section;
 import blackbelt.model.SectionText;
-import blackbelt.model.User;
 import blackbelt.parser.BlackBeltTagHandlerCourseOnPdf;
 import blackbelt.parser.BlackBeltTagParser;
 import blackbelt.service.BeltService;

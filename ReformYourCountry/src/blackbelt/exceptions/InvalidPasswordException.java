@@ -1,6 +1,6 @@
 package blackbelt.exceptions;
 
-import blackbelt.model.User;
+import reformyourcountry.model.User;
 
 public class InvalidPasswordException extends Exception {
 

@@ -3,6 +3,8 @@ package reformyourcountry.test;
 import java.util.Scanner;
 
 import reformyourcountry.exceptions.UseAlreadyExistsException;
+import reformyourcountry.model.User;
+import reformyourcountry.model.User.Gender;
 import reformyourcountry.service.LoginService;
 import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
 import reformyourcountry.service.UserService;
@@ -11,8 +13,6 @@ import blackbelt.exceptions.InvalidPasswordException;
 import blackbelt.exceptions.UserLockedException;
 import blackbelt.exceptions.UserNotFoundException;
 import blackbelt.exceptions.UserNotValidatedException;
-import blackbelt.model.User;
-import blackbelt.model.User.Gender;
 
 public class MainTestUser {
     private static UserDao UserDao = new UserDao();

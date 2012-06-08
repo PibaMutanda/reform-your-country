@@ -1,5 +1,5 @@
 
-package blackbelt.model;
+package reformyourcountry.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;

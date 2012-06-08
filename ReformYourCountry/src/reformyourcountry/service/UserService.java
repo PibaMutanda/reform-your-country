@@ -17,6 +17,10 @@ import org.apache.log4j.Logger;
 
 import reformyourcountry.exceptions.UseAlreadyExistsException;
 import reformyourcountry.exceptions.UseAlreadyExistsException.identifierType;
+import reformyourcountry.model.User;
+import reformyourcountry.model.User.AccountStatus;
+import reformyourcountry.model.User.CommunityRole;
+import reformyourcountry.model.User.Gender;
 
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.vaadin.navigator7.PageResource;
@@ -72,10 +76,6 @@ import blackbelt.exceptions.UserNotFoundException;
 import blackbelt.mail.MailCategory;
 import blackbelt.mail.MailService;
 import blackbelt.mail.MailType;
-import blackbelt.model.User;
-import blackbelt.model.User.AccountStatus;
-import blackbelt.model.User.CommunityRole;
-import blackbelt.model.User.Gender;
 import blackbelt.ui.RegisterPage;
 import blackbelt.ui.RegisterValidatePage;
 //import blackbelt.ui.document.DocumentPage;

@@ -2,6 +2,8 @@ package blackbelt.ui;
 //TODO uncoment import
 import org.apache.commons.lang.StringUtils;
 
+import reformyourcountry.model.User;
+import reformyourcountry.model.User.CommunityRole;
 import reformyourcountry.service.UserService;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.beans.factory.annotation.Configurable;
@@ -17,8 +19,6 @@ import blackbelt.util.SecurityUtils;
 import blackbelt.dao.UserDao;
 //import blackbelt.model.Group;
 //import blackbelt.model.GroupCandidacy;
-import blackbelt.model.User;
-import blackbelt.model.User.CommunityRole;
 //import blackbelt.security.SecurityContext;
 //import blackbelt.service.GroupService;
 //import blackbelt.ui.common.ComponentFactory;

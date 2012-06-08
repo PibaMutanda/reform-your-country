@@ -10,6 +10,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.time.DateUtils;
+
+import reformyourcountry.model.User;
+import reformyourcountry.model.User.AccountStatus;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.stereotype.Component;
 
@@ -29,8 +32,6 @@ import blackbelt.web.HttpSessionTracker;
 import blackbelt.dao.UserDao;
 //import blackbelt.model.Organization;
 //import blackbelt.model.Privilege;
-import blackbelt.model.User;
-import blackbelt.model.User.AccountStatus;
 //import blackbelt.model.User.CommunityRole;
 //import blackbelt.ui.application.BlackBeltApplication;
 import blackbelt.web.ContextUtil;

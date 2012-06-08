@@ -10,11 +10,12 @@ import org.apache.commons.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import reformyourcountry.model.User;
+
 import blackbelt.dao.MailDao;
 import blackbelt.model.Mail;
 import blackbelt.model.MailCategory;
 import blackbelt.model.MailType;
-import blackbelt.model.User;
 import blackbelt.spring.util.Logger;
 import blackbelt.util.BlackBeltException;
 

@@ -10,6 +10,8 @@ import org.vaadin.navigator7.PageResource;
 import org.vaadin.navigator7.WebApplication;
 import org.vaadin.navigator7.uri.ParamPageResource;
 
+import reformyourcountry.model.User;
+
 import be.loop.jbb.bl.UserService;
 import be.loop.jbb.util.DateUtil;
 import blackbelt.dao.MailDao;
@@ -17,7 +19,6 @@ import blackbelt.model.Mail;
 import blackbelt.model.MailCategory;
 import blackbelt.model.MailType;
 import blackbelt.model.MailingDelayType;
-import blackbelt.model.User;
 import blackbelt.ui.HomePage;
 import blackbelt.ui.application.BlackBeltWebApplication;
 import blackbelt.ui.application.EntityPageResource;
