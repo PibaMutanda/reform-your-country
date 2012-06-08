@@ -6,7 +6,15 @@ import java.util.ArrayList;
 import reformyourcountry.parser.*;
 
 public class BBConverter {
-	 public static boolean putTagToEndOfList(BBTag parent, String tagName){
+	 public static String GetValidHtmlCode(BBTag parent){
+		 IsTagValid(parent);
+		 boolean isOk = true;
+		 while (isOk){
+			 isOk = putTagToEndOfList(parent, "untranslated");
+		 }
+		 return BBTagToHtml(parent);
+	 }
+	 private static boolean putTagToEndOfList(BBTag parent, String tagName){
 		for(BBTag tag:parent.getChildrenList()){
 			if (tag.getName().toLowerCase().equals(tagName.toLowerCase())){
 				if (parent.getChildrenList().indexOf(tag)!=parent.getChildrenList().size()-1){
@@ -24,7 +32,7 @@ public class BBConverter {
 		return false;
 	 }
 	
-	 public static Boolean IsTagValid(BBTag tag){
+	 private static Boolean IsTagValid(BBTag tag){
 		 ArrayList<String> validAttributeList = new ArrayList<String>();
 		 validAttributeList.add("inline");
 		 validAttributeList.add("bib");
@@ -157,7 +165,7 @@ public class BBConverter {
 		 return false;
 	 }
 	
-	 public static String BBTagToHtml(BBTag tg) {
+	 private static String BBTagToHtml(BBTag tg) {
 		 StringBuilder out = new StringBuilder();
 		 // Foreach BBtag contained in the innertext of this bbtag, transform
 		 // these BBtag in html
