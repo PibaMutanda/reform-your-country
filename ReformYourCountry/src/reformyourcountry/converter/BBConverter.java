@@ -6,7 +6,24 @@ import java.util.ArrayList;
 import reformyourcountry.parser.*;
 
 public class BBConverter {
-	 
+	 public static boolean putTagToEndOfList(BBTag parent, String tagName){
+		for(BBTag tag:parent.getChildrenList()){
+			if (tag.getName().toLowerCase().equals(tagName.toLowerCase())){
+				if (parent.getChildrenList().indexOf(tag)!=parent.getChildrenList().size()-1){
+					parent.remove(tag);
+					parent.add(tag);
+					return true;
+				}
+			}
+			if (tag.getName().toLowerCase().equals("quote")){
+				if  (putTagToEndOfList(tag,tagName)){
+					return true;
+				}
+			}
+		}
+		return false;
+	 }
+	
 	 public static Boolean IsTagValid(BBTag tag){
 		 ArrayList<String> validAttributeList = new ArrayList<String>();
 		 validAttributeList.add("inline");
@@ -142,27 +159,22 @@ public class BBConverter {
 	
 	 public static String BBTagToHtml(BBTag tg) {
 		 StringBuilder out = new StringBuilder();
+		 // Foreach BBtag contained in the innertext of this bbtag, transform
+		 // these BBtag in html
+		 for (BBTag t : tg.getChildrenList()) {
+			 out.append(BBTagToHtml((BBTag)t));
+		 }
 		 switch(tg.getType()){
 		 	case Error:
 		 		 return "<span class=\"parse-error\">"+tg.getErrorText()+": "+tg.getContent()+"</span>";
 		 	case Text:
 				 return tg.getContent();
-		 	default:
-		 		if (tg.getType()== BBTagType.Text){
-					 return tg.getContent();
-				 }
-				 if (tg.getType()== BBTagType.Error){
-					 return "<span class=\"parse-error\">"+tg.getErrorText()+": "+tg.getContent()+"</span>";
-				 }
+		 	case Tag:
 				 DefaultBBTag tag = (DefaultBBTag) tg;
+				 
 				 String notRecognizedAttribute = "";
 				 String bibSignature = "";
-				 // Foreach BBtag contained in the innertext of this bbtag, transform
-				 // these BBtag in html
-				 for (BBTag t : tag.getChildrenList()) {
-					 out.append(BBTagToHtml((BBTag)t));
-					 // out.append(' ');
-				 }
+				 
 				 // If it's not the Level 0 tag
 				 if (!(tag.getName().equals(""))) {
 
