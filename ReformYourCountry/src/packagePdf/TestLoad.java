@@ -9,6 +9,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Scanner;
 
+import reformyourcountry.pdf.CoursePdfGenerator;
+
 
 
 public class TestLoad {
