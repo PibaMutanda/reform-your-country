@@ -2,26 +2,20 @@ package reformyourcountry.test;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
 import reformyourcountry.converter.BBConverter;
-import reformyourcountry.parser.BBDomParser;
-import reformyourcountry.parser.BBTag;
 
 
 public class JUnitParserTest {
 
 	public static String ExportToHtml(String txt){
-		BBDomParser dp = new BBDomParser();
-		BBTag tg = null;List<String> tags = new ArrayList<String>();
-		tags.add("[...]");
-		tg = dp.parse(new StringReader(txt),tags);
-		
-		return BBConverter.GetValidHtmlCode(tg);
+		List<String> tags = new ArrayList<String>();
+		tags.add("[...]");		
+		return BBConverter.GetValidHtmlCode(txt, tags);
 	}
 
 	@Test
