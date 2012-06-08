@@ -1,10 +1,12 @@
 package packagePdf;
 
+import java.awt.Dimension;
+import java.awt.Insets;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.StringReader;
 import java.security.InvalidParameterException;
@@ -135,11 +137,13 @@ public class CoursePdfGenerator {
 		  
 		  try { 
 	        	/** PDF document setting */
-			  
-		        String css=	incss.toString();
+		
+	
+			  String css=	incss.toString();
 	        	pd4ml.addStyle(css,true);
 	        //	pd4ml.useTTF("java:fonts",true);  
 	        //	pd4ml.setDefaultTTFs("arial", "helvetica", "Courier New");
+	        	
 	        	pd4ml.setHtmlWidth(1000);
                 	PD4PageMark header = new PD4PageMark();
 	        	
@@ -166,7 +170,7 @@ public class CoursePdfGenerator {
 	            /** Html close */
 	          //  finalResult+="</body></html>";
 	        	//final rendering
-	        	pd4ml.render(new StringReader(result),fos); //Start creating PDF //TODO faire marcher ce bazar
+	        	pd4ml.render(new StringReader(result),fos);  //Start creating PDF //TODO faire marcher ce bazar
 	        } catch (InvalidParameterException e) {
 	        	throw new RuntimeException(e);
 	        } catch (IOException e) {
@@ -177,7 +181,62 @@ public class CoursePdfGenerator {
 		
 	}
 	
-    //2nd constuctor with a user	
+   
+	public void generatePDF(String inputHTMLFileName, FileOutputStream fos, Dimension format, String fontsDir, String headerBody)
+			throws Exception {
+
+	
+		pd4ml.setHtmlWidth(950);
+	
+		if ( fontsDir != null && fontsDir.length() > 0 ) {
+			pd4ml.useTTF( fontsDir, true );
+		}
+		if ( headerBody != null && headerBody.length() > 0 ) {
+			PD4PageMark header = new PD4PageMark();
+			header.setAreaHeight( -1 );
+			header.setHtmlTemplate( headerBody ); 
+			pd4ml.setPageHeader( header );
+		}
+		
+		PD4PageMark header = new PD4PageMark();
+	   	header.setInitialPageNumber(1);
+	        	
+	        	  header.setAreaHeight( 20 );
+	             header.setTitleTemplate( "title: $[title]" );
+	              header.setTitleAlignment( PD4PageMark.CENTER_ALIGN );
+	              header.setPageNumberAlignment( PD4PageMark.LEFT_ALIGN );
+	              header.setPageNumberTemplate( "#$[page]" );
+	    		pd4ml.setPageHeader(header);
+	    		
+	    		
+	    		
+	    		
+	    		
+	    		PD4PageMark foot = new PD4PageMark();
+	    		//if(doTheUserWantACoverPage){ //If the user want a cover page
+	    			foot.setPagesToSkip(1); //Skip the header at the first page
+	    	//	}
+	    		foot.setInitialPageNumber(1);
+	    		
+	            SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+	    		String footerText =  "WIKIPEDIA"
+	             
+	                +"<br />(c) "+sdf.format(new Date())+
+	                		"<span style='font-size:5px;'>No part of this book may be reproduced i any form or by any electronic or mechanical means,<br/>including information storage or retrieval devices or systems, without prior written permission from KnowledgeBlackBelt, except that brief passages may be quoted for review</span>";
+	    		
+	    		
+	    		
+	    		foot.setHtmlTemplate("<table width='100%'><tr><td></td><td class='licence'>"+footerText+
+	    		        "</td><td align='right' class='valignBottom'>${page}<span class='grey'> /${total}</span></td></tr></table>");
+	    		foot.setAreaHeight(45); //Adjust the height
+	    		pd4ml.setPageFooter(foot); //Add footer	
+	    		
+	    		
+	    		
+		
+		pd4ml.enableDebugInfo();
+		pd4ml.render(new StringReader(inputHTMLFileName), fos);
+	}
 
 	
 
@@ -198,7 +257,7 @@ public class CoursePdfGenerator {
     "<table class=\"ptoc-table\" cellspacing=\"0\">" +
      " <tr>"+
       "<td class=\"ptoc-left-col\"><a class=\"ptoc-link\" href=\"#ptoc_1\">"+
-                "<div class=\"ptoc1-style-left\">Chapter 1<pd4ml-dots></div></a></td></pd4ml:toc>"+
+                "<div class=\"ptoc1-style-left\">Chapter 1<pd4ml-dots></div></a></td>"+
         "<td class=\"ptoc-right-col\"><a class=\"ptoc-link\" href=\"#ptoc_1\">"+
                 "<div class=\"ptoc1-style-right\">1</div></a></td></tr>"+
         "</tr>"+
@@ -207,7 +266,8 @@ public class CoursePdfGenerator {
                 "<div class=\"ptoc2-style-left\">Chapter 1.1<pd4ml-dots></div></a></td>"+
        "<td class=\"ptoc-right-col\"><a class=\"ptoc-link\" href=\"#ptoc_2\">"+
                 "<div class=\"ptoc2-style-right\">2</div></a></td></tr>"+
-       "</table>";
+       "</table>"+
+                "<p>test de p</p><pd4ml-dots></pd4ml:toc>";
    
         
         /** Cover page */
