@@ -1,18 +1,8 @@
 package reformyourcountry.service;
 
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
 
-import javax.management.RuntimeErrorException;
-
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 import reformyourcountry.dao.UserDao;
@@ -20,69 +10,11 @@ import reformyourcountry.exceptions.UseAlreadyExistsException;
 import reformyourcountry.exceptions.UseAlreadyExistsException.identifierType;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountStatus;
-import reformyourcountry.model.User.CommunityRole;
 import reformyourcountry.model.User.Gender;
-
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.vaadin.navigator7.PageResource;
-//import org.vaadin.navigator7.uri.ParamPageResource;
-//
-//import be.loop.jbb.bl.BaseService;
-//import be.loop.jbb.bl.ContributionService;
-//import be.loop.jbb.bl.UserService;
-//import be.loop.jbb.bl.FileService.ImageSaveFormat;
-//import be.loop.jbb.bl.exceptions.InvalidPasswordException;
-//import be.loop.jbb.bl.exceptions.NotEnoughAvailablePointsException;
-//import be.loop.jbb.bl.exceptions.UserLockedException;
-//import be.loop.jbb.bl.exceptions.UserNotFoundException;
-//import be.loop.jbb.bl.exceptions.UserNotValidatedException;
-//import be.loop.jbb.bo.CommunityUser;
-//import be.loop.jbb.bo.Competition;
-//import be.loop.jbb.bo.CompetitionInscription;
-//import be.loop.jbb.bo.corp.CorpUser;
-//import be.loop.jbb.bo.tests.Exam;
-//import be.loop.jbb.bo.tests.ExamPerformed;
-//import be.loop.jbb.bo.tests.ExamTask;
-//import be.loop.jbb.bo.tests.ExamTaskPerformed;
-//import be.loop.jbb.bo.tests.Questionnaire;
-//import be.loop.jbb.comparators.ExamTaskPerformedDateDescComparator;
-//import be.loop.jbb.dao.CommunityUserDao;
-//import be.loop.jbb.util.DateUtil;
-import blackbelt.util.SecurityUtils;
-//import blackbelt.dao.QuestionCriteriaVoteDao;
-import blackbelt.exceptions.UserNotFoundException;
-//import blackbelt.dao.V5QuestionDao;
-//import blackbelt.model.Badge;
-//import blackbelt.model.BadgeTypeGroup;
-//import blackbelt.model.BeltV5;
-//import blackbelt.model.Community;
-//import blackbelt.model.MailCategory;
-//import blackbelt.model.MailType;
-//import blackbelt.model.Organization;
-//import blackbelt.model.Privilege;
-//import blackbelt.model.User;
-//import blackbelt.model.User.AccountStatus;
-//import blackbelt.model.User.ContributorCredibility;
-//import blackbelt.model.exam.V5Question;
-//import blackbelt.security.SecurityContext;
-//import blackbelt.service.BadgeService;
-//import blackbelt.service.CleanShutdownService;
-//import blackbelt.service.CourseRegService;
-//import blackbelt.service.GroupService;
-//import blackbelt.service.MailService;
-//import blackbelt.service.ModerationService;
-//import blackbelt.service.OrganizationService;
-//import blackbelt.ui.ReactivatePage;
 import blackbelt.mail.MailCategory;
 import blackbelt.mail.MailService;
 import blackbelt.mail.MailType;
-import blackbelt.ui.RegisterPage;
-import blackbelt.ui.RegisterValidatePage;
-//import blackbelt.ui.document.DocumentPage;
-//import blackbelt.ui.user.UserPage;
-//import blackbelt.util.BlackBeltException;
-import blackbelt.web.ContextUtil;
-import blackbelt.web.UrlUtil;
+import blackbelt.util.SecurityUtils;
 
 public class UserService {
 
