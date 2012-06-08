@@ -20,7 +20,8 @@ public class JUnitParserTest {
 
 	@Test
 	public void test1() {
-		assertEquals(ExportToHtml("Un dicton célèbre dit: [quote inline=\"true\" bib=\"Gargamel66\"]La valeur n’attend pas le nombre des années.[/quote]"),"Un dicton célèbre dit: <span class=\"quote-inline\">La valeur n’attend pas le nombre des années.</span><span class=\"bibref\"><a href=\"/Bibliography#Gargamel66\">[Gargamel66]</a></span>");
+		assertEquals(ExportToHtml("Un dicton célèbre dit: [quote inline=\"true\" bib=\"Gargamel66\"]La valeur n’attend pas le nombre des années.[/quote]"),
+				"Un dicton célèbre dit: <span class=\"quote-inline\">La valeur n’attend pas le nombre des années.</span><span class=\"bibref\"><a href=\"/Bibliography#Gargamel66\">[Gargamel66]</a></span>");
 	}
 	@Test
 	public void test2() {
