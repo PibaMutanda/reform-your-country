@@ -15,6 +15,7 @@ import javax.management.RuntimeErrorException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
+import reformyourcountry.dao.UserDao;
 import reformyourcountry.exceptions.UseAlreadyExistsException;
 import reformyourcountry.exceptions.UseAlreadyExistsException.identifierType;
 import reformyourcountry.model.User;
@@ -49,7 +50,6 @@ import reformyourcountry.model.User.Gender;
 //import be.loop.jbb.util.DateUtil;
 import blackbelt.util.SecurityUtils;
 //import blackbelt.dao.QuestionCriteriaVoteDao;
-import blackbelt.dao.UserDao;
 import blackbelt.exceptions.UserNotFoundException;
 //import blackbelt.dao.V5QuestionDao;
 //import blackbelt.model.Badge;

@@ -18,11 +18,11 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
+import reformyourcountry.dao.UserDao;
 import reformyourcountry.model.User;
 
 import be.loop.jbb.util.HtmlToTextUtil;
 import blackbelt.dao.MailDao;
-import blackbelt.dao.UserDao;
 import blackbelt.model.Mail;
 import blackbelt.model.MailType;
 import blackbelt.web.ContextUtil;
