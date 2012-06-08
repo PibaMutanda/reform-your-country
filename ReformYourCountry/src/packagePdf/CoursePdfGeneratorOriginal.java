@@ -13,11 +13,11 @@ import org.vaadin.navigator7.PageResource;
 import org.zefer.pd4ml.PD4ML;
 import org.zefer.pd4ml.PD4PageMark;
 
+import reformyourcountry.dao.UserDao;
 import reformyourcountry.model.User;
 
 import be.loop.jbb.util.DateUtil;
 import be.loop.jbb.util.image.ImageUtil;
-import blackbelt.dao.UserDao;
 import blackbelt.model.BeltType;
 import blackbelt.model.BeltV5;
 import blackbelt.model.Language;

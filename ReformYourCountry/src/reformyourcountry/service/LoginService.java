@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.time.DateUtils;
 
+import reformyourcountry.dao.UserDao;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountStatus;
 //import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,6 @@ import blackbelt.exceptions.UserNotValidatedException;
 import blackbelt.util.SecurityUtils;
 import blackbelt.web.HttpSessionTracker;
 //import be.loop.jbb.web.SessionObject;
-import blackbelt.dao.UserDao;
 //import blackbelt.model.Organization;
 //import blackbelt.model.Privilege;
 //import blackbelt.model.User.CommunityRole;

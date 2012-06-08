@@ -2,6 +2,7 @@ package blackbelt.ui;
 //TODO uncoment import
 import org.apache.commons.lang.StringUtils;
 
+import reformyourcountry.dao.UserDao;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.CommunityRole;
 import reformyourcountry.service.UserService;
@@ -16,7 +17,6 @@ import reformyourcountry.service.UserService;
 
 //import be.loop.jbb.dao.exception.ConstraintViolatingEntityException;
 import blackbelt.util.SecurityUtils;
-import blackbelt.dao.UserDao;
 //import blackbelt.model.Group;
 //import blackbelt.model.GroupCandidacy;
 //import blackbelt.security.SecurityContext;

@@ -2,13 +2,13 @@ package reformyourcountry.test;
 
 import java.util.Scanner;
 
+import reformyourcountry.dao.UserDao;
 import reformyourcountry.exceptions.UseAlreadyExistsException;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.Gender;
 import reformyourcountry.service.LoginService;
 import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
 import reformyourcountry.service.UserService;
-import blackbelt.dao.UserDao;
 import blackbelt.exceptions.InvalidPasswordException;
 import blackbelt.exceptions.UserLockedException;
 import blackbelt.exceptions.UserNotFoundException;
