@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.security.InvalidParameterException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -17,6 +18,8 @@ import blackbelt.web.UrlUtil;
 public class TestCoverPage {
 
 
+	private String linklogo=new String("http://knowledgeblackbelt.com/image/KnowledgeBlackBelt-Logo-Header.png");
+    private String linkbottom = new String("http://3.bp.blogspot.com/-QqRJffxgYOQ/T5AXnhlDAZI/AAAAAAAAAzk/lUbL8noFzgs/s400/black+belt.jpg");
 	private PD4ML pd4ml;
 	private final String KBB_LOGO_IMG_NAME="/imgs/logos/KnowledgeBlackBelt-logo-950x338.png";
 	private String logoUrl;
@@ -117,20 +120,15 @@ public class TestCoverPage {
 		
 	
 	    this.doTheUserWantACoverPage = doTheUserWantACoverPage;
-			
-		
-		/** Html header */
-        String finalResult = "<html><head><title>"+"Hello world"+"</title><META http-equiv=Content-Type content=\"text/html; charset=utf-8\"></head><body>";
-        
+		       
+    	/** Html header */
+        String finalResult = "<html><head><title>"+"CoverPage"+"</title><META http-equiv=Content-Type content=\"text/html; charset=utf-8\"></head><body></br></br>";
+              
         /** Cover page */
         if (doTheUserWantACoverPage){
             finalResult+=createCoverHtml();
         }
-        
-       
-   
-      
-        
+          
         /** Html close */
         finalResult+="</body></html>";
 		
@@ -140,8 +138,8 @@ public class TestCoverPage {
         	pd4ml.useTTF("java:fonts",true);  
         	pd4ml.setDefaultTTFs("arial", "helvetica", "Courier New");
 
-        /*	createHeader();
-        	createFooter();*/
+        	createHeader();
+        	createFooter();
         	pd4ml.enableImgSplit(false); //Do not split an image
         	        	     	
         	//final rendering
@@ -154,8 +152,14 @@ public class TestCoverPage {
 	}
     public String createCoverHtml(){
         String result = new String("");
-        String linklogo=new String("http://knowledgeblackbelt.com/image/KnowledgeBlackBelt-Logo-Header.png");
-        String linkbottom = new String("http://3.bp.blogspot.com/-QqRJffxgYOQ/T5AXnhlDAZI/AAAAAAAAAzk/lUbL8noFzgs/s400/black+belt.jpg");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+        Date date = null;
+        try {
+			date = df.parse("2012/06/07");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         result +=
                 // BBF Logo
         		"<div align='center' class='logo'>" +
@@ -169,9 +173,35 @@ public class TestCoverPage {
   				"</div><br/><br/><br/><br/><br/>";
         
         result+="<table width='100%'><tr><td width='45px'>"
-            +"</td><td class='valignMiddle'><span class='small'>Download by : programmeur1</span><br/><i>"+
-            "</i><br/><span class='small'>"+
+            +"</td><td class='valignMiddle'><span class='small'>Created by : programmeur1</span><br/><i>"+
+            "</i><br/><span class='small'>"+date+
             "</span></td></tr></table><pd4ml:page.break>";
         return result;
     }
+    public void createHeader(){
+		PD4PageMark head = new PD4PageMark();
+		if(doTheUserWantACoverPage){ //If the user want a cover page
+			head.setPagesToSkip(1); //Skip the header at the first page
+		}
+		/*if(this.useCustomLogo){ 
+			head.setHtmlTemplate(getHtmlResizedImg(logoImage,false)); //Add the logo of the user company
+		}*/
+		head.setAreaHeight(45); //Adjust the height
+		pd4ml.setPageHeader(head); //Add header
+	}
+    public void createFooter(){
+		//footerPages
+		PD4PageMark foot = new PD4PageMark();
+		if(doTheUserWantACoverPage){ //If the user want a cover page
+			foot.setPagesToSkip(1); //Skip the header at the first page
+		}
+		foot.setInitialPageNumber(1);
+		
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+		String footerText =  "See the on-line version to get videos, translations, downloads... "+UrlUtil.PROD_ABSOLUTE_DOMAIN_NAME
+            +" <br />If you don't have access, please contact us</br></br></br>";
+		foot.setHtmlTemplate(footerText+"</br></br></br>");
+		foot.setAreaHeight(45); //Adjust the height
+		pd4ml.setPageFooter(foot); //Add footer
+	}
 }
