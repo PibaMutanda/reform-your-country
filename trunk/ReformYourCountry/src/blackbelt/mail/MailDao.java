@@ -9,10 +9,11 @@ import java.util.List;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
+import reformyourcountry.model.User;
+
 import blackbelt.model.Mail;
 import blackbelt.model.MailType;
 import blackbelt.model.MailingDelayType;
-import blackbelt.model.User;
 
 @Repository
 public class MailDao extends BaseRepository<Mail> {

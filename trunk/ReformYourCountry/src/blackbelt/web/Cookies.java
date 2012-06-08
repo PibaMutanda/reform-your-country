@@ -5,13 +5,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.codec.binary.Base64;
+
+import reformyourcountry.model.User;
 //TODO maxime uncomment
 
 import blackbelt.util.SecurityUtils;
 //import be.loop.jbb.web.SessionObject;
 //import be.loop.jbb.web.WebUtil;
-import blackbelt.model.User;
-//import blackbelt.security.SecurityContext;
 
 public class Cookies {
 
