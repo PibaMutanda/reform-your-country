@@ -1,7 +1,10 @@
 package reformyourcountry.converter;
 
 
+import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.List;
+
 import reformyourcountry.parser.*;
 /**
  * @author FIEUX Cédric
@@ -10,17 +13,37 @@ import reformyourcountry.parser.*;
 public class BBConverter {
 	
 	 /**
-	  * 
-	  * @param parent is the root of your BBTagTree
-	  * @return the html code as a string
+	  * Transform the BBcode in html
+	  * @param BBCode the text with the BBCode
+	  * @param ignoredTags the BBCode we don't want to translate [...]
+	  * @return the html code 
 	  */
-	 public static String GetValidHtmlCode(BBTag parent){
-		 IsTagValid(parent);
+	 public static String GetValidHtmlCode(String BBCode,List<String> ignoredTags){
+		 BBDomParser dp = new BBDomParser();
+		 BBTag root = null;
+		 root = dp.parse(new StringReader(BBCode),ignoredTags);
+		 IsTagValid(root);
 		 boolean isOk = true;
 		 while (isOk){
-			 isOk = putTagToEndOfList(parent, "untranslated");
+			 isOk = putTagToEndOfList(root, "untranslated");
 		 }
-		 return BBTagToHtml(parent);
+		 return BBTagToHtml(root);
+	 }
+	 /**
+	  * Transform the BBcode in html
+	  * @param BBCode the text with the BBCode
+	  * @return the html code 
+	  */
+	 public static String GetValidHtmlCode(String BBCode){
+		 BBDomParser dp = new BBDomParser();
+		 BBTag root = null;
+		 root = dp.parse(new StringReader(BBCode));
+		 IsTagValid(root);
+		 boolean isOk = true;
+		 while (isOk){
+			 isOk = putTagToEndOfList(root, "untranslated");
+		 }
+		 return BBTagToHtml(root);
 	 }
 	 
 	 /**
