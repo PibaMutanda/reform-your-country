@@ -1,7 +1,7 @@
 package reformyourcountry.parser;
 
 import java.io.IOException;
-import java.io.Reader;
+import java.io.*;
 import java.util.Iterator;
 
 /**
@@ -20,7 +20,8 @@ class SplitIterator implements Iterator<Part> {
 
 	private boolean error = false;
 
-	public SplitIterator(Reader source) {
+	public SplitIterator(String input) {
+		Reader source = new StringReader(input);
 		this.source = source;
 	}
 
