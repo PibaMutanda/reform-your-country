@@ -1,4 +1,4 @@
-package reformyourcountry.exception;
+package reformyourcountry.exceptions;
 
 
 public class UseAlreadyExistsException extends Exception {

@@ -15,8 +15,8 @@ import javax.management.RuntimeErrorException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
-import reformyourcountry.exception.UseAlreadyExistsException;
-import reformyourcountry.exception.UseAlreadyExistsException.identifierType;
+import reformyourcountry.exceptions.UseAlreadyExistsException;
+import reformyourcountry.exceptions.UseAlreadyExistsException.identifierType;
 
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.vaadin.navigator7.PageResource;
