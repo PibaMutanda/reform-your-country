@@ -10,6 +10,8 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 
+import blackbelt.web.UrlUtil;
+
 
 /** Used during development to test PD4ML, and PDF generation.
  * 
@@ -24,12 +26,17 @@ public class TestMainPdf {
 
 		try {
 			// pdf output file
-			File filetest = new File("S:\\FichiersSorties(ne pas sup)\\pdf4ml\\pd4ml.pdf");
+			
+			
+			// file will be create in os temp directory  C:\Users\forma*\AppData\Local\Temp
+			File filetest = new File(System.getProperty("java.io.tmpdir")+"pd4ml.pdf");
 			FileOutputStream fos =new FileOutputStream(filetest);
 			ArticlePdfGenerator cPdf = new ArticlePdfGenerator();
 
-			// html input file
-			URL sourceHtml = new URL("file:///S:/FichiersSorties%28ne%20pas%20sup%29/pdf4ml/wiki.html");
+			// html input file 
+			//source file read from workspace location
+			URL sourceHtml = new URL("file:///"+System.getProperty("user.dir")+"/src/reformyourcountry/pdf/"+"wiki.html");
+			
 			URLConnection co = sourceHtml.openConnection();
 			BufferedReader in = new BufferedReader(new InputStreamReader(co.getInputStream()));
 			 
@@ -39,13 +46,22 @@ public class TestMainPdf {
 			while ((inputLine = in.readLine()) != null){		
 				 input = input + inputLine;
 			}
-				
-			cPdf.generatePDF(input, fos, new Dimension(500,500), null, null); 
 			
+			String headerHtmlTemplate = "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">"
+					+ "<tr>"
+					+ "<td><span class =\"titre\">${title}</span></td>"
+					+ "<td>page ${page}</td>" + "</tr>" + "</table>";
+			
+			String footerHtmlTemplate = "<table width='100%'><tr><td></td><td class='licence'>"+"wikipedia 2012"+
+		        "</td><td align='right' class='valignBottom'>${page}<span class='grey'> /${total}</span></td></tr></table>";
+				
+			cPdf.generatePDF(input, fos, headerHtmlTemplate, footerHtmlTemplate, true); 
+			fos.close();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	
+			System.err.println("An exception was raised : " + e.getMessage());
 		}
+		
 	}
 
 }
