@@ -1,30 +1,27 @@
 package reformyourcountry.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import reformyourcountry.converter.BBConverter;
 import reformyourcountry.parser.BBDomParser;
 import reformyourcountry.parser.BBTag;
-import reformyourcountry.parser.DefaultBBTag;
 
 
 public class JUnitParserTest {
 
 	public static String ExportToHtml(String txt){
 		BBDomParser dp = new BBDomParser();
-		BBTag tg = null;
-		tg = dp.parse(new StringReader(txt));
-		DefaultBBTag tag = (DefaultBBTag)tg;
+		BBTag tg = null;List<String> tags = new ArrayList<String>();
+		tags.add("[...]");
+		tg = dp.parse(new StringReader(txt),tags);
 		
-		BBConverter.IsTagValid(tag);
-		
-	    
-		return BBConverter.BBTagToHtml(tag);
+		return BBConverter.GetValidHtmlCode(tg);
 	}
 
 	@Test
@@ -67,8 +64,8 @@ public class JUnitParserTest {
 	public void test10(){
 		assertEquals(ExportToHtml("[quote]Je suis une citation[untranslated]I’m a quote[/untranslated][/quote]"),"<div class=\"quote-block\">Je suis une citation<div class=\"quote-untranslated\">I’m a quote</div></div>");
 	}
-//	@Test
-//	public void test11(){
-//		assertEquals(new BBDomParser().parse(new StringReader("[quote][untranslated]I’m a quote[/untranslated]Je suis une citation[/quote]")).toString(),"<div class=\"quote-block\">Je suis une citation<div class=\"quote-untranslated\">I’m a quote</div></div>");
-//	}
+	@Test
+	public void test11(){
+		assertEquals(ExportToHtml("[quote][untranslated]I’m a quote[/untranslated]Je suis une citation[/quote]"),"<div class=\"quote-block\">Je suis une citation<div class=\"quote-untranslated\">I’m a quote</div></div>");
+	}
 }
