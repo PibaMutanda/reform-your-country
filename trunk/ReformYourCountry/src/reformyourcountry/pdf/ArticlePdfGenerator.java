@@ -118,8 +118,9 @@ public class ArticlePdfGenerator {
 				"font-size:10px;"+
 			"}";
 	
-	public ArticlePdfGenerator(){
+	public ArticlePdfGenerator(boolean enableDebug){
         this.pd4ml = new PD4ML();
+        this.enableDebug = enableDebug;
 	}
 	
 	public void generatePDF(String inputHTMLFileName, FileOutputStream fos, String headerBody,String footerBody,boolean doTheUserWantACoverPage) {
@@ -127,13 +128,13 @@ public class ArticlePdfGenerator {
 		/** PDF document setting */
     	pd4ml.addStyle(CSS,true);
     	try {
-			pd4ml.useTTF("c:/windows/fonts",true);
+    		pd4ml.useTTF( "java:fonts", true );
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+		
 			System.out.println(e);
 		}  
+    	
     	pd4ml.setDefaultTTFs("arial", "helvetica", "Courier New");
-	
 	// add the header
 		if ( headerBody != null && headerBody.length() > 0 ) {
 			   createHeader(headerBody);
@@ -249,7 +250,7 @@ public class ArticlePdfGenerator {
 	/** title style */
 	/*
 	
-	public String createSectionTitle(SectionText sectionTxt){
+	public String createArticleTitle(SectionText sectionTxt){
 		int size = getTitleSize(sectionTxt.getSection());
 		String title = null;
 		int level = Math.min(size+1, 4);
@@ -294,6 +295,8 @@ public class ArticlePdfGenerator {
 		}
 		return imgHtmlTag;
 	}
+	
+
 	
 }
 
