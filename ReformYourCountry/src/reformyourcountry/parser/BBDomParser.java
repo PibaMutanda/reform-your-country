@@ -1,6 +1,7 @@
 package reformyourcountry.parser;
 
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -180,8 +181,19 @@ public class BBDomParser {
         tag.add(a);
     }
 
-    public BBTag parse(Reader r, List<String> illegalTags) throws BBParserException {
-        Iterator<Part> i = new SplitIterator(r);
+    public BBTag parse(Reader input) throws BBParserException{
+    	return parse(input,new ArrayList<String>());
+    }
+    /**
+     * The main method; parse a text (inside a Reader) for tags, converts them into a DOM Tree. 
+     * The parser can accept a list of tags it must ignore.
+     * @param input 
+     * @param ignoreTags 
+     * @return The root of the DOM tree.
+     * @throws BBParserException
+     */
+    public BBTag parse(Reader input, List<String> illegalTags) throws BBParserException {
+    	Iterator<Part> i = new SplitIterator(input);
 
         BBTag root = new DefaultBBTag("", BBTagType.Root, "");
 
