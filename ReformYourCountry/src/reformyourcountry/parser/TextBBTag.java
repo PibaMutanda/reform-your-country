@@ -29,6 +29,10 @@ public class TextBBTag extends ABBTag {
     public TextBBTag(BBTag parent, String content) {
         super(parent, BBTagType.Text, "", content);
     }
+    
+    public TextBBTag(String name, String content){
+    	super(BBTagType.Text,name,content);
+    }
 
     @Override
     public boolean add(BBTag bbTag) {

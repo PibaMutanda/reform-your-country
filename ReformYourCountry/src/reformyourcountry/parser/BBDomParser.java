@@ -192,7 +192,7 @@ public class BBDomParser {
         while (i.hasNext()) {
             String part = i.next().getContent();
 
-            if (isTag(part) && !illegalTags.contains(part)) {   //TODO NOT WORKING, CORRECT IT
+            if (isTag(part) && !illegalTags.contains(part)) {   
                 String tagName = getTagName(part);
                 if (part.charAt(1) == '/') {
                     // The tag is closing tag.
@@ -248,6 +248,9 @@ public class BBDomParser {
                     currentTag = tag;
                 }
             } else {
+            	if(illegalTags.contains(part)){
+            		currentTag.add(new TextBBTag("codeAsText", part));
+            	}
                 currentTag.add(new TextBBTag(part));// if part isn't a tag, it's a text.
             }
         }
