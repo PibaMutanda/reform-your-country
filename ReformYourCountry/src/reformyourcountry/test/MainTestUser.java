@@ -2,6 +2,7 @@ package reformyourcountry.test;
 
 import java.util.Scanner;
 
+import reformyourcountry.exception.UseAlreadyExistsException;
 import reformyourcountry.service.LoginService;
 import reformyourcountry.service.UserService;
 import blackbelt.dao.UserDao;
@@ -17,10 +18,20 @@ public class MainTestUser {
 	 */
 	public static void main(String[] args) {
 
-		userService.registerUser(true, "maxime", "Sauvage", Gender.MALE,
-				"max", "max", "max@home.be");
-		userService.registerUser(true, "piba", "mutunba", Gender.MALE,
-				"piba", "max", "piba@home.be");
+		try {
+		    userService.registerUser(true, "maxime", "Sauvage", Gender.MALE,
+		    		"max", "max", "max@home.be");
+		} catch (UseAlreadyExistsException e1) {
+		    // TODO Auto-generated catch block
+		    e1.printStackTrace();
+		}
+		try {
+		    userService.registerUser(true, "piba", "mutunba", Gender.MALE,
+		    		"piba", "max", "piba@home.be");
+		} catch (UseAlreadyExistsException e1) {
+		    // TODO Auto-generated catch block
+		    e1.printStackTrace();
+		}
 		consoleFormRegistration();
 		try {
 			System.out.println("recherche par le dao"
@@ -73,8 +84,13 @@ public class MainTestUser {
 		password = scan.next();
 		System.out.println("please enter your email");
 		mail = scan.next();
-		userService.registerUser(true, firstname, name, gender, username,
-				password, mail);
+		try {
+		    userService.registerUser(true, firstname, name, gender, username,
+		    		password, mail);
+		} catch (UseAlreadyExistsException e) {
+		    // TODO Auto-generated catch block
+		    e.printStackTrace();
+		}
 
 	}
 
