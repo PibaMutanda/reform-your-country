@@ -6,7 +6,7 @@ import java.util.*;
 import reformyourcountry.parser.*;
 
 /**
- * @author xBlackCat
+ * @author xBlackCat,FIEUX cédric & Thomas VAN ROY
  */
 public class DefaultBBTag extends ABBTag {
     protected Map<String, BBAttribute> attributes = new HashMap<String, BBAttribute>();
@@ -103,40 +103,6 @@ public class DefaultBBTag extends ABBTag {
     	return this.attributes;
     }
     
-    // @Override
-    // public String getContent() {
-    // StringBuilder content = new StringBuilder();
-    // content.append('[');
-    // content.append(name);
-    // if (attributes.size() > 0) {
-    // BBAttribute defAttribute = attributes.get(null);
-    // if (defAttribute != null) {
-    // content.append('=');
-    // content.append(defAttribute.getValue());
-    // }
-    //
-    // for (BBAttribute a : attributes.values()) {
-    // if (a.getName() != null) {
-    // content.append(' ');
-    // content.append(a.getName());
-    // content.append("=\"");
-    // content.append(a.getValue());
-    // content.append('"');
-    // }
-    // }
-    // }
-    //
-    // content.append(']');
-    //
-    // for (BBTag t : children) {
-    // content.append(t.getContent());
-    // }
-    //
-    // content.append("[/");
-    // content.append(name);
-    // content.append(']');
-    // return content.toString();
-    // }
      @Override
      public String toString() {
      StringBuilder out = new StringBuilder();
@@ -169,109 +135,6 @@ public class DefaultBBTag extends ABBTag {
     
      return out.toString();
      }
-
-    // Modified by cedric F
-    // Transform the bbcode in html.
-//    @Override
-//    public String toString() {
-//
-//	String notRecognizedAttribute = "";
-//	String bibSignature = "";
-//	StringBuilder out = new StringBuilder();
-//	// Foreach BBtag contained in the innertext of this bbtag, transform
-//	// these BBtag in html
-//	for (BBTag t : children) {
-//	    out.append(t.toString());
-//	    // out.append(' ');
-//	}
-//	// If it's not the Level 0 tag
-//	if (!(this.getName().equals(""))) {
-//	    // If it's a text tag just add the text
-//	    if (this.getType() == BBTagType.Text) {
-//		out.append(this.name);
-//	    } else if (this.getType() == BBTagType.Error
-//		    || GetHtmlOpenTag().equals("error")) {
-//		out.append("<span style='color:red;'>" + this.getName()
-//			+ "</span>");
-//	    } else {
-//		// if it's a Bbcode tag, we had the attributes in the html tag
-//		if (attributes.size() > 0) {
-//		    // BBAttribute defAttribute = attributes.get(null);
-//		    // if (defAttribute != null) {
-//		    // out.append('=');
-//		    // out.append(defAttribute.getValue());
-//		    // }
-//
-//		    // We build differently the special attributes
-//		    for (BBAttribute a : attributes.values()) {
-//			if (a.getName() != null) {
-//			    // if it's a "bib" we have to send the value as a
-//			    // signature at the end of the BBTag.
-//			    if (a.getName().toLowerCase().contains("error")) {
-//				out.append("<span style='color:red;'>the attribute "
-//					+ a.getValue()
-//					+ " throws some exception: "
-//					+ a.getName() + "</span>");
-//			    } else if (a.getName().toLowerCase().equals("bib")) {
-//				bibSignature = "<a href=\"/Bibliography#"
-//					+ a.getValue() + "\">[" + a.getValue()
-//					+ "]</a>" + bibSignature;
-//			    } else if (a.getName().toLowerCase()
-//				    .equals("addbib")) {
-//				bibSignature = " " + a.getValue()
-//					+ bibSignature;
-//			    } else if (a.getName().toLowerCase().equals("out")) {
-//				if (this.name.equals("bib"))
-//				    bibSignature = "(<a href=\"" + a.getValue()
-//					    + "\">";
-//				else if (this.name.equals("link"))
-//				    bibSignature = "<a href=\"" + a.getValue()
-//					    + "\">";
-//			    } else if (a.getName().toLowerCase()
-//				    .equals("article")
-//				    || a.getName().toLowerCase().equals("id")
-//				    || a.getName().toLowerCase()
-//					    .equals("label")
-//				    || a.getName().toLowerCase()
-//					    .equals("inline")) {
-//
-//			    } else {
-//				notRecognizedAttribute = "<span style='color:red;'>the attribute "
-//					+ a.getName()
-//					+ " with value=\""
-//					+ a.getValue()
-//					+ "\" is not recognized</span>";
-//			    }
-//
-//			}
-//		    }
-//
-//		}
-//		if (!bibSignature.equals("")) {
-//		    String endTag = GetHtmlClosingTag();
-//		    if (endTag.contains("span")) {
-//			bibSignature = "<span class=\"bibref\">" + bibSignature
-//				+ endTag;
-//		    } else if (endTag.contains("div")) {
-//			bibSignature = "<div class=\"bibref-after-block\">"
-//				+ bibSignature + endTag;
-//		    } else if (this.name.equals("bib")) {
-//			return GetHtmlOpenTag() + bibSignature + out
-//				+ GetHtmlClosingTag() + notRecognizedAttribute;
-//		    } else if (this.name.equals("link")) {
-//			return bibSignature + out + "</a>"
-//				+ notRecognizedAttribute;
-//		    }
-//		}
-//		out = new StringBuilder(GetHtmlOpenTag() + out
-//			+ GetHtmlClosingTag() + bibSignature
-//			+ notRecognizedAttribute);
-//	    }
-//	}
-//
-//	return out.toString();
-//    }
-   
 
     private void updateParent(BBTag bbTag) {
 	if (bbTag == null) {

@@ -1,7 +1,8 @@
 package reformyourcountry.parser;
 
 /**
- * @author xBlackCat
+ * Added error type
+ * @author xBlackCat, FIEUX Cédric & Thomas Van Roy
  */
 public enum BBTagType {
     Root,
