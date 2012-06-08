@@ -2,10 +2,18 @@ package reformyourcountry.converter;
 
 
 import java.util.ArrayList;
-
 import reformyourcountry.parser.*;
-
+/**
+ * @author FIEUX Cédric
+ * this class purpose is to verify the BBCode and there attributes and then return Html Code (with errors commented)
+ */
 public class BBConverter {
+	
+	 /**
+	  * 
+	  * @param parent is the root of your BBTagTree
+	  * @return the html code as a string
+	  */
 	 public static String GetValidHtmlCode(BBTag parent){
 		 IsTagValid(parent);
 		 boolean isOk = true;
@@ -14,6 +22,13 @@ public class BBConverter {
 		 }
 		 return BBTagToHtml(parent);
 	 }
+	 
+	 /**
+	  * Put a tag at the end of the child list from his parent.
+	  * @param parent is the parent of BBTagList 
+	  * @param tagName is the string name of the tag you want to put at the end of the list
+	  * @return true if something was changed
+	  */
 	 private static boolean putTagToEndOfList(BBTag parent, String tagName){
 		for(BBTag tag:parent.getChildrenList()){
 			if (tag.getName().toLowerCase().equals(tagName.toLowerCase())){
@@ -32,6 +47,11 @@ public class BBConverter {
 		return false;
 	 }
 	
+	 /**
+	  * Verify if all the conditions are filled for each type of BBTag, if not, change it in an error tag
+	  * @param tag is the root of your TagTree
+	  * @return false 
+	  */
 	 private static Boolean IsTagValid(BBTag tag){
 		 ArrayList<String> validAttributeList = new ArrayList<String>();
 		 validAttributeList.add("inline");
@@ -137,12 +157,10 @@ public class BBConverter {
 		 			case "untranslated":
 		 				BBTag parent = tag.getParent();
 		 				if(parent !=null){
-		 					BBTag untranslatedTag = null;
 		 					int i =0;
 		 					for (BBTag subTag:parent.getChildrenList()){
 		 						if (subTag.getName().toLowerCase().equals("untranslated")){
 		 							i++;
-		 							untranslatedTag= subTag;
 		 						}
 		 					}
 		 					if (i >1){
@@ -165,6 +183,11 @@ public class BBConverter {
 		 return false;
 	 }
 	
+	 /**
+	  * Return all the text in html
+	  * @param tg is the root of your TagTree 
+	  * @return the html code as a string
+	  */
 	 private static String BBTagToHtml(BBTag tg) {
 		 StringBuilder out = new StringBuilder();
 		 // Foreach BBtag contained in the innertext of this bbtag, transform
@@ -188,11 +211,6 @@ public class BBConverter {
 
 					 // if it's a Bbcode tag, we had the attributes in the html tag
 					 if (tag.getAttributes().size() > 0) {
-						 // BBAttribute defAttribute = attributes.get(null);
-						 // if (defAttribute != null) {
-						 // out.append('=');
-						 // out.append(defAttribute.getValue());
-						 // }
 
 						 // We build differently the special attributes
 						 for (BBAttribute a : tag.getAttributes().values()) {
@@ -265,7 +283,11 @@ public class BBConverter {
 		 return out.toString();
 	 }
 
-
+	 /**
+	  * return the good html open tag
+	  * @param tag is the tag we want to convert
+	  * @return the html open tag
+	  */
 	 private static String GetHtmlOpenTag(DefaultBBTag tag) {
 		 String specialValue = "";
 		 switch (tag.getName().toLowerCase()) {
@@ -310,7 +332,11 @@ public class BBConverter {
 			 return "<span class=\"parse-error\">"+tag.getErrorText();
 		 }
 	 }
-
+	 /**
+	  * return the good html closing tag
+	  * @param tag is the tag we want to convert
+	  * @return the html closing tag
+	  */
 	 private static String GetHtmlClosingTag(DefaultBBTag tag) {
 		 switch (tag.getName().toLowerCase()) {
 		 case "quote":
@@ -340,7 +366,11 @@ public class BBConverter {
 			 return "</span>";
 		 }
 	 }
-
+	 /**
+	  * Convert the BBCode Actionpoint in html
+	  * @param value is the id of the actionpoint
+	  * @return html actionpoint code
+	  */
 	 private static String GetActionPoint(String value) {
 		 String result = "<div class=\"actionpoint-title\">";
 		 if (value.equals("34"))

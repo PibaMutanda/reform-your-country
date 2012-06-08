@@ -1,7 +1,8 @@
 package reformyourcountry.parser;
 
 /**
- * @author xBlackCat Date: 14.06.11
+ *  Added parent tag of the attribute, if there is an error with the attribute, we change the tag in error tag
+ * @author xBlackCat,FIEUX Cédric,Thomas Van Roy
  */
 public class DefaultBBAttribute implements BBAttribute {
     private final String name;
@@ -44,12 +45,5 @@ public class DefaultBBAttribute implements BBAttribute {
         return name != null ? name.hashCode() : 0;
     }
     
-    //Exception if name is null, name must exist
-    public class AttributeNameException extends Exception
-    {
-//    	public AttributeNameException(DefaultBBAttribute attribute){
-//    		attribute.parent.content = "!!! Some attribute(s) have no name !!! "+attribute.parent.content;
-//    		parent.attributes.remove(attribute.name);
-//    	}
-    }
+
 }

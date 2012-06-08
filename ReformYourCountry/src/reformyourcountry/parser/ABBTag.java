@@ -7,8 +7,8 @@ import java.util.List;
  * This holds the information of a tag in the tree. 
  * For example, in "blabla [quote inline'tru']abc[/quote]"
  * this would hold the information of the quote tag, with a list of attributes (defined in descendant class), and the text....
- * 
- * @author ????
+ * (Added children list and errorText) 
+ * @author xBlackCat and FIEUX Cédric
  *
  */
 public abstract class ABBTag implements BBTag {
@@ -16,7 +16,7 @@ public abstract class ABBTag implements BBTag {
     protected BBTagType type;
     protected BBTag parent;
     protected String content;  // Would be "abc" in the example above
-    protected String errorText;
+    protected String errorText; //If we find an error in the tag, it's the comment about the error.
     protected List<BBTag> children = new ArrayList<BBTag>();
     
     @Override
