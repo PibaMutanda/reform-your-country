@@ -1,7 +1,6 @@
 package reformyourcountry.service;
 
 import java.io.InputStream;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -70,6 +69,9 @@ import blackbelt.exceptions.UserNotFoundException;
 //import blackbelt.service.ModerationService;
 //import blackbelt.service.OrganizationService;
 //import blackbelt.ui.ReactivatePage;
+import blackbelt.mail.MailCategory;
+import blackbelt.mail.MailService;
+import blackbelt.mail.MailType;
 import blackbelt.model.User;
 import blackbelt.model.User.AccountStatus;
 import blackbelt.model.User.CommunityRole;
@@ -93,20 +95,21 @@ public class UserService {
     // private String passwordRecoveryTemplate;
 
     protected Logger logger = Logger.getLogger(getClass());
+    ////////TODO maxime delete?
+    // @Autowired 
+    //private GroupService groupService;
+    // @Autowired 
+    //private ContributionService contributionService;
+    //@Autowired// 
+    private UserDao UserDao = new UserDao(); // TODO: Use autowiring with Spring instead of new.
+    // @Autowired 
+    private MailService mailService;
+    ////TODO delete?
+    // @Autowired 
+    //private BadgeService badgeService;
+    // @Autowired 
+    //private ModerationService moderationService;
 
-    // @Autowired private GroupService groupService;
-    // @Autowired private ContributionService contributionService;
-    /*@Autowired*/ private UserDao UserDao = new UserDao(); // TODO: Use autowiring with Spring instead of new.
-    // @Autowired private MailService mailService;
-    // @Autowired private V5QuestionDao questionDao;
-    // @Autowired private BadgeService badgeService;
-    // @Autowired private QuestionCriteriaVoteDao questionCriteriaVoteDao;
-    // @Autowired private ModerationService moderationService;
-    // @Autowired private CommunityUserDao communityUserDao;
-    // @Autowired private CourseRegService courseRegService;
-    // @Autowired private OrganizationService organizationService;
-
-    // TODO maxime javadoc
     /**
      * register a user in the db
      * 
@@ -358,8 +361,7 @@ public class UserService {
 
     }
 
-    //TODO remove static when using web
-    public static void sendRegistrationValidationMail(User user) {
+    public void sendRegistrationValidationMail(User user) {
 
 	String validationUrl = "TO IMPLEMENT"; // UrlUtil.getAbsoluteUrl( XXXXXXXXXXXXXX REGISTER PAGE with user & user.getValidationCode().
 	String htmlMessage = "Welcome on KnowledgeBlackBelt.com, " + user.getFullName() + "." + 
@@ -373,8 +375,7 @@ public class UserService {
 		"'>contact us.</a>" + 
 		"<br/><br/>Thank you for registering and have a nice time on KnowledgeBlackBelt.";
 
-	// TODO maxime uncomment when the mail service is implemented.
-	// mailService.sendMail(user.getMail(), "Your new account", htmlMessage, MailType.IMMEDIATE, MailCategory.USER);
+	 mailService.sendMail(user.getMail(), "Your new account", htmlMessage, MailType.IMMEDIATE, MailCategory.USER);
 	System.out.println("mail sent: " + htmlMessage);  // To simulate the mailService until we have it.
     }
 
@@ -438,15 +439,15 @@ public class UserService {
 	UserDao.save(user);
 
 	// TODO maxime uncomment when mail service available
-	//  			mailService.sendMail(user.getMail(), "Password Recovery",
-	//  					"You requested a new password for your account '"+ user.getUserName()+"' on KnowledgeBlackBelt.com<br/>" + 
-	//  					"We could not give you back your old password because we do not store it directly, for security and (your own) privacy reason it is encrypted in a non reversible way. <br/><br/>" + 
-	//  					"Here is your new password : "+ newPassword + 
-	//  					"<ol>" +  
-	//  					"<li>password are case sensitive,</li>" +  
-	//  					"<li>This is a temporary password, feel free to change it using <a href='"+getUserPageUrl(user)+"'>your profile page</a>.</li>" +
-	//  					"</ol>", 
-	//  					MailType.IMMEDIATE, MailCategory.USER);
+	  			mailService.sendMail(user.getMail(), "Password Recovery",
+	  					"You requested a new password for your account '"+ user.getUserName()+"' on KnowledgeBlackBelt.com<br/>" + 
+	  					"We could not give you back your old password because we do not store it directly, for security and (your own) privacy reason it is encrypted in a non reversible way. <br/><br/>" + 
+	  					"Here is your new password : "+ newPassword + 
+	  					"<ol>" +  
+	  					"<li>password are case sensitive,</li>" +  				   //TODO maxime uncoment for the web
+	  					"<li>This is a temporary password, feel free to change it using <a href='"+/*getUserPageUrl(user)+*/"'>your profile page</a>.</li>" +
+	  					"</ol>", 
+	  					MailType.IMMEDIATE, MailCategory.USER);
 
     }
 
