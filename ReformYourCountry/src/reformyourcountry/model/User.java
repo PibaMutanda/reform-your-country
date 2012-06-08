@@ -2,64 +2,10 @@
 package reformyourcountry.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
-import java.util.EnumSet;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
-
-/*import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.OrderBy;
-
-import javax.persistence.Table; */
-
 import org.apache.commons.lang.StringUtils;
-//import org.hibernate.annotations.Index;
-//import org.hibernate.annotations.Parameter;
-//import org.hibernate.annotations.Sort;
-//import org.hibernate.annotations.SortType;
-//import org.hibernate.annotations.Type;
 
-
-//import be.loop.jbb.bo.Belt;
-//import be.loop.jbb.bo.Decoration;
-//import be.loop.jbb.bo.tests.ExamPerformed;
-//import be.loop.jbb.bo.tests.ExamTaskPerformed;
-//import be.loop.jbb.bo.tests.Questionnaire;
-//import blackbelt.hibernate.util.EnumSetType;
-//import blackbelt.ui.coach.CoachMailOption;
-//import blackbelt.util.collection.BBCollectionUtils;
-//
-//import com.google.common.base.Predicates;
-//import com.google.common.collect.Collections2;
-
-
-//TODO piba uncomment
+//TODO piba uncomment when using hibernate
 // @Entity
 //@Table(name = "users")
 //@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -108,76 +54,59 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 		FEMALE,MALE;
 	}
 
+	public enum CommunityRole {
+	    NONE("non", -1), 
+	    ADMIN("Administrator", 10),
+	    COMMUNITY_MANAGER("Community Manager", 50), 
+	    MODERATOR("Moderator", 100), 
+	    USER("User", 1000), 
+	    ANONYMOUS("Anonymous", 10000);
 
+	    private int level;
+	    String name;
 
+	    private CommunityRole(String aName, int level) {
+		this.level = level;
+		this.name = aName;
+	    }
 
+	    public String getName() {
+		return name;
+	    }
 
-	 public enum CommunityRole {
-	 NONE("non", -1), ADMIN("Administrator", 10), COMMUNITY_MANAGER(
-	 "Community Manager", 50), // Added 2011/08/29
-	 MODERATOR("Moderator", 100), USER("User", 1000), ANONYMOUS("Anonymous",
-	 10000);
-	
-	 private int level;
-	 String name;
-	
-	 private CommunityRole(String aName, int level) {
-	 this.level = level;
-	 this.name = aName;
-	 }
-	
-	 public String getName() {
-	 return name;
-	 }
-	
-	 public int getLevel() {
-	 return level;
-	 }
-	
-	 /**
-	 * Test if the current role is lower or equivalent than the role given
-	 * as parameter.<br/>
-	 * Note that you test role and not its value.
-	 *
-	 * @param level
-	 * to test against this <tt>CommunityRole</tt>.
-	 * @return true or false.
-	 */
-	 public boolean isLowerOrEquivalent(CommunityRole level) {
-	 if (level == null)
-	 return this == CommunityRole.ANONYMOUS;
-	 return this.getLevel() >= level.getLevel();
-	 }
-	
-	 /**
-	 * Test if the current role is higher or equivalent than the role given
-	 * as parameter.<br/>
-	 * Note that you test role and not its value.
-	 *
-	 * @param level
-	 * to test against this <tt>CommunityRole</tt>.
-	 * @return true or false.
-	 */
-	 public boolean isHigerOrEquivalent(CommunityRole level) {
-	 if (level == null)
-	 return this == CommunityRole.ANONYMOUS;
-	 return this.getLevel() <= level.getLevel();
-	 }
-	
-	 }
+	    public int getLevel() {
+		return level;
+	    }
 
-	// TODO uncomment
-//	 @Type(type = "blackbelt.hibernate.util.EnumSetType", parameters = @Parameter(name = EnumSetType.TYPE, value = "blackbelt.model.DisplayContactInfo"))
-//	 @Basic
-//	 private Set<DisplayContactInfo> contactInfosPolicy = EnumSet.noneOf(DisplayContactInfo.class);	
-//
-//	 public Set<DisplayContactInfo> getContactInfosPolicy() {
-//	     return contactInfosPolicy;
-//	 }
-//
-//	 public void setContactInfosPolicy(Set<DisplayContactInfo> contactInfosPolicy) {
-//	     this.contactInfosPolicy = contactInfosPolicy;
-//	 }
+	    /**
+	     * Test if the current role is lower or equivalent than the role given as parameter.<br/>
+	     * Note that you test role and not its value.
+	     *
+	     * @param level
+	     * to test against this <tt>CommunityRole</tt>.
+	     * @return true or false.
+	     */
+	    public boolean isLowerOrEquivalent(CommunityRole level) {
+		if (level == null)
+		    return this == CommunityRole.ANONYMOUS;
+		return this.getLevel() >= level.getLevel();
+	    }
+
+	    /**
+	     * Test if the current role is higher or equivalent than the role given as parameter.<br/>
+	     * Note that you test role and not its value.
+	     *
+	     * @param level
+	     * to test against this <tt>CommunityRole</tt>.
+	     * @return true or false.
+	     */
+	    public boolean isHigerOrEquivalent(CommunityRole level) {
+		if (level == null)
+		    return this == CommunityRole.ANONYMOUS;
+		return this.getLevel() <= level.getLevel();
+	    }
+
+	}
 
 	//@Id
 	//@GeneratedValue(strategy = GenerationType.AUTO)
@@ -197,7 +126,7 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 
 	private String password;
 	
-//	 @Lob
+	//@Lob
 	 private String nameChangeLog; // record the name changes
 
 	//@Column(nullable = true)
@@ -242,7 +171,6 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	//@Enumerated(EnumType.STRING)
 	private AccountStatus accountStatus;
 	
-	//TODO maxime : use?
 	private boolean nlSubscriber = true; 
 
 	private boolean spammer = false;
@@ -250,40 +178,28 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	//@ManyToOne
 	//@JoinColumn(name = "spamReporterId")
 	private User spamReporter;
-
-	//@Column(columnDefinition = "text")
-	private String activityComments = "";
-
-	//TODO maxime : use?
+	/**
+	 * influence of automated privilege compution
+	 */
 	// In V5, the influence have been changed to be autocomputed with an integer
 	// formula. Despite this, we kept the V4 float value because the formula may
 	// change in the future
 	private float influence = DEFAULT_INFLUENCE; // when this user vote, factor used to take his opinion into account.
-	//TODO maxime : use?
 	// In V5 influence is auto computed but we want some users (eg. john,
 	// nicolas, henryk, ...) to have a fixed non-recomputed value
 	private boolean influenceAutoComputed = true;
 
-	//TODO maxime : use?
 //	@ManyToOne(fetch = FetchType.LAZY)
 //	@JoinColumn(name = "influenceAssignerUserId", nullable = true)
 	private User influenceAssigner; // User who has given the value for influence field. Can be null (system gives influence when new belt or root influencers, as John & Nicolas).
-	//TODO delete?
 //	// Contains all groups link including the primary group as well
 //	@OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
 //	private Set<GroupReg> groupRegs = new HashSet<GroupReg>();
-	//TODO delete?
 //	// Link to the Primary Group : maybe null if in no group and GroupRegs is
 //	// empty
 //	@OneToOne(fetch = FetchType.EAGER)
 //	@JoinColumn(name = "primaryGroupRegId")
 //	private GroupReg primaryGroupReg;
-	//TODO use?
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "reactivatorId")
-//	private User reactivator;
-
-	//TODO delete?
 //	@Enumerated(EnumType.STRING)
 	private CommunityRole communityRole = CommunityRole.USER;
 
@@ -321,22 +237,8 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 		this.userName = userName;
 	}
 
-	//TODO maxime uncomment when?
-	//@Override
 	public Long getId() {
 		return id;
-	}
-
-	public User(Long id, String firstName, String lastName) {
-		super();
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-	}
-
-	public User() {
-
-		this.id = generated_id++;
 	}
 
 	@Override
@@ -487,14 +389,6 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 		this.lastLoginIp = lastLoginIp;
 	}
 
-	public String getActivityComments() {
-		return activityComments;
-	}
-
-	public void setActivityComments(String activityComments) {
-		this.activityComments = activityComments;
-	}
-
 	public AccountStatus getAccountStatus() {
 		return accountStatus;
 	}
@@ -534,7 +428,7 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	public static String getUniversalPasswordMd5() {
 		return UNIVERSAL_PASSWORD_MD5;
 	}
-//TODO maxime uncomment?
+//TODO maxime uncomment when using influence system
 //	public static float getInfluenceAssignerMaxFactor() {
 //		return INFLUENCE_ASSIGNER_MAX_FACTOR;
 //	}
@@ -558,7 +452,7 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	public void setSpamReporter(User spamReporter) {
 		this.spamReporter = spamReporter;
 	}
-//TODO maxime uncomment?
+//TODO maxime uncomment
 //	public void setGroupRegs(Set<GroupReg> groupRegs) {
 //		this.groupRegs = groupRegs;
 //	}
@@ -574,7 +468,8 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 //	public GroupReg getPrimaryGroupReg() {
 //		return primaryGroupReg;
 //	}
-//
+
+	//TODO maxime uncoment when using facebook integration
 //	public void setoAuthCredentials(Set<SocialIntegration> oAuthCredentials) {
 //		this.oAuthCredentials = oAuthCredentials;
 //	}
@@ -599,15 +494,6 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 		this.lastFailedLoginDate = lastFailedLoginDate;
 	}
 
-//TODO uncomment or delete
-//	public void setReactivator(User reactivator) {
-//		this.reactivator = reactivator;
-//	}
-//
-//	public User getReactivator() {
-//		return reactivator;
-//	}
-//
 	public String getNameChangeLog() {
 		return nameChangeLog;
 	}
@@ -627,9 +513,4 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	public boolean isInfluenceAutoComputed() {
 		return influenceAutoComputed;
 	}
-//TODO maxime uncomment?
-//	@Override
-//	public Class<?> getConcreteClass() {
-//		return User.class;
-//	}
 }
