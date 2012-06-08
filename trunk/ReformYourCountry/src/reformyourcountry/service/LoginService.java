@@ -129,9 +129,9 @@ public class LoginService {
 	    Long id = new Long(loginCookie.getValue());
 	    String md5password = passwordCookie.getValue();
 	    try {
-		User user = userDao.get(id);  // Maybe exception because entity not found.
+		User user = userDao.get(id);  
 		if(user != null){
-		    loginEncrypted(user.getUserName(), md5password, false /*don't recreate cookies....*/);
+		    loginEncrypted(user.getUserName(), md5password, false /*don't recreate cookies....*/);  // Maybe exception.
 		} else {
 		    logout();
 		}
@@ -162,8 +162,8 @@ public class LoginService {
 	}
 
 	identifier = identifier.toLowerCase();
+	
 	result = userDao.getUserByEmail(identifier);
-
 	if (result == null) {
 	    result = userDao.getUserByUserName(identifier);
 	}
