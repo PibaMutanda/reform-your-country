@@ -67,9 +67,9 @@ public class DefaultBBTag extends ABBTag {
 
     @Override
     public String getAttributeValue(String attributeName) {
-	BBAttribute a = attributes.get(attributeName);
+    	BBAttribute a = attributes.get(attributeName);
 
-	return a == null ? null : a.getValue();
+    	return a == null ? null : a.getValue();
     }
 
     @Override
