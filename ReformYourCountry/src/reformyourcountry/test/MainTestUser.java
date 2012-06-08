@@ -2,7 +2,7 @@ package reformyourcountry.test;
 
 import java.util.Scanner;
 
-import reformyourcountry.exception.UseAlreadyExistsException;
+import reformyourcountry.exceptions.UseAlreadyExistsException;
 import reformyourcountry.service.LoginService;
 import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
 import reformyourcountry.service.UserService;
