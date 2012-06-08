@@ -14,40 +14,18 @@ import org.apache.commons.lang3.time.DateUtils;
 import reformyourcountry.dao.UserDao;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountStatus;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Component;
-
-//import be.loop.jbb.bl.exceptions.InvalidPasswordException;
-//import be.loop.jbb.bl.exceptions.UserLockedException;
-//import be.loop.jbb.bl.exceptions.UserNotFoundException;
-//import be.loop.jbb.bl.exceptions.UserNotValidatedException;
-//import be.loop.jbb.bo.CommunityUser;
-//import be.loop.jbb.dao.UserDao;
 import blackbelt.exceptions.InvalidPasswordException;
 import blackbelt.exceptions.UserLockedException;
 import blackbelt.exceptions.UserNotFoundException;
 import blackbelt.exceptions.UserNotValidatedException;
 import blackbelt.util.SecurityUtils;
-import blackbelt.web.HttpSessionTracker;
-//import be.loop.jbb.web.SessionObject;
-//import blackbelt.model.Organization;
-//import blackbelt.model.Privilege;
-//import blackbelt.model.User.CommunityRole;
-//import blackbelt.ui.application.BlackBeltApplication;
 import blackbelt.web.ContextUtil;
 import blackbelt.web.Cookies;
-import blackbelt.web.CurrentEnvironment;
-//import blackbelt.web.UrlUtil;
+import blackbelt.web.HttpSessionTracker;
 
 //TODO uncomment
 //@Component
 public class LoginService {
-    // TODO uncomment
-    // @Autowired UserDao UserDao; // TODO: This Dao should probably disapear
-    // once the corp side is gone -- John 2009-07-02
-    // @Autowired OrganizationService organizationService;
-
-    // TODO uncomment
     // @Autowired
     UserDao userDao = new UserDao();  // TODO: Use autowiring with Spring instead of new.
 
@@ -118,15 +96,13 @@ public class LoginService {
 	return user;
     }
 
-    private void assertNoInvalidDelay(User user)
-	    throws WaitDelayNotReachedException {
+    private void assertNoInvalidDelay(User user) throws WaitDelayNotReachedException {
 	// Security delay
-	if (user.getConsecutiveFailedLogins() > SUSPICIOUS_AMOUNT_OF_LOGIN_TRY) { // Suspicious, let's introduce the delay
-	    // Wait 1 minute that doubles each time you fail. 
-	    // You failed 10 times, you wait 2^(10-SUSPICIOUS_AMOUNT_OF_LOGIN_TRY)=2^5=32 minutes before the next try.
-	    Date nextPossibleLoginDate = DateUtils.addMinutes(	user.getLastFailedLoginDate(),
-		    2 ^ (user.getConsecutiveFailedLogins() - SUSPICIOUS_AMOUNT_OF_LOGIN_TRY));
-	    if (nextPossibleLoginDate.after(new Date())) { // Have to wait.
+	if (user.getConsecutiveFailedLogins() > SUSPICIOUS_AMOUNT_OF_LOGIN_TRY) {  // Suspicious, let's introduce the delay
+	    // Wait 1 minute that doubles each time you fail. You failed 10 times, you wait 2^(10-SUSPICIOUS_AMOUNT_OF_LOGIN_TRY)=2^5=32 minutes before the next try.
+	    Date nextPossibleLoginDate = DateUtils.addMinutes(user.getLastFailedLoginDate(), 
+		    2^(user.getConsecutiveFailedLogins()-SUSPICIOUS_AMOUNT_OF_LOGIN_TRY));
+	    if (nextPossibleLoginDate.after(new Date())) {  // Have to wait.
 		throw new WaitDelayNotReachedException(nextPossibleLoginDate);
 	    }
 	}
@@ -134,15 +110,15 @@ public class LoginService {
 
     public void tryAutoLoginFromCookies() {
 	if (getLoggedInUserIdFromSession() != null) {
-	    return; // User already logged in.
+	    return;  // User already logged in.
 	}
 	// At this point, no user logged in.
 
 	/*
-	 * We look for 2 cookies (loginCookie and passwordCookie). If cookies
-	 * with name "login" and "password" are found we log the user
-	 * automaticaly. The value of "login" cookie is the user id. The value
-	 * of "password" cookie is the enrypted password.
+	 * We look for 2 cookies (loginCookie and passwordCookie).
+	 * If cookies with name "login" and "password" are found we log the
+	 * user automaticaly. The value of "login" cookie is the user id.
+	 * The value of "password" cookie is the enrypted password.
 	 */
 	Cookie loginCookie = Cookies.findCookie(Cookies.LOGINCOOKIE_KEY);
 	Cookie passwordCookie = Cookies.findCookie(Cookies.PASSCOOKIE_KEY);
@@ -153,21 +129,14 @@ public class LoginService {
 	    Long id = new Long(loginCookie.getValue());
 	    String md5password = passwordCookie.getValue();
 	    try {
-		User user = userDao.get(id); // Maybe exception because entity
-		// not found.
-		if (user != null) {
-		    loginEncrypted(user.getUserName(), md5password, false /*
-		     * don't
-		     * recreate
-		     * cookies
-		     * ....
-		     */);
+		User user = userDao.get(id);  // Maybe exception because entity not found.
+		if(user != null){
+		    loginEncrypted(user.getUserName(), md5password, false /*don't recreate cookies....*/);
 		} else {
 		    logout();
 		}
 	    } catch (Exception e) {
-		// this will remove the cookies as they were not able to login
-		// the user
+		//this will remove the cookies as they were not able to login the user
 		logout();
 	    }
 	}
