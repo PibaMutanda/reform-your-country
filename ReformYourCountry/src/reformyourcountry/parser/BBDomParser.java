@@ -4,6 +4,7 @@ import java.io.Reader;
 import java.util.Deque;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -159,7 +160,7 @@ public class BBDomParser {
             currChar = Character.toLowerCase(tag.charAt(curr++));
         }
 
-        if (tagName.length() == 0) {// first character of the tag (that isn't "/)
+        if (tagName.length() == 0) {
             return null;
         }
 
@@ -179,7 +180,7 @@ public class BBDomParser {
         tag.add(a);
     }
 
-    public BBTag parse(Reader r) throws BBParserException {
+    public BBTag parse(Reader r, List<String> illegalTags) throws BBParserException {
         Iterator<Part> i = new SplitIterator(r);
 
         BBTag root = new DefaultBBTag("", BBTagType.Root, "");
@@ -191,7 +192,7 @@ public class BBDomParser {
         while (i.hasNext()) {
             String part = i.next().getContent();
 
-            if (isTag(part)) {
+            if (isTag(part) && !illegalTags.contains(part)) {   //TODO NOT WORKING, CORRECT IT
                 String tagName = getTagName(part);
                 if (part.charAt(1) == '/') {
                     // The tag is closing tag.
