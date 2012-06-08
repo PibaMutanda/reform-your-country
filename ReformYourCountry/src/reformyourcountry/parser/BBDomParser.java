@@ -250,8 +250,9 @@ public class BBDomParser {
             } else {
             	if(illegalTags.contains(part)){
             		currentTag.add(new TextBBTag("codeAsText", part));
-            	}
+            	}else{
                 currentTag.add(new TextBBTag(part));// if part isn't a tag, it's a text.
+            	}
             }
         }
 
