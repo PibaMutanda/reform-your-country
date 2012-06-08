@@ -17,7 +17,7 @@ import blackbelt.web.UrlUtil;
 
 public class TestCoverPage {
 
-
+    private String linkTest = new String("file:\\S:\\blackbeltfactory.jpg");
 	private String linklogo=new String("http://knowledgeblackbelt.com/image/KnowledgeBlackBelt-Logo-Header.png");
     private String linkbottom = new String("http://3.bp.blogspot.com/-QqRJffxgYOQ/T5AXnhlDAZI/AAAAAAAAAzk/lUbL8noFzgs/s400/black+belt.jpg");
 	private PD4ML pd4ml;
@@ -163,7 +163,7 @@ public class TestCoverPage {
         result +=
                 // BBF Logo
         		"<div align='center' class='logo'>" +
-        		"<img width='357' height='127' alt='fichier existant mais non affichable' src='"+linklogo+"'></div><br/><br/>"+             
+        		"<img width='357' height='127' alt='fichier existant mais non affichable' src='"+linkTest+"'></div><br/><br/>"+             
                 // Titles
                 "<div align='center' style='font-size:24px;color: #AA0000;font-weight: bold;'>"+
                 "Bienvenue sur le site"+"</div><br/><br/><br/><br/><br/>"+
