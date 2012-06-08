@@ -239,6 +239,8 @@ public class CoursePdfGeneratorOriginal {
 		}
 		head.setAreaHeight(45); //Adjust the height
 		pd4ml.setPageHeader(head); //Add header
+		
+		
 	}
 	
 	/** creation of the footer */

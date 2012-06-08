@@ -1,18 +1,11 @@
 package reformyourcountry.pdf;
 
-import java.awt.Dimension;
-import java.awt.Insets;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.StringReader;
 import java.security.InvalidParameterException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import org.zefer.pd4ml.PD4ML;
 import org.zefer.pd4ml.PD4PageMark;
@@ -31,8 +24,8 @@ public class ArticlePdfGenerator {
 	
 	
 	//default cover page image link
-	private final String ASIAN_WOMAN_IMG_NAME="/VAADIN/themes/blackbelt/image/bgphoto/asianWomanSword.jpg";
-	private final String KBB_LOGO_IMG_NAME="/imgs/logos/KnowledgeBlackBelt-logo-950x338.png";
+	public static String ARTICLEIMG;//="/VAADIN/themes/blackbelt/image/bgphoto/asianWomanSword.jpg";
+
 	
 	private PD4ML pd4ml;
 
@@ -41,66 +34,134 @@ public class ArticlePdfGenerator {
 	
 	private boolean doTheUserWantACoverPage;
 
+   public boolean enableDebug ;
+	
+	private final String CSS = "h1,h2,h3,h4 {" +
+			"	color: #AA0000; /* #AA0000 = blackbelt_dark_red  */" +
+			"	font-weight: bold;" +
+			"}"+
+			"h1 { "+
+				"font-size: 30px;"+
+			"}"+
+			"h2 { "+
+				"font-size: 24px; "+
+			"}"+
+			"h3 {"+
+				"font-size: 18px;"+
+			"}"+
+			"h4 {"+
+				"font-size: 15px;"+
+			"}"+
+			"#gardeTitle{"+
+				"font-size:32;"+
+			"}"+
+			"body{"+
+				"font-family:arial, helvetica, verdana, sans-serif;"+
+				"font-size:12px;"+
+			"}"+
+			"p{"+
+				"line-height:17px;"+
+			"}"+
+			"a {"+
+				"text-decoration: none;"+
+				"color: #AA0000;"+
+			"}"+
+
+			".titre{"+
+				"font-size:26px;"+
+				"font-family:helvetica,Times_New_Roman;"+
+			"}"+
+			".logo{"+
+				"font-size:32;"+
+				"font-family:helvetica,Aharoni,Impact;"+
+			"}"+
+			".grey{"+
+				"color:#787878;"+
+				"font-size:10px;"+
+			"}"+
+			"pre.contentProgramListing {"+
+				"background-color: #EEE;"+
+				"margin-bottom: 14px;"+
+				"margin-left: 2px;"+
+				"padding: 14px;"+
+				"font-family: 'Courier New';"+
+				"font-size: 12px; /* smaller to have longer lines */"+
+				"overflow: auto; /* scroll bar if too wide */"+
+			"}"+
+			".contentQuote {"+
+				"background-color: #EEE;"+
+				"margin-bottom: 14px;"+
+				"margin-left: 2px;"+
+				"padding: 14px;"+
+				"font-family: Times;"+
+		        "font-style: italic;"+
+				"font-size: 12px; /* smaller to have longer lines */"+
+				"overflow: auto; /* scroll bar if too wide */"+
+			"}"+
+			".licence {"+
+				"font-size:8px;"+
+				"color: #9E9E9E;"+
+				"vertical-align: bottom;"+
+				"padding-left: 15px;"+
+			"}"+
+			".licence a {"+
+			"font-size:8px;"+
+			"color: #9E9E9E;"+
+			"}"+".valignTop{vertical-align:top;"+
+			".valignBottom{"+
+				"vertical-align: bottom;"+
+			"}"+
+			".valignMiddle{"+
+				"vertical-align:middle;"+
+			"}"+
+			".small{"+
+				"font-size:10px;"+
+			"}";
 	
 	public ArticlePdfGenerator(){
         this.pd4ml = new PD4ML();
 	}
 	
-	public void generatePDF(String inputHTMLFileName, FileOutputStream fos, Dimension format, String fontsDir, String headerBody) {
-
-		pd4ml.setHtmlWidth(950);  // ???????????????????????????????????????????????????????????
+	public void generatePDF(String inputHTMLFileName, FileOutputStream fos, String headerBody,String footerBody,boolean doTheUserWantACoverPage) {
+               this.doTheUserWantACoverPage = doTheUserWantACoverPage;
+		/** PDF document setting */
+    	pd4ml.addStyle(CSS,true);
+    	try {
+			pd4ml.useTTF("c:/windows/fonts",true);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e);
+		}  
+    	pd4ml.setDefaultTTFs("arial", "helvetica", "Courier New");
 	
-		if ( fontsDir != null && fontsDir.length() > 0 ) {
-			try {
-			    pd4ml.useTTF( fontsDir, true );
-			} catch(FileNotFoundException e) {
-				throw new RuntimeException(e);
-			}
-		}
+	// add the header
 		if ( headerBody != null && headerBody.length() > 0 ) {
-			PD4PageMark header = new PD4PageMark();
-			header.setAreaHeight( -1 );
-			header.setHtmlTemplate( headerBody ); 
-			pd4ml.setPageHeader( header );
+			   createHeader(headerBody);
 		}
 		
-		
-		
-		PD4PageMark header = new PD4PageMark();
-		
-		header.setInitialPageNumber(1);
-		header.setAreaHeight(20);
-		header.setTitleTemplate("title: $[title]");
-		header.setTitleAlignment(PD4PageMark.CENTER_ALIGN);
-		header.setPageNumberAlignment(PD4PageMark.LEFT_ALIGN);
-		header.setPageNumberTemplate("#$[page]");
-		
-		pd4ml.setPageHeader(header);
+    // add the footer
+		if (footerBody != null && footerBody.length() > 0 ) {
+			   createFooter(footerBody);
+		}
+ 
+    	
 
 		
-		
-		
-		PD4PageMark foot = new PD4PageMark();
-		foot.setPagesToSkip(1);
-		foot.setInitialPageNumber(1);
-
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
-		String footerText = "WIKIPEDIA"
-
-				+ "<br />(c) "
-				+ sdf.format(new Date())
-				+ "<span style='font-size:20px;'>Ceci est un exemple de footer</span>";
-
-		foot.setHtmlTemplate("<table width='100%'><tr><td></td><td class='licence'>"
-				+ footerText
-				+ "</td><td align='right' class='valignBottom'>${page}<span class='grey'> /${total}</span></td></tr></table>");
-		foot.setAreaHeight(45); // Adjust the height
-		pd4ml.setPageFooter(foot); // Add footer
-	    		
-	    		
-		
+	
+	   // enable debugging of pd4ml 		
+		if(enableDebug)
 		pd4ml.enableDebugInfo();
-		pd4ml.render(new StringReader(inputHTMLFileName), fos);
+		
+		// generate the pdf from html
+		try {
+			pd4ml.render(new StringReader(inputHTMLFileName), fos);
+		} catch (InvalidParameterException e) {
+		
+			throw new RuntimeException(e);
+		} catch (IOException e) {
+	
+			throw new RuntimeException(e);
+		}
 	}
 
 	
@@ -108,20 +169,30 @@ public class ArticlePdfGenerator {
 
 	
 	/** creation of the header */
-	public void createHeader(){
-		PD4PageMark head = new PD4PageMark();
+	public void createHeader(String htmlTemplate){
+		PD4PageMark header = new PD4PageMark();
+		header.setAreaHeight(45);
+		//Skip the header at the first page
+		header.setInitialPageNumber(1);
+	
 		if(doTheUserWantACoverPage){ //If the user want a cover page
-			head.setPagesToSkip(1); //Skip the header at the first page
+			header.setPagesToSkip(1);
 		}
+			
+		    header.setHtmlTemplate(htmlTemplate);
+			pd4ml.setPageHeader(header);
+		}
+		
+		/*
 		if(this.useCustomLogo){ 
 			head.setHtmlTemplate(getHtmlResizedImg(logoImage,false)); //Add the logo of the user company
-		}
-		head.setAreaHeight(45); //Adjust the height
-		pd4ml.setPageHeader(head); //Add header
-	}
+		}*/
+	
+		
+	
 	
 	/** creation of the footer */
-	public void createFooter(){
+	public void createFooter(String footerBody){
 		//footerPages
 		PD4PageMark foot = new PD4PageMark();
 		if(doTheUserWantACoverPage){ //If the user want a cover page
@@ -129,16 +200,7 @@ public class ArticlePdfGenerator {
 		}
 		foot.setInitialPageNumber(1);
 		
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
-		String footerText =  "See the on-line version to get videos, translations, downloads... "
-            +" <br />If you don't have access, please "+
-            "<u>contact us</u>ContactUs"+"."
-            +"<br />(c) "+sdf.format(new Date())+" KnowledgeBlackBelt." +
-            		"<span style='font-size:5px;'>No part of this book may be reproduced i any form or by any electronic or mechanical means,<br/>including information storage or retrieval devices or systems, without prior written permission from KnowledgeBlackBelt, except that brief passages may be quoted for review</span>";
-		
-		
-		
-		foot.setHtmlTemplate("<table width='100%'><tr><td></td><td class='licence'>"+footerText+
+		foot.setHtmlTemplate("<table width='100%'><tr><td></td><td class='licence'>"+footerBody+
 		        "</td><td align='right' class='valignBottom'>${page}<span class='grey'> /${total}</span></td></tr></table>");
 		foot.setAreaHeight(45); //Adjust the height
 		pd4ml.setPageFooter(foot); //Add footer
@@ -182,7 +244,31 @@ public class ArticlePdfGenerator {
 	
 	
 	
+	//TODO Update following methodes
 	
+	/** title style */
+	/*
+	
+	public String createSectionTitle(SectionText sectionTxt){
+		int size = getTitleSize(sectionTxt.getSection());
+		String title = null;
+		int level = Math.min(size+1, 4);
+		title = "<br/><pd4ml:page.break ifSpaceBelowLessThan=\"120\"><h"+level+">"+sectionTxt.getNumberedTitle()+"</h"+level+">";
+		return title;
+	}*/
+	
+	/** Check the title importance */
+	
+	/*
+	public int getTitleSize(Section section){
+		int result = 0;
+		//See how much parent have a section. With this number we can see the importance of a title and defined its size.
+		while(section.getParent() != null){
+			section = section.getParent();
+			result++;
+		}
+		return result;
+	}*/
   
 	
 	
