@@ -2,7 +2,6 @@
 package blackbelt.model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -71,50 +70,13 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 
 	private static final long serialVersionUID = 4144665927166518905L;
 
-	// this is the MD5 print of the universal password
+	//this is the MD5 print of the universal password
 	public static final String UNIVERSAL_PASSWORD_MD5 = "477bc098b8f2606137c290f9344dcee8";
-	public static final String UNIVERSAL_DEV_PASSWORD_MD5 = "e77989ed21758e78331b20e477fc5582"; // "dev"
-																								// in
-																								// clear.
-																								// ->
-																								// any
-																								// developer
-																								// can
-																								// use
-																								// "dev"
-																								// to
-																								// impersonate
-																								// anybody
-																								// when
-																								// developping.
-																								// Does
-																								// not
-																								// work
-																								// in
-																								// production.
-
-	public static final Long COMMUNICATION_MANAGER_ID = 16616697L; // storing Id
-																	// to avoid
-																	// problem
-																	// when
-																	// users
-																	// changes
-																	// their
-																	// username
-	public static final String JAVA_TECH_LEADER_NICKNAME = null; // =
-																	// "hekonsek";
+	public static final String UNIVERSAL_DEV_PASSWORD_MD5 = "e77989ed21758e78331b20e477fc5582";  // "dev" in clear. -> any developer can use "dev" to impersonate anybody when developping. Does not work in production. 
+	public static final Long COMMUNICATION_MANAGER_ID = 16616697L; // storing Id to avoid problem when users changes their nickname
+	public static final String JAVA_TECH_LEADER_NICKNAME = null; // = "hekonsek";
 	public static final float DEFAULT_INFLUENCE = 1f;
-
-	// TODO V5 remove ()
-	// A user having an influence > 1 can assign an influence to another user.
-	// The highest possible value he can assign is his own influence * this
-	// constant.
-	public static final float INFLUENCE_ASSIGNER_MAX_FACTOR = 0.7f; // 70%
-	public static final float MAX_POSSIBLE_INFLUENCE = 10f; // For users (like
-															// John) having
-															// special privilege
-															// to edit
-															// influences.
+	public static final float MAX_POSSIBLE_INFLUENCE = 10f; // For users (like John) having special privilege to edit influences. 
 
 	/**
 	 * Status for an account :<br />
@@ -205,23 +167,17 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	 }
 
 	// TODO uncomment
-	// @Type(type = "blackbelt.hibernate.util.EnumSetType", parameters =
-	// @Parameter(name = EnumSetType.TYPE, value =
-	// "blackbelt.model.DisplayContactInfo"))
-	// @Basic
-	// private Set<DisplayContactInfo> contactInfosPolicy =
-	// EnumSet.noneOf(DisplayContactInfo.class);
-
-	// TODO uncomment
-	// public Set<DisplayContactInfo> getContactInfosPolicy() {
-	// return contactInfosPolicy;
-	// }
-
-	// TODO uncomment
-	// public void setContactInfosPolicy(Set<DisplayContactInfo>
-	// contactInfosPolicy) {
-	// this.contactInfosPolicy = contactInfosPolicy;
-	// }
+//	 @Type(type = "blackbelt.hibernate.util.EnumSetType", parameters = @Parameter(name = EnumSetType.TYPE, value = "blackbelt.model.DisplayContactInfo"))
+//	 @Basic
+//	 private Set<DisplayContactInfo> contactInfosPolicy = EnumSet.noneOf(DisplayContactInfo.class);	
+//
+//	 public Set<DisplayContactInfo> getContactInfosPolicy() {
+//	     return contactInfosPolicy;
+//	 }
+//
+//	 public void setContactInfosPolicy(Set<DisplayContactInfo> contactInfosPolicy) {
+//	     this.contactInfosPolicy = contactInfosPolicy;
+//	 }
 
 	//@Id
 	//@GeneratedValue(strategy = GenerationType.AUTO)
@@ -235,24 +191,20 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 
 	// @Column(unique = true)
 	// @Index(name = "username_idx")
-	private String userName; // TODO V5: Rename username to userName, and change
-								// that in the UI too (userName sounds more
-								// natural to users).
-
+	private String userName; 
 
 	private String mail;
 
 	private String password;
-
+	
 //	 @Lob
 	 private String nameChangeLog; // record the name changes
-
 
 	//@Column(nullable = true)
 	//@Enumerated(EnumType.STRING)
 	private Gender gender;
 
-	private Timestamp birthDate;
+	private Date birthDate;
 
 	private boolean picture;
 
@@ -260,16 +212,15 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 
 	private Date lastMailSentDate;
 
-
 	private boolean guest;
 
 
 
-	//TODO uncomment
-//	@ElementCollection(targetClass = Privilege.class, fetch = FetchType.EAGER)
+	//TODO maxime uncomment when implements privileges
+//	@ElementCollection(targetClass=Privilege.class, fetch=FetchType.EAGER)
 //	@Enumerated(EnumType.STRING)
-//	@JoinTable(name = "users_privileges", joinColumns = { @JoinColumn(name = "userid") })
-//	@Column(name = "privilege", nullable = false)
+//	@JoinTable(name="users_privileges",joinColumns={@JoinColumn(name="userid")})
+//	@Column(name="privilege", nullable=false)
 //	private Set<Privilege> privileges = new HashSet<Privilege>();
 
 	private Date lastAccess;
@@ -278,8 +229,7 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 
 	private String lastLoginIp;
 
-	private int consecutiveFailedLogins = 0; // Reset to 0 every time users
-												// logins sucessfully.
+	private int consecutiveFailedLogins = 0; // Reset to 0 every time users logins sucessfully.
 	private Date lastFailedLoginDate; // Null if consecutiveFailedLogins == 0
 
 	private boolean dev = false;
@@ -291,23 +241,15 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	//@Column(nullable = false)
 	//@Enumerated(EnumType.STRING)
 	private AccountStatus accountStatus;
-
-	private boolean nlSubscriber = true; //TODO maxime : use?
-
-	//TODO delete?
-//	private String videoId; // Id on Youtube or Vimeo.
-
-	//TODO uncomment or delete?
-//	@Enumerated(EnumType.STRING)
-//	private VideoType videoType;
+	
+	//TODO maxime : use?
+	private boolean nlSubscriber = true; 
 
 	private boolean spammer = false;
 
 	//@ManyToOne
 	//@JoinColumn(name = "spamReporterId")
 	private User spamReporter;
-
-	// How User wants to receive e-mails.
 
 	//@Column(columnDefinition = "text")
 	private String activityComments = "";
@@ -316,9 +258,7 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	// In V5, the influence have been changed to be autocomputed with an integer
 	// formula. Despite this, we kept the V4 float value because the formula may
 	// change in the future
-	private float influence = DEFAULT_INFLUENCE; // when this user vote, factor
-													// used to take his opinion
-													// into account.
+	private float influence = DEFAULT_INFLUENCE; // when this user vote, factor used to take his opinion into account.
 	//TODO maxime : use?
 	// In V5 influence is auto computed but we want some users (eg. john,
 	// nicolas, henryk, ...) to have a fixed non-recomputed value
@@ -327,13 +267,7 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	//TODO maxime : use?
 //	@ManyToOne(fetch = FetchType.LAZY)
 //	@JoinColumn(name = "influenceAssignerUserId", nullable = true)
-	private User influenceAssigner; // User who has given the value for
-									// influence field. Can be null (system
-									// gives influence when new belt or root
-									// influencers, as John & Nicolas).
-	//TODO delete?
-//	@OneToMany(mappedBy = "user")
-//	private Set<Badge> badges = new HashSet<Badge>();
+	private User influenceAssigner; // User who has given the value for influence field. Can be null (system gives influence when new belt or root influencers, as John & Nicolas).
 	//TODO delete?
 //	// Contains all groups link including the primary group as well
 //	@OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
@@ -344,12 +278,7 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 //	@OneToOne(fetch = FetchType.EAGER)
 //	@JoinColumn(name = "primaryGroupRegId")
 //	private GroupReg primaryGroupReg;
-										// anymore).
-	//TODO delete?
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "recruiterId")
-//	private User recruiter;
-	//TODO delete?
+	//TODO use?
 //	@ManyToOne(fetch = FetchType.LAZY)
 //	@JoinColumn(name = "reactivatorId")
 //	private User reactivator;
@@ -357,14 +286,6 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	//TODO delete?
 //	@Enumerated(EnumType.STRING)
 	private CommunityRole communityRole = CommunityRole.USER;
-	//TODO delete?
-//	public boolean isCorpUser() {
-//		Collection<Organization> orgs = new HashSet<Organization>(
-//				Collections2.filter(Collections2.transform(getGroupRegs(),
-//						BBCollectionUtils.groupRegToOrganization), Predicates
-//						.notNull()));
-//		return orgs.size() >= 1;
-//	}
 
 	
 	public CommunityRole getCommunityRole() {
@@ -374,51 +295,15 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	public void setCommunityRole(CommunityRole communityRole) {
 		this.communityRole = communityRole;
 	}
-//
-//	public boolean hasAdminPrivileges() {
-//		return communityRole == CommunityRole.ADMIN;
-//	}
-//
-//	public boolean hasModeratorPrivileges() {
-//		return communityRole == CommunityRole.ADMIN
-//				|| communityRole == CommunityRole.MODERATOR;
-//	}
 
-//	public Set<Country> getCoachCountriesSelection() {
-//		return this.coachCountriesSelection;
-//	}
-//
-//	public boolean isShowAsCoach() {
-//		return showAsCoach;
-//	}
-//
-//	public void setShowAsCoach(boolean showAsCoach) {
-//		this.showAsCoach = showAsCoach;
-//	}
-//
-//	public CoachMailOption getCoachMailOption() {
-//		return this.coachMailOption;
-//	}
+	public boolean hasAdminPrivileges() {
+		return communityRole == CommunityRole.ADMIN;
+	}
 
-//	public void setCoachMailOption(CoachMailOption mailCoachOption) {
-//		this.coachMailOption = mailCoachOption;
-//	}
-//
-//	public Set<Badge> getBadges() {
-//		return badges;
-//	}
-//
-//	public void setBadges(Set<Badge> badges) {
-//		this.badges = badges;
-//	}
-//
-//	public SortedSet<CoachOffering> getCoachOfferings() {
-//		return coachOfferings;
-//	}
-//
-//	public void setCoachOfferings(SortedSet<CoachOffering> coachOfferings) {
-//		this.coachOfferings = coachOfferings;
-//	}
+	public boolean hasModeratorPrivileges() {
+		return communityRole == CommunityRole.ADMIN
+				|| communityRole == CommunityRole.MODERATOR;
+	}
 
 	public String getFirstName() {
 		return firstName;
@@ -428,21 +313,19 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 		this.firstName = firstName;
 	}
 
-	
-
 	public String getUserName() {
 		return userName;
 	}
 
-public void setUserName(String userName) {
+	public void setUserName(String userName) {
 		this.userName = userName;
 	}
 
-	//	@Override
+	//TODO maxime uncomment when?
+	//@Override
 	public Long getId() {
 		return id;
 	}
-//	}
 
 	public User(Long id, String firstName, String lastName) {
 		super();
@@ -458,23 +341,7 @@ public void setUserName(String userName) {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", firstName=" + firstName + ", lastName="
-				+ lastName + ", userName=" + userName + ", mail=" + mail
-				+ ", password=" + password + ", gender=" + gender
-				+ ", birthDate=" + birthDate + ", picture=" + picture
-				+ ", pictureName=" + pictureName + ", lastMailSentDate="
-				+ lastMailSentDate + ", guest=" + guest + ", lastAccess="
-				+ lastAccess + ", registrationDate=" + registrationDate
-				+ ", lastLoginIp=" + lastLoginIp + ", consecutiveFailedLogins="
-				+ consecutiveFailedLogins + ", lastFailedLoginDate="
-				+ lastFailedLoginDate + ", dev=" + dev + ", validationCode="
-				+ validationCode + ", lockReason=" + lockReason
-				+ ", accountStatus=" + accountStatus + ", nlSubscriber="
-				+ nlSubscriber + ", spammer=" + spammer + ", spamReporter="
-				+ spamReporter + ", activityComments=" + activityComments
-				+ ", influence=" + influence + ", influenceAutoComputed="
-				+ influenceAutoComputed + ", influenceAssigner="
-				+ influenceAssigner + "]";
+		return getFullName();
 	}
 
 	public void setId(Long id) {
@@ -488,15 +355,6 @@ public void setUserName(String userName) {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	
-
-//	public MailingDelayType getMailingDelay() {
-//		return mailingDelayType;
-//	}
-//
-//	public void setMailingDelayType(MailingDelayType mailingDelayType) {
-//		this.mailingDelayType = mailingDelayType;
-//	}
 
 	public Date getLastMailSentDate() {
 		return lastMailSentDate;
@@ -537,14 +395,6 @@ public void setUserName(String userName) {
 	public void setLastAccess(Date lastAccess) {
 		this.lastAccess = lastAccess;
 	}
-
-//	public String getSignature() {
-//		return signature;
-//	}
-//
-//	public void setSignature(String signature) {
-//		this.signature = signature;
-//	}
 
 	public String getLockReason() {
 		return lockReason;
@@ -595,19 +445,11 @@ public void setUserName(String userName) {
 		this.gender = gender;
 	}
 
-//	public String getShortInfo() {
-//		return shortInfo;
-//	}
-//
-//	public void setShortInfo(String shortInfo) {
-//		this.shortInfo = shortInfo;
-//	}
-
-	public Timestamp getBirthDate() {
+	public Date getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(Timestamp birthDate) {
+	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
 	}
 
@@ -625,14 +467,6 @@ public void setUserName(String userName) {
 		this.nlSubscriber = nlSubscriber;
 	}
 
-//	public List<Decoration> getDecorations() {
-//		return decorations;
-//	}
-//
-//	public void setDecorations(List<Decoration> decorations) {
-//		this.decorations = decorations;
-//	}
-
 	public boolean isGuest() {
 		return guest;
 	}
@@ -644,14 +478,6 @@ public void setUserName(String userName) {
 	public int compareTo(User o) {
 		return this.getLastName().compareTo(o.getLastName());
 	}
-
-//	public String getLongInfo() {
-//		return longInfo;
-//	}
-//
-//	public void setLongInfo(String longInfo) {
-//		this.longInfo = longInfo;
-//	}
 
 	public String getLastLoginIp() {
 		return lastLoginIp;
@@ -676,14 +502,14 @@ public void setUserName(String userName) {
 	public void setAccountStatus(AccountStatus accountStatus) {
 		this.accountStatus = accountStatus;
 	}
-
-//	public Set<Privilege> getPrivileges() {
-//		return privileges;
-//	}
-//
-//	public void setPrivileges(Set<Privilege> privileges) {
-//		this.privileges = privileges;
-//	}
+	//TODO maxime uncomment when using privileges
+	//public Set<Privilege> getPrivileges() {
+	//	return privileges;
+	//}
+	//
+	//public void setPrivileges(Set<Privilege> privileges) {
+	//	this.privileges = privileges;
+	//}
 
 	public float getInfluence() {
 		return this.influence;
@@ -701,38 +527,6 @@ public void setUserName(String userName) {
 		this.influenceAssigner = influanceAssigner;
 	}
 
-//	public float getLastContribMailPoints() {
-//		return lastContribMailPoints;
-//	}
-//
-//	public void setLastContribMailPoints(float lastContribMailPoints) {
-//		this.lastContribMailPoints = lastContribMailPoints;
-//	}
-//
-//	public Set<CourseReg> getStudentCourseRegs() {
-//		return studentCourseRegs;
-//	}
-//
-//	public void setStudentCourseRegs(Set<CourseReg> studentCourseRegs) {
-//		this.studentCourseRegs = studentCourseRegs;
-//	}
-//
-//	public Set<CourseReg> getCoachCourseRegs() {
-//		return coachCourseRegs;
-//	}
-//
-//	public void setCoachCourseRegs(Set<CourseReg> coachCourseRegs) {
-//		this.coachCourseRegs = coachCourseRegs;
-//	}
-//
-//	public Set<CourseRegApply> getCourseRegApplies() {
-//		return courseRegApplies;
-//	}
-//
-//	public void setCourseRegApplies(Set<CourseRegApply> courseRegApplies) {
-//		this.courseRegApplies = courseRegApplies;
-//	}
-
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -740,47 +534,14 @@ public void setUserName(String userName) {
 	public static String getUniversalPasswordMd5() {
 		return UNIVERSAL_PASSWORD_MD5;
 	}
-
-	public static float getInfluenceAssignerMaxFactor() {
-		return INFLUENCE_ASSIGNER_MAX_FACTOR;
-	}
+//TODO maxime uncomment?
+//	public static float getInfluenceAssignerMaxFactor() {
+//		return INFLUENCE_ASSIGNER_MAX_FACTOR;
+//	}
 
 	public static float getMaxPossibleInfluence() {
 		return MAX_POSSIBLE_INFLUENCE;
 	}
-
-//	public Float getGlobalSatisfactionScoreCoach() {
-//		return globalSatisfactionScoreCoach;
-//	}
-//
-//	public void setGlobalSatisfactionScoreCoach(
-//			Float globalSatisfactionScoreCoach) {
-//		this.globalSatisfactionScoreCoach = globalSatisfactionScoreCoach;
-//	}
-//
-//	public int getGlobalSatisfactionCountCoach() {
-//		return globalSatisfactionCountCoach;
-//	}
-//
-//	public void setGlobalSatisfactionCountCoach(int globalSatisfactionCountCoach) {
-//		this.globalSatisfactionCountCoach = globalSatisfactionCountCoach;
-//	}
-//
-//	public String getVideoId() {
-//		return videoId;
-//	}
-//
-//	public void setVideoId(String videoId) {
-//		this.videoId = videoId;
-//	}
-//
-//	public VideoType getVideoType() {
-//		return videoType;
-//	}
-//
-//	public void setVideoType(VideoType videoType) {
-//		this.videoType = videoType;
-//	}
 
 	public boolean isSpammer() {
 		return spammer;
@@ -797,12 +558,7 @@ public void setUserName(String userName) {
 	public void setSpamReporter(User spamReporter) {
 		this.spamReporter = spamReporter;
 	}
-
-//	@Override
-//	public String toString() {
-//		return getFullName();
-//	}
-//
+//TODO maxime uncomment?
 //	public void setGroupRegs(Set<GroupReg> groupRegs) {
 //		this.groupRegs = groupRegs;
 //	}
@@ -843,14 +599,7 @@ public void setUserName(String userName) {
 		this.lastFailedLoginDate = lastFailedLoginDate;
 	}
 
-//	public void setRecruiter(User recruiter) {
-//		this.recruiter = recruiter;
-//	}
-//
-//	public User getRecruiter() {
-//		return recruiter;
-//	}
-
+//TODO uncomment or delete
 //	public void setReactivator(User reactivator) {
 //		this.reactivator = reactivator;
 //	}
@@ -878,21 +627,9 @@ public void setUserName(String userName) {
 	public boolean isInfluenceAutoComputed() {
 		return influenceAutoComputed;
 	}
-
-//	public void setCredibility(ContributorCredibility credibility) {
-//		this.credibility = credibility;
-//	}
-//
-//	public ContributorCredibility getCredibility() {
-//		return credibility;
-//	}
-//
+//TODO maxime uncomment?
 //	@Override
 //	public Class<?> getConcreteClass() {
 //		return User.class;
 //	}
-
-	// public Set<InventoryItem> getInventoryItems() {
-	// return inventoryItems;
-	// }
 }
