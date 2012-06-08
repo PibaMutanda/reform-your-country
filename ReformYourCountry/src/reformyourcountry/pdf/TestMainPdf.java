@@ -26,12 +26,10 @@ public class TestMainPdf {
 
 		try {
 			// pdf output file
-			
-			
 			// file will be create in os temp directory  C:\Users\forma*\AppData\Local\Temp
 			File filetest = new File(System.getProperty("java.io.tmpdir")+"pd4ml.pdf");
 			FileOutputStream fos =new FileOutputStream(filetest);
-			ArticlePdfGenerator cPdf = new ArticlePdfGenerator();
+			ArticlePdfGenerator cPdf = new ArticlePdfGenerator(true);
 
 			// html input file 
 			//source file read from workspace location
