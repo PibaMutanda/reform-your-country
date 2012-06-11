@@ -42,27 +42,28 @@ public class UserService {
 
     public User registerUser(boolean directValidation, String firstname, String lastname,
 	    Gender gender, String username, String passwordInClear, String mail) throws UserAlreadyExistsException {
-	if (UserDao.getUserByUserName(username) != null)	{
+	  if (UserDao.getUserByUserName(username) != null)	{
 	    throw new UserAlreadyExistsException(identifierType.USERNAME, username);
-	}
-	if (UserDao.getUserByEmail(mail) != null){
+	  }
+	  if (UserDao.getUserByEmail(mail) != null){
 	    throw new UserAlreadyExistsException(identifierType.MAIL, username);
-	}
-	User newUser = new User();
-	newUser.setFirstName(firstname);
-	newUser.setLastName(lastname);
-	newUser.setGender(gender);
-	newUser.setUserName(username);
-	newUser.setPassword(SecurityUtils.md5Encode(passwordInClear));
-	newUser.setMail(mail);
+	  }
+    	User newUser = new User();
+	    newUser.setFirstName(firstname);
+	    newUser.setLastName(lastname);
+	    newUser.setGender(gender);
+	    newUser.setUserName(username);
+	    newUser.setPassword(SecurityUtils.md5Encode(passwordInClear));
+	    newUser.setMail(mail);
 
 	//// Validation mail.
-	String base = newUser.getMail() + newUser.getPassword() + Math.random();  // Could be pure random.
-	newUser.setValidationCode(SecurityUtils.md5Encode(base.toString()));
+	    String base = newUser.getMail() + newUser.getPassword() + Math.random();  // Could be pure random.
+	    newUser.setValidationCode(SecurityUtils.md5Encode(base.toString()));
 
 	if (directValidation) {
 	    newUser.setAccountStatus(AccountStatus.ACTIVE);
-	} else {
+	} 
+	else {
 	    newUser.setAccountStatus(AccountStatus.NOTVALIDATED);
 	}
 
