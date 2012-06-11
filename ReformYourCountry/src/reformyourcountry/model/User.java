@@ -15,11 +15,11 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	private static long generated_id ; 
 
 	private static final long serialVersionUID = 4144665927166518905L;
-
 	//this is the MD5 print of the universal password
 	public static final String UNIVERSAL_PASSWORD_MD5 = "477bc098b8f2606137c290f9344dcee8";
 	public static final String UNIVERSAL_DEV_PASSWORD_MD5 = "e77989ed21758e78331b20e477fc5582";  // "dev" in clear. -> any developer can use "dev" to impersonate anybody when developping. Does not work in production. 
 	public static final Long COMMUNICATION_MANAGER_ID = 16616697L; // storing Id to avoid problem when users changes their nickname
+	
 	public static final String JAVA_TECH_LEADER_NICKNAME = null; // = "hekonsek";
 	public static final float DEFAULT_INFLUENCE = 1f;
 	public static final float MAX_POSSIBLE_INFLUENCE = 10f; // For users (like John) having special privilege to edit influences. 
@@ -513,4 +513,37 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	public boolean isInfluenceAutoComputed() {
 		return influenceAutoComputed;
 	}
+	
+	@Override
+	public int hashCode() {
+	    final int prime = 31;
+	    int result = 1;
+	    result = prime * result + ((mail == null) ? 0 : mail.hashCode());
+	    result = prime * result
+		    + ((userName == null) ? 0 : userName.hashCode());
+	    return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+	    if (this == obj)
+		return true;
+	    if (obj == null)
+		return false;
+	    if (getClass() != obj.getClass())
+		return false;
+	    User other = (User) obj;
+	    if (mail == null) {
+		if (other.mail != null)
+		    return false;
+	    } else if (!mail.equals(other.mail))
+		return false;
+	    if (userName == null) {
+		if (other.userName != null)
+		    return false;
+	    } else if (!userName.equals(other.userName))
+		return false;
+	    return true;
+	}
+
 }
