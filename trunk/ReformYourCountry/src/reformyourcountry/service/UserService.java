@@ -40,7 +40,7 @@ public class UserService {
      *            : validate an account directly without send a mail
      */
 
-    public User registerUser(boolean directValidation, String firstName, String lastName,
+    public User registerUser(boolean directValidation, String firstname, String lastname,
 	    Gender gender, String username, String passwordInClear, String mail) throws UseAlreadyExistsException {
 	if (UserDao.getUserByUserName(username) != null)	{
 	    throw new UseAlreadyExistsException(identifierType.USERNAME, username);
@@ -50,8 +50,8 @@ public class UserService {
 	}
 	System.out.println("register user je suis appelé");
 	User newUser = new User();
-	newUser.setFirstName(firstName);
-	newUser.setLastName(lastName);
+	newUser.setFirstName(firstname);
+	newUser.setLastName(lastname);
 	newUser.setGender(gender);
 	newUser.setUserName(username);
 	newUser.setPassword(SecurityUtils.md5Encode(passwordInClear));
@@ -92,8 +92,8 @@ public class UserService {
 		//UrlUtil.getAbsoluteUrl(new PageResource(DocumentPage.class, "ContactUs")) + 
 		"'>contact us.</a>" + 
 		"<br/><br/>Thank you for registering and have a nice time on KnowledgeBlackBelt.";
-
-	 mailService.sendMail(user.getMail(), "Your new account", htmlMessage, MailType.IMMEDIATE, MailCategory.USER);
+	//maxime uncomment when using mail
+//	 mailService.sendMail(user.getMail(), "Your new account", htmlMessage, MailType.IMMEDIATE, MailCategory.USER);
 	System.out.println("mail sent: " + htmlMessage);  // To simulate the mailService until we have it.
     }
 
