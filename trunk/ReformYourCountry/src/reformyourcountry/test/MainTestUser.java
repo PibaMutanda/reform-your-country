@@ -60,8 +60,9 @@ public class MainTestUser {
 
     public static void consoleFormRegistration() {
 	Scanner scan = new Scanner(System.in);
-	String firstname, name, username, password, mail;
+	String firstname, name, username, password, mail,password2;
 	Gender gender = null;
+	int genderId;
 	
 	System.out.println("welcome to the registration console\n we gonna register you\nplease enter your firstname");
 	firstname = scan.next();
@@ -75,7 +76,19 @@ public class MainTestUser {
 	System.out.println("please select your gender\n1."+ Gender.MALE.toString() 
 		+ "\n2." + Gender.FEMALE.toString()
 		+ "\n\nplease select a gender : ");
-	int genderId = scan.nextInt();
+	 genderId = scan.nextInt();
+ do {
+	 
+	 if(genderId!=1 || genderId!=2)
+	 {
+		 System.out.println("please select your gender\n1."+ Gender.MALE.toString() 
+					+ "\n2." + Gender.FEMALE.toString()
+					+ "\n\nplease select a gender : "); 
+		  genderId=scan.nextInt();
+	 }
+	 
+} while (genderId!=1 && genderId!=2  );	
+ 
 	switch (genderId) {
 	case 1:
 	    gender = Gender.MALE;
@@ -83,12 +96,20 @@ public class MainTestUser {
 	case 2:
 	    gender = Gender.FEMALE;
 	    break;
-	default:
-	    break;
 	}
 	
-	System.out.println("please enter your password");
-	password = scan.next();
+
+		
+	do {
+		System.out.println("please enter your password");
+		password = scan.next();
+	    System.out.println("confirm your passeword");
+	    password2=scan.next();
+	    if(!password.equalsIgnoreCase(password2))
+	    	System.out.println("The same password please! ");
+	    
+	} while (!password.equalsIgnoreCase(password2));
+	
 	
 	System.out.println("please enter your email");
 	mail = scan.next();
