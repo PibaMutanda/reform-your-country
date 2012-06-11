@@ -13,6 +13,8 @@ import java.util.List;
 public class BBDomParser {
 
 	List<String> ignoredTags = new ArrayList<String>();
+	boolean escapeTagAsText = false;
+	boolean test;
 
 	////////////////////////////////////////////// PUBLIC API ////////////////////////////////////////// 
 	////////////////////////////////////////////// PUBLIC API ////////////////////////////////////////// 
@@ -41,7 +43,7 @@ public class BBDomParser {
 		while (i.hasNext()) {
 			String part = i.next().getContent();
 
-			if (isTag(part) && !ignoredTags.contains(part)) {   
+			if (isTag(part) && !ignoredTags.contains(part) /*&& !(escapeTagAsText &&part.equals("[escape]"))*/) { 
 				String tagName = getTagName(part);
 				if (part.charAt(1) == '/') {
 					// The tag is closing tag.
@@ -91,10 +93,13 @@ public class BBDomParser {
 					currentTag = tagStack.pollFirst();
 				} else {
 					BBTag tag = parseOpenTag(part);
-					currentTag.add(tag);
-					tagStack.addFirst(currentTag);
-
-					currentTag = tag;
+					if (! escapeTagAsText&&(tag.getName()=="escape")) {
+						currentTag.add(tag);
+						tagStack.addFirst(currentTag);
+						currentTag = tag;
+					}else{
+						currentTag.add(new TextBBTag(part));
+					}
 				}
 			} else {
 				if(ignoredTags.contains(part)){
@@ -235,6 +240,13 @@ public class BBDomParser {
 	 */
 	public void addIgnoredTag(String tag){
 		ignoredTags.add(tag);
+	}
+	/**
+	 * Used to tell the parser to treat everything inside an [escape] tag
+	 *     as plain text (or disable the feature, if previously enabled).
+	 */
+	public void toggleEscapeTagAsText(){
+		escapeTagAsText = escapeTagAsText == false ? true : false;
 	}
 
 	/**
