@@ -48,7 +48,6 @@ public class UserService {
 	if (UserDao.getUserByEmail(mail) != null){
 	    throw new UserAlreadyExistsException(identifierType.MAIL, username);
 	}
-	System.out.println("register user je suis appelé");
 	User newUser = new User();
 	newUser.setFirstName(firstname);
 	newUser.setLastName(lastname);

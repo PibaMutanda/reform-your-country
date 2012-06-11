@@ -18,7 +18,6 @@ public class UserDao {
 
     // TODO maxime delete static modifier when using JPA
     public void save(User user) {
-	System.out.println("dao je save " + user);
 	if(!listeUser.add(user))
 	{
 	    try {
@@ -34,7 +33,6 @@ public class UserDao {
     {
 	for (User user : listeUser) {
 	    if (identifier.equals(user.getUserName())) {
-		System.out.println("userDao je remove : "+user.getUserName());
 		listeUser.remove(user);
 		break;
 	    }
