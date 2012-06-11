@@ -1,7 +1,5 @@
 package reformyourcountry.parser;
 
-import java.io.Reader;
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.Iterator;
@@ -14,14 +12,17 @@ import java.util.List;
  */
 public class BBDomParser {
 
-	List<String> ignoredTag = new ArrayList<String>();
+	List<String> ignoredTags = new ArrayList<String>();
 
 	////////////////////////////////////////////// PUBLIC API ////////////////////////////////////////// 
 	////////////////////////////////////////////// PUBLIC API ////////////////////////////////////////// 
 	////////////////////////////////////////////// PUBLIC API ////////////////////////////////////////// 
 	////////////////////////////////////////////// PUBLIC API ////////////////////////////////////////// 
 	////////////////////////////////////////////// PUBLIC API ////////////////////////////////////////// 
-	
+	public BBDomParser(){super();}
+	public BBDomParser(List<String> ignoredList){
+		this.ignoredTags=ignoredList;
+	}
 	/**
 	 * The main method; parse a String for BBTags, converts them into a DOM Tree. 
 	 * @param input 
@@ -40,7 +41,7 @@ public class BBDomParser {
 		while (i.hasNext()) {
 			String part = i.next().getContent();
 
-			if (isTag(part) && !ignoredTag.contains(part)) {   
+			if (isTag(part) && !ignoredTags.contains(part)) {   
 				String tagName = getTagName(part);
 				if (part.charAt(1) == '/') {
 					// The tag is closing tag.
@@ -96,7 +97,7 @@ public class BBDomParser {
 					currentTag = tag;
 				}
 			} else {
-				if(ignoredTag.contains(part)){
+				if(ignoredTags.contains(part)){
 					currentTag.add(new TextBBTag("codeAsText", part));
 				}else{
 					currentTag.add(new TextBBTag(part));// if part isn't a tag, it's a text.
@@ -144,24 +145,24 @@ public class BBDomParser {
 						}
 					} else if (Character.isSpaceChar(c)|| part.charAt(pos + 1) == ']') {
 						buf.append(c);
-						if (part.charAt(pos + 1) == ']'){
+						if (part.charAt(pos + 1) == ']') {
 							buf.append(part.charAt(pos));
 							pos++;
 						}
 						int i = pos;
 						char testChar = part.charAt(i);
-						while (i < part.length()&& Character.isSpaceChar(testChar)){
+						while (i < part.length()
+								&& Character.isSpaceChar(testChar)) {
 							i = i + 1;
 							testChar = part.charAt(i);
 						}
-
 						// Attribute name ended - no value
 						state = ReadAttributeState.Null;
 						addAttribute(tag, buf.toString(), "");
 						buf.setLength(0);
 						pos++;
 					} else {
-						buf.append(c);
+						buf.append(Character.toLowerCase(c));
 					}
 					break;
 				case Quote:
@@ -175,15 +176,22 @@ public class BBDomParser {
 						state = ReadAttributeState.Value;
 					} else {
 						state = ReadAttributeState.Null;
-						addAttribute(tag, name, "");
+						if(!tag.attributes().contains(buf.toString())){
+							addAttribute(tag, name, "");
+						}
 					}
 					break;
 				case Value:
 					if (/*Character.isSpaceChar(c) ||*/ openQuote != null && openQuote == c) {
-						// Attribute value ended.
-						state = ReadAttributeState.Null;
-						addAttribute(tag, name, buf.toString());
-						buf.setLength(0);
+						// Verify that the tag doesn't already have the same attribute.
+						if (tag.getAttributeValue(name)==null) {
+							// Attribute value ended.
+							state = ReadAttributeState.Null;
+							addAttribute(tag, name, buf.toString());
+							buf.setLength(0);
+						}else{
+							tag.setErrorText("Tag contains the same attribute more than once");
+						}
 					} else {
 						buf.append(c);
 					}
@@ -192,7 +200,7 @@ public class BBDomParser {
 					if (Character.isLetter(c)) {
 						state = ReadAttributeState.Name;
 						buf.setLength(0);
-						buf.append(c);
+						buf.append(Character.toLowerCase(c));
 					} else if (c == '=') {
 						// Default attribute
 						state = ReadAttributeState.Quote;
@@ -209,7 +217,9 @@ public class BBDomParser {
 				addAttribute(tag, buf.toString(), "");
 				break;
 			case Value:
-				addAttribute(tag, name, buf.toString());
+				if (tag.getAttributeValue(name)==null) {
+					addAttribute(tag, name, buf.toString());
+				}
 				break;
 			case Quote:
 				addAttribute(tag, name, "");
@@ -224,7 +234,7 @@ public class BBDomParser {
 	 * @param tag in the [...] form.
 	 */
 	public void addIgnoredTag(String tag){
-		ignoredTag.add(tag);
+		ignoredTags.add(tag);
 	}
 
 	/**
