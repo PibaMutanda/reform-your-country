@@ -1,6 +1,8 @@
 package reformyourcountry.test;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import reformyourcountry.dao.UserDao;
@@ -28,6 +30,7 @@ public class MainTestUser {
      */
     public static void main(String[] args) {
 	String enter = "0";
+	String genId="0";
 	do {
 	    System.out
 	    .println("1.register a user\n2.validate a user\n3.login\n4.quit");
@@ -64,7 +67,7 @@ public class MainTestUser {
 	String genId;
 	Pattern p = Pattern
 			.compile("^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)+$");
-	int genderId;
+	//int genderId=0;
 
 	System.out
 	.println("welcome to the registration console\n we gonna register you\nplease enter your firstname");
@@ -75,12 +78,22 @@ public class MainTestUser {
 
 	System.out.println("please enter your username");
 	username = scanKeyBoard.next();
-
-		System.out.println("please select your gender\n1."+ Gender.MALE.toString() 
+      do {
+		
+    	  System.out.println("please select your gender\n1."+ Gender.MALE.toString() 
 					+ "\n2." + Gender.FEMALE.toString()
 					+ "\n\nplease select a gender : ");
-			genderId = scan.nextInt();
-			genId=String.valueOf(genderId);
+    	    genId=scanKeyBoard.next();
+		
+			try {
+				 Integer.parseInt(genId);
+			} catch (NumberFormatException e) {
+				// TODO: handle exception
+				System.out.println("Don't choose a letter ");
+				genId="0";
+			}
+	} while (Integer.parseInt(genId)!=1 && Integer.parseInt(genId)!=2);
+		
 	
 	do {
 	    System.out.println("please enter your password");
