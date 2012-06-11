@@ -23,6 +23,9 @@ public class BBDomParser {
 	public BBDomParser(List<String> ignoredList){
 		this.ignoredTags=ignoredList;
 	}
+	public void setEscapeAsText(boolean escapeAsText){
+		this.escapeAsText=escapeAsText;
+	}
 	/**
 	 * The main method; parse a String for BBTags, converts them into a DOM Tree. 
 	 * @param input 
@@ -51,7 +54,7 @@ public class BBDomParser {
 
 						// Simple check - is closing current tag?
 						if (tagName != null
-								&& tagName.equals(currentTag.getName())) {
+								&& tagName.equals(currentTag.getName())&& tagName != "escape") {
 							currentTag = tagStack.pollFirst();
 
 							// Checks successful - ignore text content.
@@ -113,7 +116,7 @@ public class BBDomParser {
 			}else {
 				if(ignoredTags.contains(part)){
 					currentTag.add(new TextBBTag("codeAsText", part));
-				}else{
+				}else if(!part.equals("[/escape]")){
 					currentTag.add(new TextBBTag(part));// if part isn't a tag, it's a text.
 				}
 			}
@@ -251,9 +254,6 @@ public class BBDomParser {
 		ignoredTags.add(tag);
 	}
 	
-	public void toggleEscapeAsText(){
-		escapeAsText = escapeAsText == false ? true : false;
-	}
 
 	/**
 	 * Extracts a tag name from string. If string do not matched '[text]' or '[/text]' - <code>null</code> is returned.
