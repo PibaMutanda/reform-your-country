@@ -23,6 +23,7 @@ public class ArticlePdfGenerator {
 	//default cover page image link
 	public static String COVER_PAGE_IMG = "http://upload.wikimedia.org/wikipedia/en/b/bc/Wiki.png";//="/VAADIN/themes/blackbelt/image/bgphoto/asianWomanSword.jpg";
 
+	
 
 	private PD4ML pd4ml;
 
