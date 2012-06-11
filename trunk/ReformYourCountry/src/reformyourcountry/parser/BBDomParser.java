@@ -13,8 +13,7 @@ import java.util.List;
 public class BBDomParser {
 
 	List<String> ignoredTags = new ArrayList<String>();
-	boolean escapeTagAsText = false;
-	boolean test;
+	boolean escapeAsText = false;
 
 	////////////////////////////////////////////// PUBLIC API ////////////////////////////////////////// 
 	////////////////////////////////////////////// PUBLIC API ////////////////////////////////////////// 
@@ -43,62 +42,66 @@ public class BBDomParser {
 		while (i.hasNext()) {
 			String part = i.next().getContent();
 
-			if (isTag(part) && !ignoredTags.contains(part) /*&& !(escapeTagAsText &&part.equals("[escape]"))*/) { 
-				String tagName = getTagName(part);
-				if (part.charAt(1) == '/') {
-					// The tag is closing tag.
+			if ( !(escapeAsText&&currentTag.getName().equals("escape"))) { 
+				if (isTag(part) && !ignoredTags.contains(part)) {
+					String tagName = getTagName(part);
+					if (part.charAt(1) == '/') {
+						// The tag is closing tag.
 
-					// Look for open tag in stack. If match is not found - treat the tag as plain text.
+						// Look for open tag in stack. If match is not found - treat the tag as plain text.
 
-					// Simple check - is closing current tag?
-					if (tagName!=null && tagName.equals(currentTag.getName())) {
-						currentTag = tagStack.pollFirst();
+						// Simple check - is closing current tag?
+						if (tagName != null
+								&& tagName.equals(currentTag.getName())) {
+							currentTag = tagStack.pollFirst();
 
-						// Checks successful - ignore text content.
-						continue;
-					}
-
-					// Worse way - one of tags is not closed or open.
-					boolean hasOpenTag = false;
-					for (BBTag t : tagStack) {
-						if (tagName.equals(t.getName())) {
-							hasOpenTag = true;
-							break;
+							// Checks successful - ignore text content.
+							continue;
 						}
-					}
 
-					if (!hasOpenTag) {
-						// The tag has not been open: treat as plain text
-						currentTag.add(new TextBBTag(part));
-					continue;
-					}
-
-					do {
-						BBTag lastTagParent = currentTag.getParent();
-						lastTagParent.remove(currentTag);
-						StringBuilder content = new StringBuilder(currentTag.getContent());
-						for (BBTag t : currentTag) {
-							content.append(t.getContent());
+						// Worse way - one of tags is not closed or open.
+						boolean hasOpenTag = false;
+						for (BBTag t : tagStack) {
+							if (tagName.equals(t.getName())) {
+								hasOpenTag = true;
+								break;
+							}
 						}
-						lastTagParent.add(new TextBBTag(content.toString()));
+
+						if (!hasOpenTag) {
+							// The tag has not been open: treat as plain text
+							currentTag.add(new TextBBTag(part));
+							continue;
+						}
+
+						do {
+							BBTag lastTagParent = currentTag.getParent();
+							lastTagParent.remove(currentTag);
+							StringBuilder content = new StringBuilder(
+									currentTag.getContent());
+							for (BBTag t : currentTag) {
+								content.append(t.getContent());
+							}
+							lastTagParent
+									.add(new TextBBTag(content.toString()));
+							currentTag = tagStack.pollFirst();
+						} while (currentTag != null && currentTag != root
+								&& !currentTag.getName().equals(tagName));
+
+						if (currentTag == null) {
+							// No more tags in stack: it is can not be at all.
+							throw new BBParserException(
+									"Expecting open tag in stack.");
+						}
+
+						// Open tag was found - close it
 						currentTag = tagStack.pollFirst();
-					} while (currentTag != null && currentTag != root && !currentTag.getName().equals(tagName));
-
-					if (currentTag == null) {
-						// No more tags in stack: it is can not be at all.
-						throw new BBParserException("Expecting open tag in stack.");
-					}
-
-					// Open tag was found - close it
-					currentTag = tagStack.pollFirst();
-				} else {
-					BBTag tag = parseOpenTag(part);
-					if (! escapeTagAsText&&(tag.getName()=="escape")) {
+					} else {
+						BBTag tag = parseOpenTag(part);
 						currentTag.add(tag);
 						tagStack.addFirst(currentTag);
+
 						currentTag = tag;
-					}else{
-						currentTag.add(new TextBBTag(part));
 					}
 				}
 			} else {
@@ -241,12 +244,9 @@ public class BBDomParser {
 	public void addIgnoredTag(String tag){
 		ignoredTags.add(tag);
 	}
-	/**
-	 * Used to tell the parser to treat everything inside an [escape] tag
-	 *     as plain text (or disable the feature, if previously enabled).
-	 */
-	public void toggleEscapeTagAsText(){
-		escapeTagAsText = escapeTagAsText == false ? true : false;
+	
+	public void toggleEscapeAsText(){
+		escapeAsText = escapeAsText == false ? true : false;
 	}
 
 	/**
