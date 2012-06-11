@@ -10,6 +10,7 @@ import reformyourcountry.exceptions.UserAlreadyExistsException;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountStatus;
 import reformyourcountry.model.User.Gender;
+import reformyourcountry.regex.EmailValidator;
 import reformyourcountry.service.LoginService;
 import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
 import reformyourcountry.service.UserService;
@@ -19,12 +20,12 @@ import blackbelt.exceptions.UserNotFoundException;
 import blackbelt.exceptions.UserNotValidatedException;
 
 public class MainTestUser {
+    private static Integer TRYAGECOUNT = 5;
     private static UserService userService = new UserService();
     private static LoginService loginService = new LoginService();
     private static Scanner scanKeyBoard = new Scanner(System.in);
     private static UserDao userDao = new UserDao();
-    private static User user=null;
-
+    private static EmailValidator emailValidator = new EmailValidator();
     /**
      * @param args
      */
@@ -62,15 +63,12 @@ public class MainTestUser {
     }
 
     public static void consoleFormRegistration() {
-	String firstname, name, username, password, mail, password2;
+	String firstname, name, username, password, mail = null;
 	Gender gender = null;
 	String genId;
-	Pattern p = Pattern
-			.compile("^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)+$");
-	//int genderId=0;
+	int genderId;
 
-	System.out
-	.println("welcome to the registration console\n we gonna register you\nplease enter your firstname");
+	System.out.println("welcome to the registration console\n we gonna register you\nplease enter your firstname");
 	firstname = scanKeyBoard.next();
 
 	System.out.println("please enter your lastname");
@@ -78,45 +76,58 @@ public class MainTestUser {
 
 	System.out.println("please enter your username");
 	username = scanKeyBoard.next();
-      do {
-		
-    	  System.out.println("please select your gender\n1."+ Gender.MALE.toString() 
-					+ "\n2." + Gender.FEMALE.toString()
-					+ "\n\nplease select a gender : ");
-    	    genId=scanKeyBoard.next();
-		
-			try {
-				 Integer.parseInt(genId);
-			} catch (NumberFormatException e) {
-				// TODO: handle exception
-				System.out.println("Don't choose a letter ");
-				genId="0";
-			}
-	} while (Integer.parseInt(genId)!=1 && Integer.parseInt(genId)!=2);
-		
-	
-	do {
-	    System.out.println("please enter your password");
-	    password = scanKeyBoard.next();
-	    System.out.println("confirm your password");
-	    password2 = scanKeyBoard.next();
-	    if (!password.equalsIgnoreCase(password2))
+	      do {
+			
+	    	  System.out.println("please select your gender\n1."+ Gender.MALE.toString() 
+						+ "\n2." + Gender.FEMALE.toString()
+						+ "\n\nplease select a gender : ");
+	    	    genId=scanKeyBoard.next();
+			
+				try {
+					 Integer.parseInt(genId);
+				} catch (NumberFormatException e) {
+					// TODO: handle exception
+					System.out.println("Don't choose a letter ");
+					genId="0";
+				}
+		} while (Integer.parseInt(genId)!=1 && Integer.parseInt(genId)!=2);
+
+
+	System.out.println("please enter your password");
+	password = scanKeyBoard.next();
+	System.out.println("confirm your password");
+	for(int i = 0 ; i<= TRYAGECOUNT;i++)
+	{
+	    if(i == TRYAGECOUNT)
+	    {
+		System.out.println("TRYAGECOUNT REACHED PLEASE TRY LATER!!!");
+		password = null;
+	    }
+	    if (!password.equals(scanKeyBoard.next()))
 		System.out.println("The same password please! ");
-
-	} while (!password.equalsIgnoreCase(password2));
-
-     
-    	 System.out.println("please enter your email");
-    	 mail = scanKeyBoard.next();
-    	
-	try {
-		
-		
-	    userService.registerUser(true, firstname, name, gender, username,password, mail);
-	} catch (UserAlreadyExistsException e) {
-	    e.printStackTrace();
+	    else
+		break;
 	}
-	  System.out.println("\n***successfull user registred***\n");
+	if (password != null) {
+	    for(int i = 0 ; i<= TRYAGECOUNT;i++)
+	    {
+		System.out.println("please enter your email\n");
+		mail = scanKeyBoard.next();
+		if (emailValidator.validate(mail)) {
+		    break;
+		} else {
+		    System.out.println("\npleaze enter a valid email(*@*.XX)\n");
+		}
+	    }
+	    try {
+
+		userService.registerUser(false, firstname, name, gender,username, password, mail);
+		System.out.println("\n***successfull user registred***\n");
+
+	    } catch (UserAlreadyExistsException e) {
+		System.out.println("USER ALREADY EXISTS!!! \n");
+	    }
+	}
     }
 
     public static void consoleFormLogin() {
@@ -158,20 +169,27 @@ public class MainTestUser {
     public static void validateUser()
     {
 	System.out.println("enter your username or email \n");
-	
+
 	User result;
 	String identifier = null;
-	
+
 	identifier = scanKeyBoard.next();
 	identifier = identifier.toLowerCase();
 	result = userDao.getUserByEmail(identifier);
-	
+
 	if (result == null) {
 	    result = userDao.getUserByUserName(identifier);
 	}
 	if (result != null) {
-	    result.setAccountStatus(AccountStatus.ACTIVE);
-	    System.out.println("\n***successfull user validated***\n");
+	    if(result.getAccountStatus().equals(AccountStatus.ACTIVE))
+	    {
+		System.out.println("\nUSER ALREADY VALIDATED !!!\n");
+	    }
+	    else
+	    {
+		result.setAccountStatus(AccountStatus.ACTIVE);
+		System.out.println("\n***successfull user validated***\n");
+	    }
 	} else {
 	    System.out.println("user not found");
 	}
