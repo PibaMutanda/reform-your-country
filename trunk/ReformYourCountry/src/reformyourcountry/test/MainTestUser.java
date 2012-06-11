@@ -1,9 +1,6 @@
 package reformyourcountry.test;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import reformyourcountry.dao.UserDao;
 import reformyourcountry.exceptions.UserAlreadyExistsException;
@@ -76,21 +73,21 @@ public class MainTestUser {
 
 	System.out.println("please enter your username");
 	username = scanKeyBoard.next();
-	      do {
-			
-	    	  System.out.println("please select your gender\n1."+ Gender.MALE.toString() 
-						+ "\n2." + Gender.FEMALE.toString()
-						+ "\n\nplease select a gender : ");
-	    	    genId=scanKeyBoard.next();
-			
-				try {
-					 Integer.parseInt(genId);
-				} catch (NumberFormatException e) {
-					// TODO: handle exception
-					System.out.println("Don't choose a letter ");
-					genId="0";
-				}
-		} while (Integer.parseInt(genId)!=1 && Integer.parseInt(genId)!=2);
+	do {
+
+	    System.out.println("please select your gender\n1."+ Gender.MALE.toString() 
+		    + "\n2." + Gender.FEMALE.toString()
+		    + "\n\nplease select a gender : ");
+	    genId=scanKeyBoard.next();
+
+	    try {
+		Integer.parseInt(genId);
+	    } catch (NumberFormatException e) {
+		// TODO: handle exception
+		System.out.println("Don't choose a letter ");
+		genId="0";
+	    }
+	} while (Integer.parseInt(genId)!=1 && Integer.parseInt(genId)!=2);
 
 
 	System.out.println("please enter your password");
@@ -155,13 +152,15 @@ public class MainTestUser {
 
 	try {
 	    user = loginService.login(identifier, password, false);
-	} catch (InvalidPasswordException | UserLockedException
+	} catch (UserLockedException
 		| WaitDelayNotReachedException e) {
 	    System.out.println("YOU BREAK MY SOFTWARE!!!!!!!");
 	} catch (UserNotFoundException e) {
 	    System.out.println("user not found");
 	} catch (UserNotValidatedException e) {
 	    System.out.println("please validate your account");
+	} catch (InvalidPasswordException e) {
+	    System.out.println("incorrect password");
 	}
 
 	return user;
