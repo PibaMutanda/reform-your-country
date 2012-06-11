@@ -8,6 +8,13 @@ import java.util.List;
 
 
 /**
+ * [toto]........[b]
+ * 
+ * output:
+ *   root: BBTab
+ *      |- 
+ * 
+ * 
  * @author xBlackCat
  */
 public class BBDomParser {
@@ -35,7 +42,7 @@ public class BBDomParser {
 	public BBTag parse(String input) throws BBParserException {
 		Iterator<Part> i = new SplitIterator(input);
 
-		BBTag root = new DefaultBBTag("", BBTagType.Root, "");
+		BBTag root = new DefaultBBTag("", BBTagType.Root, "");  // The root tag is always a DefaultBBTag.
 
 		BBTag currentTag = root;
 
@@ -44,15 +51,31 @@ public class BBDomParser {
 		while (i.hasNext()) {
 			String part = i.next().getContent();
 
-			if ((!(escapeAsText&&currentTag.getName().equals("escape")))^part.equals("[/escape]")) {
-				if (isTag(part) && !ignoredTags.contains(part)) {
+			if ((escapeAsText && currentTag.getName().equals("escape")) ) {  // the tag is [escape] and we need to skip it (not parse what's inside)
+				if (ignoredTags.contains(part)){
+					currentTag.add(new TextBBTag("codeAsText", part));
+				} else if (!part.equals("[/escape]")){
+					currentTag.add(new TextBBTag(part));// if part isn't a tag, it's a text.
+				}
+				
+			} else {  // Normal case
+				
+				if (isTag(part) && !ignoredTags.contains(part)) {  // It's a tag (not a raw text or ignored tag)
 					String tagName = getTagName(part);
-					if (part.charAt(1) == '/') {
-						// The tag is closing tag.
+					
+					if (part.charAt(1) != '/') { // Opening tag
+						BBTag tag = parseOpenTag(part);
+						currentTag.add(tag);
+						tagStack.addFirst(currentTag);
+
+						currentTag = tag;
+
+					} else { // The tag is closing tag.
 
 						// Look for open tag in stack. If match is not found - treat the tag as plain text.
 
 						// Simple check - is closing current tag?
+						// TODO: PQ on regarde "escape" ici ?
 						if (tagName != null
 								&& tagName.equals(currentTag.getName())&& tagName != "escape") {
 							currentTag = tagStack.pollFirst();
@@ -61,7 +84,7 @@ public class BBDomParser {
 							continue;
 						}
 
-						// Worse way - one of tags is not closed or open.
+						// Verifying Worse way - one of tags is not closed or open.
 						boolean hasOpenTag = false;
 						for (BBTag t : tagStack) {
 							if (tagName.equals(t.getName())) {
@@ -69,13 +92,14 @@ public class BBDomParser {
 								break;
 							}
 						}
-
-						if (!hasOpenTag) {
-							// The tag has not been open: treat as plain text
+						if (!hasOpenTag) {	// The tag has not been open: treat as plain text
 							currentTag.add(new TextBBTag(part));
 							continue;
 						}
 
+						// Normal case
+						// We put the tag in the DOM tree ???????????
+						// TODO: dire quoi qu'on fait ici;
 						do {
 							BBTag lastTagParent = currentTag.getParent();
 							lastTagParent.remove(currentTag);
@@ -84,41 +108,26 @@ public class BBDomParser {
 							for (BBTag t : currentTag) {
 								content.append(t.getContent());
 							}
-							lastTagParent
-							.add(new TextBBTag(content.toString()));
+							lastTagParent.add(new TextBBTag(content.toString()));
 							currentTag = tagStack.pollFirst();
-						} while (currentTag != null && currentTag != root
-								&& !currentTag.getName().equals(tagName));
+						} while (currentTag != null && currentTag != root && !currentTag.getName().equals(tagName));
 
-						if (currentTag == null) {
-							// No more tags in stack: it is can not be at all.
-							throw new BBParserException(
-									"Expecting open tag in stack.");
+						if (currentTag == null) { // No more tags in stack: it is can not be at all.
+							throw new BBParserException("Expecting open tag in stack.");
 						}
 
 						// Open tag was found - close it
 						currentTag = tagStack.pollFirst();
-					} else {
-						BBTag tag = parseOpenTag(part);
-						currentTag.add(tag);
-						tagStack.addFirst(currentTag);
-
-						currentTag = tag;
 					}
-				}
-				else {
+
+				} else {  // It's not a tag (raw text or ignored tag considered as raw text) 
 					if(ignoredTags.contains(part)){
 						currentTag.add(new TextBBTag("codeAsText", part));
-					}else{
+					} else{
 						currentTag.add(new TextBBTag(part));// if part isn't a tag, it's a text.
 					}
 				}
-			}else {
-				if(ignoredTags.contains(part)){
-					currentTag.add(new TextBBTag("codeAsText", part));
-				}else if(!part.equals("[/escape]")){
-					currentTag.add(new TextBBTag(part));// if part isn't a tag, it's a text.
-				}
+
 			}
 		}
 
@@ -128,7 +137,7 @@ public class BBDomParser {
 
 
 
-
+    // TODO: on fait quoi ici ?
 	protected BBTag parseOpenTag(String part) {
 		String tagName = getTagName(part);
 		if (tagName == null /*|| !Character.isLetter(part.charAt(1))*/) {
@@ -253,7 +262,7 @@ public class BBDomParser {
 	public void addIgnoredTag(String tag){
 		ignoredTags.add(tag);
 	}
-	
+
 
 	/**
 	 * Extracts a tag name from string. If string do not matched '[text]' or '[/text]' - <code>null</code> is returned.
@@ -320,7 +329,7 @@ public class BBDomParser {
 		a.setValue(value);
 		tag.add(a);
 	}
-	
+
 
 
 
