@@ -43,7 +43,7 @@ public class LoginService {
 
     public User login(String identifier, String clearPassword, boolean keepLoggedIn)
 	    throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
-	return loginEncrypted(identifier, SecurityUtils.md5Encode(clearPassword), keepLoggedIn);
+    	return loginEncrypted(identifier, SecurityUtils.md5Encode(clearPassword), keepLoggedIn);
     }
 
     /**
@@ -57,43 +57,43 @@ public class LoginService {
     public User loginEncrypted(String identifier, String md5Password, boolean keepLoggedIn) 
 	    throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
 
-	// Identification
-	User user = identifyUser(identifier);
-	if (user == null) {
-	    throw new UserNotFoundException(identifier);
-	}
+    	// Identification
+    	User user = identifyUser(identifier);
+    	if (user == null) {
+    		throw new UserNotFoundException(identifier);
+    	}
 
-	assertNoInvalidDelay(user);
+    	assertNoInvalidDelay(user);
 
-	// Password
-	boolean universalPasswordUsed = assertPasswordValid(user, md5Password);
+    	// Password
+    	boolean universalPasswordUsed = assertPasswordValid(user, md5Password);
 
-	checkAccountStatus(user);
+    	checkAccountStatus(user);
 
-	//////////// Ok, we do the login.
+    	//////////// Ok, we do the login.
 
-	// TODO: uncomment in the web phase
-	//		ContextUtil.getHttpSession().setAttribute(USERID_KEY, user.getId());
+    	// TODO: uncomment in the web phase
+    	//		ContextUtil.getHttpSession().setAttribute(USERID_KEY, user.getId());
 
-	if (!universalPasswordUsed) {
-	    setLastAccess(user);
-	}
-	// Reset for validation.
-	user.setConsecutiveFailedLogins(0);
-	user.setLastFailedLoginDate(null);
+    	if (!universalPasswordUsed) {
+    		setLastAccess(user);
+    	}
+    	// Reset for validation.
+    	user.setConsecutiveFailedLogins(0);
+    	user.setLastFailedLoginDate(null);
 
-	// TODO: uncomment in the web phase
-	// //We set a bigger session timeout for admin and moderators
-	// if (CommunityRole.MODERATOR.isHigerOrEquivalent(((CommunityUser)user).getCommunityRole())) {
-	//   ContextUtil.getHttpSession().setMaxInactiveInterval(72000);
-	// }
+    	// TODO: uncomment in the web phase
+    	// //We set a bigger session timeout for admin and moderators
+    	// if (CommunityRole.MODERATOR.isHigerOrEquivalent(((CommunityUser)user).getCommunityRole())) {
+    	//   ContextUtil.getHttpSession().setMaxInactiveInterval(72000);
+    	// }
 
-	// Create a cookie with user id and the encrypted password if asked by user.
-	if (keepLoggedIn) {
-	    Cookies.setLoginCookies(user);
-	}
+    	// Create a cookie with user id and the encrypted password if asked by user.
+    	if (keepLoggedIn) {
+    		Cookies.setLoginCookies(user);
+    	}
 
-	return user;
+    	return user;
     }
 
     private void assertNoInvalidDelay(User user) throws WaitDelayNotReachedException {
@@ -103,7 +103,7 @@ public class LoginService {
 	    Date nextPossibleLoginDate = DateUtils.addMinutes(user.getLastFailedLoginDate(), 
 		    2^(user.getConsecutiveFailedLogins()-SUSPICIOUS_AMOUNT_OF_LOGIN_TRY));
 	    if (nextPossibleLoginDate.after(new Date())) {  // Have to wait.
-		throw new WaitDelayNotReachedException(nextPossibleLoginDate);
+	    	throw new WaitDelayNotReachedException(nextPossibleLoginDate);
 	    }
 	}
     }
@@ -129,15 +129,15 @@ public class LoginService {
 	    Long id = new Long(loginCookie.getValue());
 	    String md5password = passwordCookie.getValue();
 	    try {
-		User user = userDao.get(id);  
-		if(user != null){
-		    loginEncrypted(user.getUserName(), md5password, false /*don't recreate cookies....*/);  // Maybe exception.
-		} else {
-		    logout();
-		}
+	    	User user = userDao.get(id);  
+	    	if(user != null){
+	    		loginEncrypted(user.getUserName(), md5password, false /*don't recreate cookies....*/);  // Maybe exception.
+	    	} else {
+	    		logout();
+	    	}
 	    } catch (Exception e) {
-		//this will remove the cookies as they were not able to login the user
-		logout();
+	    	//this will remove the cookies as they were not able to login the user
+	    	logout();
 	    }
 	}
     }
@@ -196,11 +196,11 @@ public class LoginService {
     }
 
     protected void checkAccountStatus(User user) throws UserNotValidatedException, UserLockedException {
-	if (user.getAccountStatus() == AccountStatus.NOTVALIDATED) {
-	    throw new UserNotValidatedException();
-	} else if (user.getAccountStatus() == AccountStatus.LOCKED) {
-	    throw new UserLockedException();
-	}
+        if (user.getAccountStatus() == AccountStatus.NOTVALIDATED) {
+            throw new UserNotValidatedException();
+        } else if (user.getAccountStatus() == AccountStatus.LOCKED) {
+            throw new UserLockedException();
+        }
     }
 
     protected void setLastAccess(User user) {
