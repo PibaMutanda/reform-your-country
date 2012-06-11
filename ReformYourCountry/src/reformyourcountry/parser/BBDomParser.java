@@ -44,7 +44,7 @@ public class BBDomParser {
 		while (i.hasNext()) {
 			String part = i.next().getContent();
 
-			if ( !(escapeAsText&&currentTag.getName().equals("escape"))) {
+			if ((!(escapeAsText&&currentTag.getName().equals("escape")))^part.equals("[/escape]")) {
 				if (isTag(part) && !ignoredTags.contains(part)) {
 					String tagName = getTagName(part);
 					if (part.charAt(1) == '/') {
