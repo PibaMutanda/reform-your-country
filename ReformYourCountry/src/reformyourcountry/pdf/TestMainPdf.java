@@ -35,7 +35,7 @@ public class TestMainPdf {
 		 
 			// html input file 
 			//source file read from workspace location
-			URL sourceHtml = new URL("file:///"+System.getProperty("user.dir")+"/src/reformyourcountry/pdf/"+"wiki0.html");
+			URL sourceHtml = new URL("file:///"+System.getProperty("user.dir")+"/src/reformyourcountry/pdf/"+"wiki1.html");
 			
 			URLConnection co = sourceHtml.openConnection();
 			BufferedReader in = new BufferedReader(new InputStreamReader(co.getInputStream()));
@@ -50,7 +50,7 @@ public class TestMainPdf {
 	
 			
 			
-			//pass the FileOutputStream or the ByteArrayOutpuStream
+		// pdf generation html input , binary output stream,coverpage ? 
 			cPdf.generatePDF(input, bos, true); 
 			
 			// pdf output file
