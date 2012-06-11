@@ -6,8 +6,8 @@ import java.util.Date;
 import org.apache.log4j.Logger;
 
 import reformyourcountry.dao.UserDao;
-import reformyourcountry.exceptions.UseAlreadyExistsException;
-import reformyourcountry.exceptions.UseAlreadyExistsException.identifierType;
+import reformyourcountry.exceptions.UserAlreadyExistsException;
+import reformyourcountry.exceptions.UserAlreadyExistsException.identifierType;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountStatus;
 import reformyourcountry.model.User.Gender;
@@ -41,12 +41,12 @@ public class UserService {
      */
 
     public User registerUser(boolean directValidation, String firstname, String lastname,
-	    Gender gender, String username, String passwordInClear, String mail) throws UseAlreadyExistsException {
+	    Gender gender, String username, String passwordInClear, String mail) throws UserAlreadyExistsException {
 	if (UserDao.getUserByUserName(username) != null)	{
-	    throw new UseAlreadyExistsException(identifierType.USERNAME, username);
+	    throw new UserAlreadyExistsException(identifierType.USERNAME, username);
 	}
 	if (UserDao.getUserByEmail(mail) != null){
-	    throw new UseAlreadyExistsException(identifierType.MAIL, username);
+	    throw new UserAlreadyExistsException(identifierType.MAIL, username);
 	}
 	System.out.println("register user je suis appelé");
 	User newUser = new User();
