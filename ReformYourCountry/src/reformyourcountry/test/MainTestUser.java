@@ -51,7 +51,8 @@ public class MainTestUser {
 	    {
 		System.out.println("please select your gender\n1."+ Gender.MALE.toString() 
 			+ "\n2." + Gender.FEMALE.toString()
-			+ "\n\nplease select a gender : "); 
+			+ "\n\nplease select a gender : ");
+		//TODO maxime manage case when user type a letter
 		genderId=scan.nextInt();
 	    }
 
