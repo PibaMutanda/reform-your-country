@@ -15,7 +15,7 @@ public class JUnitParserTest {
 	public static String ExportToHtml(String txt){
 		List<String> tags = new ArrayList<String>();
 		tags.add("[...]");		
-		return BBConverter.GetValidHtmlCode(txt, tags);
+		return BBConverter.GetValidHtmlCode(txt);
 	}
 
 	@Test
