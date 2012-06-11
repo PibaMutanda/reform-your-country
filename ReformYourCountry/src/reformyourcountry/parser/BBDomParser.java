@@ -42,7 +42,7 @@ public class BBDomParser {
 		while (i.hasNext()) {
 			String part = i.next().getContent();
 
-			if ( !(escapeAsText&&currentTag.getName().equals("escape"))) { 
+			if ( !(escapeAsText&&currentTag.getName().equals("escape"))) {
 				if (isTag(part) && !ignoredTags.contains(part)) {
 					String tagName = getTagName(part);
 					if (part.charAt(1) == '/') {
@@ -83,7 +83,7 @@ public class BBDomParser {
 								content.append(t.getContent());
 							}
 							lastTagParent
-									.add(new TextBBTag(content.toString()));
+							.add(new TextBBTag(content.toString()));
 							currentTag = tagStack.pollFirst();
 						} while (currentTag != null && currentTag != root
 								&& !currentTag.getName().equals(tagName));
@@ -104,7 +104,14 @@ public class BBDomParser {
 						currentTag = tag;
 					}
 				}
-			} else {
+				else {
+					if(ignoredTags.contains(part)){
+						currentTag.add(new TextBBTag("codeAsText", part));
+					}else{
+						currentTag.add(new TextBBTag(part));// if part isn't a tag, it's a text.
+					}
+				}
+			}else {
 				if(ignoredTags.contains(part)){
 					currentTag.add(new TextBBTag("codeAsText", part));
 				}else{
