@@ -1,16 +1,18 @@
 package reformyourcountry.pdf;
 
 
-import java.awt.Dimension;
+
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
-import blackbelt.web.UrlUtil;
+
 
 
 /** Used during development to test PD4ML, and PDF generation.
@@ -22,18 +24,18 @@ public class TestMainPdf {
 
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
 
 		try {
-			// pdf output file
-			// file will be create in os temp directory  C:\Users\forma*\AppData\Local\Temp
-			File filetest = new File(System.getProperty("java.io.tmpdir")+"pd4ml.pdf");
-			FileOutputStream fos =new FileOutputStream(filetest);
+		
+			
 			ArticlePdfGenerator cPdf = new ArticlePdfGenerator(true);
 
+			ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		 
 			// html input file 
 			//source file read from workspace location
-			URL sourceHtml = new URL("file:///"+System.getProperty("user.dir")+"/src/reformyourcountry/pdf/"+"wiki.html");
+			URL sourceHtml = new URL("file:///"+System.getProperty("user.dir")+"/src/reformyourcountry/pdf/"+"wiki0.html");
 			
 			URLConnection co = sourceHtml.openConnection();
 			BufferedReader in = new BufferedReader(new InputStreamReader(co.getInputStream()));
@@ -45,19 +47,26 @@ public class TestMainPdf {
 				 input = input + inputLine;
 			}
 			
-			String headerHtmlTemplate = "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">"
-					+ "<tr>"
-					+ "<td><span class =\"titre\">${title}</span></td>"
-					+ "<td>page ${page}</td>" + "</tr>" + "</table>";
+	
 			
-			String footerHtmlTemplate = "<table width='100%'><tr><td></td><td class='licence'>"+"wikipedia 2012"+
-		        "</td><td align='right' class='valignBottom'>${page}<span class='grey'> /${total}</span></td></tr></table>";
-				
-			cPdf.generatePDF(input, fos, headerHtmlTemplate, footerHtmlTemplate, true); 
+			
+			//pass the FileOutputStream or the ByteArrayOutpuStream
+			cPdf.generatePDF(input, bos, true); 
+			
+			// pdf output file
+			// file will be create in os temp directory  C:\Users\forma*\AppData\Local\Temp
+			File filetest = new File(System.getProperty("java.io.tmpdir")+"pd4ml.pdf");
+			FileOutputStream fos =new FileOutputStream(filetest);
+			
+			bos.writeTo(fos);
+			
+		
+			bos.close();
 			fos.close();
+			
 		} catch (Exception e) {
 	
-			System.err.println("An exception was raised : " + e.getMessage());
+			throw new RuntimeException(e);
 		}
 		
 	}
