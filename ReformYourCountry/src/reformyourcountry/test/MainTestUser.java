@@ -1,10 +1,7 @@
 package reformyourcountry.test;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
 
 import reformyourcountry.dao.UserDao;
 import reformyourcountry.exceptions.UserAlreadyExistsException;
@@ -97,7 +94,7 @@ public class MainTestUser {
 
      
     	 System.out.println("please enter your email");
-    	 mail = scan.next();
+    	 mail = scanKeyBoard.next();
     	
 	try {
 		
