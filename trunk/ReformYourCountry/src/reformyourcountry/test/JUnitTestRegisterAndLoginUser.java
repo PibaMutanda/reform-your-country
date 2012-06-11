@@ -36,57 +36,55 @@ public class JUnitTestRegisterAndLoginUser {
      * @fail if register throw an exception
      */
     @Before
-    public void testRegisterUser()
-    {
-	try {
-	    userService.registerUser(true, firstname, lastname, gender, username, passwordInClear, mail);
-	} catch (Exception e) {
-	    fail("user alreadyexist");
-	}
+    public void testRegisterUser() {
+    	try {
+    		userService.registerUser(true, firstname, lastname, gender, username, passwordInClear, mail);
+    	} catch (UserAlreadyExistsException e) {
+    		fail("user alreadyexist");
+    	}
     }
     /**
      * remove user after each test for avoying useAlreadyExistsException
      * @fail if user isn't in the db
      */
     @After
-    public void removeUser()
-    {
-	try {
-	    UserDao.remove(username);
-	} catch (UserNotFoundException e) {
-	    e.printStackTrace();
-	    fail("can't remove usertest");
-	}
+    public void removeUser() {
+    	try {
+    		UserDao.remove(username);
+    	} catch (UserNotFoundException e) {
+    		e.printStackTrace();
+    		fail("can't remove usertest");
+    	}
     }
+    
     @Test
     public void testUserExistsInDB()  {
-	assertNotNull("username not found in dao", UserDao.getUserByUserName(username));
-	assertNotNull("mail not found in dao", UserDao.getUserByEmail(mail));
+    	assertNotNull("username not found in dao", UserDao.getUserByUserName(username));
+    	assertNotNull("mail not found in dao", UserDao.getUserByEmail(mail));
     }
+    
     @Test
     public void testUserAlreadyExistsException()  {
-	try {
-	    userService.registerUser(true, firstname, lastname, gender, username, passwordInClear, mail);
-	} catch (UserAlreadyExistsException e) {
-	    exception = true;
-	}
-	assertTrue("register doesn't detect double user",exception);
+    	try {
+    		userService.registerUser(true, firstname, lastname, gender, username, passwordInClear, mail);
+    	} catch (UserAlreadyExistsException e) {
+    		exception = true;
+    	}
+    	assertTrue("register doesn't detect double user",exception);
     }
+    
     @Test
-    public void testLogin() throws UserAlreadyExistsException
-    {
-	try{
-	    assertNotNull("login with mail identifier",loginService.login(mail, passwordInClear, false));
-	} catch (UserNotFoundException | InvalidPasswordException| UserNotValidatedException | UserLockedException| WaitDelayNotReachedException e) {
-	    e.printStackTrace();
-	    fail("login exception");
-	}     
-	try {
-	    assertNotNull("login with username identifier",loginService.login(username, passwordInClear, false));
-	} catch (UserNotFoundException | InvalidPasswordException| UserNotValidatedException | UserLockedException| WaitDelayNotReachedException e) {
-	    e.printStackTrace();
-	    fail("login exception");
-	}  
+    public void testLogin() throws UserAlreadyExistsException  {
+    	try{
+    		assertNotNull("login with mail identifier", loginService.login(mail, passwordInClear, false));
+    	} catch (UserNotFoundException | InvalidPasswordException| UserNotValidatedException | UserLockedException| WaitDelayNotReachedException e) {
+    		fail("login exception");
+    	}     
+    	try {
+    		assertNotNull("login with username identifier",loginService.login(username, passwordInClear, false));
+    	} catch (UserNotFoundException | InvalidPasswordException| UserNotValidatedException | UserLockedException| WaitDelayNotReachedException e) {
+    		fail("login exception");
+    	}  
     }
     @Test
     public void testUserNotValidatedException()
