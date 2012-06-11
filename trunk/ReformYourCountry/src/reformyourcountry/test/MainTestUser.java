@@ -1,6 +1,9 @@
 package reformyourcountry.test;
 
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 import reformyourcountry.exceptions.UserAlreadyExistsException;
 import reformyourcountry.model.User;
@@ -17,7 +20,6 @@ public class MainTestUser {
     private static UserService userService = new UserService();
     private static LoginService loginService = new LoginService();
 
-
     /**
      * @param args
      */
@@ -30,6 +32,8 @@ public class MainTestUser {
 	Scanner scan = new Scanner(System.in);
 	String firstname, name, username, password, mail,password2;
 	Gender gender = null;
+	String genId;	
+	Pattern p=Pattern.compile("^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)+$");
 	int genderId;
 
 	System.out.println("welcome to the registration console\n we gonna register you\nplease enter your firstname");
@@ -44,31 +48,8 @@ public class MainTestUser {
 	System.out.println("please select your gender\n1."+ Gender.MALE.toString() 
 		+ "\n2." + Gender.FEMALE.toString()
 		+ "\n\nplease select a gender : ");
+
 	genderId = scan.nextInt();
-	do {
-
-	    if(genderId!=1 || genderId!=2)
-	    {
-		System.out.println("please select your gender\n1."+ Gender.MALE.toString() 
-			+ "\n2." + Gender.FEMALE.toString()
-			+ "\n\nplease select a gender : ");
-		//TODO maxime manage case when user type a letter
-		genderId=scan.nextInt();
-	    }
-
-	} while (genderId!=1 && genderId!=2  );	
-
-	switch (genderId) {
-	case 1:
-	    gender = Gender.MALE;
-	    break;
-	case 2:
-	    gender = Gender.FEMALE;
-	    break;
-	}
-
-
-
 	do {
 	    System.out.println("please enter your password");
 	    password = scan.next();
@@ -81,12 +62,18 @@ public class MainTestUser {
 
 
 	System.out.println("please enter your email");
-	mail = scan.next();
+		
 
+	
 	try {
+		mail = scan.next(p);
+		
 	    userService.registerUser(true, firstname, name, gender, username,password, mail);
 	} catch (UserAlreadyExistsException e) {
 	    e.printStackTrace();
+	}
+	catch (java.util.InputMismatchException e1) {
+		System.out.println("The email is not valid" + e1.getMessage());
 	}
 
     }
