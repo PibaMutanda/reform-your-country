@@ -66,7 +66,7 @@ public class MainTestUser {
 	Gender gender = null;
 	String genId;
 	Pattern p = Pattern
-		.compile("^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)+$");
+			.compile("^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)+$");
 	int genderId;
 
 	System.out
@@ -79,11 +79,12 @@ public class MainTestUser {
 	System.out.println("please enter your username");
 	username = scanKeyBoard.next();
 
-	System.out.println("please select your gender\n1."
-		+ Gender.MALE.toString() + "\n2." + Gender.FEMALE.toString()
-		+ "\n\nplease select a gender : ");
-
-	genderId = scanKeyBoard.nextInt();
+		System.out.println("please select your gender\n1."+ Gender.MALE.toString() 
+					+ "\n2." + Gender.FEMALE.toString()
+					+ "\n\nplease select a gender : ");
+			genderId = scan.nextInt();
+			genId=String.valueOf(genderId);
+	
 	do {
 	    System.out.println("please enter your password");
 	    password = scanKeyBoard.next();
@@ -94,18 +95,18 @@ public class MainTestUser {
 
 	} while (!password.equalsIgnoreCase(password2));
 
-	System.out.println("please enter your email");
-
+     
+    	 System.out.println("please enter your email");
+    	 mail = scan.next();
+    	
 	try {
-	    mail = scanKeyBoard.next();
-
-	    user = userService.registerUser(false, firstname, name, gender,
-		    username, password, mail);
+		
+		
+	    userService.registerUser(true, firstname, name, gender, username,password, mail);
 	} catch (UserAlreadyExistsException e) {
 	    e.printStackTrace();
 	}
-	    System.out.println("\n***successfull user registred***\n");
-
+	  System.out.println("\n***successfull user registred***\n");
     }
 
     public static void consoleFormLogin() {
