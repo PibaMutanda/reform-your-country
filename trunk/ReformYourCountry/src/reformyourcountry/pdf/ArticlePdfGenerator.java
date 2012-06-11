@@ -13,13 +13,7 @@ import javax.imageio.ImageIO;
 import org.zefer.pd4ml.PD4ML;
 import org.zefer.pd4ml.PD4PageMark;
 
-/**
- * @author Gusbin johan
- * @author Julien Van Assche
- * 
- * Generate and format the course to a pdf
- * 
- * */
+
 
 /** Generates an html String with course sections, and use PD4ML to transform the html into a pdf document */ 
 public class ArticlePdfGenerator {
@@ -27,7 +21,7 @@ public class ArticlePdfGenerator {
 
 
 	//default cover page image link
-	public static String COVER_PAGE_IMG = "http://knowledgeblackbelt.com/image/KnowledgeBlackBelt-Logo-Header.png";//="/VAADIN/themes/blackbelt/image/bgphoto/asianWomanSword.jpg";
+	public static String COVER_PAGE_IMG = "http://upload.wikimedia.org/wikipedia/en/b/bc/Wiki.png";//="/VAADIN/themes/blackbelt/image/bgphoto/asianWomanSword.jpg";
 
 
 	private PD4ML pd4ml;
@@ -140,16 +134,17 @@ public class ArticlePdfGenerator {
 
 		pd4ml.setDefaultTTFs("Times New Roman", "Arial", "Courier New");  
         pd4ml.enableImgSplit(false);
+      
 		
         
         // first we add the begining of the html document start with <html> to <body>
-		String head ="<html><head><title>Scrum Méthode</title><META http-equiv=Content-Type content=\"text/html; charset=utf-8\"></head><body>";
+		String head ="<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html lang=\"fr\" xmlns=\"http://www.w3.org/1999/xhtml\"   ><head><title>Scrum Méthode</title><META http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body>";
 		
 		// next we add the cover html 
 		head += createCoverHtml();
 		
 		//next we add the table of content
-		head +=createToc();
+		head += createToc();
 		
 		createHeader();
 
@@ -164,7 +159,7 @@ public class ArticlePdfGenerator {
 		
 		//after the cover we add the rest of the html document
 		String finalresult  =  head+inputHtml;
-		// generate the pdf binart output stream from html
+		// generate the pdf in binary output stream from html
 		try {
 			pd4ml.render(new StringReader( finalresult), bos);
 
@@ -225,9 +220,6 @@ public class ArticlePdfGenerator {
 	public String createCoverHtml(){
 		
 		String result = new String("");
-		//TODO change the link
-		String linkbottom = new String("http://3.bp.blogspot.com/-QqRJffxgYOQ/T5AXnhlDAZI/AAAAAAAAAzk/lUbL8noFzgs/s400/black+belt.jpg");
-		
 	
 		try {
 	
@@ -242,7 +234,7 @@ public class ArticlePdfGenerator {
 		result +=
 
 				"<div align='center' class='logo'>" +
-				getHtmlResizedImg(img,true,url)+"</div><br/><br/>"+ 
+				getHtmlResizedImg(img,false,url)+"</div><br/><br/>"+ 
 				"</div><br/><br/>" +
 
                 "<div align='center' style='font-size:24px;color: #AA0000;font-weight: bold;'>"+
@@ -251,7 +243,7 @@ public class ArticlePdfGenerator {
                 //we add a second image with 650x430 dimension
                 "<div  width='650' height='430' align='center'>"+
                 "<table align='center'><tr><td>" +
-                "<img src='"+linkbottom+"'>"+
+                getHtmlResizedImg(img,true,url)+
 
                 "</td></tr></table></div>"+
                 "<br/><br/><br/>";
