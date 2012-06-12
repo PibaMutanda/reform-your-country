@@ -9,23 +9,23 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="WebContent/lib/cayenne-2.0.4.jar"/>
-	<classpathentry kind="lib" path="WebContent/lib/commons-codec-1.6.jar">
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/cayenne-2.0.4.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-codec-1.6.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/ReformYourCountry/WebContent/lib/commons-codec-1.6-javadoc.jar!/"/>
+			<attribute name="javadoc_location" value="jar:platform:/resource/ReformYourCountry/WebContent/WEB-INF/lib/commons-codec-1.6-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="WebContent/lib/commons-lang3-3.1.jar" sourcepath="WebContent/lib/commons-lang3-3.1-sources.jar">
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-lang3-3.1.jar" sourcepath="WebContent/WEB-INF/lib/commons-lang3-3.1-sources.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/ReformYourCountry/WebContent/lib/commons-lang3-3.1-javadoc.jar!/"/>
+			<attribute name="javadoc_location" value="jar:platform:/resource/ReformYourCountry/WebContent/WEB-INF/lib/commons-lang3-3.1-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="WebContent/lib/javax.servlet.jar"/>
-	<classpathentry kind="lib" path="WebContent/lib/Parser.jar"/>
-	<classpathentry kind="lib" path="WebContent/lib/spring-core-1.2.5.jar"/>
-	<classpathentry kind="lib" path="WebContent/lib/vaadin-6.7.9.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/javax.servlet.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/Parser.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-core-1.2.5.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/vaadin-6.7.9.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="WebContent/lib/pd4ml.lib.trial.380fx4/lib/ss_css2.jar"/>
-	<classpathentry kind="lib" path="WebContent/lib/pd4ml.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/pd4ml.lib.trial.380fx4/lib/ss_css2.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/pd4ml.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
