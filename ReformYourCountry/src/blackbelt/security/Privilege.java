@@ -171,6 +171,11 @@ public enum Privilege {
 		 
 	}
 
+	private boolean contains(Privilege privilege) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
 
 
