@@ -3,7 +3,11 @@ package reformyourcountry.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.EnumSet;
+
 import org.apache.commons.lang.StringUtils;
+
+import sun.font.LayoutPathImpl.EndType;
 
 import blackbelt.security.Privilege;
 
@@ -55,9 +59,43 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	public enum Gender {
 		FEMALE,MALE;
 	}
+	
 	public enum CorporateRole{
-        ADMIN
+        ADMIN("Administrator",5),
+        ANONYMOUS("Anonymous", 10000);
+
+     
+        
+     private CorporateRole(String name, int ordinal) {
+            
+                this.aname=name;
+                this.level=ordinal;
+            }
+            
+     public String getAname() {
+            return aname;
+        }
+        public void setAname(String aname) {
+            this.aname = aname;
+        }
+        public int getLevel() {
+            return level;
+        }
+        public void setLevel(int level) {
+            this.level = level;
+        }
+   
+  
+        public boolean isHigerOrEquivalent(CorporateRole corporateRole){
+            if(corporateRole == null)
+                return this==CorporateRole.ANONYMOUS;
+            return this.getLevel() <= corporateRole.getLevel();
+        }
+     String aname;
+     int level;
     }
+	
+	
 	public enum CommunityRole {
 	    NONE("non", -1), 
 	    ADMIN("Administrator", 10),
