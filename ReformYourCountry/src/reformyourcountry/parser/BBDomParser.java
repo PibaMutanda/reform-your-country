@@ -26,7 +26,7 @@ import java.util.List;
  *		|	|-[code]: BBTag
  *		|	|	|-some code: TextBBTag
  * 
- * @author xBlackCat
+ * @author xBlackCat & Thomas Van Roy
  */
 public class BBDomParser {
 

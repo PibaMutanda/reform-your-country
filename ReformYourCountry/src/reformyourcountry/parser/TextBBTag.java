@@ -4,7 +4,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-
+/**
+ * 
+ * @author xBlackCat
+ *
+ */
 public class TextBBTag extends ABBTag {
     public static final Iterator<BBTag> NO_ELEMENTS = new Iterator<BBTag>() {
         @Override

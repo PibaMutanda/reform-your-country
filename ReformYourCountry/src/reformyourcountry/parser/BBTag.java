@@ -2,7 +2,11 @@ package reformyourcountry.parser;
 
 import java.util.Collection;
 import java.util.List;
-
+/**
+ * added children here
+ * @author xBlackCat and FIEUX Cédric and Thomas Van roy
+ *
+ */
 public interface BBTag extends Iterable<BBTag> {
     BBTagType getType();
 
