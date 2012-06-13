@@ -140,6 +140,9 @@ public class BBDomParser {
 				}
 
 			}
+			if(((SplitIterator) i).getError()){
+				currentTag.add(new DefaultBBTag("Error", BBTagType.Error, "An error occured; some text have not been parsed"));
+			}
 		}
 
 		return root;
