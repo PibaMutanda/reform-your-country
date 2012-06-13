@@ -51,9 +51,9 @@ public class ContextUtil implements Filter, ServletContextListener {
   //TODO maxime uncomment
 
 //    public static void contextInitialized(ApplicationContext ac) {
-//        springContext = ac;
-//        
-//		environment = springContext.getBean(CurrentEnvironment.class).getEnvironment();
+//       springContext = ac;        
+
+//    environment = springContext.getBean(CurrentEnvironment.class).getEnvironment();
 //		devMode = (environment == Environment.DEV); 
 //    }
  
@@ -94,7 +94,7 @@ public class ContextUtil implements Filter, ServletContextListener {
     	return getServletContext() == null;
     }
 
-   /*public static Object getSpringBean(String name) {
+  /* public static Object getSpringBean(String name) {
 		return springContext.getBean(name);
 	}
 
