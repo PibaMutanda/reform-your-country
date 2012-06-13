@@ -32,11 +32,7 @@ class SplitIterator implements Iterator<Part> {
 	@Override
 	public boolean hasNext() {
 		try {
-			if (!error) {
-				nextPart = readNextPart();
-			}else{
-				nextPart = null;
-			}
+			nextPart = readNextPart();
 		} catch (IOException e) {
 			return false;
 		}
