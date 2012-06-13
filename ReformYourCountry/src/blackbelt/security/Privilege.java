@@ -1,9 +1,10 @@
 package blackbelt.security;
 
 import be.loop.jbb.bo.corp.CorpUser.CorporateRole;
-import blackbelt.model.User.CommunityRole;
-import blackbelt.security.SecurityContext;
 
+import blackbelt.security.SecurityContext;
+import reformyourcountry.model.User;
+import reformyourcountry.model.User.CommunityRole;
 public enum Privilege {
 
 	/**
@@ -170,3 +171,6 @@ public enum Privilege {
 	}
 
 }
+
+
+
