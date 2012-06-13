@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.util.Date;
 import org.apache.commons.lang.StringUtils;
 
+import blackbelt.security.Privilege;
+
 //TODO piba uncomment when using hibernate
 // @Entity
 //@Table(name = "users")
@@ -53,7 +55,9 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	public enum Gender {
 		FEMALE,MALE;
 	}
-
+	public enum CorporateRole{
+        ADMIN
+    }
 	public enum CommunityRole {
 	    NONE("non", -1), 
 	    ADMIN("Administrator", 10),
@@ -86,6 +90,8 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	     * to test against this <tt>CommunityRole</tt>.
 	     * @return true or false.
 	     */
+	    
+	
 	    public boolean isLowerOrEquivalent(CommunityRole level) {
 		if (level == null)
 		    return this == CommunityRole.ANONYMOUS;
@@ -129,7 +135,15 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	//@Lob
 	 private String nameChangeLog; // record the name changes
 
-	//@Column(nullable = true)
+	public Privilege getPrivileges() {
+        return privileges;
+    }
+
+    public void setPrivileges(Privilege privileges) {
+        this.privileges = privileges;
+    }
+
+    //@Column(nullable = true)
 	//@Enumerated(EnumType.STRING)
 	private Gender gender;
 
@@ -143,7 +157,7 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 
 	private boolean guest;
 
-
+    private Privilege privileges;
 
 	//TODO maxime uncomment when implements privileges
 //	@ElementCollection(targetClass=Privilege.class, fetch=FetchType.EAGER)
