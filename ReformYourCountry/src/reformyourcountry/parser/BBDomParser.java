@@ -8,12 +8,23 @@ import java.util.List;
 
 
 /**
- * [toto]........[b]
+ * 
+ * This will parse trough a text for BBCode tags and sort them into a DOM tree.
+ * 
+ * 
+ * 
+ * example :
+ * [quote]a text and [link]a link[/link] and [code]some code[/code][/quote]
  * 
  * output:
- *   root: BBTab
- *      |- 
- * 
+ *   root: BBTag
+ *      |- [quote]: BBTag
+ *      |	|-a text and: TextBBTag
+ *		|	|-[link]: BBTag
+ *		|	|	|-a link: TextBBTag
+ *		|	|-and: TextBBTag
+ *		|	|-[code]: BBTag
+ *		|	|	|-some code: TextBBTag
  * 
  * @author xBlackCat
  */
@@ -26,10 +37,12 @@ public class BBDomParser {
 	////////////////////////////////////////////// PUBLIC API ////////////////////////////////////////// 
 	////////////////////////////////////////////// PUBLIC API ////////////////////////////////////////// 
 	////////////////////////////////////////////// PUBLIC API ////////////////////////////////////////// 
-	public BBDomParser(){super();}
+	
+	public BBDomParser(){}
 	public BBDomParser(List<String> ignoredList){
 		this.ignoredTags=ignoredList;
 	}
+
 	public void setEscapeAsText(boolean escapeAsText){
 		this.escapeAsText=escapeAsText;
 	}
@@ -51,7 +64,7 @@ public class BBDomParser {
 		while (i.hasNext()) {
 			String part = i.next().getContent();
 
-			if ((escapeAsText && currentTag.getName().equals("escape")) ) {  // the tag is [escape] and we need to skip it (not parse what's inside)
+			if ((escapeAsText && currentTag.getName().equals("escape")&&!part.equals("[/escape]")) ) {  // the tag is [escape] and we need to skip it (not parse what's inside)
 				if (ignoredTags.contains(part)){
 					currentTag.add(new TextBBTag("codeAsText", part));
 				} else if (!part.equals("[/escape]")){
@@ -75,9 +88,8 @@ public class BBDomParser {
 						// Look for open tag in stack. If match is not found - treat the tag as plain text.
 
 						// Simple check - is closing current tag?
-						// TODO: PQ on regarde "escape" ici ?
 						if (tagName != null
-								&& tagName.equals(currentTag.getName())&& tagName != "escape") {
+								&& tagName.equals(currentTag.getName())) {
 							currentTag = tagStack.pollFirst();
 
 							// Checks successful - ignore text content.
@@ -98,8 +110,7 @@ public class BBDomParser {
 						}
 
 						// Normal case
-						// We put the tag in the DOM tree ???????????
-						// TODO: dire quoi qu'on fait ici;
+						// We put the tag in the correct tag (children inside parents)
 						do {
 							BBTag lastTagParent = currentTag.getParent();
 							lastTagParent.remove(currentTag);
@@ -137,7 +148,13 @@ public class BBDomParser {
 
 
 
-    // TODO: on fait quoi ici ?
+    /**
+     * This method will parse tags themselves, identifying their name and eventual attributes and attribute values.
+     * It will then create the BBTag object with those informations.
+     * 
+     * @param part
+     * @return
+     */
 	protected BBTag parseOpenTag(String part) {
 		String tagName = getTagName(part);
 		if (tagName == null /*|| !Character.isLetter(part.charAt(1))*/) {
@@ -264,6 +281,21 @@ public class BBDomParser {
 	}
 
 
+	
+
+
+
+	/////////////////////////////////////// INTERNALS ///////////////////////////////////////////////
+	/////////////////////////////////////// INTERNALS ///////////////////////////////////////////////
+	/////////////////////////////////////// INTERNALS ///////////////////////////////////////////////
+	/////////////////////////////////////// INTERNALS ///////////////////////////////////////////////
+	/////////////////////////////////////// INTERNALS ///////////////////////////////////////////////
+	/////////////////////////////////////// INTERNALS ///////////////////////////////////////////////
+	/////////////////////////////////////// INTERNALS ///////////////////////////////////////////////
+	/////////////////////////////////////// INTERNALS ///////////////////////////////////////////////
+	/////////////////////////////////////// INTERNALS ///////////////////////////////////////////////
+	
+	
 	/**
 	 * Extracts a tag name from string. If string do not matched '[text]' or '[/text]' - <code>null</code> is returned.
 	 *
@@ -298,18 +330,8 @@ public class BBDomParser {
 
 		return tagName;
 	}
-
-
-
-	/////////////////////////////////////// INTERNALS ///////////////////////////////////////////////
-	/////////////////////////////////////// INTERNALS ///////////////////////////////////////////////
-	/////////////////////////////////////// INTERNALS ///////////////////////////////////////////////
-	/////////////////////////////////////// INTERNALS ///////////////////////////////////////////////
-	/////////////////////////////////////// INTERNALS ///////////////////////////////////////////////
-	/////////////////////////////////////// INTERNALS ///////////////////////////////////////////////
-	/////////////////////////////////////// INTERNALS ///////////////////////////////////////////////
-	/////////////////////////////////////// INTERNALS ///////////////////////////////////////////////
-	/////////////////////////////////////// INTERNALS ///////////////////////////////////////////////
+	
+	
 	public static boolean isTag(Part p) {
 		return isTag(p.getContent());
 	}
@@ -322,10 +344,15 @@ public class BBDomParser {
 
 	}
 
-	// Add an Attribute to the Tag. Attribute is additional informations
-	// regarding the tag, for instance "href=" for a [a]
+	/**
+	 * Add an Attribute to the Tag. Attribute is additional informations
+	 * regarding the tag, for instance "href="http://link"" for a [a]
+	 * @param tag the tag from witch the attribute belong
+	 * @param name the name of the attribute ie: href
+	 * @param value the value of the attribute ie: http://link
+	 */
 	private static void addAttribute(BBTag tag, String name, String value) {
-		BBAttribute a = new DefaultBBAttribute(name, tag);
+		BBAttribute a = new DefaultBBAttribute(name);
 		a.setValue(value);
 		tag.add(a);
 	}
