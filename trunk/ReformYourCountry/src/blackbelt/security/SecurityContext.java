@@ -1,10 +1,10 @@
 package blackbelt.security;
 
-import static blackbelt.util.collection.BBCollectionUtils.adminGroupReg;
-import static blackbelt.util.collection.BBCollectionUtils.groupRegToGroup;
-import static blackbelt.util.collection.BBCollectionUtils.rootOrganizationGroupsOnly;
-import static com.google.common.collect.Collections2.filter;
-import static com.google.common.collect.Collections2.transform;
+//import static blackbelt.util.collection.BBCollectionUtils.adminGroupReg;
+//import static blackbelt.util.collection.BBCollectionUtils.groupRegToGroup;
+//import static blackbelt.util.collection.BBCollectionUtils.rootOrganizationGroupsOnly;
+//import static com.google.common.collect.Collections2.filter;
+//import static com.google.common.collect.Collections2.transform;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -13,24 +13,26 @@ import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Set;
 
-import be.loop.jbb.bo.CommunityUser;
-import be.loop.jbb.bo.corp.Company;
-import be.loop.jbb.bo.corp.CorpUser;
-import be.loop.jbb.bo.corp.CorpUser.CorporateRole;
-import be.loop.jbb.dao.CommunityUserDao;
-import be.loop.jbb.dao.corp.CorpUserDao;
-import be.loop.jbb.web.exceptions.UnauthorizedAccessException;
-import blackbelt.dao.OrganizationDao;
-import blackbelt.dao.UserDao;
-import blackbelt.model.Group;
-import blackbelt.model.Organization;
-import blackbelt.model.Privilege;
-import blackbelt.model.User;
-import blackbelt.model.User.CommunityRole;
-import blackbelt.service.LoginService;
-import blackbelt.service.OrganizationService;
-import blackbelt.util.BlackBeltException;
-import blackbelt.web.ContextUtil;
+import reformyourcountry.model.User;
+
+//import be.loop.jbb.bo.CommunityUser;
+//import be.loop.jbb.bo.corp.Company;
+//import be.loop.jbb.bo.corp.CorpUser;
+//import be.loop.jbb.bo.corp.CorpUser.CorporateRole;
+//import be.loop.jbb.dao.CommunityUserDao;
+//import be.loop.jbb.dao.corp.CorpUserDao;
+//import be.loop.jbb.web.exceptions.UnauthorizedAccessException;
+//import blackbelt.dao.OrganizationDao;
+//import blackbelt.dao.UserDao;
+//import blackbelt.model.Group;
+//import blackbelt.model.Organization;
+//import blackbelt.model.Privilege;
+//import blackbelt.model.User;
+//import blackbelt.model.User.CommunityRole;
+//import blackbelt.service.LoginService;
+//import blackbelt.service.OrganizationService;
+//import blackbelt.util.BlackBeltException;
+//import blackbelt.web.ContextUtil;
 
 /**
  * Holds the security related information during request execution.
@@ -42,7 +44,7 @@ public abstract class SecurityContext {
     private static ThreadLocal<User> user = new ThreadLocal<User>();    // Lazyly retrieved from the DB if needed (if getUser() is called).
     private static ThreadLocal<Long> userId = new ThreadLocal<Long>();  // retrieved in from the session. Non null <=> user logged in.
     private static ThreadLocal<EnumSet<Privilege>> contextualPrivileges = new ThreadLocal<EnumSet<Privilege>>();
-    private static ThreadLocal<Organization> organizations = new ThreadLocal<Organization>();    // Lazyly retrieved from the DB if needed (if getUser() is called).
+//    private static ThreadLocal<Organization> organizations = new ThreadLocal<Organization>();    // Lazyly retrieved from the DB if needed (if getUser() is called).
 
     // Note from John 2009-07-01: should be useless with Vaadin (no need to communicate between action and JSP...)  ----
     // Contextual custom privileges are usually set by the action (any string) and checked by the jsp through the authorization tag, as non-custom contextual privileges.
@@ -59,7 +61,7 @@ public abstract class SecurityContext {
         userId.set(null);
         contextualPrivileges.set(null);
         contextualCustomPrivileges.set(null);
-        organizations.set(null);
+      //  organizations.set(null);
     }
 
     /**
