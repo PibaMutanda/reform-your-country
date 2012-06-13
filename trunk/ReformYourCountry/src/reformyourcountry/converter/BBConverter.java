@@ -1,21 +1,11 @@
 package reformyourcountry.converter;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.ParseException;
-import java.util.List;
 
-import java.io.StringReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.List;
-
-import reformyourcountry.parser.*;
+import reformyourcountry.parser.BBDomParser;
+import reformyourcountry.parser.BBTag;
 /**
  * @author FIEUX Cédric
  * this class purpose is to verify the BBCode and there attributes and then return Html Code (with errors commented)

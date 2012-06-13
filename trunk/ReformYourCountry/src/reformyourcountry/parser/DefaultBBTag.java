@@ -17,7 +17,12 @@ public class DefaultBBTag extends ABBTag {
 
     protected DefaultBBTag(BBTag parent, String name, BBTagType type,
 	    String content) {
-	super(parent, type, name, content);
+
+    	super(parent, type, name, content);
+    	if (type== BBTagType.Error){
+    		this.errorText=content;
+    		this.content = name;
+    	}
     }
 
     @Override
