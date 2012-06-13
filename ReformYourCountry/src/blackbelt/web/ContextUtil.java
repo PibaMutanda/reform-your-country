@@ -14,7 +14,13 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.omg.CORBA.Environment;
+
+import com.vaadin.service.ApplicationContext;
 //TODO maxime uncomment
+
+//import blackbelt.security.OrganizationService;
 
 //import org.springframework.context.ApplicationContext;
 //import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -27,9 +33,9 @@ public class ContextUtil implements Filter, ServletContextListener {
 	//TODO maxime uncomment
 
 	public static ServletContext servletContext;  // Remembers the servlet context and exposes useful values to the application through static methods.
-//    public static  ApplicationContext springContext;
+    public static  ApplicationContext springContext;
     public static boolean devMode;
-//    public static Environment environment;
+   public static Environment environment;
     
     // Initialized by filter
     private static ThreadLocal<HttpServletRequest> httpServletRequest = new ThreadLocal<HttpServletRequest>();
@@ -50,21 +56,21 @@ public class ContextUtil implements Filter, ServletContextListener {
 //		environment = springContext.getBean(CurrentEnvironment.class).getEnvironment();
 //		devMode = (environment == Environment.DEV); 
 //    }
-  //TODO maxime uncomment
+ 
    
 	public void contextDestroyed(ServletContextEvent ev) {
 		servletContext = null;
-//		springContext = null;
+		springContext = null;
 	}
 	
-//	public static String getProdContextPath() {
-//		if (!devMode) {
-//			return servletContext.getContextPath();
-//		} else {
-//			// In dev, it should be "http://www.KnowledgeBlackBelt.com/"  (because images are not loaded on developers machines).
-//			return "http://www.blackbeltfactory.com";   //   "/";
-//		}
-//    }
+	public static String getProdContextPath() {
+		if (!devMode) {
+			return servletContext.getContextPath();
+		} else {
+			// In dev, it should be "http://www.KnowledgeBlackBelt.com/"  (because images are not loaded on developers machines).
+			return "http://www.blackbeltfactory.com";   //   "/";
+		}
+   }
   //TODO maxime uncomment
 
 //	public static Environment getEnvironment(){
@@ -88,13 +94,13 @@ public class ContextUtil implements Filter, ServletContextListener {
     	return getServletContext() == null;
     }
 
-//    public static Object getSpringBean(String name) {
-//		return springContext.getBean(name);
-//	}
+   /*public static Object getSpringBean(String name) {
+		return springContext.getBean(name);
+	}
 
-//    public static <T> T getSpringBean(Class<? extends T> beanClass) {
-//        return (T)springContext.getBean(beanClass);
-//    }
+    public static <T> T getSpringBean(Class<? extends T> beanClass) {
+        return (T)springContext.getBean(beanClass);
+   }*/
 
 //    @Deprecated  // In the new code, use @Autowired to refer a service. -- John 2009-08-04
 //	public static BLFacade getBLFacade() {
@@ -162,5 +168,7 @@ public class ContextUtil implements Filter, ServletContextListener {
 		}
 		return null;
 	}
+
+	
 }	
 	
