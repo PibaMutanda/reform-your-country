@@ -1,10 +1,10 @@
 package blackbelt.security;
 
-import be.loop.jbb.bo.corp.CorpUser.CorporateRole;
-
+//import be.loop.jbb.bo.corp.CorpUser.CorporateRole;
 import blackbelt.security.SecurityContext;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.CommunityRole;
+import reformyourcountry.model.User.CorporateRole;
 public enum Privilege {
 
 	/**
@@ -168,6 +168,7 @@ public enum Privilege {
 
 	public boolean isPrivilegeOfUser(User user) {
 		return user.getPrivileges().contains(this);
+		 
 	}
 
 }
