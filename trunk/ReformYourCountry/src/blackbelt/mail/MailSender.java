@@ -30,7 +30,7 @@ import blackbelt.web.CurrentEnvironment.Environment;
 import blackbelt.web.CurrentEnvironment.MailBehavior;
 
 
-/** Really send the mail to the SMTP server.
+/** Really send the mail to the SMTP server
 /* Checks the DB (Mail entity) for mails waiting to be sent.
  * We go through a DB to be sure the mails are sent if the server shuts down (sometimes, there are many mails to be sent (newsletter) 
  * and we may have to wait for a few hours between the decision to send a mail and its effective sent).
