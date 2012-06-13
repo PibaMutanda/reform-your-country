@@ -32,7 +32,11 @@ class SplitIterator implements Iterator<Part> {
 	@Override
 	public boolean hasNext() {
 		try {
-			nextPart = readNextPart();
+			if (!error) {
+				nextPart = readNextPart();
+			}else{
+				nextPart = null;
+			}
 		} catch (IOException e) {
 			return false;
 		}
@@ -69,7 +73,7 @@ class SplitIterator implements Iterator<Part> {
 					return result;
 				}
 				buf.append(c);
-			} else if ((c == '"' || c == '\'') && braceOpen) {
+			} else if ((c == '"' || c == '\'') && braceOpen  && openQuote == 0) {
 				if (openQuote == 0) {
 					openQuote = c;
 				} else if (openQuote == c) {
