@@ -6,14 +6,22 @@ package blackbelt.security;
 //import static com.google.common.collect.Collections2.filter;
 //import static com.google.common.collect.Collections2.transform;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
+import blackbelt.exceptions.UnauthorizedAccessException;
+
+
+
 import reformyourcountry.model.User;
+import reformyourcountry.model.User.CommunityRole;
+import reformyourcountry.model.User.CorporateRole;
 
 //import be.loop.jbb.bo.CommunityUser;
 //import be.loop.jbb.bo.corp.Company;
@@ -84,17 +92,17 @@ public abstract class SecurityContext {
         }
     }
 
-    public static void assertUserBelongsTo(Company company) {
-        assertUserIsLoggedIn();
+//    public static void assertUserBelongsTo(Company company) {
+//        assertUserIsLoggedIn();
 
-        if (!getUser().isCorpUser()) {
-            throw new UnauthorizedAccessException("Non-Corp user try to access Corp exam");
-        }
-        CorpUser corpUser = (CorpUser) getUser();
-        if (!company.equals(corpUser.getCompany())) {
-            throw new UnauthorizedAccessException("User from wrong company trying to access Corp exam from another company");
-        }
-    }
+//        if (!getUser().isCorpUser()) {
+//            throw new UnauthorizedAccessException("Non-Corp user try to access Corp exam");
+//        }
+//        CorpUser corpUser = (CorpUser) getUser();
+//        if (!company.equals(corpUser.getCompany())) {
+//            throw new UnauthorizedAccessException("User from wrong company trying to access Corp exam from another company");
+//        }
+//    }
 
     /**
      * @return true if the user has the privilege
@@ -214,7 +222,9 @@ public abstract class SecurityContext {
 
     /**
      * @return All privilege associated to a corporate role
+     * 
      */
+    
     public static EnumSet<Privilege> getAssociatedPrivilege(CorporateRole corporateRole) {
         EnumSet<Privilege> associatedPrivileges = EnumSet.noneOf(Privilege.class);
         if (corporateRole != null) {
@@ -235,8 +245,9 @@ public abstract class SecurityContext {
     public static EnumSet<Privilege> getAllAssociatedPrivileges(User user) {
         EnumSet<Privilege> allUserPrivileges = EnumSet.noneOf(Privilege.class);
         if (user != null) {
+              
             allUserPrivileges.addAll(user.getPrivileges());
-
+           
             allUserPrivileges.addAll(getAssociatedPrivilege(user.getCommunityRole()));
 /*            if (user.isCorpUser()) {
                 allUserPrivileges.addAll(getAssociatedPrivilege(((CommunityUser) user).getCommunityRole()));
