@@ -223,7 +223,7 @@ public class BBConverter {
 				switch(child.getName()){
 				///////////// Unquote
 				case "unquote": 
-					processUnquote(child,inline);
+					processUnquote(child);
 					break;
 				case "untranslated":
 					/////////// Untranslate
@@ -286,21 +286,10 @@ public class BBConverter {
 		return result;
 	}
 
-	private void processUnquote(BBTag tag, String inline) {
+	private void processUnquote(BBTag tag) {
 		String htmlTxt="";
-		if (inline == null || inline.equals("false")){
-			htmlTxt +="</div><div class=\"unquote\">";
-		}
-		else{
-			htmlTxt +="</span><span class=\"unquote\">";
-		}
-		htmlTxt +=getInnerTextContent(tag);
-		if (inline == null || inline.equals("false")){
-			htmlTxt +="</div><div class=\"quote-block\">";
-		}
-		else{
-			htmlTxt +="</span><span class=\"quote-inline\">";
-		}
+		htmlTxt +="<span class=\"unquote\">"+getInnerTextContent(tag)+"</span>";
+		
 		html+= htmlTxt;
 	}
 
