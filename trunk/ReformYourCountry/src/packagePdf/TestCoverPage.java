@@ -28,6 +28,7 @@ public class TestCoverPage {
 	private boolean doTheUserWantACoverPage;
 	private boolean useCustomLogo;
 	
+	
 	private final String CSS = "h1,h2,h3,h4 {" +
 	"	color: #AA0000; /* #AA0000 = blackbelt_dark_red  */" +
 	"	font-weight: bold;" +
