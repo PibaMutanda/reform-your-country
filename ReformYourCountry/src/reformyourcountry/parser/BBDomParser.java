@@ -105,8 +105,8 @@ public class BBDomParser {
 							}
 						}
 						if (!hasOpenTag) {	// The tag has not been open: treat as plain text
-							currentTag.add(new TextBBTag(part));
-							continue;
+							currentTag.add(new DefaultBBTag(part.toString(),BBTagType.Error,"this tag is not valid"));
+							return root;
 						}
 
 						// Normal case
