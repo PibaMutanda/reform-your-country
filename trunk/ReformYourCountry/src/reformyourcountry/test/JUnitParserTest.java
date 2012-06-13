@@ -14,8 +14,9 @@ public class JUnitParserTest {
 
 	public static String ExportToHtml(String txt){
 		List<String> tags = new ArrayList<String>();
-		tags.add("[...]");		
-		return BBConverter.GetValidHtmlCode(txt);
+		tags.add("[...]");
+		BBConverter bbc = new BBConverter(); 
+		return bbc.transformBBCodeToHtmlCode(txt);
 	}
 
 	@Test
@@ -29,7 +30,7 @@ public class JUnitParserTest {
 	}
 	@Test
 	public void test3(){
-		assertEquals(ExportToHtml("[ActionPoint id=\"34\"/]"),"<div class=\"actionpoint-title\">Coca gratuit</div><div class=\"actionpoint-body\">Il faut que le coca-cola soit gratuit chez TechnoFuturTIC</div>");
+		assertEquals(ExportToHtml("[Action id=\"34\"/]"),"<div class=\"action-title\">Coca gratuit</div><div class=\"action-body\">Il faut que le coca-cola soit gratuit chez TechnofuturTic</div>");
 	}
 	@Test
 	public void test4(){
