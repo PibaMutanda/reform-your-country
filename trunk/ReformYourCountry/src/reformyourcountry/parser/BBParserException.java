@@ -1,5 +1,9 @@
 package reformyourcountry.parser;
-
+/**
+ * 
+ * @author xBlackCat
+ *
+ */
 public class BBParserException extends RuntimeException {
     public BBParserException() {
     }
