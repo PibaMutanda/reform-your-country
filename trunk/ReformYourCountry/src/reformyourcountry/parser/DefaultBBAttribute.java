@@ -7,10 +7,8 @@ package reformyourcountry.parser;
 public class DefaultBBAttribute implements BBAttribute {
     private final String name;
     private String value;
-    private BBTag parent;
-    public DefaultBBAttribute(String name,BBTag parent) {
+    public DefaultBBAttribute(String name) {
         this.name = name;
-        this.parent = parent;
         if (this.name == null || this.name=="")
         {
         	
