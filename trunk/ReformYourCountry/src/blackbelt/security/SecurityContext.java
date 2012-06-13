@@ -76,21 +76,21 @@ public abstract class SecurityContext {
      * @throws AuthorizationException
      *             if the user has not the privilege
      */
-    public static void assertUserHasPrivilege(Privilege privilege) {
-        if (!isUserHasPrivilege(privilege)) {
-            throw new UnauthorizedAccessException(privilege);
-        }
-    }
+//    public static void assertUserHasPrivilege(Privilege privilege) {
+//        if (!isUserHasPrivilege(privilege)) {
+//            throw new UnauthorizedAccessException(privilege);
+//        }
+//    }
 
     /**
      * @throws AuthorizationException
      *             if the user is not loggedin
      */
-    public static void assertUserIsLoggedIn() {
-        if (getUser() == null) {
-            throw new UnauthorizedAccessException();
-        }
-    }
+//    public static void assertUserIsLoggedIn() {
+//        if (getUser() == null) {
+//            throw new UnauthorizedAccessException();
+//        }
+//    }
 
 //    public static void assertUserBelongsTo(Company company) {
 //        assertUserIsLoggedIn();
@@ -107,103 +107,103 @@ public abstract class SecurityContext {
     /**
      * @return true if the user has the privilege
      */
-    public static boolean isUserHasPrivilege(Privilege privilege) {
-        return isUserHasAllPrivileges(EnumSet.of(privilege));
-    }
+//    public static boolean isUserHasPrivilege(Privilege privilege) {
+//        return isUserHasAllPrivileges(EnumSet.of(privilege));
+//    }
 
 
-    public static boolean isUserHasAllPrivileges(EnumSet<Privilege> privileges) {
-        return isUserHasAllPrivileges(privileges, null);
-    }
+//    public static boolean isUserHasAllPrivileges(EnumSet<Privilege> privileges) {
+//        return isUserHasAllPrivileges(privileges, null);
+//    }
     
-    public static boolean isUserHasPrivilege(User user, Privilege privilege) {
-        return getAllAssociatedPrivileges(user).contains(privilege);
-    }
+//    public static boolean isUserHasPrivilege(User user, Privilege privilege) {
+//        return getAllAssociatedPrivileges(user).contains(privilege);
+//    }
 
     
     /**
      * @return true if the user has all the privileges
      */
-    public static boolean isUserHasAllPrivileges(EnumSet<Privilege> privileges, String customPrivilege) {
-        if (getUser() == null) {
-            return false;
-        }
-        EnumSet<Privilege> currentPrivileges = getAllAssociatedPrivileges(getUser());
-        currentPrivileges.addAll(getContextualPrivileges());
-        boolean result = currentPrivileges.containsAll(privileges);
-        if (customPrivilege != null) {
-            result = result && isUserHasCustomPrivilege(customPrivilege);
-        }
-        return result;
-    }
+//    public static boolean isUserHasAllPrivileges(EnumSet<Privilege> privileges, String customPrivilege) {
+//        if (getUser() == null) {
+//            return false;
+//        }
+//        EnumSet<Privilege> currentPrivileges = getAllAssociatedPrivileges(getUser());
+//        currentPrivileges.addAll(getContextualPrivileges());
+//        boolean result = currentPrivileges.containsAll(privileges);
+//        if (customPrivilege != null) {
+//            result = result && isUserHasCustomPrivilege(customPrivilege);
+//        }
+//        return result;
+//    }
 
 
-    public static boolean isUserHasOneOfPrivileges(EnumSet<Privilege> privileges) {
-        return isUserHasOneOfPrivileges(privileges, null);
-    }
+//    public static boolean isUserHasOneOfPrivileges(EnumSet<Privilege> privileges) {
+//        return isUserHasOneOfPrivileges(privileges, null);
+//    }
 
     /**
      * @return true if the user has one of the privileges
      */
-    public static boolean isUserHasOneOfPrivileges(EnumSet<Privilege> privileges, String customPrivilege) {
-        if (getUser() == null) {
-            return false;
-        }
-        if (Collections.disjoint(getAllAssociatedPrivileges(getUser()), privileges) == false) {  // There is at least one element in common.
-            return true;
-        }
-        if (customPrivilege != null) {
-            if (isUserHasCustomPrivilege(customPrivilege)) {
-                return true;
-            }
-        }
-        return false;
-    }
+//    public static boolean isUserHasOneOfPrivileges(EnumSet<Privilege> privileges, String customPrivilege) {
+//        if (getUser() == null) {
+//            return false;
+//        }
+//        if (Collections.disjoint(getAllAssociatedPrivileges(getUser()), privileges) == false) {  // There is at least one element in common.
+//            return true;
+//        }
+//        if (customPrivilege != null) {
+//            if (isUserHasCustomPrivilege(customPrivilege)) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
     /**
      * Add new contextual privileges. This gives additional privileges to the
      * current user. Those privileges are not persited and are cleared at the
      * end of the application request.
      */
-    @Deprecated  // John 2011/04 - seems to not be used anymore. TODO: Remove with Struts.
-    public static void addContextualPrivileges(EnumSet<Privilege> contextualPrivileges) {
-        getContextualPrivileges().addAll(contextualPrivileges);
-    }
+//    @Deprecated  // John 2011/04 - seems to not be used anymore. TODO: Remove with Struts.
+//    public static void addContextualPrivileges(EnumSet<Privilege> contextualPrivileges) {
+//        getContextualPrivileges().addAll(contextualPrivileges);
+//    }
 
     /**
      * Remove all contextual privileges. You don't have to call this if you have
      * no reason to reset the contextual privileges during the execution of
      * request.
      */
-    @Deprecated  // John 2011/04 - seems to not be used anymore. TODO: Remove with Struts.
-    public static void clearContextualPrivileges() {
-        getContextualPrivileges().clear();
-    }
+//    @Deprecated  // John 2011/04 - seems to not be used anymore. TODO: Remove with Struts.
+//    public static void clearContextualPrivileges() {
+//        getContextualPrivileges().clear();
+//    }
 
     /**
      * Adds some custom privilege for this context
      */
-    @Deprecated  // John 2011/04 - TODO: Remove with Struts.
-    public static void addContextualCustomPrivileges(String... customPrivileges) {
-        getContextualCustomPrivileges().addAll(Arrays.asList(customPrivileges));
-    }
+//    @Deprecated  // John 2011/04 - TODO: Remove with Struts.
+//    public static void addContextualCustomPrivileges(String... customPrivileges) {
+//        getContextualCustomPrivileges().addAll(Arrays.asList(customPrivileges));
+//    }
 
     /**
      * Remove all contextual custom privileges. You don't have to call this if
      * you have no reason to reset the contextual privileges during the
      * execution of request.
      */
-    @Deprecated  // John 2011/04 - TODO: Remove with Struts.
-    public static void clearContextualCustomPrivileges() {
-        getContextualCustomPrivileges().clear();
-    }
+//    @Deprecated  // John 2011/04 - TODO: Remove with Struts.
+//    public static void clearContextualCustomPrivileges() {
+//        getContextualCustomPrivileges().clear();
+//    }
 
 
 
-    @Deprecated  // John 2011/04 - TODO: Remove with Struts.
-    public static boolean isUserHasCustomPrivilege(String customPrivilege) {
-        return getContextualCustomPrivileges().contains(customPrivilege);
-    }
+//    @Deprecated  // John 2011/04 - TODO: Remove with Struts.
+//    public static boolean isUserHasCustomPrivilege(String customPrivilege) {
+//        return getContextualCustomPrivileges().contains(customPrivilege);
+//    }
 
     /**
      * @return All privilege associated to a community role
@@ -258,28 +258,28 @@ public abstract class SecurityContext {
         return allUserPrivileges;
     }
 
-    public static EnumSet<Privilege> filterUnviewablePrivileges(User user, EnumSet<Privilege> unflitered) {
-        EnumSet<Privilege> filtered = EnumSet.noneOf(Privilege.class);
-        for (Privilege privilege : unflitered) {
-            boolean viewable = true;
-            if (user.isCorpUser()) {
-                viewable = privilege.isCorporateUserVisible();
-            } else {
-                viewable = privilege.isCommunityUserVisible() || user.getPrivileges().contains(MASTER_PRIVILEGE);
-            }
-            if (viewable) {
-                filtered.add(privilege);
-            }
-        }
-        return filtered;
-    }
+//    public static EnumSet<Privilege> filterUnviewablePrivileges(User user, EnumSet<Privilege> unflitered) {
+//        EnumSet<Privilege> filtered = EnumSet.noneOf(Privilege.class);
+//        for (Privilege privilege : unflitered) {
+//            boolean viewable = true;
+//            if (user.isCorpUser()) {
+//                viewable = privilege.isCorporateUserVisible();
+//            } else {
+//                viewable = privilege.isCommunityUserVisible() || user.getPrivileges().contains(MASTER_PRIVILEGE);
+//            }
+//            if (viewable) {
+//                filtered.add(privilege);
+//            }
+//        }
+//        return filtered;
+//    }
 
-    public static User getUser() {
-        if (getUserId() == null) {  // Not logged in.
-            return null;
-        }
-        if (user.get() == null) {  // User not loaded yet.
-            User user = ((UserDao) ContextUtil.getSpringBean("userDao")).get(getUserId());  // This is not beauty, but life is sometimes ugly. -- no better idea (except making SecurityContext a bean managed by Spring... but for not much benefit...) -- John 2009-07-02
+//   public static User getUser() {
+//       if (getUserId() == null) {  // Not logged in.
+//           return null;
+//        }
+      //  if (user.get() == null) {  // User not loaded yet.
+        //    User user = ((UserDao) ContextUtil.getSpringBean("userDao")).get(getUserId());  // This is not beauty, but life is sometimes ugly. -- no better idea (except making SecurityContext a bean managed by Spring... but for not much benefit...) -- John 2009-07-02
 
             //TODO: UGLY PATCH - KILL THIS WHEN CorpUsers don't exist no more. ***********  John 2009-08-05
             // I do this, because suddenly, downcasting (CommunityUser) user in SecurityContext.getAllAssociatedPrivileges throws Caused by: java.lang.ClassCastException: be.loop.jbb.bo.User$$EnhancerByCGLIB$$301a82b1 cannot be cast to be.loop.jbb.bo.CommunityUser
@@ -287,54 +287,54 @@ public abstract class SecurityContext {
             //if (user.isCorpUser()) {
             //    user = ((CorpUserDao) ContextUtil.getSpringBean("corpUserDao")).get(getUserId());
             //} else {
-                user = ((CommunityUserDao) ContextUtil.getSpringBean("communityUserDao")).get(getUserId());
+            //    user = ((CommunityUserDao) ContextUtil.getSpringBean("communityUserDao")).get(getUserId());
             //}
             //END OF UGLY PATCH **********************************************************
             
             
-            setUser( user );  // Lazy loading if needed.
-        }
-        return user.get();
-    }
+         //   setUser( user );  // Lazy loading if needed.
+       // }
+//        return user.get();
+//    }
     
-    public static Organization getOrganization() {
-    	Organization organization = organizations.get();
-    	if(organization != null){
-    		return ((OrganizationDao) ContextUtil.getSpringBean("organizationDao")).get(organization);
-    	}
-        return null;
-    }
+//    public static Organization getOrganization() {
+//    	Organization organization = organizations.get();
+//    	if(organization != null){
+//    		return ((OrganizationDao) ContextUtil.getSpringBean("organizationDao")).get(organization);
+//    	}
+//        return null;
+//    }
 
-    public static void assertCurrentOrganizationIs(Organization organization) {
-    	if(organization == null && SecurityContext.getOrganization() != null){
-			throw new  BlackBeltException("Invalid Organization Context");    		
-    	}
-		if(organization != null && organization.equals(SecurityContext.getOrganization())){
-			throw new  BlackBeltException("Invalid Organization Context");
-		}
-    }    
+//    public static void assertCurrentOrganizationIs(Organization organization) {
+//    	if(organization == null && SecurityContext.getOrganization() != null){
+//			throw new  BlackBeltException("Invalid Organization Context");    		
+//    	}
+//		if(organization != null && organization.equals(SecurityContext.getOrganization())){
+//			throw new  BlackBeltException("Invalid Organization Context");
+//		}
+//    }    
 
-    public static boolean currentOrganizationIs(Organization organization) {
-		return (organization == null && SecurityContext.getOrganization() != null)||(organization != null && organization.equals(SecurityContext.getOrganization()));
-    }    
+//    public static boolean currentOrganizationIs(Organization organization) {
+//		return (organization == null && SecurityContext.getOrganization() != null)||(organization != null && organization.equals(SecurityContext.getOrganization()));
+//    }    
     
-    public static void setOrganization(Organization organization) {
-    	organizations.set(organization);
-    }
+//    public static void setOrganization(Organization organization) {
+//    	organizations.set(organization);
+//    }
     
-	public static void clearOrganization(Organization organization) {
-		organizations.remove();
-	}
+//	public static void clearOrganization(Organization organization) {
+//		organizations.remove();
+//	}
 
     
-    public static boolean loggedUserIs(User user){
-    	if(user == null){
-    		throw new RuntimeException("User cannot be null");
-    	}
-    	User loggedUser = getUser();
-    	if(loggedUser == null) return false;
-    	return loggedUser.equals(user);
-    }
+//    public static boolean loggedUserIs(User user){
+//    	if(user == null){
+//    		throw new RuntimeException("User cannot be null");
+//    	}
+//    	User loggedUser = getUser();
+//    	if(loggedUser == null) return false;
+//    	return loggedUser.equals(user);
+//    }
 
     public static void setUser(User userParam) {
         //Security constraint
@@ -346,130 +346,129 @@ public abstract class SecurityContext {
             userId.set(userParam.getId());
         }
         user.set(userParam);
-    }
+    } 
 
-    public static boolean isUserLoggedIn() {
-        return getUserId() != null;
-    }
+//    public static boolean isUserLoggedIn() {
+//        return getUserId() != null;
+//    }
 
-    public static boolean equalsLoggedUser(User user) {
-        return isUserLoggedIn() && getUser().equals(user);
-    }
+//    public static boolean equalsLoggedUser(User user) {
+//        return isUserLoggedIn() && getUser().equals(user);
+ //   }
 
     /** Returns null if user not logged in */
-    public static Long getUserId() {
-        if (userId.get() == null) { // Then try to get it from the HttpSession.
-            Long id = ((LoginService) ContextUtil.getSpringBean("loginService")).getLoggedInUserIdFromSession();  // This is not beauty, but life is sometimes ugly. -- no better idea (except making SecurityContext a bean managed by Spring... but for not much benefit...) -- John 2009-07-02
-            if (id != null) {  // A user is effectively logged in.
-                userId.set(id);  // remember it in the SecurityContext.
-            }
-        }
-        return userId.get();
-    }
+//    public static Long getUserId() {
+//        if (userId.get() == null) { // Then try to get it from the HttpSession.
+//            Long id = ((LoginService) ContextUtil.getSpringBean("loginService")).getLoggedInUserIdFromSession();  // This is not beauty, but life is sometimes ugly. -- no better idea (except making SecurityContext a bean managed by Spring... but for not much benefit...) -- John 2009-07-02
+//            if (id != null) {  // A user is effectively logged in.
+//                userId.set(id);  // remember it in the SecurityContext.
+//            }
+//        }
+//        return userId.get();
+//    }
 
-    public static void setUserId(Long id) {
+//    public static void setUserId(Long id) {
         //Security constraint
-        if (userId.get() != null || user.get() != null) {
-            throw new IllegalStateException(
-                    "Could not set a new userId on the security context once a userId or user" +
-            " has already been set");
-        }
-        userId.set(id);
-    }
+//        if (userId.get() != null || user.get() != null) {
+//            throw new IllegalStateException(
+//                    "Could not set a new userId on the security context once a userId or user" +
+//            " has already been set");
+//        }
+//        userId.set(id);
+//    }
 
-    @Deprecated  // John 2011/04 - TODO: Remove with Struts.
-    public static EnumSet<Privilege> getContextualPrivileges() {
-        if (contextualPrivileges.get() == null) {  // not yet created.
-            contextualPrivileges.set( EnumSet.noneOf(Privilege.class) );
-        }
-        return contextualPrivileges.get();
-    }
+//    @Deprecated  // John 2011/04 - TODO: Remove with Struts.
+//    public static EnumSet<Privilege> getContextualPrivileges() {
+//        if (contextualPrivileges.get() == null) {  // not yet created.
+//            contextualPrivileges.set( EnumSet.noneOf(Privilege.class) );
+//        }
+//        return contextualPrivileges.get();
+//    }
+//
+//    @Deprecated  // John 2011/04 - TODO: Remove with Struts.
+//    public static Set<String> getContextualCustomPrivileges() {
+//        if (contextualCustomPrivileges.get() == null) {  // not yet created.
+//           contextualCustomPrivileges.set( new HashSet<String>() );
+//        }
+//        return contextualCustomPrivileges.get();
+//    }
 
-    @Deprecated  // John 2011/04 - TODO: Remove with Struts.
-    public static Set<String> getContextualCustomPrivileges() {
-        if (contextualCustomPrivileges.get() == null) {  // not yet created.
-            contextualCustomPrivileges.set( new HashSet<String>() );
-        }
-        return contextualCustomPrivileges.get();
-    }
+//    public static boolean canCurrentUserViewPrivateData(User user2) {
+//        return canCurrentUserChangeUser(user2) || SecurityContext.isUserHasPrivilege(Privilege.VIEW_PRIVATE_DATA_OF_USERS); 
+//    }
 
-    public static boolean canCurrentUserViewPrivateData(User user2) {
-        return canCurrentUserChangeUser(user2) || SecurityContext.isUserHasPrivilege(Privilege.VIEW_PRIVATE_DATA_OF_USERS); 
-    }
+//    public static boolean canCurrentUserChangeUser(User user2) {        return user2.equals(SecurityContext.getUser()) // If the user is editing himself
+//                || SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS)     // or If this user has the privilege to edit other users
+//                || SecurityContext.isAdmin(ContextUtil.getSpringBean(OrganizationService.class).getOrganization(user2)); // is the logged user admin of the org of the user
+//    }
 
-    public static boolean canCurrentUserChangeUser(User user2) {
-        return user2.equals(SecurityContext.getUser()) // If the user is editing himself
-                || SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS)     // or If this user has the privilege to edit other users
-                || SecurityContext.isAdmin(ContextUtil.getSpringBean(OrganizationService.class).getOrganization(user2)); // is the logged user admin of the org of the user
-    }
+//	public static boolean isUserHasRole(CommunityRole role) {
+//		User user = getUser();
+//		if(user == null || user.getCommunityRole() == null){
+//			return false;
+//		} 
+//		return user.getCommunityRole() == role;
+//	}
 
-	public static boolean isUserHasRole(CommunityRole role) {
-		User user = getUser();
-		if(user == null || user.getCommunityRole() == null){
-			return false;
-		} 
-		return user.getCommunityRole() == role;
-	}
-
-	public static boolean userCanSee(Organization organization) {
-		if(organization == null){ // No org : Access to public resource
-			return true;
-		} 
+//	public static boolean userCanSee(Organization organization) {
+//		if(organization == null){ // No org : Access to public resource
+//			return true;
+//		} 
 		
-		if(SecurityContext.getUser() == null){ // No logged user -> no access to org data
-			return false;
-		}
+//		if(SecurityContext.getUser() == null){ // No logged user -> no access to org data
+//			return false;
+//		}
 		
-		User user = SecurityContext.getUser();
-		Collection<Group> orgRootGroups = filter(transform(user.getGroupRegs(), groupRegToGroup), rootOrganizationGroupsOnly);
-		int size = orgRootGroups.size();
-		if(size == 0) {
-			return false;
-		} 
+//		User user = SecurityContext.getUser();
+//		Collection<Group> orgRootGroups = filter(transform(user.getGroupRegs(), groupRegToGroup), rootOrganizationGroupsOnly);
+//		int size = orgRootGroups.size();
+//		if(size == 0) {
+//			return false;
+//		} 
 		
-		return organization.equals(orgRootGroups.iterator().next().getOrganization());
-	}
+//		return organization.equals(orgRootGroups.iterator().next().getOrganization());
+//	}
 
-	public static boolean userCanAdmin(User user, Organization organization) {
-		if(user == null || organization == null){
-			return false;
-		}
+//	public static boolean userCanAdmin(User user, Organization organization) {
+//		if(user == null || organization == null){
+//			return false;
+//		}
 		
-		Collection<Group> orgRootGroups = filter(transform(filter(user.getGroupRegs(), adminGroupReg), groupRegToGroup), rootOrganizationGroupsOnly);
-		int size = orgRootGroups.size();
-		if(size == 0) {
-			return false;
-		} 
+//		Collection<Group> orgRootGroups = filter(transform(filter(user.getGroupRegs(), adminGroupReg), groupRegToGroup), rootOrganizationGroupsOnly);
+//		int size = orgRootGroups.size();
+//		if(size == 0) {
+//			return false;
+//		} 
 		
-		return organization.equals(orgRootGroups.iterator().next().getOrganization());
-	}
+//		return organization.equals(orgRootGroups.iterator().next().getOrganization());
+//	}
 	
-	public static boolean isAdmin(Organization organization) {
-		return userCanAdmin(SecurityContext.getUser(), organization);
-	}
+//	public static boolean isAdmin(Organization organization) {
+//		return userCanAdmin(SecurityContext.getUser(), organization);
+//	}
 	
 	/**
 	 * True if target url is corp and logged user is from this corp 
 	 */
-	public static boolean validOrganizationContext(Organization organization) {
-		if(organization == null) {
-			return false;
-		}
+//	public static boolean validOrganizationContext(Organization organization) {
+//		if(organization == null) {
+//			return false;
+//		}
 		
-		if(SecurityContext.getOrganization() == null){
-			return false;
-		}
+//		if(SecurityContext.getOrganization() == null){
+//			return false;
+//		}
 		
-		if(SecurityContext.getUser() == null) {
-			return false;
-		}
+//		if(SecurityContext.getUser() == null) {
+//			return false;
+//		}
 		
-		// both contextual org and target org are the same and are the org of the logged user
-		if(organization.equals(SecurityContext.getOrganization()) && organization.equals(ContextUtil.getSpringBean(OrganizationService.class).getOrganization(SecurityContext.getUser()))){
-			return true;
-		}
-		return false;
-	}
+//		// both contextual org and target org are the same and are the org of the logged user
+//		if(organization.equals(SecurityContext.getOrganization()) && organization.equals(ContextUtil.getSpringBean(OrganizationService.class).getOrganization(SecurityContext.getUser()))){
+//			return true;
+//		}
+//		return false;
+//	}
 
 
 
