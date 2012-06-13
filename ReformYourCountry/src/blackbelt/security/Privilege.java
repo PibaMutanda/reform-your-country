@@ -168,14 +168,9 @@ public enum Privilege {
 
 	public boolean isPrivilegeOfUser(User user) {
 		return user.getPrivileges().contains(this);
-		 
+		  
 	}
-
-	private boolean contains(Privilege privilege) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
+	
 }
 
 
