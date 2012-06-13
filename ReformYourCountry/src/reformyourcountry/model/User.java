@@ -4,6 +4,7 @@ package reformyourcountry.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.EnumSet;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -173,13 +174,7 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	//@Lob
 	 private String nameChangeLog; // record the name changes
 
-	public Privilege getPrivileges() {
-        return privileges;
-    }
-
-    public void setPrivileges(Privilege privileges) {
-        this.privileges = privileges;
-    }
+	
 
     //@Column(nullable = true)
 	//@Enumerated(EnumType.STRING)
@@ -195,7 +190,7 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 
 	private boolean guest;
 
-    private Privilege privileges;
+    private Set<Privilege> privileges;
 
 	//TODO maxime uncomment when implements privileges
 //	@ElementCollection(targetClass=Privilege.class, fetch=FetchType.EAGER)
@@ -448,14 +443,14 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	public void setAccountStatus(AccountStatus accountStatus) {
 		this.accountStatus = accountStatus;
 	}
-	//TODO maxime uncomment when using privileges
-	//public Set<Privilege> getPrivileges() {
-	//	return privileges;
-	//}
-	//
-	//public void setPrivileges(Set<Privilege> privileges) {
-	//	this.privileges = privileges;
-	//}
+
+	public Set<Privilege> getPrivileges() {
+		return privileges;
+	}
+	
+	public void setPrivileges(Set<Privilege> privileges) {
+	this.privileges = privileges;
+	}
 
 	public float getInfluence() {
 		return this.influence;
