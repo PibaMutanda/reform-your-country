@@ -1,4 +1,3 @@
-package pdftest;
 package reformyourcountry.pdf;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
