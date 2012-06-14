@@ -52,7 +52,6 @@ public abstract class SecurityContext {
     private static ThreadLocal<User> user = new ThreadLocal<User>();    // Lazyly retrieved from the DB if needed (if getUser() is called).
     private static ThreadLocal<Long> userId = new ThreadLocal<Long>();  // retrieved in from the session. Non null <=> user logged in.
     private static ThreadLocal<EnumSet<Privilege>> contextualPrivileges = new ThreadLocal<EnumSet<Privilege>>();
-//    private static ThreadLocal<Organization> organizations = new ThreadLocal<Organization>();    // Lazyly retrieved from the DB if needed (if getUser() is called).
 
     // Note from John 2009-07-01: should be useless with Vaadin (no need to communicate between action and JSP...)  ----
     // Contextual custom privileges are usually set by the action (any string) and checked by the jsp through the authorization tag, as non-custom contextual privileges.
@@ -69,7 +68,7 @@ public abstract class SecurityContext {
         userId.set(null);
         contextualPrivileges.set(null);
         contextualCustomPrivileges.set(null);
-      //  organizations.set(null);
+      
     }
 
     /**
@@ -297,35 +296,6 @@ public abstract class SecurityContext {
 //        return user.get();
 //    }
     
-//    public static Organization getOrganization() {
-//    	Organization organization = organizations.get();
-//    	if(organization != null){
-//    		return ((OrganizationDao) ContextUtil.getSpringBean("organizationDao")).get(organization);
-//    	}
-//        return null;
-//    }
-
-//    public static void assertCurrentOrganizationIs(Organization organization) {
-//    	if(organization == null && SecurityContext.getOrganization() != null){
-//			throw new  BlackBeltException("Invalid Organization Context");    		
-//    	}
-//		if(organization != null && organization.equals(SecurityContext.getOrganization())){
-//			throw new  BlackBeltException("Invalid Organization Context");
-//		}
-//    }    
-
-//    public static boolean currentOrganizationIs(Organization organization) {
-//		return (organization == null && SecurityContext.getOrganization() != null)||(organization != null && organization.equals(SecurityContext.getOrganization()));
-//    }    
-    
-//    public static void setOrganization(Organization organization) {
-//    	organizations.set(organization);
-//    }
-    
-//	public static void clearOrganization(Organization organization) {
-//		organizations.remove();
-//	}
-
     
 //    public static boolean loggedUserIs(User user){
 //    	if(user == null){
@@ -399,7 +369,7 @@ public abstract class SecurityContext {
 
 //    public static boolean canCurrentUserChangeUser(User user2) {        return user2.equals(SecurityContext.getUser()) // If the user is editing himself
 //                || SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS)     // or If this user has the privilege to edit other users
-//                || SecurityContext.isAdmin(ContextUtil.getSpringBean(OrganizationService.class).getOrganization(user2)); // is the logged user admin of the org of the user
+//               
 //    }
 
 //	public static boolean isUserHasRole(CommunityRole role) {
@@ -410,67 +380,7 @@ public abstract class SecurityContext {
 //		return user.getCommunityRole() == role;
 //	}
 
-//	public static boolean userCanSee(Organization organization) {
-//		if(organization == null){ // No org : Access to public resource
-//			return true;
-//		} 
-		
-//		if(SecurityContext.getUser() == null){ // No logged user -> no access to org data
-//			return false;
-//		}
-		
-//		User user = SecurityContext.getUser();
-//		Collection<Group> orgRootGroups = filter(transform(user.getGroupRegs(), groupRegToGroup), rootOrganizationGroupsOnly);
-//		int size = orgRootGroups.size();
-//		if(size == 0) {
-//			return false;
-//		} 
-		
-//		return organization.equals(orgRootGroups.iterator().next().getOrganization());
-//	}
 
-//	public static boolean userCanAdmin(User user, Organization organization) {
-//		if(user == null || organization == null){
-//			return false;
-//		}
-		
-//		Collection<Group> orgRootGroups = filter(transform(filter(user.getGroupRegs(), adminGroupReg), groupRegToGroup), rootOrganizationGroupsOnly);
-//		int size = orgRootGroups.size();
-//		if(size == 0) {
-//			return false;
-//		} 
-		
-//		return organization.equals(orgRootGroups.iterator().next().getOrganization());
-//	}
 	
-//	public static boolean isAdmin(Organization organization) {
-//		return userCanAdmin(SecurityContext.getUser(), organization);
-//	}
-	
-	/**
-	 * True if target url is corp and logged user is from this corp 
-	 */
-//	public static boolean validOrganizationContext(Organization organization) {
-//		if(organization == null) {
-//			return false;
-//		}
-		
-//		if(SecurityContext.getOrganization() == null){
-//			return false;
-//		}
-		
-//		if(SecurityContext.getUser() == null) {
-//			return false;
-//		}
-		
-//		// both contextual org and target org are the same and are the org of the logged user
-//		if(organization.equals(SecurityContext.getOrganization()) && organization.equals(ContextUtil.getSpringBean(OrganizationService.class).getOrganization(SecurityContext.getUser()))){
-//			return true;
-//		}
-//		return false;
-//	}
-
-
-
 
 }
