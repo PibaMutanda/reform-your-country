@@ -24,7 +24,7 @@
 
 	<target name="JUnitCompileTest" description="compile the JUnit test" depends="compile">
 		<echo message="compiling JUnit test" />
-		<javac srcdir="${src.dir}" destdir="${build.dir}" debug="on">
+		<javac srcdir="${src.dir}" destdir="${build.dir}" debug="on" classpathref="classpath">
 			<exclude name="**/deprecated**" />
 			<exclude name="**/security**" />
 			<exclude name="**/SecurityContext.java"/>
