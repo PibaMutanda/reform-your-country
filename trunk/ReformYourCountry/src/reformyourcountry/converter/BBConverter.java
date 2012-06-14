@@ -75,6 +75,9 @@ public class BBConverter {
 		case "link":
 			processLink(tag);
 			break;
+		default :
+			addErrorMessage("Unrecognized tag",tag);
+			
 		}
 	}
 	
