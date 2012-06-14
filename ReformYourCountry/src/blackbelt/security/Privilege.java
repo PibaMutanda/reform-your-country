@@ -103,10 +103,10 @@ public enum Privilege {
 	 * 
 	 * DEFINITION of "Applicable". A privilege could be not applicable if the
 	 * feature has no reason in the context. example: a corp user never face the
-	 * notion of auction -> the privilege to edit auctions is not applicable to
+	 * notion of auction -> the privilege to edit actions is not applicable to
 	 * a corp user. DEFINITION of "Viewable". A privilege which existance in the
 	 * app should not be exposed to usual end users. example: an end user should
-	 * not see in a list that the priviledge "clean shut down" exists (even if
+	 * not see in a list that the privilege "clean shut down" exists (even if
 	 * he has no right to do that).
 	 * 
 	 * 
