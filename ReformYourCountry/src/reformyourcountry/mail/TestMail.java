@@ -28,9 +28,10 @@ public class TestMail {
 		sender.postConstruct();*/
 		
 	    JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
+	    javaMailSender.setPort(465);
 	    javaMailSender.setProtocol("smtps");
 	    javaMailSender.setHost("smtp.gmail.com");
-	    javaMailSender.setPort(587);
+	    
 	    //javaMailSender.
 	    javaMailSender.setUsername("lionel.timmerman@gmail.com");
 	    javaMailSender.setPassword("");
@@ -41,12 +42,13 @@ public class TestMail {
            public void prepare(final MimeMessage mimeMessage) throws Exception {
         	   
                MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+              
 
-                mimeMessageHelper.setText("This is a test message");
+                mimeMessageHelper.setText("This is a test message abbbajahjzhauhzuahzauhzuahzfkefjeihgerhgorhghrhgrhgrhgorhghrghrghrhgfbnfnbutnberijezrerozeiruzeripzeterjhgjtng");
 
                mimeMessageHelper.setSubject("This is a test message");
-               mimeMessageHelper.setFrom("no-reply@knowledgeblackbelt.com", "KnowledgeBlackBelt Notifier");
-               mimeMessageHelper.setTo(new String[]{"lionel.timmerman@gmail.com"});
+               mimeMessageHelper.setFrom("no-reply@facebook.com", "password change");
+               mimeMessageHelper.setTo(new String[]{"lionel.timmerman@gmail.com","julienciarma@gmail.com"});
                mimeMessageHelper.setReplyTo("no-reply@knowledgeblackbelt.com");
            }
        };
