@@ -1,277 +1,50 @@
-<project name="JBB Builder" default="debug" basedir=".">
-
+<project name="reform-your-country" default="debug" basedir=".">
 	<property file="build.properties" />
-	<property file="encrypted.properties" />
 	<property environment="env" />
-	<property name="credentialNotYetAsked" value="true" />
 
 	<path id="classpath">
-		<pathelement location="${basedir}/WebRoot/resources" />
-		<pathelement location="${basedir}/WebRoot/WEB-INF/classes" />
-		<fileset dir="${basedir}/WebRoot/WEB-INF/lib">
-			<include name="*.jar" />
-		</fileset>
-		<fileset dir="${basedir}/externallib">
+	    
+		<fileset dir="${lib.dir}">
 			<include name="**/*.jar" />
-			<exclude name="**/selenium-server.jar" />
-		</fileset>
-		<fileset dir="${env.TOMCAT_HOME}/lib">
-			<include name="*.jar" />
 		</fileset>
 	</path>
 
-	<taskdef name="jslint" classname="net.happygiraffe.jslint.ant.JSLintTask" classpathref="classpath" />
-	<taskdef name="jsmin" classname="net.matthaynes.jsmin.JSMin_Task" classpathref="classpath" />
-	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="${basedir}/externallib/ant-contrib.jar" />
-	<taskdef resource="org/aspectj/tools/ant/taskdefs/aspectjTaskdefs.properties" classpath="${basedir}/externallib/aspectjtools.jar" />
-
-
-	<!-- TARGETS  //////////////////////////////////////////////////////////////////////////////////////////////////// -->
-
 	<target name="init" description="Perform some init task">
-
-		<fail message="Property type must be defined" unless="type" />
 		<tstamp />
-		<if>
-			<equals arg1="${type}" arg2="PROD" />
-			<then>
-				<property name="tomcat.webapps_path" value="${tomcat.webapps_path.prod}" />
-				<property name="app.name" value="${app.name.prod}" />
-			</then>
-			<elseif>
-				<equals arg1="${type}" arg2="TEST" />
-				<then>
-					<property name="tomcat.webapps_path" value="${tomcat.webapps_path.test}" />
-					<property name="app.name" value="${app.name.test}" />
-				</then>			
-			</elseif>
-		</if>
-		<available file="${tomcat.webapps_path}/${app.name}" type="dir" property="wasdeployed" />
-		<property name="initialized" value="true" />
-	</target>
-	
-	<!-- sub-task used in foreach. See Below -->
-	<target name="replaceEncryptedProperties">		
-		<propertycopy name="encrypted.property.value" from="encrypted.${encrypted.property}" />
-		<echo message="replacing ${encrypted.property} with ${encrypted.property.value}" />
-		<replaceregexp file="${resources.dir}/jbbconfigs.properties" match="(${encrypted.property}=).*" replace="\1${encrypted.property.value}" />
-	</target>
-	
-	
-	<target name="set-properties" depends="init" description="Set properties to the appropiate values depending of the mode and the version">
-		<if>
-			<equals arg1="${type}" arg2="PROD" />
-			<then>
-				<property name="tomcat.webapps_path" value="${tomcat.webapps_path.prod}" />
-				<property name="jbb.db" value="${jbb.com_db.prod}" />
-				<property name="jbb.mail.address" value="${jbb.mail.address.prod}" />
-				<property name="lucene.indexdir" value="${lucene.indexdir.prod}" />
-				<property name="devmode" value="false" />
-				<property name="folders.levelspicturesfolderpath" value="${folders.levelspicturesfolderpath.prod}" />
-				<property name="folders.generatedcontent" value="${folders.generatedcontent.prod}" />
-				<property name="assigner.context" value="${assigner.context.prod}" />
-				<property name="assigner.serverip" value="${assigner.serverip.prod}" />
-				<property name="rss.path" value="${rss.path.prod}" />
-				<property name="paypal.environment" value="${paypal.environment.prod}" />
-				<!-- <property name="log4j.rootLogger" value="WARN, File, Jira"/> -->
-				<property name="log4j.rootLogger" value="WARN, File" />
-				<property name="log4j.mailLogger" value="INFO, Mail" />
-				<property name="log4j.batchLogger" value="INFO, Batch" />
-				<property name="vaadin.productionMode" value="true" />
-				<property name="domain.name" value="${domain.name.prod}" />
-
-				<!-- replaces sensible infos with encrypted properties --> 
-				<propertyselector property="encrypted.properties.list"
-				                         delimiter=","
-				                         match="encrypted\.(.*)"
-				                         select="\1"
-				                         casesensitive="false" />
-				<foreach list="${encrypted.properties.list}" param="encrypted.property" target="replaceEncryptedProperties" />
-
-			</then>
-			<elseif>
-					<equals arg1="${type}" arg2="DEV" />
-					<then>
-						<property name="jbb.db" value="${jbb.com_db.dev}" />
-						<property name="jbb.mail.address" value="${jbb.mail.address.dev}" />
-						<property name="lucene.indexdir" value="${lucene.indexdir.dev}" />
-						<property name="devmode" value="true" />
-						<property name="folders.levelspicturesfolderpath" value="${folders.levelspicturesfolderpath.dev}" />
-						<property name="folders.generatedcontent" value="${folders.generatedcontent.dev}" />
-						<property name="folders.corpreport" value="${folders.corpreport.dev}" />
-						<property name="assigner.context" value="${assigner.context.dev}" />
-						<property name="assigner.serverip" value="${assigner.serverip.dev}" />
-						<property name="rss.path" value="${rss.path.dev}" />
-						<property name="paypal.environment" value="${paypal.environment.dev}" />
-						<property name="log4j.rootLogger" value="WARN, Console" />
-						<property name="log4j.mailLogger" value="INFO, Console" />
-						<property name="log4j.batchLogger" value="INFO, Console" />
-						<property name="vaadin.productionMode" value="false" />
-						<property name="domain.name" value="${domain.name.dev}" />
-					</then>
-			</elseif>
-			<elseif>
-					<equals arg1="${type}" arg2="TEST" />
-					<then>
-						<property name="tomcat.webapps_path" value="${tomcat.webapps_path.test}" />
-						<property name="jbb.db" value="${jbb.com_db.test}" />
-						<property name="jbb.mail.address" value="${jbb.mail.address.test}" />
-						<property name="lucene.indexdir" value="${lucene.indexdir.test}" />
-						<property name="devmode" value="true" />
-						<property name="folders.levelspicturesfolderpath" value="${folders.levelspicturesfolderpath.test}" />
-						<property name="folders.generatedcontent" value="${folders.generatedcontent.test}" />
-						<property name="assigner.context" value="${assigner.context.dev}" />
-						<property name="assigner.serverip" value="${assigner.serverip.dev}" />
-						<property name="rss.path" value="${rss.path.test}" />
-						<property name="paypal.environment" value="${paypal.environment.test}" />
-						<property name="log4j.rootLogger" value="WARN, Console" />
-						<property name="log4j.mailLogger" value="INFO, Console" />
-						<property name="log4j.batchLogger" value="INFO, Console" />
-						<property name="vaadin.productionMode" value="true" />
-						<property name="domain.name" value="${domain.name.test}" />
-						
-						<!-- replaces sensible infos with encrypted properties --> 
-						<propertyselector property="encrypted.properties.list"
-						                         delimiter=","
-						                         match="encrypted\.(.*)"
-						                         select="\1"
-						                         casesensitive="false" />
-						<foreach list="${encrypted.properties.list}" param="encrypted.property" target="replaceEncryptedProperties" />
-					</then>
-			</elseif>
-		</if>
+		<!-- Create the build directory structure used by compile -->
+		<mkdir dir="${build}" />
 	</target>
 
-	<target name="configure" depends="set-properties" description="Edit all needed config files">
-		<replaceregexp file="${resources.dir}/jbbconfigs.properties" match="(domain.name=).*" replace="\1${domain.name}" />
-		<replaceregexp file="${resources.dir}/hibernate.cfg.xml" match='(hibernate.show_sql\">).*\&lt;/property&gt;' replace="\1false&lt;/property&gt;" />
-		<replaceregexp file="${resources.dir}/jbbconfigs.properties" match="(app.environment=).*" replace="\1${type}" />
-		<replaceregexp file="${resources.dir}/jbbconfigs.properties" match="(mail.smtp.server=).*" replace="\1${jbb.mail.address}" />
-		<replaceregexp file="${resources.dir}/jbbconfigs.properties" match="(jdbc.url=).*" replace="\1${jbb.db}" />
-		<replaceregexp file="${resources.dir}/jbbconfigs.properties" match="(lucene.indexdir=).*" replace="\1${lucene.indexdir}" />
-		<replaceregexp file="${resources.dir}/jbbconfigs.properties" match="(folders.levelspicturesfolderpath=).*" replace="\1${folders.levelspicturesfolderpath}" />
-		<replaceregexp file="${resources.dir}/jbbconfigs.properties" match="(folders.generatedcontent=).*" replace="\1${folders.generatedcontent}" />
-<!--		<replaceregexp file="${resources.dir}/jbbconfigs.properties" match="(folders.corpreport=).*" replace="\1${folders.corpreport}" /> -->
-		<replaceregexp file="${resources.dir}/assignerClient.properties" match="(assigner.context=).*" replace="\1${assigner.context}" />
-		<replaceregexp file="${resources.dir}/assignerClient.properties" match="(assigner.serverip=).*" replace="\1${assigner.serverip}" />
-		<replaceregexp file="${resources.dir}/jbbconfigs.properties" match="(rss.path=).*" replace="\1${rss.path}" />
-		<replaceregexp file="${resources.dir}/jbbconfigs.properties" match="(paypal.environment=).*" replace="\1${paypal.environment}" />
-		<replaceregexp file="${resources.dir}/log4j.properties" match="(log4j.rootLogger=).*" replace="\1${log4j.rootLogger}" />
-		<replaceregexp file="${resources.dir}/log4j.properties" match="(log4j.logger.jbbmail=).*" replace="\1${log4j.mailLogger}" />
-		<replaceregexp file="${resources.dir}/log4j.properties" match="(log4j.logger.jbbbatch=).*" replace="\1${log4j.batchLogger}" />
-		<!-- Regular expression for replacing vaadin productionMode context init parameter-->
-		<replaceregexp file="${basedir}/WebRoot/WEB-INF/web.xml" match="(productionMode&lt;/param-name&gt;\W*&lt;param-value&gt;).*(&lt;/param-value&gt;)" replace="\1${vaadin.productionMode}\2" />
-		
-	</target>
-
-	<target name="clean" description="Deletes the Web Application's war directory and war file" depends="init">
-		<echo message="Deleting ${app.name}'s war directory and war file ..." />
-		<delete includeemptydirs="true">
-			<fileset dir="${basedir}/WebRoot/WEB-INF/classes" includes="**/*" />
-		</delete>
-		<delete file="${basedir}/${app.name}.war" />
-	</target>
-
-
-	<target name="compile" description="Builds the Web Application">
-		<echo message="Creating ${app.name}'s war directory ..." />
-		<mkdir dir="${basedir}/WebRoot/WEB-INF/classes" />
-
+	<target name="compile" description="compile the source" depends="init">
 		<echo message="Building ${app.name} ..." />
-		<!--javac srcdir="${src.dir}" destdir="${basedir}/WebRoot/WEB-INF/classes" debug="on" >
-			<include name="**/*.java" />
-			<classpath refid="classpath" />
-		</javac-->
-
-		<iajc sourceroots="${src.dir}" destdir="${basedir}/WebRoot/WEB-INF/classes" classpathref="classpath" source="1.6" verbose="false" showweaveinfo="false">
-			<include name="**/*.java" />
-			<aspectpath path="${basedir}/WebRoot/WEB-INF/lib/org.springframework.aspects-3.0.4.RELEASE.jar" />
-		</iajc>
-
-		<copy todir="${basedir}/WebRoot/WEB-INF/classes">
-			<fileset dir="${src.dir}">
-				<exclude name="**/*.java" />
-			</fileset>
-		</copy>
-
-		<copy todir="${basedir}/WebRoot/WEB-INF/classes">
-			<fileset dir="${resources.dir}" />
-		</copy>
-
-		<!-- extract the VAADIN themes in the /VAADIN directory in order to serve them statically in production -->
-		<!-- update the web.xml file, comment the vaadin servlet mapping with url-pattern /VAADIN/* -->
-		<!-- see http://vaadin.com/forum/-/message_boards/message/149410 -->
-		<if>
-			<or>
-				<equals arg1="${type}" arg2="PROD" />
-				<equals arg1="${type}" arg2="TEST" />
-			</or>
-			<then>
-				<unjar dest="${basedir}/WebRoot">
-					<fileset dir="${basedir}/WebRoot/WEB-INF/lib">
-						<include name="vaadin-*.jar" />
-					</fileset>
-				    <patternset>
-				        <include name="VAADIN/themes/**/*.*"/>
-				    </patternset>
-				</unjar>
-				
-				<replaceregexp file="${basedir}/WebRoot/WEB-INF/web.xml"
-					match="(&lt;servlet-mapping&gt;[.\s\n]*&lt;servlet-name&gt;vaadin&lt;/servlet-name&gt;[.\s\n]*&lt;url-pattern&gt;/VAADIN/\*&lt;/url-pattern&gt;[.\s\n]*&lt;/servlet-mapping&gt;)"
-					replace="&lt;!--\1--&gt;" />
-				
-				<!-- Configure the vaadin bypass filter to bypass vaadin when serving /VAADIN files -->
-				<replaceregexp file="${basedir}/WebRoot/WEB-INF/web.xml"
-					match="(&lt;init-param&gt;[.\s\n]*&lt;param-name&gt;urls&lt;/param-name&gt;[.\s\n]*&lt;param-value&gt;)(.*)(&lt;/param-value&gt;[.\s\n]*&lt;/init-param&gt;)"
-					replace="\1/VAADIN,\2\3" />				
-			</then>
-		</if>
+		<javac srcdir="${src.dir}" destdir="${build.dir}" debug="on">
+			<exclude name="**/*Test*.java" />
+		</javac>
 	</target>
 
-	<!-- Deprecated : replaced by the executeBatch shell script to get a better output (console or file instead of classical [Ant] output )-->
-	<target name="executeBatch" description="Execute a JBB batch with all the classpath (class name should be given as a parameter -Dbatchclass=...)">
-		<java classpathref="classpath" classname="${batchclass}" />
-	</target>
-	
-	<!-- Special task used by the executeBatch to generate the classppath-->
-	<target name="computeClasspath">
-		<property name="myclasspath" refid="classpath"/>
-		<echo file="../../bin/classpath" message="CLASSPATH=${myclasspath}"/>
+	<target name="JUnitCompileTest" description="compile the JUnit test" depends="compile">
+		<echo message="compiling JUnit test" />
+		<javac srcdir="${src.dir}" destdir="${build.dir}" debug="on">
+			  <exclude name="**/deprecated**"/>
+		</javac>
 	</target>
 
-	<target name="prepare" depends="configure, compile" description="Init, configure, compile classes and generate hbm" />
-
-	<target name="war" description="Packages the Web Application's web archive file" depends="clean,prepare">
-		<echo message="Packaging ${app.name}'s war file ..." />
-		<delete file="${basedir}/${app.name}.war" />
-		<jar jarfile="${basedir}/${app.name}.war">
-			<fileset dir="${basedir}/WebRoot" includes="**" />
-		</jar>
+	<target name="clean" description="clean up">
+		<!-- Delete the ${build} and ${dist} directory trees -->
+		<delete dir="${build}" />
+		<delete dir="${dist}" />
 	</target>
 
-	<target name="jlint">
-		<jslint dir="${basedir}/WebRoot/js/jbb" options="browser" />
-	</target>
-
-	<target name="jsmin">
-		<jsmin destdir="${basedir}/WebRoot/js/min/jbb" force="true">
-			<fileset dir="${basedir}/WebRoot/js/jbb" includes="**/*.js" excludes="/overlib/*" />
-		</jsmin>
-	</target>
-
-	<target name="debug" description="Lists the properties for debugging purposes" depends="set-properties">
+	<target name="debug" description="Lists the properties for debugging purposes">
 		<echo message="Lists the properties for debugging purposes ..." />
 		<echo message="ant.version                    = ${ant.version}" />
 		<echo message="ant.home                       = ${ant.home}" />
-		<echo message="tomcat.home                    = ${env.TOMCAT_HOME}" />
 		<echo message="java.home                      = ${env.JAVA_HOME}" />
 		<echo message="" />
 		<echo message="type                           = ${type}" />
 		<echo message="version                        = ${version}" />
 		<echo message="app.name                       = ${app.name}" />
 		<echo message="basedir                        = ${basedir}" />
-		<echo message="tomcat webapps path            = ${tomcat.webapps_path}" />
 	</target>
-
 
 </project>
