@@ -1,24 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project>
 <project name="reform-your-country" default="debug" basedir=".">
 	<property file="build.properties" />
 	<property environment="env" />
 
 	<path id="classpath">
-
 		<fileset dir="${lib.dir}">
-			<include name="**/*.jar" />
+			<include name="*.jar" />
 		</fileset>
 	</path>
+	<path id="classpath.test">
+		<path refid="classpath" />
+	</path>
+
+	<!-- convert classpath to a flat list/string for use in manifest task -->
+	<pathconvert property="mf.classpath" pathsep=" ">
+		<path refid="classpath" />
+		<flattenmapper />
+	</pathconvert>
 
 	<target name="init" description="Perform some init task">
 		<tstamp />
 		<!-- Create the build directory structure used by compile -->
-		<mkdir dir="${build}" />
+		<mkdir dir="${build.dir}" />
+		<manifest file="MANIFEST.MF">
+			<attribute name="Built-By" value="${manifest.built.by}" />
+			<attribute name="Created-By" value="${manifest.created.by}" />
+			<attribute name="Main-Class" value="${manifest.main.class}" />
+			<attribute name="Implementation-Version" value="${version.number}-b${build.number}" />
+			<attribute name="Built-Date" value="${TODAY}" />
+			<attribute name="Class-Path" value="${mf.classpath}" />
+		</manifest>
 	</target>
 
 	<target name="compile" description="compile the source" depends="init">
 		<echo message="Building ${app.name} ..." />
 		<javac srcdir="${src.dir}" destdir="${build.dir}" debug="on">
 			<exclude name="**/*Test*.java" />
+			<exclude name="**/deprecated**" />
+			<exclude name="**/security**" />
+			<exclude name="**/mail**" />
 		</javac>
 	</target>
 
@@ -27,14 +48,14 @@
 		<javac srcdir="${src.dir}" destdir="${build.dir}" debug="on" classpathref="classpath">
 			<exclude name="**/deprecated**" />
 			<exclude name="**/security**" />
-			<exclude name="**/SecurityContext.java"/>
+			<exclude name="**/SecurityContext.java" />
 		</javac>
 	</target>
 
 	<target name="clean" description="clean up">
 		<!-- Delete the ${build} and ${dist} directory trees -->
-		<delete dir="${build}" />
-		<delete dir="${dist}" />
+		<delete dir="${build.dir}" />
+		<delete dir="${dist.dir}" />
 	</target>
 
 	<target name="debug" description="Lists the properties for debugging purposes">
@@ -47,6 +68,9 @@
 		<echo message="version                        = ${version}" />
 		<echo message="app.name                       = ${app.name}" />
 		<echo message="basedir                        = ${basedir}" />
+		<echo message="lib.dir                        = ${lib.dir}" />
+		<echo message="build.dir                      = ${build.dir}" />
+		<echo message="classpath                      = ${mf.classpath}" />
 	</target>
 
 </project>
