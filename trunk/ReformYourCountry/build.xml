@@ -3,7 +3,7 @@
 	<property environment="env" />
 
 	<path id="classpath">
-	    
+
 		<fileset dir="${lib.dir}">
 			<include name="**/*.jar" />
 		</fileset>
@@ -25,7 +25,9 @@
 	<target name="JUnitCompileTest" description="compile the JUnit test" depends="compile">
 		<echo message="compiling JUnit test" />
 		<javac srcdir="${src.dir}" destdir="${build.dir}" debug="on">
-			  <exclude name="**/deprecated**"/>
+			<exclude name="**/deprecated**" />
+			<exclude name="**/security**" />
+			<exclude name="**/SecurityContext.java"/>
 		</javac>
 	</target>
 
