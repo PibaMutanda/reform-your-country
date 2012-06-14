@@ -32,7 +32,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/smtp.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/dsn.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/imap.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/pop3.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-beans-3.2.0.M1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
