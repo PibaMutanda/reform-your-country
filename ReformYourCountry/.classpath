@@ -22,7 +22,6 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/javax.servlet.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/Parser.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-core-1.2.5.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/vaadin-6.7.9.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/pd4ml.lib.trial.380fx4/lib/ss_css2.jar"/>
@@ -33,5 +32,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/dsn.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/imap.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-beans-3.2.0.M1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-core-3.2.0.M1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
