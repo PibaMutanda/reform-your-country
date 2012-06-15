@@ -70,18 +70,20 @@ public class BBDomParser {
 				} else if (!part.equals("[/escape]")){
 					currentTag.add(new TextBBTag(part));// if part isn't a tag, it's a text.
 				}
-				
+
 			} else {  // Normal case
-				
+
 				if (isTag(part) && !ignoredTags.contains(part)) {  // It's a tag (not a raw text or ignored tag)
 					String tagName = getTagName(part);
-					
+
 					if (part.charAt(1) != '/') { // Opening tag
 						BBTag tag = parseOpenTag(part);
 						currentTag.add(tag);
-						tagStack.addFirst(currentTag);
-
-						currentTag = tag;
+						char testEnd=tag.getContent().charAt(tag.getContent().length()-2);
+						if (testEnd!='/'){
+							tagStack.addFirst(currentTag);
+							currentTag = tag;
+						}
 
 					} else { // The tag is closing tag.
 
@@ -104,28 +106,29 @@ public class BBDomParser {
 								break;
 							}
 						}
-						if (!hasOpenTag) {	// The tag has not been open: treat as plain text
-							currentTag.add(new DefaultBBTag(part.toString(),BBTagType.Error,"this tag is not valid"));
+						if (!hasOpenTag) {// The tag has not been open: treat as plain text
+							currentTag.add(new DefaultBBTag(part.toString(),BBTagType.Error,"This closing tag has no opening tag"));
 							return root;
 						}
 
+						BBTag lastTagParent = currentTag;
 						// Normal case
 						// We put the tag in the correct tag (children inside parents)
-						do {
-							BBTag lastTagParent = currentTag.getParent();
-							lastTagParent.remove(currentTag);
-							StringBuilder content = new StringBuilder(
-									currentTag.getContent());
-							for (BBTag t : currentTag) {
-								content.append(t.getContent());
+						while (lastTagParent != null && lastTagParent != root && !lastTagParent.getName().equals(tagName)) {
+							if (lastTagParent!=null&&!lastTagParent.getName().equals(tagName)){
+								DefaultBBTag ErrorTag= new DefaultBBTag("/"+tagName,BBTagType.Tag,part);
+								ErrorTag.setErrorText("This closing tag has no opening tag.");
+								lastTagParent.add(ErrorTag);
 							}
-							lastTagParent.add(new TextBBTag(content.toString()));
-							currentTag = tagStack.pollFirst();
-						} while (currentTag != null && currentTag != root && !currentTag.getName().equals(tagName));
-
-						if (currentTag == null) { // No more tags in stack: it is can not be at all.
-							throw new BBParserException("Expecting open tag in stack.");
+							lastTagParent = lastTagParent.getParent();
+						} 
+						if (lastTagParent == null){
+							DefaultBBTag ErrorTag= new DefaultBBTag("/"+tagName,BBTagType.Tag,part);
+							ErrorTag.setErrorText("This closing tag has no opening tag.");
+							root.add(ErrorTag);
+							return root;
 						}
+
 
 						// Open tag was found - close it
 						currentTag = tagStack.pollFirst();
@@ -140,9 +143,9 @@ public class BBDomParser {
 				}
 
 			}
-//			if(((SplitIterator) i).getError()){
-//				currentTag.add(new DefaultBBTag("Error", BBTagType.Error, "An error occured; some text have not been parsed"));
-//			}
+			//			if(((SplitIterator) i).getError()){
+			//				currentTag.add(new DefaultBBTag("Error", BBTagType.Error, "An error occured; some text have not been parsed"));
+			//			}
 		}
 
 		return root;
