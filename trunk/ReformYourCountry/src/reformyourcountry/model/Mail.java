@@ -4,10 +4,6 @@ import java.util.Date;
 
 import reformyourcountry.mail.MailCategory;
 import reformyourcountry.mail.MailType;
-
-
-
-
 //@Entity
 //@Table(name = "mails")
 public class Mail/* extends Identifiable */{
