@@ -17,8 +17,8 @@ import reformyourcountry.model.User;
 //@Component
 public class MailService {
 	
-	public final static String JBB_ADMIN_MAIL = "info@KnowledgeBlackBelt.com";  // TODO: change to KnowledgeBlackBelt.com after v5
-	public final static String BUG_MAIL = "bug@KnowledgeBlackBelt.com";  // TODO: change to KnowledgeBlackBelt.com after v5
+	public final static String JBB_ADMIN_MAIL = "info@KnowledgeBlackBelt.com";  // TODO: take the value from a property file (provided by the specialized project, as enseignement2.be)
+	public final static String BUG_MAIL = "bug@KnowledgeBlackBelt.com";  // TODO: take the value from a property file (provided by the specialized project, as enseignement2.be)
 
 	//@Logger Log logger;
 
@@ -39,7 +39,7 @@ public class MailService {
         for(Object object : targets){
             if (object instanceof User){
                 this.sendMail(new Mail((User)object, subject, mailCategory, content, mailType, true ));
-            }else if (object instanceof String ){
+            } else if (object instanceof String ){
                 this.sendMail(new Mail((String)object, subject, mailCategory, content, mailType, true ));
             } else {
                 throw new IllegalArgumentException("Bug: we only accept Strings and Users. Current object's class: " + object.getClass());
