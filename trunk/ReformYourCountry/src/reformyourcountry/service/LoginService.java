@@ -18,6 +18,7 @@ import reformyourcountry.exceptions.UserNotFoundException;
 import reformyourcountry.exceptions.UserNotValidatedException;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountStatus;
+import blackbelt.security.Privilege;
 import blackbelt.util.SecurityUtils;
 import blackbelt.web.ContextUtil;
 import blackbelt.web.Cookies;
@@ -258,4 +259,33 @@ public class LoginService {
         }
     }
 
+   public static Set<User> userListeLogged(){
+       Set<User>  userListe=new HashSet<User>();
+       Set<Privilege>privilegeP=new HashSet<Privilege>();
+       Set<Privilege>privilegeJ=new HashSet<Privilege>();
+       
+        User  userP=new User();
+             userP.setLastName("Piba");
+             userP.setPassword("myFirstpasse");
+             userP.setId(2l);
+             privilegeP.add(Privilege.EDIT_COMMUNITY_USERS_PRIVILEGES);
+             privilegeP.add(Privilege.EDIT_CORPORATE_USERS_PRIVILEGES);
+             privilegeP.add(Privilege.EDIT_QUESTIONS);
+             privilegeP.add(Privilege.APPROVE_PROPOSAL_ON_QUESTIONS);
+             userP.setPrivileges(privilegeP);
+             
+       User useJ =new User();
+            useJ.setLastName("Jerome");
+            useJ.setPassword("yourPasse");
+            useJ.setId(3l);
+            privilegeJ.add(Privilege.CREATE_QUESTIONS);
+            privilegeJ.add(Privilege.EDIT_REF_MANUAL);
+            privilegeJ.add(Privilege.GET_NOTIFIED_WHEN_USERS_REACH_BROWN_BELT);
+       
+            userListe.add(userP);
+            userListe.add(useJ);
+          
+            
+       return userListe;
+   }
 }
