@@ -2,8 +2,10 @@ package reformyourcountry.model;
 
 import java.util.Date;
 
-import blackbelt.mail.MailCategory;
-import blackbelt.mail.MailType;
+import reformyourcountry.mail.MailCategory;
+import reformyourcountry.mail.MailType;
+
+
 
 
 //@Entity
