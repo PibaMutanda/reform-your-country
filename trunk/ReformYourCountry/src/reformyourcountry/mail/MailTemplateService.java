@@ -10,9 +10,8 @@ import reformyourcountry.dao.MailDao;
 import reformyourcountry.model.Mail;
 import reformyourcountry.model.User;
 import reformyourcountry.service.UserService;
-import sun.awt.ComponentFactory;
-
-import com.sun.jndi.toolkit.url.UrlUtil;
+//import sun.awt.ComponentFactory;
+//import com.sun.jndi.toolkit.url.UrlUtil;
 
 /**
  * @author Julien Van Assche
