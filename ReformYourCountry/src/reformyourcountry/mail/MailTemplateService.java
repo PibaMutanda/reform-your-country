@@ -6,12 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 
-import reformyourcountry.dao.MailDao;
+
 import reformyourcountry.model.Mail;
 import reformyourcountry.model.User;
 import reformyourcountry.service.UserService;
-//import sun.awt.ComponentFactory;
-//import com.sun.jndi.toolkit.url.UrlUtil;
+import sun.awt.ComponentFactory;
+
+import com.sun.jndi.toolkit.url.UrlUtil;
 
 /**
  * @author Julien Van Assche
@@ -23,9 +24,9 @@ import reformyourcountry.service.UserService;
 @Configurable(preConstruction=true)
 public final class MailTemplateService {
 
-    @Autowired
-    MailDao dao;
-    @Autowired UserService userService;
+   // @Autowired
+  //  MailDao dao;
+  //  @Autowired UserService userService;
 
     public MailTemplateService() {}
 
