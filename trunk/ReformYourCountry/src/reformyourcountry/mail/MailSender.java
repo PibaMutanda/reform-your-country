@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.Vector;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.omg.CORBA.Environment;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -18,10 +18,11 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 
 import reformyourcountry.dao.MailDaoMock;
-import reformyourcountry.dao.UserDao;
+import reformyourcountry.exceptions.UserDao;
 import reformyourcountry.model.Mail;
 import reformyourcountry.model.User;
-
+import blackbelt.mail.MailTemplateService;
+import blackbelt.mail.MailType;
 
 
 /** Really send the mail to the SMTP server
@@ -32,8 +33,7 @@ import reformyourcountry.model.User;
 //@Service
 public class MailSender extends Thread {
 
-   private Logger logger = Logger.getLogger("jbbmail");
-
+    private Logger logger = Logger.getLogger("jbbmail");
     public final static int DELAY_BETWEEN_EACH_MAIL = 50;  // in ms. In case the SMTP server is too slow (cannot accept too many mails too fast). Use this const to temporize between 2 SMTP calls. 
     public final static int WAKE_UP_DELAY_WHEN_NO_MAIL = 15 * 1000;  // ms. When there is no mail anymore, how long should this batch sleep before querying the DB again for mails to be sent ?
 
@@ -69,29 +69,18 @@ public class MailSender extends Thread {
     String aliasNotifier;
     
     
-    /* setter for the test  purpose delete after spring configuration*/
+    /* getter for the test  purpose*/
+    
     public void setMailDao( reformyourcountry.dao.MailDaoMock dao){
     	mailDao = dao;
     	
     }
-    
-    /* setter for the test  purpose delete after spring configuration*/
-    public void setMailTemplateService(MailTemplateService mainTemplate){
-    	this.mainTemplate = mainTemplate;
-    	
-    }
-    
 
     @PostConstruct
     public void postConstruct() {
         javaMailSender = new JavaMailSenderImpl();  // Class of Spring.
-        javaMailSender.setProtocol("smtps");
         javaMailSender.setHost(smtpHost);
         javaMailSender.setPort(smtpPort);
-        
-        
-        javaMailSender.setUsername("reformyourcountrytest@gmail.com");
-	    javaMailSender.setPassword("technofutur");
 
         setName("MailSender"); // Sets the name of the thread to be visible in the prod server thread list.
      //   if(environment.getMailBehavior() != MailBehavior.NOT_STARTED){
@@ -113,8 +102,8 @@ public class MailSender extends Thread {
     public void run(){
 
         logger.info("MailSender thread started");
-        try {//TODO set to 1 *60 * 1000
-			Thread.sleep(1 * 60 * 10);  // sleep 2 minute to make sure all the bean are ready
+        try {
+			Thread.sleep(1 * 60 * 1000);  // sleep 2 minute to make sure all the bean are ready
 		} catch (InterruptedException e) {
 	        logger.info("MailSender initial sleep interrupted");
 		}
@@ -124,55 +113,44 @@ public class MailSender extends Thread {
         mainLoop: while (!isShutDown) {
 
 
-        	List<Mail> nextMailList = this.findNextMails();
+            List<Mail> nextMailList = this.findNextMails();
 
             logger.info(nextMailList.size() + " mails found to send");
 
             
-            while (nextMailList != null && nextMailList.size() > 0) {
+            while (nextMailList != null && nextMailList.size()>0) {
                 Mail nextMail = nextMailList.get(0);
-                   
                 // if the first mail is not groupable, all the mails of that list are not groupable.
                 if (nextMail.getMailType()== MailType.IMMEDIATE || nextMail.getMailType()== MailType.SLOW_NOT_GROUPABLE || StringUtils.isNotBlank(nextMail.getEmailTarget())) {  
-
-                	for (Mail mail : nextMailList) {
-
-                		// Send the mail and remove it from the DB.
-                		sendMailIndividually(mail);
-                		mailDao.removeMails(Arrays.asList(mail));
-
-                		this.sleepWell(DELAY_BETWEEN_EACH_MAIL);
-                		if (isShutDown) {
-                			break mainLoop;
-                		}
-
-
-                	}
-
+                    for (Mail mail : nextMailList) {
+                        // Send the mail and remove it from the DB.
+                        sendMailIndividually(mail);
+                        mailDao.removeMails(Arrays.asList(mail));
+                        this.sleepWell(DELAY_BETWEEN_EACH_MAIL);
+                        if (isShutDown) {
+                            break mainLoop;
+                        }
+                    }
                 } else {// ...here we send a group of mails as one mail
                     // Send all these mails grouped as one mail and remove them from the DB.
                     sendMailsGrouped(nextMailList);
                     nextMail.getUser().setLastMailSentDate(new Date()); 
-                    
-                    userDao.save(nextMail.getUser());
+                    userDao.save(nextMail.getUser()); 
                     mailDao.removeMails(nextMailList); 
-                                    
                     this.sleepWell(DELAY_BETWEEN_EACH_MAIL);
                 }
-                
                 if (isShutDown) {
                     break mainLoop;
                 }
-                
-                
                 nextMailList = this.findNextMails();
-                
             }
 
             sleepBad(WAKE_UP_DELAY_WHEN_NO_MAIL);
         }
 
         logger.info("MailSender thread ended");
+
+
 
     }
 
@@ -206,7 +184,7 @@ public class MailSender extends Thread {
 
    // 	private void sendToFile(MailTemplateService.MailSubjectAndContent mp) {
    // 	BufferedWriter writer;
-    	//	try {
+   //    		try {
     //			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("C:\\testing\\Mails\\" + mp.subject + ".html")));
     //			writer.write(mp.content);
     //			writer.close();
@@ -220,18 +198,16 @@ public class MailSender extends Thread {
     //	}
 
     public void sendMailIndividually(Mail mail) {
-    	   
+    	   System.out.println("Mail send");
         MailTemplateService.MailSubjectAndContent mp = this.mainTemplate.templateMail(mail);
 
-        //	this.sendToFile(mp);
-        String emailTarget = mail.getUser() != null ? mail.getUser().getMail() : mail.getEmailTarget();
+        	this.sendToFile(mp);
+       String emailTarget = mail.getUser() != null ? mail.getUser().getMail() : mail.getEmailTarget();
         String emailSender = mail.getReplyTo() != null ? mail.getReplyTo().getMail() : notifier;
 
         // Sanity Check
         if(StringUtils.isBlank(emailSender)){
-        	
-        	System.out.println("User with no email found : " + mail.getReplyTo().getId() + " " + mail.getReplyTo().getFullName());
-       	//	logger.error("User with no email found : " + mail.getReplyTo().getId() + " " + mail.getReplyTo().getFullName());
+       		logger.error("User with no email found : " + mail.getReplyTo().getId() + " " + mail.getReplyTo().getFullName());
         	return; // Do not continue
         }
         
@@ -245,12 +221,12 @@ public class MailSender extends Thread {
 
     public void sendMailsGrouped(List<Mail> mails) {
     	
-
-        MailTemplateService.MailSubjectAndContent mp = this.mainTemplate.templateMail(mails);
+    	   System.out.println("Mail send");
+        //MailTemplateService.MailSubjectAndContent mp = this.mainTemplate.templateMail(mails);
 
         //		this.sendToFile(mp);
 
-        Mail firstMail = mails.get(0);
+     /*   Mail firstMail = mails.get(0);
         String emailTarget = firstMail.getUser() != null ? firstMail.getUser().getMail() : firstMail.getEmailTarget();
         String emailSender = firstMail.getReplyTo() != null ? firstMail.getReplyTo().getMail() : notifier;
 
@@ -258,7 +234,7 @@ public class MailSender extends Thread {
                 firstMail.getReplyTo() == null ? null : firstMail.getReplyTo().getMail(), // reply to
                         emailSender,    // From
                         !emailSender.equals(notifier) ? firstMail.getReplyTo().getFullName() : aliasNotifier,  // Alias 
-                                mp.subject, mp.content, true);
+                                mp.subject, mp.content, true);*/
     }
 
 
@@ -309,7 +285,7 @@ public class MailSender extends Thread {
                 throw new IllegalArgumentException("'to' cannot be null");
             }
 
-            final String rawText = text;//(textIsHtml ? HtmlToTextUtil.convert(text) : text);
+            final String rawText = "test";//(textIsHtml ? HtmlToTextUtil.convert(text) : text);
 
             StringBuilder log = new StringBuilder();
             log.append(Thread.currentThread().getName());
@@ -364,16 +340,14 @@ public class MailSender extends Thread {
                         }
                     }
                 };
-              
+                     System.out.println("Mail send");
                      
                 javaMailSender.send(mimeMessagePreparator);
-                System.out.println("Mail send");
          //  }
         } catch(Exception e){//if we can't send the mail, continue
             // if we can't send for any reason, we don't stop the thread, we will just remove this mail from the database and we will continue to send mails.
             // Typical exception: the mail address is invalid.
-            logger.error("Exception while sending mail", e);
-        	
+        //    logger.error("Exception while sending mail", e);
         }
 
     }
