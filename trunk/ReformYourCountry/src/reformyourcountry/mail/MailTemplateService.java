@@ -59,7 +59,8 @@ public final class MailTemplateService {
         if (user !=null){
             footer = "<br><hr><br><div align=\"justify\">your account : ";//+ userNameWithAbsoluteLink(user);
             footer = "";
-            
+            //TO DO
+            //String userSecurityString = userService.getUserSecurityString(user);
             
             if (isGrouped) {
                 
@@ -208,7 +209,7 @@ public final class MailTemplateService {
             return subjectOfGroupedMails;
         }
     }
-    
+    //talk to john what's this method
     /*private String userNameWithAbsoluteLink(User user){
     	return UrlUtil.getAbsoluteUrl((new EntityPageResource(UserPage.class, user)));
     }*/
