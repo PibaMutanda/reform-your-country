@@ -339,11 +339,7 @@ public abstract class SecurityContext {
         }
         return userId.get();
     }
-  public static User getUserByMail(){
-      User user=new User();
-       
-      return user;
-  }
+ 
 //    public static void setUserId(Long id) {
         //Security constraint
 //        if (userId.get() != null || user.get() != null) {
