@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import reformyourcountry.model.User;
-import blackbelt.exceptions.UserNotFoundException;
+import reformyourcountry.exceptions.*;
 
 public class UserDao {
 
