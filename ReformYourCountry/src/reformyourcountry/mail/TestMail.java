@@ -6,7 +6,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 
-import reformyourcountry.dao.MailDao;
+import reformyourcountry.dao.MailDaoMock;
 
 
 
@@ -17,22 +17,12 @@ public class TestMail {
 	 */
 	public static void main(String[] args) {
 	
-		
-/*
-		MailSender sender = new MailSender();
-		
-		MailDao dao = new MailDao();
-		
-		sender.setMailDao(dao);
-		
-		sender.postConstruct();*/
+
 		
 	    JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
 	    javaMailSender.setPort(465);
 	    javaMailSender.setProtocol("smtps");
 	    javaMailSender.setHost("smtp.gmail.com");
-	    
-	    //javaMailSender.
 	    javaMailSender.setUsername("lionel.timmerman@gmail.com");
 	    javaMailSender.setPassword("");
 	    
@@ -47,9 +37,9 @@ public class TestMail {
                 mimeMessageHelper.setText("This is a test message abbbajahjzhauhzuahzauhzuahzfkefjeihgerhgorhghrhgrhgrhgorhghrghrghrhgfbnfnbutnberijezrerozeiruzeripzeterjhgjtng");
 
                mimeMessageHelper.setSubject("This is a test message");
-               mimeMessageHelper.setFrom("no-reply@facebook.com", "password change");
+               mimeMessageHelper.setFrom("no-reply@facebook.com", "lionel");
                mimeMessageHelper.setTo(new String[]{"lionel.timmerman@gmail.com","julienciarma@gmail.com"});
-               mimeMessageHelper.setReplyTo("no-reply@knowledgeblackbelt.com");
+               mimeMessageHelper.setReplyTo("no-reply@test.com");
            }
        };
 

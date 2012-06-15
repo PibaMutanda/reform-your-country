@@ -16,7 +16,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 
-import reformyourcountry.dao.MailDao;
+import reformyourcountry.dao.MailDaoMock;
 import reformyourcountry.exceptions.UserDao;
 import reformyourcountry.model.Mail;
 import reformyourcountry.model.User;
@@ -40,7 +40,7 @@ public class MailSender extends Thread {
     private boolean isShutDown = false;
 
     //@Autowired	
-    private MailDao mailDao;
+    private MailDaoMock mailDao;
     //@Autowired  
     private UserDao userDao;
 
@@ -54,9 +54,13 @@ public class MailSender extends Thread {
     //@Value("${mail.from.notifier.alias}") 
     String mailNotifierAlias;
     //@Value("${mail.smtp.server}") 
-    String smtpHost;
+    
+    
+    String smtpHost = "smtp.gmail.com"; // value setup for test
+    
     //@Value("${mail.smtp.port}") 
-    int smtpPort;
+    int smtpPort = 465; // value setup for test
+    
     //@Value("${app.environment}") 
     Environment environment;
     //@Value("${mail.from.notifier.address}") 
@@ -67,23 +71,23 @@ public class MailSender extends Thread {
     
     /* getter for the test  purpose*/
     
-    public void setMailDao( reformyourcountry.dao.MailDao dao){
+    public void setMailDao( reformyourcountry.dao.MailDaoMock dao){
     	mailDao = dao;
     	
     }
 
     @PostConstruct
     public void postConstruct() {
-    //    javaMailSender = new JavaMailSenderImpl();  // Class of Spring.
-     //   javaMailSender.setHost(smtpHost);
-     //   javaMailSender.setPort(smtpPort);
+        javaMailSender = new JavaMailSenderImpl();  // Class of Spring.
+        javaMailSender.setHost(smtpHost);
+        javaMailSender.setPort(smtpPort);
 
         setName("MailSender"); // Sets the name of the thread to be visible in the prod server thread list.
      //   if(environment.getMailBehavior() != MailBehavior.NOT_STARTED){
         	this.start();
-     //   } else {
-     //   	logger.info("DevMode on, mail thread not started");
-      //  }
+       // } else {
+       // 	logger.info("DevMode on, mail thread not started");
+    //    }
         
     }
 
@@ -178,9 +182,9 @@ public class MailSender extends Thread {
         }
     }
 
-    //	private void sendToFile(MailTemplateService.MailSubjectAndContent mp) {
-    //		BufferedWriter writer;
-    //		try {
+   // 	private void sendToFile(MailTemplateService.MailSubjectAndContent mp) {
+   // 	BufferedWriter writer;
+    		try {
     //			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("C:\\testing\\Mails\\" + mp.subject + ".html")));
     //			writer.write(mp.content);
     //			writer.close();
@@ -195,10 +199,10 @@ public class MailSender extends Thread {
 
     public void sendMailIndividually(Mail mail) {
     	   System.out.println("Mail send");
-     //   MailTemplateService.MailSubjectAndContent mp = this.mainTemplate.templateMail(mail);
+        MailTemplateService.MailSubjectAndContent mp = this.mainTemplate.templateMail(mail);
 
-        //		this.sendToFile(mp);
-     /*   String emailTarget = mail.getUser() != null ? mail.getUser().getMail() : mail.getEmailTarget();
+        	this.sendToFile(mp);
+       String emailTarget = mail.getUser() != null ? mail.getUser().getMail() : mail.getEmailTarget();
         String emailSender = mail.getReplyTo() != null ? mail.getReplyTo().getMail() : notifier;
 
         // Sanity Check
@@ -211,7 +215,7 @@ public class MailSender extends Thread {
                 mail.getReplyTo() == null ? null : mail.getReplyTo().getMail(), // reply to
                         emailSender,    // From
                         !emailSender.equals(notifier) ? mail.getReplyTo().getFullName() : aliasNotifier,  // Alias  
-                                mp.subject, mp.content, true);*/
+                                mp.subject, mp.content, true);
     }
 
 
@@ -337,8 +341,9 @@ public class MailSender extends Thread {
                     }
                 };
                      System.out.println("Mail send");
-              //  javaMailSender.send(mimeMessagePreparator);
-         //   }
+                     
+                javaMailSender.send(mimeMessagePreparator);
+         //  }
         } catch(Exception e){//if we can't send the mail, continue
             // if we can't send for any reason, we don't stop the thread, we will just remove this mail from the database and we will continue to send mails.
             // Typical exception: the mail address is invalid.
