@@ -1,4 +1,4 @@
-package blackbelt.exceptions;
+package reformyourcountry.exceptions;
 
 public class UserLockedException extends Exception {
 

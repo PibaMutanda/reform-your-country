@@ -5,6 +5,7 @@ import java.util.Scanner;
 import reformyourcountry.dao.UserDao;
 import reformyourcountry.exceptions.InvalidPasswordException;
 import reformyourcountry.exceptions.UserAlreadyExistsException;
+import reformyourcountry.exceptions.UserLockedException;
 import reformyourcountry.exceptions.UserNotFoundException;
 import reformyourcountry.exceptions.UserNotValidatedException;
 import reformyourcountry.model.User;
@@ -14,7 +15,6 @@ import reformyourcountry.regex.EmailValidator;
 import reformyourcountry.service.LoginService;
 import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
 import reformyourcountry.service.UserService;
-import blackbelt.exceptions.UserLockedException;
 
 public class MainTestUser {
 	private static Integer TRYAGECOUNT = 5;
