@@ -86,7 +86,8 @@ public class MailSender extends Thread {
      //   if(environment.getMailBehavior() != MailBehavior.NOT_STARTED){
         	this.start();
        // } else {
-       // 	logger.info("DevMode on, mail thread not started");
+        	BasicConfigurator.configure();
+        	logger.info("DevMode on, mail thread not started");
     //    }
         
     }
@@ -94,27 +95,29 @@ public class MailSender extends Thread {
     @PreDestroy
     public void shutDown () {
         this.isShutDown = true;
+        BasicConfigurator.configure();
         logger.info("MailSender shutting down");
         interrupt();  // In case the thread is sleeping or waiting.
     }	
 
     @Override
     public void run(){
-
+    	BasicConfigurator.configure();
         logger.info("MailSender thread started");
         try {
 			Thread.sleep(1 * 60 * 1000);  // sleep 2 minute to make sure all the bean are ready
 		} catch (InterruptedException e) {
+			BasicConfigurator.configure();
 	        logger.info("MailSender initial sleep interrupted");
 		}
-
+        BasicConfigurator.configure();
         logger.info("MailSender awaken from its initial sleep");
 
         mainLoop: while (!isShutDown) {
 
 
             List<Mail> nextMailList = this.findNextMails();
-
+            BasicConfigurator.configure();
             logger.info(nextMailList.size() + " mails found to send");
 
             
@@ -147,7 +150,7 @@ public class MailSender extends Thread {
 
             sleepBad(WAKE_UP_DELAY_WHEN_NO_MAIL);
         }
-
+        BasicConfigurator.configure();
         logger.info("MailSender thread ended");
 
 
@@ -163,6 +166,7 @@ public class MailSender extends Thread {
             //There is no mail in database, sleep
             sleep(delayMs);
         } catch (InterruptedException e) {
+        	BasicConfigurator.configure();
             logger.info(e);
         }
     }
@@ -178,6 +182,7 @@ public class MailSender extends Thread {
                 wait(delayMs);
             }
         } catch (InterruptedException e) {
+        	BasicConfigurator.configure();
             logger.info(e);
         }
     }
@@ -207,6 +212,7 @@ public class MailSender extends Thread {
 
         // Sanity Check
         if(StringUtils.isBlank(emailSender)){
+        	BasicConfigurator.configure();
        		logger.error("User with no email found : " + mail.getReplyTo().getId() + " " + mail.getReplyTo().getFullName());
         	return; // Do not continue
         }
@@ -309,8 +315,8 @@ public class MailSender extends Thread {
             log.append(text);
             log.append("\n");
             log.append("============== END MAIL ==============");
-
-     //       logger.info(log.toString());
+            BasicConfigurator.configure();
+            logger.info(log.toString());
 
          //   if (environment.getMailBehavior() == MailBehavior.SENT) { // Really send the mail to SMTP server now.
                 MimeMessagePreparator mimeMessagePreparator = new MimeMessagePreparator() {
@@ -347,7 +353,8 @@ public class MailSender extends Thread {
         } catch(Exception e){//if we can't send the mail, continue
             // if we can't send for any reason, we don't stop the thread, we will just remove this mail from the database and we will continue to send mails.
             // Typical exception: the mail address is invalid.
-        //    logger.error("Exception while sending mail", e);
+        	BasicConfigurator.configure();
+            logger.error("Exception while sending mail", e);
         }
 
     }
