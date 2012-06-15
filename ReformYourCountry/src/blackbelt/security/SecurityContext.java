@@ -1,54 +1,19 @@
-
 package blackbelt.security;
-
-//import static blackbelt.util.collection.BBCollectionUtils.adminGroupReg;
-//import static blackbelt.util.collection.BBCollectionUtils.groupRegToGroup;
-//import static blackbelt.util.collection.BBCollectionUtils.rootOrganizationGroupsOnly;
-//import static com.google.common.collect.Collections2.filter;
-//import static com.google.common.collect.Collections2.transform;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
-import blackbelt.exceptions.InvalidPasswordException;
-import blackbelt.exceptions.UnauthorizedAccessException;
-import blackbelt.exceptions.UserLockedException;
-import blackbelt.exceptions.UserNotFoundException;
-import blackbelt.exceptions.UserNotValidatedException;
-
-
-
 import reformyourcountry.dao.UserDao;
+import reformyourcountry.exceptions.InvalidPasswordException;
+import reformyourcountry.exceptions.UserLockedException;
+import reformyourcountry.exceptions.UserNotFoundException;
+import reformyourcountry.exceptions.UserNotValidatedException;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.CommunityRole;
 import reformyourcountry.model.User.CorporateRole;
 import reformyourcountry.service.LoginService;
 import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
 
-//import be.loop.jbb.bo.CommunityUser;
-//import be.loop.jbb.bo.corp.Company;
-//import be.loop.jbb.bo.corp.CorpUser;
-//import be.loop.jbb.bo.corp.CorpUser.CorporateRole;
-//import be.loop.jbb.dao.CommunityUserDao;
-//import be.loop.jbb.dao.corp.CorpUserDao;
-//import be.loop.jbb.web.exceptions.UnauthorizedAccessException;
-//import blackbelt.dao.OrganizationDao;
-//import blackbelt.dao.UserDao;
-//import blackbelt.model.Group;
-//import blackbelt.model.Organization;
-//import blackbelt.model.Privilege;
-//import blackbelt.model.User;
-//import blackbelt.model.User.CommunityRole;
-//import blackbelt.service.LoginService;
-//import blackbelt.service.OrganizationService;
-//import blackbelt.util.BlackBeltException;
-//import blackbelt.web.ContextUtil;
 
 /**
  * Holds the security related information during request execution.
@@ -313,12 +278,12 @@ public abstract class SecurityContext {
     
     
 //    public static boolean loggedUserIs(User user){
-//    	if(user == null){
-//    		throw new RuntimeException("User cannot be null");
-//    	}
-//    	User loggedUser = getUser();
-//    	if(loggedUser == null) return false;
-//    	return loggedUser.equals(user);
+//      if(user == null){
+//          throw new RuntimeException("User cannot be null");
+//      }
+//      User loggedUser = getUser();
+//      if(loggedUser == null) return false;
+//      return loggedUser.equals(user);
 //    }
 
     public static void setUser(User userParam) {
@@ -414,15 +379,15 @@ public abstract class SecurityContext {
 //               
 //    }
 
-//	public static boolean isUserHasRole(CommunityRole role) {
-//		User user = getUser();
-//		if(user == null || user.getCommunityRole() == null){
-//			return false;
-//		} 
-//		return user.getCommunityRole() == role;
-//	}
+//  public static boolean isUserHasRole(CommunityRole role) {
+//      User user = getUser();
+//      if(user == null || user.getCommunityRole() == null){
+//          return false;
+//      } 
+//      return user.getCommunityRole() == role;
+//  }
 
 
-	
+    
 
 }
