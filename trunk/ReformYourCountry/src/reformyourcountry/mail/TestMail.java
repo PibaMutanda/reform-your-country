@@ -16,37 +16,62 @@ public class TestMail {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-	
+		TestMail test = new TestMail();
 
-		
-	    JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
-	    javaMailSender.setPort(465);
-	    javaMailSender.setProtocol("smtps");
-	    javaMailSender.setHost("smtp.gmail.com");
-	    javaMailSender.setUsername("lionel.timmerman@gmail.com");
-	    javaMailSender.setPassword("");
-	    
-	    
- 	   MimeMessagePreparator mimeMessagePreparator = new MimeMessagePreparator() {
-           @Override
-           public void prepare(final MimeMessage mimeMessage) throws Exception {
-        	   
-               MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-              
+		test.startTestMailSender();
 
-                mimeMessageHelper.setText("This is a test message abbbajahjzhauhzuahzauhzuahzfkefjeihgerhgorhghrhgrhgrhgorhghrghrghrhgfbnfnbutnberijezrerozeiruzeripzeterjhgjtng");
-
-               mimeMessageHelper.setSubject("This is a test message");
-               mimeMessageHelper.setFrom("no-reply@facebook.com", "lionel");
-               mimeMessageHelper.setTo(new String[]{"lionel.timmerman@gmail.com","julienciarma@gmail.com"});
-               mimeMessageHelper.setReplyTo("no-reply@test.com");
-           }
-       };
-
-       javaMailSender.send(mimeMessagePreparator);
 		
 		
 
 	}
+	
+	private void startTestMailSender(){
+		
+		MailDaoMock dao = MailDaoMock.getInstance();
+		
+		MailService service = new MailService();
+		
+		MailTemplateService templateService = new MailTemplateService();
+		
+		MailSender sender = new MailSender();
+		
+		sender.setMailDao(dao);
+		sender.setMailTemplateService(templateService);
+		
+		//start the thread
+		sender.postConstruct();
+		
+	}
+	
+	 private void startTestJavaMailSender(){
+		    JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
+		    javaMailSender.setPort(465);
+		    javaMailSender.setProtocol("smtps");
+		    javaMailSender.setHost("smtp.gmail.com");
+		    javaMailSender.setUsername("lionel.timmerman@gmail.com");
+		    javaMailSender.setPassword("");
+		    
+		    
+	 	   MimeMessagePreparator mimeMessagePreparator = new MimeMessagePreparator() {
+	           @Override
+	           public void prepare(final MimeMessage mimeMessage) throws Exception {
+	        	   
+	               MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+	              
+
+	                mimeMessageHelper.setText("This is a test message abbbajahjzhauhzuahzauhzuahzfkefjeihgerhgorhghrhgrhgrhgorhghrghrghrhgfbnfnbutnberijezrerozeiruzeripzeterjhgjtng");
+
+	               mimeMessageHelper.setSubject("This is a test message");
+	               mimeMessageHelper.setFrom("no-reply@facebook.com", "lionel");
+	               mimeMessageHelper.setTo(new String[]{"lionel.timmerman@gmail.com","julienciarma@gmail.com"});
+	               mimeMessageHelper.setReplyTo("no-reply@test.com");
+	           }
+	       };
+
+	       javaMailSender.send(mimeMessagePreparator);
+		 
+		 
+	 }
+	
 
 }
