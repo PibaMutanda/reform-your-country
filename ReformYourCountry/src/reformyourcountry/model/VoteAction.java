@@ -7,7 +7,6 @@ public class VoteAction {
 	
 	private  int value = 0;  // -2 = against; 0 = neutral; +2 = pro.
 	private Action action;
-	
 	private User user;  // or group. Can be null if the vote is made by a group.
 	private Group group; // or user. Can be null if the vote is made by a user.
 	
