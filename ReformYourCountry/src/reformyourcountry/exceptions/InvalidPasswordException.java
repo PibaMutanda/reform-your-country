@@ -1,4 +1,4 @@
-package blackbelt.exceptions;
+package reformyourcountry.exceptions;
 
 import reformyourcountry.model.User;
 

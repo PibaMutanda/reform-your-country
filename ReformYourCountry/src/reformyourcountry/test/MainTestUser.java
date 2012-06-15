@@ -3,7 +3,10 @@ package reformyourcountry.test;
 import java.util.Scanner;
 
 import reformyourcountry.dao.UserDao;
+import reformyourcountry.exceptions.InvalidPasswordException;
 import reformyourcountry.exceptions.UserAlreadyExistsException;
+import reformyourcountry.exceptions.UserNotFoundException;
+import reformyourcountry.exceptions.UserNotValidatedException;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountStatus;
 import reformyourcountry.model.User.Gender;
@@ -11,10 +14,7 @@ import reformyourcountry.regex.EmailValidator;
 import reformyourcountry.service.LoginService;
 import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
 import reformyourcountry.service.UserService;
-import blackbelt.exceptions.InvalidPasswordException;
 import blackbelt.exceptions.UserLockedException;
-import blackbelt.exceptions.UserNotFoundException;
-import blackbelt.exceptions.UserNotValidatedException;
 
 public class MainTestUser {
 	private static Integer TRYAGECOUNT = 5;
