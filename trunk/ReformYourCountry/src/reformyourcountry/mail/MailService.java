@@ -6,11 +6,10 @@ import javax.annotation.PostConstruct;
 
 import org.apache.commons.lang.StringUtils;
 
-import reformyourcountry.dao.MailDao;
+import reformyourcountry.dao.MailDaoMock;
+import reformyourcountry.model.Mail;
 import reformyourcountry.model.User;
-import blackbelt.mail.Mail;
-import blackbelt.mail.MailCategory;
-import blackbelt.mail.MailType;
+
 
 /**
  * Service of mail.
@@ -24,7 +23,7 @@ public class MailService {
 	//@Logger Log logger;
 
    // @Autowired	
-    private MailDao mailDao;
+    private MailDaoMock mailDao;
     // @Autowired	
     private MailSender mailSender;
 
@@ -99,13 +98,13 @@ public class MailService {
      * 
      */
     public void sendMail(Mail mail){
-        //FIXME remove body at integration(), check with mathieu how dao function in blackbelt 
+     
 
         if (mail.getUser()==null){
-            //mailDao.save(mail, null); 
+            mailDao.save(mail, null); 
         	System.out.println("mailDao.save(mail, null)");
         }else{
-          //  mailDao.save(mail, mail.getUser().getId());
+            mailDao.save(mail, mail.getUser().getId());
             System.out.println("mailDao.save(mail, mail.getUser().getId());");
         }
 
