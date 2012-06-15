@@ -184,7 +184,7 @@ public class MailSender extends Thread {
 
    // 	private void sendToFile(MailTemplateService.MailSubjectAndContent mp) {
    // 	BufferedWriter writer;
-    		try {
+   //    		try {
     //			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("C:\\testing\\Mails\\" + mp.subject + ".html")));
     //			writer.write(mp.content);
     //			writer.close();
