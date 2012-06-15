@@ -1,9 +1,9 @@
 package reformyourcountry.parser;
 
-import java.util.*;
-
-
-import reformyourcountry.parser.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * @author xBlackCat,FIEUX cédric & Thomas VAN ROY
