@@ -5,36 +5,22 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.stereotype.Component;
-import org.vaadin.navigator7.PageResource;
-import org.vaadin.navigator7.WebApplication;
-import org.vaadin.navigator7.uri.ParamPageResource;
 
+import reformyourcountry.dao.MailDao;
+import reformyourcountry.model.Mail;
 import reformyourcountry.model.User;
+import reformyourcountry.service.UserService;
+import sun.awt.ComponentFactory;
 
-import be.loop.jbb.bl.UserService;
-import be.loop.jbb.util.DateUtil;
-import blackbelt.dao.MailDao;
-import blackbelt.model.Mail;
-import blackbelt.model.MailCategory;
-import blackbelt.model.MailType;
-import blackbelt.model.MailingDelayType;
-import blackbelt.ui.HomePage;
-import blackbelt.ui.application.BlackBeltWebApplication;
-import blackbelt.ui.application.EntityPageResource;
-import blackbelt.ui.common.ComponentFactory;
-import blackbelt.ui.common.ComponentFactory.FloatStyle;
-import blackbelt.ui.common.PictureResource;
-import blackbelt.ui.common.PictureResource.PicturePath;
-import blackbelt.ui.user.UserPage;
-import blackbelt.web.UrlUtil;
+import com.sun.jndi.toolkit.url.UrlUtil;
+
 /**
  * @author Julien Van Assche
  * @author Pierre Mistrot
  * @author Johan Gusbin
  * Generates a Html string based on a mail
  */
-@Component
+//@Component
 @Configurable(preConstruction=true)
 public final class MailTemplateService {
 
@@ -51,7 +37,7 @@ public final class MailTemplateService {
             + "<font face=\"Arial\" color=\"#000000\" size=\"4\">"
             +  mail.getSubject()
             + "</font><br><div align=\"right\"><font color=\"#BBBBBB\" size=\"1\">"
-            +  DateUtil.formatyyyyMMddHHmm(mail.getCreationDate())
+            +  mail.getCreationDate()
             + "</font></div></div>"
             + "<div style=\"background:#ffffff;padding:2px;padding-left:5px;\">"
             + mail.getContent() +
@@ -72,10 +58,9 @@ public final class MailTemplateService {
         //TODO : code review
         String footer="";
         if (user !=null){
-            footer = "<br><hr><br><div align=\"justify\">your account : "+ userNameWithAbsoluteLink(user);
+            footer = "<br><hr><br><div align=\"justify\">your account : ";//+ userNameWithAbsoluteLink(user);
             footer = "";
             
-            String userSecurityString = userService.getUserSecurityString(user);
             
             if (isGrouped) {
                 
@@ -107,15 +92,15 @@ public final class MailTemplateService {
             }
             if(isNewsletter){
             	
-            	footer += "If you wish to unsubscribe from the KnowledgeBlackBelt newsletter, please follow " +
-        		"<a href='"+UrlUtil.getAbsoluteUrl( new ParamPageResource(MailChangeOptionPage.class, user, userSecurityString, null , new Boolean(true)) )+"'>this link.</a>";
+            	footer += "If you wish to unsubscribe from the KnowledgeBlackBelt newsletter, please follow ";
             }
         } else {
-            footer = "<br><hr><br><div align=\"justify\">"+ ComponentFactory.pageLinkHtml("KnowledgeBlackBelt.com", new PageResource(HomePage.class));
+            footer = "<br><hr><br><div align=\"justify\">"+ /*ComponentFactory.pageLinkHtml("KnowledgeBlackBelt.com", new PageResource(HomePage.class))*/"</div>";
         }
-        footer += "<br><br><div align=\"center\">" + ComponentFactory.pictureAndLinkHtml(
-                new PictureResource(PicturePath.EXAM_LOGO, "KnowledgeBlackBelt-logo-100x36.png"),
-                new PageResource(HomePage.class), FloatStyle.NONE, false)+"</div>";
+        footer += "<br><br><div align=\"center\">" + /*ComponentFactory.pictureAndLinkHtml(
+                
+        		//new PictureResource(PicturePath.EXAM_LOGO, "KnowledgeBlackBelt-logo-100x36.png"),
+                new PageResource(HomePage.class), FloatStyle.NONE, false)+*/"</div>";
       
         return footer;
     }
@@ -139,7 +124,7 @@ public final class MailTemplateService {
     	// We generate links that use Vaadin Navigator7. 
     	// But this could be called by the MailSender thread before Vaadin servlet did initialize Navigator7.
     	// We launch manually that initialization here (there are checks in the init method to prevent double init). 
-    	WebApplication.init(BlackBeltWebApplication.class);
+    	//WebApplication.init(BlackBeltWebApplication.class);
     	
     	
         // Params check
@@ -223,10 +208,9 @@ public final class MailTemplateService {
             }
             return subjectOfGroupedMails;
         }
-
     }
     
-    private String userNameWithAbsoluteLink(User user){
+    /*private String userNameWithAbsoluteLink(User user){
     	return UrlUtil.getAbsoluteUrl((new EntityPageResource(UserPage.class, user)));
-    }
+    }*/
 }
