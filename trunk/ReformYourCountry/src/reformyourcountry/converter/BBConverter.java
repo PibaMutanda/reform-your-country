@@ -230,6 +230,8 @@ public class BBConverter {
 					String addTxt = getInnerTextContent(child);
 					html+= addTxt;
 					break;
+				case "bib":
+					break;
 				default:
 					addErrorMessage("You cannot put this sort of tag in a [quote] tag", child);
 				}
