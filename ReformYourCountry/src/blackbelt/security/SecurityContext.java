@@ -1,6 +1,5 @@
 package blackbelt.security;
 import java.util.EnumSet;
-import java.util.HashSet;
 import java.util.Set;
 
 import reformyourcountry.dao.UserDao;
@@ -247,7 +246,7 @@ public abstract class SecurityContext {
 //    }
 
   public static User getUser() throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
-    //  User userOb = new User();
+   
        UserDao userdao=new UserDao();
        if (getUserId() == null) {  // Not logged in.
            return null;
@@ -316,23 +315,19 @@ public abstract class SecurityContext {
         if (userId.get() == null) { // Then try to get it from the HttpSession.
             //Long id = ((LoginService) ContextUtil.getSpringBean("loginService")).getLoggedInUserIdFromSession();  // This is not beauty, but life is sometimes ugly. -- no better idea (except making SecurityContext a bean managed by Spring... but for not much benefit...) -- John 2009-07-02
             LoginService loginService=new LoginService();
-            String identifier="myIdentification";
-            String clearPassword="myPassword";
-            User user=loginService.login(identifier, clearPassword, true);
+            User userP=null,userJ=null;
+            String identifierP="Piba";
+            String identifierJ="Jerome";
+            
+            Set<User> listeUser= loginService.userListeLogged();
         
-            user.setLastName("Piba");
-            user.setId(2l);
-            user.setMail("pibamail@toto.net");
-            user.setPassword("mypassworld");
-               
-            Set<Privilege>privillege= new HashSet<>();
-                          privillege.add(Privilege.CREATE_QUESTIONS);
-                          privillege.add(Privilege.EDIT_QUESTIONS);
-                          privillege.add(Privilege.MANAGE_USERS);
-            user.setPrivileges(privillege);    
-            
-            
-                 
+            for(User user: listeUser){
+               if(identifierP.equals(user.getLastName()))
+                   userP=loginService.login(identifierP, "myPasse", false);
+               if(identifierJ.equals(user.getLastName()))
+                   userJ=loginService.login(identifierJ, "yourPasse", false);
+            }
+            userId.set(userP.getId());
             //if (id != null) {  // A user is effectively logged in.
              //   userId.set(id);  // remember it in the SecurityContext.
             //}
@@ -375,6 +370,7 @@ public abstract class SecurityContext {
 //               
 //    }
 
+    
 //  public static boolean isUserHasRole(CommunityRole role) {
 //      User user = getUser();
 //      if(user == null || user.getCommunityRole() == null){
