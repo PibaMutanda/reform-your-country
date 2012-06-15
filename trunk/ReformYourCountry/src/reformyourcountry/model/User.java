@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.EnumSet;
 import java.util.Set;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import reformyourcountry.mail.MailingDelayType;
 import sun.font.LayoutPathImpl.EndType;
