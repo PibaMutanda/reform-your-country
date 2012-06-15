@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 
+import reformyourcountry.mail.MailingDelayType;
 import sun.font.LayoutPathImpl.EndType;
 
 import blackbelt.security.Privilege;
@@ -248,6 +249,16 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 //	@JoinColumn(name = "primaryGroupRegId")
 //	private GroupReg primaryGroupReg;
 //	@Enumerated(EnumType.STRING)
+	
+	private MailingDelayType mailingDelay; 
+	public MailingDelayType getMailingDelay() {
+		return this.mailingDelay;
+	}
+
+	public void setMailDelayType(MailingDelayType mailingDelay) {
+		this.mailingDelay = mailingDelay;
+	}
+
 	private CommunityRole communityRole = CommunityRole.USER;
 
 	
