@@ -14,20 +14,37 @@ public class Article {
 	
 
 	public Article(String title, String content, List<Action> actions) {
-		super();
+		
 		this.title = title;
 		this.content = content;
 		this.actions = actions;
 	}
-	
-	
+		
+	public String getTitle() {
+		return title;
+	}
+
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+
+	public String getContent() {
+		return content;
+	}
+
+
+	public void setContent(String content) {
+		this.content = content;
+	}
 
 
 	public List<Action> getActions() {
 		return actions;
 	}
-	
-	
+
+
 	@Override
 	public String toString() {
 		return title;
