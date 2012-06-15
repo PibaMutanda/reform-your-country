@@ -23,7 +23,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/javax.servlet.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/Parser.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/pd4ml.lib.trial.380fx4/lib/ss_css2.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/pd4ml.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-context-support-3.2.0.M1.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/mailapi.jar"/>
@@ -32,10 +31,5 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/imap.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-beans-3.2.0.M1.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-core-3.2.0.M1.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/vaadin-6.8.0.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/ReformYourCountry/WebContent/WEB-INF/lib/vaadin-6.8.0-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
