@@ -11,13 +11,13 @@ package blackbelt.ui;
 //import org.vaadin.navigator7.uri.ParamPageResource;
 
 import reformyourcountry.dao.UserDao;
+import reformyourcountry.exceptions.InvalidPasswordException;
+import reformyourcountry.exceptions.UserNotFoundException;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountStatus;
 import reformyourcountry.service.LoginService;
 import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
-import blackbelt.exceptions.InvalidPasswordException;
 //import be.loop.jbb.bl.exceptions.UserLockedException;
-import blackbelt.exceptions.UserNotFoundException;
 //import be.loop.jbb.bl.exceptions.UserNotValidatedException;
 //import be.loop.jbb.util.DateUtil;
 //import blackbelt.ui.common.ComponentFactory;

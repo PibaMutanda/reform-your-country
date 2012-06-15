@@ -12,12 +12,12 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.time.DateUtils;
 
 import reformyourcountry.dao.UserDao;
+import reformyourcountry.exceptions.InvalidPasswordException;
+import reformyourcountry.exceptions.UserNotFoundException;
+import reformyourcountry.exceptions.UserNotValidatedException;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountStatus;
-import blackbelt.exceptions.InvalidPasswordException;
 import blackbelt.exceptions.UserLockedException;
-import blackbelt.exceptions.UserNotFoundException;
-import blackbelt.exceptions.UserNotValidatedException;
 import blackbelt.util.SecurityUtils;
 import blackbelt.web.ContextUtil;
 import blackbelt.web.Cookies;
