@@ -2,8 +2,10 @@
 package reformyourcountry.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
@@ -20,6 +22,28 @@ import blackbelt.security.Privilege;
 //@DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
 public class User /*extends Identifiable*/ implements Cloneable, Comparable<User>,
 		Serializable {
+	
+	//partie faite par Jamal et Delphine and co ... (pas touche) 
+	
+		private List <Group_Reg> group_regs = new ArrayList <Group_Reg>(); //date of registration of user in a group
+		private List <VoteAction> voteActions = new ArrayList <VoteAction>();
+		private List <VoteArguments> voteArguments = new ArrayList <VoteArguments>();
+		
+		public List<Group_Reg> getGroup_regs() {
+			return group_regs;
+		}
+
+		public List<VoteAction> getVoteActions() {
+			return voteActions;
+		}
+
+		public List<VoteArguments> getVoteArguments() {
+			return voteArguments;
+		}
+		
+		//fin de notre partie  ;)
+	
+	
 	private static long generated_id ; 
 
 	private static final long serialVersionUID = 4144665927166518905L;
@@ -32,6 +56,8 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	public static final float DEFAULT_INFLUENCE = 1f;
 	public static final float MAX_POSSIBLE_INFLUENCE = 10f; // For users (like John) having special privilege to edit influences. 
 
+	
+	
 	/**
 	 * Status for an account :<br />
 	 * LOCKED: Account manually locked by an admin, normally a lock reason
@@ -163,6 +189,9 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	private String firstName;
 
 	private String lastName;
+	
+	
+	
 
 	// @Column(unique = true)
 	// @Index(name = "username_idx")
