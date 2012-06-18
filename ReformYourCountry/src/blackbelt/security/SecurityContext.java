@@ -2,6 +2,8 @@ package blackbelt.security;
 import java.util.EnumSet;
 import java.util.Set;
 
+import blackbelt.web.ContextUtil;
+
 import reformyourcountry.dao.UserDao;
 import reformyourcountry.exceptions.InvalidPasswordException;
 import reformyourcountry.exceptions.UserLockedException;
@@ -311,23 +313,14 @@ public abstract class SecurityContext {
      * @throws UserNotValidatedException 
      * @throws InvalidPasswordException 
      * @throws UserNotFoundException */
+    
     public static Long getUserId() throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
         if (userId.get() == null) { // Then try to get it from the HttpSession.
-            //Long id = ((LoginService) ContextUtil.getSpringBean("loginService")).getLoggedInUserIdFromSession();  // This is not beauty, but life is sometimes ugly. -- no better idea (except making SecurityContext a bean managed by Spring... but for not much benefit...) -- John 2009-07-02
-            LoginService loginService=new LoginService();
-            User userP=null,userJ=null;
-            String identifierP="Piba";
-            String identifierJ="Jerome";
+            Long id = ((LoginService) ContextUtil.getSpringBean("loginService")).getLoggedInUserIdFromSession(); 
+            // This is not beauty, but life is sometimes ugly. -- no better idea (except making SecurityContext a bean managed by Spring... but for not much benefit...) -- John 2009-07-02
+           
             
-            Set<User> listeUser= loginService.userListeLogged();
-        
-            for(User user: listeUser){
-               if(identifierP.equals(user.getLastName()))
-                   userP=loginService.login(identifierP, "myPasse", false);
-               if(identifierJ.equals(user.getLastName()))
-                   userJ=loginService.login(identifierJ, "yourPasse", false);
-            }
-            userId.set(userP.getId());
+            
             //if (id != null) {  // A user is effectively logged in.
              //   userId.set(id);  // remember it in the SecurityContext.
             //}
