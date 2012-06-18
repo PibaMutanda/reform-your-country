@@ -16,7 +16,7 @@ public class VoteAction {
 	}
 		
 	public VoteAction(int value, Action action, User user, Group group) {
-		super();
+		//super();
 		this.value = value;
 		this.action = action;
 		this.user = user;
@@ -54,11 +54,17 @@ public class VoteAction {
 
 	// TODO: toString (! user could be null)
 	
-	public String toString()
+	public String toString(String name)
 	{
+		if(user == null && group == null){
+			throw new IllegalArgumentException("Bug: You are not a member. Please login or register to vote this action .");			
+		}
+		else if (){
+			
+		}
 		
 		
-		return " ";
+		return Integer.toString(value) ;
 	}
 	
 	
