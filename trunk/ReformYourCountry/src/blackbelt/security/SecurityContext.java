@@ -33,6 +33,17 @@ public abstract class SecurityContext {
     // example: edit_is_own_profile; view_influence;...
     private static ThreadLocal<Set<String>> contextualCustomPrivileges = new ThreadLocal<Set<String>>();
 
+    //thread local created for test
+    private static ThreadLocal<Set<Privilege>> threadPrivilege = new ThreadLocal<Set<Privilege>>();
+    
+    //getter and setter for this thread
+    public static ThreadLocal<Set<Privilege>> getThreadPrivilege() {
+		return threadPrivilege;
+	}
+
+	public static void setThreadPrivilege(Set<Privilege> listprivilege) {
+		SecurityContext.threadPrivilege.set(listprivilege);
+	}
 
     /**
      * Removes the security context associated to the request
@@ -249,15 +260,16 @@ public abstract class SecurityContext {
 
   public static User getUser() throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
    
-       UserDao userdao=new UserDao();
+       /*UserDao userdao=new UserDao();
        if (getUserId() == null) {  // Not logged in.
            return null;
-           
+        
         }
        if (user.get() == null) {  // User not loaded yet.
          // User user = ((UserDao) ContextUtil.getSpringBean("userDao")).get(getUserId());  // This is not beauty, but life is sometimes ugly. -- no better idea (except making SecurityContext a bean managed by Spring... but for not much benefit...) -- John 2009-07-02
            
             User user=userdao.get(getUserId());
+
                
           //  TODO: UGLY PATCH - KILL THIS WHEN CorpUsers don't exist no more. ***********  John 2009-08-05
             //  do this, because suddenly, downcasting (CommunityUser) user in SecurityContext.getAllAssociatedPrivileges throws Caused by: java.lang.ClassCastException: be.loop.jbb.bo.User$$EnhancerByCGLIB$$301a82b1 cannot be cast to be.loop.jbb.bo.CommunityUser
@@ -271,7 +283,7 @@ public abstract class SecurityContext {
             
             
          setUser( user );  // Lazy loading if needed.
-        }
+        }*/
        
             
         return user.get();
@@ -313,38 +325,45 @@ public abstract class SecurityContext {
      * @throws UserNotValidatedException 
      * @throws InvalidPasswordException 
      * @throws UserNotFoundException */
+
     
     public static Long getUserId() throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
-        if (userId.get() == null) { // Then try to get it from the HttpSession.
-            Long id = ((LoginService) ContextUtil.getSpringBean("loginService")).getLoggedInUserIdFromSession(); 
+
+       /* if (userId.get() == null) { // Then try to get it from the HttpSession.
+
+            //Long id = ((LoginService) ContextUtil.getSpringBean("loginService")).getLoggedInUserIdFromSession();  
             // This is not beauty, but life is sometimes ugly. -- no better idea (except making SecurityContext a bean managed by Spring... but for not much benefit...) -- John 2009-07-02
-           
-            
-            
+                         
+ 
             //if (id != null) {  // A user is effectively logged in.
              //   userId.set(id);  // remember it in the SecurityContext.
             //}
-        }
+        }*/
         return userId.get();
     }
  
-//    public static void setUserId(Long id) {
-        //Security constraint
-//        if (userId.get() != null || user.get() != null) {
-//            throw new IllegalStateException(
-//                    "Could not set a new userId on the security context once a userId or user" +
-//            " has already been set");
-//        }
-//        userId.set(id);
-//    }
+    public static void setUserId(Long id) {
+        
+       	//Security constraint
+      /*  if (userId.get() != null || user.get() != null) {
+            throw new IllegalStateException(
+                    "Could not set a new userId on the security context once a userId or user" +
+            " has already been set");
+        }*/
+        userId.set(id);
+    }
 
 //    @Deprecated  // John 2011/04 - TODO: Remove with Struts.
-//    public static EnumSet<Privilege> getContextualPrivileges() {
-//        if (contextualPrivileges.get() == null) {  // not yet created.
-//            contextualPrivileges.set( EnumSet.noneOf(Privilege.class) );
-//        }
-//        return contextualPrivileges.get();
-//    }
+    public static EnumSet<Privilege> getContextualPrivileges() {
+        if (contextualPrivileges.get() == null) {  // not yet created.
+            contextualPrivileges.set( EnumSet.noneOf(Privilege.class) );
+       }
+        return contextualPrivileges.get();
+    }
+    public static void setContextualPrivileges(EnumSet<Privilege> listPrivilege)
+    {
+    	contextualPrivileges.set(listPrivilege);
+    }
 //
 //    @Deprecated  // John 2011/04 - TODO: Remove with Struts.
 //    public static Set<String> getContextualCustomPrivileges() {
@@ -353,6 +372,8 @@ public abstract class SecurityContext {
 //        }
 //        return contextualCustomPrivileges.get();
 //    }
+
+	
 
 //    public static boolean canCurrentUserViewPrivateData(User user2) {
 //        return canCurrentUserChangeUser(user2) || SecurityContext.isUserHasPrivilege(Privilege.VIEW_PRIVATE_DATA_OF_USERS); 
