@@ -32,8 +32,8 @@ import reformyourcountry.model.User;
  */
 //@Service
 public class MailSender extends Thread {
-
-   private Logger logger = Logger.getLogger("jbbmail");
+	
+    private Logger logger = Logger.getLogger("jbbmail");
 
     public final static int DELAY_BETWEEN_EACH_MAIL = 50;  // in ms. In case the SMTP server is too slow (cannot accept too many mails too fast). Use this const to temporize between 2 SMTP calls. 
     public final static int WAKE_UP_DELAY_WHEN_NO_MAIL = 15 * 1000;  // ms. When there is no mail anymore, how long should this batch sleep before querying the DB again for mails to be sent ?
@@ -87,6 +87,7 @@ public class MailSender extends Thread {
 
     @PostConstruct
     public void postConstruct() {
+    	BasicConfigurator.configure();
         javaMailSender = new JavaMailSenderImpl();  // Class of Spring.
         javaMailSender.setProtocol("smtps");
         javaMailSender.setHost(smtpHost);
