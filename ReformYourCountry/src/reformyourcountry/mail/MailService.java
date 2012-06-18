@@ -27,6 +27,18 @@ public class MailService {
     // @Autowired	
     private MailSender mailSender;
 
+    
+    
+    public void setMailDao(MailDaoMock dao){
+    	mailDao = dao;
+    	
+    }
+    
+    public void setMailSender(MailSender sender){
+    	
+    	mailSender = sender;
+    	
+    }
  
     /**
      * Send a mail to a blackbelt user or to none blackbelt user
