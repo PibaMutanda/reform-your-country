@@ -55,7 +55,8 @@ public class VoteAction {
 
 	// TODO: toString (! user could be null)
 	
-	public String toString(String name) throws Exception 
+	@Override
+	public String toString() 
 	{
 		if(user == null && group == null){
 			throw new NullPointerException("Bug: You are not a member. Please login or register to vote this action .");	

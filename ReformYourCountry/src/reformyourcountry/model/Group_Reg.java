@@ -60,6 +60,7 @@ public class Group_Reg {
 		this.date = date;
 	}
 	
+	@Override
 	public String toString(){
 		SimpleDateFormat dateformatYYYYMMDD = new SimpleDateFormat("yyyy/MM/dd");
 		String nowYYYYMMDD = new String( dateformatYYYYMMDD.format( date) );

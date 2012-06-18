@@ -51,6 +51,7 @@ public class VoteArguments {
 		this.group = group;
 	}
 
+	@Override
 	public String toString () {
 		
 		if(user == null ){

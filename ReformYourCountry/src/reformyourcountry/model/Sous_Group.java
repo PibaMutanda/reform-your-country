@@ -22,6 +22,7 @@ public class Sous_Group {
 		this.name = name;
 	}
 	
+	@Override
 	public String toString (){
 		return name;
 	}

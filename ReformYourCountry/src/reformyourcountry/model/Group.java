@@ -45,6 +45,7 @@ public class Group {
 		return sous_group;
 	}
 
+	@Override
 	public String toString(){
 		return name;
 	}
