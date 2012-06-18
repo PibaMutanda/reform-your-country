@@ -1,5 +1,6 @@
 package reformyourcountry.security;
 
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
@@ -7,6 +8,7 @@ import java.util.Set;
 
 
 import blackbelt.security.Privilege;
+import blackbelt.security.SecurityContext;
 
 import reformyourcountry.exceptions.InvalidPasswordException;
 import reformyourcountry.exceptions.UserLockedException;
@@ -58,15 +60,27 @@ public class MainSecurity {
                             }
                             else{
                                 flag=true;
-                                
+                                                      
                                 userIdentify.setLastName(user.getLastName());
                                 userIdentify.setPassword(user.getPassword());
                                 userIdentify.setPrivileges(user.getPrivileges());
+                                SecurityContext.setUser(userIdentify);
+                                SecurityContext.setThreadPrivilege(userIdentify.getPrivileges());
                             }
                         }
                     } while (!flag && NUMBEROFtRYPASS !=0);
                     System.out.println("Name: "+userIdentify.getLastName()+"\n"+"Password: "+userIdentify.getPassword()+"\n"+"Privilege(s): "+userIdentify.getPrivileges());
-                   /* try {
+                    try {
+						System.out.println( SecurityContext.getUser().toString());
+						System.out.println( SecurityContext.getThreadPrivilege().get());
+					} catch (UserNotFoundException | InvalidPasswordException
+							| UserNotValidatedException | UserLockedException
+							| WaitDelayNotReachedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+                   
+                    /* try {
                         userIdentify=loginService.login(identifier, password, false);
                         System.out.println(userIdentify);
                     } catch (UserNotFoundException | InvalidPasswordException
