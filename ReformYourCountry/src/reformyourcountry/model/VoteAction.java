@@ -11,6 +11,18 @@ public class VoteAction {
 	private Group group; // or user. Can be null if the vote is made by a user.
 	
 	
+	public VoteAction() {
+		
+	}
+		
+	public VoteAction(int value, Action action, User user, Group group) {
+		super();
+		this.value = value;
+		this.action = action;
+		this.user = user;
+		this.group = group;
+	}
+
 	public int getValue() {
 		return value;
 	}
@@ -41,6 +53,14 @@ public class VoteAction {
 
 
 	// TODO: toString (! user could be null)
+	
+	public String toString()
+	{
+		
+		
+		return " ";
+	}
+	
 	
 	
 }
