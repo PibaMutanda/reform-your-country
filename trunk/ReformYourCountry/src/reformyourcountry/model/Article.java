@@ -14,7 +14,7 @@ public class Article {
 	
 
 	public Article(String title, String content, List<Action> actions) {
-		
+		super();
 		this.title = title;
 		this.content = content;
 		this.actions = actions;
