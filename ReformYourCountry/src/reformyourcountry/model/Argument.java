@@ -5,8 +5,9 @@ import java.util.List;
 
 public class Argument {
 	
-	String content;
-	private List<Action> actions = new ArrayList<Action>();
+	private String content;
+	private Action action;
+	//private List<Action> actions = new ArrayList<Action>();
 	
 	public Argument (){
 		
@@ -25,11 +26,14 @@ public class Argument {
 		this.content = contentArgument;
 	}
 
-	public List<Action> getActions() {
-		return actions;
+	public Action getAction() {
+		return action;
+	}
+	
+	public void setAction(Action action) {
+		this.action = action;
 	}
 
-	
 	public String toString() {
 		return content;
 	}

@@ -3,7 +3,7 @@ package reformyourcountry.model;
 
 public class Comment {
 	
-	private String contentComment;
+	private String content;
 	private Action action;
 		
 	public Comment() {
@@ -11,15 +11,15 @@ public class Comment {
 	
 	public Comment(String descript)
 	{
-		this.contentComment = descript;		
+		this.content = descript;		
 	}
 
 	public String getContentComment() {
-		return contentComment;
+		return content;
 	}
 
 	public void setContentComment(String contentComment) {
-		this.contentComment = contentComment;
+		this.content = contentComment;
 	}
 
 	public Action getAction() {
@@ -32,7 +32,7 @@ public class Comment {
 	
 	@Override
 	public String toString() {
-		return contentComment;
+		return content;
 	}
 	
 	
