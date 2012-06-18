@@ -1,6 +1,7 @@
 package reformyourcountry.model;
 
-import java.util.*;
+//import java.util.*;
+import java.lang.Exception;
 
 
 public class VoteAction {
@@ -54,18 +55,20 @@ public class VoteAction {
 
 	// TODO: toString (! user could be null)
 	
-	public String toString(String name)
+	public String toString(String name) throws Exception 
 	{
 		if(user == null && group == null){
-			throw new IllegalArgumentException("Bug: You are not a member. Please login or register to vote this action .");			
+			throw new NullPointerException("Bug: You are not a member. Please login or register to vote this action .");	
+			//return null;
 		}
-		else if (){
-			
-		}
-		
-		
 		return Integer.toString(value) ;
+			
 	}
+		
+		
+		
+		
+	
 	
 	
 	

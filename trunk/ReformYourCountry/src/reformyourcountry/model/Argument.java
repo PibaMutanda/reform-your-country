@@ -7,32 +7,47 @@ public class Argument {
 	
 	private String content;
 	private Action action;
-	//private List<Action> actions = new ArrayList<Action>();
+	private List<VoteArguments> voteArguments = new ArrayList<VoteArguments>();
 	
 	public Argument (){
 		
 	}
 	
-	public Argument(String descript)
-	{
-		this.content = descript;		
+	
+	public Argument(String content, Action action, List<VoteArguments> voteArguments) {
+		
+		this.content = content;
+		this.action = action;
+		this.voteArguments = voteArguments;
 	}
 
-	public String getContentArgument() {
+
+	
+	
+	public String getContent() {
 		return content;
 	}
 
-	public void setContentArgument(String contentArgument) {
-		this.content = contentArgument;
+
+	public void setContent(String content) {
+		this.content = content;
 	}
+
 
 	public Action getAction() {
 		return action;
 	}
-	
+
+
 	public void setAction(Action action) {
 		this.action = action;
 	}
+
+
+	public List<VoteArguments> getVoteArguments() {
+		return voteArguments;
+	}
+
 
 	public String toString() {
 		return content;
