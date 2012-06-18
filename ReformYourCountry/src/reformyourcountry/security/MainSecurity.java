@@ -60,11 +60,13 @@ public class MainSecurity {
                             }
                             else{
                                 flag=true;
-                                                      
+                                                                
                                 userIdentify.setLastName(user.getLastName());
                                 userIdentify.setPassword(user.getPassword());
                                 userIdentify.setPrivileges(user.getPrivileges());
+                                userIdentify.setId(user.getId());
                                 SecurityContext.setUser(userIdentify);
+                                SecurityContext.setUserId(userIdentify.getId());
                                 SecurityContext.setThreadPrivilege(userIdentify.getPrivileges());
                             }
                         }
@@ -73,6 +75,7 @@ public class MainSecurity {
                     try {
 						System.out.println( SecurityContext.getUser().toString());
 						System.out.println( SecurityContext.getThreadPrivilege().get());
+						System.out.println( SecurityContext.getUserId().toString());
 					} catch (UserNotFoundException | InvalidPasswordException
 							| UserNotValidatedException | UserLockedException
 							| WaitDelayNotReachedException e1) {
