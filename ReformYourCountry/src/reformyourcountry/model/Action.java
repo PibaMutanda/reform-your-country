@@ -13,7 +13,7 @@ public class Action {
 	private List<Argument> arguments = new ArrayList <Argument>();
 	
 	
-	//constructeur
+	//constructeur sans arguments
 	public Action() {
 	}
 	
