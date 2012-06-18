@@ -3,7 +3,6 @@ package reformyourcountry.service;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -19,7 +18,6 @@ import reformyourcountry.exceptions.UserNotFoundException;
 import reformyourcountry.exceptions.UserNotValidatedException;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountStatus;
-import blackbelt.security.Privilege;
 import blackbelt.security.Privilege;
 import blackbelt.util.SecurityUtils;
 import blackbelt.web.ContextUtil;
@@ -261,6 +259,5 @@ public class LoginService {
         }
     }
 
-   
 
 }
