@@ -30,10 +30,11 @@ public class MainSecurity {
 	     Set<User>list=listUser();
 	     User userIdentify=new User();
 	     boolean flag=true;
-	     
+	     //user can only try a certain time to log in. If he writes the wrong password or lastname 3 times, he can't go to the application.
 	     if(list==null)
 	        System.out.println("there isn't privilege list");
 	     else{
+	    	 
 	         do {
 	             
 	             System.out.println("Give your Last name please!\n");
@@ -60,10 +61,13 @@ public class MainSecurity {
                             }
                             else{
                                 flag=true;
-                                                                
+                                 //we save the user, his privileges and id in the 3 threadlocal.                               
                                 userIdentify.setLastName(user.getLastName());
                                 userIdentify.setPassword(user.getPassword());
                                 userIdentify.setPrivileges(user.getPrivileges());
+                               
+                                //TODO : replace the id with an id which is generated when the user log in.
+                                //it's an id for test
                                 user.setId(12345L);
                                 userIdentify.setId(user.getId());
                                 SecurityContext.setUser(userIdentify);
@@ -84,6 +88,8 @@ public class MainSecurity {
 						e1.printStackTrace();
 					}
                    
+                    
+                   //TODO : uncomment when the recognition of id is implemented. 
                    /*  try {
                         userIdentify=loginService.login(identifier, password, false);
                         System.out.println(userIdentify);
