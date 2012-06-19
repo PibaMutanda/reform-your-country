@@ -290,14 +290,14 @@ public abstract class SecurityContext {
     }
     
     
-//    public static boolean loggedUserIs(User user){
-//      if(user == null){
-//          throw new RuntimeException("User cannot be null");
-//      }
-//      User loggedUser = getUser();
-//      if(loggedUser == null) return false;
-//      return loggedUser.equals(user);
-//    }
+    public static boolean loggedUserIs(User user) throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException{
+      if(user == null){
+          throw new RuntimeException("User cannot be null");
+     }  
+      User loggedUser = getUser();
+      if(loggedUser == null) return false;
+      return loggedUser.equals(user);
+   }
 
     public static void setUser(User userParam) {
         //Security constraint
@@ -311,9 +311,18 @@ public abstract class SecurityContext {
         user.set(userParam);
     } 
 
-//    public static boolean isUserLoggedIn() {
-//        return getUserId() != null;
-//    }
+    public static boolean isUserLoggedIn() {
+        try {
+			return getUserId() != null;
+		} catch (UserNotFoundException | InvalidPasswordException
+				| UserNotValidatedException | UserLockedException
+				| WaitDelayNotReachedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		
+    }
 
 //    public static boolean equalsLoggedUser(User user) {
 //        return isUserLoggedIn() && getUser().equals(user);
@@ -345,11 +354,11 @@ public abstract class SecurityContext {
     public static void setUserId(Long id) {
         
        	//Security constraint
-      /*  if (userId.get() != null || user.get() != null) {
+        if (userId.get() != null || user.get() != null) {
             throw new IllegalStateException(
                     "Could not set a new userId on the security context once a userId or user" +
             " has already been set");
-        }*/
+        }
         userId.set(id);
     }
 
