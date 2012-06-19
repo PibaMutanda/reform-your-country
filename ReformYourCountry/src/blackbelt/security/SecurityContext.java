@@ -311,6 +311,7 @@ public abstract class SecurityContext {
         user.set(userParam);
     } 
 
+    //method to know if the user is logged or not
     public static boolean isUserLoggedIn() {
         try {
 			return getUserId() != null;
@@ -335,7 +336,8 @@ public abstract class SecurityContext {
      * @throws InvalidPasswordException 
      * @throws UserNotFoundException */
 
-    
+    //get the value of the threadlocal userId 
+    //TODO : uncomment part of code when spring is implemented in the project
     public static Long getUserId() throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
 
        /* if (userId.get() == null) { // Then try to get it from the HttpSession.
@@ -351,6 +353,9 @@ public abstract class SecurityContext {
         return userId.get();
     }
  
+    //change the value of the threadlocal userId 
+    // TODO : uncomment when the last version is done.
+    
     public static void setUserId(Long id) {
         
        	//Security constraint
