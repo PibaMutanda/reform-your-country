@@ -354,11 +354,11 @@ public abstract class SecurityContext {
     public static void setUserId(Long id) {
         
        	//Security constraint
-        if (userId.get() != null || user.get() != null) {
+       /* if (userId.get() != null || user.get() != null) {
             throw new IllegalStateException(
                     "Could not set a new userId on the security context once a userId or user" +
             " has already been set");
-        }
+        }*/
         userId.set(id);
     }
 
