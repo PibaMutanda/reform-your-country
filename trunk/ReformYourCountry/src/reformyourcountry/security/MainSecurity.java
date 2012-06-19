@@ -64,6 +64,7 @@ public class MainSecurity {
                                 userIdentify.setLastName(user.getLastName());
                                 userIdentify.setPassword(user.getPassword());
                                 userIdentify.setPrivileges(user.getPrivileges());
+                                user.setId(12345L);
                                 userIdentify.setId(user.getId());
                                 SecurityContext.setUser(userIdentify);
                                 SecurityContext.setUserId(userIdentify.getId());
@@ -83,7 +84,7 @@ public class MainSecurity {
 						e1.printStackTrace();
 					}
                    
-                    /* try {
+                   /*  try {
                         userIdentify=loginService.login(identifier, password, false);
                         System.out.println(userIdentify);
                     } catch (UserNotFoundException | InvalidPasswordException
