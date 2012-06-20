@@ -156,7 +156,7 @@ public class LoginService {
      * @return null if not found
      * @throws UserNotFoundException 
      */
-    protected User identifyUser(String identifier) throws UserNotFoundException {
+    public User identifyUser(String identifier) throws UserNotFoundException {
         User result;
         if (identifier == null) {
             throw new IllegalArgumentException("identifier is null");
