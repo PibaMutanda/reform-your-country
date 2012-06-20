@@ -6,6 +6,7 @@ import blackbelt.web.ContextUtil;
 
 import reformyourcountry.dao.UserDao;
 import reformyourcountry.exceptions.InvalidPasswordException;
+import reformyourcountry.exceptions.UnauthorizedAccessException;
 import reformyourcountry.exceptions.UserLockedException;
 import reformyourcountry.exceptions.UserNotFoundException;
 import reformyourcountry.exceptions.UserNotValidatedException;
@@ -67,10 +68,15 @@ public abstract class SecurityContext {
 //    }
 
     /**
+     * @throws WaitDelayNotReachedException 
+     * @throws UserLockedException 
+     * @throws UserNotValidatedException 
+     * @throws InvalidPasswordException 
+     * @throws UserNotFoundException 
      * @throws AuthorizationException
      *             if the user is not loggedin
      */
-//    public static void assertUserIsLoggedIn() {
+//   public static void assertUserIsLoggedIn() throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
 //        if (getUser() == null) {
 //            throw new UnauthorizedAccessException();
 //        }
@@ -233,7 +239,7 @@ public abstract class SecurityContext {
             allUserPrivileges.addAll(user.getPrivileges());
            
             allUserPrivileges.addAll(getAssociatedPrivilege(user.getCommunityRole()));
-        /*   if (user.isCorpUser()) {
+/*            if (user.isCorpUser()) {
                 allUserPrivileges.addAll(getAssociatedPrivilege(((CommunityUser) user).getCommunityRole()));
             } else {
                 allUserPrivileges.addAll(getAssociatedPrivilege(((CorpUser) user).getLearnExamRole()));
@@ -260,15 +266,15 @@ public abstract class SecurityContext {
 
   public static User getUser() throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
    
-     
+       UserDao userdao=new UserDao();
        if (getUserId() == null) {  // Not logged in.
            return null;
         
         }
-      /* if (user.get() == null) { */ // User not loaded yet.
+       if (user.get() == null) {  // User not loaded yet.
          // User user = ((UserDao) ContextUtil.getSpringBean("userDao")).get(getUserId());  // This is not beauty, but life is sometimes ugly. -- no better idea (except making SecurityContext a bean managed by Spring... but for not much benefit...) -- John 2009-07-02
            
-           // User user=userdao.get(getUserId());
+            User user=userdao.get(getUserId());
 
                
           //  TODO: UGLY PATCH - KILL THIS WHEN CorpUsers don't exist no more. ***********  John 2009-08-05
@@ -282,8 +288,8 @@ public abstract class SecurityContext {
             //END OF UGLY PATCH **********************************************************
             
             
-        /* setUser( user );*/  // Lazy loading if needed.
-       // }
+         setUser( user );  // Lazy loading if needed.
+        }
        
             
         return user.get();
@@ -342,28 +348,27 @@ public abstract class SecurityContext {
 
        /* if (userId.get() == null) { // Then try to get it from the HttpSession.
 
-            Long id = ((LoginService) ContextUtil.getSpringBean("loginService")).getLoggedInUserIdFromSession();  
+            //Long id = ((LoginService) ContextUtil.getSpringBean("loginService")).getLoggedInUserIdFromSession();  
             // This is not beauty, but life is sometimes ugly. -- no better idea (except making SecurityContext a bean managed by Spring... but for not much benefit...) -- John 2009-07-02
                          
  
-            if (id != null) {  // A user is effectively logged in.
-                userId.set(id);  // remember it in the SecurityContext.
-            }
+            //if (id != null) {  // A user is effectively logged in.
+             //   userId.set(id);  // remember it in the SecurityContext.
+            //}
         }*/
         return userId.get();
     }
  
     //change the value of the threadlocal userId 
-    // TODO : uncomment when the last version is done.
-    
+        
     public static void setUserId(Long id) {
         
        	//Security constraint
-       /* if (userId.get() != null || user.get() != null) {
+        if (userId.get() != null || user.get() != null) {
             throw new IllegalStateException(
                     "Could not set a new userId on the security context once a userId or user" +
             " has already been set");
-        }*/
+        }
         userId.set(id);
     }
 
