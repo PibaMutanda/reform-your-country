@@ -65,10 +65,10 @@ public class MainSecurity {
                                 userIdentify.setLastName(user.getLastName());
                                 userIdentify.setPassword(user.getPassword());
                                 userIdentify.setPrivileges(user.getPrivileges());
-                               
+                                userIdentify.setId(user.getId());
                                 //TODO : replace the id with an id which is generated when the user log in.
                                 //it's an id for test
-                                user.setId(12345L);
+                              
                                 userIdentify.setId(user.getId());
                                 SecurityContext.setUser(userIdentify);
                                 SecurityContext.setUserId(userIdentify.getId());
@@ -76,9 +76,9 @@ public class MainSecurity {
                             }
                         }
                     } while (!flag && NUMBEROFtRYPASS !=0);
-                    System.out.println("Name: "+userIdentify.getLastName()+"\n"+"Password: "+userIdentify.getPassword()+"\n"+"Privilege(s): "+userIdentify.getPrivileges());
+                    System.out.println("ID: "+userIdentify.getId()+"\n"+"Name: "+userIdentify.getLastName()+"\n"+"Password: "+userIdentify.getPassword()+"\n"+"Privilege(s): "+userIdentify.getPrivileges());
                     try {
-						System.out.println( SecurityContext.getUser().toString());
+						System.out.println( SecurityContext.getUser());
 						System.out.println( SecurityContext.getThreadPrivilege().get());
 						System.out.println( SecurityContext.getUserId().toString());
 					} catch (UserNotFoundException | InvalidPasswordException
@@ -90,7 +90,7 @@ public class MainSecurity {
                    
                     
                    //TODO : uncomment when the recognition of id is implemented. 
-                   /*  try {
+                   /*  try {0
                         userIdentify=loginService.login(identifier, password, false);
                         System.out.println(userIdentify);
                     } catch (UserNotFoundException | InvalidPasswordException
@@ -126,6 +126,7 @@ public class MainSecurity {
 	    User userP=new User();
 	         userP.setLastName("Piba");
 	         userP.setPassword("passe");
+	         userP.setId(130l);
 	              privilegeP.add(Privilege.CREATE_QUESTIONS);
 	              privilegeP.add(Privilege.EDIT_COMMUNITY_USERS_PRIVILEGES);
 	              privilegeP.add(Privilege.EDIT_INFLUENCE_OF_USERS);
@@ -135,13 +136,16 @@ public class MainSecurity {
 	         list.add(userP);
 	         
 	         
-	  User userJ=new User();    
+	  User userJ=new User();   
+	       userJ.setId(163l);
 	       userJ.setLastName("Jerome");
 	       userJ.setPassword("jerome");
 	            privilegeJ.add(Privilege.EDIT_WIKIS);
 	            privilegeJ.add(Privilege.EDIT_REF_MANUAL);
 	            privilegeJ.add(Privilege.MANAGE_COACH_OFFERINGS);
 	       userJ.setPrivileges(privilegeJ);
+	       list.add(userJ);
+	       
 	       
 	    return  list;
 	}
