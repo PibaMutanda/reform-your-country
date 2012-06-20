@@ -329,9 +329,29 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	}
 
 	@Override
-	public String toString() {
-		return getFullName();
-	}
+    public String toString() {
+        return "User [group_regs=" + group_regs + ", voteActions="
+                + voteActions + ", voteArguments=" + voteArguments + ", id="
+                + id + ", firstName=" + firstName + ", lastName=" + lastName
+                + ", userName=" + userName + ", mail=" + mail + ", password="
+                + password + ", nameChangeLog=" + nameChangeLog + ", gender="
+                + gender + ", birthDate=" + birthDate + ", picture=" + picture
+                + ", pictureName=" + pictureName + ", lastMailSentDate="
+                + lastMailSentDate + ", guest=" + guest + ", privileges="
+                + privileges + ", lastAccess=" + lastAccess
+                + ", registrationDate=" + registrationDate + ", lastLoginIp="
+                + lastLoginIp + ", consecutiveFailedLogins="
+                + consecutiveFailedLogins + ", lastFailedLoginDate="
+                + lastFailedLoginDate + ", dev=" + dev + ", validationCode="
+                + validationCode + ", lockReason=" + lockReason
+                + ", accountStatus=" + accountStatus + ", nlSubscriber="
+                + nlSubscriber + ", spammer=" + spammer + ", spamReporter="
+                + spamReporter + ", influence=" + influence
+                + ", influenceAutoComputed=" + influenceAutoComputed
+                + ", influenceAssigner=" + influenceAssigner
+                + ", mailingDelay=" + mailingDelay + ", communityRole="
+                + communityRole + "]";
+    }
 
 	public void setId(Long id) {
 		this.id = id;
