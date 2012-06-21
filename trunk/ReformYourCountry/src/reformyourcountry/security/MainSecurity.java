@@ -10,6 +10,7 @@ import java.util.Set;
 
 import blackbelt.security.Privilege;
 import blackbelt.security.SecurityContext;
+import blackbelt.util.SecurityUtils;
 import blackbelt.web.ContextUtil;
 
 import reformyourcountry.dao.UserDao;
@@ -35,6 +36,7 @@ public class MainSecurity {
 		 
 	     String identifier=null;
 	     String password=null;
+	     String passwordmd5=null;
 	     Set<User>list=listUser();
 	     User userIdentify=new User();
 	     
@@ -51,10 +53,10 @@ public class MainSecurity {
 	             
 	             System.out.println("Give your Password please\n\n");
                  password=consoleForm();  
-                 
+                 passwordmd5=SecurityUtils.md5Encode(password);
 	              for (User user : list) {
                 
-	           	  if(identifier.equals(user.getUserName()) && password.equals(user.getPassword()))
+	           	  if(identifier.equals(user.getUserName()) && passwordmd5.equals(user.getPassword()))
                   {
 	           	      
 	           	     
@@ -65,7 +67,6 @@ public class MainSecurity {
                       userIdentify.setPrivileges(user.getPrivileges());  
                       userIdentify.setMail(user.getMail());
                       userIdentify.setId(user.getId());
-	           	     
                 	  break;
 	           	      
 	           	      
@@ -74,7 +75,7 @@ public class MainSecurity {
                   {
                 	 System.out.println("incorrect  username or   Password \n\n\n\n");
                 	  successfulLogin=false; 
-                	  loginService.assertNoInvalidDelay(user);
+                	 loginService.assertNoInvalidDelay(user);
                 	  
                   }
 	            	                    
@@ -92,7 +93,7 @@ public class MainSecurity {
                 
                 
                 try {
-                    System.out.println("security context by: user"+ SecurityContext.getUser().toString());
+                    System.out.println("security context by: user "+ SecurityContext.getUser().toString());
                     System.out.println("security context by: Privilege "+ SecurityContext.getThreadPrivilege().get());
                     System.out.println("security context by: Id "+ SecurityContext.getUserId().toString());
                     
@@ -141,7 +142,7 @@ public class MainSecurity {
 	    {
 	    	userP.setFirstName("Piba");
 	         userP.setLastName("Piba");
-	         userP.setPassword("passe");
+	         userP.setPassword(SecurityUtils.md5Encode("passe"));
 	         userP.setMail("piba@mail.com");
 	         userP.setGender(Gender.MALE);
 	         userP.setUserName("pibapiba");
@@ -174,7 +175,7 @@ public class MainSecurity {
 	    
 		       userJ.setFirstName("Jerome");  
 		       userJ.setLastName("Jerome");
-		       userJ.setPassword("Jerome");
+		       userJ.setPassword(SecurityUtils.md5Encode("jerome"));
 		       userJ.setMail("jerome@mail.com");
 		       userJ.setGender(Gender.MALE);
 		       userJ.setUserName("jeromejerome");
