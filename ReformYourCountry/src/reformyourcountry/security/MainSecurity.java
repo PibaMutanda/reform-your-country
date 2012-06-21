@@ -41,26 +41,26 @@ public class MainSecurity {
 	     boolean flag=true;
 	    
 	   
-	     //user can only try a certain time to log in. If he writes the wrong password or lastname 3 times, he can't go to the application.
+	     //user can only try a certain time to log in. If he writes the wrong password or username 3 times, he can't go to the application.
 	    if(list==null)
 	        System.out.println("there isn't privilege list");
 	     else{
 	    	 
 	         do {
 	             
-	             System.out.println("Give your Last name please!\n");
+	             System.out.println("Give your User name please!\n");
 	             identifier=consoleForm();
 	         	         
 	              for (User user : list) {
                 
-	           	  if(identifier.equals(user.getLastName()))
+	           	  if(identifier.equals(user.getUserName()))
                   {
                 	  flag=true;
                 	  break;
                   }
                   else
                   {
-                	  System.out.println("Your last name isn't correct\n\n "+--NUMBEROFTRYID+"  you still attempt to log in\n\n");
+                	  System.out.println("Your user name isn't correct\n\n "+--NUMBEROFTRYID+"  you still attempt to log in\n\n");
                       flag=false; 
                   }
 	            	                    
@@ -81,7 +81,7 @@ public class MainSecurity {
                               
                         		 flag=true;
                                  //we save the current user, his privileges and id in 3 locals threads.                               
-                                                            						
+                                userIdentify.setUserName(user.getLastName());                          						
                                 userIdentify.setLastName(user.getLastName());
                                 userIdentify.setPassword(user.getPassword());
                                 userIdentify.setPrivileges(user.getPrivileges());  
