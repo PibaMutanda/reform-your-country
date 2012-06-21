@@ -114,10 +114,8 @@ public class MailService {
 
         if (mail.getUser()==null){
             mailDao.save(mail, null); 
-        	System.out.println("mailDao.save(mail, null)");
         }else{
             mailDao.save(mail, mail.getUser().getId());
-            System.out.println("mailDao.save(mail, mail.getUser().getId());");
         }
 
         // wake up the thread each time we send a mail to database because if there isn't any mail to send the thread goes to sleep for a certain time.
