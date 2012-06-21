@@ -1,14 +1,12 @@
 package reformyourcountry;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
-import blackbelt.paypal.PayPalProperties.PaypalEnvironment;
 
 /**
  * Spring Bean that wraps the current environment
  */
-@Component
+//@Component
 public class CurrentEnvironment {
 
 	@Value("${app.environment}") // comes from the jbbconfig.properties file. Value is modified by ant at build time
@@ -32,9 +30,9 @@ public class CurrentEnvironment {
 	public enum Environment {
 
 		// XXX(Domain Name, Mail Deamon Started,Social NW Connected, Paypal Env.)
-		DEV("127.0.0.1", MailBehavior.NOT_STARTED, true, PaypalEnvironment.DEV),
-		TEST("logicblackbelt.com", MailBehavior.NOT_STARTED, false, PaypalEnvironment.DEV),
-		PROD("knowledgeblackbelt.com", MailBehavior.SENT, true, PaypalEnvironment.LIVE);
+		DEV("127.0.0.1", MailBehavior.NOT_STARTED, true),
+		TEST("logicblackbelt.com", MailBehavior.NOT_STARTED, false),
+		PROD("knowledgeblackbelt.com", MailBehavior.SENT, true);
 
 		// String containing the domain name of the environment (useful to
 		// create absolute path to images, ...)
@@ -46,16 +44,14 @@ public class CurrentEnvironment {
 		// Flag that tells wether the social things must be posted
 		private boolean socialNetworkToBeConnected;
 
-		// Which Paypal environment should we use
-		private PaypalEnvironment paypalEnvironment;
+	
 
 		private Environment(String domainName, MailBehavior mailBehavior,
-				boolean socialNetworkToBeConnected,
-				PaypalEnvironment paypalEnvironment) {
+				boolean socialNetworkToBeConnected) {
 			this.domainName = domainName;
 			this.mailBehavior = mailBehavior;
 			this.socialNetworkToBeConnected = socialNetworkToBeConnected;
-			this.paypalEnvironment = paypalEnvironment;
+
 		}
 
 		public String getDomainName() {
@@ -68,10 +64,6 @@ public class CurrentEnvironment {
 
 		public boolean isSocialNetworkToBeConnected() {
 			return socialNetworkToBeConnected;
-		}
-
-		public PaypalEnvironment getPaypalEnvironment() {
-			return paypalEnvironment;
 		}
 
 	}
