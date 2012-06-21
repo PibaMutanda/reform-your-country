@@ -93,11 +93,11 @@ public class LoginService {
         if (keepLoggedIn) {
             Cookies.setLoginCookies(user);
         }
-
+    
         return user;
     }
 
-    private void assertNoInvalidDelay(User user) throws WaitDelayNotReachedException {
+    public void assertNoInvalidDelay(User user) throws WaitDelayNotReachedException {
         // Security delay
         if (user.getConsecutiveFailedLogins() > SUSPICIOUS_AMOUNT_OF_LOGIN_TRY) {  // Suspicious, let's introduce the delay
             // Wait 1 minute that doubles each time you fail. You failed 10 times, you wait 2^(10-SUSPICIOUS_AMOUNT_OF_LOGIN_TRY)=2^5=32 minutes before the next try.
