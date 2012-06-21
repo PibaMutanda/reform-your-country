@@ -405,6 +405,7 @@ public abstract class SecurityContext {
 
     
 //  public static boolean isUserHasRole(CommunityRole role) {
+    
 //      User user = getUser();
 //      if(user == null || user.getCommunityRole() == null){
 //          return false;
