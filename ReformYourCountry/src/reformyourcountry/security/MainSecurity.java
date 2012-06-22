@@ -23,24 +23,24 @@ import reformyourcountry.test.MainTestUser;
 
 public class MainSecurity {
 
-	public static Long userID;
-	public static void main(String[] args) throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
-	   
-		 
-	     String identifier=null;
-	     String password=null;
-	     UserService userService=new UserService();
-	     //LoginService loginService=new LoginService();    
-	     UserDao userdao = new UserDao();
+    public static Long userID;
+    public static void main(String[] args) throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
+       
          
-	    
+         String identifier=null;
+         String password=null;
+         UserService userService=new UserService();
+         //LoginService loginService=new LoginService();    
+         UserDao userdao = new UserDao();
+         
+        
          try {
-			userService.registerUser(false, "piba", "piba", Gender.MALE, "pibapiba", "passe", "piba@mail.com");
-		} catch (UserAlreadyExistsException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("The user is already registered.");
-		} 
+            userService.registerUser(false, "piba", "piba", Gender.MALE, "pibapiba", "passe", "piba@mail.com");
+        } catch (UserAlreadyExistsException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            System.out.println("The user is already registered.");
+        } 
          System.out.println("\nWe have to validate the user registration");
          MainTestUser.validateUser();
          
@@ -52,16 +52,16 @@ public class MainSecurity {
          password=consoleForm();
          
          if(MainTestUser.login(identifier,password,false).equals(null)) {
-        	 System.out.println("the log has failed");
+             System.out.println("the log has failed");
          }
          else {
-        	 System.out.println("Sucess for the log");
-        	 userdao.getUserByUserName(identifier).setId(145L);
-        	 SecurityContext.setUserId(userdao.getUserByUserName(identifier).getId());
-        	 
-        	 
-        	 System.out.println("Id"+SecurityContext.getUserId());
-        	
+             System.out.println("Sucess for the log");
+             userdao.getUserByUserName(identifier).setId(145L);
+             SecurityContext.setUserId(userdao.getUserByUserName(identifier).getId());
+             
+             
+             System.out.println("Id"+SecurityContext.getUserId());
+            
          }
         System.out.println("recupéraion du user sur base de l'id :"+userdao.get(SecurityContext.getUserId()));
         SecurityContext.setUser(userdao.get(SecurityContext.getUserId()));
@@ -79,13 +79,13 @@ public class MainSecurity {
         SecurityContext.setThreadPrivilege(userdao.get(SecurityContext.getUserId()).getPrivileges());
         
         System.out.println("List of privileges for the user :"+SecurityContext.getThreadPrivilege().get());
-	}
-	
-	
+    }
+    
+    
     public static String consoleForm(){
-	     return   scanKeyBoard.next();
-	}
-			
+         return   scanKeyBoard.next();
+    }
+            
     private static Scanner scanKeyBoard = new Scanner(System.in);
     
-}	
+}   
