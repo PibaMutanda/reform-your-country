@@ -16,7 +16,16 @@ import reformyourcountry.model.User;
  */
 //@Component
 public class MailService {
-	
+    
+    
+    // TODO: remove singleton when using Spring
+    private static MailService uniqueInstance = new MailService();
+    private MailService() {}
+    public static MailService getInstance() {
+        return uniqueInstance;
+    }
+    
+    
 	public final static String JBB_ADMIN_MAIL = "info@KnowledgeBlackBelt.com";  // TODO: take the value from a property file (provided by the specialized project, as enseignement2.be)
 	public final static String BUG_MAIL = "bug@KnowledgeBlackBelt.com";  // TODO: take the value from a property file (provided by the specialized project, as enseignement2.be)
 

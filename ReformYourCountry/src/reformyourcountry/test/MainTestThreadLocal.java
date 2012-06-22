@@ -13,7 +13,7 @@ import reformyourcountry.exceptions.UserLockedException;
 import reformyourcountry.exceptions.UserNotFoundException;
 import reformyourcountry.exceptions.UserNotValidatedException;
 import reformyourcountry.model.User;
-import reformyourcountry.model.User.CommunityRole;
+import reformyourcountry.model.User.Role;
 import reformyourcountry.model.User.CorporateRole;
 
 import reformyourcountry.service.LoginService;

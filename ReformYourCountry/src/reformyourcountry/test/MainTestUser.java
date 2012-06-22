@@ -18,10 +18,10 @@ import reformyourcountry.service.UserService;
 
 public class MainTestUser {
     private static Integer TRYAGECOUNT = 5;
-    private static UserService userService = new UserService();
-    private static LoginService loginService = new LoginService();
+    private static UserService userService = UserService.getInstance();
+    private static LoginService loginService = LoginService.getInstance();
     private static Scanner scanKeyBoard = new Scanner(System.in);
-    private static UserDao userDao = new UserDao();
+    private static UserDao userDao = UserDao.getInstance();
     private static EmailValidator emailValidator = new EmailValidator();
     /**
      * @param args

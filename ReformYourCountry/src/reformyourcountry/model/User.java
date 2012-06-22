@@ -100,54 +100,19 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 		FEMALE,MALE;
 	}
 	
-	public enum CorporateRole{
-        ADMIN("Administrator",5),
-        ANONYMOUS("Anonymous", 10000);
 
-     
-        
-     private CorporateRole(String name, int ordinal) {
-            
-                this.aname=name;
-                this.level=ordinal;
-            }
-            
-     public String getAname() {
-            return aname;
-        }
-        public void setAname(String aname) {
-            this.aname = aname;
-        }
-        public int getLevel() {
-            return level;
-        }
-        public void setLevel(int level) {
-            this.level = level;
-        }
-   
-  
-        public boolean isHigerOrEquivalent(CorporateRole corporateRole){
-            if(corporateRole == null)
-                return this==CorporateRole.ANONYMOUS;
-            return this.getLevel() <= corporateRole.getLevel();
-        }
-     String aname;
-     int level;
-    }
-	
-	
-	public enum CommunityRole {
+	public enum Role {
 	    NONE("non", -1), 
 	    ADMIN("Administrator", 10),
-	    COMMUNITY_MANAGER("Community Manager", 50), 
 	    MODERATOR("Moderator", 100), 
-	    USER("User", 1000), 
+	    USER("User", 1000),
 	    ANONYMOUS("Anonymous", 10000);
+
 
 	    private int level;
 	    String name;
 
-	    private CommunityRole(String aName, int level) {
+	    private Role(String aName, int level) {
 		this.level = level;
 		this.name = aName;
 	    }
@@ -170,9 +135,9 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	     */
 	    
 	
-	    public boolean isLowerOrEquivalent(CommunityRole level) {
+	    public boolean isLowerOrEquivalent(Role level) {
 		if (level == null)
-		    return this == CommunityRole.ANONYMOUS;
+		    return this == Role.ANONYMOUS;
 		return this.getLevel() >= level.getLevel();
 	    }
 
@@ -184,9 +149,9 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	     * to test against this <tt>CommunityRole</tt>.
 	     * @return true or false.
 	     */
-	    public boolean isHigerOrEquivalent(CommunityRole level) {
+	    public boolean isHigerOrEquivalent(Role level) {
 		if (level == null)
-		    return this == CommunityRole.ANONYMOUS;
+		    return this == Role.ANONYMOUS;
 		return this.getLevel() <= level.getLevel();
 	    }
 
@@ -300,24 +265,24 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 		this.mailingDelay = mailingDelay;
 	}
 
-	private CommunityRole communityRole = CommunityRole.USER;
+	private Role role = Role.USER;
 
 	
-	public CommunityRole getCommunityRole() {
-		return communityRole;
+	public Role getRole() {
+		return role;
 	}
 
-	public void setCommunityRole(CommunityRole communityRole) {
-		this.communityRole = communityRole;
+	public void setRole(Role roleParam) {
+		this.role = roleParam;
 	}
 
 	public boolean hasAdminPrivileges() {
-		return communityRole == CommunityRole.ADMIN;
+		return role == Role.ADMIN;
 	}
 
 	public boolean hasModeratorPrivileges() {
-		return communityRole == CommunityRole.ADMIN
-				|| communityRole == CommunityRole.MODERATOR;
+		return role == Role.ADMIN
+				|| role == Role.MODERATOR;
 	}
 
 	public String getFirstName() {
@@ -362,7 +327,7 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
                 + ", influenceAutoComputed=" + influenceAutoComputed
                 + ", influenceAssigner=" + influenceAssigner
                 + ", mailingDelay=" + mailingDelay + ", communityRole="
-                + communityRole + "]";
+                + role + "]";
     }
 
 	public void setId(Long id) {

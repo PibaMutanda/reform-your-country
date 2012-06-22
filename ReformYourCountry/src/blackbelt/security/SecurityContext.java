@@ -43,56 +43,20 @@ public abstract class SecurityContext {
       
     }
 
-    /**
-     * @throws WaitDelayNotReachedException 
-     * @throws UserLockedException 
-     * @throws UserNotValidatedException 
-     * @throws InvalidPasswordException 
-     * @throws UserNotFoundException 
-     * @throws AuthorizationException
-     *             if the user has not the privilege
-     */
     public static void assertUserHasPrivilege(Privilege privilege) throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
         if (!isUserHasPrivilege(privilege)) {
             throw new UnauthorizedAccessException(privilege);
         }
     }
 
-    /**
-     * @throws WaitDelayNotReachedException 
-     * @throws UserLockedException 
-     * @throws UserNotValidatedException 
-     * @throws InvalidPasswordException 
-     * @throws UserNotFoundException 
-     * @throws AuthorizationException
-     *             if the user is not loggedin
-     */
-//   public static void assertUserIsLoggedIn() throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
-//        if (getUser() == null) {
-//            throw new UnauthorizedAccessException();
-//        }
-//    }
+    public static void assertUserIsLoggedIn() throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
+        if (getUser() == null) {
+            throw new UnauthorizedAccessException();
+        }
+    }
 
-//    public static void assertUserBelongsTo(Company company) {
-//        assertUserIsLoggedIn();
 
-//        if (!getUser().isCorpUser()) {
-//            throw new UnauthorizedAccessException("Non-Corp user try to access Corp exam");
-//        }
-//        CorpUser corpUser = (CorpUser) getUser();
-//        if (!company.equals(corpUser.getCompany())) {
-//            throw new UnauthorizedAccessException("User from wrong company trying to access Corp exam from another company");
-//        }
-//    }
-
-    /**
-     * @return true if the user has the privilege
-     * @throws WaitDelayNotReachedException 
-     * @throws UserLockedException 
-     * @throws UserNotValidatedException 
-     * @throws InvalidPasswordException 
-     * @throws UserNotFoundException 
-     */
+    // Probably the most used method of this class (from outside).
     public static boolean isUserHasPrivilege(Privilege privilege) {
         return isUserHasAllPrivileges(EnumSet.of(privilege));
     }
@@ -106,21 +70,11 @@ public abstract class SecurityContext {
        return currentPrivileges.containsAll(privileges);
     }
     
-    public static boolean isUserHasPrivilege(User user, Privilege privilege) {
-        return getAllAssociatedPrivileges(user).contains(privilege);
-    }
-
-    
-
-
-    public static boolean isUserHasOneOfPrivileges(EnumSet<Privilege> privileges) {
-        return isUserHasOneOfPrivileges(privileges, null);
-    }
 
     /**
      * @return true if the user has one of the privileges
      */
-    public static boolean isUserHasOneOfPrivileges(EnumSet<Privilege> privileges, String customPrivilege) {
+    public static boolean isUserHasOneOfPrivileges(EnumSet<Privilege> privileges) {
         if (getUser() == null) {
             return false;
         }

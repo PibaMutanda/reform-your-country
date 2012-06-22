@@ -8,12 +8,12 @@ import org.apache.log4j.Logger;
 import reformyourcountry.dao.UserDao;
 import reformyourcountry.exceptions.UserAlreadyExistsException;
 import reformyourcountry.exceptions.UserAlreadyExistsException.identifierType;
+import reformyourcountry.mail.MailCategory;
+import reformyourcountry.mail.MailService;
+import reformyourcountry.mail.MailType;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountStatus;
 import reformyourcountry.model.User.Gender;
-import blackbelt.mail.MailCategory;
-import blackbelt.mail.MailService;
-import blackbelt.mail.MailType;
 import blackbelt.util.SecurityUtils;
 
 public class UserService {
