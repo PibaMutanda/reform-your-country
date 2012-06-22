@@ -27,24 +27,24 @@ import reformyourcountry.test.MainTestUser;
 
 public class MainSecurity {
 
-	public static Long userID;
-	public static void main(String[] args) throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
-	   
-		 
-	     String identifier=null;
-	     String password=null;
-	     UserService userService=new UserService();
-	     LoginService loginService=new LoginService();    
-	     UserDao userdao = new UserDao();
+    public static Long userID;
+    public static void main(String[] args) throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
+       
          
-	    
+         String identifier=null;
+         String password=null;
+         UserService userService=new UserService();
+         LoginService loginService=new LoginService();    
+         UserDao userdao = new UserDao();
+         
+        
          try {
-			userService.registerUser(false, "piba", "piba", Gender.MALE, "pibapiba", "passe", "piba@mail.com");
-		} catch (UserAlreadyExistsException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("The user is already registered.");
-		} 
+            userService.registerUser(false, "piba", "piba", Gender.MALE, "pibapiba", "passe", "piba@mail.com");
+        } catch (UserAlreadyExistsException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            System.out.println("The user is already registered.");
+        } 
          System.out.println("We have to validate the user registration");
          MainTestUser.validateUser();
          
@@ -56,15 +56,15 @@ public class MainSecurity {
          password=consoleForm();
          
          if(MainTestUser.login(identifier,password,false).equals(null)) {
-        	 System.out.println("the log has failed");
+             System.out.println("the log has failed");
          }
          else {
-        	 userdao.getUserByUserName(identifier).setId(145L);
-        	 SecurityContext.setUserId(userdao.getUserByUserName(identifier).getId());
-        	 
-        	 
-        	 System.out.println("Id"+SecurityContext.getUserId());
-        	
+             userdao.getUserByUserName(identifier).setId(145L);
+             SecurityContext.setUserId(userdao.getUserByUserName(identifier).getId());
+             
+             
+             System.out.println("Id"+SecurityContext.getUserId());
+            
          }
         System.out.println("recupéraion du user sur base de l'id :"+userdao.get(SecurityContext.getUserId()));
         SecurityContext.setUser(userdao.get(SecurityContext.getUserId()));
@@ -72,43 +72,43 @@ public class MainSecurity {
         
        
          
-	}
-	 /* if(list==null)
-	        System.out.println("there isn't privilege list");
-	     else{
-	    	 
-	         do {
-	             
-	             System.out.println("Give your User name please!\n\n");
-	             identifier=consoleForm();
-	             
-	             System.out.println("Give your Password please\n\n");
+    }
+     /* if(list==null)
+            System.out.println("there isn't privilege list");
+         else{
+             
+             do {
+                 
+                 System.out.println("Give your User name please!\n\n");
+                 identifier=consoleForm();
+                 
+                 System.out.println("Give your Password please\n\n");
                  password=consoleForm();  
                 
-	              for (User user : list) {
+                  for (User user : list) {
                 
-	           	  if(identifier.equals(user.getUserName()) && passwordmd5.equals(user.getPassword()))
+                  if(identifier.equals(user.getUserName()) && passwordmd5.equals(user.getPassword()))
                   {
-	           	      
-	           	     
-	           	      successfulLogin=true;
-	           	     
-                	  break;
-	           	      
-	           	      
+                      
+                     
+                      successfulLogin=true;
+                     
+                      break;
+                      
+                      
                   }
                   else
                   {
-                	 System.out.println("incorrect  username or   Password \n\n\n\n");
-                	  successfulLogin=false; 
-                	 loginService.assertNoInvalidDelay(user);
-                	  
+                     System.out.println("incorrect  username or   Password \n\n\n\n");
+                      successfulLogin=false; 
+                     loginService.assertNoInvalidDelay(user);
+                      
                   }
-	            	                    
+                                        
                 }      
                              
             } while (!successfulLogin );
-	         
+             
             if(successfulLogin){
                 System.out.println("Name: "+userIdentify.getLastName()+"\n"+"Password: "+userIdentify.getPassword()+"\n"+"Privilege(s): "+userIdentify.getPrivileges());
                 SecurityContext.setUser(userIdentify);
@@ -144,34 +144,34 @@ public class MainSecurity {
             }
             else
                 System.out.println("I am sorry, you can not connect");
-	    
-	     }
-	 
-	 }*/
-	
+        
+         }
+     
+     }*/
+    
     public static String consoleForm(){
-	     return   scanKeyBoard.next();
-	}
-	
-	
-	/*public static Set<User> listUser(){
-	    
-	    Set<User> list=new HashSet<User>();
-	    Set<Privilege>privilegeP=new HashSet<Privilege>();
-	    Set<Privilege>privilegeJ=new HashSet<Privilege>();
-	    UserService userService=new UserService();
-	    
-	    
-	  
-	    list.clear();
-	    list.add(userP);  
-	  
-	    list.add(userJ);
-	    
-	    return  list;
-	}*/
-	
-	
+         return   scanKeyBoard.next();
+    }
+    
+    
+    /*public static Set<User> listUser(){
+        
+        Set<User> list=new HashSet<User>();
+        Set<Privilege>privilegeP=new HashSet<Privilege>();
+        Set<Privilege>privilegeJ=new HashSet<Privilege>();
+        UserService userService=new UserService();
+        
+        
+      
+        list.clear();
+        list.add(userP);  
+      
+        list.add(userJ);
+        
+        return  list;
+    }*/
+    
+    
     private static Scanner scanKeyBoard = new Scanner(System.in);
     
-}	
+}   
