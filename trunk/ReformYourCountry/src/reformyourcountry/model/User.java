@@ -25,36 +25,36 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	
 	//partie faite par Jamal et Delphine and co ... (pas touche) 
 
-	private List <GroupReg> groupRegs = new ArrayList <GroupReg>(); //date of registration of user in a group
-	private List <VoteAction> voteActions = new ArrayList <VoteAction>();
-	//private List <VoteArgument> voteArguments = new ArrayList <VoteArgument>();
-	//private List <Comment> comments = new ArrayList <Comment>();
-	//private List <Argument> arguments = new ArrayList <Argument>();
+		private List <GroupReg> groupRegs = new ArrayList <GroupReg>(); //date of registration of user in a group
+		private List <VoteAction> voteActions = new ArrayList <VoteAction>();
+		//private List <VoteArgument> voteArguments = new ArrayList <VoteArgument>();
+		//private List <Comment> comments = new ArrayList <Comment>();
+		//private List <Argument> arguments = new ArrayList <Argument>();
 
-	/*public List<Comment> getComment() {
-		return comments;
-	}*/
+		/*public List<Comment> getComment() {
+			return comments;
+		}*/
+		
+		/*public List<Argument> getArguments() {
+			return arguments;
+		}*/
+
+
+
+		public List<GroupReg> getGroupRegs() {
+			return groupRegs;
+		}
+
+		public List<VoteAction> getVoteActions() {
+			return voteActions;
+		}
+
+		/*public List<VoteArgument> getVoteArguments() {
+			return voteArguments;
+		}*/
+
+		//fin de notre partie  ;)
 	
-	/*public List<Argument> getArguments() {
-		return arguments;
-	}*/
-
-
-
-	public List<GroupReg> getGroupRegs() {
-		return groupRegs;
-	}
-
-	public List<VoteAction> getVoteActions() {
-		return voteActions;
-	}
-
-	/*public List<VoteArgument> getVoteArguments() {
-		return voteArguments;
-	}*/
-
-	//fin de notre partie  ;)
-
 	
 	private static long generated_id ; 
 
