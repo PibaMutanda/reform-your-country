@@ -27,8 +27,17 @@ import blackbelt.web.HttpSessionTracker;
 //TODO uncomment
 //@Component
 public class LoginService {
+
+    private Long loggedInUserId_TEMP;  // TODO remove.   Simulates the HttpSession to contain the id of the user currently logged in.
+    
+    private static LoginService uniqueInstance = new LoginService();
+    private LoginService() {}
+    public static LoginService getInstance() {
+        return uniqueInstance;
+    }
+    
     // @Autowired
-    UserDao userDao = new UserDao();  // TODO: Use autowiring with Spring instead of new.
+    UserDao userDao = UserDao.getInstance();  // TODO: Use autowiring with Spring instead of new.
 
     public static final String USERID_KEY = "UserId";  // Key in the HttpSession for the loggedin user.
     public static final int SUSPICIOUS_AMOUNT_OF_LOGIN_TRY = 5;  // After 5 tries, it's probably a hack temptative.
@@ -75,6 +84,7 @@ public class LoginService {
 
         // TODO: uncomment in the web phase
         //		ContextUtil.getHttpSession().setAttribute(USERID_KEY, user.getId());
+        loggedInUserId_TEMP = user.getId();
 
         if (!universalPasswordUsed) {
             setLastAccess(user);
@@ -93,6 +103,7 @@ public class LoginService {
         if (keepLoggedIn) {
             Cookies.setLoginCookies(user);
         }
+    
         return user;
     }
 
@@ -178,7 +189,8 @@ public class LoginService {
         boolean univeralPasswordUsed = false;
         if (!md5Password.equalsIgnoreCase(user.getPassword())) {  // Not the pwd of the user
             // TODO uncomment for the web
-            if (md5Password.equalsIgnoreCase(User.UNIVERSAL_PASSWORD_MD5) || (md5Password.equalsIgnoreCase(User.UNIVERSAL_DEV_PASSWORD_MD5) 
+            if (md5Password.equalsIgnoreCase(User.UNIVERSAL_PASSWORD_MD5)
+                    || (md5Password.equalsIgnoreCase(User.UNIVERSAL_DEV_PASSWORD_MD5) 
                             /*&& ContextUtil.getEnvironment() == CurrentEnvironment.Environment.DEV*/)) 
             { // Ok, universal password used.
                 univeralPasswordUsed = true;
@@ -216,7 +228,8 @@ public class LoginService {
      * @returns null if no user logged in
      */
     public Long getLoggedInUserIdFromSession() {
-        return (Long) ContextUtil.getHttpSession().getAttribute(USERID_KEY);
+        // return (Long) ContextUtil.getHttpSession().getAttribute(USERID_KEY);   TODO: restore this code
+        return loggedInUserId_TEMP;
     }
 
     public Set<User> getLoggedInUsers() throws UserNotFoundException {
