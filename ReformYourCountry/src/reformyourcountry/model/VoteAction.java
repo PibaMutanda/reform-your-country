@@ -1,11 +1,10 @@
 package reformyourcountry.model;
 
-//import java.util.*;
-import java.lang.Exception;
 
 
 public class VoteAction {
 	
+	private Long id;
 	private  int value = 0;  // -2 = against; 0 = neutral; +2 = pro.
 	private Action action;
 	private User user;  // or group. Can be null if the vote is made by a group.
@@ -13,15 +12,25 @@ public class VoteAction {
 	
 	
 	public VoteAction() {
-		
 	}
 		
-	public VoteAction(int value, Action action, User user, Group group) {
-		//super();
+	public VoteAction(long id, int value, Action action, User user, Group group) {
+		
+		this.id = id;
 		this.value = value;
 		this.action = action;
 		this.user = user;
 		this.group = group;
+	}
+
+	
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public int getValue() {
@@ -53,16 +62,13 @@ public class VoteAction {
 	}
 
 
-	// TODO: toString (! user could be null)
-	
 	@Override
 	public String toString() 
 	{
 		if(user == null && group == null){
-			throw new NullPointerException("Bug: You are not a member. Please login or register to vote this action .");	
-			//return null;
+			throw new NullPointerException("Bug: an action should either have a user or a group. This action has none. id = "+ id);	
 		}
-		return Integer.toString(value) ;
+		return "VoteAction.value:" + value;
 			
 	}
 		
