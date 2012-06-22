@@ -15,6 +15,8 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import reformyourcountry.model.User;
+
 
 @Entity
 @Table(name = "mails")
