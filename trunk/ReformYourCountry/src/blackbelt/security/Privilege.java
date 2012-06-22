@@ -8,17 +8,17 @@ import reformyourcountry.model.User.Role;
 public enum Privilege {
 
     // Users management
-    VIEW_PRIVATE_DATA_OF_USERS("View user's private data", Role.COMMUNITY_MANAGER), // Private data includes e-mail and contributions points detail.
-    MANAGE_USERS("Manage users (create / edit / delete / rename)", Role.COMMUNITY_MANAGER), //ok
+    VIEW_PRIVATE_DATA_OF_USERS("View user's private data", Role.MODERATOR), // Private data includes e-mail and contributions points detail.
+    MANAGE_USERS("Manage users (create / edit / delete / rename)", Role.MODERATOR), //ok
 
  
 	// News related privileges
-	MANAGE_NEWS("Manage news", Role.COMMUNITY_MANAGER),
-	MANAGE_NEWSLETTERS("Manage newsletters", Role.COMMUNITY_MANAGER), 
-	SEND_NEWSLETTERS("Send newsletters", Role.COMMUNITY_MANAGER), 
+	MANAGE_NEWS("Manage news", Role.MODERATOR),
+	MANAGE_NEWSLETTERS("Manage newsletters", Role.MODERATOR), 
+	SEND_NEWSLETTERS("Send newsletters", Role.MODERATOR), 
 
 	//status privileges
-	VIEW_STATS("View stats", Role.COMMUNITY_MANAGER); 
+	VIEW_STATS("View stats", Role.MODERATOR); 
 
 
 	String name;

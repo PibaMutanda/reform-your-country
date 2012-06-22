@@ -5,9 +5,15 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import blackbelt.security.Privilege;
+import blackbelt.security.SecurityContext;
 
 import reformyourcountry.dao.UserDao;
 import reformyourcountry.exceptions.InvalidPasswordException;
@@ -15,6 +21,8 @@ import reformyourcountry.exceptions.UserAlreadyExistsException;
 import reformyourcountry.exceptions.UserLockedException;
 import reformyourcountry.exceptions.UserNotFoundException;
 import reformyourcountry.exceptions.UserNotValidatedException;
+import reformyourcountry.model.User;
+import reformyourcountry.model.User.AccountStatus;
 import reformyourcountry.model.User.Gender;
 import reformyourcountry.service.LoginService;
 import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
@@ -22,9 +30,9 @@ import reformyourcountry.service.UserService;
 
 public class JUnitTestRegisterAndLoginUser {
 
-    private static UserDao UserDao = new UserDao();
-    private static UserService userService = new UserService();
-    private static LoginService loginService = new LoginService();
+    private static UserDao userDao = UserDao.getInstance();
+    private static UserService userService = UserService.getInstance();
+    private static LoginService loginService = LoginService.getInstance();
     private static String firstname = "test";
     private static String lastname = "test";
     private static Gender gender = Gender.MALE;
@@ -51,7 +59,7 @@ public class JUnitTestRegisterAndLoginUser {
     @After
     public void removeUser() {
         try {
-            UserDao.remove(username);
+            userDao.remove(username);
         } catch (UserNotFoundException e) {
             e.printStackTrace();
             fail("can't remove usertest");
@@ -60,8 +68,8 @@ public class JUnitTestRegisterAndLoginUser {
     
     @Test
     public void testUserExistsInDB()  {
-        assertNotNull("username not found in dao", UserDao.getUserByUserName(username));
-        assertNotNull("mail not found in dao", UserDao.getUserByEmail(mail));
+        assertNotNull("username not found in dao", userDao.getUserByUserName(username));
+        assertNotNull("mail not found in dao", userDao.getUserByEmail(mail));
     }
     
     @Test
@@ -90,53 +98,78 @@ public class JUnitTestRegisterAndLoginUser {
     @Test
     public void testUserNotValidatedException()
     {
-    //remove testUser because he use direct vaidation
-    try {
-        UserDao.remove(username);
-    } catch (UserNotFoundException e) {
-        e.printStackTrace();
-        fail("can't remove usertest");
-    }
-    //create a user without directvalidation
-    try {
-        userService.registerUser(false, firstname, lastname, gender, username, passwordInClear, mail);
-    } catch (UserAlreadyExistsException e) {
-        fail("user alreadyexist");
-    }
-    try{
-        assertNotNull("login with mail identifier",loginService.login(mail, passwordInClear, false));
-    } catch (InvalidPasswordException| UserNotFoundException | UserLockedException| WaitDelayNotReachedException e) {
-        e.printStackTrace();
-        fail("login exception");
-    } catch (UserNotValidatedException e) {
-        exception = true;
-    }
-    assertTrue(exception);     
+    	//remove testUser because he use direct vaidation
+    	try {
+    		userDao.remove(username);
+    	} catch (UserNotFoundException e) {
+    		e.printStackTrace();
+    		fail("can't remove usertest");
+    	}
+    	//create a user without directvalidation
+    	try {
+    		userService.registerUser(false, firstname, lastname, gender, username, passwordInClear, mail);
+    	} catch (UserAlreadyExistsException e) {
+    		fail("user alreadyexist");
+    	}
+    	try{
+    		assertNotNull("login with mail identifier",loginService.login(mail, passwordInClear, false));
+    	} catch (InvalidPasswordException| UserNotFoundException | UserLockedException| WaitDelayNotReachedException e) {
+    		e.printStackTrace();
+    		fail("login exception");
+    	} catch (UserNotValidatedException e) {
+    		exception = true;
+    	}
+    	assertTrue(exception);     
     }
     @Test
     public void testUserNotFoundException()
     {
-    try{
-        assertNotNull("login with mail identifier",loginService.login("badIdentifier", passwordInClear, false));
-    } catch (InvalidPasswordException| UserNotValidatedException | UserLockedException| WaitDelayNotReachedException e) {
-        e.printStackTrace();
-        fail("login exception");
-    } catch (UserNotFoundException e) {
-        exception = true;
-    }
-    assertTrue(exception);     
+    	try{
+    		assertNotNull("login with mail identifier",loginService.login("badIdentifier", passwordInClear, false));
+    	} catch (InvalidPasswordException| UserNotValidatedException | UserLockedException| WaitDelayNotReachedException e) {
+    		e.printStackTrace();
+    		fail("login exception");
+    	} catch (UserNotFoundException e) {
+    		exception = true;
+    	}
+    	assertTrue(exception);     
     }
     @Test
     public void testInvalidPasswordException()
     {
-    try{
-        assertNotNull("login with mail identifier",loginService.login(mail, "badPassword", false));
-    } catch (UserNotValidatedException| UserNotFoundException | UserLockedException| WaitDelayNotReachedException e) {
-        e.printStackTrace();
-        fail("login exception");
-    } catch (InvalidPasswordException e) {
-        exception = true;
+    	try{
+    		assertNotNull("login with mail identifier",loginService.login(mail, "badPassword", false));
+    	} catch (UserNotValidatedException| UserNotFoundException | UserLockedException| WaitDelayNotReachedException e) {
+    		e.printStackTrace();
+    		fail("login exception");
+    	} catch (InvalidPasswordException e) {
+    		exception = true;
+    	}
+    	assertTrue(exception);     
     }
-    assertTrue(exception);     
+    
+    @Test
+    public void testPrivilege() throws UserAlreadyExistsException, UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
+        String userName = "piba";
+        String password = "secret";
+        User user = userService.registerUser(false, "Piba", "M.", Gender.MALE, userName, "secret", "piba@mail.com");
+		user.setAccountStatus(AccountStatus.ACTIVE);
+    	user = loginService.login(userName, password, false);
+
+    	// Set privileges
+    	 Set<Privilege> privileges = new HashSet<Privilege>();
+         privileges.add(Privilege.MANAGE_NEWS);
+         privileges.add(Privilege.MANAGE_NEWSLETTERS);
+         privileges.add(Privilege.SEND_NEWSLETTERS);
+        
+        
+         user.setPrivileges(privileges);
+            
+         
+    	
+    	// Test privileges
+    	
     }
+    
+    
 }

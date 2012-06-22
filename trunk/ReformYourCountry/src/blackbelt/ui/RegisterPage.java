@@ -4,7 +4,7 @@ import org.apache.commons.lang.StringUtils;
 
 import reformyourcountry.dao.UserDao;
 import reformyourcountry.model.User;
-import reformyourcountry.model.User.CommunityRole;
+import reformyourcountry.model.User.Role;
 import reformyourcountry.service.UserService;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.beans.factory.annotation.Configurable;
