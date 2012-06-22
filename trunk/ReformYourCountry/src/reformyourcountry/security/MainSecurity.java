@@ -25,23 +25,23 @@ import reformyourcountry.test.MainTestUser;
 
 public class MainSecurity {
 
-	public static void main(String[] args) throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
-	   
-		 
-	     String identifier=null;
-	     String password=null;
-			UserService userService=new UserService();
-		LoginService loginService=new LoginService();    
-		UserDao userdao = new UserDao();
+    public static void main(String[] args) throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
+       
+         
+         String identifier=null;
+         String password=null;
+            UserService userService=new UserService();
+        LoginService loginService=new LoginService();    
+        UserDao userdao = new UserDao();
 
 
-		try {
-			userService.registerUser(false, "piba", "piba", Gender.MALE, "pibapiba", "passe", "piba@mail.com");
-		} catch (UserAlreadyExistsException e) {
-			throw new RuntimeException(e);
-		} 
+        try {
+            userService.registerUser(false, "piba", "piba", Gender.MALE, "pibapiba", "passe", "piba@mail.com");
+        } catch (UserAlreadyExistsException e) {
+            throw new RuntimeException(e);
+        } 
 
-		System.out.println("\nWe have to validate the user registration");
+        System.out.println("\nWe have to validate the user registration");
          MainTestUser.validateUser();
          
          System.out.println("\nNow we try to log the user");
@@ -52,16 +52,16 @@ public class MainSecurity {
          password=consoleForm();
          
          if(loginService.login(identifier,password,false).equals(null)) {
-        	 System.out.println("the log has failed");
+             System.out.println("the log has failed");
          }
          else {
-        	 System.out.println("Sucess for the log");
-        	 userdao.getUserByUserName(identifier).setId(145L);
-        	 SecurityContext.setUserId(userdao.getUserByUserName(identifier).getId());
-        	 
-        	 
-        	 System.out.println("Id"+SecurityContext.getUserId());
-        	
+             System.out.println("Sucess for the log");
+             userdao.getUserByUserName(identifier).setId(145L);
+             SecurityContext.setUserId(userdao.getUserByUserName(identifier).getId());
+             
+             
+             System.out.println("Id"+SecurityContext.getUserId());
+            
          }
         System.out.println("Value of the current user found by id :"+userdao.get(SecurityContext.getUserId()));
         SecurityContext.setUser(userdao.get(SecurityContext.getUserId()));
@@ -76,13 +76,13 @@ public class MainSecurity {
         userdao.get(SecurityContext.getUserId()).setPrivileges(listPrivilege);
            
        
-	}
-	
-	
+    }
+    
+    
     public static String consoleForm(){
-	     return   scanKeyBoard.next();
-	}
-			
+         return   scanKeyBoard.next();
+    }
+            
     private static Scanner scanKeyBoard = new Scanner(System.in);
     
-}	
+}   

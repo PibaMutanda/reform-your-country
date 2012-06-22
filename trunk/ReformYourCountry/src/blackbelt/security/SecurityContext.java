@@ -102,53 +102,54 @@ public abstract class SecurityContext {
 //    }
 
 
-//    public static boolean isUserHasAllPrivileges(EnumSet<Privilege> privileges) {
-//        return isUserHasAllPrivileges(privileges, null);
-//    }
+    public static boolean isUserHasAllPrivileges(EnumSet<Privilege> privileges) {
+        return isUserHasAllPrivileges(privileges, null);
+    }
     
-//    public static boolean isUserHasPrivilege(User user, Privilege privilege) {
-//        return getAllAssociatedPrivileges(user).contains(privilege);
-//    }
+    public static boolean isUserHasPrivilege(User user, Privilege privilege) {
+        return getAllAssociatedPrivileges(user).contains(privilege);
+    }
 
     
     /**
      * @return true if the user has all the privileges
      */
-//    public static boolean isUserHasAllPrivileges(EnumSet<Privilege> privileges, String customPrivilege) {
-//        if (getUser() == null) {
-//            return false;
-//        }
-//        EnumSet<Privilege> currentPrivileges = getAllAssociatedPrivileges(getUser());
-//        currentPrivileges.addAll(getContextualPrivileges());
-//        boolean result = currentPrivileges.containsAll(privileges);
-//        if (customPrivilege != null) {
-//            result = result && isUserHasCustomPrivilege(customPrivilege);
-//        }
-//        return result;
-//    }
+   public static boolean isUserHasAllPrivileges(EnumSet<Privilege> privileges, String customPrivilege) {
+        if (getUser() == null) {
+            return false;
+        }
+        EnumSet<Privilege> currentPrivileges = getAllAssociatedPrivileges(getUser());
+        currentPrivileges.addAll(getContextualPrivileges());
+        boolean result = currentPrivileges.containsAll(privileges);
+        if (customPrivilege != null) {
+            result = result && isUserHasCustomPrivilege(customPrivilege);
+        }
+        return result;
+    }
 
 
-//    public static boolean isUserHasOneOfPrivileges(EnumSet<Privilege> privileges) {
-//        return isUserHasOneOfPrivileges(privileges, null);
-//    }
+    public static boolean isUserHasOneOfPrivileges(EnumSet<Privilege> privileges) {
+        return isUserHasOneOfPrivileges(privileges, null);
+    }
 
     /**
      * @return true if the user has one of the privileges
      */
-//    public static boolean isUserHasOneOfPrivileges(EnumSet<Privilege> privileges, String customPrivilege) {
-//        if (getUser() == null) {
-//            return false;
-//        }
-//        if (Collections.disjoint(getAllAssociatedPrivileges(getUser()), privileges) == false) {  // There is at least one element in common.
-//            return true;
-//        }
-//        if (customPrivilege != null) {
-//            if (isUserHasCustomPrivilege(customPrivilege)) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
+    public static boolean isUserHasOneOfPrivileges(EnumSet<Privilege> privileges, String customPrivilege) {
+        if (getUser() == null) {
+            return false;
+        }
+        if (Collections.disjoint(getAllAssociatedPrivileges(getUser()), privileges) == false) {  // There is at least one element in common.
+            return true;
+        }
+        if (customPrivilege != null) {
+            if (
+(customPrivilege)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * Add new contextual privileges. This gives additional privileges to the
