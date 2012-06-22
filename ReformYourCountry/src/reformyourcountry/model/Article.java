@@ -3,10 +3,7 @@ package reformyourcountry.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.tree.DefaultMutableTreeNode;
-
 public class Article {
-	
 	private String title;
 	private String content;
 	private Article parent;
@@ -61,5 +58,4 @@ public class Article {
 	public String toString() {
 		return title;
 	}
-
 }
