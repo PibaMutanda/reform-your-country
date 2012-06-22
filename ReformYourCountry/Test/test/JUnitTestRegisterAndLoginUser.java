@@ -40,6 +40,7 @@ public class JUnitTestRegisterAndLoginUser {
     private static String passwordInClear = "test";
     private static String mail = "test@test.test";
     private static boolean exception = false;
+    
     /**
      * register a user in the db
      * @fail if register throw an exception
@@ -157,18 +158,18 @@ public class JUnitTestRegisterAndLoginUser {
     	user = loginService.login(userName, password, false);
 
     	// Set privileges
-    	 Set<Privilege> privileges = new HashSet<Privilege>();
-         privileges.add(Privilege.MANAGE_NEWS);
-         privileges.add(Privilege.MANAGE_NEWSLETTERS);
-         privileges.add(Privilege.SEND_NEWSLETTERS);
-        
-        
-         user.setPrivileges(privileges);
-            
-         
     	
+    	user.getPrivileges().add(Privilege.MANAGE_NEWS);
+    	user.getPrivileges().add(Privilege.MANAGE_NEWSLETTERS);
+    	user.getPrivileges().add(Privilege.SEND_NEWSLETTERS);
+
     	// Test privileges
-    	
+    	if ( SecurityContext.isUserHasPrivilege(Privilege.MANAGE_NEWS)) {
+    	    fail("That user is supposed to have the MANAGE_NEWS privilege");
+    	}
+        if ( SecurityContext.isUserHasPrivilege(Privilege.VIEW_PRIVATE_DATA_OF_USERS)) {
+            fail("That user is not supposed to have the VIEW_PRIVATE_DATA_OF_USERS privilege");
+        }        
     }
     
     
