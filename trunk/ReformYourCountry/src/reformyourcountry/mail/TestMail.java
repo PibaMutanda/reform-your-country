@@ -6,6 +6,8 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 
+import reformyourcountry.CurrentEnvironment;
+import reformyourcountry.CurrentEnvironment.Environment;
 import reformyourcountry.dao.MailDaoMock;
 import reformyourcountry.model.Mail;
 import reformyourcountry.model.User;
@@ -22,9 +24,6 @@ public class TestMail {
 
 		test.startTestMailSender();
 
-		
-		
-
 	}
 	
 	private void startTestMailSender(){
@@ -35,16 +34,17 @@ public class TestMail {
 		
 		MailSender sender = new MailSender();
 		
+		MailService service = new MailService();
+		
+		
+		//// Do what Spring would do:
+		sender.setEnvironement(Environment.PROD);
 		sender.setMailDao(dao);
 		sender.setMailTemplateService(templateService);
-		
-		//start the thread
-		sender.postConstruct();
-		
-		
-		MailService service = new MailService();
+		sender.postConstruct();  // starts the thread
 		service.setMailDao(dao);
 		service.setMailSender(sender);
+		
 		
 		User user = new User();
 		user.setFirstName("Gaston");
@@ -53,9 +53,9 @@ public class TestMail {
 		user.setMail("reformyourcountrytest@gmail.com");
 		
 		User replyTo = new User();
-		user.setFirstName("Lionel");
-		user.setLastName("Timmerman");
-		user.setMail("lionel.timmerman@gmail.com");
+		replyTo.setFirstName("Lionel");
+		replyTo.setLastName("Timmerman");
+		replyTo.setMail("lionel.timmerman@gmail.com");
 		
 		
 		Mail mail1 = new Mail(user,"Test de mail service",MailCategory.USER,"Hello this is my test",MailType.IMMEDIATE,true);
@@ -63,6 +63,9 @@ public class TestMail {
 		
 		
 		service.sendMail(mail1);
+		
+		
+	//	sender.shutDown();
 		
 		
 	}

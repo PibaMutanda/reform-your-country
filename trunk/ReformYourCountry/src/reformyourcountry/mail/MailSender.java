@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.mail.internet.MimeMessage;
@@ -13,11 +12,12 @@ import javax.mail.internet.MimeMessage;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
-import org.omg.CORBA.Environment;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 
+import reformyourcountry.CurrentEnvironment.Environment;
+import reformyourcountry.CurrentEnvironment.MailBehavior;
 import reformyourcountry.dao.MailDaoMock;
 import reformyourcountry.dao.UserDao;
 import reformyourcountry.model.Mail;
@@ -55,10 +55,7 @@ public class MailSender extends Thread {
     //@Value("${mail.from.notifier.alias}") 
     String mailNotifierAlias;
     //@Value("${mail.smtp.server}") 
-    
-    
     String smtpHost = "smtp.gmail.com"; // value setup for test
-    
     //@Value("${mail.smtp.port}") 
     int smtpPort = 465; // value setup for test
     
@@ -83,7 +80,13 @@ public class MailSender extends Thread {
     	this.mainTemplate = mainTemplate;
     	
     }
-    
+    /* setter for the test  purpose delete after spring configuration*/
+    public void setEnvironement(Environment env){
+        
+        environment = env;
+        
+        
+    }
 
     @PostConstruct
     public void postConstruct() {
@@ -93,16 +96,17 @@ public class MailSender extends Thread {
         javaMailSender.setHost(smtpHost);
         javaMailSender.setPort(smtpPort);
         
-        
+        // TODO where did this came from on KBB?
         javaMailSender.setUsername("reformyourcountrytest@gmail.com");
 	    javaMailSender.setPassword("technofutur");
 
         setName("MailSender"); // Sets the name of the thread to be visible in the prod server thread list.
-     //   if(environment.getMailBehavior() != MailBehavior.NOT_STARTED){
+        // TODO: restore code
+       if(environment.getMailBehavior() != MailBehavior.NOT_STARTED){
         	this.start();
-       // } else {
-       // 	logger.info("DevMode on, mail thread not started");
-    //    }
+       } else {
+       	logger.info("DevMode on, mail thread not started");
+       }
         
     }
 
@@ -117,7 +121,7 @@ public class MailSender extends Thread {
     public void run(){
 
         logger.info("MailSender thread started");
-        try {//TODO set to 1 *60 * 1000
+        try {
 			Thread.sleep(1 * 60 * 10);  // sleep 2 minute to make sure all the bean are ready
 		} catch (InterruptedException e) {
 	        logger.info("MailSender initial sleep interrupted");
@@ -127,11 +131,8 @@ public class MailSender extends Thread {
 
         mainLoop: while (!isShutDown) {
 
-
         	List<Mail> nextMailList = this.findNextMails();
-
             logger.info(nextMailList.size() + " mails found to send");
-
             
             while (nextMailList != null && nextMailList.size() > 0) {
                 Mail nextMail = nextMailList.get(0);
@@ -177,7 +178,6 @@ public class MailSender extends Thread {
         }
 
         logger.info("MailSender thread ended");
-
     }
 
     /** Sleep even if a new urgent mail needs to be sent */

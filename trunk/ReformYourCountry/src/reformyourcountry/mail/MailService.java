@@ -115,7 +115,7 @@ public class MailService {
 
     /**
      * Save a mail to database
-     * Use this methode if you want to use a black belt template
+     * Use this method if you want to use a black belt template
      * 
      */
     public void sendMail(Mail mail){
