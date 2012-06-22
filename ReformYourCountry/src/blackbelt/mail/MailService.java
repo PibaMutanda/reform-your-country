@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import reformyourcountry.model.User;
+import reformyourcountry.service.UserService;
 
 import blackbelt.dao.MailDao;
 import blackbelt.model.Mail;
@@ -25,6 +26,13 @@ import blackbelt.util.BlackBeltException;
 @Component
 public class MailService {
 	
+    // TODO: remove singleton when using Spring
+    private static MailService uniqueInstance = new MailService();
+    private MailService() {}
+    public static MailService getInstance() {
+        return uniqueInstance;
+    }
+    
 	public final static String JBB_ADMIN_MAIL = "info@KnowledgeBlackBelt.com";  // TODO: change to KnowledgeBlackBelt.com after v5
 	public final static String BUG_MAIL = "bug@KnowledgeBlackBelt.com";  // TODO: change to KnowledgeBlackBelt.com after v5
 
