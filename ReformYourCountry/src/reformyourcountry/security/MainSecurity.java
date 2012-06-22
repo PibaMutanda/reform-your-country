@@ -30,7 +30,7 @@ public class MainSecurity {
          
          String identifier=null;
          String password=null;
-            UserService userService=new UserService();
+            UserService userService= User.get;
         LoginService loginService=new LoginService();    
         UserDao userdao = new UserDao();
 
