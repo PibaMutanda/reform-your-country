@@ -343,7 +343,7 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	@Override
     public String toString() {
         return "User [group_regs=" + group_regs + ", voteActions="
-                + voteActions + ", voteArguments=" + voteArguments + ", id="
+                + voteActions + ", voteArguments=" + voteArgument + ", id="
                 + id + ", firstName=" + firstName + ", lastName=" + lastName
                 + ", userName=" + userName + ", mail=" + mail + ", password="
                 + password + ", nameChangeLog=" + nameChangeLog + ", gender="
