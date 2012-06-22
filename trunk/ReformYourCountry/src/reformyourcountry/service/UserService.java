@@ -18,6 +18,13 @@ import blackbelt.util.SecurityUtils;
 
 public class UserService {
 
+    private static UserService uniqueInstance = new UserService();
+    private UserService() {}
+    public static UserService getInstance() {
+        return uniqueInstance;
+    }
+    
+    
     // Constant values used in the automatic calculation of the influence factor
     public static final int INFLUENCE_PERCENTAGE_OF_RELEASED_QUESTIONS_WITH_NO_CONCERNS = 90;
     public static final int INFLUENCE_AMOUNT_OF_RELEASED_QUESTIONS_WITH_NO_CONCERNS = 20;
@@ -28,9 +35,9 @@ public class UserService {
 
     protected Logger logger = Logger.getLogger(getClass());
     //@Autowired// 
-    private UserDao UserDao = new UserDao(); // TODO: Use autowiring with Spring instead of new.
+    private UserDao userDao = UserDao.getInstance(); // TODO: Use autowiring with Spring instead of new.
     // @Autowired 
-    private MailService mailService;
+    private MailService mailService = MailService.getInstance();
 
 
     /**
@@ -41,60 +48,60 @@ public class UserService {
      */
 
     public User registerUser(boolean directValidation, String firstname, String lastname,
-	    Gender gender, String username, String passwordInClear, String mail) throws UserAlreadyExistsException {
-	  if (UserDao.getUserByUserName(username) != null)	{
-	    throw new UserAlreadyExistsException(identifierType.USERNAME, username);
-	  }
-	  if (UserDao.getUserByEmail(mail) != null){
-	    throw new UserAlreadyExistsException(identifierType.MAIL, username);
-	  }
+    		Gender gender, String username, String passwordInClear, String mail) throws UserAlreadyExistsException {
+    	if (userDao.getUserByUserName(username) != null)	{
+    		throw new UserAlreadyExistsException(identifierType.USERNAME, username);
+    	}
+    	if (userDao.getUserByEmail(mail) != null){
+    		throw new UserAlreadyExistsException(identifierType.MAIL, username);
+    	}
     	User newUser = new User();
-	    newUser.setFirstName(firstname);
-	    newUser.setLastName(lastname);
-	    newUser.setGender(gender);
-	    newUser.setUserName(username);
-	    newUser.setPassword(SecurityUtils.md5Encode(passwordInClear));
-	    newUser.setMail(mail);
+    	newUser.setFirstName(firstname);
+    	newUser.setLastName(lastname);
+    	newUser.setGender(gender);
+    	newUser.setUserName(username);
+    	newUser.setPassword(SecurityUtils.md5Encode(passwordInClear));
+    	newUser.setMail(mail);
 
-	//// Validation mail.
-	    String base = newUser.getMail() + newUser.getPassword() + Math.random();  // Could be pure random.
-	    newUser.setValidationCode(SecurityUtils.md5Encode(base.toString()));
+    	//// Validation mail.
+    	String base = newUser.getMail() + newUser.getPassword() + Math.random();  // Could be pure random.
+    	newUser.setValidationCode(SecurityUtils.md5Encode(base.toString()));
 
-	if (directValidation) {
-	    newUser.setAccountStatus(AccountStatus.ACTIVE);
-	} 
-	else {
-	    newUser.setAccountStatus(AccountStatus.NOTVALIDATED);
-	}
+    	if (directValidation) {
+    		newUser.setAccountStatus(AccountStatus.ACTIVE);
+    	} 
+    	else {
+    		newUser.setAccountStatus(AccountStatus.NOTVALIDATED);
+    	}
 
-	//// Save the user in the db
-	UserDao.save(newUser);
+    	//// Save the user in the db
+    	userDao.save(newUser);
 
-	// All is ok lets eventually send a validation email
-	if (!directValidation) {
-	    sendRegistrationValidationMail(newUser);
-	}
+    	// All is ok lets eventually send a validation email
+    	if (!directValidation) {
+    		sendRegistrationValidationMail(newUser);
+    	}
 
-	return newUser;
+    	return newUser;
     }
 
 
     public void sendRegistrationValidationMail(User user) {
 
-	String validationUrl = "TO IMPLEMENT"; // UrlUtil.getAbsoluteUrl( XXXXXXXXXXXXXX REGISTER PAGE with user & user.getValidationCode().
-	String htmlMessage = "Welcome on KnowledgeBlackBelt.com, " + user.getFullName() + "." + 
-		"<br/>There is just one step left to get your new account : " +
-		"please click on the link below to validate your email address !" +
-		"<br/><a href='"+ validationUrl + "'>" + validationUrl + "</a>" +
-		"<br/><br/>If you are experiencing any problems, try copy/pasting the URL in your browser (instead clicking on it), or ultimately " +
-		"<a href='" + 
-		//TODO uncomment when for web
-		//UrlUtil.getAbsoluteUrl(new PageResource(DocumentPage.class, "ContactUs")) + 
-		"'>contact us.</a>" + 
-		"<br/><br/>Thank you for registering and have a nice time on KnowledgeBlackBelt.";
-	//maxime uncomment when using mail
-//	 mailService.sendMail(user.getMail(), "Your new account", htmlMessage, MailType.IMMEDIATE, MailCategory.USER);
-	System.out.println("mail sent: " + htmlMessage);  // To simulate the mailService until we have it.
+        String validationUrl = "TO IMPLEMENT"; // UrlUtil.getAbsoluteUrl( XXXXXXXXXXXXXX REGISTER PAGE with user & user.getValidationCode().
+        String htmlMessage = "Welcome on KnowledgeBlackBelt.com, " + user.getFullName() + "." + 
+                "<br/>There is just one step left to get your new account : " +
+                "please click on the link below to validate your email address !" +
+                "<br/><a href='"+ validationUrl + "'>" + validationUrl + "</a>" +
+                "<br/><br/>If you are experiencing any problems, try copy/pasting the URL in your browser (instead clicking on it), or ultimately " +
+                "<a href='" + 
+                //TODO uncomment when for web
+                //UrlUtil.getAbsoluteUrl(new PageResource(DocumentPage.class, "ContactUs")) + 
+                "'>contact us.</a>" + 
+                "<br/><br/>Thank you for registering and have a nice time on KnowledgeBlackBelt.";
+        //maxime uncomment when using mail
+        //	 mailService.sendMail(user.getMail(), "Your new account", htmlMessage, MailType.IMMEDIATE, MailCategory.USER);
+        System.out.println("mail sent: " + htmlMessage);  // To simulate the mailService until we have it.
     }
 
 
@@ -150,22 +157,22 @@ public class UserService {
     //	    }
 
     public void generateNewPasswordForUserAndSendEmail(User user) {
-	// We generate a password
-	String newPassword = SecurityUtils.generateRandomPassword(8, 12);
-	// we set the new password to the user
-	user.setPassword(SecurityUtils.md5Encode(newPassword));
-	UserDao.save(user);
+        // We generate a password
+        String newPassword = SecurityUtils.generateRandomPassword(8, 12);
+        // we set the new password to the user
+        user.setPassword(SecurityUtils.md5Encode(newPassword));
+        userDao.save(user);
 
-	// TODO maxime uncomment when mail service available
-	mailService.sendMail(user.getMail(), "Password Recovery",
-		"You requested a new password for your account '"+ user.getUserName()+"' on KnowledgeBlackBelt.com<br/>" + 
-			"We could not give you back your old password because we do not store it directly, for security and (your own) privacy reason it is encrypted in a non reversible way. <br/><br/>" + 
-			"Here is your new password : "+ newPassword + 
-			"<ol>" +  
-			"<li>password are case sensitive,</li>" +  				   //TODO maxime uncoment for the web
-			"<li>This is a temporary password, feel free to change it using <a href='"+/*getUserPageUrl(user)+*/"'>your profile page</a>.</li>" +
-			"</ol>", 
-			MailType.IMMEDIATE, MailCategory.USER);
+        // TODO maxime uncomment when mail service available
+        mailService.sendMail(user.getMail(), "Password Recovery",
+                "You requested a new password for your account '"+ user.getUserName()+"' on KnowledgeBlackBelt.com<br/>" + 
+                        "We could not give you back your old password because we do not store it directly, for security and (your own) privacy reason it is encrypted in a non reversible way. <br/><br/>" + 
+                        "Here is your new password : "+ newPassword + 
+                        "<ol>" +  
+                        "<li>password are case sensitive,</li>" +  				   //TODO maxime uncoment for the web
+                        "<li>This is a temporary password, feel free to change it using <a href='"+/*getUserPageUrl(user)+*/"'>your profile page</a>.</li>" +
+                        "</ol>", 
+                        MailType.IMMEDIATE, MailCategory.USER);
 
     }
 
@@ -174,16 +181,16 @@ public class UserService {
 
     /** Change the name of the user and note it in the log */
     public void changeUserName(User user, String newFirstName,   String newLastName) {
-	if (user.getNameChangeLog() == null) {
-	    user.addNameChangeLog("Previous name: " + user.getFirstName()
-		    + " - " + user.getLastName());
-	}
-	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-	user.addNameChangeLog(dateFormat.format(new Date()) + ": "
-		+ newFirstName + " - " + newLastName);
-	user.setFirstName(newFirstName);
-	user.setLastName(newLastName);
-	UserDao.save(user);
+        if (user.getNameChangeLog() == null) {
+            user.addNameChangeLog("Previous name: " + user.getFirstName()
+                    + " - " + user.getLastName());
+        }
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        user.addNameChangeLog(dateFormat.format(new Date()) + ": "
+                + newFirstName + " - " + newLastName);
+        user.setFirstName(newFirstName);
+        user.setLastName(newLastName);
+        userDao.save(user);
     }
 
 
