@@ -50,7 +50,4 @@ public class Group {
 		return name;
 	}
 
-	
-	
-
 }
