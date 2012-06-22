@@ -18,9 +18,7 @@ public class UserDao {
     public static UserDao getInstance() {
         return uniqueInstance;
     }
-    
-    
-    
+
     @SuppressWarnings("unchecked")
     public  List<User> getListeUser() {
         return (List<User>) listeUser;
@@ -28,12 +26,15 @@ public class UserDao {
 
     // TODO maxime delete static modifier when using JPA
     public void save(User user) {
-        if(!listeUser.add(user))
-        {
+        if (listeUser.contains(user)) {
+            return;  // Already in the list
+        }
+
+        if (!listeUser.add(user))  {
             try {
                 remove(user.getUserName());
             } catch (UserNotFoundException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
             listeUser.add(user);
         }
