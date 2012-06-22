@@ -1,4 +1,4 @@
-package test;
+package reformyourcountry.test;
 import java.io.IOException;
 
 import reformyourcountry.converter.BBConverter;
