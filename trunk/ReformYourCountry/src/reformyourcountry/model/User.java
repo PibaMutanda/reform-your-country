@@ -4,15 +4,13 @@ package reformyourcountry.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 
 import reformyourcountry.mail.MailingDelayType;
-import sun.font.LayoutPathImpl.EndType;
-
 import blackbelt.security.Privilege;
 
 //TODO piba uncomment when using hibernate
@@ -197,14 +195,13 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 
 	private boolean guest;
 
-    private Set<Privilege> privileges;
 
 	//TODO maxime uncomment when implements privileges
 //	@ElementCollection(targetClass=Privilege.class, fetch=FetchType.EAGER)
 //	@Enumerated(EnumType.STRING)
 //	@JoinTable(name="users_privileges",joinColumns={@JoinColumn(name="userid")})
 //	@Column(name="privilege", nullable=false)
-//	private Set<Privilege> privileges = new HashSet<Privilege>();
+	private Set<Privilege> privileges = new HashSet<Privilege>();
 
 	private Date lastAccess;
 
@@ -485,10 +482,6 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 		return privileges;
 	}
 	
-	public void setPrivileges(Set<Privilege> privileges) {
-	this.privileges = privileges;
-	}
-
 	public float getInfluence() {
 		return this.influence;
 	}
