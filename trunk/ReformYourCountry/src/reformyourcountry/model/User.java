@@ -27,7 +27,7 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 
 		private List <GroupReg> groupRegs = new ArrayList <GroupReg>(); //date of registration of user in a group
 		private List <VoteAction> voteActions = new ArrayList <VoteAction>();
-		//private List <VoteArgument> voteArguments = new ArrayList <VoteArgument>();
+		private List <VoteArgument> voteArguments = new ArrayList <VoteArgument>();
 		//private List <Comment> comments = new ArrayList <Comment>();
 		//private List <Argument> arguments = new ArrayList <Argument>();
 
@@ -342,8 +342,8 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 
 	@Override
     public String toString() {
-        return "User [group_regs=" + group_regs + ", voteActions="
-                + voteActions + ", voteArguments=" + voteArgument + ", id="
+        return "User [group_regs=" + groupRegs + ", voteActions="
+                + voteActions + ", voteArguments=" + voteArguments + ", id="
                 + id + ", firstName=" + firstName + ", lastName=" + lastName
                 + ", userName=" + userName + ", mail=" + mail + ", password="
                 + password + ", nameChangeLog=" + nameChangeLog + ", gender="
