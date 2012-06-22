@@ -17,11 +17,13 @@ public class MailDaoMock {
 	
 	List<Mail> mailsToRemove;
 	
+	private User user;
+	
 	private static int number = 0;
 	
 	private static int nbtest = 0;
 	
-	
+	   private static int nbtestGroup = 0;
 
    private static MailDaoMock instance = null ;
 	
@@ -29,8 +31,13 @@ public class MailDaoMock {
    
 	private MailDaoMock(){
 		
-		listOfMails = new ArrayList<Mail>();
-		mailsToRemove = new ArrayList<Mail>();
+		 listOfMails = new ArrayList<Mail>();
+		 mailsToRemove = new ArrayList<Mail>();
+		 user = new User();
+	     user.setFirstName("bobo");
+	     user.setLastMailSentDate(null);
+	     user.setLastName("jojo");
+	     user.setMail("reformyourcountrytest@gmail.com");
 	}
 	
 	/**
@@ -56,12 +63,7 @@ public class MailDaoMock {
     @SuppressWarnings("unchecked")
     public User userHavingImmediateMails(){
     	
-    	User user = new User();
-    	
-    	user.setFirstName("toto");
-    	user.setLastMailSentDate(null);
-    	user.setLastName("jojo");
-    	user.setMail("reformyourcountrytest@gmail.com");
+      if(nbtest > 0 ) return null;
     	
         return user;
         
@@ -77,9 +79,15 @@ public class MailDaoMock {
     @SuppressWarnings("unchecked")
     public List<Mail> getMailsFromUser(MailType mailType, User user){
     	
-
+           if(mailType == MailType.IMMEDIATE)
     	
     	return createListOfMail(user);
+           
+           else
+        	   if(mailType == MailType.GROUPABLE)
+        		   return createListOfMailToGroup(user);
+        	   else
+        		   return createListOfMail(user);
     	
 
     }
@@ -92,12 +100,8 @@ public class MailDaoMock {
    
 
         //request to get a user having at least one old pending grouped mails (so old that we must send it now). 
-        
-	    User user = new User();
-    	user.setFirstName("titi" + number++);
-    	user.setLastMailSentDate(null);
-    	user.setLastName("jojo");
-    	user.setMail("reformyourcountrytest@gmail.com");
+        // if the test is executed more than one time return null for the user
+        if( nbtestGroup > 0) return null;
     
         return user;
     }
@@ -108,7 +112,7 @@ public class MailDaoMock {
     @SuppressWarnings("unchecked")
     public List<Mail> getMailsEmailTarget(){
     	
-     	return createListOfMail();
+     	return new ArrayList<Mail>();
     }
 
 
@@ -118,12 +122,9 @@ public class MailDaoMock {
      */
     @SuppressWarnings("unchecked")
     public User userHavingSlowMails(){
- 	   User user = new User();
+ 	   
    	
-    	user.setFirstName("bobo"  + number++);
-   	    user.setLastMailSentDate(null);
-    	user.setLastName("jojo");
-   	    user.setMail("reformyourcountrytest@gmail.com");
+  
        
        return user;
     }
@@ -134,15 +135,12 @@ public class MailDaoMock {
      */
     public void flushListeMailToRemove() {
     	
+        if(!mailsToRemove.isEmpty()){
     	
     	listOfMails.removeAll(mailsToRemove);
     	mailsToRemove = new ArrayList<Mail>();
-        /*if(!mails.isEmpty()){
-        	if(listOfMails.containsAll(mails)){
-        		listOfMails.removeAll(mails);
-        	   System.out.println("mails removed");
-        	}
-        }     		*/
+        }
+     
     }
     
     public void removeMails(List<Mail> mails) {
@@ -157,46 +155,40 @@ public class MailDaoMock {
      * @param idUser
      */
     public void save(Mail mail, Long idUser) {
-       User user = new User();
-   	   user.setFirstName("bobo");
-  	   user.setLastMailSentDate(null);
-       user.setLastName("jojo");
-  	   user.setMail("bobo@gmail.com");
-  	   
-  	   mail.setUser(user);
+
   	   listOfMails.add(mail);
       
     }
     
     
     private List<Mail> createListOfMail(User user){
-    	
+        flushListeMailToRemove();
     	if(nbtest == 0){
     	nbtest ++;
-    	Mail mail1 = new Mail(user," 1 Hello toto"+number,MailCategory.USER,"this is my mail content",MailType.IMMEDIATE,false);
-    	Mail mail2 = new Mail(user,"2 Hello tata"+number,MailCategory.USER,"this is my mail content too",MailType.GROUPABLE,false);
-    	Mail mail3 = new Mail(user,"3 Hello toto"+number,MailCategory.USER,"this is my mail content",MailType.IMMEDIATE,false);
-    	Mail mail4 = new Mail(user,"4 Hello tata"+number,MailCategory.USER,"this is my mail content too",MailType.GROUPABLE,false);
-    	Mail mail5 = new Mail(user,"5 Hello toto"+number,MailCategory.USER,"this is my mail content",MailType.IMMEDIATE,false);
-    	Mail mail6 = new Mail(user,"6 Hello tata"+number,MailCategory.USER,"this is my mail content too",MailType.SLOW_NOT_GROUPABLE,false);
-    	Mail mail7 = new Mail(user,"7 Hello toto"+number,MailCategory.USER,"this is my mail content",MailType.IMMEDIATE,false);
-    	Mail mail8 = new Mail(user,"8 Hello tata"+number,MailCategory.USER,"this is my mail content too",MailType.GROUPABLE,false);
-    	Mail mail9 = new Mail(user,"9 Hello toto"+number,MailCategory.USER,"this is my mail content",MailType.SLOW_NOT_GROUPABLE,false);
-    	Mail mail10 = new Mail(user,"10 Hello tata"+number,MailCategory.USER,"this is my mail content too",MailType.GROUPABLE,false);
-    	Mail mail11 = new Mail(user,"11 Hello toto"+number,MailCategory.USER,"this is my mail content",MailType.IMMEDIATE,false);
-    	Mail mail12 = new Mail(user,"12 Hello tata"+number,MailCategory.USER,"this is my mail content too",MailType.GROUPABLE,false);
-    	Mail mail13 = new Mail(user,"13 Hello toto"+number,MailCategory.USER,"this is my mail content",MailType.IMMEDIATE,false);
-    	Mail mail14 = new Mail(user,"14 Hello tata"+number,MailCategory.USER,"this is my mail content too",MailType.GROUPABLE,false);
-    	Mail mail15 = new Mail(user,"15 Hello toto"+number,MailCategory.USER,"this is my mail content",MailType.SLOW_NOT_GROUPABLE,false);
-    	Mail mail16 = new Mail(user,"16 Hello tata"+number,MailCategory.USER,"this is my mail content too",MailType.SLOW_NOT_GROUPABLE,false);
-    	Mail mail17 = new Mail(user,"17 Hello toto"+number,MailCategory.USER,"this is my mail content",MailType.IMMEDIATE,false);
-    	Mail mail18 = new Mail(user,"18 Hello tata"+number,MailCategory.USER,"this is my mail content too",MailType.GROUPABLE,false);
-    	Mail mail19 = new Mail(user,"19 Hello toto"+number,MailCategory.USER,"this is my mail content",MailType.IMMEDIATE,false);
-    	Mail mail20 = new Mail(user,"20 Hello tata"+number,MailCategory.USER,"this is my mail content too",MailType.GROUPABLE,false);
-    	Mail mail21 = new Mail(user,"21 Hello toto"+number,MailCategory.USER,"this is my mail content",MailType.SLOW_NOT_GROUPABLE,false);
-    	Mail mail22 = new Mail(user,"22 Hello tata"+number,MailCategory.USER,"this is my mail content too",MailType.GROUPABLE,false);
-    	Mail mail23 = new Mail(user,"23 Hello toto"+number,MailCategory.USER,"this is my mail content",MailType.IMMEDIATE,false);
-    	Mail mail24 = new Mail(user,"24 Hello tata"+number,MailCategory.USER,"this is my mail content too",MailType.GROUPABLE,false);
+    	Mail mail1 = new Mail(user," 1 Hello "+user.getFirstName()+" "+number,MailCategory.USER,"this is my mail content",MailType.IMMEDIATE,false);
+    	Mail mail2 = new Mail(user,"2 Hello "+user.getFirstName()+" "+number,MailCategory.USER,"this is my mail content too",MailType.IMMEDIATE,false);
+    	Mail mail3 = new Mail(user,"3 Hello "+user.getFirstName()+" "+number,MailCategory.USER,"this is my mail content",MailType.IMMEDIATE,false);
+    	Mail mail4 = new Mail(user,"4 Hello "+user.getFirstName()+" "+number,MailCategory.USER,"this is my mail content too",MailType.IMMEDIATE,false);
+    	Mail mail5 = new Mail(user,"5 Hello "+user.getFirstName()+" "+number,MailCategory.USER,"this is my mail content",MailType.IMMEDIATE,false);
+    	Mail mail6 = new Mail(user,"6 Hello "+user.getFirstName()+" "+number,MailCategory.USER,"this is my mail content too",MailType.IMMEDIATE,false);
+    	Mail mail7 = new Mail(user,"7 Hello "+user.getFirstName()+" "+number,MailCategory.USER,"this is my mail content",MailType.IMMEDIATE,false);
+    	Mail mail8 = new Mail(user,"8 Hello "+user.getFirstName()+" "+number,MailCategory.USER,"this is my mail content too",MailType.IMMEDIATE,false);
+    	Mail mail9 = new Mail(user,"9 Hello "+user.getFirstName()+" "+number,MailCategory.USER,"this is my mail content",MailType.IMMEDIATE,false);
+    	Mail mail10 = new Mail(user,"10 Hello "+user.getFirstName()+" "+number,MailCategory.USER,"this is my mail content too",MailType.IMMEDIATE,false);
+    	Mail mail11 = new Mail(user,"11 Hello "+user.getFirstName()+" "+number,MailCategory.USER,"this is my mail content",MailType.IMMEDIATE,false);
+    	Mail mail12 = new Mail(user,"12 Hello "+user.getFirstName()+" "+number,MailCategory.USER,"this is my mail content too",MailType.IMMEDIATE,false);
+    	Mail mail13 = new Mail(user,"13 Hello "+user.getFirstName()+" "+number,MailCategory.USER,"this is my mail content",MailType.IMMEDIATE,false);
+    	Mail mail14 = new Mail(user,"14 Hello "+user.getFirstName()+" "+number,MailCategory.USER,"this is my mail content too",MailType.IMMEDIATE,false);
+    	Mail mail15 = new Mail(user,"15 Hello "+user.getFirstName()+" "+number,MailCategory.USER,"this is my mail content",MailType.IMMEDIATE,false);
+    	Mail mail16 = new Mail(user,"16 Hello "+user.getFirstName()+" "+number,MailCategory.USER,"this is my mail content too",MailType.IMMEDIATE,false);
+    	Mail mail17 = new Mail(user,"17 Hello "+user.getFirstName()+" "+number,MailCategory.USER,"this is my mail content",MailType.IMMEDIATE,false);
+    	Mail mail18 = new Mail(user,"18 Hello "+user.getFirstName()+" "+number,MailCategory.USER,"this is my mail content too",MailType.IMMEDIATE,false);
+    	Mail mail19 = new Mail(user,"19 Hello "+user.getFirstName()+" "+number,MailCategory.USER,"this is my mail content",MailType.IMMEDIATE,false);
+    	Mail mail20 = new Mail(user,"20 Hello "+user.getFirstName()+" "+number,MailCategory.USER,"this is my mail content too",MailType.IMMEDIATE,false);
+    	Mail mail21 = new Mail(user,"21 Hello "+user.getFirstName()+" "+number,MailCategory.USER,"this is my mail content",MailType.IMMEDIATE,false);
+    	Mail mail22 = new Mail(user,"22 Hello "+user.getFirstName()+" "+number,MailCategory.USER,"this is my mail content too",MailType.IMMEDIATE,false);
+    	Mail mail23 = new Mail(user,"23 Hello "+user.getFirstName()+" "+number,MailCategory.USER,"this is my mail content",MailType.IMMEDIATE,false);
+    	Mail mail24 = new Mail(user,"24 Hello "+user.getFirstName()+" "+number,MailCategory.USER,"this is my mail content too",MailType.IMMEDIATE,false);
     	
     	
     	mail1.setReplyTo(user);
@@ -257,42 +249,36 @@ public class MailDaoMock {
     	}
     	
     
-    	flushListeMailToRemove();
-    	System.out.println("1flush mails "+listOfMails.size());
+    	
     	return listOfMails;
     	
     }
     
-       private  List<Mail> createListOfMail(){
-    	   
+       private  List<Mail> createListOfMailToGroup(User user){
+           flushListeMailToRemove();
        
-       	if(nbtest == 0){
-        nbtest++;
-       	Mail mail1 = new Mail("lionel.timmerman@gmail.com" , "1 Hello toto"+number,MailCategory.USER,"this is my mail content",MailType.IMMEDIATE,false);
-       	Mail mail2 = new Mail("lionel.timmerman@gmail.com","2 Hello tata"+number,MailCategory.USER,"this is my mail content too",MailType.GROUPABLE,false);
-       	Mail mail3 = new Mail("lionel.timmerman@gmail.com","3 Hello toto"+number,MailCategory.USER,"this is my mail content",MailType.IMMEDIATE,false);
-       	Mail mail4 = new Mail("lionel.timmerman@gmail.com","4 Hello tata"+number,MailCategory.USER,"this is my mail content too",MailType.GROUPABLE,false);
-       	Mail mail5 = new Mail("lionel.timmerman@gmail.com","5 Hello toto"+number,MailCategory.USER,"this is my mail content",MailType.IMMEDIATE,false);
-       	Mail mail6 = new Mail("lionel.timmerman@gmail.com","6 Hello tata"+number,MailCategory.USER,"this is my mail content too",MailType.SLOW_NOT_GROUPABLE,false);
-       	Mail mail7 = new Mail("lionel.timmerman@gmail.com","7 Hello toto"+number,MailCategory.USER,"this is my mail content",MailType.IMMEDIATE,false);
-       	Mail mail8 = new Mail("lionel.timmerman@gmail.com","8 Hello tata"+number,MailCategory.USER,"this is my mail content too",MailType.GROUPABLE,false);
-       	Mail mail9 = new Mail("lionel.timmerman@gmail.com","9 Hello toto"+number,MailCategory.USER,"this is my mail content",MailType.SLOW_NOT_GROUPABLE,false);
-       	Mail mail10 = new Mail("lionel.timmerman@gmail.com","10 Hello tata"+number,MailCategory.USER,"this is my mail content too",MailType.GROUPABLE,false);
-       	Mail mail11 = new Mail("lionel.timmerman@gmail.com","11 Hello toto"+number,MailCategory.USER,"this is my mail content",MailType.IMMEDIATE,false);
-       	Mail mail12 = new Mail("lionel.timmerman@gmail.com","12 Hello tata"+number,MailCategory.USER,"this is my mail content too",MailType.GROUPABLE,false);
-       	Mail mail13 = new Mail("lionel.timmerman@gmail.com","13 Hello toto"+number,MailCategory.USER,"this is my mail content",MailType.IMMEDIATE,false);
-       	Mail mail14 = new Mail("lionel.timmerman@gmail.com","14 Hello tata"+number,MailCategory.USER,"this is my mail content too",MailType.GROUPABLE,false);
-       	Mail mail15 = new Mail("lionel.timmerman@gmail.com","15 Hello toto"+number,MailCategory.USER,"this is my mail content",MailType.SLOW_NOT_GROUPABLE,false);
-       	Mail mail16 = new Mail("lionel.timmerman@gmail.com","16 Hello tata"+number,MailCategory.USER,"this is my mail content too",MailType.SLOW_NOT_GROUPABLE,false);
-       	Mail mail17 = new Mail("lionel.timmerman@gmail.com","17 Hello toto"+number,MailCategory.USER,"this is my mail content",MailType.IMMEDIATE,false);
-       	Mail mail18 = new Mail("lionel.timmerman@gmail.com","18 Hello tata"+number,MailCategory.USER,"this is my mail content too",MailType.GROUPABLE,false);
-       	Mail mail19 = new Mail("lionel.timmerman@gmail.com","19 Hello toto"+number,MailCategory.USER,"this is my mail content",MailType.IMMEDIATE,false);
-       	Mail mail20 = new Mail("lionel.timmerman@gmail.com","20 Hello tata"+number,MailCategory.USER,"this is my mail content too",MailType.GROUPABLE,false);
-       	Mail mail21 = new Mail("lionel.timmerman@gmail.com","21 Hello toto"+number,MailCategory.USER,"this is my mail content",MailType.SLOW_NOT_GROUPABLE,false);
-       	Mail mail22 = new Mail("lionel.timmerman@gmail.com","22 Hello tata"+number,MailCategory.USER,"this is my mail content too",MailType.GROUPABLE,false);
-       	Mail mail23 = new Mail("lionel.timmerman@gmail.com","23 Hello toto"+number,MailCategory.USER,"this is my mail content",MailType.IMMEDIATE,false);
-       	Mail mail24 = new Mail("lionel.timmerman@gmail.com","24 Hello tata"+number,MailCategory.USER,"this is my mail content too",MailType.GROUPABLE,false);
+       	if(nbtestGroup == 0){
+       	 nbtestGroup++;
+       	Mail mail1 = new Mail(user , "1 vous avez obtenu une nouvelle ceinture",MailCategory.BELT,"voici votre ceinture jaune",MailType.GROUPABLE,true);
+       	Mail mail2 = new Mail(user,"2 vous avez obtenu une nouvelle ceinture",MailCategory.BELT,"voici votre ceinture orange",MailType.GROUPABLE,true);
+       	Mail mail3 = new Mail(user,"3 vous avez obtenu une nouvelle ceinture",MailCategory.BELT,"voici votre ceinture verte",MailType.GROUPABLE,true);
+       	Mail mail4 = new Mail(user,"4 vous avez obtenu une nouvelle ceinture",MailCategory.BELT,"voici votre ceinture bleue",MailType.GROUPABLE,true);
+       	Mail mail5 = new Mail(user,"5 vous avez obtenu une nouvelle ceinture",MailCategory.BELT,"voici votre ceinture brune",MailType.GROUPABLE,true);
+       	Mail mail6 = new Mail(user,"6 vous avez obtenu une nouvelle ceinture",MailCategory.BELT,"voici votre ceinture noir",MailType.GROUPABLE,true);
+  
+       mail1.setReplyTo(user);
+       mail2.setReplyTo(user);
+       mail3.setReplyTo(user);
+       mail4.setReplyTo(user);
+       mail5.setReplyTo(user);
+       mail6.setReplyTo(user);
        
+   /*    mail1.setEmailTarget(user.getMail());
+       mail2.setEmailTarget(user.getMail());
+       mail3.setEmailTarget(user.getMail());
+       mail4.setEmailTarget(user.getMail());
+       mail5.setEmailTarget(user.getMail());
+       mail6.setEmailTarget(user.getMail());*/
        	
        	listOfMails.add(mail1);
        	listOfMails.add(mail2);
@@ -300,30 +286,13 @@ public class MailDaoMock {
        	listOfMails.add(mail4);
        	listOfMails.add(mail5);
        	listOfMails.add(mail6);
-       	listOfMails.add(mail7);
-       	listOfMails.add(mail8);
-       	listOfMails.add(mail9);
-       	listOfMails.add(mail10);
-       	listOfMails.add(mail11);
-       	listOfMails.add(mail12);
-       	listOfMails.add(mail13);
-       	listOfMails.add(mail14);
-       	listOfMails.add(mail15);
-       	listOfMails.add(mail16);
-       	listOfMails.add(mail17);
-       	listOfMails.add(mail18);
-       	listOfMails.add(mail19);
-       	listOfMails.add(mail20);
-       	listOfMails.add(mail21);
-       	listOfMails.add(mail22);
-       	listOfMails.add(mail23);
-       	listOfMails.add(mail24);
+
        	
        	
        	return listOfMails;
        	}
-       	System.out.println("2flush mails");
-    	flushListeMailToRemove();
+
+    
        	return listOfMails;
     	   
        }
