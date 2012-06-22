@@ -6,18 +6,19 @@ import java.util.List;
 public class Group {
 	
 	private String name; // a group has a lot of users
-	private List <Group_Reg> group_regs = new ArrayList <Group_Reg> ();
-	private List <VoteArguments> voteArgument = new ArrayList <VoteArguments>();
 	private List <VoteAction> voteActions = new ArrayList <VoteAction>();
-	private List <Sous_Group> sous_group = new ArrayList <Sous_Group>();
+	private Group parent;
+	private List <Group> children = new ArrayList <Group>();
+	
 		
 	public Group(){
 		
 	}
 
-	public Group(String name, User user) {
+	public Group(String name) {
 		
 		this.name = name;
+		
 		
 	}
 
@@ -29,26 +30,27 @@ public class Group {
 		this.name = name;
 	}
 
-	public List<Group_Reg> getGroup_regs() {
-		return group_regs;
-	}
-
-	public List<VoteArguments> getVoteArgument() {
-		return voteArgument;
-	}
+	/*public List<GroupReg> getGroupRegs() {
+		return groupRegs;
+	}*/
 	
 	public List<VoteAction> getVoteActions() {
 		return voteActions;
 	}
+	public List<Group> getChildren(){
+		return children;
+	}
 	
-	public List<Sous_Group> getSous_group() {
-		return sous_group;
+	public void setParent(Group parent){
+		this.parent = parent;
 	}
 
 	@Override
 	public String toString(){
 		return name;
 	}
+
+	
 	
 
 }

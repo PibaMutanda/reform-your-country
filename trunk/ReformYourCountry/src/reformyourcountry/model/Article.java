@@ -3,21 +3,25 @@ package reformyourcountry.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.tree.DefaultMutableTreeNode;
+
 public class Article {
 	
 	private String title;
 	private String content;
-	private List <Action>actions = new ArrayList <Action>();
+	private Article parent;
+	private List<Action> actions = new ArrayList<Action>();
+	private List<Article> children = new ArrayList <Article>();
+	
 	
 	public Article() {
 	}
 	
 
-	public Article(String title, String content, List<Action> actions) {
-		super();
+	public Article(String title, String content) {
+		//super();
 		this.title = title;
 		this.content = content;
-		this.actions = actions;
 	}
 		
 	public String getTitle() {
@@ -43,6 +47,14 @@ public class Article {
 	public List<Action> getActions() {
 		return actions;
 	}
+
+	public List<Article> getChildren(){
+		return children;
+	}
+	
+	public void setParent(Article parent){
+		this.parent = parent;
+	}	
 
 
 	@Override

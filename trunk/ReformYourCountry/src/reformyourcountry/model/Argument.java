@@ -7,22 +7,21 @@ public class Argument {
 	
 	private String content;
 	private Action action;
-	private List<VoteArguments> voteArguments = new ArrayList<VoteArguments>();
+	private List<VoteArgument> voteArguments = new ArrayList<VoteArgument>();
+	private User user;
 	
 	public Argument (){
 		
 	}
 	
 	
-	public Argument(String content, Action action, List<VoteArguments> voteArguments) {
+	public Argument(String content, Action action, User user ) {
 		
 		this.content = content;
 		this.action = action;
-		this.voteArguments = voteArguments;
+		this.user = user;
+		
 	}
-
-
-	
 	
 	public String getContent() {
 		return content;
@@ -44,8 +43,18 @@ public class Argument {
 	}
 
 
-	public List<VoteArguments> getVoteArguments() {
+	public List<VoteArgument> getVoteArguments() {
 		return voteArguments;
+	}
+	
+	
+	public User getUser() {
+		return user;
+	}
+
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 
