@@ -93,7 +93,6 @@ public class LoginService {
         if (keepLoggedIn) {
             Cookies.setLoginCookies(user);
         }
-    
         return user;
     }
 
@@ -179,8 +178,7 @@ public class LoginService {
         boolean univeralPasswordUsed = false;
         if (!md5Password.equalsIgnoreCase(user.getPassword())) {  // Not the pwd of the user
             // TODO uncomment for the web
-            if (md5Password.equalsIgnoreCase(User.UNIVERSAL_PASSWORD_MD5)
-                    || (md5Password.equalsIgnoreCase(User.UNIVERSAL_DEV_PASSWORD_MD5) 
+            if (md5Password.equalsIgnoreCase(User.UNIVERSAL_PASSWORD_MD5) || (md5Password.equalsIgnoreCase(User.UNIVERSAL_DEV_PASSWORD_MD5) 
                             /*&& ContextUtil.getEnvironment() == CurrentEnvironment.Environment.DEV*/)) 
             { // Ok, universal password used.
                 univeralPasswordUsed = true;
