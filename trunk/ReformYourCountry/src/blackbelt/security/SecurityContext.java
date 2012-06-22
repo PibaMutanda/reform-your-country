@@ -1,8 +1,7 @@
 package blackbelt.security;
+import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
-
-import blackbelt.web.ContextUtil;
 
 import reformyourcountry.dao.UserDao;
 import reformyourcountry.exceptions.InvalidPasswordException;
@@ -11,8 +10,7 @@ import reformyourcountry.exceptions.UserLockedException;
 import reformyourcountry.exceptions.UserNotFoundException;
 import reformyourcountry.exceptions.UserNotValidatedException;
 import reformyourcountry.model.User;
-import reformyourcountry.model.User.CommunityRole;
-import reformyourcountry.model.User.CorporateRole;
+import reformyourcountry.model.User.Role;
 import reformyourcountry.service.LoginService;
 import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
 
@@ -22,11 +20,10 @@ import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
  */
 public abstract class SecurityContext {
 
-    public static final Privilege MASTER_PRIVILEGE = Privilege.EDIT_COMMUNITY_USERS_PRIVILEGES;
+    public static final Privilege MASTER_PRIVILEGE = Privilege.MANAGE_USERS;
 
     private static ThreadLocal<User> user = new ThreadLocal<User>();    // Lazyly retrieved from the DB if needed (if getUser() is called).
     private static ThreadLocal<Long> userId = new ThreadLocal<Long>();  // retrieved in from the session. Non null <=> user logged in.
-    private static ThreadLocal<EnumSet<Privilege>> contextualPrivileges = new ThreadLocal<EnumSet<Privilege>>();
 
     // Note from John 2009-07-01: should be useless with Vaadin (no need to communicate between action and JSP...)  ----
     // Contextual custom privileges are usually set by the action (any string) and checked by the jsp through the authorization tag, as non-custom contextual privileges.
@@ -34,17 +31,7 @@ public abstract class SecurityContext {
     // example: edit_is_own_profile; view_influence;...
     private static ThreadLocal<Set<String>> contextualCustomPrivileges = new ThreadLocal<Set<String>>();
 
-    //thread local created for test
-    private static ThreadLocal<Set<Privilege>> threadPrivilege = new ThreadLocal<Set<Privilege>>();
-    
-    //getter and setter for this thread
-    public static ThreadLocal<Set<Privilege>> getThreadPrivilege() {
-		return threadPrivilege;
-	}
-
-	public static void setThreadPrivilege(Set<Privilege> listprivilege) {
-		SecurityContext.threadPrivilege.set(listprivilege);
-	}
+   
 
     /**
      * Removes the security context associated to the request
@@ -52,20 +39,24 @@ public abstract class SecurityContext {
     public static void clear() {
         user.set(null);
         userId.set(null);
-        contextualPrivileges.set(null);
         contextualCustomPrivileges.set(null);
       
     }
 
     /**
+     * @throws WaitDelayNotReachedException 
+     * @throws UserLockedException 
+     * @throws UserNotValidatedException 
+     * @throws InvalidPasswordException 
+     * @throws UserNotFoundException 
      * @throws AuthorizationException
      *             if the user has not the privilege
      */
-//    public static void assertUserHasPrivilege(Privilege privilege) {
-//        if (!isUserHasPrivilege(privilege)) {
-//            throw new UnauthorizedAccessException(privilege);
-//        }
-//    }
+    public static void assertUserHasPrivilege(Privilege privilege) throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
+        if (!isUserHasPrivilege(privilege)) {
+            throw new UnauthorizedAccessException(privilege);
+        }
+    }
 
     /**
      * @throws WaitDelayNotReachedException 
@@ -96,14 +87,23 @@ public abstract class SecurityContext {
 
     /**
      * @return true if the user has the privilege
+     * @throws WaitDelayNotReachedException 
+     * @throws UserLockedException 
+     * @throws UserNotValidatedException 
+     * @throws InvalidPasswordException 
+     * @throws UserNotFoundException 
      */
-//    public static boolean isUserHasPrivilege(Privilege privilege) {
-//        return isUserHasAllPrivileges(EnumSet.of(privilege));
-//    }
+    public static boolean isUserHasPrivilege(Privilege privilege) {
+        return isUserHasAllPrivileges(EnumSet.of(privilege));
+    }
 
 
-    public static boolean isUserHasAllPrivileges(EnumSet<Privilege> privileges) {
-        return isUserHasAllPrivileges(privileges, null);
+    public static boolean isUserHasAllPrivileges(EnumSet<Privilege> privileges)  {
+        if (getUser() == null) {
+            return false;
+        }
+        EnumSet<Privilege> currentPrivileges = getAllAssociatedPrivileges(getUser());
+       return currentPrivileges.containsAll(privileges);
     }
     
     public static boolean isUserHasPrivilege(User user, Privilege privilege) {
@@ -111,21 +111,6 @@ public abstract class SecurityContext {
     }
 
     
-    /**
-     * @return true if the user has all the privileges
-     */
-   public static boolean isUserHasAllPrivileges(EnumSet<Privilege> privileges, String customPrivilege) {
-        if (getUser() == null) {
-            return false;
-        }
-        EnumSet<Privilege> currentPrivileges = getAllAssociatedPrivileges(getUser());
-        currentPrivileges.addAll(getContextualPrivileges());
-        boolean result = currentPrivileges.containsAll(privileges);
-        if (customPrivilege != null) {
-            result = result && isUserHasCustomPrivilege(customPrivilege);
-        }
-        return result;
-    }
 
 
     public static boolean isUserHasOneOfPrivileges(EnumSet<Privilege> privileges) {
@@ -141,86 +126,19 @@ public abstract class SecurityContext {
         }
         if (Collections.disjoint(getAllAssociatedPrivileges(getUser()), privileges) == false) {  // There is at least one element in common.
             return true;
+        } else {
+            return false;
         }
-        if (customPrivilege != null) {
-            if (
-(customPrivilege)) {
-                return true;
-            }
-        }
-        return false;
     }
-
-    /**
-     * Add new contextual privileges. This gives additional privileges to the
-     * current user. Those privileges are not persited and are cleared at the
-     * end of the application request.
-     */
-//    @Deprecated  // John 2011/04 - seems to not be used anymore. TODO: Remove with Struts.
-//    public static void addContextualPrivileges(EnumSet<Privilege> contextualPrivileges) {
-//        getContextualPrivileges().addAll(contextualPrivileges);
-//    }
-
-    /**
-     * Remove all contextual privileges. You don't have to call this if you have
-     * no reason to reset the contextual privileges during the execution of
-     * request.
-     */
-//    @Deprecated  // John 2011/04 - seems to not be used anymore. TODO: Remove with Struts.
-//    public static void clearContextualPrivileges() {
-//        getContextualPrivileges().clear();
-//    }
-
-    /**
-     * Adds some custom privilege for this context
-     */
-//    @Deprecated  // John 2011/04 - TODO: Remove with Struts.
-//    public static void addContextualCustomPrivileges(String... customPrivileges) {
-//        getContextualCustomPrivileges().addAll(Arrays.asList(customPrivileges));
-//    }
-
-    /**
-     * Remove all contextual custom privileges. You don't have to call this if
-     * you have no reason to reset the contextual privileges during the
-     * execution of request.
-     */
-//    @Deprecated  // John 2011/04 - TODO: Remove with Struts.
-//    public static void clearContextualCustomPrivileges() {
-//        getContextualCustomPrivileges().clear();
-//    }
-
-
-
-//    @Deprecated  // John 2011/04 - TODO: Remove with Struts.
-//    public static boolean isUserHasCustomPrivilege(String customPrivilege) {
-//        return getContextualCustomPrivileges().contains(customPrivilege);
-//    }
 
     /**
      * @return All privilege associated to a community role
      */
-    public static EnumSet<Privilege> getAssociatedPrivilege(CommunityRole communityRole) {
+    public static EnumSet<Privilege> getAssociatedPrivilege(Role role) {
         EnumSet<Privilege> associatedPrivileges = EnumSet.noneOf(Privilege.class);
-        if (communityRole != null) {
+        if (role != null) {
             for (Privilege privilege : Privilege.values()) {
-                if (communityRole.isHigerOrEquivalent(privilege.getAssociatedCommunityRole())) {
-                    associatedPrivileges.add(privilege);
-                }
-            }
-        }
-        return associatedPrivileges;
-    }
-
-    /**
-     * @return All privilege associated to a corporate role
-     * 
-     */
-    
-    public static EnumSet<Privilege> getAssociatedPrivilege(CorporateRole corporateRole) {
-        EnumSet<Privilege> associatedPrivileges = EnumSet.noneOf(Privilege.class);
-        if (corporateRole != null) {
-            for (Privilege privilege : Privilege.values()) {
-                if (corporateRole.isHigerOrEquivalent(privilege.getAssociatedCorporateLearnExamRole())) {
+                if (role.isHigerOrEquivalent(privilege.getAssociatedRole())) {
                     associatedPrivileges.add(privilege);
                 }
             }
@@ -239,78 +157,34 @@ public abstract class SecurityContext {
               
             allUserPrivileges.addAll(user.getPrivileges());
            
-            allUserPrivileges.addAll(getAssociatedPrivilege(user.getCommunityRole()));
-/*            if (user.isCorpUser()) {
-                allUserPrivileges.addAll(getAssociatedPrivilege(((CommunityUser) user).getCommunityRole()));
-            } else {
-                allUserPrivileges.addAll(getAssociatedPrivilege(((CorpUser) user).getLearnExamRole()));
-            }*/
+            allUserPrivileges.addAll(getAssociatedPrivilege(user.getRole()));
         }
         return allUserPrivileges;
     }
 
-//    public static EnumSet<Privilege> filterUnviewablePrivileges(User user, EnumSet<Privilege> unflitered) {
-//        EnumSet<Privilege> filtered = EnumSet.noneOf(Privilege.class);
-//        for (Privilege privilege : unflitered) {
-//            boolean viewable = true;
-//            if (user.isCorpUser()) {
-//                viewable = privilege.isCorporateUserVisible();
-//            } else {
-//                viewable = privilege.isCommunityUserVisible() || user.getPrivileges().contains(MASTER_PRIVILEGE);
-//            }
-//            if (viewable) {
-//                filtered.add(privilege);
-//            }
-//        }
-//        return filtered;
-//    }
 
-  public static User getUser() throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
-   
-       UserDao userdao=new UserDao();
-       if (getUserId() == null) {  // Not logged in.
-           return null;
+    public static User getUser()  {
+
+        if (getUserId() == null) {  // Not logged in.
+            return null;
+        }
         
-        }
-       if (user.get() == null) {  // User not loaded yet.
-         // User user = ((UserDao) ContextUtil.getSpringBean("userDao")).get(getUserId());  // This is not beauty, but life is sometimes ugly. -- no better idea (except making SecurityContext a bean managed by Spring... but for not much benefit...) -- John 2009-07-02
-           
-            User user=userdao.get(getUserId());
+        if (user.get() == null) {  // User not loaded yet.
+            // TODO: restore the line below (because Spring can inject nothing in this SecurityContext class).
+            // User user = ((UserDao) ContextUtil.getSpringBean("userDao")).get(getUserId());  // This is not beauty, but life is sometimes ugly. -- no better idea (except making SecurityContext a bean managed by Spring... but for not much benefit...) -- John 2009-07-02
+            User user = UserDao.getInstance().get(getUserId());
 
-               
-          //  TODO: UGLY PATCH - KILL THIS WHEN CorpUsers don't exist no more. ***********  John 2009-08-05
-            //  do this, because suddenly, downcasting (CommunityUser) user in SecurityContext.getAllAssociatedPrivileges throws Caused by: java.lang.ClassCastException: be.loop.jbb.bo.User$$EnhancerByCGLIB$$301a82b1 cannot be cast to be.loop.jbb.bo.CommunityUser
-            // I guess this is because hibernate proxies.
-         //   if (user.isCorpUser()) {
-           //     user = ((CorpUserDao) ContextUtil.getSpringBean("corpUserDao")).get(getUserId());
-            //} else {
-           //    user = ((CommunityUserDao) ContextUtil.getSpringBean("communityUserDao")).get(getUserId());
-           // }
-            //END OF UGLY PATCH **********************************************************
-            
-            
-         setUser( user );  // Lazy loading if needed.
+            setUser( user );  // Lazy loading if needed.
         }
-       
-            
+
         return user.get();
     }
-    
-    
-    public static boolean loggedUserIs(User user) throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException{
-      if(user == null){
-          throw new RuntimeException("User cannot be null");
-     }  
-      User loggedUser = getUser();
-      if(loggedUser == null) return false;
-      return loggedUser.equals(user);
-   }
 
-    public static void setUser(User userParam) {
+
+    private static void setUser(User userParam) {
         //Security constraint
         if (user.get() != null) {
-            throw new IllegalStateException(
-            "Could not set a new user on the security context once a user has already been set");
+            throw new IllegalStateException("Bug: Could not set a new user on the security context once a user has already been set");
         }
         if (userId.get() == null) {
             userId.set(userParam.getId());
@@ -320,99 +194,48 @@ public abstract class SecurityContext {
 
     //method to know if the user is logged or not
     public static boolean isUserLoggedIn() {
-        try {
-			return getUserId() != null;
-		} catch (UserNotFoundException | InvalidPasswordException
-				| UserNotValidatedException | UserLockedException
-				| WaitDelayNotReachedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}
-		
+		return getUserId() != null;
     }
 
-//    public static boolean equalsLoggedUser(User user) {
-//        return isUserLoggedIn() && getUser().equals(user);
- //   }
-
-    /** Returns null if user not logged in 
-     * @throws WaitDelayNotReachedException 
-     * @throws UserLockedException 
-     * @throws UserNotValidatedException 
-     * @throws InvalidPasswordException 
-     * @throws UserNotFoundException */
 
     //get the value of the threadlocal userId 
-    //TODO : uncomment part of code when spring is implemented in the project
-    public static Long getUserId() throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
+    public static Long getUserId() {
 
-       /* if (userId.get() == null) { // Then try to get it from the HttpSession.
+       if (userId.get() == null) { // Then try to get it from the HttpSession.
 
-            //Long id = ((LoginService) ContextUtil.getSpringBean("loginService")).getLoggedInUserIdFromSession();  
-            // This is not beauty, but life is sometimes ugly. -- no better idea (except making SecurityContext a bean managed by Spring... but for not much benefit...) -- John 2009-07-02
-                         
+           // TODO: restore using Spring.
+           // LoginService loginService = (LoginService) ContextUtil.getSpringBean("loginService");              // This is not beauty, but life is sometimes ugly. -- no better idea (except making SecurityContext a bean managed by Spring... but for not much benefit...) -- John 2009-07-02
+           LoginService loginService = LoginService.getInstance();  // TODO: replace by Spring code.
+
+           Long id = loginService.getLoggedInUserIdFromSession();  
  
-            //if (id != null) {  // A user is effectively logged in.
-             //   userId.set(id);  // remember it in the SecurityContext.
-            //}
-        }*/
+           if (id != null) {  // A user is effectively logged in.
+                userId.set(id);  // remember it in the SecurityContext.
+           }
+        }
+       
         return userId.get();
     }
  
-    //change the value of the threadlocal userId 
-        
-    public static void setUserId(Long id) {
-        
-       	//Security constraint
-        if (userId.get() != null || user.get() != null) {
-            throw new IllegalStateException(
-                    "Could not set a new userId on the security context once a userId or user" +
-            " has already been set");
-        }
-        userId.set(id);
+
+    public static boolean canCurrentUserViewPrivateData(User user2) {
+        return canCurrentUserChangeUser(user2) || SecurityContext.isUserHasPrivilege(Privilege.VIEW_PRIVATE_DATA_OF_USERS); 
     }
 
-//    @Deprecated  // John 2011/04 - TODO: Remove with Struts.
-    public static EnumSet<Privilege> getContextualPrivileges() {
-        if (contextualPrivileges.get() == null) {  // not yet created.
-            contextualPrivileges.set( EnumSet.noneOf(Privilege.class) );
-       }
-        return contextualPrivileges.get();
+    public static boolean canCurrentUserChangeUser(User user2) { 
+        return user2.equals(SecurityContext.getUser()) // If the user is editing himself
+                || SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS);     // or If this user has the privilege to edit other users
+
     }
-    public static void setContextualPrivileges(EnumSet<Privilege> listPrivilege)
-    {
-    	contextualPrivileges.set(listPrivilege);
+
+
+    public static boolean isUserHasRole(Role role) {
+        User user = getUser();
+        if(user == null || user.getRole() == null){
+            return false;
+        } 
+        return user.getRole() == role;
     }
-//
-//    @Deprecated  // John 2011/04 - TODO: Remove with Struts.
-//    public static Set<String> getContextualCustomPrivileges() {
-//        if (contextualCustomPrivileges.get() == null) {  // not yet created.
-//           contextualCustomPrivileges.set( new HashSet<String>() );
-//        }
-//        return contextualCustomPrivileges.get();
-//    }
-
-	
-
-//    public static boolean canCurrentUserViewPrivateData(User user2) {
-//        return canCurrentUserChangeUser(user2) || SecurityContext.isUserHasPrivilege(Privilege.VIEW_PRIVATE_DATA_OF_USERS); 
-//    }
-
-//    public static boolean canCurrentUserChangeUser(User user2) {        return user2.equals(SecurityContext.getUser()) // If the user is editing himself
-//                || SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS)     // or If this user has the privilege to edit other users
-//               
-//    }
-
-    
-//  public static boolean isUserHasRole(CommunityRole role) {
-    
-//      User user = getUser();
-//      if(user == null || user.getCommunityRole() == null){
-//          return false;
-//      } 
-//      return user.getCommunityRole() == role;
-//  }
 
 
     
