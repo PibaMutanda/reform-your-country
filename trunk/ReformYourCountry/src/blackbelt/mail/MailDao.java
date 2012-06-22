@@ -128,7 +128,7 @@ public class MailDao extends BaseRepository<Mail> {
     public List<Mail> getMailsFromUser(MailType mailType, User user){
         return (List<Mail>) getSession().createQuery("SELECT m FROM Mail m WHERE m.user =:user AND m.mailType =:mailType" )
         		.setParameter("user",user)
-        		.setParameter("mailType",mailType).list();
+        		.setParamet0er("mailType",mailType).list();
     }
 
     /**
