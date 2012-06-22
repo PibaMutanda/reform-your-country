@@ -25,6 +25,10 @@ import reformyourcountry.test.MainTestUser;
 
 public class MainSecurity {
 
+<<<<<<< .mine
+	public static void main(String[] args) throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
+	   
+=======
     public static void main(String[] args) throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
        
          
@@ -33,14 +37,66 @@ public class MainSecurity {
             UserService userService= User.get;
         LoginService loginService=new LoginService();    
         UserDao userdao = new UserDao();
+>>>>>>> .r469
 
+	    String identifier=null;
+	    String password=null;
+	    UserService userService=  UserService.getInstance();
+	    LoginService loginService= LoginService.getInstance();    
+	    UserDao userdao = UserDao.getInstance();
 
+<<<<<<< .mine
+=======
         try {
             userService.registerUser(false, "piba", "piba", Gender.MALE, "pibapiba", "passe", "piba@mail.com");
         } catch (UserAlreadyExistsException e) {
             throw new RuntimeException(e);
         } 
+>>>>>>> .r469
 
+<<<<<<< .mine
+	    try {
+	        userService.registerUser(false, "piba", "piba", Gender.MALE, "pibapiba", "passe", "piba@mail.com");
+	    } catch (UserAlreadyExistsException e) {
+	        throw new RuntimeException(e);
+	    } 
+
+	    System.out.println("\nWe have to validate the user registration");
+	    MainTestUser.validateUser();
+
+	    System.out.println("\nNow we try to log the user");
+	    System.out.println("Give your User name please!\n");
+	    identifier=consoleForm();
+
+	    System.out.println("Give your Password please\n");
+	    password=consoleForm();
+
+	    if(loginService.login(identifier,password,false).equals(null)) {
+	        System.out.println("the log has failed");
+	    }
+	    else {
+	        System.out.println("Sucess for the log");
+	        userdao.getUserByUserName(identifier).setId(145L);
+	        SecurityContext.setUserId(userdao.getUserByUserName(identifier).getId());
+
+
+	        System.out.println("Id"+SecurityContext.getUserId());
+
+	    }
+	    System.out.println("Value of the current user found by id :"+userdao.get(SecurityContext.getUserId()));
+	    SecurityContext.setUser(userdao.get(SecurityContext.getUserId()));
+
+	    System.out.println("Value of threadlocal user :"+SecurityContext.getUser());
+
+	    EnumSet<Privilege> listPrivilege;
+	    privileges.add(Privilege.MANAGE_NEWS);
+	    privileges.add(Privilege.MANAGE_NEWSLETTERS);
+	    privileges.add(Privilege.SEND_NEWSLETTERS);
+
+	    userdao.get(SecurityContext.getUserId()).setPrivileges(listPrivilege);
+
+
+=======
         System.out.println("\nWe have to validate the user registration");
          MainTestUser.validateUser();
          
@@ -76,6 +132,18 @@ public class MainSecurity {
         userdao.get(SecurityContext.getUserId()).setPrivileges(listPrivilege);
            
        
+>>>>>>> .r469
+<<<<<<< .mine
+	}
+
+
+	public static String consoleForm(){
+	    return   scanKeyBoard.next();
+	}
+
+	private static Scanner scanKeyBoard = new Scanner(System.in);
+
+=======
     }
     
     
@@ -85,4 +153,5 @@ public class MainSecurity {
             
     private static Scanner scanKeyBoard = new Scanner(System.in);
     
+>>>>>>> .r469
 }   
