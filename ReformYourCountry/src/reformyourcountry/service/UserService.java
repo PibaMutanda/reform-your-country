@@ -62,7 +62,7 @@ public class UserService {
     	newUser.setUserName(username);
     	newUser.setPassword(SecurityUtils.md5Encode(passwordInClear));
     	newUser.setMail(mail);
-
+        newUser.setId(145l);
     	//// Validation mail.
     	String base = newUser.getMail() + newUser.getPassword() + Math.random();  // Could be pure random.
     	newUser.setValidationCode(SecurityUtils.md5Encode(base.toString()));
