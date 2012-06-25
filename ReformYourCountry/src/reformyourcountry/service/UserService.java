@@ -49,6 +49,7 @@ public class UserService {
 
     public User registerUser(boolean directValidation, String firstname, String lastname,
     		Gender gender, String username, String passwordInClear, String mail) throws UserAlreadyExistsException {
+        
     	if (userDao.getUserByUserName(username) != null)	{
     		throw new UserAlreadyExistsException(identifierType.USERNAME, username);
     	}
