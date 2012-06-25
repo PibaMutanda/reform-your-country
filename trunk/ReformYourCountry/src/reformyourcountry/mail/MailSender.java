@@ -16,6 +16,8 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 
+import blackbelt.HtmlToTextUtil;
+
 import reformyourcountry.CurrentEnvironment.Environment;
 import reformyourcountry.CurrentEnvironment.MailBehavior;
 import reformyourcountry.dao.MailDaoMock;
@@ -35,6 +37,7 @@ public class MailSender extends Thread {
 
    private Logger logger = Logger.getLogger("jbbmail");
 
+   //TODO rewiew time delay choice for production
     public final static int DELAY_BETWEEN_EACH_MAIL = 50;  // in ms. In case the SMTP server is too slow (cannot accept too many mails too fast). Use this const to temporize between 2 SMTP calls. 
     public final static int WAKE_UP_DELAY_WHEN_NO_MAIL = 15 * 1000;  // ms. When there is no mail anymore, how long should this batch sleep before querying the DB again for mails to be sent ?
 
@@ -55,7 +58,7 @@ public class MailSender extends Thread {
     //@Value("${mail.from.notifier.alias}") 
     String mailNotifierAlias;
     //@Value("${mail.smtp.server}") 
-    String smtpHost = "smtp.gmail.com"; // value setup for test
+    String smtpHost = "smtp.gmail.com"; // value setup for test //TODO configure
     //@Value("${mail.smtp.port}") 
     int smtpPort = 465; // value setup for test
     
@@ -87,6 +90,12 @@ public class MailSender extends Thread {
         
         
     }
+    
+    
+    public void setUserDao(UserDao userDao){
+        
+        this.userDao = userDao;
+    }
 
     @PostConstruct
     public void postConstruct() {
@@ -101,7 +110,7 @@ public class MailSender extends Thread {
 	    javaMailSender.setPassword("technofutur");
 
         setName("MailSender"); // Sets the name of the thread to be visible in the prod server thread list.
-        // TODO: restore code
+     
        if(environment.getMailBehavior() != MailBehavior.NOT_STARTED){
         	this.start();
        } else {
@@ -122,7 +131,7 @@ public class MailSender extends Thread {
 
         logger.info("MailSender thread started");
         try {
-			Thread.sleep(1 * 60 * 10);  // sleep 2 minute to make sure all the bean are ready
+			Thread.sleep(1 * 60 * 1000);  // sleep 2 minute to make sure all the bean are ready
 		} catch (InterruptedException e) {
 	        logger.info("MailSender initial sleep interrupted");
 		}
@@ -234,7 +243,7 @@ public class MailSender extends Thread {
         // Sanity Check
         if(StringUtils.isBlank(emailSender)){
         	
-        	System.out.println("User with no email found : " + mail.getReplyTo().getId() + " " + mail.getReplyTo().getFullName());
+        	
        		logger.error("User with no email found : " + mail.getReplyTo().getId() + " " + mail.getReplyTo().getFullName());
         	return; // Do not continue
         }
@@ -313,7 +322,7 @@ public class MailSender extends Thread {
                 throw new IllegalArgumentException("'to' cannot be null");
             }
 
-            final String rawText = text;//(textIsHtml ? HtmlToTextUtil.convert(text) : text);
+            final String rawText = (textIsHtml ? HtmlToTextUtil.convert(text) : text);
 
             StringBuilder log = new StringBuilder();
             log.append(Thread.currentThread().getName());
@@ -338,9 +347,9 @@ public class MailSender extends Thread {
             log.append("\n");
             log.append("============== END MAIL ==============");
 
-     //       logger.info(log.toString());
+           logger.info(log.toString());
 
-         //   if (environment.getMailBehavior() == MailBehavior.SENT) { // Really send the mail to SMTP server now.
+            if (environment.getMailBehavior() == MailBehavior.SENT) { // Really send the mail to SMTP server now.
                 MimeMessagePreparator mimeMessagePreparator = new MimeMessagePreparator() {
                     @Override
                     public void prepare(final MimeMessage mimeMessage) throws Exception {
@@ -372,7 +381,7 @@ public class MailSender extends Thread {
                      
                 javaMailSender.send(mimeMessagePreparator);
                 System.out.println("Mail send");
-         //  }
+           }
         } catch(Exception e){//if we can't send the mail, continue
             // if we can't send for any reason, we don't stop the thread, we will just remove this mail from the database and we will continue to send mails.
             // Typical exception: the mail address is invalid.

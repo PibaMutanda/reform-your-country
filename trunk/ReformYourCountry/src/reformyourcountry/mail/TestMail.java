@@ -1,14 +1,16 @@
 package reformyourcountry.mail;
 
+import java.util.Scanner;
+
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 
-import reformyourcountry.CurrentEnvironment;
 import reformyourcountry.CurrentEnvironment.Environment;
 import reformyourcountry.dao.MailDaoMock;
+import reformyourcountry.dao.UserDao;
 import reformyourcountry.model.Mail;
 import reformyourcountry.model.User;
 
@@ -29,23 +31,26 @@ public class TestMail {
 	private void startTestMailSender(){
 		
 		MailDaoMock dao = MailDaoMock.getInstance();
+		
+		UserDao userdao = UserDao.getInstance();
 	
 		MailTemplateService templateService = new MailTemplateService();
 		
 		MailSender sender = new MailSender();
 		
-		MailService service = new MailService();
+		MailService service = MailService.getInstance();
 		
 		
 		//// Do what Spring would do:
 		sender.setEnvironement(Environment.PROD);
 		sender.setMailDao(dao);
+		sender.setUserDao(userdao);
 		sender.setMailTemplateService(templateService);
-		sender.postConstruct();  // starts the thread
+		sender.postConstruct();  // start the thread
 		service.setMailDao(dao);
 		service.setMailSender(sender);
 		
-		
+		// test MailService
 		User user = new User();
 		user.setFirstName("Gaston");
 		user.setLastName("Lagaffe");
@@ -60,12 +65,13 @@ public class TestMail {
 		
 		Mail mail1 = new Mail(user,"Test de mail service",MailCategory.USER,"Hello this is my test",MailType.IMMEDIATE,true);
 		mail1.setReplyTo(replyTo);
-		
-		
 		service.sendMail(mail1);
 		
-		
-	//	sender.shutDown();
+		//we stop the MailSender thread when we type "stop"
+		Scanner scan = new Scanner(System.in);
+	    if(scan.next().equals("stop"));
+	    sender.shutDown();
+	    scan.close();
 		
 		
 	}
