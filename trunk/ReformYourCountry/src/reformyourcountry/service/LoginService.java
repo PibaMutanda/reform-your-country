@@ -60,7 +60,7 @@ public class LoginService {
      * Throws an exception if fails. else returns the user.
      * 
      * @param identifier     e-mail or username
-     * @param clearPassword  clear non encrypted password
+     * @param md5Password    encrypted password
      * @param keepLoggedIn   if user required auto-login via cookies in the future.
      * @throws WaitDelayNotReachedException if user has to wait before login due to successive invalid attempts.
      */
