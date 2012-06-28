@@ -1,6 +1,5 @@
 package reformyourcountry.mail;
 
-package reformyourcountry.mail;
 
 
 import java.util.Calendar;
