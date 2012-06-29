@@ -46,8 +46,8 @@ public class BaseRepository<E extends BaseEntity> {
         return em.merge( entity );
     }
     
-    public void delete(E entity){
-        em.getTransaction().commit();
+    public void remove(E entity){
+        em.remove(entity);
     }
     protected EntityManager getEntityManager() {
         return em;
