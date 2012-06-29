@@ -6,7 +6,7 @@ import javax.annotation.PostConstruct;
 
 import org.apache.commons.lang.StringUtils;
 
-import reformyourcountry.dao.MailDaoMock;
+import reformyourcountry.Repository.MailDaoMock;
 import reformyourcountry.model.Mail;
 import reformyourcountry.model.User;
 

@@ -20,8 +20,8 @@ import blackbelt.HtmlToTextUtil;
 
 import reformyourcountry.CurrentEnvironment.Environment;
 import reformyourcountry.CurrentEnvironment.MailBehavior;
-import reformyourcountry.dao.MailDaoMock;
-import reformyourcountry.dao.UserDao;
+import reformyourcountry.Repository.MailDaoMock;
+import reformyourcountry.Repository.UserRepository;
 import reformyourcountry.model.Mail;
 import reformyourcountry.model.User;
 
@@ -46,7 +46,7 @@ public class MailSender extends Thread {
     //@Autowired	
     private MailDaoMock mailDao;
     //@Autowired  
-    private UserDao userDao;
+    private UserRepository userDao;
 
     //@Autowired	
     private MailTemplateService mainTemplate;
@@ -73,7 +73,7 @@ public class MailSender extends Thread {
     
     
     /* setter for the test  purpose delete after spring configuration*/
-    public void setMailDao( reformyourcountry.dao.MailDaoMock dao){
+    public void setMailDao( reformyourcountry.Repository.MailDaoMock dao){
     	mailDao = dao;
     	
     }
@@ -92,7 +92,7 @@ public class MailSender extends Thread {
     }
     
     
-    public void setUserDao(UserDao userDao){
+    public void setUserDao(UserRepository userDao){
         
         this.userDao = userDao;
     }

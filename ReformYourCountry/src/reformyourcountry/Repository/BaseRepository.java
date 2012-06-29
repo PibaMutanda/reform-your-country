@@ -1,4 +1,4 @@
-package reformyourcountry.dao;
+package reformyourcountry.Repository;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;

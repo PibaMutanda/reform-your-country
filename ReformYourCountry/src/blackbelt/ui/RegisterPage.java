@@ -2,7 +2,7 @@ package blackbelt.ui;
 //TODO uncoment import
 import org.apache.commons.lang.StringUtils;
 
-import reformyourcountry.dao.UserDao;
+import reformyourcountry.Repository.UserRepository;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.Role;
 import reformyourcountry.service.UserService;
@@ -50,7 +50,7 @@ import com.vaadin.ui.Button.ClickListener;
 public class RegisterPage extends VerticalLayout /*implements ParamChangeListener*/ {
     //TODO maxime uncomment
     /*@Autowired*/ private UserService userService ; // TODO: Use autowiring with Spring instead of new.
-    /*@Autowired*/ private UserDao userDao ;// TODO: Use autowiring with Spring instead of new.
+    /*@Autowired*/ private UserRepository userDao ;// TODO: Use autowiring with Spring instead of new.
 
     public static final String RECRUITER_PARAMNAME = "recruiter";
     public static final String EMAIL_PARAMNAME = "email";

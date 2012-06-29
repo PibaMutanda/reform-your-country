@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.time.DateUtils;
 
-import reformyourcountry.dao.UserDao;
+import reformyourcountry.Repository.UserRepository;
 import reformyourcountry.exceptions.InvalidPasswordException;
 import reformyourcountry.exceptions.UserLockedException;
 import reformyourcountry.exceptions.UserNotFoundException;
@@ -37,7 +37,7 @@ public class LoginService {
     }
     
     // @Autowired
-    UserDao userDao = UserDao.getInstance();  // TODO: Use autowiring with Spring instead of new.
+    UserRepository userDao = UserRepository.getInstance();  // TODO: Use autowiring with Spring instead of new.
 
     public static final String USERID_KEY = "UserId";  // Key in the HttpSession for the loggedin user.
     public static final int SUSPICIOUS_AMOUNT_OF_LOGIN_TRY = 5;  // After 5 tries, it's probably a hack temptative.

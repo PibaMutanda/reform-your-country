@@ -1,4 +1,4 @@
-package reformyourcountry.dao;
+package reformyourcountry.Repository;
 
 import java.util.HashSet;
 import java.util.List;
@@ -7,15 +7,15 @@ import java.util.Set;
 import reformyourcountry.model.User;
 import reformyourcountry.exceptions.*;
 
-public class UserDao {
+public class UserRepository {
 
     // TODO: remove this when we'll use a DB
     private  Set<User> listeUser = new HashSet<User>();
 
     // TODO: remove this when we'll use Spring.
-    private static UserDao uniqueInstance = new UserDao();
-    private UserDao() {};  // To disable new UserDao() outside this singleton class.
-    public static UserDao getInstance() {
+    private static UserRepository uniqueInstance = new UserRepository();
+    private UserRepository() {};  // To disable new UserDao() outside this singleton class.
+    public static UserRepository getInstance() {
         return uniqueInstance;
     }
 
@@ -24,7 +24,6 @@ public class UserDao {
         return (List<User>) listeUser;
     }
 
-    // TODO maxime delete static modifier when using JPA
     public void save(User user) {
         if (listeUser.contains(user)) {
             return;  // Already in the list
