@@ -15,9 +15,6 @@ import reformyourcountry.model.User;
 @Transactional
 @SuppressWarnings("unchecked")
 public class UserRepository extends BaseRepository<User>{
-    
-    @PersistenceUnit
-    EntityManager em;
 
     public  User getUserByEmail(String identifier)  {
         List<User> results= em.createNamedQuery("findUserByEmail").setParameter("mail", identifier).getResultList();

@@ -20,8 +20,6 @@ import reformyourcountry.model.User;
 @Repository
 @Transactional
 public class MailRepository  extends BaseRepository<User>{
-    @PersistenceUnit
-    EntityManager em;
     /**
      * returns a user containing immediate mails
      * @return a user
