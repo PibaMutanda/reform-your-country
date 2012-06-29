@@ -16,7 +16,7 @@ import blackbelt.model.Mail;
 import blackbelt.model.MailType;
 import blackbelt.model.MailingDelayType;
 
-@Repository
+//@Repository
 public class MailDaoBB extends BaseRepository<Mail> {
 
     
