@@ -47,12 +47,12 @@ public class MailSender extends Thread {
     private boolean isShutDown = false;
 
     @Autowired	
-    private MailRepository mailDao;
-    //@Autowired  
-    private UserRepository userDao;
+    public MailRepository mailDao;
+    @Autowired  
+    public UserRepository userDao;
 
-    //@Autowired	
-    private MailTemplateService mainTemplate;
+    @Autowired	
+    public MailTemplateService mainTemplate;
 
     JavaMailSenderImpl javaMailSender;
 
@@ -66,9 +66,9 @@ public class MailSender extends Thread {
     int smtpPort = 465; // value setup for test
     
     
-    //TODO Environemnt class ???
+    //TODO USE SPRING (not hardcoded)
     //@Value("${app.environment}") 
-    Environment environment;
+    Environment environment = Environment.PROD;
     //@Value("${mail.from.notifier.address}") 
     String notifier;
     //@Value("${mail.from.notifier.alias}") 
@@ -113,8 +113,7 @@ public class MailSender extends Thread {
 	    javaMailSender.setPassword("technofutur");
 
         setName("MailSender"); // Sets the name of the thread to be visible in the prod server thread list.
-     
-       if(environment.getMailBehavior() != MailBehavior.NOT_STARTED){
+       if(this.environment.getMailBehavior() != MailBehavior.NOT_STARTED){
         	this.start();
        } else {
        	logger.info("DevMode on, mail thread not started");

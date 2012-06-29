@@ -1,15 +1,15 @@
 package reformyourcountry;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 
 /**
  * Spring Bean that wraps the current environment
  */
-//@Component
+@Component
 public class CurrentEnvironment {
 
-	@Value("${app.environment}") // comes from the jbbconfig.properties file. Value is modified by ant at build time
+	//@Value("${app.environment}") // comes from the jbbconfig.properties file. Value is modified by ant at build time
 	private Environment environment;
 	
 	public Environment getEnvironment() {

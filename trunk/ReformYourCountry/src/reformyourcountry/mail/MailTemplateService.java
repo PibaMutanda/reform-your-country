@@ -5,8 +5,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.stereotype.Service;
 
 
+import reformyourcountry.Repository.MailRepository;
 import reformyourcountry.model.Mail;
 import reformyourcountry.model.User;
 import reformyourcountry.service.UserService;
@@ -20,13 +22,13 @@ import com.sun.jndi.toolkit.url.UrlUtil;
  * @author Johan Gusbin
  * Generates a Html string based on a mail
  */
-//@Component
+@Service
 @Configurable(preConstruction=true)
 public final class MailTemplateService {
 
-   // @Autowired
-  //  MailDao dao;
-  //  @Autowired UserService userService;
+    @Autowired
+    MailRepository dao;
+    @Autowired UserService userService;
 
     public MailTemplateService() {}
 
