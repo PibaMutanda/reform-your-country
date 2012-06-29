@@ -37,9 +37,9 @@ public class mailService {
 	//@Logger Log logger;
 
    // @Autowired	
-    private MailRepository mailDao;
+    public MailRepository mailDao;
     // @Autowired	
-    private MailSender mailSender;
+    public MailSender mailSender;
 
     
     
