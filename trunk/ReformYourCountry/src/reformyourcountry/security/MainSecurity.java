@@ -1,7 +1,5 @@
 package reformyourcountry.security;
 
-import blackbelt.security.Privilege;
-import blackbelt.security.SecurityContext;
 import reformyourcountry.exceptions.InvalidPasswordException;
 import reformyourcountry.exceptions.UserAlreadyExistsException;
 import reformyourcountry.exceptions.UserLockedException;
@@ -48,5 +46,5 @@ public class MainSecurity {
         System.out.println("Username :"+SecurityContext.getUser().getUserName()+"\nPassword :"+SecurityContext.getUser().getPassword());
      
 
-    }
+	}
 }   
