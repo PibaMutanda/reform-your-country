@@ -13,6 +13,7 @@ public class UnauthorizedAccessException extends com.sun.servicetag.Unauthorized
                 super();
                 this.message = message;
             }
+       
        public UnauthorizedAccessException(Privilege privilege) {
                 super();
                 this.privilege = privilege;
