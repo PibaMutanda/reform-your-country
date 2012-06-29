@@ -20,10 +20,10 @@ import reformyourcountry.security.Privilege;
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
-//@NamedQueries({
-//        @NamedQuery(name="findUserByEmail",query="select u from User u when u.mail =:mail"),
-//        @NamedQuery(name="findUserByUserName", query="select u from User u when u.userName =:userName")
-//} )
+@NamedQueries({
+        @NamedQuery(name="findUserByEmail",query="select u from User u where u.mail =:mail"),
+        @NamedQuery(name="findUserByUserName", query="select u from User u where u.userName =:userName")
+} )
 public class User extends BaseEntity implements Cloneable, Comparable<User>,
 Serializable {
     //TODO maxime uncomment when annoted this classes
