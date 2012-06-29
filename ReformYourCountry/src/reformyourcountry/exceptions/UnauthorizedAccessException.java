@@ -1,6 +1,6 @@
 package reformyourcountry.exceptions;
 
-import blackbelt.security.Privilege;
+import reformyourcountry.security.Privilege;
 
 @SuppressWarnings("serial")
 public class UnauthorizedAccessException extends com.sun.servicetag.UnauthorizedAccessException{
