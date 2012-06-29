@@ -9,7 +9,7 @@ public class BaseEntity {
     @GeneratedValue
     Long id;
     
-    private Long getId()
+    public Long getId()
     {
         return id;
     }

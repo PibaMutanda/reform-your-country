@@ -9,18 +9,21 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.mail.internet.MimeMessage;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
+import org.springframework.stereotype.Service;
 
 import blackbelt.HtmlToTextUtil;
 
 import reformyourcountry.CurrentEnvironment.Environment;
 import reformyourcountry.CurrentEnvironment.MailBehavior;
 import reformyourcountry.Repository.MailDaoMock;
+import reformyourcountry.Repository.MailRepository;
 import reformyourcountry.Repository.UserRepository;
 import reformyourcountry.model.Mail;
 import reformyourcountry.model.User;
@@ -32,7 +35,7 @@ import reformyourcountry.model.User;
  * We go through a DB to be sure the mails are sent if the server shuts down (sometimes, there are many mails to be sent (newsletter) 
  * and we may have to wait for a few hours between the decision to send a mail and its effective sent).
  */
-//@Service
+@Service
 public class MailSender extends Thread {
 
    private Logger logger = Logger.getLogger("jbbmail");
@@ -43,8 +46,8 @@ public class MailSender extends Thread {
 
     private boolean isShutDown = false;
 
-    //@Autowired	
-    private MailDaoMock mailDao;
+    @Autowired	
+    private MailRepository mailDao;
     //@Autowired  
     private UserRepository userDao;
 
@@ -73,7 +76,7 @@ public class MailSender extends Thread {
     
     
     /* setter for the test  purpose delete after spring configuration*/
-    public void setMailDao( reformyourcountry.Repository.MailDaoMock dao){
+    public void setMailDao( MailRepository dao){
     	mailDao = dao;
     	
     }
@@ -168,7 +171,7 @@ public class MailSender extends Thread {
                     sendMailsGrouped(nextMailList);
                     nextMail.getUser().setLastMailSentDate(new Date()); 
                     
-                    userDao.save(nextMail.getUser());
+                    userDao.update(nextMail.getUser());
                     mailDao.removeMails(nextMailList); 
                                     
                     this.sleepWell(DELAY_BETWEEN_EACH_MAIL);
@@ -244,7 +247,7 @@ public class MailSender extends Thread {
         if(StringUtils.isBlank(emailSender)){
         	
         	
-       		logger.error("User with no email found : " + mail.getReplyTo().getId() + " " + mail.getReplyTo().getFullName());
+       		logger.error("User with no email found : " + mail.getReplyTo().getFullName());
         	return; // Do not continue
         }
         
