@@ -5,13 +5,10 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
+import org.springframework.beans.factory.annotation.Autowired;
 
 import reformyourcountry.Repository.UserRepository;
 import reformyourcountry.exceptions.InvalidPasswordException;
@@ -29,8 +26,8 @@ import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
 import reformyourcountry.service.UserService;
 
 public class JUnitTestRegisterAndLoginUser {
-
-    private static UserRepository userDao = UserRepository.getInstance();
+    @Autowired
+    private UserRepository userDao;
     private static UserService userService = UserService.getInstance();
     private static LoginService loginService = LoginService.getInstance();
     private static String firstname = "test";
@@ -39,6 +36,7 @@ public class JUnitTestRegisterAndLoginUser {
     private static String username = "test";
     private static String passwordInClear = "test";
     private static String mail = "test@test.test";
+    private static User testUser;
     private static boolean exception = false;
     
     /**
@@ -48,7 +46,7 @@ public class JUnitTestRegisterAndLoginUser {
     @Before
     public void testRegisterUser() {
         try {
-            userService.registerUser(true, firstname, lastname, gender, username, passwordInClear, mail);
+            testUser = userService.registerUser(true, firstname, lastname, gender, username, passwordInClear, mail);
         } catch (UserAlreadyExistsException e) {
             fail("user alreadyexist");
         }
@@ -59,12 +57,13 @@ public class JUnitTestRegisterAndLoginUser {
      */
     @After
     public void removeUser() {
-        try {
-            userDao.remove(username);
-        } catch (UserNotFoundException e) {
-            e.printStackTrace();
-            fail("can't remove usertest");
-        }
+        
+//        try {
+            userDao.remove(testUser);
+//        } catch (UserNotFoundException e) {
+//            e.printStackTrace();
+//            fail("can't remove usertest");
+//        }
     }
     
     @Test
@@ -100,12 +99,12 @@ public class JUnitTestRegisterAndLoginUser {
     public void testUserNotValidatedException()
     {
     	//remove testUser because he use direct vaidation
-    	try {
-    		userDao.remove(username);
-    	} catch (UserNotFoundException e) {
-    		e.printStackTrace();
-    		fail("can't remove usertest");
-    	}
+//    	try {
+    		userDao.remove(testUser);
+//    	} catch (UserNotFoundException e) {
+//    		e.printStackTrace();
+//    		fail("can't remove usertest");
+//    	}
     	//create a user without directvalidation
     	try {
     		userService.registerUser(false, firstname, lastname, gender, username, passwordInClear, mail);

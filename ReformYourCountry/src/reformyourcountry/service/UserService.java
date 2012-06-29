@@ -19,7 +19,7 @@ import reformyourcountry.model.User.AccountStatus;
 import reformyourcountry.model.User.Gender;
 import blackbelt.util.SecurityUtils;
 
-@Service
+@Service(value="userService")
 @Scope("singleton")
 public class UserService {
     
@@ -36,8 +36,8 @@ public class UserService {
     @Autowired 
     private UserRepository userDao;
     
-    @Autowired 
-    private MailService mailService;
+//    @Autowired 
+//    private MailService mailService;
 
 
     /**
@@ -164,15 +164,15 @@ public class UserService {
         userDao.update(user);
 
         // TODO maxime uncomment when mail service available
-        mailService.sendMail(user.getMail(), "Password Recovery",
-                "You requested a new password for your account '"+ user.getUserName()+"' on KnowledgeBlackBelt.com<br/>" + 
-                        "We could not give you back your old password because we do not store it directly, for security and (your own) privacy reason it is encrypted in a non reversible way. <br/><br/>" + 
-                        "Here is your new password : "+ newPassword + 
-                        "<ol>" +  
-                        "<li>password are case sensitive,</li>" +                  //TODO maxime uncoment for the web
-                        "<li>This is a temporary password, feel free to change it using <a href='"+/*getUserPageUrl(user)+*/"'>your profile page</a>.</li>" +
-                        "</ol>", 
-                        MailType.IMMEDIATE, MailCategory.USER);
+//        mailService.sendMail(user.getMail(), "Password Recovery",
+//                "You requested a new password for your account '"+ user.getUserName()+"' on KnowledgeBlackBelt.com<br/>" + 
+//                        "We could not give you back your old password because we do not store it directly, for security and (your own) privacy reason it is encrypted in a non reversible way. <br/><br/>" + 
+//                        "Here is your new password : "+ newPassword + 
+//                        "<ol>" +  
+//                        "<li>password are case sensitive,</li>" +                  //TODO maxime uncoment for the web
+//                        "<li>This is a temporary password, feel free to change it using <a href='"+/*getUserPageUrl(user)+*/"'>your profile page</a>.</li>" +
+//                        "</ol>", 
+//                        MailType.IMMEDIATE, MailCategory.USER);
 
     }
 

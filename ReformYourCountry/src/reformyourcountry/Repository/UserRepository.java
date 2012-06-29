@@ -2,6 +2,7 @@ package reformyourcountry.Repository;
 
 import java.util.List;
 
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceUnit;
 
@@ -9,10 +10,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import reformyourcountry.model.User;
+
 @Repository
 @Transactional
 @SuppressWarnings("unchecked")
-
 public class UserRepository extends BaseRepository<User>{
     
     @PersistenceUnit
