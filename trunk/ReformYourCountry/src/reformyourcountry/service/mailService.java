@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import reformyourcountry.Repository.MailDaoMock;
+import reformyourcountry.Repository.MailRepository;
 import reformyourcountry.mail.MailCategory;
 import reformyourcountry.mail.MailSender;
 import reformyourcountry.mail.MailType;
@@ -36,13 +37,13 @@ public class mailService {
 	//@Logger Log logger;
 
    // @Autowired	
-    private MailDaoMock mailDao;
+    private MailRepository mailDao;
     // @Autowired	
     private MailSender mailSender;
 
     
     
-    public void setMailDao(MailDaoMock dao){
+    public void setMailDao(MailRepository dao){
     	mailDao = dao;
     	
     }
