@@ -12,8 +12,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import blackbelt.security.Privilege;
-import blackbelt.security.SecurityContext;
 
 import reformyourcountry.dao.UserDao;
 import reformyourcountry.exceptions.InvalidPasswordException;
@@ -24,6 +22,8 @@ import reformyourcountry.exceptions.UserNotValidatedException;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountStatus;
 import reformyourcountry.model.User.Gender;
+import reformyourcountry.security.Privilege;
+import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.LoginService;
 import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
 import reformyourcountry.service.UserService;
