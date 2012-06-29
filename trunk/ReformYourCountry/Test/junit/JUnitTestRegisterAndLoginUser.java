@@ -13,7 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-import reformyourcountry.dao.UserDao;
+import reformyourcountry.Repository.UserRepository;
 import reformyourcountry.exceptions.InvalidPasswordException;
 import reformyourcountry.exceptions.UserAlreadyExistsException;
 import reformyourcountry.exceptions.UserLockedException;
@@ -30,7 +30,7 @@ import reformyourcountry.service.UserService;
 
 public class JUnitTestRegisterAndLoginUser {
 
-    private static UserDao userDao = UserDao.getInstance();
+    private static UserRepository userDao = UserRepository.getInstance();
     private static UserService userService = UserService.getInstance();
     private static LoginService loginService = LoginService.getInstance();
     private static String firstname = "test";

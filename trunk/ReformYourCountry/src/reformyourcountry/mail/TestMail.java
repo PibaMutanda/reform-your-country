@@ -9,8 +9,8 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 
 import reformyourcountry.CurrentEnvironment.Environment;
-import reformyourcountry.dao.MailDaoMock;
-import reformyourcountry.dao.UserDao;
+import reformyourcountry.Repository.MailDaoMock;
+import reformyourcountry.Repository.UserRepository;
 import reformyourcountry.model.Mail;
 import reformyourcountry.model.User;
 
@@ -32,7 +32,7 @@ public class TestMail {
 		
 		MailDaoMock dao = MailDaoMock.getInstance();
 		
-		UserDao userdao = UserDao.getInstance();
+		UserRepository userdao = UserRepository.getInstance();
 	
 		MailTemplateService templateService = new MailTemplateService();
 		

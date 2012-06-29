@@ -8,53 +8,33 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.*;
+
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.annotations.Index;
 
 import reformyourcountry.mail.MailingDelayType;
 import reformyourcountry.security.Privilege;
 
-//TODO piba uncomment when using hibernate
-// @Entity
-//@Table(name = "users")
-//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-//@DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
-public class User /*extends Identifiable*/ implements Cloneable, Comparable<User>,
+ @Entity
+@Table(name = "users")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
+public class User extends BaseEntity implements Cloneable, Comparable<User>,
 		Serializable {
 	
-	//partie faite par Jamal et Delphine and co ... (pas touche) 
 
-		private List <GroupReg> groupRegs = new ArrayList <GroupReg>(); //date of registration of user in a group
 		private List <VoteAction> voteActions = new ArrayList <VoteAction>();
 		private List <VoteArgument> voteArguments = new ArrayList <VoteArgument>();
-		//private List <Comment> comments = new ArrayList <Comment>();
-		//private List <Argument> arguments = new ArrayList <Argument>();
-
-		/*public List<Comment> getComment() {
-			return comments;
-		}*/
-		
-		/*public List<Argument> getArguments() {
-			return arguments;
-		}*/
 
 
 
-		public List<GroupReg> getGroupRegs() {
-			return groupRegs;
-		}
 
 		public List<VoteAction> getVoteActions() {
 			return voteActions;
 		}
-
-		/*public List<VoteArgument> getVoteArguments() {
-			return voteArguments;
-		}*/
-
-		//fin de notre partie  ;)
 	
 	
-	private static long generated_id ; 
 
 	private static final long serialVersionUID = 4144665927166518905L;
 	//this is the MD5 print of the universal password
@@ -155,12 +135,6 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 
 	}
 
-	//@Id
-	//@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	//
-	// User info
-	//
 	private String firstName;
 
 	private String lastName;
@@ -168,21 +142,21 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	
 	
 
-	// @Column(unique = true)
-	// @Index(name = "username_idx")
+	 @Column(unique = true)
+	 @Index(name = "username_idx")
 	private String userName; 
 
 	private String mail;
 
 	private String password;
 	
-	//@Lob
+	@Lob
 	 private String nameChangeLog; // record the name changes
 
 	
 
-    //@Column(nullable = true)
-	//@Enumerated(EnumType.STRING)
+    @Column(nullable = true)
+	@Enumerated(EnumType.STRING)
 	private Gender gender;
 
 	private Date birthDate;
@@ -196,11 +170,10 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	private boolean guest;
 
 
-	//TODO maxime uncomment when implements privileges
-//	@ElementCollection(targetClass=Privilege.class, fetch=FetchType.EAGER)
-//	@Enumerated(EnumType.STRING)
-//	@JoinTable(name="users_privileges",joinColumns={@JoinColumn(name="userid")})
-//	@Column(name="privilege", nullable=false)
+	@ElementCollection(targetClass=Privilege.class, fetch=FetchType.EAGER)
+	@Enumerated(EnumType.STRING)
+	@JoinTable(name="users_privileges",joinColumns={@JoinColumn(name="userid")})
+	@Column(name="privilege", nullable=false)
 	private Set<Privilege> privileges = new HashSet<Privilege>();
 
 	private Date lastAccess;
@@ -218,16 +191,16 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 
 	private String lockReason;
 
-	//@Column(nullable = false)
-	//@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
 	private AccountStatus accountStatus;
 	
 	private boolean nlSubscriber = true; 
 
 	private boolean spammer = false;
 
-	//@ManyToOne
-	//@JoinColumn(name = "spamReporterId")
+	@ManyToOne
+	@JoinColumn(name = "spamReporterId")
 	private User spamReporter;
 	/**
 	 * influence of automated privilege compution
@@ -240,18 +213,18 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	// nicolas, henryk, ...) to have a fixed non-recomputed value
 	private boolean influenceAutoComputed = true;
 
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "influenceAssignerUserId", nullable = true)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "influenceAssignerUserId", nullable = true)
 	private User influenceAssigner; // User who has given the value for influence field. Can be null (system gives influence when new belt or root influencers, as John & Nicolas).
 //	// Contains all groups link including the primary group as well
-//	@OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
-//	private Set<GroupReg> groupRegs = new HashSet<GroupReg>();
+	@OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+	private Set<GroupReg> groupRegs = new HashSet<GroupReg>();
 //	// Link to the Primary Group : maybe null if in no group and GroupRegs is
 //	// empty
-//	@OneToOne(fetch = FetchType.EAGER)
-//	@JoinColumn(name = "primaryGroupRegId")
-//	private GroupReg primaryGroupReg;
-//	@Enumerated(EnumType.STRING)
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "primaryGroupRegId")
+	private GroupReg primaryGroupReg;
+	@Enumerated(EnumType.STRING)
 	
 	private MailingDelayType mailingDelay; 
 	public MailingDelayType getMailingDelay() {
@@ -298,10 +271,6 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 		this.userName = userName;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
 	@Override
     public String toString() {
         return "User [group_regs=" + groupRegs + ", voteActions="
@@ -326,10 +295,6 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
                 + ", mailingDelay=" + mailingDelay + ", communityRole="
                 + role + "]";
     }
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getLastName() {
 		return lastName;
@@ -529,22 +494,21 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	public void setSpamReporter(User spamReporter) {
 		this.spamReporter = spamReporter;
 	}
-//TODO maxime uncomment
-//	public void setGroupRegs(Set<GroupReg> groupRegs) {
-//		this.groupRegs = groupRegs;
-//	}
-//
-//	public Set<GroupReg> getGroupRegs() {
-//		return groupRegs;
-//	}
-//
-//	public void setPrimaryGroupReg(GroupReg primaryGroupReg) {
-//		this.primaryGroupReg = primaryGroupReg;
-//	}
-//
-//	public GroupReg getPrimaryGroupReg() {
-//		return primaryGroupReg;
-//	}
+	public void setGroupRegs(Set<GroupReg> groupRegs) {
+		this.groupRegs = groupRegs;
+	}
+
+	public Set<GroupReg> getGroupRegs() {
+		return groupRegs;
+	}
+
+	public void setPrimaryGroupReg(GroupReg primaryGroupReg) {
+		this.primaryGroupReg = primaryGroupReg;
+	}
+
+	public GroupReg getPrimaryGroupReg() {
+		return primaryGroupReg;
+	}
 
 	//TODO maxime uncoment when using facebook integration
 //	public void setoAuthCredentials(Set<SocialIntegration> oAuthCredentials) {
@@ -590,37 +554,38 @@ public class User /*extends Identifiable*/ implements Cloneable, Comparable<User
 	public boolean isInfluenceAutoComputed() {
 		return influenceAutoComputed;
 	}
-	
-	@Override
-	public int hashCode() {
-	    final int prime = 31;
-	    int result = 1;
-	    result = prime * result + ((mail == null) ? 0 : mail.hashCode());
-	    result = prime * result
-		    + ((userName == null) ? 0 : userName.hashCode());
-	    return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-	    if (this == obj)
-		return true;
-	    if (obj == null)
-		return false;
-	    if (getClass() != obj.getClass())
-		return false;
-	    User other = (User) obj;
-	    if (mail == null) {
-		if (other.mail != null)
-		    return false;
-	    } else if (!mail.equals(other.mail))
-		return false;
-	    if (userName == null) {
-		if (other.userName != null)
-		    return false;
-	    } else if (!userName.equals(other.userName))
-		return false;
-	    return true;
-	}
+	//TODO maxime use?
+//	
+//	@Override
+//	public int hashCode() {
+//	    final int prime = 31;
+//	    int result = 1;
+//	    result = prime * result + ((mail == null) ? 0 : mail.hashCode());
+//	    result = prime * result
+//		    + ((userName == null) ? 0 : userName.hashCode());
+//	    return result;
+//	}
+//
+//	@Override
+//	public boolean equals(Object obj) {
+//	    if (this == obj)
+//		return true;
+//	    if (obj == null)
+//		return false;
+//	    if (getClass() != obj.getClass())
+//		return false;
+//	    User other = (User) obj;
+//	    if (mail == null) {
+//		if (other.mail != null)
+//		    return false;
+//	    } else if (!mail.equals(other.mail))
+//		return false;
+//	    if (userName == null) {
+//		if (other.userName != null)
+//		    return false;
+//	    } else if (!userName.equals(other.userName))
+//		return false;
+//	    return true;
+//	}
 
 }

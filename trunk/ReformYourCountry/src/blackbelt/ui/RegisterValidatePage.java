@@ -10,7 +10,7 @@ package blackbelt.ui;
 //import org.vaadin.navigator7.uri.Param;
 //import org.vaadin.navigator7.uri.ParamPageResource;
 
-import reformyourcountry.dao.UserDao;
+import reformyourcountry.Repository.UserRepository;
 import reformyourcountry.exceptions.InvalidPasswordException;
 import reformyourcountry.exceptions.UserNotFoundException;
 import reformyourcountry.model.User;
@@ -48,7 +48,7 @@ public class RegisterValidatePage extends HorizontalLayout /*
 
     /* @Autowired */private LoginService loginService;
 
-    /* @Autowired */private UserDao userDao; // TODO: Use autowiring with Spring instead of new.
+    /* @Autowired */private UserRepository userDao; // TODO: Use autowiring with Spring instead of new.
 
     private Label registrationValidationLabel = new Label("",
 	    Label.CONTENT_XHTML);

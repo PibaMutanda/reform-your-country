@@ -5,7 +5,7 @@ import java.util.Date;
 
 import org.apache.log4j.Logger;
 
-import reformyourcountry.dao.UserDao;
+import reformyourcountry.Repository.UserRepository;
 import reformyourcountry.exceptions.UserAlreadyExistsException;
 import reformyourcountry.exceptions.UserAlreadyExistsException.identifierType;
 import reformyourcountry.mail.MailCategory;
@@ -35,7 +35,7 @@ public class UserService {
 
     protected Logger logger = Logger.getLogger(getClass());
     //@Autowired// 
-    private UserDao userDao = UserDao.getInstance(); // TODO: Use autowiring with Spring instead of new.
+    private UserRepository userDao = UserRepository.getInstance(); // TODO: Use autowiring with Spring instead of new.
     // @Autowired 
     private MailService mailService = MailService.getInstance();
 

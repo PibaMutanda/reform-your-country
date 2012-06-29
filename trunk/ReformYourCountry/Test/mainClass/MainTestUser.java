@@ -2,7 +2,7 @@ package mainClass;
 
 import java.util.Scanner;
 
-import reformyourcountry.dao.UserDao;
+import reformyourcountry.Repository.UserRepository;
 import reformyourcountry.exceptions.InvalidPasswordException;
 import reformyourcountry.exceptions.UserAlreadyExistsException;
 import reformyourcountry.exceptions.UserLockedException;
@@ -21,7 +21,7 @@ public class MainTestUser {
     private static UserService userService = UserService.getInstance();
     private static LoginService loginService = LoginService.getInstance();
     private static Scanner scanKeyBoard = new Scanner(System.in);
-    private static UserDao userDao = UserDao.getInstance();
+    private static UserRepository userDao = UserRepository.getInstance();
     private static EmailValidator emailValidator = new EmailValidator();
     /**
      * @param args
