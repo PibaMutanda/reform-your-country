@@ -18,7 +18,7 @@ import reformyourcountry.exceptions.UserNotFoundException;
 import reformyourcountry.exceptions.UserNotValidatedException;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountStatus;
-import blackbelt.security.Privilege;
+import reformyourcountry.security.Privilege;
 import blackbelt.util.SecurityUtils;
 import blackbelt.web.ContextUtil;
 import blackbelt.web.Cookies;
