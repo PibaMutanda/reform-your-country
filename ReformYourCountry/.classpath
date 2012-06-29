@@ -33,5 +33,10 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/Spring/spring.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/PostgreSQL/postgresql-9.1-902.jdbc4.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/Persistence/javax.persistence_2.0.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/apache_common/commons-lang3-3.1.jar" sourcepath="WebContent/WEB-INF/lib/apache_common/commons-lang3-3.1-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/ReformYourCountry/WebContent/WEB-INF/lib/apache_common/commons-lang3-3.1-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
