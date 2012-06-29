@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
 
 import reformyourcountry.Repository.MailDaoMock;
 import reformyourcountry.mail.MailCategory;
@@ -17,14 +18,14 @@ import reformyourcountry.model.User;
 /**
  * Service of mail.
  */
-//@Component
-public class MailService {
+@Service
+public class mailService {
     
     
     // TODO: remove singleton when using Spring
-    private static MailService uniqueInstance = new MailService();
-    private MailService() {}
-    public static MailService getInstance() {
+    private static mailService uniqueInstance = new mailService();
+    private mailService() {}
+    public static mailService getInstance() {
         return uniqueInstance;
     }
     
