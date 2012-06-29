@@ -49,8 +49,8 @@ import com.vaadin.ui.Button.ClickListener;
 //@Page
 public class RegisterPage extends VerticalLayout /*implements ParamChangeListener*/ {
     //TODO maxime uncomment
-    /*@Autowired*/ private UserService userService = new UserService(); // TODO: Use autowiring with Spring instead of new.
-    /*@Autowired*/ private UserDao userDao = new UserDao();// TODO: Use autowiring with Spring instead of new.
+    /*@Autowired*/ private UserService userService ; // TODO: Use autowiring with Spring instead of new.
+    /*@Autowired*/ private UserDao userDao ;// TODO: Use autowiring with Spring instead of new.
 
     public static final String RECRUITER_PARAMNAME = "recruiter";
     public static final String EMAIL_PARAMNAME = "email";
