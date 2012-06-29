@@ -20,10 +20,10 @@ import reformyourcountry.security.Privilege;
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
-@NamedQueries({
-        @NamedQuery(name="findUserByEmail",query="select u from User u when u.mail =:mail"),
-        @NamedQuery(name="findUserByUserName", query="select u from User u when u.userName =:userName")
-} )
+//@NamedQueries({
+//        @NamedQuery(name="findUserByEmail",query="select u from User u when u.mail =:mail"),
+//        @NamedQuery(name="findUserByUserName", query="select u from User u when u.userName =:userName")
+//} )
 public class User extends BaseEntity implements Cloneable, Comparable<User>,
 Serializable {
     //TODO maxime uncomment when annoted this classes
@@ -146,14 +146,14 @@ Serializable {
 
 
     @Column(unique = true)
-    @Index(name = "username_idx")
+  //  @Index(name = "username_idx")
     private String userName; 
 
     private String mail;
 
     private String password;
 
-    @Lob
+  //  @Lob
     private String nameChangeLog; // record the name changes
 
 
@@ -216,7 +216,7 @@ Serializable {
     // nicolas, henryk, ...) to have a fixed non-recomputed value
     private boolean influenceAutoComputed = true;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "influenceAssignerUserId", nullable = true)
     private User influenceAssigner; // User who has given the value for influence field. Can be null (system gives influence when new belt or root influencers, as John & Nicolas).
     //	// Contains all groups link including the primary group as well
@@ -224,9 +224,9 @@ Serializable {
     private Set<GroupReg> groupRegs = new HashSet<GroupReg>();
     //	// Link to the Primary Group : maybe null if in no group and GroupRegs is
     //	// empty
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "primaryGroupRegId")
+    @OneToOne
     private GroupReg primaryGroupReg;
+    
     @Enumerated(EnumType.STRING)
 
     private MailingDelayType mailingDelay; 

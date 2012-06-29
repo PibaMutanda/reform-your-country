@@ -3,9 +3,14 @@ package reformyourcountry.model;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class GroupReg {
-	
-		private Group group;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+@Entity
+public class GroupReg extends BaseEntity{
+	    //TODO Change when group is an entity
+		//private Group group;
+        @ManyToOne
 		private User user;
 		private Date creationDate;
 		
@@ -18,7 +23,7 @@ public class GroupReg {
 			
 			this.user = user;
 			this.creationDate = date;
-			this.group = group;
+			//this.group = group;
 		}
 
 		
@@ -30,13 +35,13 @@ public class GroupReg {
 			this.user = user;
 		}
 
-		public Group getGroup() {
-			return group;
-		}
-
-		public void setGroup(Group group) {
-			this.group = group;
-		}
+//		public Group getGroup() {
+//			return group;
+//		}
+//
+//		public void setGroup(Group group) {
+//			this.group = group;
+//		}
 
 		
 

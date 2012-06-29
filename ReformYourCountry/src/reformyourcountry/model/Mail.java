@@ -2,43 +2,40 @@ package reformyourcountry.model;
 
 import java.util.Date;
 
+import javax.persistence.*;
 import reformyourcountry.mail.MailCategory;
 import reformyourcountry.mail.MailType;
-//@Entity
-//@Table(name = "mails")
-public class Mail/* extends Identifiable */{
-	
-//	@Id
-//	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
-	
+
+@Entity
+public class Mail extends BaseEntity/* extends Identifiable */{
+		
 	//in case we send an email to a person in the database. Null if emailTarget is not null.
-//@ManyToOne
-	//@JoinColumn(nullable = true, name = "userId")
+    @ManyToOne
+	@JoinColumn(nullable = true, name = "userId")
 	private User user;
 	
-	//@ManyToOne
-    //@JoinColumn(nullable = true)
+	@ManyToOne
+    @JoinColumn(nullable = true)
 	private User replyTo;
     
 	//in case we send an email to a person not in the database. Null if user is not null.
-	//@Column(nullable = true)
+    @Column(nullable = true)
     private String emailTarget;
 
-	//@Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.STRING)
 	private MailCategory mailCategory;
 		
-	//@Column(nullable = false)
+	@Column(nullable = false)
 	private String subject;
 	
-//	@Lob
-//	@Column(nullable = false)
+	@Lob
+	@Column(nullable = false)
 	private String content;
 	
-	//@Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.STRING)
 	private MailType mailType;
 	
-	//@Column(nullable = false)
+	@Column(nullable = false)
 	private Date creationDate;
 	
 	private boolean useTemplate;
