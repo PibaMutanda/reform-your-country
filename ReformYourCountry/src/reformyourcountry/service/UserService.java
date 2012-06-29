@@ -4,6 +4,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 
 import reformyourcountry.Repository.UserRepository;
 import reformyourcountry.exceptions.UserAlreadyExistsException;
@@ -16,14 +19,9 @@ import reformyourcountry.model.User.AccountStatus;
 import reformyourcountry.model.User.Gender;
 import blackbelt.util.SecurityUtils;
 
+@Service
+@Scope("singleton")
 public class UserService {
-
-    private static UserService uniqueInstance = new UserService();
-    private UserService() {}
-    public static UserService getInstance() {
-        return uniqueInstance;
-    }
-    
     
     // Constant values used in the automatic calculation of the influence factor
     public static final int INFLUENCE_PERCENTAGE_OF_RELEASED_QUESTIONS_WITH_NO_CONCERNS = 90;
@@ -34,10 +32,12 @@ public class UserService {
     // private String passwordRecoveryTemplate;
 
     protected Logger logger = Logger.getLogger(getClass());
-    //@Autowired// 
-    private UserRepository userDao = UserRepository.getInstance(); // TODO: Use autowiring with Spring instead of new.
-    // @Autowired 
-    private MailService mailService = MailService.getInstance();
+    
+    @Autowired 
+    private UserRepository userDao;
+    
+    @Autowired 
+    private MailService mailService;
 
 
     /**
@@ -48,42 +48,41 @@ public class UserService {
      */
 
     public User registerUser(boolean directValidation, String firstname, String lastname,
-    		Gender gender, String username, String passwordInClear, String mail) throws UserAlreadyExistsException {
+            Gender gender, String username, String passwordInClear, String mail) throws UserAlreadyExistsException {
         
-    	if (userDao.getUserByUserName(username) != null)	{
-    		throw new UserAlreadyExistsException(identifierType.USERNAME, username);
-    	}
-    	if (userDao.getUserByEmail(mail) != null){
-    		throw new UserAlreadyExistsException(identifierType.MAIL, username);
-    	}
-    	User newUser = new User();
-    	newUser.setFirstName(firstname);
-    	newUser.setLastName(lastname);
-    	newUser.setGender(gender);
-    	newUser.setUserName(username);
-    	newUser.setPassword(SecurityUtils.md5Encode(passwordInClear));
-    	newUser.setMail(mail);
-        newUser.setId(145l);
-    	//// Validation mail.
-    	String base = newUser.getMail() + newUser.getPassword() + Math.random();  // Could be pure random.
-    	newUser.setValidationCode(SecurityUtils.md5Encode(base.toString()));
+        if (userDao.getUserByUserName(username) != null)    {
+            throw new UserAlreadyExistsException(identifierType.USERNAME, username);
+        }
+        if (userDao.getUserByEmail(mail) != null){
+            throw new UserAlreadyExistsException(identifierType.MAIL, username);
+        }
+        User newUser = new User();
+        newUser.setFirstName(firstname);
+        newUser.setLastName(lastname);
+        newUser.setGender(gender);
+        newUser.setUserName(username);
+        newUser.setPassword(SecurityUtils.md5Encode(passwordInClear));
+        newUser.setMail(mail);
+        //// Validation mail.
+        String base = newUser.getMail() + newUser.getPassword() + Math.random();  // Could be pure random.
+        newUser.setValidationCode(SecurityUtils.md5Encode(base.toString()));
 
-    	if (directValidation) {
-    		newUser.setAccountStatus(AccountStatus.ACTIVE);
-    	} 
-    	else {
-    		newUser.setAccountStatus(AccountStatus.NOTVALIDATED);
-    	}
+        if (directValidation) {
+            newUser.setAccountStatus(AccountStatus.ACTIVE);
+        } 
+        else {
+            newUser.setAccountStatus(AccountStatus.NOTVALIDATED);
+        }
 
-    	//// Save the user in the db
-    	userDao.save(newUser);
+        //// Save the user in the db
+        userDao.create(newUser);
 
-    	// All is ok lets eventually send a validation email
-    	if (!directValidation) {
-    		sendRegistrationValidationMail(newUser);
-    	}
+        // All is ok lets eventually send a validation email
+        if (!directValidation) {
+            sendRegistrationValidationMail(newUser);
+        }
 
-    	return newUser;
+        return newUser;
     }
 
 
@@ -100,8 +99,8 @@ public class UserService {
                 //UrlUtil.getAbsoluteUrl(new PageResource(DocumentPage.class, "ContactUs")) + 
                 "'>contact us.</a>" + 
                 "<br/><br/>Thank you for registering and have a nice time on KnowledgeBlackBelt.";
-        //maxime uncomment when using mail
-        //	 mailService.sendMail(user.getMail(), "Your new account", htmlMessage, MailType.IMMEDIATE, MailCategory.USER);
+        //TODO maxime uncomment when using mail
+        //   mailService.sendMail(user.getMail(), "Your new account", htmlMessage, MailType.IMMEDIATE, MailCategory.USER);
         System.out.println("mail sent: " + htmlMessage);  // To simulate the mailService until we have it.
     }
 
@@ -109,60 +108,60 @@ public class UserService {
 
 
     // TODO maxime uncomment for the web (picture of a user)
-    //	public void saveUserImages(User user, InputStream imageFileStream) {
-    //	    	if(user == null || user.getId() == null){
-    //	    		throw new IllegalArgumentException("Could not save the pircture of an unpersited user");
-    //	    	}
+    //  public void saveUserImages(User user, InputStream imageFileStream) {
+    //          if(user == null || user.getId() == null){
+    //              throw new IllegalArgumentException("Could not save the pircture of an unpersited user");
+    //          }
     //
-    //	    	String oldPictureName = user.isPicture() ? user.getPictureName() : null;
-    //	    	String[] scaleFolderNames = new String[] { "", "medium", "small" };
-    //	    	
-    //	        try {
-    //	            user.setPicture(true);
-    //	            // add the file name to the user
-    //	            user.setPictureName(user.getId() + "-" + new Date().getTime() + ".png");
+    //          String oldPictureName = user.isPicture() ? user.getPictureName() : null;
+    //          String[] scaleFolderNames = new String[] { "", "medium", "small" };
+    //          
+    //          try {
+    //              user.setPicture(true);
+    //              // add the file name to the user
+    //              user.setPictureName(user.getId() + "-" + new Date().getTime() + ".png");
     //
-    //	            ContextUtil.getBLFacade().getFileService()
-    //						.saveAndScaleImage(imageFileStream, user.getPictureName(),
-    //								"users", true, "originals", true,
-    //								new int[] { 100, 44, 22 },
-    //								new int[] { 150, 66, 33 },
-    //								scaleFolderNames,
-    //								ImageSaveFormat.PNG);
-    //	            
-    //	            contributionService.addImage(user);
-    //	        } catch (Exception e) {
-    //	            logger.error("Could not save user images", e);
-    //	            user.setPicture(false);
-    //	            user.setPictureName(null);
-    //	        }
-    //	        getDaoFacade().getUserDao().save(user);
-    //	        
-    //	        if (oldPictureName != null) {
-    //	            ContextUtil.getBLFacade().getFileService().deleteUserPictures(oldPictureName);
-    //	        }
-    //	    }
+    //              ContextUtil.getBLFacade().getFileService()
+    //                      .saveAndScaleImage(imageFileStream, user.getPictureName(),
+    //                              "users", true, "originals", true,
+    //                              new int[] { 100, 44, 22 },
+    //                              new int[] { 150, 66, 33 },
+    //                              scaleFolderNames,
+    //                              ImageSaveFormat.PNG);
+    //              
+    //              contributionService.addImage(user);
+    //          } catch (Exception e) {
+    //              logger.error("Could not save user images", e);
+    //              user.setPicture(false);
+    //              user.setPictureName(null);
+    //          }
+    //          getDaoFacade().getUserDao().save(user);
+    //          
+    //          if (oldPictureName != null) {
+    //              ContextUtil.getBLFacade().getFileService().deleteUserPictures(oldPictureName);
+    //          }
+    //      }
     // TODO maxime uncomment for the web (picture of a user)
-    //	    @Override
-    //	    public void removeUserImages(User user) {
-    //	        String oldPictureName = user.isPicture() ? user.getPictureName() : null;
-    //	        
-    //	        user.setPicture(false);
-    //	        user.setPictureName(null);
-    //	        contributionService.removeImage(user);
-    //	        userDao.save(user);
-    //	        
-    //	        if (oldPictureName != null) {
-    //	            ContextUtil.getBLFacade().getFileService().deleteUserPictures(oldPictureName);
-    //	        }
-    //	    }
+    //      @Override
+    //      public void removeUserImages(User user) {
+    //          String oldPictureName = user.isPicture() ? user.getPictureName() : null;
+    //          
+    //          user.setPicture(false);
+    //          user.setPictureName(null);
+    //          contributionService.removeImage(user);
+    //          userDao.save(user);
+    //          
+    //          if (oldPictureName != null) {
+    //              ContextUtil.getBLFacade().getFileService().deleteUserPictures(oldPictureName);
+    //          }
+    //      }
 
     public void generateNewPasswordForUserAndSendEmail(User user) {
         // We generate a password
         String newPassword = SecurityUtils.generateRandomPassword(8, 12);
         // we set the new password to the user
         user.setPassword(SecurityUtils.md5Encode(newPassword));
-        userDao.save(user);
+        userDao.update(user);
 
         // TODO maxime uncomment when mail service available
         mailService.sendMail(user.getMail(), "Password Recovery",
@@ -170,7 +169,7 @@ public class UserService {
                         "We could not give you back your old password because we do not store it directly, for security and (your own) privacy reason it is encrypted in a non reversible way. <br/><br/>" + 
                         "Here is your new password : "+ newPassword + 
                         "<ol>" +  
-                        "<li>password are case sensitive,</li>" +  				   //TODO maxime uncoment for the web
+                        "<li>password are case sensitive,</li>" +                  //TODO maxime uncoment for the web
                         "<li>This is a temporary password, feel free to change it using <a href='"+/*getUserPageUrl(user)+*/"'>your profile page</a>.</li>" +
                         "</ol>", 
                         MailType.IMMEDIATE, MailCategory.USER);
@@ -191,7 +190,7 @@ public class UserService {
                 + newFirstName + " - " + newLastName);
         user.setFirstName(newFirstName);
         user.setLastName(newLastName);
-        userDao.save(user);
+        userDao.update(user);
     }
 
 
