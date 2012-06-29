@@ -11,7 +11,7 @@ import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 
 import reformyourcountry.mail.MailingDelayType;
-import blackbelt.security.Privilege;
+import reformyourcountry.security.Privilege;
 
 //TODO piba uncomment when using hibernate
 // @Entity
