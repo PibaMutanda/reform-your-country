@@ -18,11 +18,15 @@ public class UserRepository extends BaseRepository<User>{
 
     public  User getUserByEmail(String identifier)  {
         List<User> results= em.createNamedQuery("findUserByEmail").setParameter("mail", identifier).getResultList();
+        if(results.isEmpty())
+            return null;
         return results.get(0);
     }
 
     public  User getUserByUserName(String identifier) {
         List<User> results= em.createNamedQuery("findUserByUserName").setParameter("userName", identifier).getResultList();
+        if(results.isEmpty())
+            return null;
         return results.get(0);
     }
 }

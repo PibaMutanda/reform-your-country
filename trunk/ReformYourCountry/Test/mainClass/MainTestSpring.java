@@ -13,8 +13,8 @@ public class MainTestSpring {
     public static void main(String[] args) throws UserAlreadyExistsException{
 
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
-        mailService userServ = (mailService) applicationContext.getBean("mailService");
-        //userServ.registerUser(true, "maxime", "sauvage", Gender.MALE, "max", "pswd", "p@b.be");
+        UserService userServ = (UserService) applicationContext.getBean("userService");
+        userServ.registerUser(true, "maxime", "sauvage", Gender.MALE, "max", "pswd", "p@b.be");
     }
 
 }
