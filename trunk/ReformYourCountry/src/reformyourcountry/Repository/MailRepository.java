@@ -16,7 +16,7 @@ import reformyourcountry.model.Mail;
 import reformyourcountry.model.User;
 
 @Repository
-@Transactional
+@Transactional  // TODO remove?
 public class MailRepository  extends BaseRepository<User>{
     /**
      * returns a user containing immediate mails
@@ -67,9 +67,9 @@ public class MailRepository  extends BaseRepository<User>{
                 + "          ("
                 + "               m.user.lastMailSentDate IS NULL "   // Not sent yet
                 + "           OR  (     m.user.lastMailSentDate IS NOT NULL"
-                + "                AND (    (m.user.mailingDelay = :dailytype AND :yesterday > m.user.lastMailSentDate)"
-                + "                      OR (m.user.mailingDelay = :weeklytype AND :lastWeek > m.user.lastMailSentDate)"
-                + "                      OR  m.user.mailingDelay = :immediatetype"
+                + "                AND (    (m.user.mailingDelayType = :dailytype AND :yesterday > m.user.lastMailSentDate)"
+                + "                      OR (m.user.mailingDelayType = :weeklytype AND :lastWeek > m.user.lastMailSentDate)"
+                + "                      OR  m.user.mailingDelayType = :immediatetype"
                 + "                    )"
                 + "              )"
                 + "          )"
@@ -153,12 +153,6 @@ public class MailRepository  extends BaseRepository<User>{
             mail.setUser(user);
             
         }
-        // TODO : change it to JhibernateSupport method
         em.persist(mail);
-    }
-    
-    //Remove at integration. This methode it is only used for testing the application
-    public User getUser(Long id){
-        return (User) em.find(User.class, id);
     }
 }

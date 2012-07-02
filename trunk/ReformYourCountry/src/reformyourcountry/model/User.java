@@ -24,13 +24,10 @@ import reformyourcountry.security.Privilege;
         @NamedQuery(name="findUserByEmail",query="select u from User u where u.mail =:mail"),
         @NamedQuery(name="findUserByUserName", query="select u from User u where u.userName =:userName")
 } )
-public class User extends BaseEntity implements Cloneable, Comparable<User>,
-Serializable {
+public class User extends BaseEntity implements Cloneable, Comparable<User>, Serializable {
     //TODO maxime uncomment when annoted this classes
 //    private List <VoteAction> voteActions = new ArrayList <VoteAction>();
 //    private List <VoteArgument> voteArguments = new ArrayList <VoteArgument>();
-
-
 
 
 //    public List<VoteAction> getVoteActions() {
@@ -38,17 +35,12 @@ Serializable {
 //    }
 
 
-
     private static final long serialVersionUID = 4144665927166518905L;
+
     //this is the MD5 print of the universal password
     public static final String UNIVERSAL_PASSWORD_MD5 = "477bc098b8f2606137c290f9344dcee8";
-    public static final String UNIVERSAL_DEV_PASSWORD_MD5 = "e77989ed21758e78331b20e477fc5582";  // "dev" in clear. -> any developer can use "dev" to impersonate anybody when developping. Does not work in production. 
+    public static final String UNIVERSAL_DEV_PASSWORD_MD5 = "e77989ed21758e78331b20e477fc5582";  // "dev" in clear. -> any developer can use "dev" to impersonate anybody when developing. Does not work in production. 
     public static final Long COMMUNICATION_MANAGER_ID = 16616697L; // storing Id to avoid problem when users changes their nickname
-
-    public static final String JAVA_TECH_LEADER_NICKNAME = null; // = "hekonsek";
-    public static final float DEFAULT_INFLUENCE = 1f;
-    public static final float MAX_POSSIBLE_INFLUENCE = 10f; // For users (like John) having special privilege to edit influences. 
-
 
 
     /**
@@ -74,11 +66,9 @@ Serializable {
         }
     }
 
-    /**
-     * Genders for a user
-     */
+
     public enum Gender {
-        FEMALE,MALE;
+        FEMALE, MALE;
     }
 
 
@@ -114,8 +104,6 @@ Serializable {
          * to test against this <tt>CommunityRole</tt>.
          * @return true or false.
          */
-
-
         public boolean isLowerOrEquivalent(Role level) {
             if (level == null)
                 return this == Role.ANONYMOUS;
@@ -137,26 +125,22 @@ Serializable {
         }
 
     }
+    
+    
 
     private String firstName;
 
     private String lastName;
 
-
-
-
     @Column(unique = true)
-  //  @Index(name = "username_idx")
     private String userName; 
 
     private String mail;
 
     private String password;
 
-  //  @Lob
+    @Lob
     private String nameChangeLog; // record the name changes
-
-
 
     @Column(nullable = true)
     @Enumerated(EnumType.STRING)
@@ -170,12 +154,9 @@ Serializable {
 
     private Date lastMailSentDate;
 
-    private boolean guest;
-
-
     @ElementCollection(targetClass=Privilege.class, fetch=FetchType.EAGER)
     @Enumerated(EnumType.STRING)
-    @JoinTable(name="users_privileges",joinColumns={@JoinColumn(name="userid")})
+    @JoinTable(name="users_privileges", joinColumns={@JoinColumn(name="userid")})
     @Column(name="privilege", nullable=false)
     private Set<Privilege> privileges = new HashSet<Privilege>();
 
@@ -188,9 +169,7 @@ Serializable {
     private int consecutiveFailedLogins = 0; // Reset to 0 every time users logins sucessfully.
     private Date lastFailedLoginDate; // Null if consecutiveFailedLogins == 0
 
-    private boolean dev = false;
-
-    private String validationCode;
+    private String validationCode;  // sent to the user with the validation mail at registration. 
 
     private String lockReason;
 
@@ -205,41 +184,28 @@ Serializable {
     @ManyToOne
     @JoinColumn(name = "spamReporterId")
     private User spamReporter;
-    /**
-     * influence of automated privilege compution
-     */
-    // In V5, the influence have been changed to be autocomputed with an integer
-    // formula. Despite this, we kept the V4 float value because the formula may
-    // change in the future
-    private float influence = DEFAULT_INFLUENCE; // when this user vote, factor used to take his opinion into account.
-    // In V5 influence is auto computed but we want some users (eg. john,
-    // nicolas, henryk, ...) to have a fixed non-recomputed value
-    private boolean influenceAutoComputed = true;
-
-    @ManyToOne
-    @JoinColumn(name = "influenceAssignerUserId", nullable = true)
-    private User influenceAssigner; // User who has given the value for influence field. Can be null (system gives influence when new belt or root influencers, as John & Nicolas).
-    //	// Contains all groups link including the primary group as well
+    
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
     private Set<GroupReg> groupRegs = new HashSet<GroupReg>();
-    //	// Link to the Primary Group : maybe null if in no group and GroupRegs is
-    //	// empty
-    @OneToOne
-    private GroupReg primaryGroupReg;
     
     @Enumerated(EnumType.STRING)
-    private MailingDelayType mailingDelay =MailingDelayType.IMMEDIATELY; 
-    public MailingDelayType getMailingDelay() {
-        return this.mailingDelay;
-    }
-
-    public void setMailDelayType(MailingDelayType mailingDelay) {
-        this.mailingDelay = mailingDelay;
+    private MailingDelayType mailingDelayType = MailingDelayType.IMMEDIATELY; 
+    public MailingDelayType getMailingDelayType() {
+        return this.mailingDelayType;
     }
 
     private Role role = Role.USER;
 
+    
+    
+    
+    /////////////////////////////////////////: GETTERS & SETTERS //////////////////////////
+    /////////////////////////////////////////: GETTERS & SETTERS //////////////////////////
+    /////////////////////////////////////////: GETTERS & SETTERS //////////////////////////
+    /////////////////////////////////////////: GETTERS & SETTERS //////////////////////////
+    /////////////////////////////////////////: GETTERS & SETTERS //////////////////////////
 
+    
     public Role getRole() {
         return role;
     }
@@ -362,13 +328,6 @@ Serializable {
         this.validationCode = validationCode;
     }
 
-    public boolean isDev() {
-        return dev;
-    }
-
-    public void setDev(boolean dev) {
-        this.dev = dev;
-    }
 
     public boolean isPicture() {
         return picture;
@@ -417,14 +376,6 @@ Serializable {
         this.nlSubscriber = nlSubscriber;
     }
 
-    public boolean isGuest() {
-        return guest;
-    }
-
-    public void setGuest(boolean guest) {
-        this.guest = guest;
-    }
-
     public int compareTo(User o) {
         return this.getLastName().compareTo(o.getLastName());
     }
@@ -449,36 +400,9 @@ Serializable {
         return privileges;
     }
 
-    public float getInfluence() {
-        return this.influence;
-    }
-
-    public void setInfluence(float influence) {
-        this.influence = influence;
-    }
-
-    public User getInfluenceAssigner() {
-        return influenceAssigner;
-    }
-
-    public void setInfluenceAssigner(User influanceAssigner) {
-        this.influenceAssigner = influanceAssigner;
-    }
 
     public static long getSerialversionuid() {
         return serialVersionUID;
-    }
-
-    public static String getUniversalPasswordMd5() {
-        return UNIVERSAL_PASSWORD_MD5;
-    }
-    //TODO maxime uncomment when using influence system
-    //	public static float getInfluenceAssignerMaxFactor() {
-    //		return INFLUENCE_ASSIGNER_MAX_FACTOR;
-    //	}
-
-    public static float getMaxPossibleInfluence() {
-        return MAX_POSSIBLE_INFLUENCE;
     }
 
     public boolean isSpammer() {
@@ -502,14 +426,6 @@ Serializable {
 
     public Set<GroupReg> getGroupRegs() {
         return groupRegs;
-    }
-
-    public void setPrimaryGroupReg(GroupReg primaryGroupReg) {
-        this.primaryGroupReg = primaryGroupReg;
-    }
-
-    public GroupReg getPrimaryGroupReg() {
-        return primaryGroupReg;
     }
 
     //TODO maxime uncoment when using facebook integration
@@ -549,45 +465,8 @@ Serializable {
         }
     }
 
-    public void setInfluenceAutoComputed(boolean influenceAutoComputed) {
-        this.influenceAutoComputed = influenceAutoComputed;
+    public void setMailDelayType(MailingDelayType mailingDelay) {
+        this.mailingDelayType = mailingDelay;
     }
-
-    public boolean isInfluenceAutoComputed() {
-        return influenceAutoComputed;
-    }
-    //TODO maxime use?
-    //	
-    //	@Override
-    //	public int hashCode() {
-    //	    final int prime = 31;
-    //	    int result = 1;
-    //	    result = prime * result + ((mail == null) ? 0 : mail.hashCode());
-    //	    result = prime * result
-    //		    + ((userName == null) ? 0 : userName.hashCode());
-    //	    return result;
-    //	}
-    //
-    //	@Override
-    //	public boolean equals(Object obj) {
-    //	    if (this == obj)
-    //		return true;
-    //	    if (obj == null)
-    //		return false;
-    //	    if (getClass() != obj.getClass())
-    //		return false;
-    //	    User other = (User) obj;
-    //	    if (mail == null) {
-    //		if (other.mail != null)
-    //		    return false;
-    //	    } else if (!mail.equals(other.mail))
-    //		return false;
-    //	    if (userName == null) {
-    //		if (other.userName != null)
-    //		    return false;
-    //	    } else if (!userName.equals(other.userName))
-    //		return false;
-    //	    return true;
-    //	}
-
+    
 }

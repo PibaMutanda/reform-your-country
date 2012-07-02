@@ -75,7 +75,7 @@ public class UserService {
         }
 
         //// Save the user in the db
-        userDao.create(newUser);
+        userDao.persist(newUser);
 
         // All is ok lets eventually send a validation email
         if (!directValidation) {
@@ -161,7 +161,7 @@ public class UserService {
         String newPassword = SecurityUtils.generateRandomPassword(8, 12);
         // we set the new password to the user
         user.setPassword(SecurityUtils.md5Encode(newPassword));
-        userDao.update(user);
+        userDao.merge(user);
 
         // TODO maxime uncomment when mail service available
 //        mailService.sendMail(user.getMail(), "Password Recovery",
@@ -190,7 +190,7 @@ public class UserService {
                 + newFirstName + " - " + newLastName);
         user.setFirstName(newFirstName);
         user.setLastName(newLastName);
-        userDao.update(user);
+        userDao.merge(user);
     }
 
 

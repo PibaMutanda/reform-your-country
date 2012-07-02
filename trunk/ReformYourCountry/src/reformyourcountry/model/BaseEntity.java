@@ -5,12 +5,11 @@ import org.hibernate.proxy.HibernateProxyHelper;
 
 @MappedSuperclass
 public class BaseEntity {
-    @Id
-    @GeneratedValue
+
+    @Id   @GeneratedValue
     Long id;
     
-    public Long getId()
-    {
+    public Long getId() {
         return id;
     }
     
@@ -41,12 +40,13 @@ public class BaseEntity {
         if (!otherClassNoProxy.isAssignableFrom(thisClassNoProxy)&& ! thisClassNoProxy.isAssignableFrom(otherClassNoProxy) )
             return false;
         
-        if (!  (other instanceof BaseEntity)){
+        if (!  (other instanceof BaseEntity)) {
             throw new RuntimeException("Probably Bug: how can other be assignableFrom us (or vis versa) " +
                     "and not being a BaseEntity? other=["+other+"] - this=["+this+"]"); 
         }
         BaseEntity otherEntity = (BaseEntity) other;
-        if (this.getId()==null || otherEntity.getId()==null){
+        
+        if (this.getId()==null || otherEntity.getId()==null) {
             return false;
         }
         return this.getId().equals(otherEntity.getId());

@@ -7,7 +7,7 @@ import reformyourcountry.mail.MailCategory;
 import reformyourcountry.mail.MailType;
 
 @Entity
-public class Mail extends BaseEntity/* extends Identifiable */{
+public class Mail extends BaseEntity {
 		
 	//in case we send an email to a person in the database. Null if emailTarget is not null.
     @ManyToOne
@@ -43,7 +43,7 @@ public class Mail extends BaseEntity/* extends Identifiable */{
 	//Constructors
 	public Mail() {}
 	
-	//For sending a mail to a BlackBelt user
+	//For sending a mail to a user
 	public Mail(User user,String subject, MailCategory mailSubject, String content, MailType mailType, boolean useTemplate) {
 		this.user = user;
 		this.replyTo = null;
@@ -56,7 +56,7 @@ public class Mail extends BaseEntity/* extends Identifiable */{
 		this.useTemplate = useTemplate;
 	}
 	
-	//For sending a mail to an outsider(not a BlackBelt user) 
+	//For sending a mail to an outsider (not a user) 
 	public Mail(String emailTarget, String subject, MailCategory mailSubject, String content, MailType mailType, boolean useTemplate) {
         this.user = null;
         this.replyTo = null;
@@ -69,7 +69,7 @@ public class Mail extends BaseEntity/* extends Identifiable */{
         this.useTemplate = useTemplate;
     }
 	
-	//Send a mail to a blackbelt user and it contains information about the personne that send the mail 
+	// Send a mail to a user and it contains information about the user who sends the mail 
     public Mail(User recipient,User replyTo, String subject, MailCategory mailSubject, String content, MailType mailType, boolean useTemplate) {
         this.user = recipient;
         this.replyTo = replyTo;
@@ -98,9 +98,6 @@ public class Mail extends BaseEntity/* extends Identifiable */{
 	}
 
 	//Getters and setters
-	public Long getId() {
-		return this.id;
-	}
 
 	public User getUser() {
 		return this.user;
@@ -130,7 +127,6 @@ public class Mail extends BaseEntity/* extends Identifiable */{
 	/**
      * Set emailTarget instead of user
      */
-    
 	public void setEmailTarget(String emailTarget) {
         this.user = null;
         this.emailTarget = emailTarget;
@@ -161,8 +157,4 @@ public class Mail extends BaseEntity/* extends Identifiable */{
 		return subject;
 	}
 
-//	@Override
-	/*public Class<?> getConcreteClass() {
-		return Mail.class;
-	}*/
 }

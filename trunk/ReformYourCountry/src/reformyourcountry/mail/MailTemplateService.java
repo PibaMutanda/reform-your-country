@@ -70,16 +70,16 @@ public final class MailTemplateService {
                 MailingDelayType mailDelayOption;
                 MailingDelayType secondDelayOption;
                 MailingDelayType thirdDelayOption;
-                if(user.getMailingDelay() == MailingDelayType.DAILY) {
-                    mailDelayOption = user.getMailingDelay();
+                if(user.getMailingDelayType() == MailingDelayType.DAILY) {
+                    mailDelayOption = user.getMailingDelayType();
                     secondDelayOption = MailingDelayType.IMMEDIATELY;
                     thirdDelayOption = MailingDelayType.WEEKLY;
-                } else if(user.getMailingDelay() == MailingDelayType.WEEKLY) {
-                    mailDelayOption = user.getMailingDelay();
+                } else if(user.getMailingDelayType() == MailingDelayType.WEEKLY) {
+                    mailDelayOption = user.getMailingDelayType();
                     secondDelayOption = MailingDelayType.IMMEDIATELY;
                     thirdDelayOption = MailingDelayType.DAILY;
                 } else {
-                    mailDelayOption = user.getMailingDelay();
+                    mailDelayOption = user.getMailingDelayType();
                     secondDelayOption = MailingDelayType.DAILY;
                     thirdDelayOption = MailingDelayType.WEEKLY;
                 }
