@@ -30,8 +30,6 @@ import reformyourcountry.security.Privilege;
 
 @Entity
 @Table(name = "users")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
 public class User extends BaseEntity implements Cloneable, Comparable<User>, Serializable {
     //TODO maxime uncomment when annoted this classes
 //    private List <VoteAction> voteActions = new ArrayList <VoteAction>();

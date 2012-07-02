@@ -1,6 +1,9 @@
 package reformyourcountry.model;
 
-import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
 import org.hibernate.proxy.HibernateProxyHelper;
 
 @MappedSuperclass
@@ -39,6 +42,7 @@ public class BaseEntity {
         //We need the real Class not the proxy's class
         Class<?> otherClassNoProxy = HibernateProxyHelper.getClassWithoutInitializingProxy(other); 
         Class<?> thisClassNoProxy = HibernateProxyHelper.getClassWithoutInitializingProxy(this);
+        
         // Is one of the two class assignable from the other.
         if (!otherClassNoProxy.isAssignableFrom(thisClassNoProxy)&& ! thisClassNoProxy.isAssignableFrom(otherClassNoProxy) )
             return false;
