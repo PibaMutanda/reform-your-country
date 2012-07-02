@@ -5,10 +5,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceUnit;
+import javax.persistence.Query;
 
-import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -69,9 +67,9 @@ public class MailRepository  extends BaseRepository<User>{
                 + "          ("
                 + "               m.user.lastMailSentDate IS NULL "   // Not sent yet
                 + "           OR  (     m.user.lastMailSentDate IS NOT NULL"
-                + "                AND (    (m.user.mailingDelayType = :dailytype AND :yesterday > m.user.lastMailSentDate)"
-                + "                      OR (m.user.mailingDelayType = :weeklytype AND :lastWeek > m.user.lastMailSentDate)"
-                + "                      OR  m.user.mailingDelayType = :immediatetype"
+                + "                AND (    (m.user.mailingDelay = :dailytype AND :yesterday > m.user.lastMailSentDate)"
+                + "                      OR (m.user.mailingDelay = :weeklytype AND :lastWeek > m.user.lastMailSentDate)"
+                + "                      OR  m.user.mailingDelay = :immediatetype"
                 + "                    )"
                 + "              )"
                 + "          )"
@@ -139,6 +137,7 @@ public class MailRepository  extends BaseRepository<User>{
         if(!mails.isEmpty()){
             Query update = (Query) em.createQuery("DELETE FROM Mail m WHERE m IN (:mails)").setParameter("mails",mails);
             update.executeUpdate();
+            System.out.println("mails deleted");
         }
     }
 
