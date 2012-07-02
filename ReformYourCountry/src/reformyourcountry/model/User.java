@@ -228,8 +228,7 @@ Serializable {
     private GroupReg primaryGroupReg;
     
     @Enumerated(EnumType.STRING)
-
-    private MailingDelayType mailingDelay; 
+    private MailingDelayType mailingDelay =MailingDelayType.IMMEDIATELY; 
     public MailingDelayType getMailingDelay() {
         return this.mailingDelay;
     }
