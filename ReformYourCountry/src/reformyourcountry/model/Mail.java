@@ -11,7 +11,7 @@ public class Mail extends BaseEntity {
 		
 	//in case we send an email to a person in the database. Null if emailTarget is not null.
     @ManyToOne
-	@JoinColumn(nullable = true, name = "userId")
+	@JoinColumn(nullable = true)
 	private User user;
 	
 	@ManyToOne
