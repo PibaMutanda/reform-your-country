@@ -47,6 +47,7 @@ public class BaseRepository<E extends BaseEntity> {
     }
     
     public void remove(E entity){
+        em.merge(entity);
         em.remove(entity);
     }
     protected EntityManager getEntityManager() {
