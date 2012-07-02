@@ -16,7 +16,6 @@ import reformyourcountry.model.Mail;
 import reformyourcountry.model.User;
 
 @Repository
-@Transactional  // TODO remove?
 public class MailRepository  extends BaseRepository<User>{
     /**
      * returns a user containing immediate mails

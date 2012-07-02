@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import reformyourcountry.model.User;
 
 @Repository
-@Transactional
 @SuppressWarnings("unchecked")
 public class UserRepository extends BaseRepository<User>{
 
