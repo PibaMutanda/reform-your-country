@@ -2,16 +2,29 @@
 package reformyourcountry.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.annotations.Index;
 
 import reformyourcountry.mail.MailingDelayType;
 import reformyourcountry.security.Privilege;
@@ -152,7 +165,7 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
 
     @ElementCollection(targetClass=Privilege.class, fetch=FetchType.EAGER)
     @Enumerated(EnumType.STRING)
-    @JoinTable(name="users_privileges", joinColumns={@JoinColumn(name="userid")})
+    @JoinTable(name="users_privileges")
     @Column(name="privilege", nullable=false)
     private Set<Privilege> privileges = new HashSet<Privilege>();
 
