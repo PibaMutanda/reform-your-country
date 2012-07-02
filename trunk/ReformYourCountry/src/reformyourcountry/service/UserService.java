@@ -13,7 +13,6 @@ import reformyourcountry.exceptions.UserAlreadyExistsException;
 import reformyourcountry.exceptions.UserAlreadyExistsException.identifierType;
 import reformyourcountry.mail.MailCategory;
 import reformyourcountry.mail.MailType;
-import reformyourcountry.mail.MailingDelayType;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountStatus;
 import reformyourcountry.model.User.Gender;

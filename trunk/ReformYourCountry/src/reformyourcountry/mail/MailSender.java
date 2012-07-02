@@ -22,7 +22,6 @@ import blackbelt.HtmlToTextUtil;
 
 import reformyourcountry.CurrentEnvironment.Environment;
 import reformyourcountry.CurrentEnvironment.MailBehavior;
-import reformyourcountry.Repository.MailDaoMock;
 import reformyourcountry.Repository.MailRepository;
 import reformyourcountry.Repository.UserRepository;
 import reformyourcountry.model.Mail;

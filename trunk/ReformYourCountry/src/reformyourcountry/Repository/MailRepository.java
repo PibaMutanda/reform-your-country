@@ -8,7 +8,6 @@ import java.util.List;
 import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import reformyourcountry.mail.MailType;
 import reformyourcountry.mail.MailingDelayType;
