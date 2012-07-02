@@ -17,7 +17,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
@@ -191,7 +190,6 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     private boolean spammer = false;
 
     @ManyToOne
-    @JoinColumn(name = "spamReporterId")
     private User spamReporter;
     
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
