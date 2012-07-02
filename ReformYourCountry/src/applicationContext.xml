@@ -17,7 +17,7 @@
 	<context:component-scan base-package="reformyourcountry" />
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
-		<property name="persistenceUnitName" value="ConnectionPostgres" />
+		<property name="persistenceUnitName" value="ConnectionH2" />
     </bean>
 		<!-- Transaction manager for a single JPA EntityManagerFactory (alternative to JTA) -->
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
