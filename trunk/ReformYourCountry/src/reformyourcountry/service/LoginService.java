@@ -10,6 +10,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.time.DateUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import reformyourcountry.Repository.UserRepository;
 import reformyourcountry.exceptions.InvalidPasswordException;
@@ -24,20 +26,14 @@ import blackbelt.web.ContextUtil;
 import blackbelt.web.Cookies;
 import blackbelt.web.HttpSessionTracker;
 
-//TODO uncomment
-//@Component
+@Component
 public class LoginService {
 
     private Long loggedInUserId_TEMP;  // TODO remove.   Simulates the HttpSession to contain the id of the user currently logged in.
     
-    private static LoginService uniqueInstance = new LoginService();
-    private LoginService() {}
-    public static LoginService getInstance() {
-        return uniqueInstance;
-    }
     
-    // @Autowired
-    UserRepository userDao = UserRepository.getInstance();  // TODO: Use autowiring with Spring instead of new.
+    @Autowired
+    UserRepository userDao ;
 
     public static final String USERID_KEY = "UserId";  // Key in the HttpSession for the loggedin user.
     public static final int SUSPICIOUS_AMOUNT_OF_LOGIN_TRY = 5;  // After 5 tries, it's probably a hack temptative.
@@ -140,7 +136,7 @@ public class LoginService {
             Long id = new Long(loginCookie.getValue());
             String md5password = passwordCookie.getValue();
             try {
-                User user = userDao.get(id);  
+                User user = userDao.find(id);  
                 if(user != null){
                     loginEncrypted(user.getUserName(), md5password, false /*don't recreate cookies....*/);  // Maybe exception.
                 } else {
@@ -197,7 +193,7 @@ public class LoginService {
             } else {  // Not valid password
                 user.setLastFailedLoginDate(new Date());
                 user.setConsecutiveFailedLogins(user.getConsecutiveFailedLogins() + 1);
-                userDao.save(user);
+                userDao.update(user);
                 throw new InvalidPasswordException(user);
             }
 
@@ -218,7 +214,7 @@ public class LoginService {
         user.setLastAccess(new Date());
         // TODO: uncomment for the web
         //user.setLastLoginIp(ContextUtil.getHttpServletRequest().getRemoteAddr());
-        userDao.save(user);
+        userDao.update(user);
     }
 
     /**
@@ -248,7 +244,7 @@ public class LoginService {
             if (id == null) {
                 continue;
             }
-            User user = userDao.get(id);
+            User user = userDao.find(id);
             if (user == null) {
                 continue;
             }
