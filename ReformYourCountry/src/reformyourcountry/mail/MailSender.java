@@ -70,9 +70,9 @@ public class MailSender extends Thread {
     //@Value("${app.environment}") 
     Environment environment = Environment.PROD;
     //@Value("${mail.from.notifier.address}") 
-    String notifier;
+    String notifier="no-reply@ryc.be";
     //@Value("${mail.from.notifier.alias}") 
-    String aliasNotifier;
+    String aliasNotifier="ryc no-reply";
     
     
     /* setter for the test  purpose delete after spring configuration*/
@@ -133,7 +133,8 @@ public class MailSender extends Thread {
 
         logger.info("MailSender thread started");
         try {
-			Thread.sleep(1 * 60 * 1000);  // sleep 2 minute to make sure all the bean are ready
+            //TODO: 1*60*1000
+			Thread.sleep(1 * 10 * 1000);  // sleep 2 minute to make sure all the bean are ready
 		} catch (InterruptedException e) {
 	        logger.info("MailSender initial sleep interrupted");
 		}
