@@ -171,7 +171,7 @@ public class MailSender extends Thread {
                     sendMailsGrouped(nextMailList);
                     nextMail.getUser().setLastMailSentDate(new Date()); 
                     
-                    userDao.update(nextMail.getUser());
+                    userDao.merge(nextMail.getUser());
                     mailDao.removeMails(nextMailList); 
                                     
                     this.sleepWell(DELAY_BETWEEN_EACH_MAIL);

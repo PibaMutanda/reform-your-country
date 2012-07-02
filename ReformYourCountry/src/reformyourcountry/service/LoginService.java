@@ -193,7 +193,7 @@ public class LoginService {
             } else {  // Not valid password
                 user.setLastFailedLoginDate(new Date());
                 user.setConsecutiveFailedLogins(user.getConsecutiveFailedLogins() + 1);
-                userDao.update(user);
+                userDao.merge(user);
                 throw new InvalidPasswordException(user);
             }
 
@@ -214,7 +214,7 @@ public class LoginService {
         user.setLastAccess(new Date());
         // TODO: uncomment for the web
         //user.setLastLoginIp(ContextUtil.getHttpServletRequest().getRemoteAddr());
-        userDao.update(user);
+        userDao.merge(user);
     }
 
     /**

@@ -10,8 +10,10 @@ import javax.persistence.OneToOne;
 public class GroupReg extends BaseEntity{
 	    //TODO Change when group is an entity
 		//private Group group;
+    
         @ManyToOne
 		private User user;
+        
 		private Date creationDate;
 		
 		public GroupReg(){
