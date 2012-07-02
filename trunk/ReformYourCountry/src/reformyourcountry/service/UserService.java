@@ -12,8 +12,8 @@ import reformyourcountry.Repository.UserRepository;
 import reformyourcountry.exceptions.UserAlreadyExistsException;
 import reformyourcountry.exceptions.UserAlreadyExistsException.identifierType;
 import reformyourcountry.mail.MailCategory;
-import reformyourcountry.mail.MailService;
 import reformyourcountry.mail.MailType;
+import reformyourcountry.mail.MailingDelayType;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountStatus;
 import reformyourcountry.model.User.Gender;
@@ -36,8 +36,8 @@ public class UserService {
     @Autowired 
     private UserRepository userDao;
     
-//    @Autowired 
-//    private MailService mailService;
+    @Autowired 
+    private mailService mailService;
 
 
     /**
@@ -100,7 +100,7 @@ public class UserService {
                 "'>contact us.</a>" + 
                 "<br/><br/>Thank you for registering and have a nice time on KnowledgeBlackBelt.";
         //TODO maxime uncomment when using mail
-        //   mailService.sendMail(user.getMail(), "Your new account", htmlMessage, MailType.IMMEDIATE, MailCategory.USER);
+         mailService.sendMail(user.getMail(), "Your new account", htmlMessage, MailType.IMMEDIATE, MailCategory.USER);
         System.out.println("mail sent: " + htmlMessage);  // To simulate the mailService until we have it.
     }
 

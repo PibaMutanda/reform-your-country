@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import reformyourcountry.Repository.MailDaoMock;
@@ -24,21 +25,21 @@ public class mailService {
     
     
     // TODO: remove singleton when using Spring
-    private static mailService uniqueInstance = new mailService();
-    private mailService() {}
-    public static mailService getInstance() {
-        return uniqueInstance;
-    }
-    
+//    private static mailService uniqueInstance = new mailService();
+//    private mailService() {}
+//    public static mailService getInstance() {
+//        return uniqueInstance;
+//    }
+//    
     
 	public final static String JBB_ADMIN_MAIL = "info@KnowledgeBlackBelt.com";  // TODO: take the value from a property file (provided by the specialized project, as enseignement2.be)
 	public final static String BUG_MAIL = "bug@KnowledgeBlackBelt.com";  // TODO: take the value from a property file (provided by the specialized project, as enseignement2.be)
 
 	//@Logger Log logger;
 
-   // @Autowired	
+    @Autowired	
     public MailRepository mailDao;
-    // @Autowired	
+     @Autowired	
     public MailSender mailSender;
 
     
