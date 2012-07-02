@@ -35,11 +35,14 @@ public class BaseEntity {
             return false;
         if (this == other)
             return true;
+        
+        //We need the real Class not the proxy's class
         Class<?> otherClassNoProxy = HibernateProxyHelper.getClassWithoutInitializingProxy(other); 
         Class<?> thisClassNoProxy = HibernateProxyHelper.getClassWithoutInitializingProxy(this);
+        // Is one of the two class assignable from the other.
         if (!otherClassNoProxy.isAssignableFrom(thisClassNoProxy)&& ! thisClassNoProxy.isAssignableFrom(otherClassNoProxy) )
             return false;
-        
+        //Is it an entity? 
         if (!  (other instanceof BaseEntity)) {
             throw new RuntimeException("Probably Bug: how can other be assignableFrom us (or vis versa) " +
                     "and not being a BaseEntity? other=["+other+"] - this=["+this+"]"); 
