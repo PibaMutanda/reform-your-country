@@ -4,26 +4,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Argument {
-	
+    
+	private String title; 
 	private String content;
 	private Action action;
 	private List<VoteArgument> voteArguments = new ArrayList<VoteArgument>();
 	private User user;
+	private int voteCountPro;
+	private int voteCountAgainst;
 	
 	public Argument (){
 		
 	}
 	
 	
-	public Argument(String content, Action action, User user ) {
+	public Argument(String title,String content, Action action, User user ) {
 		
+	    this.title = title;
 		this.content = content;
 		this.action = action;
 		this.user = user;
 		
 	}
 	
-	public String getContent() {
+	public String getTitle() {
+        return title;
+    }
+
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+
+    public String getContent() {
 		return content;
 	}
 
@@ -58,7 +72,27 @@ public class Argument {
 	}
 
 
-	@Override
+	public int getVoteCountPro() {
+        return voteCountPro;
+    }
+
+
+    public void incrementVoteCountPro() {
+        voteCountPro++;
+    }
+
+
+    public int getVoteCountAgainst() {
+        return voteCountAgainst;
+    }
+
+
+    public void incrementVoteCountAgainst() {
+        voteCountAgainst++;
+    }
+
+
+    @Override
 	public String toString() {
 		return content;
 	}

@@ -3,6 +3,8 @@ package reformyourcountry.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.OneToMany;
+
 import javax.persistence.*;
 @Entity
 public class Action extends BaseEntity{
@@ -12,16 +14,17 @@ public class Action extends BaseEntity{
 	private String shortDescription;
 	private String longDescription;
 	private String content;
+	
+
 	private int voteCountPro;
 	private int voteCountAgainst;
 	private int voteCountTotal;
 	@ManyToMany
 	private List<Article> articles = new ArrayList <Article>();
-	@OneToMany
+	
+	@OneToMany(mappedBy = "action")
 	private List<Comment> comments = new ArrayList <Comment>();
-	@OneToMany
 	private List<VoteAction> voteActions = new ArrayList <VoteAction>();
-	@OneToMany
 	private List<Argument> arguments = new ArrayList <Argument>();
 	
 	
