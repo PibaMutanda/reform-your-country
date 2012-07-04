@@ -11,11 +11,13 @@ public class Article extends BaseEntity {
 	private String summary;
 	private String content;
 	private Date releaseDate;
-	@ManyToOne//TODO check annotations
+	@ManyToOne
+	@JoinColumn
 	private Article parent;
 	@ManyToMany
+	@JoinTable(name = "ARTICLE_ACTION", joinColumns = @JoinColumn(name = "ARTICLE_ID"), inverseJoinColumns = @JoinColumn(name="ACTION_ID"))
 	private List<Action> actions = new ArrayList<Action>();
-	@OneToMany
+	@OneToMany(mappedBy = "parent")
 	private List<Article> children = new ArrayList <Article>();
 	
 	

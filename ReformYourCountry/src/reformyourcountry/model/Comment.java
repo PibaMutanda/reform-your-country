@@ -12,6 +12,9 @@ public class Comment {
 	@ManyToOne
 	@JoinColumn
 	private Action action;
+	
+	@ManyToOne
+	@JoinColumn
 	private User user;
 		
 	public Comment() {

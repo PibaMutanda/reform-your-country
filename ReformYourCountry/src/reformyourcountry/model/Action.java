@@ -19,12 +19,14 @@ public class Action extends BaseEntity{
 	private int voteCountPro;
 	private int voteCountAgainst;
 	private int voteCountTotal;
-	@ManyToMany
+	
+	@ManyToMany(mappedBy = "actions")
 	private List<Article> articles = new ArrayList <Article>();
 	
 	@OneToMany(mappedBy = "action")
 	private List<Comment> comments = new ArrayList <Comment>();
 	private List<VoteAction> voteActions = new ArrayList <VoteAction>();
+	@OneToMany(mappedBy = "action")
 	private List<Argument> arguments = new ArrayList <Argument>();
 	
 	
