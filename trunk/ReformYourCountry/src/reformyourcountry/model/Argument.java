@@ -3,12 +3,21 @@ package reformyourcountry.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
 public class Argument {
     
 	private String title; 
 	private String content;
+	@ManyToOne
+	@JoinColumn
 	private Action action;
+	@OneToMany(mappedBy = "argument")
 	private List<VoteArgument> voteArguments = new ArrayList<VoteArgument>();
+	@ManyToOne
+	@JoinColumn
 	private User user;
 	private int voteCountPro;
 	private int voteCountAgainst;

@@ -1,13 +1,23 @@
 package reformyourcountry.model;
 
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 
 
 public class VoteAction {
 	
 	private Long id;
 	private  int value = 0;  // -2 = against; 0 = neutral; +2 = pro.
+	
+	@ManyToOne
+	@JoinColumn
 	private Action action;
+	@ManyToOne
+    @JoinColumn
 	private User user;  // or group. Can be null if the vote is made by a group.
+	@ManyToOne
+    @JoinColumn
 	private Group group; // or user. Can be null if the vote is made by a user.
 	
 	
