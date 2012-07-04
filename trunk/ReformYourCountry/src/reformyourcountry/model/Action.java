@@ -3,13 +3,25 @@ package reformyourcountry.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Action {
+import javax.persistence.*;
+@Entity
+public class Action extends BaseEntity{
 	
 	private String title;
+	private String url;
+	private String shortDescription;
+	private String longDescription;
 	private String content;
+	private int voteCountPro;
+	private int voteCountAgainst;
+	private int voteCountTotal;
+	@ManyToMany
 	private List<Article> articles = new ArrayList <Article>();
+	@OneToMany
 	private List<Comment> comments = new ArrayList <Comment>();
+	@OneToMany
 	private List<VoteAction> voteActions = new ArrayList <VoteAction>();
+	@OneToMany
 	private List<Argument> arguments = new ArrayList <Argument>();
 	
 	
@@ -31,6 +43,30 @@ public class Action {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	
+	public String getUrl(){
+		return url;
+	}
+	
+	public void setUrl(String url){
+		this.url=url;
+	}
+	
+	public String getShortDescription(){
+		return shortDescription;
+	}
+	
+	public void setShortDescription(String shortDescription){
+		this.shortDescription=shortDescription;
+	}
+	
+	public String getLongDescription(){
+		return longDescription;
+	}
+	
+	public void setLongDescription(String longDescription){
+		this.longDescription=longDescription;
+	}
 
 	public String getContent() {
 		return content;
@@ -38,6 +74,29 @@ public class Action {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+	
+	public int getVoteCountPro(){
+		return voteCountPro;
+	}
+	
+	public void incrementVoteCountPro(){
+		voteCountPro++;
+	}
+	public int getVoteCountAgainst(){
+		return voteCountAgainst;
+	}
+	
+	public void incrementVoteCountAgainst(){
+		voteCountAgainst++;
+	}
+	
+	public int getVoteCountTotal(){
+		return voteCountTotal;
+	}
+	
+	public void incrementVoteCountTotal(){
+		voteCountTotal++;
 	}
 
 	public List<Article> getArticles() {
