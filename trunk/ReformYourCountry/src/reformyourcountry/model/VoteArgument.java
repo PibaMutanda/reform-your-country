@@ -6,7 +6,7 @@ public class VoteArgument {
 	private  int value = 0;  // -2 = against; +2 = pro.
 	private Argument argument;
 	private User user;  
-	
+	private boolean pro;
 	
 	public VoteArgument() {
 		
@@ -54,6 +54,14 @@ public class VoteArgument {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+    public boolean isPro() {
+        return pro;
+    }
+
+    public void setPro(boolean pro) {
+        this.pro = pro;
+    }
 	
 	
 	/*

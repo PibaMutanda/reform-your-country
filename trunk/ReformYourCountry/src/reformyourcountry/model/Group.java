@@ -9,7 +9,8 @@ public class Group {
 	private List <VoteAction> voteActions = new ArrayList <VoteAction>();
 	private Group parent;
 	private List <Group> children = new ArrayList <Group>();
-	
+	private String url;
+	private String description;
 		
 	public Group(){
 		
@@ -44,8 +45,28 @@ public class Group {
 	public void setParent(Group parent){
 		this.parent = parent;
 	}
+  
+    public Group getParent(){
+        
+        return parent;
+    }
+	public String getUrl() {
+        return url;
+    }
 
-	@Override
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @Override
 	public String toString(){
 		return name;
 	}

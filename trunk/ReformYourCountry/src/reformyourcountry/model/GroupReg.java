@@ -16,15 +16,22 @@ public class GroupReg extends BaseEntity{
         
 		private Date creationDate;
 		
+		private boolean confirmed;
+		
+		private User owner;
+		
+		private User confirmedBy;
+		
 		public GroupReg(){
 			
 		}
 
-		public GroupReg(Group group, User user, Date date) {
+		public GroupReg(Group group, User user, Date date,User owner) {
 			
 			
 			this.user = user;
 			this.creationDate = date;
+			this.owner = owner;
 			//this.group = group;
 		}
 
@@ -47,7 +54,31 @@ public class GroupReg extends BaseEntity{
 
 		
 
-		public Date getDate() {
+		public boolean isConfirmed() {
+            return confirmed;
+        }
+
+        public void setConfirmed(boolean confirmed) {
+            this.confirmed = confirmed;
+        }
+
+        public User getConfirmedBy() {
+            return confirmedBy;
+        }
+
+        public void setConfirmedBy(User confirmedBy) {
+            this.confirmedBy = confirmedBy;
+        }
+
+        public Date getCreationDate() {
+            return creationDate;
+        }
+
+        public User getOwner() {
+            return owner;
+        }
+
+        public Date getDate() {
 			return creationDate;
 		}
 

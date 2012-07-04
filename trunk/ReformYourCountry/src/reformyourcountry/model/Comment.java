@@ -1,20 +1,28 @@
 package reformyourcountry.model;
 
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 
 public class Comment {
 	
+    private String title;
 	private String content;
+	
+	@ManyToOne
+	@JoinColumn
 	private Action action;
 	private User user;
 		
 	public Comment() {
 	}	
 	
-	public Comment(String descript, Action action, User user)
+	public Comment(String title,String descript, Action action, User user)
 	{
 		this.content = descript;
 		this.action = action;
 		this.user = user;
+		this.title = title;
 	}
 
 	public String getContentComment() {
@@ -41,7 +49,17 @@ public class Comment {
 		this.user = user;
 	}
 
-	@Override
+	public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+ 
+
+    @Override
 	public String toString() {
 		return content;
 	}
