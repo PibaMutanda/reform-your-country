@@ -34,6 +34,7 @@ import reformyourcountry.security.Privilege;
 @Table(name = "users")
 public class User extends BaseEntity implements Cloneable, Comparable<User>, Serializable {
     //TODO maxime uncomment when annoted this classes
+//	
 //    private List <VoteAction> voteActions = new ArrayList <VoteAction>();
 //    private List <VoteArgument> voteArguments = new ArrayList <VoteArgument>();
 //

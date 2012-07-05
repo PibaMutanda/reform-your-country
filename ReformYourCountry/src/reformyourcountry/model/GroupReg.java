@@ -10,7 +10,10 @@ import javax.persistence.OneToOne;
 @Entity
 public class GroupReg extends BaseEntity{
 	    //TODO Change when group is an entity
-		//private Group group;
+		
+		@ManyToOne
+		@JoinColumn(name="groups")
+		private Group group;
     
         @ManyToOne
         @JoinColumn
@@ -36,7 +39,7 @@ public class GroupReg extends BaseEntity{
 			this.user = user;
 			this.creationDate = date;
 			this.owner = owner;
-			//this.group = group;
+			this.group = group;
 		}
 
 		
