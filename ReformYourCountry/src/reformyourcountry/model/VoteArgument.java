@@ -1,8 +1,10 @@
 package reformyourcountry.model;
 
-public class VoteArgument {
+import javax.persistence.*;
+
+@Entity
+public class VoteArgument extends BaseEntity{
 	
-	private Long id;
 	private  int value = 0;  // -2 = against; +2 = pro.
 	private Argument argument;
 	private User user;  
@@ -12,9 +14,8 @@ public class VoteArgument {
 		
 	}
 
-	public VoteArgument(long id, int value, Argument argument, User user) {
+	public VoteArgument( int value, Argument argument, User user) {
 		
-		this.id = id;
 		this.value = value;
 		this.argument = argument;
 		this.user = user;
@@ -22,14 +23,6 @@ public class VoteArgument {
 	}
 
 	
-	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public int getValue() {
 		return value;
