@@ -25,6 +25,8 @@ public class Action extends BaseEntity{
 	
 	@OneToMany(mappedBy = "action")
 	private List<Comment> comments = new ArrayList <Comment>();
+	
+	@OneToMany(mappedBy = "action")
 	private List<VoteAction> voteActions = new ArrayList <VoteAction>();
 	@OneToMany(mappedBy = "action")
 	private List<Argument> arguments = new ArrayList <Argument>();

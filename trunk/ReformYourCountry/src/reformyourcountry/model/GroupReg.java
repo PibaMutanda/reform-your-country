@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 @Entity
@@ -12,14 +13,17 @@ public class GroupReg extends BaseEntity{
 		//private Group group;
     
         @ManyToOne
+        @JoinColumn
 		private User user;
         
 		private Date creationDate;
 		
 		private boolean confirmed;
 		
+		@OneToOne
 		private User owner;
 		
+		@OneToOne
 		private User confirmedBy;
 		
 		public GroupReg(){

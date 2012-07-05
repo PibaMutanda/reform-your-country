@@ -1,13 +1,14 @@
 package reformyourcountry.model;
 
+import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 
-
-public class VoteAction {
+@Entity
+public class VoteAction extends BaseEntity{
 	
-	private Long id;
+
 	private  int value = 0;  // -2 = against; 0 = neutral; +2 = pro.
 	
 	@ManyToOne
