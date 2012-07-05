@@ -26,7 +26,7 @@ public class Article extends BaseEntity {
 	
 
 	public Article(String title, String content) {
-		//super();
+		super();
 		this.title = title;
 		this.content = content;
 	}

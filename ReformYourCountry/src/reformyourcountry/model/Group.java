@@ -8,13 +8,14 @@ import javax.persistence.*;
 @Table(name="Groups")
 public class Group extends BaseEntity{
 	
+	@Column(length=100)
 	private String name; // a group has a lot of users
 	@OneToMany
 	private List <VoteAction> voteActions = new ArrayList <VoteAction>();
 	@ManyToOne
 	@JoinColumn
 	private Group parent;
-	@OneToMany
+	@OneToMany(mappedBy="parent")
 	private List <Group> children = new ArrayList <Group>();
 	private String url;
 	private String description;
