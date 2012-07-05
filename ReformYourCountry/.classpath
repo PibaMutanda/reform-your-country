@@ -43,5 +43,8 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/ReformYourCountry/WebContent/WEB-INF/lib/apache_common/commons-codec-1.6-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/Hibernate_validator/hibernate-validator-4.3.0.Final.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/Hibernate_validator/hibernate-validator-annotation-processor-4.3.0.Final.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/Hibernate_validator/validation-api-1.0.0.GA.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
