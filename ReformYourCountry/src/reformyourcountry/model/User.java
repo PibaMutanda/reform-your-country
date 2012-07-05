@@ -2,8 +2,10 @@
 package reformyourcountry.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -34,8 +36,8 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     //TODO maxime uncomment when annoted this classes
 //    private List <VoteAction> voteActions = new ArrayList <VoteAction>();
 //    private List <VoteArgument> voteArguments = new ArrayList <VoteArgument>();
-
-
+//
+//
 //    public List<VoteAction> getVoteActions() {
 //        return voteActions;
 //    }
