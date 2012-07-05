@@ -1,12 +1,15 @@
 package reformyourcountry.model;
 
+import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
-
-public class Comment {
+@Entity
+public class Comment extends BaseEntity{
 	
     private String title;
+   
 	private String content;
 	
 	@ManyToOne

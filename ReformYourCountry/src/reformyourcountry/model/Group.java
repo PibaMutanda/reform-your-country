@@ -12,6 +12,7 @@ public class Group extends BaseEntity{
 	@OneToMany
 	private List <VoteAction> voteActions = new ArrayList <VoteAction>();
 	@ManyToOne
+	@JoinColumn
 	private Group parent;
 	@OneToMany
 	private List <Group> children = new ArrayList <Group>();

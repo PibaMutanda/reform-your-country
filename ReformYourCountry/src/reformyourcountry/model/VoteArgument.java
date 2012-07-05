@@ -6,7 +6,11 @@ import javax.persistence.*;
 public class VoteArgument extends BaseEntity{
 	
 	private  int value = 0;  // -2 = against; +2 = pro.
+	
+	@ManyToOne
+	@JoinColumn
 	private Argument argument;
+	@ManyToOne
 	private User user;  
 	private boolean pro;
 	

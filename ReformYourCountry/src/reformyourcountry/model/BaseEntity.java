@@ -1,6 +1,7 @@
 package reformyourcountry.model;
 
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
@@ -9,7 +10,7 @@ import org.hibernate.proxy.HibernateProxyHelper;
 @MappedSuperclass
 public class BaseEntity {
 
-    @Id   @GeneratedValue
+    @Id   @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
     
     public Long getId() {

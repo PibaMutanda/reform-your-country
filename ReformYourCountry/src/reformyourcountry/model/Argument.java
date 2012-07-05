@@ -3,11 +3,12 @@ package reformyourcountry.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
-public class Argument {
+@Entity
+public class Argument extends BaseEntity{
     
 	private String title; 
 	private String content;
