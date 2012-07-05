@@ -2,10 +2,10 @@ package reformyourcountry.model;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.*;
 
 @Entity
+@Table(name="Groups")
 public class Group extends BaseEntity{
 	
 	private String name; // a group has a lot of users
