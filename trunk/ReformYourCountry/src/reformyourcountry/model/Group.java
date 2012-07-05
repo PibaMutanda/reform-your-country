@@ -3,11 +3,17 @@ package reformyourcountry.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Group {
+import javax.persistence.*;
+
+@Entity
+public class Group extends BaseEntity{
 	
 	private String name; // a group has a lot of users
+	@OneToMany
 	private List <VoteAction> voteActions = new ArrayList <VoteAction>();
+	@ManyToOne
 	private Group parent;
+	@OneToMany
 	private List <Group> children = new ArrayList <Group>();
 	private String url;
 	private String description;
