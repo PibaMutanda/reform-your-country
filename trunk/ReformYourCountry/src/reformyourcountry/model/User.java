@@ -2,30 +2,27 @@
 package reformyourcountry.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 
 import reformyourcountry.mail.MailingDelayType;
 import reformyourcountry.security.Privilege;
@@ -34,11 +31,10 @@ import reformyourcountry.security.Privilege;
 @Table(name = "users")
 public class User extends BaseEntity implements Cloneable, Comparable<User>, Serializable {
     //TODO maxime uncomment when annoted this classes
-//	
 //    private List <VoteAction> voteActions = new ArrayList <VoteAction>();
 //    private List <VoteArgument> voteArguments = new ArrayList <VoteArgument>();
-//
-//
+
+
 //    public List<VoteAction> getVoteActions() {
 //        return voteActions;
 //    }
@@ -135,16 +131,24 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     }
     
     
-
+    @Column(length = 50)
+    @NotBlank(message = "You must enter your first name")
     private String firstName;
-
+    
+    @Column(length = 50)
+    @NotBlank(message = "You must enter your last name")
     private String lastName;
 
     @Column(unique = true)
+    @Size(min = 4 ,max = 15,message = "your username must contain at least 4 character and at max 15 character")
     private String userName; 
-
+    
+    @Column(length = 100)
+    @Email(message ="Email address is not valid")
     private String mail;
-
+    
+    @Column(length = 15)
+    @Size(min = 4 ,max = 15,message = "your password must contain at least 4 character and at max 15 character")
     private String password;
 
     @Lob
@@ -171,7 +175,7 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     private Date lastAccess;
 
     private Date registrationDate;
-
+    @Column(length = 40)
     private String lastLoginIp;
 
     private int consecutiveFailedLogins = 0; // Reset to 0 every time users logins sucessfully.
@@ -475,5 +479,7 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     public void setMailDelayType(MailingDelayType mailingDelay) {
         this.mailingDelayType = mailingDelay;
     }
+    
+  
     
 }

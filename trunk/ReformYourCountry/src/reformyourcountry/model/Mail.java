@@ -19,13 +19,13 @@ public class Mail extends BaseEntity {
 	private User replyTo;
     
 	//in case we send an email to a person not in the database. Null if user is not null.
-    @Column(nullable = true)
+    @Column(nullable = true,length = 100)
     private String emailTarget;
 
 	@Enumerated(EnumType.STRING)
 	private MailCategory mailCategory;
 		
-	@Column(nullable = false)
+	@Column(nullable = false,length = 255)
 	private String subject;
 	
 	@Lob

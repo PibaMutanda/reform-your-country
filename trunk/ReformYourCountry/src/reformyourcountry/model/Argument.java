@@ -3,14 +3,18 @@ package reformyourcountry.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 @Entity
 public class Argument extends BaseEntity{
     
+    @Column(length = 100)
 	private String title; 
+    @Lob
 	private String content;
 	@ManyToOne
 	@JoinColumn

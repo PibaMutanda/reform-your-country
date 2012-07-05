@@ -3,16 +3,23 @@ package reformyourcountry.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-
-import javax.persistence.*;
 @Entity
 public class Action extends BaseEntity{
 	
+    
+    @Column(length = 100)
+    
 	private String title;
 	private String url;
+	@Column(length = 100)
 	private String shortDescription;
 	private String longDescription;
+	@Lob
 	private String content;
 	
 
