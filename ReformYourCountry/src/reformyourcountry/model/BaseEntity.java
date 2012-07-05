@@ -1,9 +1,15 @@
 package reformyourcountry.model;
 
+import java.util.Set;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 import org.hibernate.proxy.HibernateProxyHelper;
 
@@ -13,6 +19,8 @@ public class BaseEntity {
     @Id   @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
     
+ 
+   
     public Long getId() {
         return id;
     }
@@ -59,4 +67,7 @@ public class BaseEntity {
         }
         return this.getId().equals(otherEntity.getId());
     }
+    
+    
+   
 }

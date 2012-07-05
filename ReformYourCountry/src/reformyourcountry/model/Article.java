@@ -6,9 +6,12 @@ import java.util.List;
 import javax.persistence.*;
 @Entity
 public class Article extends BaseEntity {
+    @Column(length = 100)
 	private String title;
 	private String url;
+	@Lob
 	private String summary;
+	@Lob
 	private String content;
 	private Date releaseDate;
 	@ManyToOne
@@ -26,7 +29,7 @@ public class Article extends BaseEntity {
 	
 
 	public Article(String title, String content) {
-		super();
+		//super();
 		this.title = title;
 		this.content = content;
 	}
