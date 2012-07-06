@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="Groups")
 public class Group extends BaseEntity{
-	
+	@Column(length = 100)
 	private String name; // a group has a lot of users
 	@OneToMany(mappedBy ="group")
 	private List <VoteAction> voteActions = new ArrayList <VoteAction>();
