@@ -1,15 +1,12 @@
 package reformyourcountry.model;
 
 import java.util.Date;
-import java.util.Set;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.PostLoad;
-import javax.persistence.PrePersist;
-import javax.persistence.Transient;
+import javax.persistence.PreUpdate;
 
 import org.hibernate.proxy.HibernateProxyHelper;
 
@@ -31,11 +28,12 @@ public class BaseEntity {
         return id;
     }
     
-    @PrePersist
-    public void onLoad(){
+    @PreUpdate
+    public void onUpdate(){
     	if (createdBy==null) {
 			createdBy = SecurityContext.getUser();
 			creationDate = new Date();
+		    
 		}else{
 			lastModifiedBy=SecurityContext.getUser();
 			lastModificationDate=new Date();
