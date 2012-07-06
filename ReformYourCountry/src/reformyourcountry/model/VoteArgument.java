@@ -8,9 +8,10 @@ public class VoteArgument extends BaseEntity{
 	private  int value = 0;  // -2 = against; +2 = pro.
 	
 	@ManyToOne
-	@JoinColumn
+	@JoinColumn(nullable = false)
 	private Argument argument;
 	@ManyToOne
+	@JoinColumn(nullable = false)
 	private User user;  
 	private boolean pro;
 	

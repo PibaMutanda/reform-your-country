@@ -195,6 +195,7 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     private User spamReporter;
     
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+    @Column(nullable = false)
     private Set<GroupReg> groupRegs = new HashSet<GroupReg>();
     
     @Enumerated(EnumType.STRING)

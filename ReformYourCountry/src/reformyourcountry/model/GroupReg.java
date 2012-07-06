@@ -3,6 +3,7 @@ package reformyourcountry.model;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,8 +19,8 @@ public class GroupReg extends BaseEntity{
         @ManyToOne
         @JoinColumn
 		private User user;
-        
-		private Date creationDate;
+        @Column(nullable = false)
+        private Date creationDate;
 		
 		private boolean confirmed=false;
 		
