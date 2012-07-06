@@ -19,8 +19,6 @@ public class GroupReg extends BaseEntity{
         @ManyToOne
         @JoinColumn
 		private User user;
-        @Column(nullable = false)
-        private Date creationDate;
 		
 		private boolean confirmed=false;
 		

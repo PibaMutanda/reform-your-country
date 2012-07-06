@@ -35,8 +35,6 @@ public class Mail extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	private MailType mailType;
 	
-	@Column(nullable = false)
-	private Date creationDate;
 	
 	private boolean useTemplate;
 	
