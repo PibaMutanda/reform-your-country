@@ -2,8 +2,10 @@
 package reformyourcountry.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -30,14 +32,15 @@ import reformyourcountry.security.Privilege;
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity implements Cloneable, Comparable<User>, Serializable {
-    //TODO maxime uncomment when annoted this classes
-//    private List <VoteAction> voteActions = new ArrayList <VoteAction>();
-//    private List <VoteArgument> voteArguments = new ArrayList <VoteArgument>();
+    @OneToMany(mappedBy="user")
+	private List <VoteAction> voteActions = new ArrayList <VoteAction>();
+    @OneToMany(mappedBy="user")
+    private List <VoteArgument> voteArguments = new ArrayList <VoteArgument>();
 
 
-//    public List<VoteAction> getVoteActions() {
-//        return voteActions;
-//    }
+    public List<VoteAction> getVoteActions() {
+        return voteActions;
+    }
 
 //serialVersionUID indicate the version of the bean
     private static final long serialVersionUID = 4144665927166518905L;
