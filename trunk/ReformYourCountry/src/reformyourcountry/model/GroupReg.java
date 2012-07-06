@@ -10,10 +10,15 @@ import javax.persistence.OneToOne;
 @Entity
 public class GroupReg extends BaseEntity{
 	    //TODO Change when group is an entity
+
 		
 		@ManyToOne
 		@JoinColumn(name="groups")
 		private Group group;
+    
+    
+    
+		
     
         @ManyToOne
         @JoinColumn
@@ -23,8 +28,8 @@ public class GroupReg extends BaseEntity{
 		
 		private boolean confirmed;
 		
-		@OneToOne
-		private User owner;
+		
+		private boolean owner = false;
 		
 		@OneToOne
 		private User confirmedBy;
@@ -33,12 +38,11 @@ public class GroupReg extends BaseEntity{
 			
 		}
 
-		public GroupReg(Group group, User user, Date date,User owner) {
+		public GroupReg(Group group, User user, Date date) {
 			
 			
 			this.user = user;
-			this.creationDate = date;
-			this.owner = owner;
+			this.creationDate = date;		
 			this.group = group;
 		}
 
@@ -81,9 +85,10 @@ public class GroupReg extends BaseEntity{
             return creationDate;
         }
 
-        public User getOwner() {
-            return owner;
-        }
+      public boolean isOwner(){
+          
+          return owner;
+      }
 
         public Date getDate() {
 			return creationDate;
