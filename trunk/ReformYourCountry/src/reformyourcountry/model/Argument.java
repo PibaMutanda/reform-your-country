@@ -17,12 +17,12 @@ public class Argument extends BaseEntity{
     @Lob
 	private String content;
 	@ManyToOne
-	@JoinColumn
+	@JoinColumn(nullable = false)
 	private Action action;
 	@OneToMany(mappedBy = "argument")
 	private List<VoteArgument> voteArguments = new ArrayList<VoteArgument>();
 	@ManyToOne
-	@JoinColumn
+	@JoinColumn(nullable = false)
 	private User user;
 	private int voteCountPro;
 	private int voteCountAgainst;

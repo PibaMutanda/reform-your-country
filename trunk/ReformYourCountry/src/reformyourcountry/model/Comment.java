@@ -1,5 +1,6 @@
 package reformyourcountry.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
@@ -13,11 +14,11 @@ public class Comment extends BaseEntity{
 	private String content;
 	
 	@ManyToOne
-	@JoinColumn
+	@JoinColumn(nullable = false)
 	private Action action;
 	
 	@ManyToOne
-	@JoinColumn
+	@JoinColumn(nullable = false)
 	private User user;
 		
 	public Comment() {
