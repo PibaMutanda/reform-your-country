@@ -32,15 +32,10 @@ import reformyourcountry.security.Privilege;
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity implements Cloneable, Comparable<User>, Serializable {
-    @OneToMany(mappedBy="user")
-	private List <VoteAction> voteActions = new ArrayList <VoteAction>();
-    @OneToMany(mappedBy="user")
-    private List <VoteArgument> voteArguments = new ArrayList <VoteArgument>();
+   
 
 
-    public List<VoteAction> getVoteActions() {
-        return voteActions;
-    }
+    
 
 //serialVersionUID indicate the version of the bean
     private static final long serialVersionUID = 4144665927166518905L;
@@ -172,7 +167,7 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     @ElementCollection(targetClass=Privilege.class, fetch=FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     @JoinTable(name="users_privileges")
-    @Column(name="privilege", nullable=false)
+    @Column(name="privilege", nullable=false,length = 20)
     private Set<Privilege> privileges = new HashSet<Privilege>();
 
     private Date lastAccess;
@@ -188,7 +183,7 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
 
     private String lockReason;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 20)
     @Enumerated(EnumType.STRING)
     private AccountStatus accountStatus;
 
@@ -208,6 +203,12 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
         return this.mailingDelayType;
     }
 
+    
+    @OneToMany(mappedBy="user")
+    private List <VoteAction> voteActions = new ArrayList <VoteAction>();
+    @OneToMany(mappedBy="user")
+    private List <VoteArgument> voteArguments = new ArrayList <VoteArgument>();
+    
     private Role role = Role.USER;
 
     
@@ -483,6 +484,8 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
         this.mailingDelayType = mailingDelay;
     }
     
-  
+    public List<VoteAction> getVoteActions() {
+        return voteActions;
+    }
     
 }
