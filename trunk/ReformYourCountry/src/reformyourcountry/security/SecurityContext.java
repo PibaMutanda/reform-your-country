@@ -125,8 +125,8 @@ public abstract class SecurityContext {
         
         if (user.get() == null) {  // User not loaded yet.
             // TODO: restore the line below (because Spring can inject nothing in this SecurityContext class).
-            // User user = ((UserDao) ContextUtil.getSpringBean("userDao")).get(getUserId());  // This is not beauty, but life is sometimes ugly. -- no better idea (except making SecurityContext a bean managed by Spring... but for not much benefit...) -- John 2009-07-02
-            User user = UserRepository.getInstance().get(getUserId());
+             User user = ((UserRepository) ContextUtil.getSpringBean("userRepository")).getUserById(getUserId());  // This is not beauty, but life is sometimes ugly. -- no better idea (except making SecurityContext a bean managed by Spring... but for not much benefit...) -- John 2009-07-02
+//            User user = UserRepository.getInstance().get(getUserId());
 
             setUser( user );  // Lazy loading if needed.
         }

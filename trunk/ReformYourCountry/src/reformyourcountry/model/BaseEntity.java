@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PostLoad;
+import javax.persistence.PrePersist;
 import javax.persistence.Transient;
 
 import org.hibernate.proxy.HibernateProxyHelper;
@@ -30,7 +31,7 @@ public class BaseEntity {
         return id;
     }
     
-    @PostLoad
+    @PrePersist
     public void onLoad(){
     	if (createdBy==null) {
 			createdBy = SecurityContext.getUser();
