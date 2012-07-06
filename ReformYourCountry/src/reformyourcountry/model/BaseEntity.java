@@ -1,29 +1,46 @@
 package reformyourcountry.model;
 
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
+import javax.persistence.PostLoad;
+import javax.persistence.Transient;
 
 import org.hibernate.proxy.HibernateProxyHelper;
+
+import reformyourcountry.security.SecurityContext;
 
 @MappedSuperclass
 public class BaseEntity {
 
     @Id   @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
+    User createdBy;
+    Date creationDate;
+    User lastModifiedBy;
+    Date lastModificationDate;
     
  
    
     public Long getId() {
         return id;
     }
+    
+    @PostLoad
+    public void onLoad(){
+    	if (createdBy==null) {
+			createdBy = SecurityContext.getUser();
+			creationDate = new Date();
+		}else{
+			lastModifiedBy=SecurityContext.getUser();
+			lastModificationDate=new Date();
+		}
+    }
+    
     
     @Override
     public int hashCode(){
