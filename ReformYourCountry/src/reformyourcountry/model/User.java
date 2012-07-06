@@ -207,9 +207,10 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     
     @OneToMany(mappedBy="user")
     private List <VoteAction> voteActions = new ArrayList <VoteAction>();
+    
     @OneToMany(mappedBy="user")
     private List <VoteArgument> voteArguments = new ArrayList <VoteArgument>();
-    
+   
     private Role role = Role.USER;
 
     
@@ -487,6 +488,18 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     
     public List<VoteAction> getVoteActions() {
         return voteActions;
+    }
+    
+    public void addVoteAction(VoteAction va){
+        voteActions.add(va);
+    }
+    
+    public List<VoteArgument> getVoteArguments() {
+        return voteArguments;
+    }
+    
+    public void addVoteArgument(VoteArgument va){
+        voteArguments.add(va);
     }
     
 }
