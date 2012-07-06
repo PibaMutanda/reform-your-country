@@ -1,16 +1,30 @@
 package reformyourcountry;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+
+
+
 
 public class MainCreate {
     
+   
     
     public static void main(String [] args){
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConnectionPostgres");
+        
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+        BatchCreate batch = (BatchCreate)applicationContext.getBean("batchCreate");
+        batch.run();
     
-    EntityManager em = emf.createEntityManager();
+
+   
+     
+    
+    
+    
     }
 
 }
