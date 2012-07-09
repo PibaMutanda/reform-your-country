@@ -87,7 +87,9 @@ public class BatchCreate {
         String str = "";
         
         try {
-            scan = new Scanner(new File("P:\\WSreformyourcountry\\ReformYourCountry\\src\\reformyourcountry\\article.txt"));
+            
+
+            scan = new Scanner(new File(System.getProperty("user.dir")+"/src/reformyourcountry/"+"article.txt"));
       
        
         while(scan.hasNext()){
