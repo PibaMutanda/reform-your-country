@@ -49,7 +49,6 @@ public class Mail extends BaseEntity {
 		this.mailCategory = mailSubject;
 		this.content = content;
 		this.mailType=mailType;
-		this.creationDate = new Date();
 		this.subject=subject;
 		this.useTemplate = useTemplate;
 	}
@@ -62,7 +61,6 @@ public class Mail extends BaseEntity {
         this.mailCategory = mailSubject;
         this.content = content;
         this.mailType=mailType;
-        this.creationDate = new Date();
         this.subject=subject;
         this.useTemplate = useTemplate;
     }
@@ -75,7 +73,6 @@ public class Mail extends BaseEntity {
         this.mailCategory = mailSubject;
         this.content = content;
         this.mailType=mailType;
-        this.creationDate = new Date();
         this.subject=subject;
         this.useTemplate = useTemplate;
     }
@@ -90,7 +87,6 @@ public class Mail extends BaseEntity {
         this.mailCategory = mailCategory;
         this.content = content;
         this.mailType=mailType;
-        this.creationDate = new Date();
         this.subject=subject;
         this.useTemplate = useTemplate;
 	}
@@ -147,9 +143,7 @@ public class Mail extends BaseEntity {
 		return this.useTemplate;
 	}
 
-	public Date getCreationDate() {
-		return this.creationDate;
-	}
+
 	
 	public String getSubject(){
 		return subject;

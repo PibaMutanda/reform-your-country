@@ -8,16 +8,16 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
 import javax.persistence.PreUpdate;
-import javax.persistence.Transient;
 
 import org.hibernate.proxy.HibernateProxyHelper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowire;
+import org.springframework.beans.factory.annotation.Configurable;
 
 import reformyourcountry.security.SecurityContext;
+import reformyourcountry.security.SecurityContextUtil;
 
 @MappedSuperclass
-
+@Configurable(autowire = Autowire.BY_TYPE, dependencyCheck = true)
 public class BaseEntity {
 
 
@@ -26,31 +26,28 @@ public class BaseEntity {
     Long id;
     @OneToOne
     User createdBy;
-    Date creationDate;
+    Date createdOn;
     @OneToOne
-    User lastModifiedBy;
-    Date lastModificationDate;
+    User updatedBy;
+    Date updatedOn;
   
-  @Transient
-  @Autowired
+ /* @Transient
+  @Autowired                      //// WHY DOES IT NOT WORK ????
   
-  SecurityContext security;
+  SecurityContext security;*/
     
   
    @PreUpdate
-  
     public void onUpdate(){
-     
-       //ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
-       //SecurityContext securityContext = (SecurityContext)applicationContext.getBean("securityContext");  
+       SecurityContext security = SecurityContextUtil.getSecurityContext();
         if (createdBy==null) {
          
             createdBy = security.getUser();
-            creationDate = new Date();
-            System.out.println();
+            createdOn = new Date();
+    
         }else{
-            lastModifiedBy=security.getUser();
-            lastModificationDate=new Date();
+            updatedBy=security.getUser();
+            updatedOn=new Date();
         }
     }
    
@@ -108,52 +105,17 @@ public class BaseEntity {
     }
 
 
-
-
-    public void setCreatedBy(User createdBy) {
-        this.createdBy = createdBy;
+    public Date getCreatedOn() {
+        return createdOn;
     }
 
-
-
-
-    public Date getCreationDate() {
-        return creationDate;
+    public User getUpdatedBy() {
+        return updatedBy;
     }
 
-
-
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
+    public Date getUpdatedOn() {
+        return updatedOn;
     }
-
-
-
-
-    public User getLastModifiedBy() {
-        return lastModifiedBy;
-    }
-
-
-
-
-    public void setLastModifiedBy(User lastModifiedBy) {
-        this.lastModifiedBy = lastModifiedBy;
-    }
-
-
-
-
-    public Date getLastModificationDate() {
-        return lastModificationDate;
-    }
-
-
-
-
-    public void setLastModificationDate(Date lastModificationDate) {
-        this.lastModificationDate = lastModificationDate;
-    }
+  
    
 }

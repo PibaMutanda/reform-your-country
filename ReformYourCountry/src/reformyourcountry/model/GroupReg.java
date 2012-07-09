@@ -35,7 +35,6 @@ public class GroupReg extends BaseEntity{
 			
 			
 			this.user = user;
-			this.creationDate = date;
 			this.group = group;
 		}
 
@@ -74,28 +73,19 @@ public class GroupReg extends BaseEntity{
             this.confirmedBy = confirmedBy;
         }
 
-        public Date getCreationDate() {
-            return creationDate;
-        }
-
+       
 
       public boolean isOwner(){
           
           return owner;
       }
 
-        public Date getDate() {
-			return creationDate;
-		}
-
-		public void setDate(Date date) {
-			this.creationDate = date;
-		}
+       
 		
 		@Override
 		public String toString(){
 			SimpleDateFormat dateformatYYYYMMDD = new SimpleDateFormat("yyyy/MM/dd");
-			String nowYYYYMMDD = dateformatYYYYMMDD.format(creationDate);
+			String nowYYYYMMDD = dateformatYYYYMMDD.format(createdOn);
 			return nowYYYYMMDD;
 		}
 		
