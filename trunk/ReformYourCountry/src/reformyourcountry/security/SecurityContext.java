@@ -21,7 +21,7 @@ import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
 /**
  * Holds the security related information during request execution.
  */
-@Service
+@Service("securityContext")
 public  class SecurityContext {
 
     public static final Privilege MASTER_PRIVILEGE = Privilege.MANAGE_USERS;
@@ -40,6 +40,12 @@ public  class SecurityContext {
     @Autowired
     private  LoginService loginService;
 
+    
+    public SecurityContext(){
+        
+        System.out.println("test");
+    }
+   
     /**
      * Removes the security context associated to the request
      */
@@ -125,7 +131,7 @@ public  class SecurityContext {
 
 
     public User getUser()  {
-
+       
         if (getUserId() == null) {  // Not logged in.
             return null;
         }

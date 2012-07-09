@@ -30,9 +30,15 @@ public class BatchSecurity {
         
         String userName = "piba";
         String password = "secret";
-        User user = userService.registerUser(false, "Piba", "M.", Gender.MALE, userName, "secret", "piba@mail.com");
+        User user;
+        
+        if(loginService.identifyUser("piba") == null){
+        user = userService.registerUser(true, "Piba", "M.", Gender.MALE, userName, "secret", "piba@mail.com");
         user.setAccountStatus(AccountStatus.ACTIVE);
         user = loginService.login(userName, password, false);
+        }
+        else
+          user = loginService.login(userName, password, false);
 
         // Set privileges
         
@@ -49,7 +55,7 @@ public class BatchSecurity {
         } 
        
         //display the user, found with his id
-        System.out.println("Username :"+securityContext.getUser().getUserName()+"\nPassword :"+securityContext.getUser().getPassword());
+       System.out.println("Username :"+securityContext.getUser().getUserName()+"\nPassword :"+securityContext.getUser().getPassword());
         
         
     }
