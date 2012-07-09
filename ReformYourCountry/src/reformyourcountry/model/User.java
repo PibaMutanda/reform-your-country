@@ -145,8 +145,8 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     @Email(message ="Email address is not valid")
     private String mail;
     
-    @Column(length = 15)
-    @Size(min = 4 ,max = 15,message = "your password must contain at least 4 character and at max 15 character")
+    @Column(length = 50)
+    //@Size(min = 1 ,max = 15,message = "your password must contain at least 4 character and at max 15 character")
     private String password;
 
     @Lob
