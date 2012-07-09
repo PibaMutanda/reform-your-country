@@ -5,10 +5,16 @@ import java.lang.reflect.Type;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PreUpdate;
+import javax.persistence.Transient;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import reformyourcountry.model.BaseEntity;
+import reformyourcountry.model.User;
+import reformyourcountry.security.SecurityContext;
 
 
 @Transactional
@@ -19,6 +25,11 @@ public abstract class BaseRepository<E extends BaseEntity> {
     @PersistenceContext
     EntityManager em;
 
+    @Autowired
+    @Transient
+    SecurityContext securityContext;
+    
+    
     public BaseRepository(){
         //// 1. find someEntityRepositoryClass
         Class<?> someEntityRepositoryClass;// Your repository class, i.e. UserRepository (extending BaseRepository<User>)
@@ -39,7 +50,15 @@ public abstract class BaseRepository<E extends BaseEntity> {
         this.entityClass = (Class< E >) entityTypeOne;
 
     }
-
+    
+    
+  
+    public  void onUpdate(){
+       
+        System.out.println("update ok");
+        User user = securityContext.getUser();
+        
+    }
     public E find(Long id) {
         Object obj =  em.find( entityClass, id );
         if (obj == null)
