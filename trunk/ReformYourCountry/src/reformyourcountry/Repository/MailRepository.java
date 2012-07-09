@@ -92,7 +92,7 @@ public class MailRepository  extends BaseRepository<User>{
      */
     @SuppressWarnings("unchecked")
     public List<Mail> getMailsEmailTarget(){
-        return (List<Mail>) em.createQuery("select m from Mail m where m.user is null order by m.creationDate").setMaxResults(5).getResultList(); 
+        return (List<Mail>) em.createQuery("select m from Mail m where m.user is null order by m.createdOn").setMaxResults(5).getResultList(); 
     }
 
 
