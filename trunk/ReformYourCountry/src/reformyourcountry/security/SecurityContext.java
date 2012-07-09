@@ -3,6 +3,9 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import reformyourcountry.Repository.UserRepository;
 import reformyourcountry.exceptions.InvalidPasswordException;
 import reformyourcountry.exceptions.UnauthorizedAccessException;
@@ -18,6 +21,7 @@ import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
 /**
  * Holds the security related information during request execution.
  */
+@Service
 public abstract class SecurityContext {
 
     public static final Privilege MASTER_PRIVILEGE = Privilege.MANAGE_USERS;
@@ -31,7 +35,10 @@ public abstract class SecurityContext {
     // example: edit_is_own_profile; view_influence;...
     private static ThreadLocal<Set<String>> contextualCustomPrivileges = new ThreadLocal<Set<String>>();
 
-   
+    @Autowired
+    private static UserRepository userRepository;
+    @Autowired
+    private static LoginService loginService;
 
     /**
      * Removes the security context associated to the request
@@ -125,8 +132,10 @@ public abstract class SecurityContext {
         
         if (user.get() == null) {  // User not loaded yet.
             // TODO: restore the line below (because Spring can inject nothing in this SecurityContext class).
-             User user = ((UserRepository) ContextUtil.getSpringBean("userRepository")).getUserById(getUserId());  // This is not beauty, but life is sometimes ugly. -- no better idea (except making SecurityContext a bean managed by Spring... but for not much benefit...) -- John 2009-07-02
-//            User user = UserRepository.getInstance().get(getUserId());
+            // User user = ((UserDao) ContextUtil.getSpringBean("userDao")).get(getUserId());  // This is not beauty, but life is sometimes ugly. -- no better idea (except making SecurityContext a bean managed by Spring... but for not much benefit...) -- John 2009-07-02
+            User user = userRepository.find(getUserId());
+            
+            
 
             setUser( user );  // Lazy loading if needed.
         }
@@ -159,7 +168,7 @@ public abstract class SecurityContext {
 
            // TODO: restore using Spring.
            // LoginService loginService = (LoginService) ContextUtil.getSpringBean("loginService");              // This is not beauty, but life is sometimes ugly. -- no better idea (except making SecurityContext a bean managed by Spring... but for not much benefit...) -- John 2009-07-02
-           LoginService loginService = LoginService.getInstance();  // TODO: replace by Spring code.
+        //   LoginService loginService = LoginService.getInstance();  // TODO: replace by Spring code.
 
            Long id = loginService.getLoggedInUserIdFromSession();  
  
