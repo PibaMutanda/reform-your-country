@@ -19,22 +19,26 @@ import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import reformyourcountry.mail.MailingDelayType;
 import reformyourcountry.security.Privilege;
+import reformyourcountry.security.SecurityContext;
 
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity implements Cloneable, Comparable<User>, Serializable {
    
 
-
+  
     
 
 //serialVersionUID indicate the version of the bean
@@ -214,7 +218,7 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     private Role role = Role.USER;
 
     
-    
+
     
     /////////////////////////////////////////: GETTERS & SETTERS //////////////////////////
     /////////////////////////////////////////: GETTERS & SETTERS //////////////////////////
