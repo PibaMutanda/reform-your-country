@@ -1,6 +1,9 @@
 package reformyourcountry.security;
 
 //import be.loop.jbb.bo.corp.CorpUser.CorporateRole;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.Role;
 
@@ -22,7 +25,8 @@ public enum Privilege {
 
 	String name;
 	Role associatedRole;
-	
+	@Autowired
+	SecurityContext securityContext;
 
 	Privilege(String aName, Role aRole) {
 	    this.name = aName;
@@ -38,7 +42,7 @@ public enum Privilege {
 		if(user == null){
 			return false;
 		}
-		return SecurityContext.getAllAssociatedPrivileges(user).contains(this);
+		return securityContext.getAllAssociatedPrivileges(user).contains(this);
 	}
 
 	public Role getAssociatedRole() {
