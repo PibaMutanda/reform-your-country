@@ -22,7 +22,7 @@ import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
  * Holds the security related information during request execution.
  */
 @Service
-public abstract class SecurityContext {
+public  class SecurityContext {
 
     public static final Privilege MASTER_PRIVILEGE = Privilege.MANAGE_USERS;
 
@@ -36,27 +36,27 @@ public abstract class SecurityContext {
     private static ThreadLocal<Set<String>> contextualCustomPrivileges = new ThreadLocal<Set<String>>();
 
     @Autowired
-    private static UserRepository userRepository;
+    private  UserRepository userRepository;
     @Autowired
-    private static LoginService loginService;
+    private  LoginService loginService;
 
     /**
      * Removes the security context associated to the request
      */
-    public static void clear() {
+    public  void clear() {
         user.set(null);
         userId.set(null);
         contextualCustomPrivileges.set(null);
       
     }
 
-    public static void assertUserHasPrivilege(Privilege privilege) throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
+    public  void assertUserHasPrivilege(Privilege privilege) throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
         if (!isUserHasPrivilege(privilege)) {
             throw new UnauthorizedAccessException(privilege);
         }
     }
 
-    public static void assertUserIsLoggedIn() throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
+    public  void assertUserIsLoggedIn() throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
         if (getUser() == null) {
             throw new UnauthorizedAccessException();
         }
@@ -64,12 +64,12 @@ public abstract class SecurityContext {
 
 
     // Probably the most used method of this class (from outside).
-    public static boolean isUserHasPrivilege(Privilege privilege) {
+    public  boolean isUserHasPrivilege(Privilege privilege) {
         return isUserHasAllPrivileges(EnumSet.of(privilege));
     }
 
 
-    public static boolean isUserHasAllPrivileges(EnumSet<Privilege> privileges)  {
+    public  boolean isUserHasAllPrivileges(EnumSet<Privilege> privileges)  {
         if (getUser() == null) {
             return false;
         }
@@ -81,7 +81,7 @@ public abstract class SecurityContext {
     /**
      * @return true if the user has one of the privileges
      */
-    public static boolean isUserHasOneOfPrivileges(EnumSet<Privilege> privileges) {
+    public  boolean isUserHasOneOfPrivileges(EnumSet<Privilege> privileges) {
         if (getUser() == null) {
             return false;
         }
@@ -95,7 +95,7 @@ public abstract class SecurityContext {
     /**
      * @return All privilege associated to a community role
      */
-    public static EnumSet<Privilege> getAssociatedPrivilege(Role role) {
+    public  EnumSet<Privilege> getAssociatedPrivilege(Role role) {
         EnumSet<Privilege> associatedPrivileges = EnumSet.noneOf(Privilege.class);
         if (role != null) {
             for (Privilege privilege : Privilege.values()) {
@@ -112,7 +112,7 @@ public abstract class SecurityContext {
      *         associations present in the DB and association derived from
      *         user's role.
      */
-    public static EnumSet<Privilege> getAllAssociatedPrivileges(User user) {
+    public  EnumSet<Privilege> getAllAssociatedPrivileges(User user) {
         EnumSet<Privilege> allUserPrivileges = EnumSet.noneOf(Privilege.class);
         if (user != null) {
               
@@ -124,7 +124,7 @@ public abstract class SecurityContext {
     }
 
 
-    public static User getUser()  {
+    public User getUser()  {
 
         if (getUserId() == null) {  // Not logged in.
             return null;
@@ -144,7 +144,7 @@ public abstract class SecurityContext {
     }
 
 
-    private static void setUser(User userParam) {
+    private  void setUser(User userParam) {
         //Security constraint
         if (user.get() != null) {
             throw new IllegalStateException("Bug: Could not set a new user on the security context once a user has already been set");
@@ -156,13 +156,13 @@ public abstract class SecurityContext {
     } 
 
     //method to know if the user is logged or not
-    public static boolean isUserLoggedIn() {
+    public  boolean isUserLoggedIn() {
 		return getUserId() != null;
     }
 
 
     //get the value of the threadlocal userId 
-    public static Long getUserId() {
+    public  Long getUserId() {
 
        if (userId.get() == null) { // Then try to get it from the HttpSession.
 
@@ -181,18 +181,18 @@ public abstract class SecurityContext {
     }
  
 
-    public static boolean canCurrentUserViewPrivateData(User user2) {
-        return canCurrentUserChangeUser(user2) || SecurityContext.isUserHasPrivilege(Privilege.VIEW_PRIVATE_DATA_OF_USERS); 
+    public  boolean canCurrentUserViewPrivateData(User user2) {
+        return canCurrentUserChangeUser(user2) || isUserHasPrivilege(Privilege.VIEW_PRIVATE_DATA_OF_USERS); 
     }
 
-    public static boolean canCurrentUserChangeUser(User user2) { 
-        return user2.equals(SecurityContext.getUser()) // If the user is editing himself
-                || SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS);     // or If this user has the privilege to edit other users
+    public  boolean canCurrentUserChangeUser(User user2) { 
+        return user2.equals(getUser()) // If the user is editing himself
+                || isUserHasPrivilege(Privilege.MANAGE_USERS);     // or If this user has the privilege to edit other users
 
     }
 
 
-    public static boolean isUserHasRole(Role role) {
+    public  boolean isUserHasRole(Role role) {
         User user = getUser();
         if(user == null || user.getRole() == null){
             return false;
