@@ -2,7 +2,9 @@ package reformyourcountry.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import reformyourcountry.Repository.UserRepository;
 import reformyourcountry.exceptions.InvalidPasswordException;
 import reformyourcountry.exceptions.UserAlreadyExistsException;
 import reformyourcountry.exceptions.UserLockedException;
@@ -12,10 +14,11 @@ import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountStatus;
 import reformyourcountry.model.User.Gender;
 import reformyourcountry.service.LoginService;
-import reformyourcountry.service.UserService;
 import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
+import reformyourcountry.service.UserService;
 
 @Service
+@Transactional
 public class BatchSecurity {
     @Autowired
     private UserService userService;
@@ -23,11 +26,12 @@ public class BatchSecurity {
     private LoginService loginService;    
     @Autowired
     private SecurityContext securityContext;
-    
+    @Autowired 
+    private UserRepository ur;
     
     public void run() throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException, UserAlreadyExistsException {
         
-        
+        SecurityContextUtil.setSecurityContextUtil(securityContext);
         String userName = "piba";
         String password = "secret";
         User user;
@@ -39,7 +43,9 @@ public class BatchSecurity {
         }
         else
           user = loginService.login(userName, password, false);
-
+          
+        user.setMail("toto2@mail.com");
+        ur.merge(user);
         // Set privileges
         
         user.getPrivileges().add(Privilege.MANAGE_NEWS);

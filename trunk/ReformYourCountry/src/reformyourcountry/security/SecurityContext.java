@@ -4,6 +4,7 @@ import java.util.EnumSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import reformyourcountry.Repository.UserRepository;
@@ -21,7 +22,8 @@ import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
 /**
  * Holds the security related information during request execution.
  */
-@Service("securityContext")
+@Service(value = "securityContext")
+@Scope("singleton")
 public  class SecurityContext {
 
     public static final Privilege MASTER_PRIVILEGE = Privilege.MANAGE_USERS;
