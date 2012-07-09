@@ -29,14 +29,4 @@ public class UserRepository extends BaseRepository<User>{
         }
         return results.get(0);
     }
-    
-    public User getUserById(Long identifier){
-    	List<User> results= em.createQuery("select u from User u where u.id =:id")
-                .setParameter("id", identifier)
-                .getResultList();
-        if(results.isEmpty()) {
-            return null;
-        }
-        return results.get(0);
-    }
 }
