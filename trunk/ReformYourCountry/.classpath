@@ -30,7 +30,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/SpringDependencies/cglib.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/SpringDependencies/commons-logging.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/Log/log4j-1.2.17.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/Spring/spring.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/PostgreSQL/postgresql-9.1-902.jdbc4.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/Persistence/javax.persistence_2.0.0.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/apache_common/commons-lang3-3.1.jar" sourcepath="WebContent/WEB-INF/lib/apache_common/commons-lang3-3.1-sources.jar">
@@ -46,5 +45,19 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/Hibernate_validator/hibernate-validator-4.3.0.Final.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/Hibernate_validator/hibernate-validator-annotation-processor-4.3.0.Final.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/Hibernate_validator/validation-api-1.0.0.GA.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/Spring/spring3.2/spring-aop-3.2.0.M1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/Spring/spring3.2/spring-asm-3.2.0.M1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/Spring/spring3.2/spring-aspects-3.2.0.M1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/Spring/spring3.2/spring-beans-3.2.0.M1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/Spring/spring3.2/spring-context-3.2.0.M1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/Spring/spring3.2/spring-context-support-3.2.0.M1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/Spring/spring3.2/spring-core-3.2.0.M1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/Spring/spring3.2/spring-expression-3.2.0.M1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/Spring/spring3.2/spring-instrument-3.2.0.M1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/Spring/spring3.2/spring-instrument-tomcat-3.2.0.M1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/Spring/spring3.2/spring-jdbc-3.2.0.M1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/Spring/spring3.2/spring-orm-3.2.0.M1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/Spring/spring3.2/spring-tx-3.2.0.M1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/Spring/spring3.2/spring3.2dependencie/aopalliance.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
