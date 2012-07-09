@@ -33,7 +33,7 @@ public class LoginService {
     
     
     @Autowired
-    UserRepository userDao ;
+    UserRepository userRepository ;
 
     public static final String USERID_KEY = "UserId";  // Key in the HttpSession for the loggedin user.
     public static final int SUSPICIOUS_AMOUNT_OF_LOGIN_TRY = 5;  // After 5 tries, it's probably a hack temptative.
@@ -136,7 +136,7 @@ public class LoginService {
             Long id = new Long(loginCookie.getValue());
             String md5password = passwordCookie.getValue();
             try {
-                User user = userDao.find(id);  
+                User user = userRepository.find(id);  
                 if(user != null){
                     loginEncrypted(user.getUserName(), md5password, false /*don't recreate cookies....*/);  // Maybe exception.
                 } else {
@@ -170,9 +170,9 @@ public class LoginService {
 
         identifier = identifier.toLowerCase();
 
-        result = userDao.getUserByEmail(identifier);
+        result = userRepository.getUserByEmail(identifier);
         if (result == null) {
-            result = userDao.getUserByUserName(identifier);
+            result = userRepository.getUserByUserName(identifier);
         }
 
         return result;
@@ -193,7 +193,7 @@ public class LoginService {
             } else {  // Not valid password
                 user.setLastFailedLoginDate(new Date());
                 user.setConsecutiveFailedLogins(user.getConsecutiveFailedLogins() + 1);
-                userDao.merge(user);
+                userRepository.merge(user);
                 throw new InvalidPasswordException(user);
             }
 
@@ -214,7 +214,7 @@ public class LoginService {
         user.setLastAccess(new Date());
         // TODO: uncomment for the web
         //user.setLastLoginIp(ContextUtil.getHttpServletRequest().getRemoteAddr());
-        userDao.merge(user);
+        userRepository.merge(user);
     }
 
     /**
@@ -244,7 +244,7 @@ public class LoginService {
             if (id == null) {
                 continue;
             }
-            User user = userDao.find(id);
+            User user = userRepository.find(id);
             if (user == null) {
                 continue;
             }
