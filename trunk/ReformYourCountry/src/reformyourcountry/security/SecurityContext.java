@@ -17,13 +17,13 @@ import reformyourcountry.model.User;
 import reformyourcountry.model.User.Role;
 import reformyourcountry.service.LoginService;
 import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
+import reformyourcountry.web.ContextUtil;
 
 
 /**
  * Holds the security related information during request execution.
  */
-@Service(value = "securityContext")
-@Scope("singleton")
+
 public  class SecurityContext {
 
     public static final Privilege MASTER_PRIVILEGE = Privilege.MANAGE_USERS;
@@ -139,7 +139,7 @@ public  class SecurityContext {
             // TODO: restore the line below (because Spring can inject nothing in this SecurityContext class).
             // User user = ((UserDao) ContextUtil.getSpringBean("userDao")).get(getUserId());  // This is not beauty, but life is sometimes ugly. -- no better idea (except making SecurityContext a bean managed by Spring... but for not much benefit...) -- John 2009-07-02
             //User user = userRepository.find(getUserId());
-            User user = ((UserRepository) ContextUtil.getSpringBean("userRepository")).getUserById(getUserId());
+            User user = ((UserRepository) ContextUtil.getSpringBean("userRepository")).find(getUserId());
             
 
             setUser( user );  // Lazy loading if needed.

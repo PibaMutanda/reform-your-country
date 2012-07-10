@@ -16,23 +16,22 @@ import reformyourcountry.model.User.Gender;
 import reformyourcountry.service.LoginService;
 import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
 import reformyourcountry.service.UserService;
+import reformyourcountry.web.ContextUtil;
 
 @Service
 @Transactional
 public class BatchSecurity {
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private LoginService loginService;    
-    @Autowired
-    private SecurityContext securityContext;
+  
     @Autowired 
     private UserRepository ur;
     
     public void run() throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException, UserAlreadyExistsException {
+        LoginService loginService = (LoginService) ContextUtil.getSpringBean("loginService"); 
+        UserService userService = (UserService)ContextUtil.getSpringBean("userService");
+      
         
-        SecurityContextUtil.setSecurityContextUtil(securityContext);
-        String userName = "kozz";
+     
+        String userName = "tintin";
         String password = "secret";
         User user;
         
@@ -53,15 +52,15 @@ public class BatchSecurity {
         user.getPrivileges().add(Privilege.SEND_NEWSLETTERS);
 
         // Test privileges
-        if (!securityContext.isUserHasPrivilege(Privilege.MANAGE_NEWS)) {
+        if (!SecurityContext.isUserHasPrivilege(Privilege.MANAGE_NEWS)) {
             System.out.println("That user is supposed to have the MANAGE_NEWS privilege");
         }
-        if (!securityContext.isUserHasPrivilege(Privilege.VIEW_PRIVATE_DATA_OF_USERS)) {
+        if (!SecurityContext.isUserHasPrivilege(Privilege.VIEW_PRIVATE_DATA_OF_USERS)) {
             System.out.println("That user is not supposed to have the VIEW_PRIVATE_DATA_OF_USERS privilege");
         } 
        
         //display the user, found with his id
-       System.out.println("Username :"+securityContext.getUser().getUserName()+"\nPassword :"+securityContext.getUser().getPassword());
+       System.out.println("Username :"+SecurityContext.getUser().getUserName()+"\nPassword :"+SecurityContext.getUser().getPassword());
         
         
     }
