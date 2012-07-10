@@ -5,16 +5,12 @@ import java.lang.reflect.Type;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PreUpdate;
-import javax.persistence.Transient;
+import javax.persistence.Query;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import reformyourcountry.model.BaseEntity;
 import reformyourcountry.model.User;
-import reformyourcountry.security.SecurityContext;
 
 
 @Transactional
@@ -25,9 +21,7 @@ public abstract class BaseRepository<E extends BaseEntity> {
     @PersistenceContext
     EntityManager em;
 
-    @Autowired
-    @Transient
-    SecurityContext securityContext;
+   
     
     
     public BaseRepository(){
@@ -53,12 +47,7 @@ public abstract class BaseRepository<E extends BaseEntity> {
     
     
   
-    public  void onUpdate(){
-       
-        System.out.println("update ok");
-        User user = securityContext.getUser();
-        
-    }
+
     public E find(Long id) {
         Object obj =  em.find( entityClass, id );
         if (obj == null)
@@ -81,6 +70,25 @@ public abstract class BaseRepository<E extends BaseEntity> {
         } else {
             em.remove(entity);
         }
+    }
+    
+    
+    public User findUserWhoCreate(E entity){
+        
+         
+        E entity1 = find(entity.getId());
+          
+          return entity1.getCreatedBy();
+        
+    }
+    
+    public User findUserWhoUpdate(E entity){
+        
+        
+        E entity1 = find(entity.getId());
+          
+          return entity1.getUpdatedBy();
+        
     }
 
 }
