@@ -10,15 +10,14 @@ import java.util.Scanner;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import reformyourcountry.Repository.UserRepository;
 import reformyourcountry.mail.MailingDelayType;
-import reformyourcountry.model.Article;
-import reformyourcountry.model.User;
-import reformyourcountry.model.User.AccountStatus;
-import reformyourcountry.model.User.Gender;
-import reformyourcountry.model.User.Role;
+import reformyourcountry.model.*;
+import reformyourcountry.model.User.*;
 
 @Service
 @Transactional
@@ -28,12 +27,17 @@ public class BatchCreate {
     @PersistenceContext
     EntityManager em;
     
+    @Autowired
+    UserRepository userRepository;
+    
     
     
     public void run() {
         
         populateUsers();
         populateArticle();
+        populateGroup();
+        populateGroupReg();
         
     }
     
@@ -119,6 +123,23 @@ public class BatchCreate {
         
         em.persist(article);
         
+    }
+    private void populateGroup(){
+    	Group group = new  Group();
+    	group.setDescription("une description");
+    	group.setName("Groupe");
+    	group.setUrl("url@unsite.com");
+    	
+    	em.persist(group);
+    	
+    }
+    
+    private void populateGroupReg(){
+    	User u =userRepository.find(1L);
+    	GroupReg groupReg = new GroupReg();
+    	groupReg.setUser(u);
+    	groupReg.setConfirmedBy(u);
+    	groupReg.setConfirmed(true);
     }
 
 }
