@@ -32,12 +32,12 @@ public class BatchSecurity {
     public void run() throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException, UserAlreadyExistsException {
         
         SecurityContextUtil.setSecurityContextUtil(securityContext);
-        String userName = "piba";
+        String userName = "kozz";
         String password = "secret";
         User user;
         
-        if(loginService.identifyUser("piba") == null){
-        user = userService.registerUser(true, "Piba", "M.", Gender.MALE, userName, "secret", "piba@mail.com");
+        if(loginService.identifyUser(userName) == null){
+        user = userService.registerUser(true, userName, "M.", Gender.MALE, userName, "secret", "piba@mail.com");
         user.setAccountStatus(AccountStatus.ACTIVE);
         user = loginService.login(userName, password, false);
         }
@@ -45,7 +45,7 @@ public class BatchSecurity {
           user = loginService.login(userName, password, false);
           
         user.setMail("toto2@mail.com");
-        ur.merge(user);
+        user = ur.merge(user);
         // Set privileges
         
         user.getPrivileges().add(Privilege.MANAGE_NEWS);

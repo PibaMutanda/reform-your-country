@@ -37,10 +37,7 @@ public  class SecurityContext {
     // example: edit_is_own_profile; view_influence;...
     private static ThreadLocal<Set<String>> contextualCustomPrivileges = new ThreadLocal<Set<String>>();
 
-    @Autowired
-    private  UserRepository userRepository;
-    @Autowired
-    private  LoginService loginService;
+ 
 
     
     public SecurityContext(){
@@ -51,20 +48,20 @@ public  class SecurityContext {
     /**
      * Removes the security context associated to the request
      */
-    public  void clear() {
+    public static void clear() {
         user.set(null);
         userId.set(null);
         contextualCustomPrivileges.set(null);
       
     }
 
-    public  void assertUserHasPrivilege(Privilege privilege) throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
+    public static void assertUserHasPrivilege(Privilege privilege) throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
         if (!isUserHasPrivilege(privilege)) {
             throw new UnauthorizedAccessException(privilege);
         }
     }
 
-    public  void assertUserIsLoggedIn() throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
+    public static void assertUserIsLoggedIn() throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
         if (getUser() == null) {
             throw new UnauthorizedAccessException();
         }
@@ -72,12 +69,12 @@ public  class SecurityContext {
 
 
     // Probably the most used method of this class (from outside).
-    public  boolean isUserHasPrivilege(Privilege privilege) {
+    public static  boolean isUserHasPrivilege(Privilege privilege) {
         return isUserHasAllPrivileges(EnumSet.of(privilege));
     }
 
 
-    public  boolean isUserHasAllPrivileges(EnumSet<Privilege> privileges)  {
+    public static  boolean isUserHasAllPrivileges(EnumSet<Privilege> privileges)  {
         if (getUser() == null) {
             return false;
         }
@@ -89,7 +86,7 @@ public  class SecurityContext {
     /**
      * @return true if the user has one of the privileges
      */
-    public  boolean isUserHasOneOfPrivileges(EnumSet<Privilege> privileges) {
+    public static boolean isUserHasOneOfPrivileges(EnumSet<Privilege> privileges) {
         if (getUser() == null) {
             return false;
         }
@@ -103,7 +100,7 @@ public  class SecurityContext {
     /**
      * @return All privilege associated to a community role
      */
-    public  EnumSet<Privilege> getAssociatedPrivilege(Role role) {
+    public static EnumSet<Privilege> getAssociatedPrivilege(Role role) {
         EnumSet<Privilege> associatedPrivileges = EnumSet.noneOf(Privilege.class);
         if (role != null) {
             for (Privilege privilege : Privilege.values()) {
@@ -120,7 +117,7 @@ public  class SecurityContext {
      *         associations present in the DB and association derived from
      *         user's role.
      */
-    public  EnumSet<Privilege> getAllAssociatedPrivileges(User user) {
+    public static EnumSet<Privilege> getAllAssociatedPrivileges(User user) {
         EnumSet<Privilege> allUserPrivileges = EnumSet.noneOf(Privilege.class);
         if (user != null) {
               
@@ -132,7 +129,7 @@ public  class SecurityContext {
     }
 
 
-    public User getUser()  {
+    public static User getUser()  {
        
         if (getUserId() == null) {  // Not logged in.
             return null;
@@ -141,8 +138,8 @@ public  class SecurityContext {
         if (user.get() == null) {  // User not loaded yet.
             // TODO: restore the line below (because Spring can inject nothing in this SecurityContext class).
             // User user = ((UserDao) ContextUtil.getSpringBean("userDao")).get(getUserId());  // This is not beauty, but life is sometimes ugly. -- no better idea (except making SecurityContext a bean managed by Spring... but for not much benefit...) -- John 2009-07-02
-            User user = userRepository.find(getUserId());
-            
+            //User user = userRepository.find(getUserId());
+            User user = ((UserRepository) ContextUtil.getSpringBean("userRepository")).getUserById(getUserId());
             
 
             setUser( user );  // Lazy loading if needed.
@@ -152,7 +149,7 @@ public  class SecurityContext {
     }
 
 
-    private  void setUser(User userParam) {
+    private static  void setUser(User userParam) {
         //Security constraint
         if (user.get() != null) {
             throw new IllegalStateException("Bug: Could not set a new user on the security context once a user has already been set");
@@ -170,12 +167,12 @@ public  class SecurityContext {
 
 
     //get the value of the threadlocal userId 
-    public  Long getUserId() {
+    public static  Long getUserId() {
 
        if (userId.get() == null) { // Then try to get it from the HttpSession.
 
            // TODO: restore using Spring.
-           // LoginService loginService = (LoginService) ContextUtil.getSpringBean("loginService");              // This is not beauty, but life is sometimes ugly. -- no better idea (except making SecurityContext a bean managed by Spring... but for not much benefit...) -- John 2009-07-02
+            LoginService loginService = (LoginService) ContextUtil.getSpringBean("loginService");              // This is not beauty, but life is sometimes ugly. -- no better idea (except making SecurityContext a bean managed by Spring... but for not much benefit...) -- John 2009-07-02
         //   LoginService loginService = LoginService.getInstance();  // TODO: replace by Spring code.
 
            Long id = loginService.getLoggedInUserIdFromSession();  
@@ -189,18 +186,18 @@ public  class SecurityContext {
     }
  
 
-    public  boolean canCurrentUserViewPrivateData(User user2) {
+    public static boolean canCurrentUserViewPrivateData(User user2) {
         return canCurrentUserChangeUser(user2) || isUserHasPrivilege(Privilege.VIEW_PRIVATE_DATA_OF_USERS); 
     }
 
-    public  boolean canCurrentUserChangeUser(User user2) { 
+    public static boolean canCurrentUserChangeUser(User user2) { 
         return user2.equals(getUser()) // If the user is editing himself
                 || isUserHasPrivilege(Privilege.MANAGE_USERS);     // or If this user has the privilege to edit other users
 
     }
 
 
-    public  boolean isUserHasRole(Role role) {
+    public static boolean isUserHasRole(Role role) {
         User user = getUser();
         if(user == null || user.getRole() == null){
             return false;
