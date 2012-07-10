@@ -35,7 +35,7 @@ public final class MailTemplateService {
             + "<font face=\"Arial\" color=\"#000000\" size=\"4\">"
             +  mail.getSubject()
             + "</font><br><div align=\"right\"><font color=\"#BBBBBB\" size=\"1\">"
-            +  mail.getCreationDate()
+            +  mail.getCreatedOn()
             + "</font></div></div>"
             + "<div style=\"background:#ffffff;padding:2px;padding-left:5px;\">"
             + mail.getContent() +
