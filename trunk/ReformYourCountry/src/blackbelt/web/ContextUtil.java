@@ -17,12 +17,12 @@ import javax.servlet.http.HttpSession;
 
 import org.omg.CORBA.Environment;
 
-import com.vaadin.service.ApplicationContext;
+//import com.vaadin.service.ApplicationContext;
 //TODO maxime uncomment
 
 //import blackbelt.security.OrganizationService;
 
-//import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContext;
 //import org.springframework.web.context.support.WebApplicationContextUtils;
 //
 //import be.loop.jbb.bl.BLFacade;
@@ -52,7 +52,7 @@ public class ContextUtil implements Filter, ServletContextListener {
 
 //    public static void contextInitialized(ApplicationContext ac) {
 //       springContext = ac;        
-
+//
 //    environment = springContext.getBean(CurrentEnvironment.class).getEnvironment();
 //		devMode = (environment == Environment.DEV); 
 //    }
@@ -94,19 +94,13 @@ public class ContextUtil implements Filter, ServletContextListener {
     	return getServletContext() == null;
     }
 
-  /* public static Object getSpringBean(String name) {
+   public static Object getSpringBean(String name) {
 		return springContext.getBean(name);
 	}
 
     public static <T> T getSpringBean(Class<? extends T> beanClass) {
         return (T)springContext.getBean(beanClass);
-   }*/
-
-//    @Deprecated  // In the new code, use @Autowired to refer a service. -- John 2009-08-04
-//	public static BLFacade getBLFacade() {
-//    	return (BLFacade)getSpringBean("blFacade");
-//    }
-	//// Request/Response/Session methods.
+   }
 
 	@Override
 	public void destroy()  { /* Nothing to do... */ }
