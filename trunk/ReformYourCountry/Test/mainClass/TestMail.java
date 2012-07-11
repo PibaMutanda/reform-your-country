@@ -1,4 +1,4 @@
-package reformyourcountry.mail;
+package mainClass;
 
 import java.util.Scanner;
 
@@ -11,6 +11,10 @@ import org.springframework.mail.javamail.MimeMessagePreparator;
 import reformyourcountry.CurrentEnvironment.Environment;
 import reformyourcountry.Repository.MailDaoMock;
 import reformyourcountry.Repository.UserRepository;
+import reformyourcountry.mail.MailCategory;
+import reformyourcountry.mail.MailSender;
+import reformyourcountry.mail.MailTemplateService;
+import reformyourcountry.mail.MailType;
 import reformyourcountry.model.Mail;
 import reformyourcountry.model.User;
 
