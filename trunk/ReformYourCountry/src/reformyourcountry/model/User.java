@@ -131,7 +131,7 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     
     
     @Column(length = 50)
-    @NotBlank(message = "You must enter your first name")
+    //@NotBlank(message = "You must enter your first name")
     private String firstName;
     
     @Column(length = 50)
