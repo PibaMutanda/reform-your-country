@@ -9,7 +9,9 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.persistence.Transient;
 
+import org.apache.log4j.Logger;
 import org.hibernate.proxy.HibernateProxyHelper;
 import org.springframework.beans.factory.annotation.Autowire;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -20,8 +22,9 @@ import reformyourcountry.security.SecurityContext;
 @Configurable(autowire = Autowire.BY_TYPE, dependencyCheck = true)
 public class BaseEntity {
 
-
-
+    @Transient
+    private Logger logger = Logger.getLogger(this.getClass());
+    
     @Id   @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
     @OneToOne
@@ -35,7 +38,7 @@ public class BaseEntity {
     
  @PrePersist
   public void onPersist(){
-     System.out.println("onPersist");
+     logger.debug("begin onPersist method");
     
          if (createdBy==null) {
           
@@ -46,13 +49,13 @@ public class BaseEntity {
              updatedBy=SecurityContext.getUser();
              updatedOn=new Date();
          }
-         System.out.println("onPersist");
+         logger.debug("end onPersist method");
       
   }
    @PreUpdate
     public void onUpdate(){
        
-       System.out.println("onUpdate");
+       logger.debug("begin onUpdate method");
     //   SecurityContext security = SecurityContextUtil.getSecurityContext();
        
       // SecurityContext security = (SecurityContext) ContextUtil.getSpringBean("secrityContext");
