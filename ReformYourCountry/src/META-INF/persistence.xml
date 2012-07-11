@@ -43,7 +43,7 @@
           <property name="hibernate.connection.password"
                     value="ryc2012"/>
           <property name="hibernate.dialect"
-                    value="org.hibernate.dialect.HSQLDialect" />
+                    value="org.hibernate.dialect.H2Dialect" />
 
            <!-- Create the database schema when this test.persistence unit is deployed, drop
                 it (clean the database) when it is undeployed
