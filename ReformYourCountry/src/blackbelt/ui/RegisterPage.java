@@ -6,6 +6,7 @@ import reformyourcountry.Repository.UserRepository;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.Role;
 import reformyourcountry.service.UserService;
+import reformyourcountry.web.UrlUtil;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.beans.factory.annotation.Configurable;
 //import org.vaadin.navigator7.Page;
@@ -30,7 +31,6 @@ import blackbelt.util.SecurityUtils;
 //import blackbelt.ui.group.GroupInvitationPage;
 //import blackbelt.ui.user.NickNameField;
 //import blackbelt.ui.user.UserPage;
-import blackbelt.web.UrlUtil;
 
 import com.vaadin.data.validator.EmailValidator;
 import com.vaadin.ui.Button;

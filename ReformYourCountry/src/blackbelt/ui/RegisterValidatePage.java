@@ -17,6 +17,7 @@ import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountStatus;
 import reformyourcountry.service.LoginService;
 import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
+import reformyourcountry.web.UrlUtil;
 //import be.loop.jbb.bl.exceptions.UserLockedException;
 //import be.loop.jbb.bl.exceptions.UserNotValidatedException;
 //import be.loop.jbb.util.DateUtil;
@@ -27,7 +28,6 @@ import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
 //import blackbelt.ui.common.WindowUtil;
 //import blackbelt.ui.document.DocumentPage;
 //import blackbelt.ui.user.UserPage;
-import blackbelt.web.UrlUtil;
 
 import com.vaadin.ui.Embedded;
 import com.vaadin.ui.HorizontalLayout;
