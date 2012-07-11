@@ -22,7 +22,7 @@ import reformyourcountry.CurrentEnvironment.Environment;
 
 public class ContextUtil implements Filter, ServletContextListener {
 
-	//TODO maxime uncomment
+	
 
 	public static ServletContext servletContext;  // Remembers the servlet context and exposes useful values to the application through static methods.
     public static ApplicationContext springContext;
