@@ -67,7 +67,7 @@ public class MailSender extends Thread {
     
     //TODO USE SPRING (not hardcoded)
     //@Value("${app.environment}") 
-    Environment environment = Environment.PROD;
+    Environment environment = Environment.DEV;
     //@Value("${mail.from.notifier.address}") 
     String notifier="no-reply@ryc.be";
     //@Value("${mail.from.notifier.alias}") 

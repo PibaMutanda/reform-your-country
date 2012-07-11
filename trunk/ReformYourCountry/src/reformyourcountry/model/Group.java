@@ -72,6 +72,17 @@ public class Group extends BaseEntity{
     public void setDescription(String description) {
         this.description = description;
     }
+    
+    
+    public void addVoteAction(VoteAction voteAction){
+        voteActions.add(voteAction);
+        
+    }
+    
+    public void addChild(Group group){
+        
+        children.add(group);
+    }
 
     @Override
 	public String toString(){

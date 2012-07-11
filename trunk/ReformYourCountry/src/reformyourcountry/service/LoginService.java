@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import reformyourcountry.Repository.UserRepository;
 import reformyourcountry.exceptions.InvalidPasswordException;
@@ -20,13 +21,14 @@ import reformyourcountry.exceptions.UserNotFoundException;
 import reformyourcountry.exceptions.UserNotValidatedException;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountStatus;
-import reformyourcountry.security.Privilege;
+import reformyourcountry.web.ContextUtil;
+import reformyourcountry.web.Cookies;
+import reformyourcountry.web.HttpSessionTracker;
 import blackbelt.util.SecurityUtils;
-import blackbelt.web.ContextUtil;
-import blackbelt.web.Cookies;
-import blackbelt.web.HttpSessionTracker;
+
 
 @Component
+@Transactional
 public class LoginService {
 
     private Long loggedInUserId_TEMP;  // TODO remove.   Simulates the HttpSession to contain the id of the user currently logged in.

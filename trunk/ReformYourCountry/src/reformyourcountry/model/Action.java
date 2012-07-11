@@ -134,6 +134,19 @@ public class Action extends BaseEntity{
 		return title;
 	}
 	
+	
+	public void addComment(Comment comment){
+	    comments.add(comment);
+	}
+	
+	public void addArticle(Article article){
+	    articles.add(article);
+	}
+	
+	public void addArgument(Argument argument){
+	    
+	    arguments.add(argument);
+	}
 }
 	
 	

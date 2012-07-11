@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class CurrentEnvironment {
 
 	//@Value("${app.environment}") // comes from the jbbconfig.properties file. Value is modified by ant at build time
-	private Environment environment;
+	private Environment environment = Environment.DEV;
 	
 	public Environment getEnvironment() {
 		return environment;
