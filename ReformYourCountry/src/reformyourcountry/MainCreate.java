@@ -6,6 +6,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
+import reformyourcountry.web.ContextUtil;
+
+
 
 
 
@@ -17,6 +20,8 @@ public class MainCreate {
     	
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
         BatchCreate batch = (BatchCreate)applicationContext.getBean("batchCreate");
+        
+        ContextUtil.contextInitialized(applicationContext);
         batch.run();
     
     }

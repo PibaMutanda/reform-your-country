@@ -24,29 +24,23 @@ public class BatchSecurity {
   
     @Autowired 
     private UserRepository ur;
-    
-    public void run() throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException, UserAlreadyExistsException {
+
+    public void run(User user) throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException, UserAlreadyExistsException {
         LoginService loginService = (LoginService) ContextUtil.getSpringBean("loginService"); 
         UserService userService = (UserService)ContextUtil.getSpringBean("userService");
-      
-        
-     
-        String userName = "tintin";
-        String password = "secret";
-        User user;
-        
-        if(loginService.identifyUser(userName) == null){
-        user = userService.registerUser(true, userName, "M.", Gender.MALE, userName, "secret", "piba@mail.com");
-        user.setAccountStatus(AccountStatus.ACTIVE);
-        user = loginService.login(userName, password, false);
-        }
-        else
-          user = loginService.login(userName, password, false);
-          
-        user.setMail("toto2@mail.com");
-        user = ur.merge(user);
+
+
+
+        if(loginService.identifyUser(user.getUserName()) == null){
+            user = userService.registerUser(true, user.getUserName(),user.getLastName(), user.getGender(), user.getUserName(), user.getPassword(),user.getMail());
+            user.setAccountStatus(AccountStatus.ACTIVE);
+            user = loginService.login(user.getUserName(), user.getPassword(), false);
+        } else {
+            user = loginService.login(user.getUserName(), user.getPassword(), false);
+        }          
+
         // Set privileges
-        
+
         user.getPrivileges().add(Privilege.MANAGE_NEWS);
         user.getPrivileges().add(Privilege.MANAGE_NEWSLETTERS);
         user.getPrivileges().add(Privilege.SEND_NEWSLETTERS);
@@ -58,11 +52,11 @@ public class BatchSecurity {
         if (!SecurityContext.isUserHasPrivilege(Privilege.VIEW_PRIVATE_DATA_OF_USERS)) {
             System.out.println("That user is not supposed to have the VIEW_PRIVATE_DATA_OF_USERS privilege");
         } 
-       
+
         //display the user, found with his id
-       System.out.println("Username :"+SecurityContext.getUser().getUserName()+"\nPassword :"+SecurityContext.getUser().getPassword());
-        
-        
+        System.out.println("Username :"+SecurityContext.getUser().getUserName()+"\nPassword :"+SecurityContext.getUser().getPassword());
+
+
     }
 
 }

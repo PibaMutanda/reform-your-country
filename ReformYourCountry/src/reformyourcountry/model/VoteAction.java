@@ -25,9 +25,9 @@ public class VoteAction extends BaseEntity{
 	public VoteAction() {
 	}
 		
-	public VoteAction(long id, int value, Action action, User user, Group group) {
+	public VoteAction(int value, Action action, User user, Group group) {
 		
-		this.id = id;
+
 		this.value = value;
 		this.action = action;
 		this.user = user;
@@ -40,9 +40,7 @@ public class VoteAction extends BaseEntity{
 		return id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+
 
 	public int getValue() {
 		return value;

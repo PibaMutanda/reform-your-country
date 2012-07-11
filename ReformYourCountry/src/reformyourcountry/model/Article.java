@@ -29,7 +29,7 @@ public class Article extends BaseEntity {
 	
 
 	public Article(String title, String content) {
-		//super();
+
 		this.title = title;
 		this.content = content;
 	}
@@ -90,6 +90,10 @@ public class Article extends BaseEntity {
 		this.parent = parent;
 	}	
 
+	public void addAction(Action action){
+	    
+	    actions.add(action);
+	}
 
 	@Override
 	public String toString() {

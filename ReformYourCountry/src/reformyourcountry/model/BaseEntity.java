@@ -31,18 +31,28 @@ public class BaseEntity {
     User updatedBy;
     Date updatedOn;
   
- /* @Transient
-  @Autowired                      //// WHY DOES IT NOT WORK ????
-  
-  SecurityContext security;*/
+
     
-  @PrePersist
-  public void isnull(){
-      System.out.println("id:"+id);
+ @PrePersist
+  public void onPersist(){
+     System.out.println("onPersist");
+    
+         if (createdBy==null) {
+          
+             createdBy = SecurityContext.getUser();
+             createdOn = new Date();
+     
+         }else{
+             updatedBy=SecurityContext.getUser();
+             updatedOn=new Date();
+         }
+         System.out.println("onPersist");
       
   }
    @PreUpdate
     public void onUpdate(){
+       
+       System.out.println("onUpdate");
     //   SecurityContext security = SecurityContextUtil.getSecurityContext();
        
       // SecurityContext security = (SecurityContext) ContextUtil.getSpringBean("secrityContext");
@@ -65,7 +75,7 @@ public class BaseEntity {
     
     @Override
     public int hashCode(){
-       /* if (this.getId()==null){
+        if (this.getId()==null){
             throw new RuntimeException("Bug: We should not call hashCode on an entity that have not been persisted yet " +
                     "because they have a null id. Because the equals is based on id, hashCode must be based on id too. " +
                     "If hashCode is called before the id is assigned, then the hashCode will change if called later when " +
@@ -76,8 +86,8 @@ public class BaseEntity {
                     "-toMany relationship before you call EntityManager.persist on that entity. " +
                     "Using this BaseEntity class constraints you not doing that (else subtle bugs may arrive by the back door).");
         }
-        return this.getId().hashCode();*/
-        return 0;
+        return this.getId().hashCode();
+      
     }
     
     @Override

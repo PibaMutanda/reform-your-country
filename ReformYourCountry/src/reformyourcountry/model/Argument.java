@@ -105,7 +105,11 @@ public class Argument extends BaseEntity{
         voteCountAgainst++;
     }
 
-
+    public void addVoteArgument(VoteArgument voteArgument){
+        
+        voteArguments.add(voteArgument);
+        
+    }
     @Override
 	public String toString() {
 		return content;

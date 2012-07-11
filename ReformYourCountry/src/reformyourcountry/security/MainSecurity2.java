@@ -17,13 +17,7 @@ public class MainSecurity2 {
         BatchSecurity batchsecurity = (BatchSecurity)applicationContext.getBean("batchSecurity");
         ContextUtil.contextInitialized(applicationContext);
  
-        try {
-            batchsecurity.run();
- 
-        } catch (Exception e) {
-        
-            e.printStackTrace();
-        }
+      
 
     }
 
