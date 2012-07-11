@@ -3,10 +3,6 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Service;
-
 import reformyourcountry.Repository.UserRepository;
 import reformyourcountry.exceptions.InvalidPasswordException;
 import reformyourcountry.exceptions.UnauthorizedAccessException;
@@ -38,13 +34,6 @@ public  class SecurityContext {
     private static ThreadLocal<Set<String>> contextualCustomPrivileges = new ThreadLocal<Set<String>>();
 
  
-
-    
-    public SecurityContext(){
-        
-        System.out.println("test");
-    }
-   
     /**
      * Removes the security context associated to the request
      */
@@ -136,9 +125,6 @@ public  class SecurityContext {
         }
         
         if (user.get() == null) {  // User not loaded yet.
-            // TODO: restore the line below (because Spring can inject nothing in this SecurityContext class).
-            // User user = ((UserDao) ContextUtil.getSpringBean("userDao")).get(getUserId());  // This is not beauty, but life is sometimes ugly. -- no better idea (except making SecurityContext a bean managed by Spring... but for not much benefit...) -- John 2009-07-02
-            //User user = userRepository.find(getUserId());
             User user = ((UserRepository) ContextUtil.getSpringBean("userRepository")).find(getUserId());
             
 
@@ -171,9 +157,7 @@ public  class SecurityContext {
 
        if (userId.get() == null) { // Then try to get it from the HttpSession.
 
-           // TODO: restore using Spring.
             LoginService loginService = (LoginService) ContextUtil.getSpringBean("loginService");              // This is not beauty, but life is sometimes ugly. -- no better idea (except making SecurityContext a bean managed by Spring... but for not much benefit...) -- John 2009-07-02
-        //   LoginService loginService = LoginService.getInstance();  // TODO: replace by Spring code.
 
            Long id = loginService.getLoggedInUserIdFromSession();  
  
