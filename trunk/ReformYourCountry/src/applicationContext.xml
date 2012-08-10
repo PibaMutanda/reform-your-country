@@ -15,6 +15,7 @@
 
 	<context:annotation-config />
 	<context:component-scan base-package="reformyourcountry" />
+	
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
 		<property name="persistenceUnitName" value="ConnectionH2" />
