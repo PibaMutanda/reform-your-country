@@ -15,7 +15,6 @@ import reformyourcountry.mail.MailTemplateService;
 import reformyourcountry.mail.MailType;
 import reformyourcountry.model.Mail;
 import reformyourcountry.model.User;
-import reformyourcountry.repository.MailDaoMock;
 import reformyourcountry.repository.UserRepository;
 
 

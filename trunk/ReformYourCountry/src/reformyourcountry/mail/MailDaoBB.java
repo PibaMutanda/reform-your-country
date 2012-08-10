@@ -8,13 +8,10 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.hibernate.Query;
-import org.springframework.stereotype.Repository;
 
+import reformyourcountry.model.Mail;
 import reformyourcountry.model.User;
-
-import blackbelt.model.Mail;
-import blackbelt.model.MailType;
-import blackbelt.model.MailingDelayType;
+import reformyourcountry.repository.BaseRepository;
 
 //@Repository
 public class MailDaoBB extends BaseRepository<Mail> {

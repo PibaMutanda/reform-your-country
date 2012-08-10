@@ -47,7 +47,7 @@
            <!-- Create the database schema when this test.persistence unit is deployed, drop
                 it (clean the database) when it is undeployed
            -->
-           <property name="hibernate.hbm2ddl.auto" value="validate"/>
+           <property name="hibernate.hbm2ddl.auto" value="create"/>
 
       </properties>
    </persistence-unit>
