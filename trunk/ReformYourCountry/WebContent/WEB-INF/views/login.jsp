@@ -7,12 +7,12 @@
 <title>Login</title>
 </head>
 <body>
-       
+       Connexion 
        <form action="/loginsubmit" method="post">
-           Identifier <input type="text" name="identifier"/><br><br>
-           Password <input type="password"  name="password" /><br><br>
-           keepLoggedIn <input type="checkbox" name="keepLoggedIn" /><br><br>
-           <input type="submit" value="Connect"/>
+           Pseudo/Adresse é-mail <input type="text" name="identifier"/><br><br>
+           Votre mot de passe <input type="password"  name="password" /><br><br>
+           <input type="checkbox" name="keepLoggedIn" />Je souhaite rester connecté<br><br>
+           <input type="submit" value="Connexion"/>
        </form>
 </body>
 </html>
