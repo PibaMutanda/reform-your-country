@@ -1,4 +1,4 @@
-package reformyourcountry.filters;
+package reformyourcountry.filter;
 
 import java.io.IOException;
 
