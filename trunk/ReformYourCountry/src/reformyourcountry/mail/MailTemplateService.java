@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Service;
 
-import reformyourcountry.Repository.MailRepository;
 import reformyourcountry.model.Mail;
 import reformyourcountry.model.User;
+import reformyourcountry.repository.MailRepository;
 import reformyourcountry.service.UserService;
 
 /**
