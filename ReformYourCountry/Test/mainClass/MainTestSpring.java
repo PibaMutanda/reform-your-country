@@ -3,7 +3,7 @@ package mainClass;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import reformyourcountry.exceptions.UserAlreadyExistsException;
+import reformyourcountry.exception.UserAlreadyExistsException;
 import reformyourcountry.model.User.Gender;
 import reformyourcountry.service.UserService;
 

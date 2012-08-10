@@ -8,14 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import reformyourcountry.Repository.UserRepository;
-import reformyourcountry.exceptions.UserAlreadyExistsException;
-import reformyourcountry.exceptions.UserAlreadyExistsException.identifierType;
+import reformyourcountry.exception.UserAlreadyExistsException;
+import reformyourcountry.exception.UserAlreadyExistsException.identifierType;
 import reformyourcountry.mail.MailCategory;
 import reformyourcountry.mail.MailType;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountStatus;
 import reformyourcountry.model.User.Gender;
+import reformyourcountry.repository.UserRepository;
 import blackbelt.util.SecurityUtils;
 
 @Service(value="userService")
