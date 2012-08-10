@@ -28,8 +28,8 @@ import reformyourcountry.service.UserService;
 public class JUnitTestRegisterAndLoginUser {
     @Autowired
     private UserRepository userDao;
-    private static UserService userService = UserService.getInstance();
-    private static LoginService loginService = LoginService.getInstance();
+//    private static UserService userService = UserService.getInstance();
+//    private static LoginService loginService = LoginService.getInstance();
     private static String firstname = "test";
     private static String lastname = "test";
     private static Gender gender = Gender.MALE;

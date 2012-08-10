@@ -1,4 +1,4 @@
-package reformyourcountry.Repository;
+package reformyourcountry.repository;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
