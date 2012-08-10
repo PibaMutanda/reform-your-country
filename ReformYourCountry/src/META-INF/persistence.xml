@@ -28,22 +28,21 @@
       </properties>
    </persistence-unit>
 
-   <persistence-unit name="ConnectionH2">
-       <properties>
-          <!-- Scan and detect annotated entities -->
-          <property name="hibernate.archive.autodetection" value="class"/>
-	
-		  <!--DB Connexion values -->
-          <property name="hibernate.connection.driver_class"
-                    value="org.h2.Driver"/>
-          <property name="hibernate.connection.url"
-                    value="jdbc:h2:tcp://localhost/~/RYC;IFEXISTS=TRUE"/>
-          <property name="hibernate.connection.username"
-                    value="rycdev"/>
-          <property name="hibernate.connection.password"
-                    value="ryc2012"/>
-          <property name="hibernate.dialect"
-                    value="org.hibernate.dialect.H2Dialect" />
+	<persistence-unit name="ConnectionH2">
+		<properties>
+			<!-- Scan and detect annotated entities -->
+			<property name="hibernate.archive.autodetection" value="class" />
+
+			<!--DB Connexion values -->
+			<property name="hibernate.connection.driver_class" value="org.h2.Driver" />
+			<property name="hibernate.connection.url" value="jdbc:h2:tcp://localhost/~/RYC;IFEXISTS=TRUE;" />
+			<property name="hibernate.connection.username" value="rycdev" />
+			<property name="hibernate.connection.password" value="ryc2012" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
+
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.use_sql_comments" value="true" />
 
            <!-- Create the database schema when this test.persistence unit is deployed, drop
                 it (clean the database) when it is undeployed
