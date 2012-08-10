@@ -9,14 +9,14 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 
 import reformyourcountry.CurrentEnvironment.Environment;
-import reformyourcountry.Repository.MailDaoMock;
-import reformyourcountry.Repository.UserRepository;
 import reformyourcountry.mail.MailCategory;
 import reformyourcountry.mail.MailSender;
 import reformyourcountry.mail.MailTemplateService;
 import reformyourcountry.mail.MailType;
 import reformyourcountry.model.Mail;
 import reformyourcountry.model.User;
+import reformyourcountry.repository.MailDaoMock;
+import reformyourcountry.repository.UserRepository;
 
 
 

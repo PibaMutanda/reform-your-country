@@ -1,10 +1,10 @@
 package mainClass;
 
-import reformyourcountry.exceptions.InvalidPasswordException;
-import reformyourcountry.exceptions.UserAlreadyExistsException;
-import reformyourcountry.exceptions.UserLockedException;
-import reformyourcountry.exceptions.UserNotFoundException;
-import reformyourcountry.exceptions.UserNotValidatedException;
+import reformyourcountry.exception.InvalidPasswordException;
+import reformyourcountry.exception.UserAlreadyExistsException;
+import reformyourcountry.exception.UserLockedException;
+import reformyourcountry.exception.UserNotFoundException;
+import reformyourcountry.exception.UserNotValidatedException;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountStatus;
 import reformyourcountry.model.User.Gender;
