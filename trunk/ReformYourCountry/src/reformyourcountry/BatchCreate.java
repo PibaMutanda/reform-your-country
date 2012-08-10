@@ -52,7 +52,9 @@ public class BatchCreate {
 
     
     public void run() {
-        BatchCreate proxy = ContextUtil.getSpringBean(BatchCreate.class);
+       BatchCreate proxy = ContextUtil.getSpringBean(BatchCreate.class);
+        
+        
         User user =  proxy.populateUsers();
 
         proxy.loginUser(user);
@@ -60,7 +62,6 @@ public class BatchCreate {
         Article article = proxy.populateArticle();
         Action action = proxy.populateAction(article);
         proxy.populateComment(action , user);
-
         Group group = proxy.populateGroup();
         proxy.populateGroupReg(user,group);
         proxy.populateVoteAction(action,user,group);
@@ -70,7 +71,25 @@ public class BatchCreate {
 
     }
 
-   
+//    public void run() {
+//        
+//         
+//         
+//         User user = populateUsers();
+//
+//        loginUser(user);
+//
+//         Article article = populateArticle();
+//         Action action = populateAction(article);
+//         populateComment(action , user);
+//         Group group = populateGroup();
+//         populateGroupReg(user,group);
+//         populateVoteAction(action,user,group);
+//         Argument argument = populatedArgument(action,user);
+//         populateVoteArgument(argument,user);
+//
+//
+//     }
     public void loginUser(User user){
         try {
              loginService.login(user.getUserName(), "secret", false);
@@ -119,10 +138,9 @@ public class BatchCreate {
         user.setAccountStatus(AccountStatus.ACTIVE);
         user.setValidationCode("123456789");
 
-        em.persist(user);
-    } catch (UserAlreadyExistsException e1) {
-        // TODO Auto-generated catch block
-        e1.printStackTrace();
+        //em.persist(user);
+    } catch (UserAlreadyExistsException e) {
+       throw new RuntimeException(e);
     }
         return user;
 
