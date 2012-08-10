@@ -56,9 +56,9 @@ public abstract class BaseRepository<E extends BaseEntity> {
     }
 
     public void persist(E entity) {
-        System.out.println("prepersist");
+      
         em.persist(entity);
-        System.out.println("postpersist");
+    
     }
 
     public E merge(E entity) {
