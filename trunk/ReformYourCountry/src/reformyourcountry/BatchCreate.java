@@ -15,11 +15,11 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import reformyourcountry.exceptions.InvalidPasswordException;
-import reformyourcountry.exceptions.UserAlreadyExistsException;
-import reformyourcountry.exceptions.UserLockedException;
-import reformyourcountry.exceptions.UserNotFoundException;
-import reformyourcountry.exceptions.UserNotValidatedException;
+import reformyourcountry.exception.InvalidPasswordException;
+import reformyourcountry.exception.UserAlreadyExistsException;
+import reformyourcountry.exception.UserLockedException;
+import reformyourcountry.exception.UserNotFoundException;
+import reformyourcountry.exception.UserNotValidatedException;
 import reformyourcountry.mail.MailingDelayType;
 import reformyourcountry.model.Action;
 import reformyourcountry.model.Argument;

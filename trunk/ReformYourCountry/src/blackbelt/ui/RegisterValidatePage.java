@@ -10,11 +10,11 @@ package blackbelt.ui;
 //import org.vaadin.navigator7.uri.Param;
 //import org.vaadin.navigator7.uri.ParamPageResource;
 
-import reformyourcountry.Repository.UserRepository;
-import reformyourcountry.exceptions.InvalidPasswordException;
-import reformyourcountry.exceptions.UserNotFoundException;
+import reformyourcountry.exception.InvalidPasswordException;
+import reformyourcountry.exception.UserNotFoundException;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountStatus;
+import reformyourcountry.repository.UserRepository;
 import reformyourcountry.service.LoginService;
 import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
 import reformyourcountry.web.UrlUtil;
