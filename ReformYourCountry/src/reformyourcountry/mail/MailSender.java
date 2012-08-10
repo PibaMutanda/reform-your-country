@@ -22,10 +22,10 @@ import blackbelt.HtmlToTextUtil;
 
 import reformyourcountry.CurrentEnvironment.Environment;
 import reformyourcountry.CurrentEnvironment.MailBehavior;
-import reformyourcountry.Repository.MailRepository;
-import reformyourcountry.Repository.UserRepository;
 import reformyourcountry.model.Mail;
 import reformyourcountry.model.User;
+import reformyourcountry.repository.MailRepository;
+import reformyourcountry.repository.UserRepository;
 
 
 
