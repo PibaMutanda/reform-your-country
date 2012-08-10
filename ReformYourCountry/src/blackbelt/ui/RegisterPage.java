@@ -2,9 +2,9 @@ package blackbelt.ui;
 //TODO uncoment import
 import org.apache.commons.lang3.StringUtils;
 
-import reformyourcountry.Repository.UserRepository;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.Role;
+import reformyourcountry.repository.UserRepository;
 import reformyourcountry.service.UserService;
 import reformyourcountry.web.UrlUtil;
 //import org.springframework.beans.factory.annotation.Autowired;
