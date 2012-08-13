@@ -1,0 +1,42 @@
+LIST OF LIBRARIES:
+
+
+Hibernate & dependencies :
+			-hibernate-core-40104.Final
+			-hibernate-commons-annotations-4.0.1.Final
+			-hibernate-entitymanager-4.1.1.Final
+			-hibernate-jpa-2.0-api.1.0.1.Final
+			-hibernate-validator-4.3.0.Final
+			-hibernate-validator-annotation-processor-4.3.0.Final
+			-validation-api-1.0.0.GA
+			-antlr-2.7.7
+			-dom4j-1.6.1
+			-javassist-3.15.0-GA
+			-sfl4j-api-1.6.6
+			-sfl4j-ext-1.6.6
+			-sfl4j-log4j12-1.6.6
+			-log4j-1.2.17
+JDBC drivers :
+			-h2-1.3.167
+			-postgresql-9.1-902.jdbc4
+JPA Specs :
+			-javax.persistence_2.0.0
+Spring & dependencies :
+			-org.springframework.*
+			-aopalliance
+			-asm
+			-cglib
+			-commons-logging
+JavaMail :
+			-dsn
+			-imap
+			-mailapi
+			-smtp
+JSLT EL :
+			-standard
+			-jstl
+JUnit :
+			-junit-4.10
+PD4ML :
+			-pd4ml
+			-fonts   for accentuated characters
