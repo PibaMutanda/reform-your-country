@@ -25,8 +25,10 @@ public class LoginController {
     }
     
     @RequestMapping("/loginsubmit")
-    public ModelAndView loginSubmit(@RequestParam("identifier")String identifier,@RequestParam("password")String password,@RequestParam("keepLoggedIn") boolean keepLoggedIn)
+    public ModelAndView loginSubmit(@RequestParam("identifier")String identifier,@RequestParam("password")String password,@RequestParam(value="keepLoggedIn",required=false) boolean keepLoggedIn)
     {
+        //FIXME redirect to the right page
+        
         ModelAndView mv = new ModelAndView("index");
         try {
             loginService.login(identifier, password, keepLoggedIn);
