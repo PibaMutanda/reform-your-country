@@ -12,7 +12,6 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import org.springframework.transaction.annotation.Transactional;
 
 import reformyourcountry.exception.InvalidPasswordException;
@@ -60,6 +59,9 @@ public class BatchCreate {
         proxy.loginUser(user);
 
         Article article = proxy.populateArticle();
+        Article article2 = proxy.populateArticle2WithParent(article);
+        Article article3 = proxy.populateArticle3WithParent(article2);
+        Article article4 = proxy.populateArticle4WithParent(article3);
         Action action = proxy.populateAction(article);
         proxy.populateComment(action , user);
         Group group = proxy.populateGroup();
@@ -148,7 +150,7 @@ public class BatchCreate {
     
     @Transactional
     public Article populateArticle(){
-
+      // article.
         Article article = new Article();
         article.setTitle("Le Web 2.0 et les profs");
 
@@ -192,6 +194,147 @@ public class BatchCreate {
 
 
     }
+    
+    
+    @Transactional
+    public Article populateArticle2WithParent(Article parent){
+        
+        Article article2 = new Article();
+        article2.setTitle("Autonomie des écolesAutonomie des écoles");
+
+        Scanner scan;
+        String str = "";
+
+        try {
+
+
+            scan = new Scanner(new File(System.getProperty("user.dir")+"/src/reformyourcountry/"+"article2.txt"));
+
+
+            while(scan.hasNext()){
+                str = str + scan.next();
+
+            }
+            scan.close();
+        } catch (FileNotFoundException e) {
+
+            throw new RuntimeException(e);
+        }
+
+        article2.setContent(str);
+        article2.setParent(parent);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            article2.setReleaseDate(sdf.parse("2012-08-10"));
+        } catch (ParseException e) {
+
+            throw new RuntimeException(e);
+        }
+
+        article2.setSummary("1.Règles actuelles/2.Décrets pédagogiques/3.Contrôle des résultats/4.Recrutement/Licenciement/5.Libre plus autonome");
+        article2.setUrl("https://sites.google.com/site/enseignement2be/ecoles/autonomie-des-ecoles");
+        
+       
+        return article2;
+        
+    }
+    
+    @Transactional
+    public Article populateArticle3WithParent(Article parent){
+        
+        //Article 3
+        Article article3 = new Article();
+        article3.setTitle("Directeurs d'école");
+
+        Scanner scan;
+        String str = "";
+
+        try {
+
+
+            scan = new Scanner(new File(System.getProperty("user.dir")+"/src/reformyourcountry/"+"article3.txt"));
+
+
+            while(scan.hasNext()){
+                str = str + scan.next();
+
+            }
+            scan.close();
+        } catch (FileNotFoundException e) {
+
+            throw new RuntimeException(e);
+        }
+
+        article3.setContent(str);
+        article3.setParent(parent);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+      
+        try {
+            article3.setReleaseDate(sdf.parse("2012-08-10"));
+        } catch (ParseException e) {
+
+            throw new RuntimeException(e);
+        }
+
+        article3.setSummary("1.Règles actuelles/2.Décrets pédagogiques/3.Contrôle des résultats/4.Recrutement/Licenciement/5.Libre plus autonome");
+        article3.setUrl("https://sites.google.com/site/enseignement2be/ecoles/auto");
+        
+
+        em.persist(article3);
+        
+        return article3;
+        
+    }
+    
+    @Transactional
+    public Article populateArticle4WithParent(Article parent){
+        
+        //Article 4
+        Article article4 = new Article();
+        article4.setTitle("Ecole de l'avenir");
+
+        Scanner scan;
+        String str = "";
+
+        try {
+
+
+            scan = new Scanner(new File(System.getProperty("user.dir")+"/src/reformyourcountry/"+"article4.txt"));
+
+
+            while(scan.hasNext()){
+                str = str + scan.next();
+
+            }
+            scan.close();
+        } catch (FileNotFoundException e) {
+
+            throw new RuntimeException(e);
+        }
+
+        article4.setContent(str);
+        article4.setParent(parent);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+      
+        try {
+            article4.setReleaseDate(sdf.parse("2012-08-10"));
+        } catch (ParseException e) {
+
+            throw new RuntimeException(e);
+        }
+
+        article4.setSummary("1.Règles actuelles/2.Décrets pédagogiques/3.Contrôle des résultats/4.Recrutement/Licenciement/5.Libre plus autonome");
+        article4.setUrl("https://sites.google.com/site/enseignement2be/ecoles/auto");
+        
+
+        em.persist(article4);
+        
+        return article4;
+        
+        
+    }
+    
     @Transactional
     public Action populateAction(Article article){
 
