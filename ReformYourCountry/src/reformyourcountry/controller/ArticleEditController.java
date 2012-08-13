@@ -35,7 +35,7 @@ public class ArticleEditController {
 	 
 		 
 	 @ModelAttribute
-	 public Article findArticle(@RequestParam("idArticle")Long id){
+	 public Article findArticle(@RequestParam("id")Long id){
 		 Article result=articleRepository.find(id);
 		 return result;
 	 }
