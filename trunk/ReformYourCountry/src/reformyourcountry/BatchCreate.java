@@ -164,7 +164,7 @@ public class BatchCreate {
 
 
             while(scan.hasNext()){
-                str = str + scan.next();
+                str = str + scan.nextLine();
 
             }
             scan.close();
@@ -212,7 +212,7 @@ public class BatchCreate {
 
 
             while(scan.hasNext()){
-                str = str + scan.next();
+                str = str + scan.nextLine();
 
             }
             scan.close();
@@ -257,7 +257,7 @@ public class BatchCreate {
 
 
             while(scan.hasNext()){
-                str = str + scan.next();
+                str = str + scan.nextLine();
 
             }
             scan.close();
@@ -304,7 +304,7 @@ public class BatchCreate {
 
 
             while(scan.hasNext()){
-                str = str + scan.next();
+                str = str + scan.nextLine();
 
             }
             scan.close();
