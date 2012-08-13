@@ -1,5 +1,7 @@
 package reformyourcountry.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,27 +11,40 @@ import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.model.Article;
 import reformyourcountry.repository.ArticleRepository;
-import reformyourcountry.repository.BaseRepository;
+import reformyourcountry.*;
 @Controller
 public class ArticleEditController {
-	@Autowired
-    ArticleRepository artRep;
+
+	 @Autowired ArticleRepository articleRepository;
+	 
 	
-	@RequestMapping("/articleedit")
-	public ModelAndView EditArticle(@RequestParam("id")Long id){
-		Article a=artRep.find(id);	
-		ModelAndView mv=new ModelAndView("/ArticleEdit");
-		mv.addObject("article",a);
-		return mv;
-	}
-	@RequestMapping("/articleeditsubmit")
-	public ModelAndView editArticle(@RequestParam("content") String content, 
-			                        @RequestParam("title") String title){
+	 @RequestMapping("/articleedit")
+	 public ModelAndView articleEdit(@RequestParam("id")Long id){
+		 ModelAndView mv = new ModelAndView("ArticleEdit");
+		 mv.addObject("article",articleRepository.find(id));
+		 return mv;
+	 }
+	 
+	 @RequestMapping("/articleeditsubmit")
+	 public ModelAndView articleEditSubmit(@RequestParam("id")Long id){
+		 Article article = articleRepository.find(id);
+		 articleRepository.merge(article);
 		
-		ModelAndView mv =new ModelAndView("/TestDisplay");
-		mv.addObject("content", content);
-		mv.addObject("title", title);
-		return mv;
-	}
-	
+		 List<Article> parentArticles = new ArrayList<Article>();
+	        Article current;
+	        current =  article;
+	        while(current.getParent() != null){
+	            parentArticles.add(current);
+	            current = current.getParent();
+	            
+	        }
+	        
+	        ModelAndView mv = new ModelAndView("displayArticle");
+	        mv.addObject("article",article);
+	        mv.addObject("parentsTree",parentArticles);
+	        
+	        
+	        return mv;
+	 }
+	 
 }
