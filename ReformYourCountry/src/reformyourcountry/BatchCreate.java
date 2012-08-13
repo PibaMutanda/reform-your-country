@@ -235,7 +235,7 @@ public class BatchCreate {
         article2.setSummary("1.Règles actuelles/2.Décrets pédagogiques/3.Contrôle des résultats/4.Recrutement/Licenciement/5.Libre plus autonome");
         article2.setUrl("https://sites.google.com/site/enseignement2be/ecoles/autonomie-des-ecoles");
         
-       
+        em.persist(article2);
         return article2;
         
     }
