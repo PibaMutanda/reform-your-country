@@ -43,7 +43,12 @@ public class Article extends BaseEntity {
 		this.title = title;
 	}
 	
-	public String getUrl(){
+	public Article getParent() {
+        return parent;
+    }
+
+
+    public String getUrl(){
 		return url;
 	}
 	
@@ -89,11 +94,7 @@ public class Article extends BaseEntity {
 	public void setParent(Article parent){
 		this.parent = parent;
 	}	
-    
-	public Article getParent(){
-	    
-	    return parent;
-	}
+
 	public void addAction(Action action){
 	    
 	    actions.add(action);
