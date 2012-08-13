@@ -65,7 +65,7 @@ public class MailSender extends Thread {
     int smtpPort ; 
     
     
-    @Value("${app.environment}") 
+    @Value("${environment}") 
     Environment environment ;
     @Value("${mail.from.notifier.address}") 
     String notifier;

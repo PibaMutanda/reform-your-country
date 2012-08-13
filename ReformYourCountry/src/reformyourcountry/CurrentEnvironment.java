@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CurrentEnvironment {
 
-	@Value("${app.environment}") // comes from the config.properties file. Value is modified by ant at build time
+	@Value("${environment}") // comes from the config.properties file. Value is modified by ant at build time
 	private Environment environment;
 	
 	public Environment getEnvironment() {
