@@ -19,17 +19,16 @@ public class LoginController {
     @Autowired LoginService loginService;
 
     @RequestMapping("/login")
-    public String login()
-    {
+    public String login() {
         return "login";
     }
     
     @RequestMapping("/loginsubmit")
-    public ModelAndView loginSubmit(@RequestParam("identifier")String identifier,@RequestParam("password")String password,@RequestParam(value="keepLoggedIn",required=false) boolean keepLoggedIn)
-    {
+    public String loginSubmit(@RequestParam("identifier") String identifier,
+                                   @RequestParam("password") String password,
+                                   @RequestParam(value="keepLoggedIn",required=false) boolean keepLoggedIn) {
         //FIXME redirect to the right page
         
-        ModelAndView mv = new ModelAndView("index");
         try {
             loginService.login(identifier, password, keepLoggedIn);
         } catch (UserNotFoundException e) {
@@ -48,6 +47,6 @@ public class LoginController {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return mv;
+        return "index";
     }
 }
