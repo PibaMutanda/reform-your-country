@@ -32,6 +32,7 @@ import reformyourcountry.model.User.Gender;
 import reformyourcountry.model.User.Role;
 import reformyourcountry.model.VoteAction;
 import reformyourcountry.model.VoteArgument;
+import reformyourcountry.security.Privilege;
 import reformyourcountry.service.LoginService;
 import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
 import reformyourcountry.service.UserService;
@@ -55,7 +56,7 @@ public class BatchCreate {
         
         
         User user =  proxy.populateUsers();
-
+        proxy.populateUsersWithOneModerator();
         proxy.loginUser(user);
 
         Article article = proxy.populateArticle();
@@ -135,6 +136,51 @@ public class BatchCreate {
         user.setPicture(true);
         user.setRegistrationDate(new Date());
         user.setRole(Role.ADMIN);
+        user.setSpammer(false);
+        user.setSpamReporter(null);
+        user.setAccountStatus(AccountStatus.ACTIVE);
+        user.setValidationCode("123456789");
+
+        //em.persist(user);
+    } catch (UserAlreadyExistsException e) {
+       throw new RuntimeException(e);
+    }
+        return user;
+
+    }
+    
+    @Transactional 
+    public User populateUsersWithOneModerator(){
+
+
+        
+        
+       User user = null;
+    try {
+        user = userService.registerUser(true,"moder","moder",Gender.MALE,"moder","secret","moder@mail.com");
+ 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date bithdate;
+        try {
+            bithdate = sdf.parse("1982-01-29");
+            user.setBirthDate(bithdate);
+            user.setLastAccess(sdf.parse("2012-07-05"));
+            user.setLastFailedLoginDate(sdf.parse("2012-07-10"));
+            user.setLastMailSentDate(sdf.parse("2012-07-01"));
+        } catch (ParseException e) {
+
+            throw new RuntimeException(e);
+        }
+    
+        user.setLastLoginIp("192.168.1.7");
+        user.setLockReason("this is a lock reason");
+        user.setMailDelayType(MailingDelayType.IMMEDIATELY);
+        user.setNlSubscriber(true);
+        user.setPicture(true);
+        user.setRegistrationDate(new Date());
+        user.setRole(Role.MODERATOR);
+        user.getPrivileges().add(Privilege.EDIT_ARTICLE);
+       
         user.setSpammer(false);
         user.setSpamReporter(null);
         user.setAccountStatus(AccountStatus.ACTIVE);
