@@ -1,5 +1,6 @@
 package reformyourcountry;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 
@@ -9,8 +10,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class CurrentEnvironment {
 
-	//@Value("${app.environment}") // comes from the jbbconfig.properties file. Value is modified by ant at build time
-	private Environment environment = Environment.DEV;
+	@Value("${app.environment}") // comes from the config.properties file. Value is modified by ant at build time
+	private Environment environment;
 	
 	public Environment getEnvironment() {
 		return environment;
