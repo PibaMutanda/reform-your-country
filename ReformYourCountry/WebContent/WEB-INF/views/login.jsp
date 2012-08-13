@@ -12,11 +12,11 @@
        
     
        
-      <form action="/login" method="post">
+      <form action="loginsubmit" method="post">
              Pseudo/Adresse e-mail <input type="text" name="identifier"><br><br>
              Votre mot de passe <input type="password" name="password"><br>
              Je oublié  mon<a href="">  mot de passe</a><br>
-                                <input type="checkbox" name="keepLoggedIn"/>Je souhaite rester connecté<br> 
+             <input type="checkbox" name="keepLoggedIn"/>Je souhaite rester connecté<br> 
              <input type="submit"  value="Connexion"/>                   
       </form> 
        
