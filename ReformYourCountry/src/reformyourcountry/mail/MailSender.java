@@ -13,12 +13,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
-
-import blackbelt.HtmlToTextUtil;
 
 import reformyourcountry.CurrentEnvironment.Environment;
 import reformyourcountry.CurrentEnvironment.MailBehavior;
@@ -26,6 +25,7 @@ import reformyourcountry.model.Mail;
 import reformyourcountry.model.User;
 import reformyourcountry.repository.MailRepository;
 import reformyourcountry.repository.UserRepository;
+import blackbelt.HtmlToTextUtil;
 
 
 
@@ -55,23 +55,22 @@ public class MailSender extends Thread {
 
     JavaMailSenderImpl javaMailSender;
 
-    //@Value("${mail.from.notifier.address}") 
+    @Value("${mail.from.notifier.address}") 
     String mailNotifierFrom;
-    //@Value("${mail.from.notifier.alias}") 
+    @Value("${mail.from.notifier.alias}") 
     String mailNotifierAlias;
-    //@Value("${mail.smtp.server}") 
-    String smtpHost = "smtp.gmail.com"; // value setup for test //TODO configure
-    //@Value("${mail.smtp.port}") 
-    int smtpPort = 465; // value setup for test
+    @Value("${mail.smtp.server}") 
+    String smtpHost ; 
+    @Value("${mail.smtp.port}") 
+    int smtpPort ; 
     
     
-    //TODO USE SPRING (not hardcoded)
-    //@Value("${app.environment}") 
-    Environment environment = Environment.DEV;
-    //@Value("${mail.from.notifier.address}") 
-    String notifier="no-reply@ryc.be";
-    //@Value("${mail.from.notifier.alias}") 
-    String aliasNotifier="ryc no-reply";
+    @Value("${app.environment}") 
+    Environment environment ;
+    @Value("${mail.from.notifier.address}") 
+    String notifier;
+    @Value("${mail.from.notifier.alias}") 
+    String aliasNotifier;
     
     
     /* setter for the test  purpose delete after spring configuration*/
