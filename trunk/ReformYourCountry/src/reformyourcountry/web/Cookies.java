@@ -1,23 +1,15 @@
 package reformyourcountry.web;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.codec.binary.Base64;
 
 import reformyourcountry.model.User;
 //TODO maxime uncomment
-
-import blackbelt.util.SecurityUtils;
 //import be.loop.jbb.web.SessionObject;
 //import be.loop.jbb.web.WebUtil;
 
 
 public class Cookies {
 
-	@Deprecated //by Lebrun 2011-03, because we don't use JForum anymore after the migration.
-    public static final String SSO_JBB_COOKIE_NAME = "jforum-sso"; 
     
 	public static final String SSO_HASH_SALT = "jbbssosec021";
 	public final static String PASSCOOKIE_KEY = "pmark";
@@ -119,7 +111,6 @@ public class Cookies {
         // If login cookies exist they are destroyed
         destroyCookieByName(LOGINCOOKIE_KEY);
         destroyCookieByName(PASSCOOKIE_KEY);
-        destroyCookieByName(SSO_JBB_COOKIE_NAME);
 	}
 
 }
