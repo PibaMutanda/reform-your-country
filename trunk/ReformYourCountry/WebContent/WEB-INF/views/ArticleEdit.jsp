@@ -10,10 +10,11 @@
 <body>
 	<h1>Edit an article</h1>
 	Edition
-	<form action="articleeditsubmit">
+	<form action="articleupdate">
 		<input type="submit" value="Sauver">A publier le<br />
-		 Title :<input type="text" name="title" value="${a.getTitle()}"><br/>
-		 Content:<br/><textarea name="content" cols=50 rows=60 >${a.getContent()}</textarea>
+		 Title :<input type="text" name="title" value="${article.getTitle()}"><br/>
+		 Content:<br/><textarea name="content" cols=50 rows=60 >${article.getContent()}</textarea>
+		 <input type="hidden" name="id" value="${article.getId()}">
 		<br /><br />
 	</form>
 </body>
