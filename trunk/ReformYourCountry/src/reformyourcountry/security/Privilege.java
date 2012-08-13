@@ -19,8 +19,11 @@ public enum Privilege {
 	SEND_NEWSLETTERS("Send newsletters", Role.MODERATOR), 
 
 	//status privileges
-	VIEW_STATS("View stats", Role.MODERATOR); 
+	VIEW_STATS("View stats", Role.MODERATOR),
 
+    //article related privileges
+    
+    EDIT_ARTICLE("Edit article",Role.MODERATOR);
 
 	String name;
 	Role associatedRole;
