@@ -113,7 +113,7 @@ public class BatchCreate {
         
        User user = null;
     try {
-        user = userService.registerUser(true,"Bob","Bob",Gender.MALE,"bobo","secret","bob0@mail.com");
+        user = userService.registerUser(true,"test","test",Gender.MALE,"test","secret","test@mail.com");
  
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date bithdate;
