@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import reformyourcountry.CurrentEnvironment;
 import reformyourcountry.CurrentEnvironment.Environment;
@@ -38,14 +39,14 @@ public class ContextUtil implements Filter, ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent ev) {
         servletContext = ev.getServletContext();
-//        contextInitialized( WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext) );
+        contextInitialized( WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext) );
     }
 
 
    public static void contextInitialized(ApplicationContext ac) {
       springContext = ac;        
       environment = springContext.getBean(CurrentEnvironment.class).getEnvironment();
-		devMode = (environment == Environment.DEV); 
+	  devMode = (environment == Environment.DEV); 
     }
  
    
