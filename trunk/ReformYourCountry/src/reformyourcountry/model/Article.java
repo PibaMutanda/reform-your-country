@@ -89,7 +89,11 @@ public class Article extends BaseEntity {
 	public void setParent(Article parent){
 		this.parent = parent;
 	}	
-
+    
+	public Article getParent(){
+	    
+	    return parent;
+	}
 	public void addAction(Action action){
 	    
 	    actions.add(action);
