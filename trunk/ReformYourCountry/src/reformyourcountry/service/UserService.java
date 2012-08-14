@@ -15,6 +15,7 @@ import reformyourcountry.mail.MailType;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountStatus;
 import reformyourcountry.repository.UserRepository;
+import reformyourcountry.web.UrlUtil;
 import blackbelt.util.SecurityUtils;
 
 @Service(value="userService")
@@ -82,18 +83,18 @@ public class UserService {
 
     public void sendRegistrationValidationMail(User user) {
 
-        String validationUrl = "TO IMPLEMENT"; // UrlUtil.getAbsoluteUrl( XXXXXXXXXXXXXX REGISTER PAGE with user & user.getValidationCode().
-        String htmlMessage = "Welcome on KnowledgeBlackBelt.com, " + user.getFullName() + "." + 
-                "<br/>There is just one step left to get your new account : " +
-                "please click on the link below to validate your email address !" +
+        String validationUrl = UrlUtil.getAbsoluteUrl( "validationsubmit?code=" + user.getValidationCode());
+        String htmlMessage = "Bienvenue sur enseignement2.be, " + user.getFullName() + "." + 
+                "<br/>Il reste une dernière étape pour créer votre compte : " +
+                "veuillez s'il vous plait cliquer sur le lien ci-dessous pour valider votre e-mail !" +
                 "<br/><a href='"+ validationUrl + "'>" + validationUrl + "</a>" +
-                "<br/><br/>If you are experiencing any problems, try copy/pasting the URL in your browser (instead clicking on it), or ultimately " +
+                "<br/><br/>Si vous rencontrez un problème, essayez de copier/coller l'URL dans votre navigateur (au lieu de cliquer sur le lien), ou en dernier recours " +
                 "<a href='" + 
-                //TODO uncomment when for web
-                //UrlUtil.getAbsoluteUrl(new PageResource(DocumentPage.class, "ContactUs")) + 
-                "'>contact us.</a>" + 
-                "<br/><br/>Thank you for registering and have a nice time on KnowledgeBlackBelt.";
-        mailService.sendMail(user.getMail(), "Your new account", htmlMessage, MailType.IMMEDIATE, MailCategory.USER);
+                //TODO add a contact page
+                //UrlUtil.getAbsoluteUrl(####TO IMPLEMENT####) + 
+                "'>nous contacter</a>" + 
+                "<br/><br/>merci de vous être inscrit sur enseignement2.be.";
+        mailService.sendMail(user, "Votre nouveau compte", htmlMessage, MailType.IMMEDIATE, MailCategory.USER);
         System.out.println("mail sent: " + htmlMessage);  // To simulate the mailService until we have it.
     }
 

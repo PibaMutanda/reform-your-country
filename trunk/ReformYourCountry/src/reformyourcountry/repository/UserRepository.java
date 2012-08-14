@@ -29,4 +29,14 @@ public class UserRepository extends BaseRepository<User>{
         }
         return results.get(0);
     }
+    
+    public User getUserByValidationCode(String code){
+        List<User> results = em.createQuery("select u from user u where u.validationCode =: validationCode")
+                .setParameter("validationCode", code)
+                .getResultList();
+        if(results.isEmpty()){
+            return null;
+        }
+        return results.get(0);
+    }
 }
