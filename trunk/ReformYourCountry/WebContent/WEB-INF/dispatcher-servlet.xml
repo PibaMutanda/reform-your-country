@@ -14,6 +14,7 @@
 		configure as beans -->
 	<!-- @Controller, @Service, @Configuration, etc. -->
 	<context:component-scan base-package="reformyourcountry" use-default-filters="false">
+	<!-- The viewResolver will scan the "reformyourcountry" package for classes annotated with @Controller, exluding everything else-->
 		<context:include-filter expression="org.springframework.stereotype.Controller"
 			type="annotation" />
 	</context:component-scan>
