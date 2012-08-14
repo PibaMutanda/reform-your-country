@@ -1,5 +1,7 @@
 package mainClass;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import reformyourcountry.exception.InvalidPasswordException;
 import reformyourcountry.exception.UserAlreadyExistsException;
 import reformyourcountry.exception.UserLockedException;
@@ -19,14 +21,16 @@ import reformyourcountry.service.UserService;
 public class MainSecurity {
 
 
-    private static UserService userService=  UserService.getInstance();
-    private static LoginService loginService= LoginService.getInstance();    
+    @Autowired
+    private static UserService userService;
+    @Autowired
+    private static LoginService loginService;    
   
     public static void main(String[] args) throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException, UserAlreadyExistsException {
        
         String userName = "piba";
         String password = "secret";
-        User user = userService.registerUser(false, "Piba", "M.", Gender.MALE, userName, "secret", "piba@mail.com");
+        User user = userService.registerUser(false, userName,password, userName+"@mail.com");
         user.setAccountStatus(AccountStatus.ACTIVE);
         user = loginService.login(userName, password, false);
 
