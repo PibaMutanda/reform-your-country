@@ -19,8 +19,8 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
-import reformyourcountry.CurrentEnvironment.Environment;
-import reformyourcountry.CurrentEnvironment.MailBehavior;
+import reformyourcountry.misc.CurrentEnvironment.Environment;
+import reformyourcountry.misc.CurrentEnvironment.MailBehavior;
 import reformyourcountry.model.Mail;
 import reformyourcountry.model.User;
 import reformyourcountry.repository.MailRepository;

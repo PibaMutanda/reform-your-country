@@ -1,4 +1,4 @@
-package reformyourcountry;
+package reformyourcountry.misc;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
