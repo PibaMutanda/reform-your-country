@@ -39,6 +39,7 @@ public class ContextUtil implements Filter, ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent ev) {
         servletContext = ev.getServletContext();
+        servletContext.setAttribute(Current.ATTRIBUTE_KEY, new Current());
         contextInitialized( WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext) );
     }
 
