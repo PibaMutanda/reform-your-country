@@ -1,4 +1,4 @@
-package reformyourcountry.security;
+package mainClass;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -15,9 +15,7 @@ public class MainSecurity2 {
     public static void main(String[] args) {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
         BatchSecurity batchsecurity = (BatchSecurity)applicationContext.getBean("batchSecurity");
-        ContextUtil.contextInitialized(applicationContext);
- 
-      
+        ContextUtil.contextInitialized(applicationContext);    
 
     }
 
