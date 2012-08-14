@@ -31,7 +31,7 @@ public class UserRepository extends BaseRepository<User>{
     }
     
     public User getUserByValidationCode(String code){
-        List<User> results = em.createQuery("select u from user u where u.validationCode =: validationCode")
+        List<User> results = em.createQuery("select u from User u where u.validationCode =:validationCode")
                 .setParameter("validationCode", code)
                 .getResultList();
         if(results.isEmpty()){
