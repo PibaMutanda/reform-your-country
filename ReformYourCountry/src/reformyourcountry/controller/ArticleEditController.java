@@ -30,10 +30,7 @@ public class ArticleEditController {
 	 @RequestMapping("/articleeditsubmit")
 	 public ModelAndView articleEditSubmit(@ModelAttribute Article article){
 		 articleRepository.merge(article);
-		 ModelAndView mv= new ModelAndView("ArticleEditValidate");
-		 mv.addObject("article",article);
-		 return mv;
-		// return displayArticleController.displayArticle(article.getId());
+		 return displayArticleController.displayArticle(article.getId());
 	 }
 	 
 		 
