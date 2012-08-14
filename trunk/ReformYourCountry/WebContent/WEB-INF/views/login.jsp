@@ -10,7 +10,7 @@
 <body>
       
        
-    
+     ${error}
        
       <form action="loginsubmit" method="post">
              Pseudo/Adresse e-mail <input type="text" name="identifier"><br><br>
