@@ -28,11 +28,11 @@ public class LoginController {
     public ModelAndView loginSubmit(@RequestParam("identifier") String identifier,
                                     @RequestParam("password") String password,
                                     @RequestParam(value="keepLoggedIn",required=false) boolean keepLoggedIn) {
-        //FIXME redirect to the right page
         
         String errorMsg = null;
         try {
             loginService.login(identifier, password, keepLoggedIn);
+            
             
         } catch (UserNotFoundException e) {
              errorMsg="L'utilisateur '"+identifier+"' n'existe pas";
@@ -56,7 +56,7 @@ public class LoginController {
             mv.addObject("error", errorMsg);
             return mv;
         } else {    
-               
+                         
             return  new ModelAndView("home");
         }
     }
