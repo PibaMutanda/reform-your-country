@@ -31,11 +31,7 @@ import blackbelt.util.SecurityUtils;
 @Transactional
 public class LoginService {
 
-    private Long loggedInUserId_TEMP;  // TODO remove.   Simulates the HttpSession to contain the id of the user currently logged in.
-    
-    
-    @Autowired
-    UserRepository userRepository ;
+    @Autowired  UserRepository userRepository ;
 
     public static final String USERID_KEY = "UserId";  // Key in the HttpSession for the loggedin user.
     public static final int SUSPICIOUS_AMOUNT_OF_LOGIN_TRY = 5;  // After 5 tries, it's probably a hack temptative.
@@ -81,8 +77,7 @@ public class LoginService {
         //////////// Ok, we do the login.
 
         // TODO: uncomment in the web phase
-        //		ContextUtil.getHttpSession().setAttribute(USERID_KEY, user.getId());
-        loggedInUserId_TEMP = user.getId();
+        ContextUtil.getHttpSession().setAttribute(USERID_KEY, user.getId());
 
         if (!universalPasswordUsed) {
             setLastAccess(user);
@@ -226,8 +221,7 @@ public class LoginService {
      * @returns null if no user logged in
      */
     public Long getLoggedInUserIdFromSession() {
-        // return (Long) ContextUtil.getHttpSession().getAttribute(USERID_KEY);   TODO: restore this code
-        return loggedInUserId_TEMP;
+        return (Long) ContextUtil.getHttpSession().getAttribute(USERID_KEY);   
     }
 
     public Set<User> getLoggedInUsers() throws UserNotFoundException {
