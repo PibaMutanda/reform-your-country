@@ -10,7 +10,7 @@
 <body>
 	<h1>Edit an article</h1>
 	Edition
-	<form action="articleupdate">
+	<form method="post" action="articleeditsubmit">
 		<input type="submit" value="Sauver">A publier le<br />
 		 Title :<input type="text" name="title" value="${article.getTitle()}"><br/>
 		 Content:<br/><textarea name="content" cols=50 rows=60 >${article.getContent()}</textarea>
