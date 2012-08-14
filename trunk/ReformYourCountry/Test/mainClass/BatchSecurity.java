@@ -11,7 +11,6 @@ import reformyourcountry.exception.UserNotFoundException;
 import reformyourcountry.exception.UserNotValidatedException;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountStatus;
-import reformyourcountry.model.User.Gender;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
@@ -31,10 +30,8 @@ public class BatchSecurity {
         LoginService loginService = (LoginService) ContextUtil.getSpringBean("loginService"); 
         UserService userService = (UserService)ContextUtil.getSpringBean("userService");
 
-
-
         if(loginService.identifyUser(user.getUserName()) == null){
-            user = userService.registerUser(true, user.getUserName(),user.getLastName(), user.getGender(), user.getUserName(), user.getPassword(),user.getMail());
+            user = userService.registerUser(true,user.getUserName(),user.getPassword(),user.getMail());
             user.setAccountStatus(AccountStatus.ACTIVE);
             user = loginService.login(user.getUserName(), user.getPassword(), false);
         } else {
