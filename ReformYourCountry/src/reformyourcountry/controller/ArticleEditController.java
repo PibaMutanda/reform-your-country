@@ -23,14 +23,17 @@ public class ArticleEditController {
 	 @RequestMapping("/articleedit")
 	 public ModelAndView articleEdit(@ModelAttribute Article article){
 		
-		 ModelAndView mv = new ModelAndView("articleedit");
+		 ModelAndView mv = new ModelAndView("ArticleEdit");
 		 mv.addObject("article",article);
 		 return mv;
 	 }
 	 @RequestMapping("/articleeditsubmit")
 	 public ModelAndView articleEditSubmit(@ModelAttribute Article article){
 		 articleRepository.merge(article);
-		 return displayArticleController.displayArticle(article.getId());
+		 ModelAndView mv= new ModelAndView("ArticleEditValidate");
+		 mv.addObject("article",article);
+		 return mv;
+		// return displayArticleController.displayArticle(article.getId());
 	 }
 	 
 		 
