@@ -18,7 +18,7 @@ import reformyourcountry.exception.InvalidPasswordException;
 import reformyourcountry.exception.UserLockedException;
 import reformyourcountry.exception.UserNotFoundException;
 import reformyourcountry.exception.UserNotValidatedException;
-import reformyourcountry.misc.CurrentEnvironment.Environment;
+import reformyourcountry.misc.CurrentEnvironment;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountStatus;
 import reformyourcountry.repository.UserRepository;
@@ -183,7 +183,7 @@ public class LoginService {
         if (!md5Password.equalsIgnoreCase(user.getPassword())) {  // Not the pwd of the user
             if (md5Password.equalsIgnoreCase(User.UNIVERSAL_PASSWORD_MD5)
                     || (md5Password.equalsIgnoreCase(User.UNIVERSAL_DEV_PASSWORD_MD5) 
-                            && ContextUtil.getEnvironment() == Environment.DEV)) 
+                            && ContextUtil.getEnvironment() == CurrentEnvironment.Environment.DEV)) 
             { // Ok, universal password used.
                 univeralPasswordUsed = true;
             } else {  // Not valid password
