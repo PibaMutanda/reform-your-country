@@ -114,7 +114,7 @@ public class BatchCreate {
         
        User user = null;
     try {
-        user = userService.registerUser(true,"test","test",Gender.MALE,"test","secret","test@mail.com");
+        user = userService.registerUser(true,"test","test","test");
  
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date bithdate;
@@ -157,7 +157,7 @@ public class BatchCreate {
         
        User user = null;
     try {
-        user = userService.registerUser(true,"moder","moder",Gender.MALE,"moder","secret","moder@mail.com");
+        user = userService.registerUser(true,"moder","moder","moder");
  
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date bithdate;
