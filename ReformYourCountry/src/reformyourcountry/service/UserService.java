@@ -84,7 +84,7 @@ public class UserService {
     public void sendRegistrationValidationMail(User user) {
 
         String validationUrl = UrlUtil.getAbsoluteUrl( "validationsubmit?code=" + user.getValidationCode());
-        String htmlMessage = "Bienvenue sur enseignement2.be, " + user.getFullName() + "." + 
+        String htmlMessage = "Bienvenue sur enseignement2.be, " + user.getUserName() + "." + 
                 "<br/>Il reste une dernière étape pour créer votre compte : " +
                 "veuillez s'il vous plait cliquer sur le lien ci-dessous pour valider votre e-mail !" +
                 "<br/><a href='"+ validationUrl + "'>" + validationUrl + "</a>" +
@@ -95,7 +95,8 @@ public class UserService {
                 "'>nous contacter</a>" + 
                 "<br/><br/>merci de vous être inscrit sur enseignement2.be.";
         mailService.sendMail(user, "Votre nouveau compte", htmlMessage, MailType.IMMEDIATE, MailCategory.USER);
-        System.out.println("mail sent: " + htmlMessage);  // To simulate the mailService until we have it.
+        
+        logger.debug("mail sent: " + htmlMessage);  
     }
 
 
