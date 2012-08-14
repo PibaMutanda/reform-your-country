@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import reformyourcountry.CurrentEnvironment.Environment;
 import reformyourcountry.exception.InvalidPasswordException;
 import reformyourcountry.exception.UserLockedException;
 import reformyourcountry.exception.UserNotFoundException;
@@ -76,7 +77,6 @@ public class LoginService {
 
         //////////// Ok, we do the login.
 
-        // TODO: uncomment in the web phase
         ContextUtil.getHttpSession().setAttribute(USERID_KEY, user.getId());
 
         if (!universalPasswordUsed) {
@@ -181,10 +181,9 @@ public class LoginService {
             throws InvalidPasswordException {
         boolean univeralPasswordUsed = false;
         if (!md5Password.equalsIgnoreCase(user.getPassword())) {  // Not the pwd of the user
-            // TODO uncomment for the web
             if (md5Password.equalsIgnoreCase(User.UNIVERSAL_PASSWORD_MD5)
                     || (md5Password.equalsIgnoreCase(User.UNIVERSAL_DEV_PASSWORD_MD5) 
-                            /*&& ContextUtil.getEnvironment() == CurrentEnvironment.Environment.DEV*/)) 
+                            && ContextUtil.getEnvironment() == Environment.DEV)) 
             { // Ok, universal password used.
                 univeralPasswordUsed = true;
             } else {  // Not valid password
