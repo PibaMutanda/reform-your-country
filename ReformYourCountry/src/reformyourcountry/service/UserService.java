@@ -93,8 +93,7 @@ public class UserService {
                 //UrlUtil.getAbsoluteUrl(new PageResource(DocumentPage.class, "ContactUs")) + 
                 "'>contact us.</a>" + 
                 "<br/><br/>Thank you for registering and have a nice time on KnowledgeBlackBelt.";
-        //TODO maxime uncomment when using mail
-         mailService.sendMail(user.getMail(), "Your new account", htmlMessage, MailType.IMMEDIATE, MailCategory.USER);
+        mailService.sendMail(user.getMail(), "Your new account", htmlMessage, MailType.IMMEDIATE, MailCategory.USER);
         System.out.println("mail sent: " + htmlMessage);  // To simulate the mailService until we have it.
     }
 
