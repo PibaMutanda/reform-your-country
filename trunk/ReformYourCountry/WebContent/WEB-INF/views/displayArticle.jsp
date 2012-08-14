@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c' %>
 <%@taglib prefix="s" uri="http://www.springframework.org/tags" %>
+<%@ taglib uri='/WEB-INF/tags/security.tld' prefix='ct'%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -15,12 +16,13 @@
 
 <h2>${articleTitle}</h2>
 <h3>${releaseDate}</h3>
-<s:eval expression="SecurityContext.isUserHasPrivilege(Privilege.EDIT_ARTICLE)" var="hasPrivilege" />
-<c:if test="${hasPrivilege}">
+
+<ct:security privilege="EDIT_ARTICLE">
 <form action=articleedit method ="POST">
 <input type = "submit" value ="Editer" />
 </form>
-</c:if>
+</ct:security>
+
 <p>${articleContent}</p>
 
 </body>
