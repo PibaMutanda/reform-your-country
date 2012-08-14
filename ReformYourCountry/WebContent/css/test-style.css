@@ -1,0 +1,26 @@
+body{
+	font-family:"Times new roman";
+	font-size: 18px;
+}
+
+
+ /* unvisited link */
+a:link {
+	color:rgb(67, 84, 126);
+	text-decoration: none;
+}
+/* visited link */
+a:visited {
+	color:rgb(67, 84, 126);
+	text-decoration: none;
+}
+ /* mouse over link */
+a:hover {
+	color:rgb(67, 84, 126);
+	text-decoration: underline;
+}
+ /* selected link */
+a:active {
+	color:rgb(67, 84, 126);
+	text-decoration: none;
+}
