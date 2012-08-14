@@ -1,0 +1,19 @@
+.title{
+	font-size: 26px;
+    color:rgb(67, 84, 126);
+    font-weight: bold;
+}
+.subtitle{
+    color:rgb(67, 84, 126);
+    font-weight: bold;
+    text-decoration: underline;
+	
+}
+.logo{
+	font-size: 40px;
+	
+}
+/*Separating line*/
+.line{
+	color:rgb(67, 84, 126);
+}

@@ -1,0 +1,27 @@
+.header-template{
+	height: 100;
+	border-bottom: 2px solid rgb(67, 84, 126); 
+	border-top: 2px solid rgb(67, 84, 126); 
+}
+.container-template{
+	position:relative;
+}
+.menu-template{
+	width: 100; 
+	overflow-x: hidden;  
+	float:left;
+ 	top:0;
+ 	left:0;
+ 	width:200px;
+ 	border-right: 2px solid rgb(67, 84, 126); 
+}
+.body-template{
+	float:left; 
+	width:800px;
+	top:0;
+	right:0;
+	padding-left: 15px;	
+}
+.footer-template{
+	 clear:both;
+}
