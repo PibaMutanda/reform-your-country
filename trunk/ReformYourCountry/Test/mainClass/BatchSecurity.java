@@ -1,4 +1,4 @@
-package reformyourcountry.security;
+package mainClass;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +13,8 @@ import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountStatus;
 import reformyourcountry.model.User.Gender;
 import reformyourcountry.repository.UserRepository;
+import reformyourcountry.security.Privilege;
+import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.LoginService;
 import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
 import reformyourcountry.service.UserService;
