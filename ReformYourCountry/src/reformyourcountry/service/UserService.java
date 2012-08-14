@@ -9,12 +9,11 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import reformyourcountry.exception.UserAlreadyExistsException;
-import reformyourcountry.exception.UserAlreadyExistsException.identifierType;
+import reformyourcountry.exception.UserAlreadyExistsException.IdentifierType;
 import reformyourcountry.mail.MailCategory;
 import reformyourcountry.mail.MailType;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountStatus;
-import reformyourcountry.model.User.Gender;
 import reformyourcountry.repository.UserRepository;
 import blackbelt.util.SecurityUtils;
 
@@ -33,7 +32,7 @@ public class UserService {
     protected Logger logger = Logger.getLogger(getClass());
     
     @Autowired 
-    private UserRepository userDao;
+    private UserRepository userRepository;
     
     @Autowired 
     private mailService mailService;
@@ -46,19 +45,15 @@ public class UserService {
      *            : validate an account directly without send a mail
      */
 
-    public User registerUser(boolean directValidation, String firstname, String lastname,
-            Gender gender, String username, String passwordInClear, String mail) throws UserAlreadyExistsException {
+    public User registerUser(boolean directValidation, String username, String passwordInClear, String mail) throws UserAlreadyExistsException {
         
-        if (userDao.getUserByUserName(username) != null)    {
-            throw new UserAlreadyExistsException(identifierType.USERNAME, username);
+        if (userRepository.getUserByUserName(username) != null)    {
+            throw new UserAlreadyExistsException(IdentifierType.USERNAME, username);
         }
-        if (userDao.getUserByEmail(mail) != null){
-            throw new UserAlreadyExistsException(identifierType.MAIL, username);
+        if (userRepository.getUserByEmail(mail) != null){
+            throw new UserAlreadyExistsException(IdentifierType.MAIL, mail);
         }
         User newUser = new User();
-        newUser.setFirstName(firstname);
-        newUser.setLastName(lastname);
-        newUser.setGender(gender);
         newUser.setUserName(username);
         newUser.setPassword(SecurityUtils.md5Encode(passwordInClear));
         newUser.setMail(mail);
@@ -74,7 +69,7 @@ public class UserService {
         }
 
         //// Save the user in the db
-        userDao.persist(newUser);
+        userRepository.persist(newUser);
 
         // All is ok lets eventually send a validation email
         if (!directValidation) {
@@ -160,7 +155,7 @@ public class UserService {
         String newPassword = SecurityUtils.generateRandomPassword(8, 12);
         // we set the new password to the user
         user.setPassword(SecurityUtils.md5Encode(newPassword));
-        userDao.merge(user);
+        userRepository.merge(user);
 
         // TODO maxime uncomment when mail service available
 //        mailService.sendMail(user.getMail(), "Password Recovery",
@@ -189,7 +184,7 @@ public class UserService {
                 + newFirstName + " - " + newLastName);
         user.setFirstName(newFirstName);
         user.setLastName(newLastName);
-        userDao.merge(user);
+        userRepository.merge(user);
     }
 
 
