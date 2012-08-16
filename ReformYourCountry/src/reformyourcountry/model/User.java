@@ -418,6 +418,8 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
         return privileges;
     }
 
+  
+    
 
     public static long getSerialversionuid() {
         return serialVersionUID;
