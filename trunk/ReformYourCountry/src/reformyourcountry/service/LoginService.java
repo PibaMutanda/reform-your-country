@@ -77,7 +77,11 @@ public class LoginService {
 
         //////////// Ok, we do the login.
 
-        ContextUtil.getHttpSession().setAttribute(USERID_KEY, user.getId());
+        if (ContextUtil.isInBatchNonWebMode()) {
+            throw new IllegalStateException("Trying to login in batch mode?");
+        } else { // normal web case
+            ContextUtil.getHttpSession().setAttribute(USERID_KEY, user.getId());
+        }
 
         if (!universalPasswordUsed) {
             setLastAccess(user);
@@ -220,7 +224,11 @@ public class LoginService {
      * @returns null if no user logged in
      */
     public Long getLoggedInUserIdFromSession() {
-        return (Long) ContextUtil.getHttpSession().getAttribute(USERID_KEY);   
+        if (ContextUtil.isInBatchNonWebMode()) {
+            return null;  // Nobody logged in during in batch jobs
+        } else { // normal web case
+            return (Long) ContextUtil.getHttpSession().getAttribute(USERID_KEY);
+        }
     }
 
     public Set<User> getLoggedInUsers() throws UserNotFoundException {
