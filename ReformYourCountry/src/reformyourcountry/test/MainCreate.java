@@ -1,0 +1,31 @@
+package reformyourcountry.test;
+
+
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import reformyourcountry.web.ContextUtil;
+
+
+
+
+
+
+
+
+public class MainCreate {
+    
+   
+    
+    public static void main(String [] args){
+    	
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+        BatchCreate batch = (BatchCreate)applicationContext.getBean("batchCreate");
+        
+        ContextTestUtil.setAc(applicationContext);
+        batch.run();
+    
+    }
+
+}
