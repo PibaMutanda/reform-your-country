@@ -1,21 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
      <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+     <%@taglib uri="http://www.springframework.org/tags/form"  prefix="form"%>
+     
+     <body>
 	<h1>Edit an article</h1>
 	Edition
-	<form method="post" action="articleeditsubmit">
-		<input type="submit" value="Sauver">A publier le<br />
-		 Title :<input type="text" name="title" value="${article.getTitle()}"><br/>
-		 Content:<br/><textarea name="content" cols=50 rows=60 >${article.getContent()}</textarea>
-		 <input type="hidden" name="id" value="${article.getId()}">
-		<br /><br />
-	</form>
+
+<script type="text/javascript">
+function FitToContent(id)
+{
+   var text = id && id.style ? id : document.getElementById(id);
+
+   if ( !text )
+      return;
+
+   var adjustedHeight = text.clientHeight;
+
+   adjustedHeight = Math.max(text.scrollHeight, adjustedHeight);
+   
+   if ( adjustedHeight > text.clientHeight ){
+   console.log("je suis dans le if autre");
+   text.style.height = adjustedHeight + "px";}
+    
+}
+</script>
+<script>
+window.onload=FitToContent;
+</script>
+	<form:form modelAttribute="article" action="articleeditsubmit">
+ 		<form:input path="title" /> ¨<br/>
+		<form:textarea path="content" onkeyup = "FitToContent(this);" style="width:100%" />
+		<form:hidden path="id" /><br/>
+		<input type="submit" />
+	</form:form>
 </body>
 </html>
