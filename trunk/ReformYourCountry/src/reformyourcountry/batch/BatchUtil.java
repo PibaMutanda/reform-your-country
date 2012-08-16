@@ -1,19 +1,19 @@
 package reformyourcountry.batch;
 
-import org.apache.log4j.Logger;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import reformyourcountry.exception.ExceptionUtil;
+import reformyourcountry.test.BatchCreate;
 import reformyourcountry.web.ContextUtil;
 
 public abstract class BatchUtil {
 	
 	/** Called by a main method to start a batch easily. That batch class must be a spring bean (@Service).
 	 *  BatchUtil.startSpringBatch(CreateTestDataBatch.class);
-	 */
-	public static void startSpringBatch(Class<? extends Runnable> batchClass) {
+	 */ 
+//	public static void startSpringBatch(Class<? extends Runnable> batchClass) {
+	public static void startSpringBatch(Class<? extends BatchCreate> batchClass) {
 		ConfigurableApplicationContext applicationContext = new ClassPathXmlApplicationContext(new String[]{
 		"applicationContext.xml" });
 		//sessionFactory = (SessionFactory) applicationContext.getBean("sessionFactory");
@@ -21,7 +21,8 @@ public abstract class BatchUtil {
 		//TransactionSynchronizationManager.bindResource(sessionFactory,
 		//		new SessionHolder(session));
 		ContextUtil.contextInitialized(applicationContext);
-		Runnable batchObject = (Runnable)applicationContext.getBean(batchClass);
+//		Runnable batchObject = (Runnable)ContextUtil.getSpringBean("batchCreate");
+        BatchCreate batchObject = ContextUtil.getSpringBean(batchClass);
 		
 		try{
 			batchObject.run();
