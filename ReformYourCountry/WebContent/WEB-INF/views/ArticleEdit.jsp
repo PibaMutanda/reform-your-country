@@ -4,6 +4,7 @@
      <%@taglib uri="http://www.springframework.org/tags/form"  prefix="form"%>
      
      <body>
+    
 	<h1>Edit an article</h1>
 	Edition
 
@@ -25,14 +26,12 @@ function FitToContent(id)
     
 }
 </script>
-<script>
-window.onload=FitToContent;
-</script>
+
 	<form:form modelAttribute="article" action="articleeditsubmit">
  		<form:input path="title" /> ¨<br/>
-		<form:textarea path="content" onkeyup = "FitToContent(this);" style="width:100%" />
+		<form:textarea path="content"  onkeyup="FitToContent(this);" style="width:100%" />
 		<form:hidden path="id" /><br/>
-		<input type="submit" />
+		<input type="submit" value="Editer"/>
 	</form:form>
 </body>
 </html>
