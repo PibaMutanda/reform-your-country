@@ -50,6 +50,7 @@ public class DisplayArticleController {
         mv.addObject("releaseDate",article.getReleaseDate());
         mv.addObject("articleContent",bbc.transformBBCodeToHtmlCode(article.getContent()));
         mv.addObject("parentsTree",parentArticlesReverse);
+        mv.addObject("id",article.getId());
         return mv;
         }
         return null;

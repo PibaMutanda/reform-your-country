@@ -28,6 +28,7 @@ public class ArticleEditController {
 		 return mv;
 	 }
 	 
+	 
 	 @RequestMapping("/articleeditsubmit")
 	 public ModelAndView articleEditSubmit(@ModelAttribute Article article){
 		 articleRepository.merge(article);
