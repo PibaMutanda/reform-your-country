@@ -18,9 +18,8 @@ import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
 public class LoginController {
 
     @Autowired LoginService loginService;
-    @Autowired ServletContext servletContext;
     
-    
+ 
     @RequestMapping("/login")
     public String login() {
         return "login";
