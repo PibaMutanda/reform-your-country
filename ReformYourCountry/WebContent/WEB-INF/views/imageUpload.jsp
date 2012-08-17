@@ -16,7 +16,7 @@
 <script src="http://code.jquery.com/jquery-1.6.3.min.js"></script>
 
 <!-- Including the HTML5 Uploader plugin -->
-<script src="../js/jquery.filedrop.js"></script>/
+<script src="/ReformYourCountry/js/jquery.filedrop.js"></script>/
 
 <!-- The main script file -->
-<script src="../js/script.js"></script>
+<script src="js/script.js"></script>
