@@ -10,7 +10,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import reformyourcountry.web.ContextUtil;
+
 public abstract class FileUtils {
+    
+    // In dev mode, returns somthing like C:\Users\forma308\Documents\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ReformYourCountry\gen 
+    public static String getGenFolderPath() {
+        return ContextUtil.getServletContext().getRealPath("/gen");
+    }
+    
     
     /**
      * Return a list of file names contained in a given folder.
