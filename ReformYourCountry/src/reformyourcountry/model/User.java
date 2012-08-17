@@ -168,7 +168,7 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     @ElementCollection(targetClass=Privilege.class, fetch=FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     @JoinTable(name="users_privileges")
-    @Column(name="privilege", nullable=false,length = 20)
+    @Column(name="privilege", nullable=false,length = 50)
     private Set<Privilege> privileges = new HashSet<Privilege>();
 
     private Date lastAccess;

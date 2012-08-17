@@ -2,6 +2,7 @@ package reformyourcountry.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import reformyourcountry.model.User;
 import reformyourcountry.model.User.Role;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.security.Privilege;
+import reformyourcountry.security.SecurityContext;
 @Controller
 public class PrivilegeController {
 	public class PrivilegeTriplet{
@@ -43,9 +45,9 @@ public class PrivilegeController {
 	@Autowired
 	UserRepository ur;
 	@RequestMapping(value="/editprivilege")
-	public ModelAndView EditPrivilege(@RequestParam(value="role",required=false) Role role) {
+	public ModelAndView EditPrivilege(@RequestParam(value="role",required=false) Role role,@RequestParam(value="id") String id) {
 		ModelAndView mv =new ModelAndView("Privilege");
-		User uzr=ur.find(1l);//TODO change to threadlocal...
+		User uzr=ur.find(Long.parseLong(id));
 		List<PrivilegeTriplet> triplets = new ArrayList<PrivilegeTriplet>();
 		for(Privilege privilege : Privilege.values()){
 			PrivilegeTriplet newTriplet = new PrivilegeTriplet();
@@ -64,6 +66,18 @@ public class PrivilegeController {
 		mv.addObject("user", uzr);
 		mv.addObject("privilegetriplets",triplets);
 		
+		return mv;
+	}
+	@RequestMapping(value="/saveprivilege")
+	public ModelAndView SavePrivilege(@RequestParam Map <String, String> params){
+		ModelAndView mv = new ModelAndView("UserPage");
+		User uzr = ur.find(Long.parseLong(params.get("id")));
+		params.remove("id");
+		uzr.getPrivileges().clear();		
+		for (Map.Entry<String, String> entry: params.entrySet()) {
+			uzr.getPrivileges().add(Privilege.valueOf(entry.getKey()));
+        }
+		mv.addObject("user", uzr);
 		return mv;
 	}
 }

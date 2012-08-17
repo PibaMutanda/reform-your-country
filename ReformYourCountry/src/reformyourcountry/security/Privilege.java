@@ -37,7 +37,6 @@ public enum Privilege {
 	public String getName() {
 		return name;
 	}
-
 	
 	public boolean isPartOfUserPrivileges(User user){
 		if(user == null){
