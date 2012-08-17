@@ -9,27 +9,29 @@
 </head>
 <body>
 <h1>Créer un article</h1>
-<form action="articlecreate" method="POST">
-Nom:<input type="text" name="name"> <input type="submit" value="Creer article"> <input type="submit" value="Annuler">
-
-</form>
-
-<br/>
+<form  method="Post" action="articlecreatesubmit">
+Title: <input type="text" name="title"> <input type="submit" value="Creer article"><br/>
 Parent:
 <br/>
-<c:forEach items="${listArticles}" var="article">
-		<input type='radio' name='category'/>${article.getTitle()}<br/>
+
+	<c:forEach items="${listArticles}" var="article">
+		<input type='radio' name='category' value="${article.getId()}"/>${article.getTitle()}<br/>
 		<c:choose>
-		
-			<c:when test="${article.getChildren().isEmpty()}">
-				<c:out value="no sub-category"></c:out><br/>
+
+			<c:when test="${article.getChildren().isEmpty()==false}">
+				<c:forEach items="${article.getChildren()}" var="children">
+			   		&nbsp&nbsp<input type='radio' name='category' value="${children.getId()}" />${children.getTitle()}<br />
+					<c:if test="${children.getChildren().isEmpty()==false}">
+						<c:forEach items="${children.getChildren()}" var="subchildren">
+			      		&nbsp&nbsp&nbsp&nbsp<input type='radio' name='category' value="${subchildren.getId()}"/>${subchildren.getTitle()}<br />
+						</c:forEach>
+					</c:if>
+				</c:forEach>
 			</c:when>
-			<c:otherwise>
-			   <c:forEach items="${article.getChildren()}" var="children">
-			    &nbsp&nbsp&nbsp&nbsp<input type='radio' name='sub-category'/>${children.getTitle()}<br/>
-			   </c:forEach>
-			</c:otherwise>
+
 		</c:choose>
 	</c:forEach>
+	
+</form>	
 </body>
 </html>
