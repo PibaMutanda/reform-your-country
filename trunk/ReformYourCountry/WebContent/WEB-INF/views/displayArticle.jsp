@@ -8,11 +8,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>{$article.title}</title>
 </head>
+
+<body>
 <h2><c:forEach items = "${parentsTree}" var ="article">
     <a href ="Display?id=${article.id}">${article.title}></a>
 </c:forEach></h2>
-<body>
-
 <h2>${articleTitle}</h2>
 <h3>${releaseDate}</h3>
 
