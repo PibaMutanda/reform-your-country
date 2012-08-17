@@ -9,21 +9,23 @@
 <title>Privilege</title>
 </head>
 <body>
+<ryc:security privilege="MANAGE_USERS">
 <h1>Liste des Privileges pour ${user.userName }</h1><br>
 <h2>Roles :</h2><br>
+
 	<form action="editprivilege">
 		<input type="radio" name="role" value="ADMIN" <c:if test="${role == 'ADMIN'}">checked="checked"</c:if>>Administrateur	<br>
 		<input type="radio" name="role" value="MODERATOR" <c:if test="${role == 'MODERATOR'}">checked="checked"</c:if>>Modérateur<br>
 		<input type="radio" name="role" value="USER" <c:if test="${role == 'USER'}">checked="checked"</c:if>>Utilisateur<br>
 		<input type="submit" value="Sélectionner rôle"><br>
 	</form>
-	<form action="privilegeedit" method="post">		
+	<form action="saveprivilege" method="post">		
 		<input type="hidden" name ="id" value="${user.id}">
 		<table border="1">
 		<c:forEach items="${privilegetriplets}" var="triplets">
 		<tr>
 			<td><c:if test="${role != triplets.getRole()}">
-				<input type="checkbox" <c:if test="${triplets.isPermitted()}">checked="checked"</c:if>>
+				<input type="checkbox" name="${triplets.getPrivilege().name()}" value="${triplets.getPrivilege().name}"<c:if test="${triplets.isPermitted()}">checked="checked"</c:if>>
 			</c:if></td>
 			<td><c:if test="${role == triplets.getRole()}">Dérivé du rôle</c:if></td>
 			<td>${triplets.getPrivilege().name}<br></td>
@@ -32,5 +34,6 @@
 		</table>
 		<input type="submit" value="Enregistrer">
 	</form>
+</ryc:security>
 </body>
 </html>

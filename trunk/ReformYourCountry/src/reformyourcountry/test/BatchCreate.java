@@ -184,6 +184,7 @@ public class BatchCreate implements Runnable {
             user.setRegistrationDate(new Date());
             user.setRole(Role.MODERATOR);
             user.getPrivileges().add(Privilege.EDIT_ARTICLE);
+            user.getPrivileges().add(Privilege.MANAGE_USERS);
 
             user.setSpammer(false);
             user.setSpamReporter(null);
