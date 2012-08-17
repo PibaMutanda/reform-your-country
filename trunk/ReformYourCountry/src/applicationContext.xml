@@ -19,7 +19,7 @@
  
  <bean id="entityManagerFactory"
   class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
-  <property name="persistenceUnitName" value="ConnectionPostgres" />
+  <property name="persistenceUnitName" value="ConnectionH2" />
  </bean>
 
  <!-- Transaction manager for a single JPA EntityManagerFactory (alternative 

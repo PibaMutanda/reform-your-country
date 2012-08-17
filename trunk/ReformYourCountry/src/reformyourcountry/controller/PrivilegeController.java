@@ -21,7 +21,7 @@ public class PrivilegeController {
 		public boolean permitted = false;
 		public Privilege privilege;
 		public Role role;
-		
+
 		public boolean isPermitted() {
 			return permitted;
 		}
@@ -40,12 +40,12 @@ public class PrivilegeController {
 		public void setRole(Role role) {
 			this.role = role;
 		}
-		
+
 	}
 	@Autowired
 	UserRepository ur;
 	@RequestMapping(value="/editprivilege")
-	public ModelAndView EditPrivilege(@RequestParam(value="role",required=false) Role role,@RequestParam(value="id") String id) {
+	public ModelAndView EditPrivilege(@RequestParam(value="role",required=false)String role,@RequestParam(value="id") String id) {
 		ModelAndView mv =new ModelAndView("Privilege");
 		User uzr=ur.find(Long.parseLong(id));
 		List<PrivilegeTriplet> triplets = new ArrayList<PrivilegeTriplet>();
@@ -58,14 +58,14 @@ public class PrivilegeController {
 			newTriplet.setRole(privilege.getAssociatedRole());
 			triplets.add(newTriplet);
 		}
-		if (role!=null) {
-			mv.addObject("role", role.name());
+		if (role==null) {
+			mv.addObject("role", uzr.getRole().name());
 		}else{
-			mv.addObject("role","");
+			uzr.setRole(Role.valueOf(role));
 		}
 		mv.addObject("user", uzr);
 		mv.addObject("privilegetriplets",triplets);
-		
+
 		return mv;
 	}
 	@RequestMapping(value="/saveprivilege")
@@ -76,7 +76,7 @@ public class PrivilegeController {
 		uzr.getPrivileges().clear();		
 		for (Map.Entry<String, String> entry: params.entrySet()) {
 			uzr.getPrivileges().add(Privilege.valueOf(entry.getKey()));
-        }
+		}
 		mv.addObject("user", uzr);
 		return mv;
 	}
