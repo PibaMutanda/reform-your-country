@@ -9,8 +9,11 @@
      <c:choose>
         <c:when test="${current.user!=null}">
           <c:out value="${current.user.userName}"></c:out><br />
-          <a href="home">Déconnexion</a></c:when>
-        <c:otherwise><a href="login">Connexion</a></c:otherwise>
+          <a href="logout">Déconnexion</a>
+        </c:when>
+        <c:otherwise>
+          <a href="login">Connexion</a>
+         </c:otherwise>
      </c:choose>
    
 </div>

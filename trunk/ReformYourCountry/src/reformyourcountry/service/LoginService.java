@@ -22,6 +22,7 @@ import reformyourcountry.misc.CurrentEnvironment;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountStatus;
 import reformyourcountry.repository.UserRepository;
+import reformyourcountry.security.SecurityContext;
 import reformyourcountry.web.ContextUtil;
 import reformyourcountry.web.Cookies;
 import reformyourcountry.web.HttpSessionTracker;
@@ -153,8 +154,8 @@ public class LoginService {
     public void logout() {
         ContextUtil.getHttpSession().invalidate();
         ContextUtil.getHttpServletRequest().getSession(true);
-        Cookies.clearLoginCookies();
-        // TODO: redirect to home page? 
+        SecurityContext.clear();
+        Cookies.clearLoginCookies();        
     }
 
     /**

@@ -56,8 +56,9 @@ public class LoginController {
             mv.addObject("error", errorMsg);
             return mv;
         } else {    
-                         
-            return  new ModelAndView("home");
+            
+               
+            return  new ModelAndView("welcome");
         }
     }
 }

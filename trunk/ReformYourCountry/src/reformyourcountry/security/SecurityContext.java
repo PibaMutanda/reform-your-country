@@ -41,7 +41,6 @@ public  class SecurityContext {
         user.set(null);
         userId.set(null);
         contextualCustomPrivileges.set(null);
-      
     }
 
     public static void assertUserHasPrivilege(Privilege privilege) throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
