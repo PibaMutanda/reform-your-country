@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator"
 	prefix="decorator"%>
-<!DOCTYPE html>
+<!DOCTYPE html >
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="/ReformYourCountry/css/test-style.css" />
