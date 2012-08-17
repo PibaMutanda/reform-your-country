@@ -33,7 +33,9 @@ public class BaseEntity {
     @OneToOne
     User updatedBy;
     Date updatedOn;
-  
+
+    transient @Transient boolean hashCodeOrEqualsCalledWithIdNull = false;  // Protection for preventing 2 consecutive calls to hashCode/equals to return a different value.
+    
 
     
  @PrePersist
@@ -78,20 +80,28 @@ public class BaseEntity {
     
     @Override
     public int hashCode(){
-        if (this.getId()==null){
-            throw new RuntimeException("Bug: We should not call hashCode on an entity that have not been persisted yet " +
-                    "because they have a null id. Because the equals is based on id, hashCode must be based on id too. " +
-                    "If hashCode is called before the id is assigned, then the hashCode will change if called later when " +
-                    "the id will have been assigned. But hashCode never can change (must always return the same value). " +
-                    "This exceptin may happen because you have put an entity in a collection " +
-                    "(an HashSet, maybe) that calls hashCode, before you have persisted it. " +
-                    "It's typically the case when you put an entity in a " +
-                    "-toMany relationship before you call EntityManager.persist on that entity. " +
-                    "Using this BaseEntity class constraints you not doing that (else subtle bugs may arrive by the back door).");
+        if (this.getId()==null) {
+        	hashCodeOrEqualsCalledWithIdNull = true;
+        	return 0;
+        } else {
+        	assertConsistentCall();
+            return this.getId().hashCode();
         }
-        return this.getId().hashCode();
-      
     }
+
+	private void assertConsistentCall() {
+		if (hashCodeOrEqualsCalledWithIdNull) { // We have an inconsistent 2nd call
+		    throw new RuntimeException("Bug: We should not call hashCode on an entity that have not been persisted yet " +
+		            "because they have a null id. Because the equals is based on id, hashCode must be based on id too. " +
+		            "If hashCode is called before the id is assigned, then the hashCode will change if called later when " +
+		            "the id will have been assigned. But hashCode never can change (must always return the same value). " +
+		            "This exceptin may happen because you have put an entity in a collection " +
+		            "(an HashSet, maybe) that calls hashCode, before you have persisted it. " +
+		            "It's typically the case when you put an entity in a " +
+		            "-toMany relationship before you call EntityManager.persist on that entity. " +
+		            "Using this BaseEntity class constraints you not doing that (else subtle bugs may arrive by the back door).");
+		}
+	}
     
     @Override
     public boolean equals(Object other){
