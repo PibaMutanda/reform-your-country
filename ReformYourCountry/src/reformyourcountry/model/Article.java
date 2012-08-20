@@ -6,20 +6,28 @@ import java.util.List;
 import javax.persistence.*;
 @Entity
 public class Article extends BaseEntity {
-    @Column(length = 100)
+
+	@Column(length = 100)
 	private String title;
+
 	private String url;
+
 	@Lob
 	private String summary;
+
 	@Lob
 	private String content;
+
 	private Date releaseDate;
-	@ManyToOne
-	@JoinColumn
-	private Article parent;
+
 	@ManyToMany
 	@JoinTable(name = "ARTICLE_ACTION", joinColumns = @JoinColumn(name = "ARTICLE_ID"), inverseJoinColumns = @JoinColumn(name="ACTION_ID"))
 	private List<Action> actions = new ArrayList<Action>();
+
+	@ManyToOne
+	@JoinColumn
+	private Article parent;
+
 	@OneToMany(mappedBy = "parent")
 	private List<Article> children = new ArrayList <Article>();
 	
