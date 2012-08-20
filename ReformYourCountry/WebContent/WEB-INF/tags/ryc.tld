@@ -31,8 +31,18 @@
 	</tag>
 	
 	<tag>
-		<name>security</name>
-		<tag-class>reformyourcountry.tag.SecurityAccesTag</tag-class>
+		<name>assertPrivilege</name>
+		<tag-class>reformyourcountry.tag.AssertPrivilegeTag</tag-class>
+		<body-content>scriptless</body-content>
+		<attribute>
+			<name>privilege</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<name>conditionDisplay</name>
+		<tag-class>reformyourcountry.tag.ConditionDisplayTag</tag-class>
 		<body-content>scriptless</body-content>
 		<attribute>
 			<name>privilege</name>

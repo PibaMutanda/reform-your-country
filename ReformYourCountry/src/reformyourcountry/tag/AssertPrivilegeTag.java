@@ -9,7 +9,8 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
 
-public class SecurityAccesTag extends SimpleTagSupport {
+/** Prevents a JSP from executing if the user does not have a specific privilege */
+public class AssertPrivilegeTag extends SimpleTagSupport {
     
     
     Privilege privilege;
@@ -27,16 +28,7 @@ public class SecurityAccesTag extends SimpleTagSupport {
 
     @Override
     public void doTag() throws JspException, IOException {
-       
-        
-        if(SecurityContext.isUserHasPrivilege(privilege)){
-            
-   
-        getJspBody().invoke(null);
-        
-        
-        }
-        
+        SecurityContext.assertUserHasPrivilege(privilege);
     }
 
 }

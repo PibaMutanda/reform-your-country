@@ -43,13 +43,13 @@ public  class SecurityContext {
         contextualCustomPrivileges.set(null);
     }
 
-    public static void assertUserHasPrivilege(Privilege privilege) throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
+    public static void assertUserHasPrivilege(Privilege privilege) {
         if (!isUserHasPrivilege(privilege)) {
             throw new UnauthorizedAccessException(privilege);
         }
     }
 
-    public static void assertUserIsLoggedIn() throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
+    public static void assertUserIsLoggedIn() {
         if (getUser() == null) {
             throw new UnauthorizedAccessException();
         }
