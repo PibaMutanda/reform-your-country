@@ -1,6 +1,7 @@
 package reformyourcountry.controller;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 
@@ -15,8 +16,12 @@ import reformyourcountry.model.User.Role;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
+
+/** To edit the role and privileges of a user */
 @Controller
 public class PrivilegeController {
+	
+	// Stores 3 values for each privilege. It eases the job of the JSP putting these values in a table.
 	public class PrivilegeTriplet{
 		public boolean permitted = false;
 		public Privilege privilege;
@@ -42,42 +47,64 @@ public class PrivilegeController {
 		}
 
 	}
-	@Autowired
-	UserRepository ur;
-	@RequestMapping(value="/editprivilege")
-	public ModelAndView EditPrivilege(@RequestParam(value="role",required=false)String role,@RequestParam(value="id") String id) {
+	
+	@Autowired 	UserRepository userRepository;
+	
+	
+	@RequestMapping(value="/privilegeedit")
+	public ModelAndView privilegeEdit(@RequestParam(value="id") Long userId) {
+		SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_USERS);
+		User user = userRepository.find(userId);
+		return createModelAndView(user);
+	}
+	
+	
+	
+	@RequestMapping(value="/roleeditsubmit")
+	public ModelAndView roleEditSubmit(@RequestParam(value="role")String role,@RequestParam(value="id") Long userId) {
+		SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_USERS);
+		User user = userRepository.find(userId);
+		user.setRole(Role.valueOf(role));
+		return createModelAndView(user);
+	}
+
+	@RequestMapping(value="/privilegeeditsubmit")
+	public ModelAndView privilegeEditSubmit(@RequestParam Map <String, String> params){
+		SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_USERS);
+		ModelAndView mv = new ModelAndView("UserPage");
+		User user = userRepository.find(Long.parseLong(params.get("id")));
+		params.remove("id");
+		user.getPrivileges().clear();		
+		for (Map.Entry<String, String> entry: params.entrySet()) {
+			try {
+				user.getPrivileges().add(Privilege.valueOf(entry.getKey()));
+			} catch (Exception e) {
+				throw new IllegalArgumentException("parameters should only contains Id and privileges");
+			}
+		}
+		mv.addObject("user", user);
+		return mv;
+	}
+	
+	private ModelAndView createModelAndView(User user) {
 		ModelAndView mv =new ModelAndView("Privilege");
-		User uzr=ur.find(Long.parseLong(id));
+		mv.addObject("user", user);
+		
+		// Create triplet list
 		List<PrivilegeTriplet> triplets = new ArrayList<PrivilegeTriplet>();
-		for(Privilege privilege : Privilege.values()){
+		EnumSet<Privilege> usersprivilege = SecurityContext.getAllAssociatedPrivileges(user);
+		for (Privilege privilege : Privilege.values()) {
 			PrivilegeTriplet newTriplet = new PrivilegeTriplet();
 			newTriplet.setPrivilege(privilege);
-			if(uzr.getPrivileges().contains(privilege)){
+			if (usersprivilege.contains(privilege)) {
 				newTriplet.setPermitted(true);
 			}
 			newTriplet.setRole(privilege.getAssociatedRole());
 			triplets.add(newTriplet);
 		}
-		if (role==null) {
-			mv.addObject("role", uzr.getRole().name());
-		}else{
-			uzr.setRole(Role.valueOf(role));
-		}
-		mv.addObject("user", uzr);
-		mv.addObject("privilegetriplets",triplets);
+		mv.addObject("privilegetriplets", triplets);
+		return mv;
+	}
+	
 
-		return mv;
-	}
-	@RequestMapping(value="/saveprivilege")
-	public ModelAndView SavePrivilege(@RequestParam Map <String, String> params){
-		ModelAndView mv = new ModelAndView("UserPage");
-		User uzr = ur.find(Long.parseLong(params.get("id")));
-		params.remove("id");
-		uzr.getPrivileges().clear();		
-		for (Map.Entry<String, String> entry: params.entrySet()) {
-			uzr.getPrivileges().add(Privilege.valueOf(entry.getKey()));
-		}
-		mv.addObject("user", uzr);
-		return mv;
-	}
 }
