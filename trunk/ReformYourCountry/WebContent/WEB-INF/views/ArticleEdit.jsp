@@ -31,10 +31,10 @@ function FitToContent(id)
 </script>
 
 	<form:form modelAttribute="article" action="articleeditsubmit">
+		<input type="submit" value="Sauver"/>
  		<form:input path="title" /> ¨<br/>
 		<form:textarea path="content" onkeyup="FitToContent(this);" style="width:100%" />
 		<form:hidden path="id" /><br/>
-		<input type="submit" value="Editer"/>
 	</form:form>
 </body>
 </html>
