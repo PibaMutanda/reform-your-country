@@ -18,7 +18,7 @@ public class FileUploadController {
         if (!file.isEmpty()) {
             byte[] bytes = file.getBytes();
             // store the bytes somewhere
-           return "redirect:uploadSuccess";
+           return "redirect:home";
        } else {
            return "redirect:uploadFailure";
        }
