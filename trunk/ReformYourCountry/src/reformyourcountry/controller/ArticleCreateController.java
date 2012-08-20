@@ -30,12 +30,13 @@ public class ArticleCreateController {
 	}
 	
 	@RequestMapping("/articlecreatesubmit")
-	 public ModelAndView articleCreateSubmit(@RequestParam("title")String title,@RequestParam("id")Long id){
+	 public ModelAndView articleCreateSubmit(@RequestParam("title")String title,@RequestParam("parentid")Long parentid){
 		Article article = new Article(title,"content to edit");
-		Article parent=articleRepository.find(id);
+		Article parent=articleRepository.find(parentid);
 		article.setParent(parent);
-		article.getParent().getChildren().add(article);
+		parent.getChildren().add(article);
 		articleRepository.persist(article);
+		articleRepository.merge(parent);
 		return displayArticleController.displayArticle(article.getId());
 	 }
 	 
