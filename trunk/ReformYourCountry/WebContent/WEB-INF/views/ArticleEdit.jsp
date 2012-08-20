@@ -20,16 +20,19 @@ function FitToContent(id)
 
    adjustedHeight = Math.max(text.scrollHeight, adjustedHeight);
    
-   if ( adjustedHeight > text.clientHeight ){
+   if ( adjustedHeight > text.clientHeight){
    console.log("je suis dans le if autre");
    text.style.height = adjustedHeight + "px";}
-    
+   
+   if ( adjustedHeight < text.clientHeight){
+	   console.log("je suis dans le if autre");
+	   text.style.height = adjustedHeight + "px";} 
 }
 </script>
 
 	<form:form modelAttribute="article" action="articleeditsubmit">
  		<form:input path="title" /> ¨<br/>
-		<form:textarea path="content"  onkeyup="FitToContent(this);" style="width:100%" />
+		<form:textarea path="content" onkeyup="FitToContent(this);" style="width:100%" />
 		<form:hidden path="id" /><br/>
 		<input type="submit" value="Editer"/>
 	</form:form>
