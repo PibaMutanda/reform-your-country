@@ -6,13 +6,11 @@
     <form id='uploadForm' action="imageuploadsubmit" method="post">
         <fieldset>
             <legend>Files</legend>
-            <br /> <span id='filename'></span><br /> <a href='#'
-                id='attach'>Add a file</a><br /> <input id="upload"
-                type="file" name="file" data-url="${fileUploadUrl}"
-                multiple
-                style=""><br />
-            <input type='button' value='Reset' id='reset' /> <input
-                type='submit' value='Upload' id='submit' />
+            <br /> <span id='filename'></span><br />
+            <a href='#' id='attach'>Add a file</a><br />
+            <input id="upload" type="file" name="files" data-url="${fileUploadUrl}" multiple style=""><br />
+            <input type='button' value='Reset' id='reset' />
+            <input type='submit' value='Upload' id='submit' />
         </fieldset>
     </form>
 </div>
