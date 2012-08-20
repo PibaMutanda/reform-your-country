@@ -1,5 +1,5 @@
 .header-template{
-	height: 100;
+	height: 100px;
 	border-bottom: 2px solid rgb(67, 84, 126); 
 	border-top: 2px solid rgb(67, 84, 126); 
 }
@@ -7,7 +7,7 @@
 	position:relative;
 }
 .menu-template{
-	width: 100; 
+	width: 100px; 
 	overflow-x: hidden;  
 	float:left;
  	top:0;
