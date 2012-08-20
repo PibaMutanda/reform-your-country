@@ -21,12 +21,13 @@
 			<input type="hidden" name="id" value="${id}"> <input
 				type="submit" value="Editer" />
 		</form>
+		<form action="articleparentedit" method="GET">
+			<input type="hidden" name="id" value="${id}" /> <input type="submit"
+				value="Editer Parent" />
+		</form>
 </ryc:security>
 
-<form action="articleparentedit" method="GET">
-   <input type="hidden" name="id" value="${id}" />
-   <input type = "submit" value ="Editer Parent" />
-</form>
+
 
 
 
