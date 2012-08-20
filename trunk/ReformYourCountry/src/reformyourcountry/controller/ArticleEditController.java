@@ -17,7 +17,7 @@ import reformyourcountry.repository.ArticleRepository;
 public class ArticleEditController {
 
 	 @Autowired ArticleRepository articleRepository;
-	 @Autowired DisplayArticleController displayArticleController;
+	 @Autowired ArticleDisplayController displayArticleController;
 
 	
 	 @RequestMapping("/articleedit")
