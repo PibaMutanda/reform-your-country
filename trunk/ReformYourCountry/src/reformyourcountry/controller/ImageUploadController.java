@@ -1,6 +1,8 @@
 package reformyourcountry.controller;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,13 +21,25 @@ public class ImageUploadController {
     }
 
     @RequestMapping("/imageuploadsubmit")
-    public String imageUploadSubmit(@RequestParam("files") MultipartFile files)  {
-       File folder=null; 
+    public String imageUploadSubmit(@RequestParam("files") MultipartFile multipartFile) throws IOException  {
+       File folder = FileUtil.ensureFolderExists(FileUtil.getGenFolderPath());
        
-       folder=FileUtil.ensureFolderExists("gen");
-       System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+       if (!multipartFile.isEmpty()) {
+           File file = new File(folder, "testFile.txt");  // multipartFile.getFileName()
+           FileOutputStream fos;
+           try {
+               fos = new FileOutputStream(file);
+               fos.write(multipartFile.getBytes());
+           } catch (final java.io.FileNotFoundException e) {
+               throw new RuntimeException(e);
+           }
+           fos.close();
+           
+       }   
+          return "redirect:home";
+      // System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 //       System.out.println(files.getSize()); 
        
-        return "imageupload";
+     //   return "imageupload";
     }
 }
