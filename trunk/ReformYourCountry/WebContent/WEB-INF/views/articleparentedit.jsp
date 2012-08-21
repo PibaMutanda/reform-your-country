@@ -18,7 +18,7 @@ list-style-type:none;
 
 </head>
 <body>
-	<h1>Créer un article</h1>
+	<h1>Créer/Editer un article</h1>
 	<form:form modelAttribute="article" method="Post" action="articleparenteditsubmit">
 		Title: <form:input type="text" name="title" path="title"/>
 
