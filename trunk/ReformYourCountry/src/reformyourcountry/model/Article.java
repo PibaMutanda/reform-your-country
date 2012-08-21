@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
-
 import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
 public class Article extends BaseEntity {
 
@@ -114,5 +114,16 @@ public class Article extends BaseEntity {
 	@Override
 	public String toString() {
 		return title;
+	}
+
+
+	public boolean equalsOrIsParentOf(Article article) {
+		while (article != null) {
+			if (this.equals(article)) {
+				return true;
+			}
+			article = article.getParent();
+		}
+		return false;
 	}
 }
