@@ -131,23 +131,21 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     
     
     @Column(length = 50)
-    //@NotBlank(message = "You must enter your first name")
     private String firstName;
     
     @Column(length = 50)
-   // @NotBlank(message = "You must enter your last name")
     private String lastName;
 
     @Column(unique = true)
-   // @Size(min = 4 ,max = 15,message = "your username must contain at least 4 character and at max 15 character")
+    @Size(min = 4 ,max = 15,message = "your username must contain at least 4 character and at max 15 character")
     private String userName; 
     
     @Column(length = 100)
-   // @Email(message ="Email address is not valid")
+    @Email(message ="Email address is not valid")
     private String mail;
     
     @Column(length = 100)
-   // @Size(min = 4 ,message = "your password must contain at least 4 character")
+    @Size(min = 4 ,message = "your password must contain at least 4 character")
     private String password;
 
     @Lob

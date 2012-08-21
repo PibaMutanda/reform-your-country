@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
+
+import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 public class Article extends BaseEntity {
 
+	@NotEmpty
 	@Column(length = 100)
 	private String title;
 
