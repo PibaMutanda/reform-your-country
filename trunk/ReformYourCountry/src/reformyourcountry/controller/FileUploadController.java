@@ -10,18 +10,21 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class FileUploadController {
-
     @RequestMapping(value = "/form", method = RequestMethod.POST)
-    public String handleFormUpload(@RequestParam("name") String name, 
-        @RequestParam("file") MultipartFile file) throws IOException {
-
+    public String handleFormUpload(@RequestParam("name") String name,
+            @RequestParam("files") MultipartFile file) {
         if (!file.isEmpty()) {
-            byte[] bytes = file.getBytes();
+            try {
+                byte[] bytes = file.getBytes();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
             // store the bytes somewhere
-           return "redirect:home";
-       } else {
-           return "redirect:uploadFailure";
-       }
+            return "redirect:home";
+        } else {
+            return "redirect:imageupload";
+        }
     }
 
 }
