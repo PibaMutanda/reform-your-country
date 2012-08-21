@@ -27,6 +27,7 @@ public class ArticleTreeTag extends SimpleTagSupport{
 	private String cssClass;
 	private boolean radio; // inserts a radio button in front on each article. 
 	private boolean link;  // writes articles titles as links
+	private Article articleFromRequest;  // Article concerned, passed by the controller (if any). 
 
 	public String getCssClass() {
 		return cssClass;
@@ -49,12 +50,24 @@ public class ArticleTreeTag extends SimpleTagSupport{
 	
 	@Override
 	public void doTag() throws JspException {
-		JspWriter out = this.getJspContext().getOut();
-		articleRepository =  (ArticleRepository) ContextUtil.getSpringBean("articleRepository");  // No Spring injection from this class (managed by Tomcat).
-		List<Article> articles = articleRepository.findAllWithoutParent();
-
 		try {
+			articleFromRequest =  (Article)(((PageContext)getJspContext()).getRequest().getAttribute("article")); // Placed by the controller in case of edit
+
+			JspWriter out = this.getJspContext().getOut();
+			articleRepository =  (ArticleRepository) ContextUtil.getSpringBean("articleRepository");  // No Spring injection from this class (managed by Tomcat).
+			List<Article> articles = articleRepository.findAllWithoutParent();
+
+			// If we show radio buttons to select a parent, we display an extra radio button on the top to select a (virtual) root (= no parent).
+
+			if (radio) {
+				out.println("<input type='radio' name='parentid' value='1'" +
+						((articleFromRequest == null || articleFromRequest.getParent() == null) ? " checked='checked'" : "") + 
+						 "'/>" +
+						 " pas d'article parent");
+			}
+
 			displayArticleList(articles, out);
+			
 		} catch(IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -79,16 +92,23 @@ public class ArticleTreeTag extends SimpleTagSupport{
 	private String getArticleString(Article article) {
 		String result = "<div class=\""+cssClass+"\">";
 		if (radio == true) {
-			boolean check = false; // should the radio button be (pre-)selected?
-			Article articleToSelect =  (Article)(((PageContext)getJspContext()).getRequest().getAttribute("article")); // Placed by the controller in case of edit
-			if (articleToSelect != null && articleToSelect.equals(article)) {
-				check = true;
+			if (articleFromRequest == null) {
+				throw new RuntimeException("Bug: if radio = true, an article should be attached to the request");
 			}
-			result += "<input type=\"radio\" name=\"parentid\" value=\""+article.getId()+"\" " +
-					" checked='"+ check +"'/>";
+			
+			// In general, we display radio buttons. but not for the article itself and its children (would not like to create a cycle by begin parent of your child).
+			if (! articleFromRequest.equalsOrIsParentOf(article)) { 
+
+				boolean check = false; // should the radio button be (pre-)selected?
+				if (article != null && article.equals(articleFromRequest.getParent())) {
+					check = true;
+				}
+				result += "<input type=\"radio\" name=\"parentid\" value=\""+article.getId()+"\" " +
+						(check ? " checked='checked'" : "") + "/>";
+			}
 		}
 		if (link == true) {
-            result += "<a href =\"Display?id="+article.getId().toString()+"\">";
+            result += "<a href =\"article?id="+article.getId().toString()+"\">";
 		}
 		result += article.getTitle();
 		if (link == true) {
