@@ -19,6 +19,11 @@ public class ImageUploadController {
     public String imageUpload() {
         return "imageupload";
     }
+    
+    @RequestMapping("/imageuploadtest")
+    public String imageUploadTest() {
+        return "imageuploadtest";
+    }
 
     @RequestMapping("/imageuploadsubmit")
     public String imageUploadSubmit(@RequestParam("files") MultipartFile multipartFile) throws IOException  {
