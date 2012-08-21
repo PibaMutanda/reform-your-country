@@ -8,33 +8,17 @@
 	<h1>Edit an article</h1>
 	Edition
 
-
+<script src = "js/jquery-1.3.2.min.js"></script>
+<script src = "js/jquery.textarea-expander.js"></script>
 <script type="text/javascript">
-function FitToContent(id)
-{
-   var text = id && id.style ? id : document.getElementById(id);
 
-   if ( !text )
-      return;
-
-   var adjustedHeight = text.clientHeight;
-
-   adjustedHeight = Math.max(text.scrollHeight, adjustedHeight);
-   
-   if ( adjustedHeight > text.clientHeight){
-   console.log("je suis dans le if autre");
-   text.style.height = adjustedHeight + "px";}
-   
-   if ( adjustedHeight < text.clientHeight){
-	   console.log("je suis dans le if autre");
-	   text.style.height = adjustedHeight + "px";} 
-}
 </script>
 
 	<form:form modelAttribute="article" action="articleeditsubmit">
 		<input type="submit" value="Sauver"/>
  		<form:input path="title" /> ¨<br/>
-		<form:textarea path="content" onkeyup="FitToContent(this);" style="width:100%" />
+ 		<!-- do not erase class , cols and rows attribute of the textarea , these values are used by textarea-expander.js -->
+		<form:textarea path="content" class="expand" cols="60" rows="3" style="width:100%" />
 		<form:hidden path="id" /><br/>
 	</form:form>
 </body>
