@@ -11,12 +11,12 @@
 	<h2>${article.title}</h2>
 	release date: ${article.releaseDate}<br/>
 
-	<ryc:assertPrivilege privilege="EDIT_ARTICLE">
+	<ryc:conditionDisplay privilege="EDIT_ARTICLE">
 		<form action=articleedit method="GET">
 			<input type="hidden" name="id" value="${article.id}"> <input
 				type="submit" value="Editer" />
 		</form>
-	</ryc:assertPrivilege>
+	</ryc:conditionDisplay>
 
 	<form action="articleparentedit" method="GET">
 		<input type="hidden" name="id" value="${article.id}" /> <input type="submit"
