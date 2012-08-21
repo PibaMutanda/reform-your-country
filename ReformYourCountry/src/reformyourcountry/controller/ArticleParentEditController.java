@@ -1,7 +1,5 @@
 package reformyourcountry.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -9,8 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import reformyourcountry.misc.InvalidUrlException;
 import reformyourcountry.model.Article;
 import reformyourcountry.repository.ArticleRepository;
+import reformyourcountry.service.ArticleService;
 
 // Create and Edition of the parent (and title)
 @Controller
@@ -18,6 +18,7 @@ public class ArticleParentEditController {
 
 	@Autowired ArticleRepository articleRepository;
 	@Autowired ArticleDisplayController displayArticleController;
+	@Autowired ArticleService articleService;
 	
 	
 	@RequestMapping("/articlecreate")
@@ -48,22 +49,12 @@ public class ArticleParentEditController {
 		if (article == null) { // Create
 			article = new Article(title, "content to edit");
 			articleRepository.persist(article);
+			articleService.attachWithParent(article, parentId);
 
 		} else { // Edit
-
-			articleRepository.merge(article);
-
-			// Detach the article from its current parent
-			if (article.getParent() != null) {
-				Article parent = article.getParent();
-				parent.getChildren().remove(article);
-				article.setParent(null);
-				articleRepository.merge(parent);
-				articleRepository.merge(article);
-			}
+			articleRepository.merge(article);  // article title may have been modified (by SpringMVC).
+			articleService.changeParent(article, parentId);
 		}
-
-		attachWithParent(article, parentId);
 
 		return displayArticleController.displayArticle(article.getId());
 	}
@@ -78,18 +69,6 @@ public class ArticleParentEditController {
 	 	 }
 	 }
 	
-	 private void attachWithParent(Article article, Long parentId) {
-		 if (parentId != null) { // We do not create article as a root article.
-			 Article parent = articleRepository.find(parentId);
-			 if (parent == null) {
-				 throw new IllegalArgumentException("Invalid parentid (request hacking?)");
-			 }
-			 article.setParent(parent);
-			 parent.getChildren().add(article);
-			 articleRepository.merge(parent);
-			 articleRepository.merge(article);
-		 }
 
-	 }
 	
 }
