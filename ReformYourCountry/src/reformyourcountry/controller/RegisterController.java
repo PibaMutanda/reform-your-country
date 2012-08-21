@@ -3,6 +3,7 @@ package reformyourcountry.controller;
 
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,8 +27,8 @@ public class RegisterController {
 
     
     @RequestMapping("/registersubmit")
-    public ModelAndView registerSubmit( @RequestParam("userName")String userName,
-                                  @RequestParam("password")String password,
+    public ModelAndView registerSubmit(@Valid @RequestParam("userName")String userName,
+                                  @Valid @RequestParam("password")String password,
                                   @RequestParam("mail")String mail,HttpServletRequest request){
         try {
             userService.registerUser(false, userName, password, mail);

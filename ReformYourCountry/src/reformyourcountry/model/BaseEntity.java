@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
+import javax.persistence.PostPersist;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Transient;
@@ -35,52 +36,56 @@ public class BaseEntity {
     Date updatedOn;
 
     transient @Transient boolean hashCodeOrEqualsCalledWithIdNull = false;  // Protection for preventing 2 consecutive calls to hashCode/equals to return a different value.
-    
+    transient @Transient boolean isBeingPersisted = false;  // true if we are between @PerPersist and @PostPersist calls (= if we are persisting).
 
     
- @PrePersist
-  public void onPersist(){
-     logger.debug("begin onPersist method");
-    
-         if (createdBy==null) {
-          
-             createdBy = SecurityContext.getUser();
-             createdOn = new Date();
-     
-         }else{
-             updatedBy=SecurityContext.getUser();
-             updatedOn=new Date();
-         }
-         logger.debug("end onPersist method");
-      
-  }
-   @PreUpdate
+    @PrePersist
+    public void onPersist(){
+    	logger.debug("begin onPersist method");
+
+//    	if (createdBy==null) {
+
+    		createdBy = SecurityContext.getUser();
+    		createdOn = new Date();
+			isBeingPersisted = true;
+//    	}else{
+//    		updatedBy=SecurityContext.getUser();
+//    		updatedOn=new Date();
+//    	}
+    	logger.debug("end onPersist method");
+
+    }
+    @PostPersist
+    public void postPersist(){
+    	isBeingPersisted = false;
+    }
+    @PreUpdate
     public void onUpdate(){
-       
-       logger.debug("begin onUpdate method");
-    //   SecurityContext security = SecurityContextUtil.getSecurityContext();
-       
-      // SecurityContext security = (SecurityContext) ContextUtil.getSpringBean("secrityContext");
-        if (createdBy==null) {
-         
-            createdBy = SecurityContext.getUser();
-            createdOn = new Date();
-    
-        }else{
-            updatedBy=SecurityContext.getUser();
-            updatedOn=new Date();
-        }
+
+    	logger.debug("begin onUpdate method");
+//    	if (createdBy==null) {
+//
+//    		createdBy = SecurityContext.getUser();
+//    		createdOn = new Date();
+//
+//    	}else{
+    		updatedBy=SecurityContext.getUser();
+    		updatedOn=new Date();
+//    	}
     }
-   
+
     public Long getId() {
-        return id;
+    	return id;
     }
-    
+
    
     
     @Override
-    public int hashCode(){
-        if (this.getId()==null) {
+    public int hashCode() {
+    	if(isBeingPersisted){/*Prevents errors during Hibernate validation.
+    	 						Hibernate calls HashCode() for no reason, causing problems when entities are created.*/
+    		return 0;
+    	}else if (this.getId()==null) {
         	hashCodeOrEqualsCalledWithIdNull = true;
         	return 0;
         } else {

@@ -33,6 +33,7 @@ import reformyourcountry.model.User.Gender;
 import reformyourcountry.model.User.Role;
 import reformyourcountry.model.VoteAction;
 import reformyourcountry.model.VoteArgument;
+import reformyourcountry.repository.UserRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.service.LoginService;
 import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
@@ -49,7 +50,7 @@ public class BatchCreate implements Runnable {
 
     @Autowired   UserService userService;
     @Autowired   LoginService loginService;
-
+    @Autowired	 UserRepository userRepository;	
     public static void main(String[] args){
         BatchUtil.startSpringBatch(BatchCreate.class);
     }
@@ -132,6 +133,8 @@ public class BatchCreate implements Runnable {
 
                 throw new RuntimeException(e);
             }
+            user.setFirstName("Testname");
+            user.setLastName("Testlastname");
             user.setGender(Gender.MALE);
             user.setLastLoginIp("192.168.1.6");
             user.setLockReason("this is a lock reason");
@@ -175,7 +178,9 @@ public class BatchCreate implements Runnable {
 
                 throw new RuntimeException(e);
             }
-
+            user.setFirstName("Testname");
+            user.setLastName("Testlastname");
+            user.setGender(Gender.MALE);
             user.setLastLoginIp("192.168.1.7");
             user.setLockReason("this is a lock reason");
             user.setMailDelayType(MailingDelayType.IMMEDIATELY);
@@ -222,7 +227,9 @@ public class BatchCreate implements Runnable {
 
                 throw new RuntimeException(e);
             }
-
+            user.setFirstName("Testname");
+            user.setLastName("Testlastname");
+            user.setGender(Gender.MALE);
             user.setLastLoginIp("192.168.1.8");
             user.setLockReason("this is a lock reason");
             user.setMailDelayType(MailingDelayType.IMMEDIATELY);

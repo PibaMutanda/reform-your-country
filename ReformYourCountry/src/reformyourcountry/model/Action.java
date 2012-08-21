@@ -13,7 +13,6 @@ public class Action extends BaseEntity{
 	
     
     @Column(length = 100)
-    
 	private String title;
 	private String url;
 	@Column(length = 100)
