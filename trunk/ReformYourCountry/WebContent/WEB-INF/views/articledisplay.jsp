@@ -8,6 +8,12 @@
 </head>
 
 <body>
+
+<h2>
+<c:forEach items = "${parentsTree}" var ="article">
+    <a href ="article?id=${article.id}">${article.title}></a>
+</c:forEach></h2>
+
 	<h2>${article.title}</h2>
 	release date: ${article.releaseDate}<br/>
 
