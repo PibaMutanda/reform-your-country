@@ -3,13 +3,9 @@
      <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
      <%@taglib uri="http://www.springframework.org/tags/form"  prefix="form"%>
 <head>
-	<script src="/ReformYourCountry/js/jquery-1.8.0.js"></script>
-	<script src="/ReformYourCountry/js/jquery-ui-1.8.23.custom.js"></script>
-	<script src="/ReformYourCountry/js/jquery.ui.datepicker.js"></script>
-	<script src="/ReformYourCountry/js/jquery.ui.core.js"></script>
-	<script src="/ReformYourCountry/js/jquery.ui.widget.js"></script>
-
-<script>
+	<script src="/ReformYourCountry/js/jquery-1.8.0.min.js"></script>
+	<script src="/ReformYourCountry/js/jquery-ui-1.8.23.custom.min.js"></script>
+<script type="text/javascript">
 	$(function() {
 		$("#datepicker").datepicker({
 			dateFormat : "yy-mm-dd" //2012-08-22 
