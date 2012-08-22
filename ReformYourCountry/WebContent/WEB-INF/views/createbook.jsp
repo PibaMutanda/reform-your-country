@@ -13,7 +13,7 @@
 	
 	Abréviation: <form:input path="abrev"/><br/>  
 	Titre: <form:input path="title"/><br/>
-	Description:  <form:input path="description"/><br/>
+	Description:  <form:textarea path="description"/><br/>
 	Auteur(s):  <form:input path="author"/><br/>
 	Année de publication: <form:input path="pubYear"/><br/>
 	Lien de référence: <form:input path="externalUrl"/><br/>
