@@ -1,6 +1,8 @@
 package reformyourcountry.controller;
 
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -10,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 
+import reformyourcountry.misc.DateUtil;
 import reformyourcountry.model.Article;
 import reformyourcountry.repository.ArticleRepository;
 
@@ -23,14 +26,19 @@ public class ArticleEditController {
 	 @RequestMapping("/articleedit")
 	 public ModelAndView articleEdit(@ModelAttribute Article article){
 		
+	
 		 ModelAndView mv = new ModelAndView("ArticleEdit");
 		 mv.addObject("article",article);
+	
 		 return mv;
 	 }
 	 
 	 
 	 @RequestMapping("/articleeditsubmit")
-	 public ModelAndView articleEditSubmit(@ModelAttribute Article article){
+	 public ModelAndView articleEditSubmit(@ModelAttribute Article article,@RequestParam("releaseDateStr")String releaseDate){
+		
+		 Date date=DateUtil.parseyyyyMMdd(releaseDate);
+		 article.setReleaseDate(date);
 		 articleRepository.merge(article);
 		 return displayArticleController.displayArticle(article.getId());
 	 }
