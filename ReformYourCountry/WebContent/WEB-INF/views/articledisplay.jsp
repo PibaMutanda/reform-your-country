@@ -16,12 +16,11 @@
 			<input type="hidden" name="id" value="${article.id}"> <input
 				type="submit" value="Editer" />
 		</form>
-	</ryc:conditionDisplay>
-
-	<form action="articleparentedit" method="GET">
+		<form action="articleparentedit" method="GET">
 		<input type="hidden" name="id" value="${article.id}" /> <input type="submit"
 			value="Editer parent" />
-	</form>
+		</form>
+	</ryc:conditionDisplay>
 
 	<hr/>
 	
