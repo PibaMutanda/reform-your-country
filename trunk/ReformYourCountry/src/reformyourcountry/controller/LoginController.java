@@ -56,12 +56,9 @@ public class LoginController {
         }
 
         if (errorMsg != null) {
-            ModelAndView mv = new ModelAndView("login");
-            mv.addObject("error", errorMsg);
-            return mv;
+            return new ModelAndView("login", "error", errorMsg);
         } else {
-//            ModelAndView mv = new ModelAndView("redirect:userdisplay?id=1");
-            return userDisplayController.userDisplay(user.getId());
+            return new ModelAndView("redirect:userdisplay", "id", user.getId());
         }
     }
 }
