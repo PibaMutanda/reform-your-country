@@ -306,7 +306,7 @@ public class BatchCreate implements Runnable {
     public Article populateArticle2WithParent(Article parent){
 
         Article article2 = new Article();
-        article2.setTitle("Autonomie des écolesAutonomie des écoles");
+        article2.setTitle("Autonomie des écoles");
 
         Scanner scan;
         String str = "";
