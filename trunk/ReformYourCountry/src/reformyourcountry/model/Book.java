@@ -1,0 +1,90 @@
+package reformyourcountry.model;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Lob;
+
+@Entity
+public class Book extends BaseEntity {
+    
+    @Column(nullable = false, unique = true)
+    String abrev;
+    
+    String title;
+    
+    @Lob
+    String description;
+    
+    String author; // could a list of many authors.
+    
+    String pubYear; //publication year, typically 4 digits. Maybe a range.
+    
+    boolean top; //true if that book is a favorite book to be displayed at the top of the bibliography.
+    
+    String externalUrl; //link to the publisher or another web site about that book.
+    
+    public Book() { }
+    
+    public Book(String abrev, String title, String description, String author,
+            String pubYear, boolean top, String externalUrl) {
+        super();
+        this.abrev = abrev;
+        this.title = title;
+        this.description = description;
+        this.author = author;
+        this.pubYear = pubYear;
+        this.top = top;
+        this.externalUrl = externalUrl;
+    }
+    
+    public String getAbrev() {
+        return abrev;
+    }
+    public void setAbrev(String abrev) {
+        this.abrev = abrev;
+    }
+    public String getTitle() {
+        return title;
+    }
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    public String getAuthor() {
+        return author;
+    }
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+    public String getPubYear() {
+        return pubYear;
+    }
+    public void setPubYear(String pubYear) {
+        this.pubYear = pubYear;
+    }
+    public boolean isTop() {
+        return top;
+    }
+    public void setTop(boolean top) {
+        this.top = top;
+    }
+    public String getExternalUrl() {
+        return externalUrl;
+    }
+    public void setExternalUrl(String externalUrl) {
+        this.externalUrl = externalUrl;
+    }
+   
+
+    @Override
+    public String toString() {
+        return "Book [abrev=" + abrev + ", title=" + title + ", description="
+                + description + ", author=" + author + ", pubYear=" + pubYear
+                + ", top=" + top + ", externalUrl=" + externalUrl + "]";
+    }
+}
