@@ -29,7 +29,7 @@ Date de naissance : ${user.birthDate}<br>
 Genre : ${user.gender}<br>
 Date d'enregistrement : ${user.registrationDate}<br>
 Rôle : ${user.role}<br>
-Dernier accès : ${user.lastAccess}<br><br>
+Dernier accès : ${user.lastAccess}<br><br> 
 mail : ${user.mail}<br>
 Dernière IP d'accès : ${user.lastLoginIp}<br>
 Status du compte : ${user.accountStatus}<br>
