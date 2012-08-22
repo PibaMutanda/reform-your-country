@@ -24,6 +24,7 @@ import reformyourcountry.mail.MailingDelayType;
 import reformyourcountry.model.Action;
 import reformyourcountry.model.Argument;
 import reformyourcountry.model.Article;
+import reformyourcountry.model.Book;
 import reformyourcountry.model.Comment;
 import reformyourcountry.model.Group;
 import reformyourcountry.model.GroupReg;
@@ -75,6 +76,7 @@ public class BatchCreate implements Runnable {
         proxy.populateVoteAction(action,user,group);
         Argument argument = proxy.populatedArgument(action,user);
         proxy.populateVoteArgument(argument,user);
+        proxy.populateBook();
 
 
     }
@@ -521,6 +523,15 @@ public class BatchCreate implements Runnable {
 
         return voteArgument;
 
+    }
+    
+    @Transactional
+    public Book populateBook(){
+        
+        Book book = new Book("abcd","Les clés du succès des systèmes scolaires les plus performants","Excellent rapport, agréable à lire par tous, pour comprendre les différences entre systèmes scolaires dans le monde et ce qui fait que certains s'améliorent.","McKinsey","2007",true,"http://mckinseyonsociety.com/how-the-worlds-best-performing-schools-come-out-on-top/");
+        em.persist(book);
+        
+        return book;
     }
 
 }
