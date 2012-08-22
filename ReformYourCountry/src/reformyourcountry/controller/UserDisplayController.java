@@ -18,9 +18,7 @@ public class UserDisplayController extends BaseController<User> {
         
         User user = getRequiredEntity(userId);
 
-        ModelAndView mv=new ModelAndView("userdisplay");
-        mv.addObject("user", user);
-        return mv;
+        return new ModelAndView("userdisplay", "user", user);
     }
 
 
