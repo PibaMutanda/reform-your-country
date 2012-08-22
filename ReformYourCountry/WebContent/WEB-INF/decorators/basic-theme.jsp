@@ -16,6 +16,7 @@
 
 
 <!-- for imageupload page -->
+<link rel="stylesheet" type="text/css" media="screen" href='<c:url value="/css/jquery-ui/smoothness/jquery-ui-1.8.23.custom.css"/>'/>
 
 <!-- Force latest IE rendering engine or ChromeFrame if installed -->
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
@@ -32,8 +33,8 @@
 
 
 
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title><decorator:title/></title>
+<decorator:head/>
 </head>
 
 <body>
