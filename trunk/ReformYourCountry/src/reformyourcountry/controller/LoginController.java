@@ -11,6 +11,7 @@ import reformyourcountry.exception.UserLockedException;
 import reformyourcountry.exception.UserNotFoundException;
 import reformyourcountry.exception.UserNotValidatedException;
 import reformyourcountry.misc.DateUtil;
+import reformyourcountry.model.User;
 import reformyourcountry.service.LoginService;
 import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
 
@@ -18,6 +19,7 @@ import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
 public class LoginController {
 
     @Autowired LoginService loginService;
+    @Autowired UserDisplayController userDisplayController;
     
  
     @RequestMapping("/login")
@@ -26,26 +28,27 @@ public class LoginController {
     }
 
     @RequestMapping("/loginsubmit")
-    public ModelAndView loginSubmit(@RequestParam("identifier") String identifier,
+    public ModelAndView loginSubmit(@RequestParam("identifier") String userNameOrMail,
             @RequestParam("password") String password,
             @RequestParam(value="keepLoggedIn",required=false) boolean keepLoggedIn) {
 
         String errorMsg = null;
+        User user = null;
         try {
-            loginService.login(identifier, password, keepLoggedIn);
+            user = loginService.login(userNameOrMail, password, keepLoggedIn);
 
 
         } catch (UserNotFoundException e) {
-            errorMsg="L'utilisateur '"+identifier+"' n'existe pas";
+            errorMsg="L'utilisateur '"+userNameOrMail+"' n'existe pas";
 
         } catch (InvalidPasswordException e) {
-            errorMsg="Ce mot de passe n'est pas valide pour l'utilisateur '"+identifier+"'";
+            errorMsg="Ce mot de passe n'est pas valide pour l'utilisateur '"+userNameOrMail+"'";
 
         } catch (UserNotValidatedException e) {
-            errorMsg="L'utilisateur '"+identifier+"' n'a pas été valide. Vérifiez vos mails reçus et cliquez sur le lien du mail qui vous a été envoyé à l'enregistrement.";
+            errorMsg="L'utilisateur '"+userNameOrMail+"' n'a pas été valide. Vérifiez vos mails reçus et cliquez sur le lien du mail qui vous a été envoyé à l'enregistrement.";
 
         } catch (UserLockedException e) {
-            errorMsg="L'utilisateur  '"+identifier+"' est verrouillé. Contacter un administrateur pour le déverrouiller.";
+            errorMsg="L'utilisateur  '"+userNameOrMail+"' est verrouillé. Contacter un administrateur pour le déverrouiller.";
 
         } catch (WaitDelayNotReachedException e) {
             errorMsg="Suite à de multiples tentatives de login échouées, votre utilisateur s'est vu imposé un délai d'attente avant de pouvoir se relogguer, ceci pour des raisons de sécurité." +
@@ -56,10 +59,9 @@ public class LoginController {
             ModelAndView mv = new ModelAndView("login");
             mv.addObject("error", errorMsg);
             return mv;
-        } else {    
-
-         
-            return  new ModelAndView("welcome");
+        } else {
+//            ModelAndView mv = new ModelAndView("redirect:userdisplay?id=1");
+            return userDisplayController.userDisplay(user.getId());
         }
     }
 }
