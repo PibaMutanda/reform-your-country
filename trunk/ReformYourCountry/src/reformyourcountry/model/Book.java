@@ -3,10 +3,12 @@ package reformyourcountry.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Book extends BaseEntity {
-    
+	
+    @NotNull(message = "You must put a abbreviation")
     @Column(nullable = false, unique = true)
     String abrev;
     

@@ -2,8 +2,11 @@ package reformyourcountry.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,13 +32,18 @@ public class CreateBookController {
     }
     
     @RequestMapping ("/sendnewbook")
-    public ModelAndView sendNewBook(@ModelAttribute Book bk ){
-        
-       // ModelAndView mv = new ModelAndView ("displaybook");
-        bookRepository.persist(bk);
-       // List<Book> bookList = bookRepository.findAll();
-       // mv.addObject("bookList", bookList);
-        return booklistController.showBookList() ;
+    public ModelAndView sendNewBook(@Valid @ModelAttribute Book bk ,BindingResult result){
+        if (result.hasErrors()){
+        	return new ModelAndView ("createbook");
+        }
+        else{
+        	 // ModelAndView mv = new ModelAndView ("displaybook");
+            bookRepository.persist(bk);
+           // List<Book> bookList = bookRepository.findAll();
+           // mv.addObject("bookList", bookList);
+            return booklistController.showBookList() ;
+        }
+       
     }
         
     

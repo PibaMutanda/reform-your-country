@@ -11,7 +11,8 @@
 <body>
 <form:form modelAttribute = "bk" method="post" action="sendnewbook">
 	
-	Abréviation: <form:input path="abrev"/><br/>  
+	Abréviation: <form:input path="abrev"/>
+	<form:errors path="abrev" cssClass="error"/><br/>  
 	Titre: <form:input path="title"/><br/>
 	Description:  <form:textarea path="description"/><br/>
 	Auteur(s):  <form:input path="author"/><br/>
