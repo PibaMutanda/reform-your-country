@@ -157,9 +157,7 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
 
     private Date birthDate;
 
-    private boolean picture;
-
-    private String pictureName;
+    private Boolean picture;  // Picture name = user id + ".jpg"
 
     private Date lastMailSentDate;
 
@@ -351,14 +349,6 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
 
     public void setPicture(boolean picture) {
         this.picture = picture;
-    }
-
-    public String getPictureName() {
-        return pictureName;
-    }
-
-    public void setPictureName(String pictureName) {
-        this.pictureName = pictureName;
     }
 
 

@@ -10,11 +10,17 @@
 </head>
 <body>
 <h1>${user.userName }</h1>
-<ryc:conditionDisplay privilege="MANAGE_USERS">
-<form action="privilegeedit" method="get">
-<input type="hidden" name="id" value="${user.id}">
-<input type="submit" value="Editer privilèges">
-</form>
-</ryc:conditionDisplay>
+	<ryc:conditionDisplay privilege="MANAGE_USERS">
+		<form action="privilegeedit" method="get">
+			<input type="hidden" name="id" value="${user.id}">
+			 <input type="submit" value="Editer privilèges">
+		</form>
+	</ryc:conditionDisplay>
+	
+	<form action="useredit" method="get">
+		<input type="hidden" value="${user.id}" name="id" /><br /> <input
+			type="submit" value="Modifier le Profil" />
+	</form>
+
 </body>
 </html>
