@@ -71,7 +71,7 @@ public class PrivilegeController {
 	@RequestMapping(value="/privilegeeditsubmit")
 	public ModelAndView privilegeEditSubmit(@RequestParam Map <String, String> params){
 		SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_USERS);
-		ModelAndView mv = new ModelAndView("UserPage");
+		ModelAndView mv = new ModelAndView("userpage");
 		User user = userRepository.find(Long.parseLong(params.get("id")));
 		params.remove("id");
 		user.getPrivileges().clear();		
@@ -87,7 +87,7 @@ public class PrivilegeController {
 	}
 	
 	private ModelAndView createModelAndView(User user) {
-		ModelAndView mv =new ModelAndView("Privilege");
+		ModelAndView mv =new ModelAndView("privilege");
 		mv.addObject("user", user);
 		
 		// Create triplet list
