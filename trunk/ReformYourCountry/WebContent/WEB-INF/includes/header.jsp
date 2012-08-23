@@ -6,7 +6,7 @@
 
 
 <div class="login-link" >
-     <c:choose>
+      <c:choose>
         <c:when test="${current.user!=null}">
           <c:out value="${current.user.userName}"></c:out><br />
           <a href="logout">Déconnexion</a>
@@ -15,5 +15,5 @@
           <a href="login">Connexion</a>
          </c:otherwise>
      </c:choose>
-   
+    
 </div>
