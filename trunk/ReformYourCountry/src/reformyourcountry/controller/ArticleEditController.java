@@ -41,10 +41,15 @@ public class ArticleEditController {
 			mv.addObject("article", article);
 			return mv;
 		}else{
-			Date date=DateUtil.parseyyyyMMdd(publishDate);
-			article.setPublishDate(date);
-			articleRepository.merge(article);
-			return displayArticleController.displayArticle(article.getId());
+			if (publishDate.length()!=0) {
+				Date date = DateUtil.parseyyyyMMdd(publishDate);
+				article.setPublishDate(date);
+				articleRepository.merge(article);
+				return displayArticleController.displayArticle(article.getId());
+			}else{
+				return new ModelAndView("articleedit");
+			}
+			
 		}
 	}
 
