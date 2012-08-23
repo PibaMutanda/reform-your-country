@@ -1,7 +1,10 @@
 package reformyourcountry.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,7 +19,30 @@ public class BookEditController {
     
     @Autowired BookRepository bookRepository;
     @Autowired BookListController booklistController;
-    @Autowired DisplayBookController displayBookController;
+   
+    @RequestMapping ("/createbook") 
+    public ModelAndView createBook(){
+        
+        ModelAndView mv = new ModelAndView("bookedit");
+        mv.addObject("book", new Book()); 
+        return mv;
+        
+    }
+    
+    @RequestMapping ("/sendnewbook")
+    public ModelAndView sendNewBook(@Valid @ModelAttribute Book book ,BindingResult result){
+        if (result.hasErrors()){
+        	return new ModelAndView ("bookedit");
+        }
+        else{
+        	 // ModelAndView mv = new ModelAndView ("displaybook");
+            bookRepository.persist(book);
+           // List<Book> bookList = bookRepository.findAll();
+           // mv.addObject("bookList", bookList);
+            return booklistController.showBookList() ;
+        }
+       
+    }
     
     @RequestMapping ("/bookedit")
     public ModelAndView bookEdit(@ModelAttribute Book book){
