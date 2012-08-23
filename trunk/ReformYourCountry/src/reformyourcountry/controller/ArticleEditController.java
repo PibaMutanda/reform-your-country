@@ -27,7 +27,7 @@ public class ArticleEditController {
 	@RequestMapping("/articleedit")
 	public ModelAndView articleEdit(@ModelAttribute Article article){
 
-		ModelAndView mv = new ModelAndView("ArticleEdit");
+		ModelAndView mv = new ModelAndView("articleedit");
 		mv.addObject("article",article);
 		return mv;
 
@@ -37,7 +37,7 @@ public class ArticleEditController {
 	@RequestMapping("/articleeditsubmit")
 	public ModelAndView articleEditSubmit(@Valid @ModelAttribute Article article,@Valid @RequestParam("releaseDateStr") String releaseDate, BindingResult result){
 		if(result.hasErrors()){
-			ModelAndView mv =new ModelAndView("ArticleEdit");
+			ModelAndView mv =new ModelAndView("articleedit");
 			mv.addObject("article", article);
 			return mv;
 		}else{
