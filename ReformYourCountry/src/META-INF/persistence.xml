@@ -16,7 +16,7 @@
           <property name="hibernate.connection.username"  value="rycdev"/>
           <property name="hibernate.connection.password"  value="ryc2012"/>
           <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
-
+		 <property name = "hibernate.show_sql" value = "true" />
            <!-- Create the database schema when this test.persistence unit is deployed, drop
                 it (clean the database) when it is undeployed
            -->

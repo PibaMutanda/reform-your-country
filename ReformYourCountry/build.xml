@@ -6,7 +6,7 @@
 
 	<path id="classpath">
 		<fileset dir="${lib.dir}">
-			<include name="**/*.jar" />
+			<include name="	*.jar" />
 		</fileset>
 	</path>
 	<path id="classpath.test">
@@ -39,7 +39,7 @@
 	<target name="compile" description="compile the source" depends="init">
 		<echo message="Building ${app.name} ..." />
 		<javac srcdir="${src.dir}" destdir="${build.dir}" debug="on" classpathref="classpath" includeantruntime="true">
-			<exclude name="**/exclude/**" />
+			<exclude name="**/test/**" />
 		</javac>
 	</target>
 	
