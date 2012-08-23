@@ -1,5 +1,7 @@
 package reformyourcountry.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -43,7 +45,7 @@ public class ArticleParentEditController {
 	
 
 	@RequestMapping("/articleparenteditsubmit")
-	public ModelAndView articleParentEditSubmit(@ModelAttribute Article article,
+	public ModelAndView articleParentEditSubmit(@Valid @ModelAttribute Article article,
 			@RequestParam("title")String title,  // Only useful for create 
 			@RequestParam("parentid") Long parentId){
 		if (article == null) { // Create

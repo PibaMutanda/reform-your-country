@@ -1,10 +1,11 @@
 package reformyourcountry.controller;
 
 
+import javax.validation.Valid;
 import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,35 +20,40 @@ import reformyourcountry.repository.ArticleRepository;
 @Controller
 public class ArticleEditController {
 
-	 @Autowired ArticleRepository articleRepository;
-	 @Autowired ArticleDisplayController displayArticleController;
+	@Autowired ArticleRepository articleRepository;
+	@Autowired ArticleDisplayController displayArticleController;
 
-	
-	 @RequestMapping("/articleedit")
-	 public ModelAndView articleEdit(@ModelAttribute Article article){
-		
-	
-		 ModelAndView mv = new ModelAndView("ArticleEdit");
-		 mv.addObject("article",article);
-	
-		 return mv;
-	 }
-	 
-	 
-	 @RequestMapping("/articleeditsubmit")
-	 public ModelAndView articleEditSubmit(@ModelAttribute Article article,@RequestParam("releaseDateStr")String releaseDate){
-		
-		 Date date=DateUtil.parseyyyyMMdd(releaseDate);
-		 article.setReleaseDate(date);
-		 articleRepository.merge(article);
-		 return displayArticleController.displayArticle(article.getId());
-	 }
-	 
-		 
-	 @ModelAttribute
-	 public Article findArticle(@RequestParam("id")Long id){
-		 Article result=articleRepository.find(id);
-		 return result;
-	 }
-	 
+
+	@RequestMapping("/articleedit")
+	public ModelAndView articleEdit(@ModelAttribute Article article){
+
+		ModelAndView mv = new ModelAndView("ArticleEdit");
+		mv.addObject("article",article);
+		return mv;
+
+	}
+
+
+	@RequestMapping("/articleeditsubmit")
+	public ModelAndView articleEditSubmit(@Valid @ModelAttribute Article article,@Valid @RequestParam("releaseDateStr") String releaseDate, BindingResult result){
+		if(result.hasErrors()){
+			ModelAndView mv =new ModelAndView("ArticleEdit");
+			mv.addObject("article", article);
+			return mv;
+		}else{
+			Date date=DateUtil.parseyyyyMMdd(releaseDate);
+			article.setReleaseDate(date);
+			articleRepository.merge(article);
+			return displayArticleController.displayArticle(article.getId());
+		}
+	}
+
+
+	@ModelAttribute
+	public Article findArticle(@RequestParam("id")Long id){
+		Article result=articleRepository.find(id);
+		return result;
+
+	}
+
 }
