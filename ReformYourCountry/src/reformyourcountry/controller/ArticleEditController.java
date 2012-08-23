@@ -35,14 +35,14 @@ public class ArticleEditController {
 
 
 	@RequestMapping("/articleeditsubmit")
-	public ModelAndView articleEditSubmit(@Valid @ModelAttribute Article article,@Valid @RequestParam("releaseDateStr") String releaseDate, BindingResult result){
+	public ModelAndView articleEditSubmit(@Valid @ModelAttribute Article article,@Valid @RequestParam("publishDateStr") String publishDate, BindingResult result){
 		if(result.hasErrors()){
 			ModelAndView mv =new ModelAndView("articleedit");
 			mv.addObject("article", article);
 			return mv;
 		}else{
-			Date date=DateUtil.parseyyyyMMdd(releaseDate);
-			article.setReleaseDate(date);
+			Date date=DateUtil.parseyyyyMMdd(publishDate);
+			article.setPublishDate(date);
 			articleRepository.merge(article);
 			return displayArticleController.displayArticle(article.getId());
 		}
