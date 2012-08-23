@@ -15,5 +15,13 @@ public class BookRepository extends BaseRepository<Book> {
         return bookList;
     }
     
+    public List <Book> findAllTop(){
+        List<Book> bookList = em.createQuery("select b from Book b where b.top = 'true' order by b.title").getResultList();
+        return bookList;
+    }
     
+    public List <Book> findAllOther(){
+        List<Book> bookList = em.createQuery("select b from Book b where b.top = 'false' order by b.title").getResultList();
+        return bookList;
+    }
 }
