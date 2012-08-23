@@ -2,8 +2,13 @@
     pageEncoding="ISO-8859-1"%>
 <%@taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c' %>
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
+
 <html>
 <head>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+<style type="text/css">@import "css/jquery.countdown.css";</style> 
+<script type="text/javascript" src="js/jquery.countdown.js"></script>
+
 <title>${article.title}</title>
 </head>
 
@@ -34,11 +39,24 @@
 	<c:if test="${article.published}">
 		${articleContent}
 	</c:if>
+	<c:if test="${!article.published}">
+	
+		<script type="text/javascript">
+			$(function () {
+					var publishDay = new Date();
+					publishDay = new Date(${publishYear}, ${publishMonth}, ${publishDay});
+					$('#defaultCountdown').countdown({until: publishDay, format: 'dH',layout: ' {dn} {dl} and {hn} {hl} until the article is published'});
+					$('#year').text(austDay.getFullYear());
+			});
+		</script>
+		<div id="defaultCountdown"></div>
+			
 	<ryc:conditionDisplay privilege="EDIT_ARTICLE">
-		<c:if test="${!article.published}">
+		
 			${articleContent}
-		</c:if>
+		
 	</ryc:conditionDisplay>
+	</c:if>
 </body>
 </html>   
 

@@ -1,6 +1,8 @@
 package reformyourcountry.controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -37,8 +39,24 @@ public class ArticleDisplayController extends BaseController<Article> {
            
            
        }
-
-		ModelAndView mv = new ModelAndView("articledisplay");
+       
+       Calendar publishCalendar;
+       ModelAndView mv = new ModelAndView("articledisplay");
+       
+   ///// Get publishDate in an usable int format
+       if (article.getPublishDate()!=null) {
+		Date publishDate = article.getPublishDate();
+		publishCalendar = Calendar.getInstance();
+		publishCalendar.setTime(publishDate);
+		int year = publishCalendar.get(Calendar.YEAR);
+		int month = publishCalendar.get(Calendar.MONTH);
+		int day = publishCalendar.get(Calendar.DAY_OF_MONTH);
+		mv.addObject("publishYear", year);
+		mv.addObject("publishMonth", month);
+		mv.addObject("publishDay", day);
+	}
+		
+		
 		mv.addObject("article", article);
 		mv.addObject("parentsTree",parentArticles);
 		BBConverter bbc = new BBConverter();

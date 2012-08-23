@@ -141,9 +141,9 @@ public class Article extends BaseEntity {
 		return title;
 	}
 	public boolean isPublished(){
-		boolean published;
+		boolean published=false;
 		if(publishDate!=null){
-			published =(publicView&&(!publishDate.after(new Date())));
+			published =(publicView && (!publishDate.after(new Date())));
 		}else{
 			published = publicView;
 		}
