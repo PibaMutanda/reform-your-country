@@ -35,7 +35,7 @@ public class ArticleEditController {
 
 
 	@RequestMapping("/articleeditsubmit")
-	public ModelAndView articleEditSubmit(@Valid @ModelAttribute Article article,@Valid @RequestParam("publishDateStr") String publishDate, BindingResult result){
+	public ModelAndView articleEditSubmit(@Valid @ModelAttribute Article article,BindingResult result,@RequestParam("publishDateStr") String publishDate){
 		if(result.hasErrors()){
 			ModelAndView mv =new ModelAndView("articleedit");
 			mv.addObject("article", article);
