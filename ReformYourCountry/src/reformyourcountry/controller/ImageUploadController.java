@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.UUID;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,8 +16,8 @@ import reformyourcountry.misc.FileUtil;
 
 @Controller
 public class ImageUploadController {
-
-
+    private Logger logger = Logger.getLogger(ImageUploadController.class);
+    
     @RequestMapping("/imageupload")
     public String imageUpload() {
         return "imageupload";
@@ -29,16 +30,42 @@ public class ImageUploadController {
 
     @RequestMapping("/imageuploadsubmit")
     public ModelAndView imageUploadSubmit(@RequestParam("files") MultipartFile multipartFile) throws IOException  {
-        File folder = FileUtil.ensureFolderExists(FileUtil.getGenFolderPath());
-        System.out.println("********************");
-        System.out.println(folder.getAbsolutePath());
-        System.out.println(multipartFile.getContentType());
-        System.out.println(multipartFile.getName());
-        System.out.println(multipartFile.getOriginalFilename());
-        System.out.println("********************");
+        
+        File genFolder = FileUtil.ensureFolderExists(FileUtil.getGenFolderPath());//dir gen who's not created in eclipse webcontent path but only in tomcat working path
+        File file = null;
+        String type = multipartFile.getContentType();
+        String extension ;
+        
+        if(logger.isDebugEnabled()){
+            logger.debug("genFolder : "+genFolder.getAbsolutePath());
+            logger.debug("file type is :"+multipartFile.getContentType());
+            logger.debug("file original name is "+multipartFile.getOriginalFilename());}
+        
         if (!multipartFile.isEmpty()){
-            if (multipartFile.getContentType().contains("image")) {
-                File file = new File(folder, UUID.randomUUID()+"."+multipartFile.getContentType().split("/")[1]);  // multipartFile.getFileName()
+            if (type.contains("image")) {
+                //to get the right extension
+                switch (type) {
+                case "image/gif":
+                    extension = "gif";
+                    break;
+                case "image/jpeg" :
+                case "image/pjpeg" ://internet explorer IFuckDevWhenTheyWantToMakeItSimple special MimeType for jpeg
+                    extension = "jpg";
+                    break;
+                case "image/png" : 
+                case "image/x-png"://internet explorer IFuckDevWhenTheyWantToMakeItSimple special MimeType for png
+                    extension = "png";
+                    break;
+                case "image/svg+xml" :
+                    extension = "svg";
+                    break;
+                default:
+                    ModelAndView mv = new ModelAndView("imageupload");
+                    mv.addObject("errorMsg", "bad image type : png , svg , jpeg and gif are only accepted");
+                    return mv;
+                }
+                //now the file is good
+                file = new File(genFolder, UUID.randomUUID()+"."+extension);  // multipartFile.getFileName()
                 FileOutputStream fos;
                 try {
                     fos = new FileOutputStream(file);
@@ -52,15 +79,20 @@ public class ImageUploadController {
             else{
                 ModelAndView mv = new ModelAndView("imageupload");
                 mv.addObject("errorMsg", "file is not an image");
+                if(logger.isDebugEnabled()){
+                    logger.debug("someone try to upload this fille but this isn't an image : "+multipartFile.getOriginalFilename());}
                 return mv;
             }
         }
         else{
             ModelAndView mv = new ModelAndView("imageupload");
             mv.addObject("errorMsg", "no file to transfer");
+            if(logger.isDebugEnabled()){
+                logger.debug("someone try to submit an empty file : "+multipartFile.getOriginalFilename());}
             return mv;
         }
         ModelAndView mv = new ModelAndView("redirect:home");
+        logger.info("file succesfull uploaded : "+file.getCanonicalPath());
         return mv;
 
     }
