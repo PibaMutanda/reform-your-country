@@ -20,8 +20,10 @@ public class BookListController {
     @RequestMapping ("/showbooklist")
     public ModelAndView showBookList(){
        ModelAndView mv = new ModelAndView("displaybooklist");
-       List<Book> b = bookRepository.findAll();
-        mv.addObject("bookList", b);
+       List<Book> b = bookRepository.findAllTop();
+       List<Book> bother = bookRepository.findAllOther();
+        mv.addObject("bookListTop", b);
+        mv.addObject("bookListOther",bother);
         return mv;
     }
     
