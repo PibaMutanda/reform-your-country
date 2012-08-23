@@ -14,6 +14,7 @@ import reformyourcountry.web.ContextUtil;
 public abstract class FileUtil {
     
     // In dev mode, returns somthing like C:\Users\forma308\Documents\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ReformYourCountry\gen 
+    //FIXME what  when folder doesn' exists? don't we must call ensureFolderExists before return the path? max 20-08-2012
     public static String getGenFolderPath() {
         return ContextUtil.getServletContext().getRealPath("/gen");
     }
