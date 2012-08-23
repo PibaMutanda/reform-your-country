@@ -23,7 +23,7 @@
 
 	<form:form modelAttribute="article" action="articleeditsubmit">
 		<input type="submit" value="Sauver"/>
-		Title:<form:input path="title" /> Release date:<input type="text" name="releaseDateStr" id="datepicker" value="${article.releaseDate}"/>¨<br/>
+		Title:<form:input path="title" /> Publish date:<input type="text" name="publishDateStr" id="datepicker"/>¨<br/>
  		<!-- do not erase class , cols and rows attribute of the textarea , these values are used by textarea-expander.js -->
 		<form:textarea path="content" class="expand" cols="60" rows="3" style="width:100%" />
 		<form:hidden path="id" /><br/>
