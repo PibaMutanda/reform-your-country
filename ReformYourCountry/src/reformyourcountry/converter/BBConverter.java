@@ -62,6 +62,8 @@ public class BBConverter {
 	 
 	private void processTag(BBTag tag) {
 		switch(tag.getName()) {
+		
+		    
 		case "escape":
 			String addText = getInnerTextContent(tag);
 			html+= addText;
@@ -83,12 +85,17 @@ public class BBConverter {
 	
 	private void processLink(BBTag tag) {
 		String article = tag.getAttributeValue("article");
+        String abrev = tag.getAttributeValue("abrev");
 		String content="";
 		content = getInnerTextContent(tag);
 		if (article == null){
-			String out = tag.getAttributeValue("out");
-			String label = tag.getAttributeValue("label");
-			html+= "<a href=\""+out+"\">"+content+"</a>";
+		    if (abrev !=null){
+		        html+= "<p onmouseover=\"showBookPopUp("+abrev+")\">"+content+"</p>";
+		    }else{
+		        String out = tag.getAttributeValue("out");
+		        String label = tag.getAttributeValue("label");
+		        html+= "<a href=\""+out+"\">"+content+"</a>";
+			}
 		}else
 		{
 			html+= "<a href=\"/Article/"+article+"\">"+content+"</a>";
