@@ -76,7 +76,6 @@ public class BatchCreate implements Runnable {
         proxy.populateVoteAction(action,user,group);
         Argument argument = proxy.populatedArgument(action,user);
         proxy.populateVoteArgument(argument,user);
-        proxy.populateBook();
 
 
     }
@@ -281,10 +280,12 @@ public class BatchCreate implements Runnable {
 
         article.setContent(str);
         article.setParent(null);
+        article.setPublicView(true);
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             article.setReleaseDate(sdf.parse("2012-07-06"));
+            article.setPublishDate(sdf.parse("2012-09-09"));
         } catch (ParseException e) {
 
             throw new RuntimeException(e);
@@ -329,10 +330,12 @@ public class BatchCreate implements Runnable {
 
         article2.setContent(str);
         article2.setParent(parent);
+        article2.setPublicView(true);
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             article2.setReleaseDate(sdf.parse("2012-08-10"));
+            article2.setPublishDate(sdf.parse("2012-08-08"));
         } catch (ParseException e) {
 
             throw new RuntimeException(e);
@@ -374,6 +377,7 @@ public class BatchCreate implements Runnable {
 
         article3.setContent(str);
         article3.setParent(parent);
+        article3.setPublicView(false);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         try {
@@ -421,6 +425,7 @@ public class BatchCreate implements Runnable {
 
         article4.setContent(str);
         article4.setParent(parent);
+        article4.setPublicView(true);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         try {

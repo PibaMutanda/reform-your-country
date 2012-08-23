@@ -28,10 +28,17 @@
 		</form>
 	</ryc:conditionDisplay>
 
-	<hr/>
 	
-	${articleContent}
 
+	<hr/>
+	<c:if test="${article.published}">
+		${articleContent}
+	</c:if>
+	<ryc:conditionDisplay privilege="EDIT_ARTICLE">
+		<c:if test="${!article.published}">
+			${articleContent}
+		</c:if>
+	</ryc:conditionDisplay>
 </body>
 </html>   
 
