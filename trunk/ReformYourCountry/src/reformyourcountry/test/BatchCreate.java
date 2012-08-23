@@ -76,7 +76,7 @@ public class BatchCreate implements Runnable {
         proxy.populateVoteAction(action,user,group);
         Argument argument = proxy.populatedArgument(action,user);
         proxy.populateVoteArgument(argument,user);
-
+        proxy.populateBook();
 
     }
 
