@@ -41,6 +41,6 @@ public class UserRepository extends BaseRepository<User>{
     }
  
     public List<User> findAll(){
-        return  em.createQuery("select u from User").getResultList();
+        return  em.createQuery("select u from User u").getResultList();
     }
 }
