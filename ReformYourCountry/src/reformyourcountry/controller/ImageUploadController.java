@@ -38,9 +38,9 @@ public class ImageUploadController {
     }
 
     @RequestMapping("/imageuploadsubmit")
-    public ModelAndView imageUploadSubmit(@RequestParam("files") MultipartFile multipartFile) throws IOException  {
+    public ModelAndView imageUploadSubmit(@RequestParam("file") MultipartFile multipartFile) throws IOException  {
 
-        File genFolder = FileUtil.ensureFolderExists(FileUtil.getGenFolderPath());//dir gen who's not created in eclipse webcontent path but only in tomcat working path
+        File genFolder = FileUtil.ensureFolderExists(FileUtil.getGenFolderPath()); //dir gen who's not created in eclipse webcontent path but only in tomcat working path
         File file = null;
         String type = multipartFile.getContentType();
         String extension ;
@@ -48,7 +48,8 @@ public class ImageUploadController {
         if(logger.isDebugEnabled()){
             logger.debug("genFolder : "+genFolder.getAbsolutePath());
             logger.debug("file type is :"+multipartFile.getContentType());
-            logger.debug("file original name is "+multipartFile.getOriginalFilename());}
+            logger.debug("file original name is "+multipartFile.getOriginalFilename());
+        }
 
         if (!multipartFile.isEmpty()){
             if (type.contains("image")) {
@@ -73,6 +74,7 @@ public class ImageUploadController {
                     mv.addObject("errorMsg", "bad image type : png , svg , jpeg and gif are only accepted");
                     return mv;
                 }
+                
                 //now the file is good
                 file = new File(genFolder, UUID.randomUUID()+"."+extension);  // multipartFile.getFileName()
                 FileOutputStream fos;
@@ -81,19 +83,18 @@ public class ImageUploadController {
                     fos.write(multipartFile.getBytes());
                 } catch (final java.io.FileNotFoundException e) {
                     throw new RuntimeException(e);
+                } finally {
+                	fos.close();
                 }
-                fos.close();
 
-            }  
-            else{
+            } else {
                 ModelAndView mv = new ModelAndView("imageupload");
                 mv.addObject("errorMsg", "file is not an image");
                 if(logger.isDebugEnabled()){
                     logger.debug("someone try to upload this fille but this isn't an image : "+multipartFile.getOriginalFilename());}
                 return mv;
             }
-        }
-        else{
+        } else {
             ModelAndView mv = new ModelAndView("imageupload");
             mv.addObject("errorMsg", "no file to transfer");
             if(logger.isDebugEnabled()){
