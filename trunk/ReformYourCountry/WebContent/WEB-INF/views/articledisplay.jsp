@@ -5,7 +5,7 @@
 
 <html>
 <head>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
 <style type="text/css">@import "css/jquery.countdown.css";</style> 
 <script type="text/javascript" src="js/jquery.countdown.js"></script>
 
@@ -43,7 +43,7 @@
 	
 		<script type="text/javascript">
 			$(function () {
-					var publishDay = new Date();					
+					var publishDay = new Date();
 					publishDay = new Date(${publishYear}, ${publishMonth}, ${publishDay});
 					$('#defaultCountdown').countdown({until: publishDay, format: 'dH',layout: ' {dn} {dl} and {hn} {hl} until the article is published'});
 					$('#year').text(austDay.getFullYear());

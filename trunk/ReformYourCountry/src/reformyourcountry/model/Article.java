@@ -95,7 +95,7 @@ public class Article extends BaseEntity {
 
 
 	public void setPublishDate(Date publishDate) {
-		if (!publishDate.after(new Date())) {
+		if (publishDate.after(new Date())) {
 			this.publishDate = publishDate;
 		}else{
 			this.publishDate = null;

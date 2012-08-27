@@ -71,7 +71,7 @@ public class PrivilegeController {
 	@RequestMapping(value="/privilegeeditsubmit")
 	public ModelAndView privilegeEditSubmit(@RequestParam Map <String, String> params){
 		SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_USERS);
-		ModelAndView mv = new ModelAndView("userpage");
+		ModelAndView mv = new ModelAndView("userdisplay");
 		User user = userRepository.find(Long.parseLong(params.get("id")));
 		params.remove("id");
 		user.getPrivileges().clear();		
