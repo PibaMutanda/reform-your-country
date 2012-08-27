@@ -77,7 +77,7 @@ public class ImageUploadController {
                 
                 //now the file is good
                 file = new File(genFolder, UUID.randomUUID()+"."+extension);  // multipartFile.getFileName()
-                FileOutputStream fos;
+                FileOutputStream fos = null;
                 try {
                     fos = new FileOutputStream(file);
                     fos.write(multipartFile.getBytes());
