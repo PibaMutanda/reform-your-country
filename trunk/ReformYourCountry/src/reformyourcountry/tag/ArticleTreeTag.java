@@ -17,9 +17,7 @@ import reformyourcountry.web.ContextUtil;
 public class ArticleTreeTag extends SimpleTagSupport{
 
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = -8610191696674436647L;
 
 	ArticleRepository articleRepository;
@@ -54,7 +52,7 @@ public class ArticleTreeTag extends SimpleTagSupport{
 			articleFromRequest =  (Article)(((PageContext)getJspContext()).getRequest().getAttribute("article")); // Placed by the controller in case of edit
 
 			JspWriter out = this.getJspContext().getOut();
-			articleRepository =  (ArticleRepository) ContextUtil.getSpringBean("articleRepository");  // No Spring injection from this class (managed by Tomcat).
+			articleRepository =  ContextUtil.getSpringBean(ArticleRepository.class);  // No Spring injection from this class (managed by Tomcat).
 			List<Article> articles = articleRepository.findAllWithoutParent();
 
 			// If we show radio buttons to select a parent, we display an extra radio button on the top to select a (virtual) root (= no parent).
