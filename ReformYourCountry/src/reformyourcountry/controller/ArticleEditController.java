@@ -36,7 +36,7 @@ public class ArticleEditController {
 
 	@RequestMapping("/articleeditsubmit")
 	public ModelAndView articleEditSubmit(@Valid @ModelAttribute Article article,BindingResult result,@RequestParam("publishDateStr") String publishDate){
-		if(result.hasErrors()){
+if(result.hasErrors()){
 			
 		    return new ModelAndView("redirect:articleedit","id",article.getId());
 		}else{
@@ -47,6 +47,7 @@ public class ArticleEditController {
 			articleRepository.merge(article);
 			return new ModelAndView("redirect:article", "id", article.getId());
 		}
+
 	}
 
 
