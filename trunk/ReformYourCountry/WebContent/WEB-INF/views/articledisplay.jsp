@@ -43,7 +43,7 @@
 	
 		<script type="text/javascript">
 			$(function () {
-					var publishDay = new Date();
+					var publishDay = new Date();					
 					publishDay = new Date(${publishYear}, ${publishMonth}, ${publishDay});
 					$('#defaultCountdown').countdown({until: publishDay, format: 'dH',layout: ' {dn} {dl} and {hn} {hl} until the article is published'});
 					$('#year').text(austDay.getFullYear());
