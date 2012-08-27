@@ -22,8 +22,7 @@ public class ArticleService {
 		if (newParent != null && newParent.equalsOrIsParentOf(article)) {
 			throw new RuntimeException("Bug: should not try to set a child as parent. Child id = " + article.getId() + "; new parent id = " + newParentId);
 		}
-		
-		
+				
 		// Detach the article from its current parent
 		if (article.getParent() != null) {
 			Article oldParent = article.getParent();
