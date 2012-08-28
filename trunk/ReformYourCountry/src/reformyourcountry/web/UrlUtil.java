@@ -27,7 +27,7 @@ public class UrlUtil {
 	
 	public static String getDomainName() {
 		switch(ContextUtil.getEnvironment()) {
-			case DEV : return "localhost";
+			case DEV : return "http://127.0.0.1:8080/ReformYourCountry/";
 			case TEST : return TEST_ABSOLUTE_DOMAIN_NAME;
 			case PROD : return PROD_ABSOLUTE_DOMAIN_NAME;
 		}

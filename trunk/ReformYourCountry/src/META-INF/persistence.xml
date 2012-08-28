@@ -12,6 +12,8 @@
 		  <!--DB Connexion values -->
           <property name="hibernate.connection.driver_class"
                     value="org.postgresql.Driver"/>
+          
+          <property name="hibernate.connection.autocommit" value="false"/>
           <property name="hibernate.connection.url" value="jdbc:postgresql://127.0.0.1:2012/RYC"/>
           <property name="hibernate.connection.username"  value="rycdev"/>
           <property name="hibernate.connection.password"  value="ryc2012"/>

@@ -17,40 +17,39 @@
 
 <!-- Uploader form -->
 <div class="">(Attention l'image doit faire moins de 1.5Mo)</div>
-<form method="post" action="add-article-images" enctype="multipart/form-data">
-    <input type="file" name="file" value="${file.getInputStream()}"/><br>
+<form method="post" action="articleimageadd" enctype="multipart/form-data">
+    <input type="file" name="file" value="${totalFiles.size()}"/><br>
     <input type="submit" value="Ajouter" /><br>
-    <input type="hidden" name="type" value="article\"/>
 </form>
 
 <%--need a scriplet because didn't to get a way to display an array length in EL --%>
-<div>La librairie contient <%Object[] array=(Object[])request.getAttribute("listFiles"); 
-							out.print(array.length); %> images </div>
+<div>La librairie contient ${totalFiles} images </div>
 
 
 <!-- For each filename, create an img tag, every 3 pics, create a new line -->
-    <%int id=0; %>
-	<table  cellspacing="10" >
-	
-	<c:forEach items="${listFiles}" var="image">
-	<c:choose>
-	<c:when test="<%=id==0%>">
-		<tr>
-	</c:when>
-	<c:when test="<%=id % 3==0%>">
+    <%
+        int i = 0;
+    %>
+	<table cellspacing="10">
+		<c:forEach items="${listFiles}" var="image">
+			<c:choose>
+				<c:when test="<%=i == 0%>">
+					<tr>
+				</c:when>
+				<c:when test="<%=i % 3 == 0%>">
+					</tr>
+					<tr>
+				</c:when>
+			</c:choose>
+			<td align="center" valign="top">
+			   <img	src="gen/article/${image.getName()}" width="200" /> <br>
+				${image.getName()}<br>
+				<a href="articleimagedel?fileName=${image.getName()}">remove</a></td>
+			<%
+			    i++;
+			%>
+		</c:forEach>
 		</tr>
-		<tr>
-	</c:when>
-	</c:choose>
-	<td align="center" valign="top">
-		<img src="gen/article/${image.getName()}" width="200"/>
-		<br>
-		${image.getName()}<br>
-		<a href="deleteimage?path=${image.getName()}">remove</a>
-	</td>
-	<%id=id+1; %>
-	</c:forEach>
-	</tr>
 	</table>
 
 </body>
