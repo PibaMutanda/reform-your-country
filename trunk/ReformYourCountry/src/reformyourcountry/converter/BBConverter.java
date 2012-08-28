@@ -6,6 +6,7 @@ import java.net.URL;
 
 import reformyourcountry.parser.BBDomParser;
 import reformyourcountry.parser.BBTag;
+import reformyourcountry.utils.FileUtils;
 /**
  * @author FIEUX Cédric
  * this class purpose is to verify the BBCode and there attributes and then return Html Code (with errors commented)
@@ -63,7 +64,9 @@ public class BBConverter {
 	private void processTag(BBTag tag) {
 		switch(tag.getName()) {
 		
-		    
+		case "image":
+		    processImage(tag);
+            break;    
 		case "escape":
 			String addText = getInnerTextContent(tag);
 			html+= addText;
@@ -83,7 +86,12 @@ public class BBConverter {
 		}
 	}
 	
-	private void processLink(BBTag tag) {
+	private void processImage(BBTag tag) {
+        html+="<img src=\""+FileUtils.getArticlePicsFolderPath()+tag.getAttributeValue("name")+"\"/>";
+        
+    }
+
+    private void processLink(BBTag tag) {
 		String article = tag.getAttributeValue("article");
         String abrev = tag.getAttributeValue("abrev");
 		String content="";

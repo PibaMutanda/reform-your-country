@@ -24,6 +24,10 @@ public abstract class FileUtils {
     public static String getGenFolderPath() {
         return ContextUtil.getServletContext().getRealPath("/gen");
     }
+
+    public static String getArticlePicsFolderPath() {
+        return getGenFolderPath() + "/article";
+    }
     /**
      * write the picture in the right folder    
      * @param path
