@@ -18,8 +18,8 @@
 	</ryc:conditionDisplay>
 	
 	<form action="useredit" method="get">
-		<input type="hidden" value="${user.id}" name="id" /><br /> <input
-			type="submit" value="Modifier le Profil" />
+		<input type="hidden" value="${user.id}" name="id" /><br />
+		<input type="submit" value="Modifier le Profil" />
 	</form>
 
 Nom : ${user.lastName}<br>

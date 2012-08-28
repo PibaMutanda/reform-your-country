@@ -20,12 +20,10 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotBlank;
 
 import reformyourcountry.mail.MailingDelayType;
 import reformyourcountry.security.Privilege;
@@ -131,9 +129,11 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     
     
     @Column(length = 50)
+    @Size(min=4,max=50, message="your firstname must contain at least 4 character and at max 50 character")
     private String firstName;
     
     @Column(length = 50)
+    @Size(min=4, max=50, message="your lastname must contain at least 4 character and at max 50 character")
     private String lastName;
 
     @Column(unique = true)
@@ -141,7 +141,7 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     private String userName; 
     
     @Column(length = 100)
-    @Email(message ="Email address is not valid")
+    @Email(message ="Email address is not valid",regexp="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$")
     private String mail;
     
     @Column(length = 100)
@@ -154,7 +154,10 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     @Column(nullable = true)
     @Enumerated(EnumType.STRING)
     private Gender gender;
-
+    
+    
+   // @Temporal(TemporalType.TIMESTAMP)
+  //  @NotNull(message="you must indicate your birthdate in format yyyy-MM-dd")
     private Date birthDate;
 
     private Boolean picture;  // Picture name = user id + ".jpg"

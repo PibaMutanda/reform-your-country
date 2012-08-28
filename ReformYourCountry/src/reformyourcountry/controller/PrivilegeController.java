@@ -19,7 +19,7 @@ import reformyourcountry.security.SecurityContext;
 
 /** To edit the role and privileges of a user */
 @Controller
-public class PrivilegeController {
+public class PrivilegeController extends BaseController<User> {
 	
 	// Stores 3 values for each privilege. It eases the job of the JSP putting these values in a table.
 	public class PrivilegeTriplet{
@@ -69,10 +69,10 @@ public class PrivilegeController {
 	}
 
 	@RequestMapping(value="/privilegeeditsubmit")
-	public ModelAndView privilegeEditSubmit(@RequestParam Map <String, String> params){
+	public ModelAndView privilegeEditSubmit(@RequestParam Map <String, String> params, @RequestParam("id") long id){
 		SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_USERS);
-		ModelAndView mv = new ModelAndView("userdisplay");
-		User user = userRepository.find(Long.parseLong(params.get("id")));
+		ModelAndView mv = new ModelAndView("redirect:user", "id", id);
+		User user = getRequiredEntity(id);
 		params.remove("id");
 		user.getPrivileges().clear();		
 		for (Map.Entry<String, String> entry: params.entrySet()) {

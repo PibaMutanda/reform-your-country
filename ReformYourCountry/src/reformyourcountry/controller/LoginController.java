@@ -58,7 +58,7 @@ public class LoginController {
         if (errorMsg != null) {
             return new ModelAndView("login", "error", errorMsg);
         } else {
-            return new ModelAndView("redirect:userdisplay", "id", user.getId());
+            return new ModelAndView("redirect:user", "id", user.getId());
         }
     }
 }
