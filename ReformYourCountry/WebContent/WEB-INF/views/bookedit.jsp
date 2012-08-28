@@ -2,45 +2,63 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+
 </head>
 <body>
 
-	<h1>Edit a book</h1>
+	<h1>
+		<c:choose>
+			<c:when test="${book.id != null}">Editer un livre</c:when>
+			<c:otherwise>Créer un livre</c:otherwise>
+		</c:choose>
+	</h1>
 
 	<form:form modelAttribute="book" method="post" action="bookeditsubmit">
-
 		<table>
 			<tr>
+				<td>Abréviation du livre:</td>
+				<td>
+					<form:input path="abrev" /> 
+					<form:errors path="abrev" cssClass="error" />
+				</td>
+			</tr>
+			<tr>
 				<td>Titre du livre:</td>
-				<td><form:input path="title" value="${book.title}" /></td>
+				<td><form:input path="title" /></td>
 			</tr>
 			<tr>
 				<td>Description du livre:</td>
-				<td><form:textarea path="description"
-						value="${book.description}" /></td>
+				<td><form:textarea path="description"/></td>
 			</tr>
 			<tr>
 				<td>Auteur(s) du livre:</td>
-				<td><form:input path="author" value="${book.author}" /></td>
+				<td><form:input path="author"/></td>
 			</tr>
 			<tr>
 				<td>Année de publication:</td>
-				<td><form:input path="pubYear" value="${book.pubYear}" /></td>
+				<td><form:input path="pubYear"/></td>
 			</tr>
 			<tr>
 				<td>Lien de référence:</td>
-				<td><form:input path="externalUrl" value="${book.externalUrl}" /></td>
+				<td><form:input path="externalUrl"/></td>
 			</tr>
+			<tr>
+				<td>Top book?</td>
+				<td><form:radiobutton path="top" value="true" />Top
+				    <form:radiobutton path="top" value="false" />Other</td>
+			<tr />
 		</table>
-		<input type ="hidden" name ="id" value="${book.id}"/>
-		<input type="submit" value="Sauver" />
-
-
+		<input type="hidden" name="id" value="${book.id}" />
+		<input type="submit" value="
+				<c:choose>
+					<c:when test="${book.id != null}">Sauver</c:when>
+					<c:otherwise>Créer</c:otherwise>
+				</c:choose>
+			" />
 	</form:form>
+
 </body>
 </html>
+
