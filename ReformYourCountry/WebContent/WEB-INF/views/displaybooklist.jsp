@@ -18,38 +18,7 @@
  <%@include file="booktable.jsp" %>	
    	
    	
-   
+  
 
-
-
-<br>
-
-
- <!-- <tr><td>${book.title}</td><td> 
-
-	titre: ${book.title} 
-
-	<form method="post" action="bookedit" >
-		
-			<input type="hidden" name="id" value="${book.id}">
-			<input type="submit" value="éditer" class="button"> 
-					
-	 </form>
-	 <form method="post" action="removebook" >
-	 		<input type="hidden" name="id" value="${book.id}">
-			<input type="submit" value="supprimer" class="button">  
-	 </form>
-	  
-	 <form method="post" action="bookdetail" >
-	 		<input type="hidden" name="id" value="${book.id}">
-			<input type="submit" value="Détail du livre" class="button">  
-	 </form><br/>
-	 
-	
-
-
-<form method="post" action="createbook">
-	<input type="submit" value="Ajouter un nouveau livre" class="button">
-</form> -->
 </body>
 </html>
