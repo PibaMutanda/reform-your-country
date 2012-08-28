@@ -18,7 +18,9 @@ public abstract class FileUtil {
     public static String getGenFolderPath() {
         return ContextUtil.getServletContext().getRealPath("/gen");
     }
-    
+    public static String getArticlePicsFolderPath() {
+        return ContextUtil.getServletContext().getRealPath("/gen/article");
+    }
     
     /**
      * Return a list of file names contained in a given folder.
