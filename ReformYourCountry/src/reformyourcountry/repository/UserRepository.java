@@ -43,4 +43,11 @@ public class UserRepository extends BaseRepository<User>{
     public List<User> findAll(){
         return  em.createQuery("select u from User u").getResultList();
     }
+    
+    public List<User> findAllUsersByName(String identifier){
+    	List<User> results= em.createQuery("select u from User u where u.userName like :userName or u.firstName like 'Testname' or u.lastName like 'Testlastname' ")
+                .setParameter("userName", identifier)
+                .getResultList();
+    	return results;
+    }
 }

@@ -18,10 +18,10 @@ list-style-type:none;
 </head>
 <body>
 	<h1>Créer/Editer un article</h1>
-	<form:form modelAttribute="article" method="Post" action="articleparenteditsubmit">
-		Title: <form:input type="text" name="title" path="title"/>
+	<form:form modelAttribute="article" method="post" action="articleparenteditsubmit">
+		Title: <input type="text" name="title" value="${article.title}"/>
 
-		<form:hidden path="id"/>
+		<input type="hidden" value="${article.getId()}"/>
 		
 		<input type="submit" value="
 		  <c:choose>
