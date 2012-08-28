@@ -13,7 +13,8 @@
           <a href="logout">Déconnexion</a>
         </c:when>
         <c:otherwise>
-          <a href="login">Connexion</a>
+            <a href="login">Connexion</a><br />
+            <a href="register">Créer un compte</a>
          </c:otherwise>
      </c:choose>
     
