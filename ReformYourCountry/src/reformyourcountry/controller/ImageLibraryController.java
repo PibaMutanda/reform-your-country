@@ -2,7 +2,11 @@ package reformyourcountry.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
+import org.apache.commons.io.comparator.LastModifiedFileComparator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,8 +30,17 @@ public class ImageLibraryController {
     @RequestMapping("show-article-images")
     public ModelAndView ShowLibrary(@RequestParam(value="errorMsg", required=false)String error){
         String path= FileUtil.getArticlePicsFolderPath()+'\\';
+        FileUtil.ensureFolderExists(FileUtil.getArticlePicsFolderPath());
+        List<File> listF = FileUtil.getFilesFromFolder(FileUtil.getArticlePicsFolderPath());
+        File[] listFiles = new File[listF.size()];
+        if (!listF.isEmpty()){
+            listF.toArray(listFiles);
+            Arrays.sort(listFiles,LastModifiedFileComparator.LASTMODIFIED_COMPARATOR);
+        }
         ModelAndView mv =new ModelAndView("imagelibrary","path",path);
-        mv.addObject("listFiles",FileUtil.getFilesNamesFromFolder(FileUtil.getArticlePicsFolderPath()));
+        int i = listFiles.length;
+        mv.addObject("listFiles",listFiles); 
+        mv.addObject("totalFiles",listFiles.length);
         mv.addObject("errorMsg",error);
         return mv;
     }
@@ -39,7 +52,6 @@ public class ImageLibraryController {
      */
     @RequestMapping("add-article-images")
     public ModelAndView addPic(@RequestParam("file")MultipartFile multipartFile) throws IOException{
-        String path= FileUtil.getArticlePicsFolderPath()+'\\';
         ModelAndView mv = new ModelAndView("redirect:show-article-images");
         mv.addObject("errorMsg",iuc.uploadPicture(FileUtil.getArticlePicsFolderPath(),multipartFile));
         return mv;
@@ -57,4 +69,9 @@ public class ImageLibraryController {
         ModelAndView mv =this.ShowLibrary("");
         return mv;
     }
+    public int compare(File o1, File o2) {
+        return o1.lastModified() == o2.lastModified() ? 0 : (o1.lastModified() < o2.lastModified() ? 1 : -1 ) ;
+    }
 }
+
+

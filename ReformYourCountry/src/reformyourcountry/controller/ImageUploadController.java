@@ -71,7 +71,11 @@ public class ImageUploadController {
                     return "bad image type : png , svg , jpeg and gif are only accepted";
                 }
                 //now the file is good
-                file = new File(genFolder, multipartFile.getOriginalFilename()+"."+extension);  // multipartFile.getFileName()
+                //Replace the extension by the good one
+                file = new File(genFolder, multipartFile.getOriginalFilename().replace(
+                                        multipartFile.getOriginalFilename().substring(
+                                                                multipartFile.getOriginalFilename().lastIndexOf("."))
+                                                                , "."+extension));
                 if (file.exists()){
                     return "file already exist!";
                 }
@@ -104,67 +108,7 @@ public class ImageUploadController {
     public ModelAndView imageUploadSubmit(@RequestParam("file") MultipartFile multipartFile) throws IOException  {
         ModelAndView mv = new ModelAndView("imageupload");
         String msg = uploadPicture(FileUtil.getGenFolderPath(),multipartFile);
-        //        File genFolder = FileUtil.ensureFolderExists(FileUtil.getGenFolderPath()); //dir gen who's not created in eclipse webcontent path but only in tomcat working path
-        //        
-        //        String type = multipartFile.getContentType();
-        //        String extension ;
-        //      
-        //        if(logger.isDebugEnabled()){
-        //            logger.debug("genFolder : "+genFolder.getAbsolutePath());
-        //            logger.debug("file type is :"+multipartFile.getContentType());
-        //            logger.debug("file original name is "+multipartFile.getOriginalFilename());
-        //        }
-        //
-        //        if (!multipartFile.isEmpty()){
-        //            if (type.contains("image")) {
-        //                //to get the right extension
-        //                switch (type) {
-        //                case "image/gif":
-        //                    extension = "gif";
-        //                    break;
-        //                case "image/jpeg" :
-        //                case "image/pjpeg" ://internet explorer IFuckDevWhenTheyWantToMakeItSimple special MimeType for jpeg
-        //                    extension = "jpg";
-        //                    break;
-        //                case "image/png" : 
-        //                case "image/x-png"://internet explorer IFuckDevWhenTheyWantToMakeItSimple special MimeType for png
-        //                    extension = "png";
-        //                    break;
-        //                case "image/svg+xml" :
-        //                    extension = "svg";
-        //                    break;
-        //                default:
-        //                    mv.addObject("errorMsg", "bad image type : png , svg , jpeg and gif are only accepted");
-        //                    return mv;
-        //                }
-        //                //now the file is good
-        //                file = new File(genFolder, multipartFile.getOriginalFilename()+"."+extension);  // multipartFile.getFileName()
-        //                if (file.exists()){
-        //                    mv.addObject("errorMsg", "file already exist!");
-        //                    return mv;
-        //                }
-        //                FileOutputStream fos = null;
-        //                try {
-        //                    fos = new FileOutputStream(file);
-        //                    fos.write(multipartFile.getBytes());
-        //                } catch (final java.io.FileNotFoundException e) {
-        //                    throw new RuntimeException(e);
-        //                } finally {
-        //                	fos.close();
-        //                }
-        //
-        //            } else {
-        //                mv.addObject("errorMsg", "file is not an image");
-        //                if(logger.isDebugEnabled()){
-        //                    logger.debug("someone try to upload this fille but this isn't an image : "+multipartFile.getOriginalFilename());}
-        //                return mv;
-        //            }
-        //        } else {
-        //            mv.addObject("errorMsg", "no file to transfer");
-        //            if(logger.isDebugEnabled()){
-        //                logger.debug("someone try to submit an empty file : "+multipartFile.getOriginalFilename());}
-        //            return mv;
-        //        }
+     
         if (msg.equals("")){
             mv = new ModelAndView("redirect:home");
             logger.info("file succesfull uploaded : "+file.getCanonicalPath());

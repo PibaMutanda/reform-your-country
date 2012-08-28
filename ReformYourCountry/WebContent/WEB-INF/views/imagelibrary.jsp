@@ -23,8 +23,9 @@
     <input type="hidden" name="type" value="article\"/>
 </form>
 
-
-<div>La librairie contient ${listFiles.size()} images</div>
+<%--need a scriplet because didn't to get a way to display an array length in EL --%>
+<div>La librairie contient <%Object[] array=(Object[])request.getAttribute("listFiles"); 
+							out.print(array.length); %> images </div>
 
 
 <!-- For each filename, create an img tag, every 3 pics, create a new line -->
@@ -42,9 +43,10 @@
 	</c:when>
 	</c:choose>
 	<td align="center" valign="top">
-		<img src="gen/article/${image}" width="200"/>
+		<img src="gen/article/${image.getName()}" width="200"/>
 		<br>
-		<a href="deleteimage?path=${image}">remove</a>
+		${image.getName()}<br>
+		<a href="deleteimage?path=${image.getName()}">remove</a>
 	</td>
 	<%id=id+1; %>
 	</c:forEach>
