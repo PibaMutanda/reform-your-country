@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.misc.FileUtil;
+import reformyourcountry.utils.FileUtils;
 
 @Controller
 public class ImageUploadController {
@@ -33,81 +34,12 @@ public class ImageUploadController {
         return "imageupload";
     }
 
-//    @RequestMapping("/imageuploadtest")
-//    public String imageUploadTest() {
-//        return "imageuploadtest";
-//    }
 
-    
-    public String uploadPicture(String path,MultipartFile multipartFile)throws IOException{
-        File genFolder = FileUtil.ensureFolderExists(path);
-        String type = multipartFile.getContentType();
-        String extension ;
-      
-        if(logger.isDebugEnabled()){
-            logger.debug("genFolder : "+genFolder.getAbsolutePath());
-            logger.debug("file type is :"+multipartFile.getContentType());
-            logger.debug("file original name is "+multipartFile.getOriginalFilename());
-        }
-        if (!multipartFile.isEmpty()){
-            if (type.contains("image")) {
-                //to get the right extension
-                switch (type) {
-                case "image/gif":
-                    extension = "gif";
-                    break;
-                case "image/jpeg" :
-                case "image/pjpeg" ://internet explorer IFuckDevWhenTheyWantToMakeItSimple special MimeType for jpeg
-                    extension = "jpg";
-                    break;
-                case "image/png" : 
-                case "image/x-png"://internet explorer IFuckDevWhenTheyWantToMakeItSimple special MimeType for png
-                    extension = "png";
-                    break;
-                case "image/svg+xml" :
-                    extension = "svg";
-                    break;
-                default:
-                    return "bad image type : png , svg , jpeg and gif are only accepted";
-                }
-                //now the file is good
-                //Replace the extension by the good one
-                file = new File(genFolder, multipartFile.getOriginalFilename().replace(
-                                        multipartFile.getOriginalFilename().substring(
-                                                                multipartFile.getOriginalFilename().lastIndexOf("."))
-                                                                , "."+extension));
-                if (file.exists()){
-                    return "file already exist!";
-                }
-                FileOutputStream fos = null;
-                try {
-                    fos = new FileOutputStream(file);
-                    fos.write(multipartFile.getBytes());
-                } catch (final java.io.FileNotFoundException e) {
-                    throw new RuntimeException(e);
-                } finally {
-                    fos.close();
-                }
-
-            } else {
-                if(logger.isDebugEnabled()){
-                    logger.debug("someone try to upload this fille but this isn't an image : "+multipartFile.getOriginalFilename());}
-                return "file is not an image";
-            }
-        } else {
-            if(logger.isDebugEnabled()){
-                logger.debug("someone try to submit an empty file : "+multipartFile.getOriginalFilename());}
-            return  "no file to transfer";
-        }
-
-        logger.info("file succesfull uploaded : "+file.getCanonicalPath());
-        return"";
-    }
-    
+   
     @RequestMapping("/imageuploadsubmit")
     public ModelAndView imageUploadSubmit(@RequestParam("file") MultipartFile multipartFile) throws IOException  {
         ModelAndView mv = new ModelAndView("imageupload");
-        String msg = uploadPicture(FileUtil.getGenFolderPath(),multipartFile);
+        String msg = FileUtils.uploadPicture(FileUtil.getGenFolderPath(),multipartFile);
      
         if (msg.equals("")){
             mv = new ModelAndView("redirect:home");

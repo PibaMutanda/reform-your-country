@@ -19,7 +19,7 @@ public abstract class FileUtil {
         return ContextUtil.getServletContext().getRealPath("/gen");
     }
     public static String getArticlePicsFolderPath() {
-        return ContextUtil.getServletContext().getRealPath("/gen/article");
+        return getGenFolderPath() + "/article";
     }
     
     /**
