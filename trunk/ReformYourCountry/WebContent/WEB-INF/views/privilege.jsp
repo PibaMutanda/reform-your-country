@@ -7,7 +7,6 @@
 <title>Privilege</title>
 </head>
 <body>
-<ryc:assertPrivilege privilege="MANAGE_USERS" />
 <h1>Liste des Privileges pour ${user.userName }</h1><br>
 <h2>Roles :</h2><br>
 

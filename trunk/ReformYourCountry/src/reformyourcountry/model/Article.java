@@ -3,15 +3,23 @@ package reformyourcountry.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 public class Article extends BaseEntity {
 
-	@NotEmpty
+	@NotBlank//Hibernate constraint, improves upon @NotNull
 	@Column(length = 100)
 	private String title;
 
@@ -27,7 +35,7 @@ public class Article extends BaseEntity {
 
 	private Date publishDate;
 	@NotNull
-	private boolean publicView;
+	private boolean publicView=true;
 	@ManyToMany
 	@JoinTable(name = "ARTICLE_ACTION", joinColumns = @JoinColumn(name = "ARTICLE_ID"), inverseJoinColumns = @JoinColumn(name="ACTION_ID"))
 	private List<Action> actions = new ArrayList<Action>();
