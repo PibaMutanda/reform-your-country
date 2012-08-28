@@ -231,7 +231,7 @@ public class BBDomParser {
 					}
 					break;
 				case Value:
-					if (/*Character.isSpaceChar(c) ||*/ openQuote != null && openQuote == c) {
+					if (/*Character.isSpaceChar(c) ||  */openQuote != null && openQuote == c) {
 						// Verify that the tag doesn't already have the same attribute.
 						if (tag.getAttributeValue(name)==null) {
 							// Attribute value ended.
