@@ -13,7 +13,7 @@
 	<!-- Scans within the base package of the application for @Components to 
 		configure as beans -->
 	<!-- @Controller, @Service, @Configuration, etc. -->
-	<context:component-scan base-package="reformyourcountry" use-default-filters="false">  <!-- use-default-filters="false" is necessary to not take the rest (what the includes filter does not include) of the beans  -->
+	<context:component-scan base-package="reformyourcountry" use-default-filters="false"> <!-- use-default-filters="false" is necessary to not take the rest (what the includes filter does not include) of the beans  -->
 	<!-- The viewResolver will scan the "reformyourcountry" package for classes annotated with @Controller, exluding everything else-->
 		<context:include-filter expression="org.springframework.stereotype.Controller"
 			type="annotation" />
@@ -29,6 +29,5 @@
 			<value>.jsp</value>
 		</property>
 	</bean>
-	
-	
+	 	
 </beans>

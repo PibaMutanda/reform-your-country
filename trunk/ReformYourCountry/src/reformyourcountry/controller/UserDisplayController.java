@@ -12,7 +12,7 @@ import reformyourcountry.model.User;
 @Controller
 public class UserDisplayController extends BaseController<User> {
     
-    @RequestMapping("/userdisplay")
+    @RequestMapping("/user")
     public ModelAndView userDisplay(
             @RequestParam(value="id", required=true) long userId) {
         

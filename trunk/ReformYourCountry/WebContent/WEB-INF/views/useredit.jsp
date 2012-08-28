@@ -11,18 +11,22 @@
 <h1>Editer un utilisateur</h1>
 
 	<form:form modelAttribute="user" action="usereditsubmit">
-		Nom : <form:input path="lastName" /><br>
-		Prénom : <form:input path="firstName" /><br>
-		Pseudonyme <form:input path="userName"/><br>
-		Date de Naissance : <form:input path="birthDate"/><br>
-		Genre : <form:input path="gender"/><br>
-		Mail : <form:input path="mail"/><br>
-		Newsletters : <form:input path="nlSubscriber"/><br>
-		<input type="submit" value="Sauver"/>
+		<form:label path="lastName" /> Nom : <form:input path="lastName" />&nbsp;&nbsp;&nbsp;<form:errors  path="lastName"  cssClass="error" /><br>
+		<form:label path="firstName" />Prénom : <form:input path="firstName" />&nbsp;&nbsp;&nbsp;<form:errors path="firstName" cssClass="error"/><br>
+	    <form:label path="userName" />Pseudonyme <form:input path="userName"/>&nbsp;&nbsp;&nbsp;<form:errors path="userName" /><br>
+<!--  		Date de Naissance : <form:input path="birthDate"/>&nbsp;&nbsp;&nbsp;<form:errors path="birthDate" cssClass="error"/><br>-->
+		<form:label path="gender" />Genre :
+		   <form:radiobutton path="gender" value="MALE"/>MALE&nbsp;&nbsp;<form:radiobutton path="gender" value="FEMALE"/>FEMALE&nbsp;&nbsp;&nbsp;<form:errors path="gender"  cssClass="error"/><br>
+		<form:label path="mail"></form:label>Mail<form:input path="mail"/>&nbsp;&nbsp;&nbsp;<form:errors path="mail" cssClass="error"/><br>
+		<form:label path="nlSubscriber"></form:label>Newsletters:<form:checkbox path="nlSubscriber"/><br>
+		<form:hidden path="id"/>
+		<input type="submit" value="Sauver" />
 	</form:form>
 	
-	<Form action="userdisplay">
-		<input type="submit" value="annuler">
+	METTRE UN LIEN, VOIR JEROME.
+	<Form action="reseteditsubmit" method="get">
+	    <input type="hidden" value="${user.id }" name="id"/>
+		<input type="submit"  value="annuler"/>
 	</Form>
 
 </body>
