@@ -10,15 +10,17 @@
           <property name="hibernate.archive.autodetection" value="class"/>
           
 		  <!--DB Connexion values -->
-          <property name="hibernate.connection.driver_class"
-                    value="org.postgresql.Driver"/>
-          
-          <property name="hibernate.connection.autocommit" value="false"/>
+          <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
           <property name="hibernate.connection.url" value="jdbc:postgresql://127.0.0.1:2012/RYC"/>
-          <property name="hibernate.connection.username"  value="rycdev"/>
-          <property name="hibernate.connection.password"  value="ryc2012"/>
+          <property name="hibernate.connection.username" value="rycdev"/>
+          <property name="hibernate.connection.password" value="ryc2012"/>
+          <property name="hibernate.showsql" value="true" />
           <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
-		 <property name = "hibernate.show_sql" value = "true" />
+
+          <!-- Because with postgres/Spring, Large objects cannot be used with Autocommit (?) -->
+          <property name="hibernate.connection.autocommit" value="false"/>
+          <property name="hibernate.hbm2ddl.auto" value="validate"/>
+
            <!-- Create the database schema when this test.persistence unit is deployed, drop
                 it (clean the database) when it is undeployed
            -->
