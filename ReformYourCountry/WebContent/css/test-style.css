@@ -1,8 +1,27 @@
+
+html {
+	height: 100%;
+}
 body{
 	font-family:"Times new roman";
 	font-size: 18px;
+	height: 100%;
+	margin: 0;
+	padding: 0;
 }
 
+
+#main{
+
+  width:100%;
+  height:100%;
+}
+
+.bookdiv{
+	text-align : right;
+	
+	
+}
 
  /* unvisited link */
 a:link {
@@ -23,4 +42,9 @@ a:hover {
 a:active {
 	color:rgb(67, 84, 126);
 	text-decoration: none;
+}
+.dialog{
+    display:none; /* Hide the DIV */
+   
+    border:2px solid;
 }

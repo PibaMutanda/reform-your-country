@@ -1,17 +1,19 @@
 package reformyourcountry.converter;
 import java.io.IOException;
-import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import reformyourcountry.model.Book;
 import reformyourcountry.parser.BBDomParser;
 import reformyourcountry.parser.BBTag;
-import reformyourcountry.utils.FileUtils;
+import reformyourcountry.repository.BookRepository;
+import reformyourcountry.utils.HTMLUtil;
 /**
  * @author FIEUX Cédric
  * this class purpose is to verify the BBCode and there attributes and then return Html Code (with errors commented)
  * exemple:
  * [quote]Je suis une citation avec [link article=\"the-great-article-inside\"]un hyperlien[/link]
+ * 
  * is changed in:
  * <div class="quote-block">Je suis une citation avec <a href="/Article/the-great-article-inside">un hyperlien</a> vers un autre article dedans, 
  * ainsi qu�un <a href="http://lesoir.be/toto">hyperlien</a> vers un site web.</div>
@@ -20,9 +22,16 @@ public class BBConverter {
 	boolean errorFound = false;
 	String html;
 	
+	BookRepository bookRepository;
+	
 	//////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////// PUBLIC ///////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////
+	
+	public BBConverter(BookRepository bRep) {
+	    bookRepository = bRep;
+	}
+	
 	
 	/**
 	 * this method return the html code from the bbcode you pass as parameter
@@ -64,10 +73,10 @@ public class BBConverter {
 	private void processTag(BBTag tag) {
 		switch(tag.getName()) {
 		
-		case "image":
-		    processImage(tag);
-            break;    
-		case "escape":
+        case "image":
+            processImage(tag);
+            break;  
+        case "escape":
 			String addText = getInnerTextContent(tag);
 			html+= addText;
 			break;
@@ -87,18 +96,23 @@ public class BBConverter {
 	}
 	
 	private void processImage(BBTag tag) {
-        html+="<img src=\"gen/article/"+tag.getAttributeValue("name")+"\" width=\""+tag.getAttributeValue("width")+"\"/>";
-        
-    }
+	    html+="<img src=\"gen/article/"+tag.getAttributeValue("name")+"\" width=\""+tag.getAttributeValue("width")+"\"/>";
+	}
 
-    private void processLink(BBTag tag) {
+	private void processLink(BBTag tag) {
 		String article = tag.getAttributeValue("article");
         String abrev = tag.getAttributeValue("abrev");
 		String content="";
 		content = getInnerTextContent(tag);
+		
+		
 		if (article == null){
 		    if (abrev !=null){
-		        html+= "<p onmouseover=\"showBookPopUp("+abrev+")\">"+content+"</p>";
+		        html+= "<div class=\"bookdiv\">"
+		                +"<label class=\"book\">"+content+"</label>"
+		                +"<input type =\"hidden\" name=\"abrev\" value=\"" 
+		                +abrev+"\">"
+		                +"</div>";
 		    }else{
 		        String out = tag.getAttributeValue("out");
 		        String label = tag.getAttributeValue("label");
@@ -158,7 +172,8 @@ public class BBConverter {
 	}
 
 	private void processQuote(BBTag tag) {
-		// bib  either [quote bib="book-ref"]; or either [quote] ... [bib out="http"]hyperlink text[/bib] [/quote]
+		// bib  either [quote bib="book-ref"];
+	    //   or either [quote] ... [bib out="http"]hyperlink text[/bib] [/quote]
 		// either bib refers a Book or a link to another site (outlink)
 		
 		/// 0. We look for the type of tag (span or div)
@@ -171,12 +186,14 @@ public class BBConverter {
 		
 		/// 1. We look for a book reference (in attribute)
 		//Book book = null; 
-		String book = null;
+		Book book = null;
 		String bibValueFromAttrib = tag.getAttributeValue("bib");  // Books can only be referred throub attribute (not nested tag)
 		if (bibValueFromAttrib != null) {
-			// TODO
-			//book = bookDao.findByName(bibValueFromAttrib);
-			book = bibValueFromAttrib;
+			book = bookRepository.findBookByAbrev(bibValueFromAttrib);
+			if (book == null) {
+                addErrorMessage("Book not found in DB for abrev = '"+bibValueFromAttrib+"'", tag);
+                return;
+			}
 		}
 
 		/// 2. We look for an out link (in nested tag)
@@ -198,10 +215,11 @@ public class BBConverter {
 				huc.setRequestMethod("GET"); 
 				huc.connect () ; 
 				int code = huc.getResponseCode (  ) ;
-			}catch (IOException e){
+			} catch (IOException e) {
 				addErrorMessage("Invalid url in",bibTag);
 			}
-			bibRefString =addBook(outUrl,getInnerTextContent(bibTag),inline,null);
+			//TODO create method for extern url book
+			//bibRefString = addBook(outUrl, getInnerTextContent(bibTag), inline, null);
 		}
 		
 		if (book != null && outUrl != null) {
@@ -209,7 +227,8 @@ public class BBConverter {
 		}
 		
 		if (book != null) {
-			bibRefString =addBook(bibValueFromAttrib,null,inline,tag.getAttributeValue("addbib"));
+		    String content =getInnerTextContent(tag);
+			bibRefString = addBook(book, content, inline ,tag.getAttributeValue("addbib"));
 		}
 		
 		if (outUrl != null) {
@@ -267,7 +286,7 @@ public class BBConverter {
 		html+=bibRefString;
 	}
 	
-	private String addBook(String bibRef,String content, String inline,String addBib) {
+	private String addBook(Book book, String content, String inline, String addBib) {
 		String result="";
 		String startTag,endTag;
 		if (addBib== null){
@@ -278,16 +297,25 @@ public class BBConverter {
 		
 		if (inline == null || inline.equals("false")){
 			startTag="<div class=\"bibref-after-block\">";
+		
 			endTag="</div>";
 		} else {
 			startTag="<span class=\"bibref\">";
+			
 			endTag="</span>";
 		}
 		
 		if (content == null || content.equals("")) {
-			result += startTag+"<a href=\"/Bibliography#"+bibRef+"\">["+bibRef+"]</a>"+addBib+endTag;
+			//result += startTag+"<a href=\"/Bibliography#"+bibRef+"\">["+bibRef+"]</a>"+addBib+endTag;
+		    result +=  startTag+HTMLUtil.getBookFragment(book,true)+addBib+endTag;
 		} else {
-			result += startTag+"(<a href=\""+bibRef+"\">"+content+"</a>)"+addBib+endTag;
+			result += startTag+
+			        "<div class = \"content\">"+
+			         content+
+			         "</div>"+
+			         "<label class =\"book\">"+book.getTitle()+
+			         "</label>"+
+			         HTMLUtil.getBookFragment(book,true)+addBib+endTag;
 		}
 		return result;
 	}
