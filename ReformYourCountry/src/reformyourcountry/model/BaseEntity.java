@@ -35,43 +35,24 @@ public class BaseEntity {
     User updatedBy;
     Date updatedOn;
 
-    transient @Transient boolean hashCodeOrEqualsCalledWithIdNull = false;  // Protection for preventing 2 consecutive calls to hashCode/equals to return a different value.
     transient @Transient boolean isBeingPersisted = false;  // true if we are between @PerPersist and @PostPersist calls (= if we are persisting).
 
     
     @PrePersist
-    public void onPersist(){
-    	logger.debug("begin onPersist method");
-
-//    	if (createdBy==null) {
-
-    		createdBy = SecurityContext.getUser();
-    		createdOn = new Date();
-			isBeingPersisted = true;
-//    	}else{
-//    		updatedBy=SecurityContext.getUser();
-//    		updatedOn=new Date();
-//    	}
-    	logger.debug("end onPersist method");
-
+    public void prePersist(){
+    	createdBy = SecurityContext.getUser();
+    	createdOn = new Date();
+    	isBeingPersisted = true;
     }
+
     @PostPersist
     public void postPersist(){
     	isBeingPersisted = false;
     }
     @PreUpdate
     public void onUpdate(){
-
-    	logger.debug("begin onUpdate method");
-//    	if (createdBy==null) {
-//
-//    		createdBy = SecurityContext.getUser();
-//    		createdOn = new Date();
-//
-//    	}else{
-    		updatedBy=SecurityContext.getUser();
-    		updatedOn=new Date();
-//    	}
+    	updatedBy=SecurityContext.getUser();
+    	updatedOn=new Date();
     }
 
     public Long getId() {
@@ -82,20 +63,12 @@ public class BaseEntity {
     
     @Override
     public int hashCode() {
-    	if(isBeingPersisted){/*Prevents errors during Hibernate validation.
-    	 						Hibernate calls HashCode() for no reason, causing problems when entities are created.*/
-    		return 0;
-    	}else if (this.getId()==null) {
-        	hashCodeOrEqualsCalledWithIdNull = true;
-        	return 0;
-        } else {
-        	assertConsistentCall();
+    	if (getId() != null) {
             return this.getId().hashCode();
-        }
-    }
-
-	private void assertConsistentCall() {
-		if (hashCodeOrEqualsCalledWithIdNull) { // We have an inconsistent 2nd call
+    	} else if(isBeingPersisted){/*Prevents errors during Hibernate validation.
+    	 						Hibernate calls HashCode() for no reason during em.persist() while doing the validation, causing problems when entities are created.*/
+    		return 0;  // I guess that Hibernate validation does not really use that value anyway. It's a hack.
+    	} else {  // No id yet and not being persisted.
 		    throw new RuntimeException("Bug: We should not call hashCode on an entity that have not been persisted yet " +
 		            "because they have a null id. Because the equals is based on id, hashCode must be based on id too. " +
 		            "If hashCode is called before the id is assigned, then the hashCode will change if called later when " +
@@ -105,8 +78,9 @@ public class BaseEntity {
 		            "It's typically the case when you put an entity in a " +
 		            "-toMany relationship before you call EntityManager.persist on that entity. " +
 		            "Using this BaseEntity class constraints you not doing that (else subtle bugs may arrive by the back door).");
-		}
-	}
+    	}
+    }
+
     
     @Override
     public boolean equals(Object other){

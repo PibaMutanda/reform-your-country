@@ -6,21 +6,24 @@
 <html>
 <head>
 <script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
-<style type="text/css">@import "css/jquery.countdown.css";</style> 
+<link rel="stylesheet" type="text/css" href="css/jquery.countdown.css"/>
 <script type="text/javascript" src="js/jquery.countdown.js"></script>
 
 <title>${article.title}</title>
 </head>
 
 <body>
+	<!-- BREADCRUMB -->
+	<h2>
+		<c:forEach items="${parentsPath}" var="article">
+			<a href="article?id=${article.id}">${article.title}></a>
+		</c:forEach>
+	</h2>
 
-<h2>
-<c:forEach items = "${parentsTree}" var ="article">
-    <a href ="article?id=${article.id}">${article.title}></a>
-</c:forEach></h2>
 
-	<h2>${article.title}</h2>
+	<h1>${article.title}</h1>
 	release date: ${article.releaseDate}<br/>
+
 
 	<ryc:conditionDisplay privilege="EDIT_ARTICLE">
 		<form action=articleedit method="GET">
@@ -34,28 +37,27 @@
 	</ryc:conditionDisplay>
 
 	
-
+    <!-- COUNT DOWN -->
 	<hr/>
-	<c:if test="${article.published}">
-		${articleContent}
-	</c:if>
 	<c:if test="${!article.published}">
 	
 		<script type="text/javascript">
 			$(function () {
 					var publishDay = new Date();
 					publishDay = new Date(${publishYear}, ${publishMonth}, ${publishDay});
-					$('#defaultCountdown').countdown({until: publishDay, format: 'dH',layout: ' {dn} {dl} and {hn} {hl} until the article is published'});
-					$('#year').text(austDay.getFullYear());
+					function reload() { 
+						window.location.reload(); 
+					} 
+					$('#defaultCountdown').countdown({until: publishDay, onExpiry:reload, format: 'dHMS',layout: ' {dn} {dl} , {hn} {hl} , {mn} {ml} and {sn} {sl} until the article is published   <<<<<<<<<< DESIGNER, PLEASE IMPROVE (discret si droit de voir le texte, en grand sinon)'});
 			});
 		</script>
 		<div id="defaultCountdown"></div>
-			
-	<ryc:conditionDisplay privilege="EDIT_ARTICLE">
-		
-			${articleContent}
-		
-	</ryc:conditionDisplay>
+
+	</c:if>
+	
+	<!-- ARTICLE CONTENT -->
+	<c:if test="${showContent}">
+		${articleContent}
 	</c:if>
 </body>
 </html>   
