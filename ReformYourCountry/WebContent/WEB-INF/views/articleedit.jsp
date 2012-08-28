@@ -13,21 +13,21 @@
 		});
 	});
 </script>
+
+<title>Page pour l'édition d'article</title>
 </head>
 
 <body>
-	<h1>Editer un article</h1>
-
-	<form:form modelAttribute="article" action="articleeditcancel">
-		<input type="submit" value="Annuler" />
-		<form:hidden path="id" />
-	</form:form>
-
+   
+	<h1>Edit an article</h1>
+	
+	 ${error}	
 	<form:form modelAttribute="article" action="articleeditsubmit">
 		<input type="submit" value="Sauver"/>
 		Title:<form:input type="text" path="title" />
 		<!--<form:errors path="title" cssClass="error"/>-->
 		Publish date:<input type="text" name="publishDateStr" id="datepicker" value="${article.publishDate}"/>
+		<a href="article?id=${article.getId()}">Annuler</a>
 		<form:checkbox path="publicView" value="${article.publicView}" label="Public ?" />
  		<!-- do not erase class , cols and rows attribute of the textarea , these values are used by textarea-expander.js -->
 		<form:textarea path="content" class="expand" cols="60" rows="3" style="width:100%" />
