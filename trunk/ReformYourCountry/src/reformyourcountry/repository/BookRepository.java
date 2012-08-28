@@ -24,4 +24,11 @@ public class BookRepository extends BaseRepository<Book> {
         List<Book> bookList = em.createQuery("select b from Book b where b.top = 'false' order by b.title").getResultList();
         return bookList;
     }
+    
+    
+    public Book findBookByAbrev(String abrev){
+        
+        Book book = (Book) em.createQuery("select b from Book b where b.abrev = :abrev").setParameter("abrev",abrev).getSingleResult();
+        return book;
+    }
 }

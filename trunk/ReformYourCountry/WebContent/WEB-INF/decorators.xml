@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <decorators defaultdir="/WEB-INF/decorators">
+    <excludes>
+        <pattern>/ajax/*</pattern>
+    </excludes>
 	<decorator name="basic-theme" page="basic-theme.jsp">
 		<pattern>/</pattern>
 	</decorator>
