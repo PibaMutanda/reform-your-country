@@ -28,6 +28,7 @@ public class ArticleEditController {
 
 	@RequestMapping("/articleedit")
 	public ModelAndView articleEdit(@ModelAttribute Article article){
+
 		SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
 		ModelAndView mv = new ModelAndView("articleedit");
 		mv.addObject("article",article);
@@ -41,23 +42,20 @@ public class ArticleEditController {
 			@RequestParam("publishDateStr") String publishDate){
 		SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
 		
-		if (result.hasErrors()) {
-		    return new ModelAndView("articleedit","id",article.getId());  // fw et s'arranger pour insérer le message d'erreur
-		} else {
-			if (publishDate.length()!=0) {  //// KESAKO ?
+		if(result.hasErrors()){
+			
+		    return new ModelAndView("redirect:articleedit","id",article.getId());
+		}else{
+			if (publishDate.length()!=0) { //KESAKO
 				Date date = DateUtil.parseyyyyMMdd(publishDate);
 				article.setPublishDate(date);
 			}
 			articleRepository.merge(article);
-			return new ModelAndView("redirect:article", "id", article.getId());
+			return new ModelAndView("redirect:article", "id", article.getId());//NOOOOOO
 		}
 
 	}
 
-	@RequestMapping("/articleeditcancel")
-	public ModelAndView articleEditCancel(@ModelAttribute Article article){// NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO	
-		return new ModelAndView("redirect:article", "id", article.getId());
-	}
 
 	@ModelAttribute
 	public Article findArticle(@RequestParam("id")Long id){
