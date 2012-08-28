@@ -87,7 +87,7 @@ public class BBConverter {
 	}
 	
 	private void processImage(BBTag tag) {
-        html+="<img src=\""+FileUtils.getArticlePicsFolderPath()+tag.getAttributeValue("name")+"\"/>";
+        html+="<img src=\"gen/article/"+tag.getAttributeValue("name")+"\" width=\""+tag.getAttributeValue("width")+"\"/>";
         
     }
 
