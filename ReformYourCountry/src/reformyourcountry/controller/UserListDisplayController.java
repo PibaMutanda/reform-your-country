@@ -27,23 +27,18 @@ public class UserListDisplayController {
 	}
 	
 	@RequestMapping("/userbynamedisplay")
-	public ModelAndView userByNameDisplay(@RequestParam("username") String username){
+	public ModelAndView userByNameDisplay(@RequestParam("name") String name){
 		
 		String errorMsg = null;
 		ModelAndView mv=new ModelAndView("userlistdisplay");
-		
-		if (userrepository.getUserByUserName(username)!=null) {
-			List<User> usersList=userrepository.findAllUsersByName(username);
-			
-			mv.addObject("userlist",usersList);
-			
-		} else {
-			errorMsg="L'utilisateur  avec le nom "+username+"  n'existe pas.";
-			List<User> userlist=userrepository.findAll();
-		
-			mv.addObject("userlist",userlist);
-			mv.addObject("errorMsg",errorMsg);
+		List<User> usersList=userrepository.searchUsers(name);
+		if(usersList.isEmpty()){
+			errorMsg="Il n'existe aucun utilisateur ayant "+name+" comme username,firstname ou lastname.";
+			usersList=userrepository.findAll();
 		}
+		mv.addObject("userlist",usersList);
+		mv.addObject("errorMsg",errorMsg);
+		
 		return mv;
 	}
 		
