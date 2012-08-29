@@ -129,15 +129,15 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     
     
     @Column(length = 50)
-    @Size(min=4,max=50, message="your firstname must contain at least 4 character and at max 50 character")
+    @Size(max=50, message="your firstname must contain at least 4 character and at max 50 character")
     private String firstName;
     
     @Column(length = 50)
-    @Size(min=4, max=50, message="your lastname must contain at least 4 character and at max 50 character")
+    @Size(max=50, message="your lastname must contain at least 4 character and at max 50 character")
     private String lastName;
 
     @Column(unique = true)
-    @Size(min = 4 ,max = 15,message = "your username must contain at least 4 character and at max 15 character")
+    @Size(max = 15,message = "your username must contain at least 4 character and at max 15 character")
     private String userName; 
     
     @Column(length = 100)
