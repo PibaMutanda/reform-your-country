@@ -20,7 +20,7 @@
 		<form:label path="mail"></form:label>Mail<form:input path="mail"/>&nbsp;&nbsp;&nbsp;<form:errors path="mail" cssClass="error"/><br>
 		<form:label path="nlSubscriber"></form:label>Newsletters:<form:checkbox path="nlSubscriber"/><br>
 		<form:hidden path="id"/>
-		<input type="submit" value="Sauver" /> <a href="user?id=${user.id }">annuler</a>
+		<input type="submit" value="Sauver" /> <a href="user?id=${user.id }">Annuler</a>
 	</form:form>
 	
 	   
