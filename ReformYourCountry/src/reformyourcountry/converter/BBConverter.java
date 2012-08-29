@@ -227,8 +227,8 @@ public class BBConverter {
 		}
 		
 		if (book != null) {
-		    String content =getInnerTextContent(tag);
-			bibRefString = addBook(book, content, inline ,tag.getAttributeValue("addbib"));
+		 //  String content =getInnerTextContent(tag);
+			bibRefString = addBook(book, null, inline ,tag.getAttributeValue("addbib"));
 		}
 		
 		if (outUrl != null) {
@@ -305,17 +305,19 @@ public class BBConverter {
 			endTag="</span>";
 		}
 		
-		if (content == null || content.equals("")) {
+		if (!(inline == null || inline.equals("false"))/*content == null || content.equals("")*/) {
 			//result += startTag+"<a href=\"/Bibliography#"+bibRef+"\">["+bibRef+"]</a>"+addBib+endTag;
 		    result +=  startTag+HTMLUtil.getBookFragment(book,true)+addBib+endTag;
 		} else {
 			result += startTag+
-			        "<div class = \"content\">"+
-			         content+
-			         "</div>"+
-			         "<label class =\"book\">"+book.getTitle()+
+			        "<div class = \"book\">"+
+			        // content+
+			        
+			         "<label class =\"booktitle\">" + book.getTitle()+"("+book.getAuthor()+")"+book.getPubYear()+
 			         "</label>"+
-			         HTMLUtil.getBookFragment(book,true)+addBib+endTag;
+			         HTMLUtil.getBookFragment(book,true)+
+			         "</div>"
+			         +addBib+endTag;
 		}
 		return result;
 	}

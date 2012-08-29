@@ -4,6 +4,7 @@
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 <html>
 <head>
+<link href="css/jquery-bubble-popup-v3.css" rel="stylesheet" type="text/css" />
 
 <style type="text/css">
 
@@ -25,7 +26,8 @@ height:0px;
 }
 
 .book{
-font-style:italic
+font-style:italic;
+text-align:right;
 
 }
 
@@ -35,20 +37,23 @@ display:none;
 }
 img
 {
-float:right;
+float:left;
 }
 
 </style>
 <script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.8.23.custom.min.js"></script>
+<script src="js/jquery-1.7.2.min.js" type="text/javascript"></script>
+<script src="js/jquery-bubble-popup-v3.min.js" type="text/javascript"></script>
 <script type="text/javascript">
+
 		
 		$(document).ready(function(e) {
 			   // do stuff when DOM is ready
 	
 	
 			// Dialog
-		var x = $(".body-template").width() + $(".menu-template").width()+15;
+	/*	var x = $(".body-template").width() + $(".menu-template").width()+15;
 			$('.dialog').dialog({
 				autoOpen: false,
 				width: 600, 
@@ -58,63 +63,43 @@ float:right;
 				position : [x,e.pageY]
 			
 				
-			});
+			});*/
+	
 			
-	    	
-	   
+			
+	 //for info see http://www.maxvergelli.com/jquery-bubble-popup/documentation/#engine   	
+			  $(".bibref-after-block").CreateBubblePopup({ innerHtml: 'Loading...'});
 	
 			   
-	    $(".bibref-after-block").hover(function(e){
+	    $(".booktitle").hover(function(e){
 	    	
-	    	  //  var abrev = $(this).parent().children("input").attr("value");
-	    	  
-	    	   var div = $(this).children(".bookdialog").html();
+	    	 
+	    	   var div = $(this).parent().children(".bookdialog").html();
 	    	    console.log(div);
-	    	 /*   var request = $.ajax({
-	    	    	  url: "ajax/popbook",
-	    	    	  type: "POST",
-	    	    	  data: {abrev : abrev},
-	    	    	  dataType: "html"
-	    	    	});
-
-	    	    	request.done(function(msg) {*/
-	    	    	
-	    	    	$('.dialog').empty();
-	    
-	    	    	
-	  	    	    $('.dialog').html(div);
-	  	        	$('.dialog').dialog('open');
-	  	        	
-	  	        	x = $(".body-template").width() + $(".menu-template").width()+15;
-	  				$('.dialog').dialog('option','position',[x,e.pageY]);
-	  				
-	  		
-	  				
-	    	    	//});
-
-	    	    	/*request.fail(function(jqXHR, textStatus) {
-	    	    	  alert( "Request failed: " + textStatus );
-	    	    	  
-	    	    	});*/
+	 				
+	  				$(this).ShowBubblePopup({ 
+	  					      innerHtmlStyle: {
+				    	   
+				    	                       'text-align':'left',
+				    	                       'font-family': 'Times new roman',
+				    	                        'font-size': '18px'
+				    	                        },
+				    	   tail: {align:'right', hidden: false},
+				    	   selectable :true,				    	
+				    	   innerHtml: div }, true); 	  
 	    	    
 	    
 				return false;
-			},function(){
-				
-				setTimeout(function(){
-					
-					$('.dialog').dialog('close');
-				},5000);
-					
-			
-				
-				
-			});	  
-	
+			},function(){});	  
+	    
+	    
+	   	
 	 });
 		
 /*
-
+ A pop up with ajax:
+	 
+	
     $(".bibref-after-block").hover(function(e){
 	    	
 	    	    var abrev = $(this).parent().children("input").attr("value");
@@ -163,12 +148,17 @@ float:right;
 			});
 
 */
+
+
 </script>
 
 <title>${article.title}</title>
 </head>
 
 <body>
+
+<div  class="dialog"  > Loading ...</div>
+
 	<!-- BREADCRUMB -->
 	<h2>
 		<c:forEach items="${parentsPath}" var="article">
@@ -195,7 +185,7 @@ float:right;
 	<hr/>
 	<c:if test="${!article.published}">
 		<script type="text/javascript">
-			$(function () {
+		$(function () {
 					var publishDay = new Date();
 					publishDay = new Date(${publishYear}, ${publishMonth}, ${publishDay});
 					function reload() { 
