@@ -36,6 +36,9 @@ public abstract class FileUtils {
      * @throws IOException
      */
     public static String uploadPicture(String path, MultipartFile multipartFile) throws IOException {
+        if (multipartFile.getSize()>1500000){
+            return "file is too large 1.5Mo maximum";
+        }
         File genFolder = FileUtil.ensureFolderExists(path);
         String type = multipartFile.getContentType();
         String extension ;
