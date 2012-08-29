@@ -20,14 +20,11 @@
 		<form:label path="mail"></form:label>Mail<form:input path="mail"/>&nbsp;&nbsp;&nbsp;<form:errors path="mail" cssClass="error"/><br>
 		<form:label path="nlSubscriber"></form:label>Newsletters:<form:checkbox path="nlSubscriber"/><br>
 		<form:hidden path="id"/>
-		<input type="submit" value="Sauver" />
+		<input type="submit" value="Sauver" /> <a href="user?id=${user.id }">annuler</a>
 	</form:form>
 	
-	METTRE UN LIEN, VOIR JEROME.
-	<Form action="reseteditsubmit" method="get">
-	    <input type="hidden" value="${user.id }" name="id"/>
-		<input type="submit"  value="annuler"/>
-	</Form>
+	   
+		
 
 </body>
 </html>
