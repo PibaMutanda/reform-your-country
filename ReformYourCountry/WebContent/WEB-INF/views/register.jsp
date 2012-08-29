@@ -1,24 +1,18 @@
-<%@page import="org.zefer.html.doc.u"%>
-<%@ page import="reformyourcountry.exception.UserAlreadyExistsException" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="ISO-8859-1"%>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<%@ taglib uri="http://www.springframework.org/tags/form"  prefix="form" %>    
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Inscription</title>
 </head>
 <body>
-     
-      ${error}
-      
-      <form action="registersubmit" method="post">
-      
-            Pseudo <input type="text" name="userName"/><br><br>
-            Votre mot de passe <input type="password" name="password"/><br><br>
-            E-mail <input type="text" name="mail" /><br>
-                   <input type="submit" value="m'inscrire" />
-      </form>
+    ${error}
+    <form:form modelAttribute="user" action="registersubmit">
+            <label for="userName">pseudo</label><form:input path="userName" required="required"/>
+        <br />
+            <label for="password">mot de passe</label> <form:password path="password" required="required"/>
+        <br />
+            <label for="mail">e-mail</label> <form:input path="mail" type="mail" required="required"/>
+        <br />
+        <input type="submit" value="m'inscrire" />
+    </form:form>
 </body>
-</html>
