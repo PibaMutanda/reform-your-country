@@ -12,7 +12,8 @@
 ${errorMsg}
 	<h1>Liste de tous les users</h1>
 	<form action="userbynamedisplay" method="GET">
-		<input type="text" name="username"/>
+		Encodez soit votre username,firstname ou lastname<br/>
+		<input type="text" name="name"/>
 		<input type="submit" value="rechercher"/>
 	</form>
 	<c:forEach items="${userlist}" var="user">
