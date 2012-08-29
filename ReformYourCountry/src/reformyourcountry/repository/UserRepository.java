@@ -44,10 +44,10 @@ public class UserRepository extends BaseRepository<User>{
         return  em.createQuery("select u from User u").getResultList();
     }
     
-    public List<User> findAllUsersByName(String identifier){
+    public List<User> searchUsers(String identifier){
     	//TODO: to update this query when more users in database
-    	List<User> results= em.createQuery("select u from User u where u.userName like :userName or u.firstName like 'T%' or u.lastName like 'T%' ")
-                .setParameter("userName", identifier)
+    	List<User> results= em.createQuery("select u from User u where u.userName like :name or u.firstName like :name or u.lastName like :name ")
+                .setParameter("name", identifier)
                 .getResultList();
     	return results;
     }
