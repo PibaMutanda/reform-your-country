@@ -7,31 +7,19 @@
 <!DOCTYPE html >
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="/ReformYourCountry/css/test-style.css" />
-<link rel="stylesheet" type="text/css" href="/ReformYourCountry/css/template.css" />
-<link rel="stylesheet" type="text/css" href="/ReformYourCountry/css/content.css" />
-<!-- Shim to make HTML5 elements usable in older Internet Explorer versions -->
-<!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-
-
-
-<!-- for imageupload page -->
-<link rel="stylesheet" type="text/css" media="screen" href='<c:url value="/css/jquery-ui/smoothness/jquery-ui-1.8.23.custom.css"/>'/>
+<meta charset="UTF-8">
 
 <!-- Force latest IE rendering engine or ChromeFrame if installed -->
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
-<meta charset="utf-8">
+
+<!-- Shim to make HTML5 elements usable in older Internet Explorer versions -->
+<!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
 <meta name="viewport" content="width=device-width">
-<!-- jQuery UI styles -->
-<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/base/jquery-ui.css" id="theme">
-<!-- jQuery Image Gallery styles -->
-<link rel="stylesheet" href="http://blueimp.github.com/jQuery-Image-Gallery/css/jquery.image-gallery.min.css">
-<!-- CSS to style the file input field as button and adjust the jQuery UI progress bars -->
-<link rel="stylesheet" href="css/jquery.fileupload-ui.css">
-<!-- Generic page styles -->
-<link rel="stylesheet" href="css/style.css">
 
-
+<link rel="stylesheet" type="text/css" href="/ReformYourCountry/css/test-style.css" />
+<link rel="stylesheet" type="text/css" href="/ReformYourCountry/css/template.css" />
+<link rel="stylesheet" type="text/css" href="/ReformYourCountry/css/content.css" />
 
 <title><decorator:title/></title>
 <decorator:head/>
