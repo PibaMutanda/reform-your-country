@@ -1,7 +1,9 @@
 package reformyourcountry.repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,7 +31,7 @@ public abstract class BaseRepository<E extends BaseEntity> {
         return ( E )obj;
     }
 
-    public void persist(E entity) {
+     public void persist(E entity) {
       
         em.persist(entity);
     
@@ -50,21 +52,26 @@ public abstract class BaseRepository<E extends BaseEntity> {
     
     
     public User findUserWhoCreate(E entity){
-        
-         
         E entity1 = find(entity.getId());
-          
-          return entity1.getCreatedBy();
-        
+        return entity1.getCreatedBy();
     }
     
     public User findUserWhoUpdate(E entity){
-        
-        
         E entity1 = find(entity.getId());
-          
-          return entity1.getUpdatedBy();
-        
+        return entity1.getUpdatedBy();
     }
 
+    
+    // The JPA API EntityManager.getsingleResult() throws an exception if not found, which is not nice.
+    protected E getSingleOrNullResult(Query query) {
+        try {
+            E result = (E)query.getSingleResult();
+            return result;
+        } catch (NoResultException nre) {
+            return null;  // Normal, entity is just not found.
+        }
+    }
+
+
+    
 }
