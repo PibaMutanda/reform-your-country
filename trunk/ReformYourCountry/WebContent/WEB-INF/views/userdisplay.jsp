@@ -28,10 +28,16 @@ Genre : ${user.gender}<br/>
 Date d'enregistrement : ${user.registrationDate}<br/>
 Rôle : ${user.role}<br/>
 Dernier accès : ${user.lastAccess}<br/><br/> 
+
+<ryc:conditionDisplay privilege="MANAGE_USERS">
+
 mail : ${user.mail}<br/>
 Dernière IP d'accès : ${user.lastLoginIp}<br/>
 Status du compte : ${user.accountStatus}<br/>
 Raison blocage compte : ${user.lockReason}<br/>
+
+</ryc:conditionDisplay>
+
 
 </body>
 </html>
