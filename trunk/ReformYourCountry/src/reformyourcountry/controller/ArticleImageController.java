@@ -32,7 +32,6 @@ public class ArticleImageController {
      */
     @RequestMapping("/articleimage")
     public ModelAndView articleImage(@RequestParam(value="errorMsg", required=false)String error){
-
         SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
         FileUtil.ensureFolderExists(FileUtil.getArticlePicsFolderPath());
         List<File> listFiles = FileUtil.getFilesFromFolder(FileUtil.getArticlePicsFolderPath());

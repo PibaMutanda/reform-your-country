@@ -19,7 +19,20 @@ public class ExceptionUtil {
 		}				
 
 	}
-	
+	public static String printBatchUpdateException(Throwable throwable) {
+        Throwable cause = getCauseException(throwable);
+        String response ="";
+        while (cause != null) {
+            if (cause instanceof BatchUpdateException) {
+                BatchUpdateException bue = (BatchUpdateException)cause;
+                response +="<br>";
+                response +=("XXXXXXXXXXXXXXXXX NEXT from BatchUpdateException");
+                response +=bue.getNextException().getMessage();
+            }
+            cause = getCauseException(cause);
+        }               
+        return response;
+    }
 	protected static Throwable getCauseException(Throwable t) {
 		if (t instanceof Exception) {
 			return t.getCause();

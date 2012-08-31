@@ -18,7 +18,7 @@
 
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
-		<property name="persistenceUnitName" value="ConnectionH2" />
+		<property name="persistenceUnitName" value="ConnectionPostgres" />
 	</bean>
 
 	<!-- Transaction manager for a single JPA EntityManagerFactory (alternative 
@@ -41,7 +41,13 @@
 		<property name="maxUploadSize" value="10000000" />
 		<property name="maxInMemorySize" value="10000000" />
 	</bean>
-
+<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+	<property name="exceptionMappings">
+		<props>
+			<prop key="java.lang.Exception">error</prop>
+		</props>
+	</property>
+</bean>
 	<tx:annotation-driven />
 	
 
