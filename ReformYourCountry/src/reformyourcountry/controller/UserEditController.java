@@ -15,6 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.model.User;
 import reformyourcountry.repository.UserRepository;
+import reformyourcountry.security.Privilege;
+import reformyourcountry.security.SecurityContext;
 
 @Controller
 public class UserEditController extends BaseController<User> {
@@ -37,9 +39,12 @@ public class UserEditController extends BaseController<User> {
         if(result.hasErrors()){
            return new ModelAndView("useredit");
         } else {
+            boolean showContent=SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS) ;   
+            
             ModelAndView mv=new ModelAndView("redirect:user", "id", user.getId());
             User userM=userRepository.merge(user);
             mv.addObject("user", userM);
+            mv.addObject("showContent",showContent);
             return mv;
         }     
 
