@@ -12,6 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.model.Book;
 import reformyourcountry.repository.BookRepository;
+import reformyourcountry.security.Privilege;
+import reformyourcountry.security.SecurityContext;
 
 @Controller
 public class BookEditController extends BaseController<Book> {
@@ -21,11 +23,13 @@ public class BookEditController extends BaseController<Book> {
 
 	@RequestMapping("/bookcreate")
 	public ModelAndView bookCreate(){
+	    SecurityContext.assertUserHasPrivilege(Privilege.EDIT_BOOK);
 		return prepareModelAndView(new Book());
 	}
 
 	@RequestMapping("/bookedit")
 	public ModelAndView bookEdit(@RequestParam("id") long id){
+	    SecurityContext.assertUserHasPrivilege(Privilege.EDIT_BOOK);
 		Book book = getRequiredEntity(id);
 		return prepareModelAndView(book);
 	}	
@@ -38,6 +42,7 @@ public class BookEditController extends BaseController<Book> {
 
 	@RequestMapping("/bookeditsubmit")
 	public ModelAndView bookEditSubmit(@Valid @ModelAttribute Book book, BindingResult result){
+	    SecurityContext.assertUserHasPrivilege(Privilege.EDIT_BOOK);
 		if (result.hasErrors()){
 			return new ModelAndView ("bookedit", "book", book);
 		} 
