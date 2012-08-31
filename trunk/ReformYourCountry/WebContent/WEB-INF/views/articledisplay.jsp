@@ -8,22 +8,6 @@
 
 <style type="text/css">
 
-.ui-widget-header {
-border: none;
-background: none;
-color: none;
-
-}
-.ui-widget {
-font-family: Verdana,Arial,sans-serif/*{ffDefault}*/;
-font-size: 0.9em/*{fsDefault}*/;
-}
-
-.ui-dialog-title {
-float: left;
-margin: .1em 2px .1em 0;
-height:0px;
-}
 
 .book{
 font-style:italic;
@@ -49,23 +33,7 @@ float:left;
 
 		
 		$(document).ready(function(e) {
-			   // do stuff when DOM is ready
-	
-	
-			// Dialog
-	/*	var x = $(".body-template").width() + $(".menu-template").width()+15;
-			$('.dialog').dialog({
-				autoOpen: false,
-				width: 600, 
-				closeOnEscape: true,
-				show: "slide", 
-				hide:"slide",
-				position : [x,e.pageY]
-			
-				
-			});*/
-	
-			
+			   // do stuff when DOM is ready			
 			
 	 //for info see http://www.maxvergelli.com/jquery-bubble-popup/documentation/#engine   	
 			  $(".bibref-after-block").CreateBubblePopup({ innerHtml: 'Loading...'});
@@ -96,10 +64,23 @@ float:left;
 	   	
 	 });
 		
+	
+		
 /*
  A pop up with ajax:
 	 
-	
+		// Dialog
+		/*	var x = $(".body-template").width() + $(".menu-template").width()+15;
+				$('.dialog').dialog({
+					autoOpen: false,
+					width: 600, 
+					closeOnEscape: true,
+					show: "slide", 
+					hide:"slide",
+					position : [x,e.pageY]
+				
+					
+				});
     $(".bibref-after-block").hover(function(e){
 	    	
 	    	    var abrev = $(this).parent().children("input").attr("value");
