@@ -58,7 +58,7 @@ public class ArticleTreeTag extends SimpleTagSupport{
 			// If we show radio buttons to select a parent, we display an extra radio button on the top to select a (virtual) root (= no parent).
 
 			if (radio) {
-				out.println("<input type='radio' name='parentid' value='1'" +
+				out.println("<input type='radio' name='parentid' value=''" +
 						((articleFromRequest == null || articleFromRequest.getParent() == null) ? " checked='checked'" : "") + 
 						 "'/>" +
 						 " pas d'article parent");
