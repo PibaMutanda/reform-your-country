@@ -45,7 +45,7 @@ public class UserRepository extends BaseRepository<User>{
     }
     
     public List<User> searchUsers(String identifier){
-    	//TODO: to update this query when more users in database
+
     	List<User> results= em.createQuery("select u from User u where u.userName like :name or u.firstName like :name or u.lastName like :name ")
                 .setParameter("name", identifier)
                 .getResultList();
