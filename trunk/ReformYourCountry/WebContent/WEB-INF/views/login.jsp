@@ -9,7 +9,8 @@
      ${error}
       <form action="loginsubmit" method="post">
              <label for="identifier">Pseudo/Adresse e-mail </label><input type="text" name="identifier" required="required"><br/>
-             <label for="password">Votre mot de passe </label><input type="password" name="password" required="required"><br/>
+             <label for="password">Votre mot de passe </label>
+             <input type="password" name="password" required="required"><br/>
              J'ai oublié  mon <a href="">mot de passe</a><br/>
              <input type="checkbox" name="keepLoggedIn"/><label for="keepLoggedIn">Je souhaite rester connecté</label><br/> 
              <input type="submit"  value="Connexion"/>                   

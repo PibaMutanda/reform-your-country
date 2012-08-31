@@ -54,7 +54,6 @@ public class LoginController {
             errorMsg="Suite à de multiples tentatives de login échouées, votre utilisateur s'est vu imposé un délai d'attente avant de pouvoir se relogguer, ceci pour des raisons de sécurité." +
                     " Actuellement, il reste "+ DateUtil.formatIntervalFromToNow(e.getNextPossibleTry()) +" à attendre.";
         }
-
         if (errorMsg != null) {
             return new ModelAndView("login", "error", errorMsg);
         } else {
