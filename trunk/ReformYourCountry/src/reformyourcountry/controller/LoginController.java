@@ -30,7 +30,7 @@ public class LoginController extends BaseController<User>{
     /**
      * 
      * @param password required=false because we don't use pswd in DEV
-     * @param keepLoggedIn required=false
+     * @param keepLoggedIn required=false because when user don't check the checkbox we get a 400 error
      * @return
      */
     @RequestMapping("/loginsubmit")
