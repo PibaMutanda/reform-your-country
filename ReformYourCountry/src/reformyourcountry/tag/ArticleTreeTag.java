@@ -18,8 +18,6 @@ public class ArticleTreeTag extends SimpleTagSupport{
 
 
 	
-	private static final long serialVersionUID = -8610191696674436647L;
-
 	ArticleRepository articleRepository;
 
 	private String cssClass;

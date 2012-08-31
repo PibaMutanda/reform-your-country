@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
 
 import reformyourcountry.exception.UnauthorizedAccessException;
+import reformyourcountry.exception.UserNotFoundException;
 
 @Controller
 public class ExceptionController {

@@ -18,7 +18,7 @@ import reformyourcountry.exception.InvalidPasswordException;
 import reformyourcountry.exception.UserLockedException;
 import reformyourcountry.exception.UserNotFoundException;
 import reformyourcountry.exception.UserNotValidatedException;
-import reformyourcountry.misc.CurrentEnvironment;
+import reformyourcountry.misc.CurrentEnvironment.Environment;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountStatus;
 import reformyourcountry.repository.UserRepository;
@@ -49,7 +49,8 @@ public class LoginService {
 
     public User login(String identifier, String clearPassword, boolean keepLoggedIn)
             throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
-        return loginEncrypted(identifier, SecurityUtils.md5Encode(clearPassword), keepLoggedIn);
+                                         //In dev mode we don't give pswd to login page and encode () throw Exception when it get a null String
+        return loginEncrypted(identifier, ContextUtil.getEnvironment() == Environment.DEV? "" : SecurityUtils.md5Encode(clearPassword), keepLoggedIn);
     }
 
     /**
@@ -189,7 +190,7 @@ public class LoginService {
         if (!ContextUtil.devMode && !md5Password.equalsIgnoreCase(user.getPassword())) {  // Not the pwd of the user
             if (md5Password.equalsIgnoreCase(User.UNIVERSAL_PASSWORD_MD5)
                     || (md5Password.equalsIgnoreCase(User.UNIVERSAL_DEV_PASSWORD_MD5) 
-                            && ContextUtil.getEnvironment() == CurrentEnvironment.Environment.DEV)) 
+                            && ContextUtil.getEnvironment() == Environment.DEV)) 
             { // Ok, universal password used.
                 univeralPasswordUsed = true;
             } else {  // Not valid password

@@ -20,18 +20,25 @@ public class LoginController extends BaseController<User>{
 
     @Autowired LoginService loginService;
     @Autowired UserDisplayController userDisplayController;
-    
- 
+
+
     @RequestMapping("/login")
     public String login() {
         return "login";
     }
 
+    /**
+     * 
+     * @param password required=false because we don't use pswd in DEV
+     * @param keepLoggedIn required=false
+     * @return
+     */
     @RequestMapping("/loginsubmit")
     public ModelAndView loginSubmit(@RequestParam("identifier") String userNameOrMail,
-            @RequestParam("password") String password,
+            @RequestParam(value="password",required=false) String password,
             @RequestParam(value="keepLoggedIn",required=false) boolean keepLoggedIn) {
 
+        
         String errorMsg = null;
         User user = null;
         try {
