@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
- Cette page n'existe pas
+<center>
+<h1>Erreur 404 - Cette page n'existe pas</h1>
+<img src="images/404.jpg"/>
+</center>
 </body>
 </html>
