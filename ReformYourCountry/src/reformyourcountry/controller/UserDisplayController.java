@@ -17,7 +17,7 @@ public class UserDisplayController extends BaseController<User> {
             @RequestParam(value="id", required=true) long userId) {
         
         User user = getRequiredEntity(userId);
-
+        
         return new ModelAndView("userdisplay", "user", user);
     }
 
