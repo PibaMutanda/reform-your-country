@@ -138,7 +138,6 @@ public class LoginService {
             Long id = new Long(loginCookie.getValue());
             String md5password = passwordCookie.getValue();
             try {
-                System.out.println("-------------------------------------------"+id+"-----------------------------------"+md5password);
                 User user = userRepository.find(id);  
                 if(user != null){
                     loginEncrypted(user.getUserName(), md5password, false /*don't recreate cookies....*/);  // Maybe exception.

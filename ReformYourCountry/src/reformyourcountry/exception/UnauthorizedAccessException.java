@@ -7,6 +7,7 @@ public class UnauthorizedAccessException extends com.sun.servicetag.Unauthorized
                    
        public UnauthorizedAccessException() {
                 super();
+                this.message = "You don't have the rights to access this part of the website";
              }
             
        public UnauthorizedAccessException(String message) {
@@ -16,9 +17,13 @@ public class UnauthorizedAccessException extends com.sun.servicetag.Unauthorized
        
        public UnauthorizedAccessException(Privilege privilege) {
                 super();
+                this.message = "You don't have the rights to access this part of the website";
                 this.privilege = privilege;
             }
-            
+       @Override
+       public String toString(){
+           return this.message;
+       }
  private Privilege privilege;
  private String message;   
 }
