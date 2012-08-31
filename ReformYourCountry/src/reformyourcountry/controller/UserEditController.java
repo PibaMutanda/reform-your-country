@@ -25,7 +25,7 @@ public class UserEditController extends BaseController<User> {
 
     @RequestMapping("/useredit")
     public ModelAndView userEdit(@RequestParam(value="id") long userId) {
-        
+    	SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_USERS);
         User user = getRequiredEntity(userId); 
         
         ModelAndView mv=new ModelAndView("useredit");
@@ -36,12 +36,14 @@ public class UserEditController extends BaseController<User> {
     
     @RequestMapping("/usereditsubmit")
     public ModelAndView userEditSubmit(@Valid  @ModelAttribute User user, BindingResult result){
+    	
+    	SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_USERS);
         if(result.hasErrors()){
            return new ModelAndView("useredit");
         } else {
-            boolean showContent=SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS) ;   
-            
-            ModelAndView mv=new ModelAndView("redirect:user", "id", user.getId());
+        	boolean showContent=SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS) ;   
+        	
+        	ModelAndView mv=new ModelAndView("redirect:user", "id", user.getId());
             User userM=userRepository.merge(user);
             mv.addObject("user", userM);
             mv.addObject("showContent",showContent);
