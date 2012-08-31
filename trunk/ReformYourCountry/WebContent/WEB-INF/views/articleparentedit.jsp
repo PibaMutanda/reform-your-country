@@ -17,18 +17,17 @@ list-style-type:none;
 
 </head>
 <body>
-	<h1>Créer/Editer un article</h1>
+	<h1><c:choose>
+			<c:when test="${article.id != null}">Editer le parent d'un article</c:when>
+			<c:otherwise>Créer un article</c:otherwise>
+		</c:choose></h1>
 	<form:form modelAttribute="article" method="post" action="articleparenteditsubmit">
 		Title: <input type="text" name="title" value="${article.title}"/>
 
-		<input type="hidden" value="${article.getId()}"/>
+		<input type="hidden" name="id" value="${article.id}"/>
 		
-		<input type="submit" value="
-		  <c:choose>
-		  <c:when test="${empty article}">Créer Article</c:when>
-		  <c:otherwise>Sauver</c:otherwise>
-		  </c:choose>
-		"/>
+		<input type="submit" value="<c:choose><c:when test="${article.id !=null}">Sauver</c:when>
+		<c:otherwise>Créer article</c:otherwise></c:choose>"/>
 		
 		<br/><hr/>
 		Parent: <br />
