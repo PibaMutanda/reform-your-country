@@ -35,6 +35,7 @@
 					<%@ include file="/WEB-INF/includes/menu.jsp"%>
 				</div>
 				<div class="body-template">
+				    <div>${message}<br/></div>
 					<decorator:body />
 				</div>
 			</div>

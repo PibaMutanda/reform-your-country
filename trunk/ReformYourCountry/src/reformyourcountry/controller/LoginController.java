@@ -16,7 +16,7 @@ import reformyourcountry.service.LoginService;
 import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
 
 @Controller
-public class LoginController {
+public class LoginController extends BaseController<User>{
 
     @Autowired LoginService loginService;
     @Autowired UserDisplayController userDisplayController;
@@ -54,8 +54,11 @@ public class LoginController {
             errorMsg="Suite à de multiples tentatives de login échouées, votre utilisateur s'est vu imposé un délai d'attente avant de pouvoir se relogguer, ceci pour des raisons de sécurité." +
                     " Actuellement, il reste "+ DateUtil.formatIntervalFromToNow(e.getNextPossibleTry()) +" à attendre.";
         }
+
         if (errorMsg != null) {
-            return new ModelAndView("login", "error", errorMsg);
+            ModelAndView mv = new ModelAndView("login", "error", errorMsg);
+            this.setMessage(mv, errorMsg);
+            return mv;
         } else {
             return new ModelAndView("redirect:user", "id", user.getId());
         }

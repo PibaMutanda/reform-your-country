@@ -3,6 +3,8 @@ package reformyourcountry.controller;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.web.servlet.ModelAndView;
+
 import reformyourcountry.misc.ClassUtil;
 import reformyourcountry.misc.InvalidUrlException;
 import reformyourcountry.model.BaseEntity;
@@ -26,5 +28,8 @@ public class BaseController<E extends BaseEntity> {
         }
         return ( E )obj;
     } 
+    public void setMessage(ModelAndView mv, String message){
+        mv.addObject("message",message);
+    }
 
 }
