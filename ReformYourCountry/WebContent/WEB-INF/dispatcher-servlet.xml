@@ -3,25 +3,23 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="
-        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
-        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
-	<!-- DispatcherServlet Context: defines this servlet's request-processing 
-		infrastructure -->
+	<!-- DispatcherServlet Context: defines this servlet's request-processing 	infrastructure -->
 
-	<!-- Scans within the base package of the application for @Components to 
-		configure as beans -->
-	<!-- @Controller, @Service, @Configuration, etc. -->
-	<context:component-scan base-package="reformyourcountry" use-default-filters="false"> <!-- use-default-filters="false" is necessary to not take the rest (what the includes filter does not include) of the beans  -->
-	<!-- The viewResolver will scan the "reformyourcountry" package for classes annotated with @Controller, exluding everything else-->
-		<context:include-filter expression="org.springframework.stereotype.Controller"
-			type="annotation" />
-	</context:component-scan>
 
-	<bean id="viewResolver"
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 
+	<!-- To take into account the @RequestMapping in the beans scanned from the parent ApplicationContext (the one using applicationContext.xml config). - John.
+	     Explanation there: http://stackoverflow.com/questions/7833767/why-dispatcherservlet-creates-another-application-context -->
+ 	<bean id="handlerMapping" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+        <property name="detectHandlerMethodsInAncestorContexts" value="true" />
+    </bean> 
+
+	<mvc:annotation-driven /> <!-- It registers the controllers and makes SpringMVC look for a JSR-303 compatible validation framework in the classpath (which is Hibernate validation for us). -->
+	
+	<bean id="viewResolver"	class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">
 			<value>/WEB-INF/views/</value>
 		</property>
