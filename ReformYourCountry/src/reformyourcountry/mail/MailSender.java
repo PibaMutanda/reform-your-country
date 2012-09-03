@@ -37,7 +37,7 @@ import blackbelt.HtmlToTextUtil;
 @Service
 public class MailSender extends Thread {
 
-   private Logger logger = Logger.getLogger("jbbmail");
+   private Logger logger = Logger.getLogger("rycmail");
 
    //TODO rewiew time delay choice for production
     public final static int DELAY_BETWEEN_EACH_MAIL = 50;  // in ms. In case the SMTP server is too slow (cannot accept too many mails too fast). Use this const to temporize between 2 SMTP calls. 
@@ -102,13 +102,9 @@ public class MailSender extends Thread {
     public void postConstruct() {
      	BasicConfigurator.configure();
         javaMailSender = new JavaMailSenderImpl();  // Class of Spring.
-        javaMailSender.setProtocol("smtps");
+        javaMailSender.setProtocol("smtp");
         javaMailSender.setHost(smtpHost);
         javaMailSender.setPort(smtpPort);
-        
-        // TODO where did this came from on KBB?
-        javaMailSender.setUsername("reformyourcountrytest@gmail.com");
-	    javaMailSender.setPassword("technofutur");
 
         setName("MailSender"); // Sets the name of the thread to be visible in the prod server thread list.
        if(this.environment.getMailBehavior() != MailBehavior.NOT_STARTED){
