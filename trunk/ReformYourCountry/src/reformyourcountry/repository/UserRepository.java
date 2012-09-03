@@ -45,9 +45,9 @@ public class UserRepository extends BaseRepository<User>{
     }
     
     public List<User> searchUsers(String identifier){
-
-    	List<User> results= em.createQuery("select u from User u where u.userName like :name or u.firstName like :name or u.lastName like :name ")
-                .setParameter("name", identifier)
+    	String name = "\\" +identifier.toUpperCase()+ "%";
+    	List<User> results= em.createQuery("select u from User u where upper(u.userName) like :name or upper(u.firstName) like :name or upper(u.lastName) like :name ")
+                .setParameter("name", name)
                 .getResultList();
     	return results;
     }
