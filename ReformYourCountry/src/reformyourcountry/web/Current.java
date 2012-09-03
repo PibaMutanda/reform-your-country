@@ -13,8 +13,11 @@ import reformyourcountry.security.SecurityContext;
 public class Current {
 
     public static final String ATTRIBUTE_KEY = "current";  
-
+    private static final String version = "0.0.1"; 
     public User getUser(){
         return SecurityContext.getUser();
+    }
+    public static String getVersion() {
+        return version;
     }
 }
