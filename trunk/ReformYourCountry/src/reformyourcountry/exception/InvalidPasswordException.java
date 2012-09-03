@@ -11,4 +11,5 @@ public class InvalidPasswordException extends Exception {
 		super("Invalid password for user Username=" + user.getUserName()+ " full name = "+user.getFullName());
 		this.user=user;
 	}
+	
 }
