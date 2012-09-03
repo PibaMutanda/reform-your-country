@@ -27,7 +27,6 @@ public class ArticleParentEditController extends BaseController<Article>{
 	
 	@RequestMapping(value={"/articleparentedit", "/articlecreate"})
 	public ModelAndView articleParentEdit(@ModelAttribute Article article){
-		
 		SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
 		ModelAndView mv = new ModelAndView("articleparentedit");
 	    return mv.addObject("article", article); 
@@ -44,8 +43,9 @@ public class ArticleParentEditController extends BaseController<Article>{
 		if (result.hasErrors()){
 			return new ModelAndView ("articleparentedit", "article", article);
 		} 
+		
 		if (article.getId() == null) { // New article instance (not from DB) 
-			article.setContent("Editez le contenus");
+			article.setContent("Editez le contenu");
 			articleRepository.persist(article);
 			articleService.attachWithParent(article, parentId);
 		} else {  // Edited article instance.
@@ -53,7 +53,6 @@ public class ArticleParentEditController extends BaseController<Article>{
 			articleService.changeParent(article, parentId);
 		}
 		
-
 		return new ModelAndView ("redirect:article", "id", article.getId());
 	}
 
