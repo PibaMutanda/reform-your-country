@@ -10,11 +10,9 @@
 </head>
 <body>
 	<form action="loginsubmit" method="post">
-		<label for="identifier">Pseudo/Adresse e-mail </label><input
-			type="text" name="identifier" required="required"><br />
-		<!--       <ryc:conditionDisplay environment="PROD" >
-                <label for="password">Votre mot de passe </label> <input type="password" name="password" required="required"><br/>
-             </ryc:conditionDisplay>-->
+		<label for="identifier">Pseudo/Adresse e-mail </label>
+		<input type="text" name="identifier" required="required"><br />
+
 		<c:choose>
 			<c:when test="<%= !ContextUtil.devMode %>">
 				<label for="password">Votre mot de passe </label>
