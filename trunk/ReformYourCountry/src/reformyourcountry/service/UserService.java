@@ -12,6 +12,7 @@ import reformyourcountry.exception.UserAlreadyExistsException;
 import reformyourcountry.exception.UserAlreadyExistsException.IdentifierType;
 import reformyourcountry.mail.MailCategory;
 import reformyourcountry.mail.MailType;
+import reformyourcountry.misc.DateUtil;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountStatus;
 import reformyourcountry.repository.UserRepository;
@@ -175,16 +176,16 @@ public class UserService {
 
 
     /** Change the name of the user and note it in the log */
-    public void changeUserName(User user, String newFirstName,   String newLastName) {
+    public void changeUserName(User user, String newUserName, String newFirstName, String newLastName) {
         if (user.getNameChangeLog() == null) {
             user.addNameChangeLog("Previous name: " + user.getFirstName()
-                    + " - " + user.getLastName());
+                    + " - " + user.getLastName() + " - " + user.getUserName());
         }
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-        user.addNameChangeLog(dateFormat.format(new Date()) + ": "
-                + newFirstName + " - " + newLastName);
+        user.addNameChangeLog( DateUtil.formatyyyyMMdd(new Date()) + ": "
+                + newFirstName + " - " + newLastName + " - " + newUserName);
         user.setFirstName(newFirstName);
         user.setLastName(newLastName);
+        user.setUserName(newUserName);
         userRepository.merge(user);
     }
 
