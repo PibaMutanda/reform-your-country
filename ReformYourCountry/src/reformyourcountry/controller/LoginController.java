@@ -63,7 +63,7 @@ public class LoginController extends BaseController<User>{
         }
 
         if (errorMsg != null) {
-            ModelAndView mv = new ModelAndView("login", "error", errorMsg);
+            ModelAndView mv = new ModelAndView("login");
             this.setMessage(mv, errorMsg);
             return mv;
         } else {
