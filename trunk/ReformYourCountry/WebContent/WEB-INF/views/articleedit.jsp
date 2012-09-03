@@ -25,34 +25,21 @@
 	
 	 ${error}
 	 
-	 <ryctag:form action="articleeditsubmit" modelAttribute="article">
-	 	<tr><td><input type="submit" value="Sauver"/></td>
-	 	<td><a href="article?id=${article.getId()}">Annuler</a></td></tr>
-	 	<ryctag:input path="title" label="Titre" required="required"/>
-	 	<tr>
-		<td><label for="Publish date">Publish date</label></td>
-		<td><input type="text" name="publishDateStr" id="datepicker" value="${article.publishDate}"/></td>
-		</tr>
-	 	<ryctag:checkbox path="publicView" label="Public ?"/>
-	 	<!-- do not erase class , cols and rows attribute of the textarea , these values are used by textarea-expander.js -->
-		<tr><td></td>
-		<td><form:textarea path="content" class="expand" cols="60" rows="3" style="width:100%" /></td></tr>
-		<form:hidden path="id" /><br/>
-	 </ryctag:form>
+	 <form:form modelAttribute="article" action="articleeditsubmit">
+		<table>
+	 		<tr><td><input type="submit" value="Sauver"/></td>
+	 		<td><a href="article?id=${article.getId()}">Annuler</a></td></tr>
+	 		<ryctag:input path="title" label="Titre" required="required"/>
+	 		<tr>
+			<td><label for="Publish date">Publish date</label></td>
+			<td><input type="text" name="publishDateStr" id="datepicker" value="${article.publishDate}"/></td>
+			</tr>
+	 		<ryctag:checkbox path="publicView" label="Public ?"/>
+	 		<!-- do not erase class , cols and rows attribute of the textarea , these values are used by textarea-expander.js -->
+			</table>
+			<form:textarea path="content" class="expand" cols="60" rows="3" style="width:100%" />
+			<form:hidden path="id" /><br/>
 	 	
-	<!--
-	<form:form modelAttribute="article" action="articleeditsubmit">
-		<input type="submit" value="Sauver"/>
-		<ryctag:input path="title"/>
-		Title:<form:input type="text" path="title" />
-		<form:errors path="title" cssClass="error"/>
-		
-		<a href="article?id=${article.getId()}">Annuler</a>
-		<form:checkbox path="publicView" value="${article.publicView}" label="Public ?" />-->
- 		<!-- do not erase class , cols and rows attribute of the textarea , these values are used by textarea-expander.js --><!--
-		<form:textarea path="content" class="expand" cols="60" rows="3" style="width:100%" />
-		<form:hidden path="id" /><br/>
 	</form:form>
-	 -->
 </body>
 </html>
