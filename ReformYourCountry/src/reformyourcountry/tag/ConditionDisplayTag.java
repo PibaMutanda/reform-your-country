@@ -11,7 +11,7 @@ import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.web.ContextUtil;
 
-/** Prevents a JSP from executing if the user does not have a specific privilege */
+/** Only display the body if the user has a specific privilege */
 public class ConditionDisplayTag extends SimpleTagSupport {
     
     
