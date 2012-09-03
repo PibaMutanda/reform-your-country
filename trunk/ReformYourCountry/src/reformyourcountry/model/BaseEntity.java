@@ -23,7 +23,9 @@ import reformyourcountry.security.SecurityContext;
 @Configurable(autowire = Autowire.BY_TYPE, dependencyCheck = true)
 public class BaseEntity {
 
-    @Transient
+    private static final boolean ENFORCE_CONSISTENT_HASHCODE = false;
+
+	@Transient
     private Logger logger = Logger.getLogger(this.getClass());
     
     @Id   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -69,7 +71,8 @@ public class BaseEntity {
     	 						Hibernate calls HashCode() for no reason during em.persist() while doing the validation, causing problems when entities are created.*/
     		return 0;  // I guess that Hibernate validation does not really use that value anyway. It's a hack.
     	} else {  // No id yet and not being persisted.
-		    throw new RuntimeException("Bug: We should not call hashCode on an entity that have not been persisted yet " +
+    		if (ENFORCE_CONSISTENT_HASHCODE) {
+		      throw new RuntimeException("Bug: We should not call hashCode on an entity that have not been persisted yet " +
 		            "because they have a null id. Because the equals is based on id, hashCode must be based on id too. " +
 		            "If hashCode is called before the id is assigned, then the hashCode will change if called later when " +
 		            "the id will have been assigned. But hashCode never can change (must always return the same value). " +
@@ -78,6 +81,9 @@ public class BaseEntity {
 		            "It's typically the case when you put an entity in a " +
 		            "-toMany relationship before you call EntityManager.persist on that entity. " +
 		            "Using this BaseEntity class constraints you not doing that (else subtle bugs may arrive by the back door).");
+    		} else {
+    			return 0;
+    		}
     	}
     }
 
