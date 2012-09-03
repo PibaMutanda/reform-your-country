@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
         <TITLE>Error page </TITLE>
 </head>
@@ -16,7 +17,10 @@
        <h2>Your application has generated an error</h2>
        <h3>Please check for the error given below</h3>
        <b>Exception:</b><br> 
-       <font color="red">${exception.toString()}</font>
-
+       <font color="red">${exception.toString()}<br/><br/>	
+       <c:forEach items="${exception.stackTrace}" var="element">
+   		 <c:out value="${element}"/><br/>
+	   </c:forEach>
+</font>
 </body>
 </html>
