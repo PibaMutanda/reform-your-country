@@ -1,4 +1,4 @@
-package reformyourcountry.misc;
+package reformyourcountry.exception;
 
 /** We don't use MalformedURLException because it's a checked exception.
  * When intercepted by the error mechanism at the web filter level, it can show something nicer than a stacktrace and maybe meaningful for the user. */

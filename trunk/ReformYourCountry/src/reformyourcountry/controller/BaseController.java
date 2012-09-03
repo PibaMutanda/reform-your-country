@@ -5,8 +5,8 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.web.servlet.ModelAndView;
 
+import reformyourcountry.exception.InvalidUrlException;
 import reformyourcountry.misc.ClassUtil;
-import reformyourcountry.misc.InvalidUrlException;
 import reformyourcountry.model.BaseEntity;
 
 
