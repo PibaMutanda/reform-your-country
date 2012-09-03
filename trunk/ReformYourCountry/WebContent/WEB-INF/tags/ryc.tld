@@ -36,14 +36,9 @@
 		<body-content>scriptless</body-content>
 		<attribute>
 			<name>privilege</name>
-			<required>false</required>
+			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
-		<attribute>
-            <name>environment</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
 	</tag>
 	
 	<tag>
