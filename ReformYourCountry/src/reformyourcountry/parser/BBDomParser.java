@@ -53,6 +53,12 @@ public class BBDomParser {
 	 * @throws BBParserException
 	 */
 	public BBTag parse(String input) throws BBParserException {
+	    while(input.contains(" = \"")||input.contains("= \"")||input.contains(" =\"")){
+	    input.replace(" = \"", "=\"");
+	    input.replace("= \"", "=\"");
+        input.replace(" =\"", "=\"");
+	    }
+	    
 		Iterator<Part> i = new SplitIterator(input);
 
 		BBTag root = new DefaultBBTag("", BBTagType.Root, "");  // The root tag is always a DefaultBBTag.

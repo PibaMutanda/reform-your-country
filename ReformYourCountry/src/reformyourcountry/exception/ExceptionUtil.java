@@ -1,38 +1,44 @@
 package reformyourcountry.exception;
 
 import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.sql.BatchUpdateException;
 
 public class ExceptionUtil {
 
 	/** Look for a BatchUpdateException in the causes, in order to display the real cause of that exception. */		
 	public static void printBatchUpdateException(Throwable throwable, PrintStream out) {
-		Throwable cause = getCauseException(throwable);
-		while (cause != null) {
-			if (cause instanceof BatchUpdateException) {
-				BatchUpdateException bue = (BatchUpdateException)cause;
-				out.println();
-				out.println("XXXXXXXXXXXXXXXXX NEXT from BatchUpdateException");
-				bue.getNextException().printStackTrace(out);
-			}
-			cause = getCauseException(cause);
-		}				
+//		Throwable cause = getCauseException(throwable);
+		out.print(getStringBatchUpdateExceptionStackTrace(throwable,false));
+//		while (cause != null) {
+//			if (cause instanceof BatchUpdateException) {
+//				BatchUpdateException bue = (BatchUpdateException)cause;
+//				out.println();
+//				out.println("XXXXXXXXXXXXXXXXX NEXT from BatchUpdateException");
+//				bue.getNextException().printStackTrace(out);
+//			}
+//			cause = getCauseException(cause);
+//		}				
 
 	}
-	public static String printBatchUpdateException(Throwable throwable) {
-        Throwable cause = getCauseException(throwable);
+	public static String getStringBatchUpdateExceptionStackTrace(Throwable throwable, boolean htmlVersion) {
         String response ="";
-        while (cause != null) {
-            if (cause instanceof BatchUpdateException) {
-                BatchUpdateException bue = (BatchUpdateException)cause;
-                response +="<br>";
-                response +=("XXXXXXXXXXXXXXXXX NEXT from BatchUpdateException");
-                response +=bue.getNextException().getMessage();
+        while (throwable != null) {
+            response += htmlVersion ? "<br/>" : "\n";
+            response += getStackTrace(throwable);
+            if (throwable instanceof BatchUpdateException) {
+                BatchUpdateException bue = (BatchUpdateException)throwable;
+                
+                response += "XXXXXXXXXXXXXXXXX NEXT from BatchUpdateException";
+                response += bue.getNextException().getMessage();
             }
-            cause = getCauseException(cause);
+            throwable = getCauseException(throwable);
         }               
         return response;
     }
+	
 	protected static Throwable getCauseException(Throwable t) {
 		if (t instanceof Exception) {
 			return t.getCause();
@@ -40,4 +46,10 @@ public class ExceptionUtil {
 			return null;
 		}
 	}
+	 protected static String getStackTrace(Throwable aThrowable) {
+	     final Writer result = new StringWriter();
+	     final PrintWriter printWriter = new PrintWriter(result);
+	     aThrowable.printStackTrace(printWriter);
+	     return result.toString();
+	   }
 }

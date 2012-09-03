@@ -22,7 +22,7 @@ public class ExceptionController {
 //        map.put("isBigError", true);
 //        return new ModelAndView(JSONView.RenderObject(map, response));
 //    }
-    @ExceptionHandler(NoSuchRequestHandlingMethodException.class)
+    @RequestMapping("pagenotfound")
     public String handleException2(NoSuchRequestHandlingMethodException ex)
     {
         return "page-not-found";

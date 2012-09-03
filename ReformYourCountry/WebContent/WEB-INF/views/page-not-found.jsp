@@ -9,7 +9,8 @@
 <body>
 <center>
 <h1>Erreur 404 - Cette page n'existe pas</h1>
-<img src="images/404.jpg"/>
+<img src="images/404.jpg"/><br/>
+<a href="home">Retour à l'accueil</a>
 </center>
 </body>
 </html>

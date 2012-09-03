@@ -50,7 +50,7 @@ public class LoginService {
     public User login(String identifier, String clearPassword, boolean keepLoggedIn)
             throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
                                          //In dev mode we don't give pswd to login page and encode () throw Exception when it get a null String
-        return loginEncrypted(identifier, ContextUtil.getEnvironment() == Environment.DEV? "" : SecurityUtils.md5Encode(clearPassword), keepLoggedIn);
+        return loginEncrypted(identifier, SecurityUtils.md5Encode(clearPassword == null ? "" : clearPassword), keepLoggedIn);
     }
 
     /**
@@ -187,7 +187,7 @@ public class LoginService {
             throws InvalidPasswordException {
         boolean univeralPasswordUsed = false;
    
-        if (!ContextUtil.devMode && !md5Password.equalsIgnoreCase(user.getPassword())) {  // Not the pwd of the user
+        if (!ContextUtil.devMode && !md5Password.equalsIgnoreCase(user.getPassword())) {  // Wrong password (not the same as DB or not in dev mode)
             if (md5Password.equalsIgnoreCase(User.UNIVERSAL_PASSWORD_MD5)
                     || (md5Password.equalsIgnoreCase(User.UNIVERSAL_DEV_PASSWORD_MD5) 
                             && ContextUtil.getEnvironment() == Environment.DEV)) 

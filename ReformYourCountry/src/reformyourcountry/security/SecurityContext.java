@@ -3,16 +3,11 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
 
-import reformyourcountry.exception.InvalidPasswordException;
 import reformyourcountry.exception.UnauthorizedAccessException;
-import reformyourcountry.exception.UserLockedException;
-import reformyourcountry.exception.UserNotFoundException;
-import reformyourcountry.exception.UserNotValidatedException;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.Role;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.service.LoginService;
-import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
 import reformyourcountry.web.ContextUtil;
 
 
