@@ -1,5 +1,4 @@
 package reformyourcountry.util;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -10,8 +9,10 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.web.multipart.MultipartFile;
+
 import reformyourcountry.controller.ImageUploadController;
 import reformyourcountry.web.ContextUtil;
 
@@ -32,9 +33,9 @@ public abstract class FileUtil {
      * @return
      * @throws IOException
      */
-    public static String uploadPicture(String path, MultipartFile multipartFile) throws IOException {
-        if (multipartFile.getSize()>1500000){
-            return "file is too large 1.5Mo maximum";
+    public static void uploadPicture(String path, MultipartFile multipartFile, String filename, boolean overwriteIfFileExists) throws IOException, InvalidImageFileException {
+        if (multipartFile.getSize()>1500000)  {
+            throw new InvalidImageFileException("file is too large 1.5Mo maximum");
         }
         File genFolder = FileUtil.ensureFolderExists(path);
         String type = multipartFile.getContentType();
@@ -47,64 +48,67 @@ public abstract class FileUtil {
             logger.debug("file original name is "+multipartFile.getOriginalFilename());
         }
         
-        //
         
-        if (!multipartFile.isEmpty()){
-            if (type.contains("image")) {
-                //to get the right extension
-                switch (type) {
-                case "image/gif":
-                    extension = "gif";
-                    break;
-                case "image/jpeg" :
-                case "image/pjpeg" ://internet explorer IFuckDevWhenTheyWantToMakeItSimple special MimeType for jpeg
-                    extension = "jpg";
-                    break;
-                case "image/png" : 
-                case "image/x-png"://internet explorer IFuckDevWhenTheyWantToMakeItSimple special MimeType for png
-                    extension = "png";
-                    break;
-                case "image/svg+xml" :
-                    extension = "svg";
-                    break;
-                default:
-                    return "bad image type : png , svg , jpeg and gif are only accepted";
-                }
-                //now the file is good
-                //Replace the extension by the good one
-                file = new File(genFolder, multipartFile.getOriginalFilename().replace(
-                                        multipartFile.getOriginalFilename().substring(
-                                                                multipartFile.getOriginalFilename().lastIndexOf("."))
-                                                                , "."+extension));
-                if (file.exists()){
-                    return "file already exist!";
-                }
-                FileOutputStream fos = null;
-                try {
-                    fos = new FileOutputStream(file);
-                    fos.write(multipartFile.getBytes());
-                } catch (final java.io.FileNotFoundException e) {
-                    throw new RuntimeException(e);
-                } finally {
-                    fos.close();
-                }
-
-            } else {
-                if(logger.isDebugEnabled()){
-                    logger.debug("someone try to upload this fille but this isn't an image : "+multipartFile.getOriginalFilename());}
-                return "file is not an image";
-            }
-        } else {
+        if (multipartFile.isEmpty()){
             if(logger.isDebugEnabled()){
                 logger.debug("someone try to submit an empty file : "+multipartFile.getOriginalFilename());}
-            return  "no file to transfer";
+            throw new InvalidImageFileException("No file to transfer. File is empty.");
+
+        }
+        if (!type.contains("image")) {
+            if(logger.isDebugEnabled()){
+                logger.debug("someone try to upload this fille but this isn't an image : "+multipartFile.getOriginalFilename());}
+            throw new InvalidImageFileException("File is not an image.  Detected type = '"+type+"'");
+        }
+        
+        
+        ////// Get the right extension & replace in fileName
+        switch (type) {
+        case "image/gif":
+            extension = "gif";
+            break;
+        case "image/jpeg" :
+        case "image/pjpeg" ://internet explorer IFuckDevWhenTheyWantToMakeItSimple special MimeType for jpeg
+            extension = "jpg";
+            break;
+        case "image/png" : 
+        case "image/x-png"://internet explorer IFuckDevWhenTheyWantToMakeItSimple special MimeType for png
+            extension = "png";
+            break;
+        case "image/svg+xml" :
+            extension = "svg";
+            break;
+        default:
+            throw new InvalidImageFileException("bad image type : png , svg , jpeg and gif are only accepted. Detected type = '"+type+"'");
+        }
+        filename.replace( filename.substring( filename.lastIndexOf(".")),
+                "."+extension);
+
+        
+        //now the file is good
+        //Replace the extension by the good one. for example, we replace "JPEG" by "jpg".
+        file = new File(genFolder, filename);
+
+//            file = new File(genFolder, multipartFile.getOriginalFilename().replace(
+//                    multipartFile.getOriginalFilename().substring(0,multipartFile.getOriginalFilename().lastIndexOf(".")),filename));
+
+        //// Writes the file
+        if (overwriteIfFileExists && file.exists()){
+            throw new InvalidImageFileException("file already exist!");
+        }
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(file);
+            fos.write(multipartFile.getBytes());
+        } catch (final java.io.FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            fos.close();
         }
 
         logger.info("file succesfull uploaded : "+file.getCanonicalPath());
-        return"";
     }
-    
-    
+
     /**
      * Return a list of file names contained in a given folder.
      * @param folderPath The path to the folder from wich we retrieve the file names
@@ -170,11 +174,11 @@ public abstract class FileUtil {
         
         FilenameFilter filter = new FilenameFilter() {
             public boolean accept(File dir, String name) {
-            	for (String extension : extensions) {
-					if(name.toLowerCase().endsWith(extension.toLowerCase())){
-						return true;
-					}
-				}
+                for (String extension : extensions) {
+                    if(name.toLowerCase().endsWith(extension.toLowerCase())){
+                        return true;
+                    }
+                }
                 return false;
             }
         };
@@ -208,20 +212,30 @@ public abstract class FileUtil {
     }
     
     public static void writeStringToFile(String dataString, File file) throws IOException {
-    	
-    	PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file)));
-    	out.print(dataString);
-		out.flush();
-		out.close();
-		
-	}
+        
+        PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+        out.print(dataString);
+        out.flush();
+        out.close();
+        
+    }
     
-	public static File ensureFolderExists(String completeFolderName) {
-		File mainFolder = new File(completeFolderName);
-		if(!mainFolder.exists()){
-			mainFolder.mkdirs();
-		}
-		return mainFolder;
-	}
-    
+    public static File ensureFolderExists(String completeFolderName) {
+        File mainFolder = new File(completeFolderName);
+        if(!mainFolder.exists()){
+            mainFolder.mkdirs();
+        }
+        return mainFolder;
+    }
+
+    @SuppressWarnings("serial")
+    public static class InvalidImageFileException extends Exception {
+        private String messageToUser;
+        InvalidImageFileException(String userMsg) {
+            this.messageToUser = userMsg;
+        }
+        public String getMessageToUser() {
+            return messageToUser;
+        }
+    }
 }
