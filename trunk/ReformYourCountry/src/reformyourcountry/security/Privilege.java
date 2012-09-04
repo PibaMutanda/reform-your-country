@@ -26,7 +26,7 @@ public enum Privilege {
     EDIT_ARTICLE("Edit article",Role.MODERATOR),
     
     EDIT_BOOK("Edit book",Role.MODERATOR);
-
+    
 	String name;
 	Role associatedRole;
 
