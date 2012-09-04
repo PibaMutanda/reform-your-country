@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c' %>
-<%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 <html>
 <head>
 <link href="css/jquery-bubble-popup-v3.css" rel="stylesheet" type="text/css" />
-
+     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+     <%@taglib uri="http://www.springframework.org/tags/form"  prefix="form"%>
+     <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
+     <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
 <style type="text/css">
 
 
@@ -29,6 +30,8 @@ float:left;
 <script type="text/javascript" src="js/jquery-ui-1.8.23.custom.min.js"></script>
 <script src="js/jquery-1.7.2.min.js" type="text/javascript"></script>
 <script src="js/jquery-bubble-popup-v3.min.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="css/jquery.countdown.css"/>
+<script type="text/javascript" src="js/jquery.countdown.js"></script>
 <script type="text/javascript">
 
 		
@@ -151,14 +154,15 @@ float:left;
 	release date: ${article.releaseDate}<br/>
 
 	<ryc:conditionDisplay privilege="EDIT_ARTICLE">
-		<form action=articleedit method="GET">
-			<input type="hidden" name="id" value="${article.id}"/> 
+	
+		<ryctag:form action="articleedit" modelAttribute="article">
+			<form:hidden path="id" value="${article.id}"/>
 			<input	type="submit" value="Editer" />
-		</form>
-		<form action="articleparentedit" method="GET">
-		<input type="hidden" name="id" value="${article.id}" /> <input type="submit"
-			value="Editer parent" />
-		</form>
+		</ryctag:form>
+		<ryctag:form action="articleparentedit" modelAttribute="article">
+			<form:hidden path="id" value="${article.id}"/>
+			<input	type="submit" value="Editer parent" />
+		</ryctag:form>
 	</ryc:conditionDisplay>
 
 	

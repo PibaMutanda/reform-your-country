@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>   
 <%@taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c' %> 
+<%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,20 +12,19 @@
 
 <h1>Editer un utilisateur</h1>
 
-	<form:form modelAttribute="user" action="usereditsubmit">
-		<form:label path="lastName">Nom</form:label>        <form:input path="lastName" />&nbsp;&nbsp;&nbsp;<form:errors  path="lastName"  cssClass="error" /><br>
-		<form:label path="firstName">Prénom</form:label>    <form:input path="firstName" />&nbsp;&nbsp;&nbsp;<form:errors path="firstName" cssClass="error"/><br>
-	    <form:label path="userName">Pseudonyme</form:label> <form:input path="userName"/>&nbsp;&nbsp;&nbsp;<form:errors path="userName" cssClass="error" /><br>
+	<ryctag:form action="usereditsubmit" modelAttribute="user">
+		<ryctag:input path="lastName" label="Nom"/>
+		<ryctag:input path="firstName" label="Prénom"/>
+		<ryctag:input path="userName" label="Pseudonyme"/>
 <%--  		Date de Naissance : <form:input path="birthDate"/>&nbsp;&nbsp;&nbsp;<form:errors path="birthDate" cssClass="error"/><br> --%>
-		<form:label path="gender">Genre</form:label>
-		   <form:radiobutton path="gender" value="MALE"/>MALE
-		   <form:radiobutton path="gender" value="FEMALE"/>FEMALE
-		   <form:errors path="gender"  cssClass="error"/><br>
-		<form:label path="mail">Mail</form:label>           <form:input path="mail"/>&nbsp;&nbsp;&nbsp;<form:errors path="mail" cssClass="error"/><br>
-		<form:label path="nlSubscriber">Newsletters</form:label> <form:checkbox path="nlSubscriber"/><br>
+		<tr><td><form:label path="gender">Genre</form:label></td>
+		   <td><form:radiobutton path="gender" value="MALE"/>MALE
+		   <form:radiobutton path="gender" value="FEMALE"/>FEMALE</td>
+		   <form:errors path="gender"  cssClass="error"/></tr>
+		<ryctag:input path="mail" label="Mail"/>
+		<ryctag:checkbox path="nlSubscriber" label="Newsletters"/>
 		<form:hidden path="id" value="${user.id}"/> <%-- We need to add 'value=...' because of bug of Spring 3.1.2: the custom tag will render no value attribute if re redisplay the form after an validation error message --%>
-		<input type="submit" value="Sauver" /> <a href="user?id=${user.id }">Annuler</a>
-	</form:form>
-	
+		<tr><td><input type="submit" value="Sauver" /></td><td> <a href="user?id=${user.id }">Annuler</a></td></tr>
+	</ryctag:form>
 </body>
 </html>
