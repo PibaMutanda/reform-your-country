@@ -12,7 +12,7 @@
     	<ryctag:password path="password" label="mot de passe"/>
     	<tr>
 	    	<td><label for="mail">e-mail</label></td>
-    		<td><form:input path="mail" type="mail" required="required"/></td>
+    		<td><form:input path="mail" type="mail" required="required"  pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$"/></td>
     		<td><form:errors path="mail" cssClass="error" /></td>
     	</tr>
     	<tr>
@@ -30,6 +30,5 @@
         <br />
         <input type="submit" value="m'inscrire" />
     </form:form>
-    
-       --%>
+    --%>
 </body>

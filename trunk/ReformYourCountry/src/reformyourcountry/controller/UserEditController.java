@@ -1,5 +1,9 @@
 package reformyourcountry.controller;
 
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
@@ -11,8 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.Gender;
 import reformyourcountry.repository.UserRepository;
-import reformyourcountry.security.Privilege;
-import reformyourcountry.security.SecurityContext;
 
 
 @Controller
@@ -23,7 +25,7 @@ public class UserEditController extends BaseController<User> {
     @RequestMapping("/useredit")
     public ModelAndView userEdit(@RequestParam(value="id", required=true) long userId) {
         
-        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_INFO_USER);
+//        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_INFO_USER);
         User user = getRequiredEntity(userId); 
                
         ModelAndView mv=new ModelAndView("useredit");
@@ -40,13 +42,12 @@ public class UserEditController extends BaseController<User> {
                                         @RequestParam("mail") String newMail,
                                         @RequestParam("nlSubscriber") boolean newNlSubscriber,
                                         @RequestParam("id") long id,
-                                        @ModelAttribute User doNotUseThisUserInstance,  // To enable the use of errors param.
+                                        @Valid @ModelAttribute User doNotUseThisUserInstance,  // To enable the use of errors param.
                                         Errors errors) {
+//        SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_USERS);
 
-        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_INFO_USER);
+    	
         User user = getRequiredEntity(id); 
-        
-        boolean errorDetected = false;
         
         // userName
         newUserName = org.springframework.util.StringUtils.trimAllWhitespace(newUserName).toLowerCase();  // remove blanks
@@ -55,7 +56,6 @@ public class UserEditController extends BaseController<User> {
             User otherUser = userRepository.getUserByUserName(newUserName);
             if (otherUser != null) { // Another user already uses that userName
                 errors.rejectValue("userName", null, "Ce pseudonyme est déjà utilisé par un autre utilisateur.");
-                errorDetected = true;
             }
         }
         
@@ -66,11 +66,10 @@ public class UserEditController extends BaseController<User> {
             User otherUser = userRepository.getUserByEmail(newMail);
             if (otherUser != null) {
                 errors.rejectValue("mail", null, "Ce mail est déjà utilisé par un autre utilisateur.");
-                errorDetected = true;
             }
         }
         
-        if (errorDetected) {
+        if (errors.hasErrors()) {
             ModelAndView mv = new ModelAndView("useredit");
             mv.addObject("user", doNotUseThisUserInstance);  // Get out of here before we change the user entity (Hibernate could save because of dirty checking).
             mv.addObject("id",id); // need to pass 'id' apart because 'doNotUseThisUserInstance.id' is set to null
@@ -91,6 +90,16 @@ public class UserEditController extends BaseController<User> {
     }
     
     
+    private static boolean isValidEmailAddress(String email) {
+    	   boolean result = true;
+    	   try {
+    	      InternetAddress emailAddr = new InternetAddress(email);
+    	      emailAddr.validate();
+    	   } catch (AddressException ex) {
+    	      result = false;
+    	   }
+    	   return result;
+    	}
 
    
     
