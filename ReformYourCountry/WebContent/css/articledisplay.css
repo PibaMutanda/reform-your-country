@@ -1,0 +1,29 @@
+.book{
+  font-style:italic;
+  text-align:right;
+}
+
+.bookdialog{
+  display:none;
+}
+
+img.book {
+	float:left;
+}
+
+.booktitle{
+	
+	
+font-size: 13px;
+font-family:verdana;
+
+}
+.book{
+	padding-bottom:25px;
+}
+.quote-block{
+	
+	margin-left:50px;
+	padding-top:25px;
+   
+}
