@@ -25,7 +25,6 @@ public class UserEditController extends BaseController<User> {
     @RequestMapping("/useredit")
     public ModelAndView userEdit(@RequestParam(value="id", required=true) long userId) {
         
-//        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_INFO_USER);
         User user = getRequiredEntity(userId); 
                
         ModelAndView mv=new ModelAndView("useredit");
@@ -44,8 +43,6 @@ public class UserEditController extends BaseController<User> {
                                         @RequestParam("id") long id,
                                         @Valid @ModelAttribute User doNotUseThisUserInstance,  // To enable the use of errors param.
                                         Errors errors) {
-//        SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_USERS);
-
     	
         User user = getRequiredEntity(id); 
         
@@ -88,18 +85,6 @@ public class UserEditController extends BaseController<User> {
     
         return new ModelAndView("redirect:user", "id", user.getId());
     }
-    
-    
-    private static boolean isValidEmailAddress(String email) {
-    	   boolean result = true;
-    	   try {
-    	      InternetAddress emailAddr = new InternetAddress(email);
-    	      emailAddr.validate();
-    	   } catch (AddressException ex) {
-    	      result = false;
-    	   }
-    	   return result;
-    	}
 
    
     
