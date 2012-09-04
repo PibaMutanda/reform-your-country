@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.model.User;
+import reformyourcountry.security.Privilege;
+import reformyourcountry.security.SecurityContext;
 
 
 @Controller
@@ -18,7 +20,10 @@ public class UserDisplayController extends BaseController<User> {
         
         User user = getRequiredEntity(userId);
         
-        return new ModelAndView("userdisplay", "user", user);
+        ModelAndView mv = new ModelAndView("userdisplay", "user", user);
+        mv.addObject("canEdit", user.equals(SecurityContext.getUser()) || SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS));
+        return mv;
+        
     }
 
 
