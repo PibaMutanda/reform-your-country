@@ -11,7 +11,6 @@
 <body>
 <h1>${user.userName }</h1>
 	<ryc:conditionDisplay privilege="MANAGE_USERS">
-	
 		<ryctag:form action="privilegeedit" modelAttribute="user">
 			<form:hidden path="id" value="${user.id}"/>
 			<input	type="submit" value="Editer privilèges" />
@@ -21,10 +20,10 @@
 		<form:hidden path="id" value="${user.id}"/>
 		<input	type="submit" value="Modifier le Profil" />
 	</ryctag:form>
-	<form action="userchangepassword" method="get">
-		<input type="hidden" value="${user.id}" name="id" /><br /> <input
-			type="submit" value="Modifier le password" />
-	</form>
+	<ryctag:form action="userchangepassword" modelAttribute="user">
+		<input type="hidden" value="${user.id}" name="id" />
+		<tr><td><input type="submit" value="Modifier le password" /></td></tr>
+	</ryctag:form>
 
 Nom : ${user.lastName}<br/>
 Prénom : ${user.firstName}<br/>
