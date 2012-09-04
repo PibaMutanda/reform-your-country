@@ -28,7 +28,7 @@ public class RegisterController {
 
     
     @RequestMapping("/registersubmit")
-    public ModelAndView registerSubmit(@Valid @ModelAttribute User user,BindingResult result){
+    public ModelAndView registerSubmit(@Valid @ModelAttribute User user, BindingResult result){
         if(result.hasErrors()){
             ModelAndView mv = new ModelAndView("register");
             return mv;
