@@ -14,6 +14,8 @@ import blackbelt.util.SecurityUtils;
 
 import reformyourcountry.model.User;
 import reformyourcountry.repository.UserRepository;
+import reformyourcountry.security.Privilege;
+import reformyourcountry.security.SecurityContext;
 
 @Controller
 public class UserChangePasswordController {
@@ -21,7 +23,8 @@ public class UserChangePasswordController {
 	@Autowired UserRepository userrepository;
 
 	@RequestMapping("/userchangepassword")
-	public ModelAndView userChangePassword(@ModelAttribute User user){
+	public ModelAndView userChangePassword(@ModelAttribute User user) {
+		
 		ModelAndView mv= new ModelAndView("userchangepassword");
 		mv.addObject("user",user);
 		return mv;
@@ -33,6 +36,8 @@ public class UserChangePasswordController {
 			@RequestParam("newPassword") String newPassword,
 			@RequestParam("confirmPassword") String confirmPassword) {
 
+		assertCurrentUserMayEditThisUser(user);
+		
 		String errorNoOld=null;
 		String errorEmpty=null;
 		String errorDiff=null;
@@ -69,4 +74,12 @@ public class UserChangePasswordController {
 	public User findUser(@RequestParam("id") Long id){
 		return  userrepository.find(id);
 	}
+	
+    private void assertCurrentUserMayEditThisUser(User user) {
+    	if (user.equals(SecurityContext.getUser())) {
+    		return; // Ok, a user may edit himself.
+    	}
+        SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_USERS);
+    }
+
 }
