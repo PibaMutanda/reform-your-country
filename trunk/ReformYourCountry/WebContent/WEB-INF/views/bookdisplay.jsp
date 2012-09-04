@@ -10,9 +10,21 @@
 <title>${book.title}</title>
 </head>
 <body>
-	<ryctag:book book="${book}" /><br>
-	<form action="imageuploadsubmit">
-		<input type="submit" value="charger une image" />			
-	</form>
+	<ryctag:book book="${book}" />
+	<br>
+
+	<c:choose>
+		<c:when test="${!empty errorMsg}">
+			<div class="error">Error:${errorMsg}</div>
+		</c:when>
+	</c:choose>
+	
+	<ryc:conditionDisplay privilege="EDIT_BOOK">
+		<form method="post" action="bookimageadd"
+			enctype="multipart/form-data">
+			<input type="file" name="file" />
+			<input type="hidden" name="id" value="${book.id}" /> <input type="submit" value="Uploader une image" />
+		</form>
+	</ryc:conditionDisplay>
 </body>
 </html>
