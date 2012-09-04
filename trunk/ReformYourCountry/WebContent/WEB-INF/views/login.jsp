@@ -19,6 +19,9 @@
 				<input type="password" name="password" required="required">
 				<br />
 			</c:when>
+			<c:otherwise>
+			    (no password required in dev mode)<br/>
+			</c:otherwise>
 		</c:choose>
 		J'ai oublié mon <a href="">mot de passe</a><br /> <input
 			type="checkbox" name="keepLoggedIn" /><label for="keepLoggedIn">Je
