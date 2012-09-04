@@ -2,23 +2,25 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c' %>
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
+<%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
+<%@taglib uri="http://www.springframework.org/tags/form"  prefix="form"%>
 <html>
 <head>
 <title>UserPage</title>
 </head>
 <body>
 <h1>${user.userName }</h1>
-	<ryc:conditionDisplay privilege="MANAGE_USERS">
-		<form action="privilegeedit" method="get">
-			<input type="hidden" name="id" value="${user.id}">
-			 <input type="submit" value="Editer privilèges">
-		</form>
-	</ryc:conditionDisplay>
+	<ryc:conditionDisplay privilege="EDIT_ARTICLE">
 	
-	<form action="useredit" method="get">
-		<input type="hidden" value="${user.id}" name="id" /><br /> <input
-			type="submit" value="Modifier le Profil" />
-	</form>
+		<ryctag:form action="privilegeedit" modelAttribute="user">
+			<form:hidden path="id" value="${user.id}"/>
+			<input	type="submit" value="Editer privilèges" />
+		</ryctag:form>
+	</ryc:conditionDisplay>
+	<ryctag:form action="useredit" modelAttribute="user">
+		<form:hidden path="id" value="${user.id}"/>
+		<input	type="submit" value="Modifier le Profil" />
+	</ryctag:form>
 
 Nom : ${user.lastName}<br/>
 Prénom : ${user.firstName}<br/>

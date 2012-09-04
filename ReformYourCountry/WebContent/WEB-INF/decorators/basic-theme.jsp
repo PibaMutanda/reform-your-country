@@ -2,8 +2,18 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator"
 	prefix="decorator"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-    
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<link rel="stylesheet" href="css/jquery-ui-1.8.23.custom.css"><%-- Jquery added here because they're used inside custom tags, done so to ease maintenance--%>
+<script src="js/jquery-1.8.0.min.js"></script><%-- jquery depandencies --%>
+<script src="js/jquery-ui-1.8.23.custom.min.js"></script><%-- jquery depandencies --%>
+<script type="text/javascript"><%-- Script for the DatePicker; until html5 is more supported --%>
+	$(function() {
+		$("#datepicker").datepicker({
+			dateFormat : "yy-mm-dd" //2012-08-22 
+		});
+	});
+</script>
 <!DOCTYPE html >
 <html>
 <head>
@@ -17,9 +27,9 @@
 
 <meta name="viewport" content="width=device-width">
 
-<link rel="stylesheet" type="text/css" href="css/test-style.css" />
-<link rel="stylesheet" type="text/css" href="css/template.css" />
-<link rel="stylesheet" type="text/css" href="css/content.css" />
+<link rel="stylesheet" type="text/css" href="/ReformYourCountry/css/test-style.css" />
+<link rel="stylesheet" type="text/css" href="/ReformYourCountry/css/template.css" />
+<link rel="stylesheet" type="text/css" href="/ReformYourCountry/css/content.css" />
 
 <title><decorator:title/></title>
 <decorator:head/>
