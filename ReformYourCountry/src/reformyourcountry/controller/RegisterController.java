@@ -7,7 +7,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -31,17 +30,11 @@ public class RegisterController {
     @RequestMapping("/registersubmit")
     public ModelAndView registerSubmit(@Valid @ModelAttribute User user,BindingResult result){
         if(result.hasErrors()){
-            ModelAndView mv = new ModelAndView("redirect:register");
-            String msg = null;
-            for (ObjectError error : result.getAllErrors())
-            {
-                msg+=error.toString()+"<br/>";
-            }
-            mv.addObject("error",msg);
+            ModelAndView mv = new ModelAndView("register");
             return mv;
         }else{
             try {
-                userService.registerUser(false, user.getUserName(), user.getPassword(), user.getMail());
+                user = userService.registerUser(false, user.getUserName(), user.getPassword(), user.getMail());
             } catch (UserAlreadyExistsException uaee) {
                 ModelAndView mv = new ModelAndView("register");
                 String msg;

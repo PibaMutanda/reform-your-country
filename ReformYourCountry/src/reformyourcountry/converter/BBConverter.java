@@ -7,7 +7,7 @@ import reformyourcountry.model.Book;
 import reformyourcountry.parser.BBDomParser;
 import reformyourcountry.parser.BBTag;
 import reformyourcountry.repository.BookRepository;
-import reformyourcountry.utils.HTMLUtil;
+import reformyourcountry.util.HTMLUtil;
 /**
  * @author FIEUX Cédric
  * this class purpose is to verify the BBCode and there attributes and then return Html Code (with errors commented)
