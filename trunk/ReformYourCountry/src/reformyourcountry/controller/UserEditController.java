@@ -11,6 +11,8 @@ import org.springframework.web.servlet.ModelAndView;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.Gender;
 import reformyourcountry.repository.UserRepository;
+import reformyourcountry.security.Privilege;
+import reformyourcountry.security.SecurityContext;
 
 
 @Controller
@@ -20,7 +22,9 @@ public class UserEditController extends BaseController<User> {
 
     @RequestMapping("/useredit")
     public ModelAndView userEdit(@RequestParam(value="id", required=true) long userId) {
-        User user = getRequiredEntity(userId); 
+       
+		SecurityContext.assertUserHasPrivilege(Privilege.EDIT_INFO_USER);
+    	User user = getRequiredEntity(userId); 
                
         ModelAndView mv=new ModelAndView("useredit");
                      mv.addObject("id", userId); 
@@ -39,6 +43,7 @@ public class UserEditController extends BaseController<User> {
                                         @ModelAttribute User doNotUseThisUserInstance,  // To enable the use of errors param.
                                         Errors errors) {
 
+    	SecurityContext.assertUserHasPrivilege(Privilege.EDIT_INFO_USER);
         User user = getRequiredEntity(id); 
         
         boolean errorDetected = false;
