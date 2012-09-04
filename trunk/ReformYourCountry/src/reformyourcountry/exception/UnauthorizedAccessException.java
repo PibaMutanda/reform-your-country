@@ -34,10 +34,11 @@ public class UnauthorizedAccessException extends RuntimeException {
         return privileges;
     }
     public String getErrorMessage(){
-        if (privileges!= null && privileges.length>0){
-            return "You need the privilege: "+privileges[0].getAssociatedRole().toString();
-        }
-        return "";
+    	String result = "You need the following privilege(s): ";
+    	for (Privilege p : privileges) {
+    		result += p.getName() + " ";
+    	}
+        return result;
     }
 }
 //public class UnauthorizedAccessException extends com.sun.servicetag.UnauthorizedAccessException{
