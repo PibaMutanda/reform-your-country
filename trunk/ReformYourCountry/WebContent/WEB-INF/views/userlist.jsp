@@ -12,7 +12,7 @@
 	${errorMsg}
 	<h1>Liste de tous les users</h1>
 	<form action="userlist" method="GET">
-		prénom, nom ou pseudo <input type="text" name="name" /> <input
+		prénom, nom ou pseudo <input type="text" name="name"/> <input
 			type="submit" value="rechercher" />
 	</form>
 	<table>
