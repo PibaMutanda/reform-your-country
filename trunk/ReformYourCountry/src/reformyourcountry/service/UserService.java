@@ -1,6 +1,5 @@
 package reformyourcountry.service;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.log4j.Logger;
@@ -37,7 +36,7 @@ public class UserService {
     private UserRepository userRepository;
     
     @Autowired 
-    private mailService mailService;
+    private MailService mailService;
 
 
     /**
@@ -137,20 +136,20 @@ public class UserService {
     //              ContextUtil.getBLFacade().getFileService().deleteUserPictures(oldPictureName);
     //          }
     //      }
-    // TODO maxime uncomment for the web (picture of a user)
-    //      @Override
-    //      public void removeUserImages(User user) {
-    //          String oldPictureName = user.isPicture() ? user.getPictureName() : null;
-    //          
-    //          user.setPicture(false);
-    //          user.setPictureName(null);
-    //          contributionService.removeImage(user);
-    //          userDao.save(user);
-    //          
-    //          if (oldPictureName != null) {
-    //              ContextUtil.getBLFacade().getFileService().deleteUserPictures(oldPictureName);
-    //          }
-    //      }
+//     TODO maxime uncomment for the web (picture of a user)
+//          @Override
+//          public void removeUserImages(User user) {
+//              String oldPictureName = user.isPicture() ? user.getPictureName() : null;
+//              
+//              user.setPicture(false);
+//              user.setPictureName(null);
+//              contributionService.removeImage(user);
+//              userDao.save(user);
+//              
+//              if (oldPictureName != null) {
+//                  ContextUtil.getBLFacade().getFileService().deleteUserPictures(oldPictureName);
+//              }
+//          }
 
     public void generateNewPasswordForUserAndSendEmail(User user) {
         // We generate a password
@@ -159,16 +158,15 @@ public class UserService {
         user.setPassword(SecurityUtils.md5Encode(newPassword));
         userRepository.merge(user);
 
-        // TODO maxime uncomment when mail service available
-//        mailService.sendMail(user.getMail(), "Password Recovery",
-//                "You requested a new password for your account '"+ user.getUserName()+"' on KnowledgeBlackBelt.com<br/>" + 
-//                        "We could not give you back your old password because we do not store it directly, for security and (your own) privacy reason it is encrypted in a non reversible way. <br/><br/>" + 
-//                        "Here is your new password : "+ newPassword + 
-//                        "<ol>" +  
-//                        "<li>password are case sensitive,</li>" +                  //TODO maxime uncoment for the web
-//                        "<li>This is a temporary password, feel free to change it using <a href='"+/*getUserPageUrl(user)+*/"'>your profile page</a>.</li>" +
-//                        "</ol>", 
-//                        MailType.IMMEDIATE, MailCategory.USER);
+        mailService.sendMail(user.getMail(), "Password Recovery",
+                "You requested a new password for your account '"+ user.getUserName()+"' on KnowledgeBlackBelt.com<br/>" + 
+                        "We could not give you back your old password because we do not store it directly, for security and (your own) privacy reason it is encrypted in a non reversible way. <br/><br/>" + 
+                        "Here is your new password : "+ newPassword + 
+                        "<ol>" +  
+                        "<li>password are case sensitive,</li>" +                  
+                        "<li>This is a temporary password, feel free to change it using <a href='"+/*XXX LINK to user page+*/"'>your profile page</a>.</li>" +
+                        "</ol>", 
+                        MailType.IMMEDIATE, MailCategory.USER);
 
     }
 

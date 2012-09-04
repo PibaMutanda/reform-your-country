@@ -3,14 +3,12 @@ package reformyourcountry.model;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 @Entity
 public class GroupReg extends BaseEntity{
-	    //TODO Change when group is an entity
 		
 		@ManyToOne
 		@JoinColumn(name="groups")
@@ -47,15 +45,13 @@ public class GroupReg extends BaseEntity{
 			this.user = user;
 		}
 
-//		public Group getGroup() {
-//			return group;
-//		}
-//
-//		public void setGroup(Group group) {
-//			this.group = group;
-//		}
+		public Group getGroup() {
+			return group;
+		}
 
-		
+		public void setGroup(Group group) {
+			this.group = group;
+		}
 
 		public boolean isConfirmed() {
             return confirmed;

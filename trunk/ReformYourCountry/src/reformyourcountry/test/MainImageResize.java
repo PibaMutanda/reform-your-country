@@ -12,7 +12,6 @@ public class MainImageResize {
 	 * @throws IOException 
 	 */
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
 		String imageName = "McKinsey2007.png";
 		String folderName = "C:/";
 		boolean saveOriginal = true;

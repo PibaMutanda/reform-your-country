@@ -255,31 +255,6 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     public void setUserName(String userName) {
         this.userName = userName;
     }
-//TODO maxime use?
-//    @Override
-//    public String toString() {
-//        return "User [group_regs=" + groupRegs + ", voteActions="
-//                + voteActions + ", voteArguments=" + voteArguments + ", id="
-//                + id + ", firstName=" + firstName + ", lastName=" + lastName
-//                + ", userName=" + userName + ", mail=" + mail + ", password="
-//                + password + ", nameChangeLog=" + nameChangeLog + ", gender="
-//                + gender + ", birthDate=" + birthDate + ", picture=" + picture
-//                + ", pictureName=" + pictureName + ", lastMailSentDate="
-//                + lastMailSentDate + ", guest=" + guest + ", privileges="
-//                + privileges + ", lastAccess=" + lastAccess
-//                + ", registrationDate=" + registrationDate + ", lastLoginIp="
-//                + lastLoginIp + ", consecutiveFailedLogins="
-//                + consecutiveFailedLogins + ", lastFailedLoginDate="
-//                + lastFailedLoginDate + ", dev=" + dev + ", validationCode="
-//                + validationCode + ", lockReason=" + lockReason
-//                + ", accountStatus=" + accountStatus + ", nlSubscriber="
-//                + nlSubscriber + ", spammer=" + spammer + ", spamReporter="
-//                + spamReporter + ", influence=" + influence
-//                + ", influenceAutoComputed=" + influenceAutoComputed
-//                + ", influenceAssigner=" + influenceAssigner
-//                + ", mailingDelay=" + mailingDelay + ", communityRole="
-//                + role + "]";
-//    }
 
     public String getLastName() {
         return lastName;

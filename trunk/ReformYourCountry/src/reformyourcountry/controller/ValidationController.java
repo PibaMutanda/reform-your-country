@@ -14,7 +14,6 @@ import reformyourcountry.util.Logger;
 
 @Controller
 public class ValidationController {
-    //TODO review
     @Autowired private UserRepository userRepository;
     @Autowired private LoginService loginService;
     @Logger Log log;
