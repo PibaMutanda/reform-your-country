@@ -9,13 +9,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import reformyourcountry.misc.FileUtil;
 import reformyourcountry.model.Book;
 import reformyourcountry.repository.BookRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
-import reformyourcountry.utils.FileUtils;
-import reformyourcountry.utils.FileUtils.InvalidImageFileException;
+import reformyourcountry.util.FileUtil;
+import reformyourcountry.util.FileUtil.InvalidImageFileException;
 
 @Controller
 public class BookDisplayController extends BaseController<Book> {
@@ -62,7 +61,7 @@ public class BookDisplayController extends BaseController<Book> {
         mv.addObject("book", book);
         mv.addObject("file", multipartFile);  // FIXME UTILE ? XXXXXXXXXXXXXXXXXXXXXXXXXX
         try {
-            FileUtils.uploadPicture(FileUtil.getBookPicsFolderPath(),multipartFile, filename,false);
+            FileUtil.uploadPicture(FileUtil.getBookPicsFolderPath(),multipartFile, filename,false);
         } catch (InvalidImageFileException e) {
            
             mv.addObject("errorMsg", e.getMessageToUser());
