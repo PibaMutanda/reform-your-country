@@ -16,7 +16,7 @@ import reformyourcountry.service.LoginService;
 import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
 
 @Controller
-public class LoginController extends BaseController<User>{
+public class LoginController extends BaseController<User> {
 
     @Autowired LoginService loginService;
     @Autowired UserDisplayController userDisplayController;
