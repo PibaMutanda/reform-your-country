@@ -92,7 +92,7 @@ public class LoginService {
         user.setConsecutiveFailedLogins(0);
         user.setLastFailedLoginDate(null);
 
-        // TODO: uncomment in the web phase
+        // TODO: uncomment in the web phase 
         // //We set a bigger session timeout for admin and moderators
         // if (CommunityRole.MODERATOR.isHigerOrEquivalent(((CommunityUser)user).getCommunityRole())) {
         //   ContextUtil.getHttpSession().setMaxInactiveInterval(72000);
@@ -215,8 +215,7 @@ public class LoginService {
 
     protected void setLastAccess(User user) {
         user.setLastAccess(new Date());
-        // TODO: uncomment for the web
-        //user.setLastLoginIp(ContextUtil.getHttpServletRequest().getRemoteAddr());
+        user.setLastLoginIp(ContextUtil.getHttpServletRequest().getRemoteAddr());
         userRepository.merge(user);
     }
 

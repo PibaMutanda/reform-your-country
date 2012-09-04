@@ -5,7 +5,9 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import reformyourcountry.mail.MailCategory;
@@ -14,31 +16,25 @@ import reformyourcountry.mail.MailType;
 import reformyourcountry.model.Mail;
 import reformyourcountry.model.User;
 import reformyourcountry.repository.MailRepository;
+import reformyourcountry.util.Logger;
 
 
 /**
  * Service of mail.
  */
 @Service
-public class mailService {
+public class MailService {
     
-    
-    // TODO: remove singleton when using Spring
-//    private static mailService uniqueInstance = new mailService();
-//    private mailService() {}
-//    public static mailService getInstance() {
-//        return uniqueInstance;
-//    }
-//    
-    
-	public final static String JBB_ADMIN_MAIL = "info@KnowledgeBlackBelt.com";  // TODO: take the value from a property file (provided by the specialized project, as enseignement2.be)
-	public final static String BUG_MAIL = "bug@KnowledgeBlackBelt.com";  // TODO: take the value from a property file (provided by the specialized project, as enseignement2.be)
+    @Value("${mail.for.admin.address}")
+	public static String ADMIN_MAIL;  
+    @Value("${mail.for.bug.adress}")
+    public static String BUG_MAIL;  
 
-	//@Logger Log logger;
+	@Logger Log logger;
 
     @Autowired	
     public MailRepository mailDao;
-     @Autowired	
+    @Autowired	
     public MailSender mailSender;
 
     
@@ -97,7 +93,7 @@ public class mailService {
     	if(StringUtils.isNotBlank(emailTarget)){
     		this.sendMail(new Mail(emailTarget, subject, mailCategory, content, mailType, true ));
     	} else {
-    		//logger.error(new BlackBeltException("Trying to send mail without giving an emailTarget"));
+    		logger.error(new RuntimeException("Trying to send mail without giving an emailTarget"));
     	}
     }
     

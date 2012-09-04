@@ -3,9 +3,6 @@ package reformyourcountry.web;
 import javax.servlet.http.Cookie;
 
 import reformyourcountry.model.User;
-//TODO maxime uncomment
-//import be.loop.jbb.web.SessionObject;
-//import be.loop.jbb.web.WebUtil;
 
 
 public class Cookies {
