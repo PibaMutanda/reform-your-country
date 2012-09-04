@@ -34,9 +34,10 @@ public class ArticleDisplayController extends BaseController<Article> {
         // For the breadcrumb
         List<Article> parentArticles = new ArrayList<Article>();
         Article current =  article;
-        while(current.getParent() != null){
+        while((current = current.getParent()) != null){
+            if(!current.getChildren().isEmpty())
             parentArticles.add(current);
-            current = current.getParent();
+            
 
         }
         Collections.reverse(parentArticles);
