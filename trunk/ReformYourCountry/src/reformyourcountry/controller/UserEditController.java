@@ -22,9 +22,9 @@ public class UserEditController extends BaseController<User> {
 
     @RequestMapping("/useredit")
     public ModelAndView userEdit(@RequestParam(value="id", required=true) long userId) {
-       
-		SecurityContext.assertUserHasPrivilege(Privilege.EDIT_INFO_USER);
-    	User user = getRequiredEntity(userId); 
+        
+        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_INFO_USER);
+        User user = getRequiredEntity(userId); 
                
         ModelAndView mv=new ModelAndView("useredit");
                      mv.addObject("id", userId); 
@@ -43,7 +43,7 @@ public class UserEditController extends BaseController<User> {
                                         @ModelAttribute User doNotUseThisUserInstance,  // To enable the use of errors param.
                                         Errors errors) {
 
-    	SecurityContext.assertUserHasPrivilege(Privilege.EDIT_INFO_USER);
+        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_INFO_USER);
         User user = getRequiredEntity(id); 
         
         boolean errorDetected = false;
@@ -73,7 +73,7 @@ public class UserEditController extends BaseController<User> {
         if (errorDetected) {
             ModelAndView mv = new ModelAndView("useredit");
             mv.addObject("user", doNotUseThisUserInstance);  // Get out of here before we change the user entity (Hibernate could save because of dirty checking).
-            mv.addObject("id",id);
+            mv.addObject("id",id); // need to pass 'id' apart because 'doNotUseThisUserInstance.id' is set to null
             return mv;
         }
         
