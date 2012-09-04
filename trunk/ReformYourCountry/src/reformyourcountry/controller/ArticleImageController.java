@@ -8,17 +8,14 @@ import java.util.List;
 import org.apache.commons.io.comparator.LastModifiedFileComparator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import reformyourcountry.exception.UnauthorizedAccessException;
-import reformyourcountry.misc.FileUtil;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
-import reformyourcountry.utils.FileUtils;
+import reformyourcountry.util.FileUtil;
 
 @Controller
 public class ArticleImageController {
@@ -52,7 +49,7 @@ public class ArticleImageController {
         SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
         
         ModelAndView mv = new ModelAndView("redirect:articleimage");
-        mv.addObject("errorMsg",FileUtils.uploadPicture(FileUtil.getArticlePicsFolderPath(),multipartFile));
+        mv.addObject("errorMsg",FileUtil.uploadPicture(FileUtil.getArticlePicsFolderPath(),multipartFile));
         return mv;
     }
     
