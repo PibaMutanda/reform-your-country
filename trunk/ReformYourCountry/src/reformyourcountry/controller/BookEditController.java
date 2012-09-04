@@ -61,7 +61,7 @@ public class BookEditController extends BaseController<Book> {
 		if (id == null){ //create
 			return new Book();
 		} else { //edit
-			return getRequiredEntity(id);
+			return getRequiredDetachedEntity(id);
 		}
 	}
 
