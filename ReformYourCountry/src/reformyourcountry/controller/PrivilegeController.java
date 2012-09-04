@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -69,10 +70,10 @@ public class PrivilegeController extends BaseController<User> {
 	}
 
 	@RequestMapping(value="/privilegeeditsubmit")
-	public ModelAndView privilegeEditSubmit(@RequestParam Map <String, String> params, @RequestParam("id") long id){
+	public ModelAndView privilegeEditSubmit(@RequestParam Map <String, String> params){
 		SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_USERS);
-		ModelAndView mv = new ModelAndView("redirect:user", "id", id);
-		User user = getRequiredEntity(id);
+		ModelAndView mv = new ModelAndView("redirect:user", "id", params.get("id"));
+		User user = getRequiredEntity(Long.parseLong(params.get("id")));
 		params.remove("id");
 		user.getPrivileges().clear();		
 		for (Map.Entry<String, String> entry: params.entrySet()) {
@@ -82,7 +83,7 @@ public class PrivilegeController extends BaseController<User> {
 				throw new IllegalArgumentException("parameters should only contains Id and privileges");
 			}
 		}
-		mv.addObject("user", user);
+		// em.merge(user); Not needed (we did not modify the user, we changed the .privilege collection). Save will happen with dirty checking.
 		return mv;
 	}
 	
