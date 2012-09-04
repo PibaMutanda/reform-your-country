@@ -20,10 +20,11 @@ public class UserEditController extends BaseController<User> {
 
     @RequestMapping("/useredit")
     public ModelAndView userEdit(@RequestParam(value="id", required=true) long userId) {
-     
         User user = getRequiredEntity(userId); 
-        
-        ModelAndView mv=new ModelAndView("useredit","user", user);
+               
+        ModelAndView mv=new ModelAndView("useredit");
+                     mv.addObject("id", userId); 
+                     mv.addObject("user", user);
         return mv;
     }
   
@@ -37,7 +38,6 @@ public class UserEditController extends BaseController<User> {
                                         @RequestParam("id") long id,
                                         @ModelAttribute User doNotUseThisUserInstance,  // To enable the use of errors param.
                                         Errors errors) {
-        
 
         User user = getRequiredEntity(id); 
         
@@ -66,7 +66,10 @@ public class UserEditController extends BaseController<User> {
         }
         
         if (errorDetected) {
-            return new ModelAndView("useredit", "user", doNotUseThisUserInstance);  // Get out of here before we change the user entity (Hibernate could save because of dirty checking).
+            ModelAndView mv = new ModelAndView("useredit");
+            mv.addObject("user", doNotUseThisUserInstance);  // Get out of here before we change the user entity (Hibernate could save because of dirty checking).
+            mv.addObject("id",id);
+            return mv;
         }
         
         // We start modifiying user (that may then be automatically saved by hibernate due to dirty checking.
