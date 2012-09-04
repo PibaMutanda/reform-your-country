@@ -12,7 +12,7 @@ import reformyourcountry.model.Book;
 import reformyourcountry.repository.BookRepository;
 
 @Controller
-public class BookListController {
+public class BookListController extends BaseController<Book>{
     
     @Autowired BookRepository bookRepository;
    
@@ -26,6 +26,8 @@ public class BookListController {
         mv.addObject("bookListOther",bother);
         return mv;
     }
+    
+ 
     
     @RequestMapping ("/removebook")
     public ModelAndView removeBook(@RequestParam("id")Long id){
