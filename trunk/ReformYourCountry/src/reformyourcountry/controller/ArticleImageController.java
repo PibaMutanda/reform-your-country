@@ -8,14 +8,18 @@ import java.util.List;
 import org.apache.commons.io.comparator.LastModifiedFileComparator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import reformyourcountry.exception.UnauthorizedAccessException;
+import reformyourcountry.misc.FileUtil;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
-import reformyourcountry.util.FileUtil;
+import reformyourcountry.utils.FileUtils;
+import reformyourcountry.utils.FileUtils.InvalidImageFileException;
 
 @Controller
 public class ArticleImageController {
@@ -29,6 +33,7 @@ public class ArticleImageController {
      */
     @RequestMapping("/articleimage")
     public ModelAndView articleImage(@RequestParam(value="errorMsg", required=false)String error){
+
         SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
         FileUtil.ensureFolderExists(FileUtil.getArticlePicsFolderPath());
         List<File> listFiles = FileUtil.getFilesFromFolder(FileUtil.getArticlePicsFolderPath());
@@ -49,7 +54,11 @@ public class ArticleImageController {
         SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
         
         ModelAndView mv = new ModelAndView("redirect:articleimage");
-        mv.addObject("errorMsg",FileUtil.uploadPicture(FileUtil.getArticlePicsFolderPath(),multipartFile));
+        try {
+            FileUtils.uploadPicture(FileUtil.getArticlePicsFolderPath(), multipartFile,  multipartFile.getOriginalFilename(),true);
+        } catch (InvalidImageFileException iife) {
+            mv.addObject("errorMsg", iife.getMessageToUser());
+        }
         return mv;
     }
     
