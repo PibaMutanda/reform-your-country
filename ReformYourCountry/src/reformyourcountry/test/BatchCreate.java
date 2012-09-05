@@ -1,7 +1,10 @@
 package reformyourcountry.test;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -66,7 +69,7 @@ public class BatchCreate implements Runnable {
       //  proxy.loginUser(user);
 
         Article article = proxy.populateArticle();
-        Article article2 = proxy.populateArticle2WithParent(article);
+        Article article2 = proxy.populateArticle2WithParent(null);
         Article article3 = proxy.populateArticle3WithParent(article2);
         Article article4 = proxy.populateArticle4WithParent(article3);
         Action action = proxy.populateAction(article);
@@ -303,32 +306,44 @@ public class BatchCreate implements Runnable {
     }
 
 
+    @SuppressWarnings("resource")
     @Transactional
     public Article populateArticle2WithParent(Article parent){
 
         Article article2 = new Article();
         article2.setTitle("Autonomie des écoles");
 
-        Scanner scan;
-        String str = "";
-
+      
+        int ch;
+        StringBuffer strContent = new StringBuffer("");
+        File f = new File(System.getProperty("user.dir")+"/src/reformyourcountry/"+"article2.txt");
+        
+        
+        FileInputStream fis = null;
         try {
-
-
-            scan = new Scanner(new File(System.getProperty("user.dir")+"/src/reformyourcountry/"+"article2.txt"));
-
-
-            while(scan.hasNext()){
-                str = str + scan.nextLine();
-
-            }
-            scan.close();
+                           
+            fis = new FileInputStream(f);
+            InputStreamReader isr = new InputStreamReader(fis, "UTF8");
+           
+            while( (ch = isr.read()) != -1)
+                                
+                strContent.append((char)ch);
+                    
+              fis.close();
+             
+            
         } catch (FileNotFoundException e) {
-
-            throw new RuntimeException(e);
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
+        catch(IOException e1){
+            e1.printStackTrace();
+        }
+       
+ 
+      
 
-        article2.setContent(str);
+        article2.setContent(strContent.toString());
         article2.setParent(parent);
         article2.setPublicView(true);
 
@@ -356,26 +371,37 @@ public class BatchCreate implements Runnable {
         Article article3 = new Article();
         article3.setTitle("Directeurs d'école");
 
-        Scanner scan;
-        String str = "";
+    
 
+        int ch;
+        StringBuffer strContent = new StringBuffer("");
+        File f = new File(System.getProperty("user.dir")+"/src/reformyourcountry/"+"article3.txt");
+        
+        
+        FileInputStream fis = null;
         try {
-
-
-            scan = new Scanner(new File(System.getProperty("user.dir")+"/src/reformyourcountry/"+"article3.txt"));
-
-
-            while(scan.hasNext()){
-                str = str + scan.nextLine();
-
-            }
-            scan.close();
+                           
+            fis = new FileInputStream(f);
+            InputStreamReader isr = new InputStreamReader(fis, "UTF8");
+           
+            while( (ch = isr.read()) != -1)
+                                
+                strContent.append((char)ch);
+                    
+              fis.close();
+             
+            
         } catch (FileNotFoundException e) {
-
-            throw new RuntimeException(e);
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
+        catch(IOException e1){
+            e1.printStackTrace();
+        }
+        
+        
 
-        article3.setContent(str);
+        article3.setContent(strContent.toString());
         article3.setParent(parent);
         article3.setPublicView(false);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -404,26 +430,33 @@ public class BatchCreate implements Runnable {
         Article article4 = new Article();
         article4.setTitle("Ecole de l'avenir");
 
-        Scanner scan;
-        String str = "";
-
+        int ch;
+        StringBuffer strContent = new StringBuffer("");
+        File f = new File(System.getProperty("user.dir")+"/src/reformyourcountry/"+"article4.txt");
+        
+        
+        FileInputStream fis = null;
         try {
-
-
-            scan = new Scanner(new File(System.getProperty("user.dir")+"/src/reformyourcountry/"+"article4.txt"));
-
-
-            while(scan.hasNext()){
-                str = str + scan.nextLine();
-
-            }
-            scan.close();
+                           
+            fis = new FileInputStream(f);
+            InputStreamReader isr = new InputStreamReader(fis, "UTF8");
+           
+            while( (ch = isr.read()) != -1)
+                                
+                strContent.append((char)ch);
+                    
+              fis.close();
+             
+            
         } catch (FileNotFoundException e) {
-
-            throw new RuntimeException(e);
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        catch(IOException e1){
+            e1.printStackTrace();
         }
 
-        article4.setContent(str);
+        article4.setContent(strContent.toString());
         article4.setParent(parent);
         article4.setPublicView(true);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -531,12 +564,21 @@ public class BatchCreate implements Runnable {
     }
     
     @Transactional
-    public Book populateBook(){
+    public void populateBook(){
         
-        Book book = new Book("abcd","Les clés du succès des systèmes scolaires les plus performants","Excellent rapport, agréable à lire par tous, pour comprendre les différences entre systèmes scolaires dans le monde et ce qui fait que certains s'améliorent.","McKinsey","2007",true,"http://mckinseyonsociety.com/how-the-worlds-best-performing-schools-come-out-on-top/");
-        em.persist(book);
+        Book book1 = new Book("abcd","Les clés du succès des systèmes scolaires les plus performants","Excellent rapport, agréable à lire par tous, pour comprendre les différences entre systèmes scolaires dans le monde et ce qui fait que certains s'améliorent.","McKinsey","2007",true,"http://mckinseyonsociety.com/how-the-worlds-best-performing-schools-come-out-on-top/");
+        Book book2 = new Book("mens","Un meilleur enseignement en Communauté française; nous le pouvons si nous le voulons","Facultés Universitaires Notre Dame de la Paix - Namur","Robert Deschamps","2010",false,"http://www.fundp.ac.be/pdf/publications/70749.pdf");
+        Book book3 = new Book("cede","Réflexions en vue d'un système éducatif plus performant pour tous les enfants","Centre d'étude de de défense de l'école publique.","","",false,"http://www.cedep.be/default.asp?contentID=31");
+        Book book4 = new Book("ecol"," Ecole de l'échec: comment la réformer?","Du pédagogisme à la gouvernance","Alain Destexhe, Vincent Vandenberghe, Guy Vlaeminck","2004",false,"http://www.bookfinder.com/dir/i/Lecole_De_Lechec-Comment_La_Reformer-Du_Pedagogisme_a_La_Gouvernance/2804019322/");
+        Book book5 = new Book("muta"," La mutation de l'école secondaire","Questions de sens - Propositions d’action","Francis Tilman, Dominique Grootaers, Barbara Dufour","2011",true,"http://www.couleurlivres.be/html/nouveautes/mutation-ecol-sec.html");
+ 
+        em.persist(book1);
+        em.persist(book2);
+        em.persist(book3);
+        em.persist(book4);
+        em.persist(book5);
         
-        return book;
+       
     }
 
 }
