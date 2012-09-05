@@ -1,7 +1,10 @@
 package reformyourcountry.controller;
 
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +38,11 @@ public class UserEditController extends BaseController<User> {
         ModelAndView mv=new ModelAndView("useredit");
                      mv.addObject("id", userId); 
                      mv.addObject("user", user);
+        Calendar birthCalendar = Calendar.getInstance();
+        birthCalendar.setTime(user.getBirthDate());
+                     mv.addObject("birthDay", birthCalendar.get(Calendar.DAY_OF_MONTH));
+                     mv.addObject("birthMonth", birthCalendar.get(Calendar.MONTH));
+                     mv.addObject("birthYear", birthCalendar.get(Calendar.YEAR));
         return mv;
     }
   
@@ -44,6 +52,9 @@ public class UserEditController extends BaseController<User> {
                                         @RequestParam("userName") String newUserName,
                                         @RequestParam("gender") Gender newGender,
                                         @RequestParam("mail") String newMail,
+                                        @RequestParam("birthDay") int day,
+                                        @RequestParam("birthMonth") int month,
+                                        @RequestParam("birthYear") int year,
                                         @RequestParam("nlSubscriber") boolean newNlSubscriber,
                                         @RequestParam("id") long id,
                                         @Valid @ModelAttribute User doNotUseThisUserInstance,  // To enable the use of errors param.
@@ -51,7 +62,45 @@ public class UserEditController extends BaseController<User> {
     	
         User user = getRequiredEntity(id); 
     	assertCurrentUserMayEditThisUser(user);
-        
+       
+    	//birthDate
+    	SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+       	String dateStr=day+"-"+month+"-"+year;
+        String errorDateFuture=null;
+        String errorParseDate=null;
+    	try {
+			
+    		Date dateNaiss=formatter.parse(dateStr);
+			
+    		if (dateNaiss.after(new Date())) {
+				
+				ModelAndView mv=new ModelAndView("useredit");
+				errorDateFuture="Vous avez sélectionné une date dans le futur. Veuillez choisir une nouvelle date";
+				
+				mv.addObject("id", id); 
+                mv.addObject("user", user);
+                mv.addObject("errorDateFuture",errorDateFuture);
+                mv.addObject("errorParseDate",errorParseDate);
+                return mv;
+				//errors.rejectValue("birthYear", null, "Vous avez sélectionné une date dans le futur. Veuillez choisir une nouvelle date");
+			}
+			
+    		user.setBirthDate(dateNaiss);
+    		
+		} catch (ParseException e) {
+		
+			ModelAndView mv=new ModelAndView("useredit");
+			errorParseDate="Il y a eu un problème dans la création de la date. Veuillez choisir une nouvelle date";
+			mv.addObject("id", id); 
+            mv.addObject("user", user);
+            mv.addObject("errorDateFuture",errorDateFuture);
+            mv.addObject("errorParseDate",errorParseDate);
+            return mv;
+			//errors.rejectValue("birthYear", null, "Il y a eu un problème dans la création de la date. Veuillez choisir une nouvelle date");
+		}
+    	
+    	    	
+    	
         // userName
         newUserName = org.springframework.util.StringUtils.trimAllWhitespace(newUserName).toLowerCase();  // remove blanks
         if (! org.apache.commons.lang3.StringUtils.equalsIgnoreCase(user.getUserName(), newUserName)) {  // Want to change username
