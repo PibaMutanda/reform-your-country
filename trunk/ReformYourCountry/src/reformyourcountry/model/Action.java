@@ -14,14 +14,17 @@ public class Action extends BaseEntity{
     
     @Column(length = 100)
 	private String title;
+    
 	private String url;
+	
 	@Column(length = 100)
 	private String shortDescription;
+	
 	private String longDescription;
+	
 	@Lob
 	private String content;
 	
-
 	private int voteCountPro;
 	private int voteCountAgainst;
 	private int voteCountTotal;
@@ -34,6 +37,7 @@ public class Action extends BaseEntity{
 	
 	@OneToMany(mappedBy = "action")
 	private List<VoteAction> voteActions = new ArrayList <VoteAction>();
+	
 	@OneToMany(mappedBy = "action")
 	private List<Argument> arguments = new ArrayList <Argument>();
 	
