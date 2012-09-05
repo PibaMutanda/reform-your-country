@@ -89,7 +89,7 @@ public class UserEditController extends BaseController<User> {
         
         user = userRepository.merge(user);
     
-        return new ModelAndView("redirect:user", "id", user.getId());
+        return new ModelAndView("redirect:user", "username", user.getUserName());
     }
     
     

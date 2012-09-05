@@ -24,6 +24,7 @@ import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 
 import reformyourcountry.mail.MailingDelayType;
 import reformyourcountry.security.Privilege;
@@ -136,8 +137,9 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     @Size(max=50, message="your lastname must contain  at max 50 character")
     private String lastName;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable=false)
     @Size(max = 15,message = "your username must contain  at max 15 character")
+    @NotBlank(message="enter your username")
     private String userName; 
     
     @Column(length = 100)

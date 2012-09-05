@@ -31,7 +31,7 @@
 		</tr>
 		</c:forEach>
 		</table>
-		<input type="submit" value="Enregistrer">
+		<input type="submit" value="Enregistrer"><a href="user?username=${user.userName}">Annuler</a>
 	</form>
 
 </body>
