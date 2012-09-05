@@ -10,7 +10,6 @@ import reformyourcountry.exception.InvalidUrlException;
 import reformyourcountry.misc.ClassUtil;
 import reformyourcountry.model.BaseEntity;
 
-
 @Transactional
 public class BaseController<E extends BaseEntity> {
     Class<?> entityClass;

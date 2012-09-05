@@ -52,9 +52,9 @@ public class UserEditController extends BaseController<User> {
                                         @RequestParam("userName") String newUserName,
                                         @RequestParam("gender") Gender newGender,
                                         @RequestParam("mail") String newMail,
-                                        @RequestParam("birthDay") int day,
-                                        @RequestParam("birthMonth") int month,
-                                        @RequestParam("birthYear") int year,
+                                        @RequestParam("birthDay") String day,
+                                        @RequestParam("birthMonth") String month,
+                                        @RequestParam("birthYear") String year,
                                         @RequestParam("nlSubscriber") boolean newNlSubscriber,
                                         @RequestParam("id") long id,
                                         @Valid @ModelAttribute User doNotUseThisUserInstance,  // To enable the use of errors param.
@@ -65,7 +65,7 @@ public class UserEditController extends BaseController<User> {
        
     	//birthDate
     	SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-       	String dateStr=day+"-"+month+"-"+year;
+       	String dateStr=Integer.parseInt(day)+"-"+Integer.parseInt(month)+"-"+Integer.parseInt(year);
         String errorDateFuture=null;
         String errorParseDate=null;
     	try {
@@ -82,7 +82,6 @@ public class UserEditController extends BaseController<User> {
                 mv.addObject("errorDateFuture",errorDateFuture);
                 mv.addObject("errorParseDate",errorParseDate);
                 return mv;
-				//errors.rejectValue("birthYear", null, "Vous avez sélectionné une date dans le futur. Veuillez choisir une nouvelle date");
 			}
 			
     		user.setBirthDate(dateNaiss);
@@ -96,7 +95,6 @@ public class UserEditController extends BaseController<User> {
             mv.addObject("errorDateFuture",errorDateFuture);
             mv.addObject("errorParseDate",errorParseDate);
             return mv;
-			//errors.rejectValue("birthYear", null, "Il y a eu un problème dans la création de la date. Veuillez choisir une nouvelle date");
 		}
     	
     	    	
