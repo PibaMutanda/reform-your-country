@@ -3,138 +3,19 @@
 <html>
 <head>
 <link href="css/jquery-bubble-popup-v3.css" rel="stylesheet" type="text/css" />
+<link href="css/articledisplay.css" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" type="text/css" href="css/jquery.countdown.css"/>
      <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
      <%@taglib uri="http://www.springframework.org/tags/form"  prefix="form"%>
      <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
      <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
-<style type="text/css">
+<script type="text/javascript" src="js/ext/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="js/ext/jquery-ui-1.8.23.custom.min.js"></script>
+<script src="js/ext/jquery-bubble-popup-v3.min.js" type="text/javascript"></script>
+<script src="js/int/bubble-pop-up-articledisplay.js" type = "text/javascript"></script>
 
-
-.book{
-font-style:italic;
-text-align:right;
-
-}
-
-.bookdialog{
-display:none;
-
-}
-img
-{
-float:left;
-}
-
-</style>
-<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
-<script type="text/javascript" src="js/jquery-ui-1.8.23.custom.min.js"></script>
-<script src="js/jquery-1.7.2.min.js" type="text/javascript"></script>
-<script src="js/jquery-bubble-popup-v3.min.js" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" href="css/jquery.countdown.css"/>
 <script type="text/javascript" src="js/jquery.countdown.js"></script>
-<script type="text/javascript">
 
-		
-		$(document).ready(function(e) {
-			   // do stuff when DOM is ready			
-			
-	 //for info see http://www.maxvergelli.com/jquery-bubble-popup/documentation/#engine   	
-			  $(".bibref-after-block").CreateBubblePopup({ innerHtml: 'Loading...'});
-	
-			   
-	    $(".booktitle").hover(function(e){
-	    	
-	    	 
-	    	   var div = $(this).parent().children(".bookdialog").html();
-	    	    console.log(div);
-	 				
-	  				$(this).ShowBubblePopup({ 
-	  					      innerHtmlStyle: {
-				    	   
-				    	                       'text-align':'left',
-				    	                       'font-family': 'Times new roman',
-				    	                        'font-size': '18px'
-				    	                        },
-				    	   tail: {align:'right', hidden: false},
-				    	   selectable :true,				    	
-				    	   innerHtml: div }, true); 	  
-	    	    
-	    
-				return false;
-			},function(){});	  
-	    
-	    
-	   	
-	 });
-		
-	
-		
-/*
- A pop up with ajax:
-	 
-		// Dialog
-		/*	var x = $(".body-template").width() + $(".menu-template").width()+15;
-				$('.dialog').dialog({
-					autoOpen: false,
-					width: 600, 
-					closeOnEscape: true,
-					show: "slide", 
-					hide:"slide",
-					position : [x,e.pageY]
-				
-					
-				});
-    $(".bibref-after-block").hover(function(e){
-	    	
-	    	    var abrev = $(this).parent().children("input").attr("value");
-	    	  
-	    	  
-	    	    console.log(abrev);
-	    	    var request = $.ajax({
-	    	    	  url: "ajax/popbook",
-	    	    	  type: "POST",
-	    	    	  data: {abrev : abrev},
-	    	    	  dataType: "html"
-	    	    	});
-
-	    	    	request.done(function(msg) {
-	    	    	console.log(msg);
-	    	    	$('.dialog').empty();
-	    
-	    	    	
-	  	    	    $('.dialog').html(msg);
-	  	        	$('.dialog').dialog('open');
-	  	        	
-	  	        	x = $(".body-template").width() + $(".menu-template").width()+15;
-	  				$('.dialog').dialog('option','position',[x,e.pageY]);
-	  				
-	  		
-	  				
-	    	    	});
-
-	    	    	request.fail(function(jqXHR, textStatus) {
-	    	    	  alert( "Request failed: " + textStatus );
-	    	    	  
-	    	    	});
-	    	    
-	    
-				return false;
-			},function(){
-				
-				setTimeout(function(){
-					
-					$('.dialog').dialog('close');
-				},5000);
-					
-			
-				
-				
-			});
-
-*/
-
-
-</script>
 
 <title>${article.title}</title>
 </head>
@@ -143,7 +24,7 @@ float:left;
 
 <div  class="dialog"  > Loading ...</div>
 
-	<!-- BREADCRUMB -->
+	<%-- BREADCRUMB --%>
 	<h2>
 		<c:forEach items="${parentsPath}" var="article">
 			<a href="article?id=${article.id}">${article.title}></a>
