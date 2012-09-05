@@ -67,7 +67,7 @@ public class LoginController extends BaseController<User> {
             this.setMessage(mv, errorMsg);
             return mv;
         } else {
-            return new ModelAndView("redirect:user", "id", user.getId());
+            return new ModelAndView("redirect:user", "username", user.getUserName());
         }
     }
 }
