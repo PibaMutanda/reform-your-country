@@ -8,18 +8,15 @@ import java.util.List;
 import org.apache.commons.io.comparator.LastModifiedFileComparator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import reformyourcountry.exception.UnauthorizedAccessException;
-import reformyourcountry.misc.FileUtil;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
-import reformyourcountry.utils.FileUtils;
-import reformyourcountry.utils.FileUtils.InvalidImageFileException;
+import reformyourcountry.util.FileUtil;
+import reformyourcountry.util.FileUtil.InvalidImageFileException;
 
 @Controller
 public class ArticleImageController {
@@ -55,7 +52,7 @@ public class ArticleImageController {
         
         ModelAndView mv = new ModelAndView("redirect:articleimage");
         try {
-            FileUtils.uploadPicture(FileUtil.getArticlePicsFolderPath(), multipartFile,  multipartFile.getOriginalFilename(),true);
+            FileUtil.uploadPicture(FileUtil.getArticlePicsFolderPath(), multipartFile,  multipartFile.getOriginalFilename(),true);
         } catch (InvalidImageFileException iife) {
             mv.addObject("errorMsg", iife.getMessageToUser());
         }
