@@ -7,7 +7,7 @@
 
 <head>
 	
-    <script src="<c:url value="js/jquery.textarea-expander.js" />"></script>
+    <script src="<c:url value="js/ext/jquery.textarea-expander.js" />"></script>
     
 
 
