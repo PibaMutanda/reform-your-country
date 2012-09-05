@@ -24,7 +24,7 @@
 		<ryctag:input path="mail" label="Mail"/>
 		<ryctag:checkbox path="nlSubscriber" label="Newsletters"/>
 		<form:hidden path="id" value="${id}"/> <%-- We need to add 'value=...' because of bug of Spring 3.1.2: the custom tag will render no value attribute if re redisplay the form after an validation error message --%>
-		<tr><td><input type="submit" value="Sauver" /></td><td> <a href="user?id=${id}">Annuler</a></td></tr>
+		<tr><td><input type="submit" value="Sauver" /></td><td> <a href="user?username=${user.userName}">Annuler</a></td></tr>
 	</ryctag:form>
 </body>
 </html>

@@ -19,7 +19,7 @@
 		<tr><td>Nouveau password: </td><td><input type="password" name="newPassword" /></td><td>${errorEmpty}${errorDiff}</td></tr>
 		<tr><td>Confirmer le nouveau password: </td><td><input type="password" name="confirmPassword" /></td><td>${errorEmpty}${errorDiff}</td></tr>
 		<form:hidden path="id" />
-		<tr><td><input type="submit" value="changer"/></td><td><a href="user?id=${user.id}">Annuler</a></td></tr>
+		<tr><td><input type="submit" value="changer"/></td><td><a href="user?username=${user.userName}">Annuler</a></td></tr>
 	</table>
 	</form:form>
 </body>
