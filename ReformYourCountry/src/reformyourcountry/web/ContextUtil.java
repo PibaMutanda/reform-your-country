@@ -107,11 +107,9 @@ public class ContextUtil implements Filter, ServletContextListener {
 			try{
 	            init((HttpServletRequest)req, (HttpServletResponse)res);			
 				chain.doFilter(req, res);
-			}
-			catch(Exception e){
-				e.printStackTrace();
-			}
-			finally{
+			} catch(Throwable t){
+				throw t;
+			} finally{
 				clear();
 			}
 		} else { // Other kind of request/response...

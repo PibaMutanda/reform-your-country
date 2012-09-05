@@ -16,8 +16,12 @@
 
 
 
-	<h2>The application has generated an error</h2>
-		
+
+			
+	<center>
+		<h2>The application has generated an error</h2>
+		<img src="images/404.jpg" />
+	</center>
 	<%
 			if(exception instanceof UnauthorizedAccessException){
 			    UnauthorizedAccessException e = (UnauthorizedAccessException) exception;
@@ -35,10 +39,7 @@
 			</font>
 		</c:when>
 	</c:choose>
-	
-	<center>
-		<img src="images/404.jpg" />
-	</center>
+
 	
 </body>
 </html>

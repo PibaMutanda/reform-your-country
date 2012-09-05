@@ -20,7 +20,7 @@
 	</c:choose>
 
 	
-	<ryc:conditionDisplay privilege="MANAGE_USERS">
+	<ryc:conditionDisplay privilege="EDIT_ARTICLE">
 			<!-- Uploader form -->
 			<div class="">(Attention l'image doit faire moins de 1.5Mo)</div>
 			<form method="post" action="articleimageadd"
@@ -53,7 +53,7 @@
 			<td align="center" valign="top"><img
 				src="gen/article/${image.getName()}" width="200" /> <br>
 				${image.getName()}<br>
-				<ryc:conditionDisplay privilege="MANAGE_USERS">
+				<ryc:conditionDisplay privilege="EDIT_ARTICLE">
 						<a href="articleimagedel?fileName=${image.getName()}">remove</a>
 				</ryc:conditionDisplay>
 			</td>

@@ -13,19 +13,28 @@ import reformyourcountry.exception.UserNotFoundException;
 
 @Controller
 public class ExceptionController {
-//    @RequestMapping("error.htm")
-//    public ModelAndView handleException2(UnauthorizedAccessException ex)
-//    {
-//        
-//        TreeMap<String,Object> map=new TreeMap<String,Object>();
-//        map.put("isDataChange", true);
-//        map.put("isBigError", true);
-//        return new ModelAndView(JSONView.RenderObject(map, response));
-//    }
+    @ExceptionHandler(RuntimeException.class)
+    public ModelAndView handleException2(Exception ex)
+    {
+        
+        return new ModelAndView("error");
+    }
     @RequestMapping("pagenotfound")
     public String handleException2(NoSuchRequestHandlingMethodException ex)
     {
         return "page-not-found";
+    }
+    @RequestMapping("error")
+    public ModelAndView error(Exception ex)
+    {
+        System.out.println("****************************************errorRuntime******************************");
+        return new ModelAndView("error");
+    }
+    @RequestMapping("error500")
+    public ModelAndView error500(Exception ex)
+    {
+        System.out.println("****************************************500******************************");
+        return new ModelAndView("error");
     }
 }
 

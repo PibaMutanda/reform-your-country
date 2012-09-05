@@ -78,7 +78,7 @@ public class Cookies {
         	cookie.setValue(null);
             // By setting the cookie maxAge to 0 it will deleted immediately
             cookie.setMaxAge(0);
-            cookie.setDomain(UrlUtil.getDomainName());
+            cookie.setDomain(UrlUtil.getCookieDomainName());
             cookie.setPath("/");
             ContextUtil.getHttpServletResponse().addCookie(cookie);
         }
@@ -92,7 +92,7 @@ public class Cookies {
      **/
     static public void createCookie(String name, String value) {
         Cookie cookie = new Cookie(name, value);
-        cookie.setDomain(UrlUtil.getDomainName()); //Set the domain of the cookie to get the same cookie for the org user and other user.
+        cookie.setDomain(UrlUtil.getCookieDomainName()); //Set the domain of the cookie to get the same cookie for the org user and other user.
         cookie.setMaxAge(15552000);// Cookie is stored for 6 month
         cookie.setPath("/");  // So it does not depends on the request path (like /KnowledgeBlackBelt/ui/UIDL) -- John 2009-07-13)
         ContextUtil.getHttpServletResponse().addCookie(cookie);
