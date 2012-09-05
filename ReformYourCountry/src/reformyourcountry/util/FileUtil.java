@@ -12,14 +12,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
-import org.apache.commons.logging.Log;
 import org.apache.log4j.Logger;
 import org.springframework.web.multipart.MultipartFile;
 
 import reformyourcountry.controller.ImageUploadController;
-import reformyourcountry.utils.FileUtils;
 import reformyourcountry.web.ContextUtil;
 
 public abstract class FileUtil {
@@ -31,6 +27,10 @@ public abstract class FileUtil {
 
     public static String getArticlePicsFolderPath() {
         return getGenFolderPath() + "/article";
+    }
+    
+    public static String getBookPicsFolderPath() {
+        return getGenFolderPath() + "/book";
     }
     /**
      * write the picture in the right folder    
@@ -234,11 +234,11 @@ public abstract class FileUtil {
         return mainFolder;
     }
     
-    public void saveDataToFile(byte[] data, String fileName, String absoluteFolderPath) throws IOException {
+  /*  public void saveDataToFile(byte[] data, String fileName, String absoluteFolderPath) throws IOException {
 		if (StringUtils.isEmpty(absoluteFolderPath)) {
 			throw new IllegalArgumentException("foldernames cannot be empty");
 		}
-		FileUtils.ensureFolderExists(absoluteFolderPath);
+		ensureFolderExists(absoluteFolderPath);
 		org.apache.commons.io.FileUtils.writeByteArrayToFile(new File(absoluteFolderPath + File.separator + fileName), data);
 	}
 
@@ -255,9 +255,9 @@ public abstract class FileUtil {
 			}
 		}
 		return count;
-	}
+	}*/
 
-	private boolean deleteFileOlderThan(File file, int numberOfDays){
+	/*private boolean deleteFileOlderThan(File file, int numberOfDays){
 		boolean deleted = false;
 		Date lastModified = new Date(file.lastModified());
 		if(lastModified.before(DateUtils.addDays(new Date(), -numberOfDays))){
@@ -267,11 +267,11 @@ public abstract class FileUtil {
 			}
 		}
 		return deleted;
-	}
+	}*/
 
 	public String createTemporaryFolder() {
 		String destinationDirectory = System.getProperty("java.io.tmpdir") + UUID.randomUUID().toString() + "/";
-		FileUtils.ensureFolderExists(destinationDirectory); 
+		ensureFolderExists(destinationDirectory); 
 		return destinationDirectory ;
 	}
 
@@ -285,9 +285,9 @@ public abstract class FileUtil {
 		}
 
 		// Create destination directory if needed
-		File destinationDir = FileUtils.ensureFolderExists(destinationPath);
+		File destinationDir = ensureFolderExists(destinationPath);
 
-		for (File file : FileUtils.getFilesFromFolder(sourcePath, filterExtensions)) {
+		for (File file : getFilesFromFolder(sourcePath, filterExtensions)) {
 			String name = file.getName();
 			file.renameTo(new File(destinationDir + "/" + name));
 		}
