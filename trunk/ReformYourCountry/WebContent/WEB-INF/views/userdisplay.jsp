@@ -16,16 +16,21 @@
 			<input	type="submit" value="Editer privilèges" />
 		</ryctag:form>
 	</ryc:conditionDisplay>
-	<ryctag:form action="useredit" modelAttribute="user">
-		<form:hidden path="id" value="${user.id}"/>
-		<input	type="submit" value="Modifier le Profil" />
-	</ryctag:form>
-	<ryctag:form action="userchangepassword" modelAttribute="user">
-		<input type="hidden" value="${user.id}" name="id" />
-		<tr><td><input type="submit" value="Modifier le password" /></td></tr>
-	</ryctag:form>
 
-Nom : ${user.lastName}<br/>
+	<c:if test="${canEdit}">
+		<ryctag:form action="useredit" modelAttribute="user">
+			<form:hidden path="id" value="${user.id}" />
+			<input type="submit" value="Modifier le Profil" />
+		</ryctag:form>
+
+		<ryctag:form action="userchangepassword" modelAttribute="user">
+			<input type="hidden" value="${user.id}" name="id" />
+			<tr>
+				<td><input type="submit" value="Modifier le password" /></td>
+			</tr>
+		</ryctag:form>
+	</c:if>
+	Nom : ${user.lastName}<br/>
 Prénom : ${user.firstName}<br/>
 Pseudo : ${user.userName}<br>
 Date de naissance : ${user.birthDate}<br/>
