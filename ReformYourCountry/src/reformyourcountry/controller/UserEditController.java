@@ -101,6 +101,7 @@ public class UserEditController extends BaseController<User> {
     	
     	    	
     	
+    	boolean hasUserAlreadyExist=false;
         // userName
         newUserName = org.springframework.util.StringUtils.trimAllWhitespace(newUserName).toLowerCase();  // remove blanks
         if (! org.apache.commons.lang3.StringUtils.equalsIgnoreCase(user.getUserName(), newUserName)) {  // Want to change username
@@ -108,6 +109,7 @@ public class UserEditController extends BaseController<User> {
             User otherUser = userRepository.getUserByUserName(newUserName);
             if (otherUser != null) { // Another user already uses that userName
                 errors.rejectValue("userName", null, "Ce pseudonyme est déjà utilisé par un autre utilisateur.");
+                hasUserAlreadyExist=true;
             }
         }
         
@@ -123,8 +125,11 @@ public class UserEditController extends BaseController<User> {
         
         if (errors.hasErrors()) {
             ModelAndView mv = new ModelAndView("useredit");
+            if (doNotUseThisUserInstance.getUserName()=="" || hasUserAlreadyExist==true) {
+                doNotUseThisUserInstance.setUserName(user.getUserName());  // We need to restore the username, because the "Cancel" link in the JSP needs it.
+            }
             mv.addObject("user", doNotUseThisUserInstance);  // Get out of here before we change the user entity (Hibernate could save because of dirty checking).
-            mv.addObject("id",id); // need to pass 'id' apart because 'doNotUseThisUserInstance.id' is set to null
+            mv.addObject("id", id); // need to pass 'id' apart because 'doNotUseThisUserInstance.id' is set to null
             return mv;
         }
         
