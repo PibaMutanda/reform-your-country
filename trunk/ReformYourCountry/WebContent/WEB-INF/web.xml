@@ -7,11 +7,18 @@
 
 
 	<!-- SERVLETS -->
- <error-page>
-	<error-code>404</error-code>
-	<location>/WEB-INF/views/page-not-found.jsp</location>
-  </error-page>
-
+	<error-page>
+		<error-code>404</error-code>
+		<location>/WEB-INF/views/page-not-found.jsp</location>
+	</error-page>
+	<error-page>
+		<exception-type>java.lang.Throwable</exception-type>
+		<location>/error</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/error500</location>
+	</error-page>
 
 	<servlet>
 		<servlet-name>dispatcher</servlet-name>
@@ -43,7 +50,7 @@
 
 	<!-- FILTERS -->
 
-	
+
 	<filter>
 		<filter-name>JpaFilter</filter-name>
 		<filter-class>org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter</filter-class>
@@ -60,7 +67,7 @@
 		<filter-name>ContextUtil</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-    <!-- SecurityFilter need to be after ContextUtil -->
+<!-- 	SecurityFilter need to be after ContextUtil -->
 	<filter>
 		<filter-name>SecurityFilter</filter-name>
 		<filter-class>reformyourcountry.web.SecurityFilter</filter-class>
@@ -70,7 +77,7 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-<filter>
+	<filter>
 		<filter-name>sitemesh</filter-name>
 		<filter-class>com.opensymphony.sitemesh.webapp.SiteMeshFilter</filter-class>
 		<init-param>

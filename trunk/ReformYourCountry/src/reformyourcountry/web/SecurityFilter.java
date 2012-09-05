@@ -28,12 +28,13 @@ public class SecurityFilter  extends GenericFilterBean implements Filter {
         
         // 1. Try to login (it does nothing if already logged in).
         loginService.tryAutoLoginFromCookies();
-        
         // 2. No need to initialize the SecurityContext, it will initialize itself lazily if needed (from the userid in the HttpSession)
         // But need to clear the Threadlocals.
-
+     
         try {
             chain.doFilter(request , response);
+        } catch (Throwable t) {
+            throw t;           
         } finally{
             SecurityContext.clear();
         }     
