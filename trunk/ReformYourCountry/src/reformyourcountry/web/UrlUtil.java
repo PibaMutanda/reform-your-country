@@ -1,7 +1,10 @@
 package reformyourcountry.web;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 
 public class UrlUtil {
 
@@ -65,5 +68,21 @@ public class UrlUtil {
 			throw new RuntimeException("invalid URL : "+e);
 		}
     }
-    
+
+    // TODO: test this code (is it a reasonable way to test an URL ?) - John 2012-09-05 
+    public static boolean isUrlValid(String outUrl) {
+        URL u;
+        try {
+            u = new URL(outUrl);
+            HttpURLConnection huc;
+            huc = ( HttpURLConnection )  u.openConnection();
+            huc.setRequestMethod("GET"); 
+            huc.connect () ;         
+            if(HttpURLConnection.HTTP_OK != huc.getResponseCode()) return false;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return true;
+    }
+
 }
