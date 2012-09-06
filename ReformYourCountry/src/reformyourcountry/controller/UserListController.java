@@ -15,7 +15,7 @@ import reformyourcountry.repository.UserRepository;
 @Controller
 public class UserListController {
 
-	@Autowired	UserRepository userrepository;
+	@Autowired	UserRepository userRepository;
 	
 	@RequestMapping("/userlist")
 	public ModelAndView userListDisplay(@RequestParam(value="name", required=false) String name){
@@ -26,7 +26,7 @@ public class UserListController {
 			return mv;
 		} else {  // It's a search
 			name = name.trim();
-			List<User> usersList = userrepository.searchUsers(name);
+			List<User> usersList = userRepository.searchUsers(name);
 			if(usersList.isEmpty()) {
 				errorMsg="Il n'existe aucun utilisateur ayant "+name+" comme pseudo, prénom ou nom.";
 				mv.addObject("errorMsg",errorMsg);
