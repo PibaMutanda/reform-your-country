@@ -20,7 +20,7 @@ import reformyourcountry.security.SecurityContext;
 @Controller
 public class UserChangePasswordController {
 
-	@Autowired UserRepository userrepository;
+	@Autowired UserRepository userRepository;
 
 	@RequestMapping("/userchangepassword")
 	public ModelAndView userChangePassword(@ModelAttribute User user) {
@@ -62,7 +62,7 @@ public class UserChangePasswordController {
 				return mv;
 			}
 			user.setPassword(SecurityUtils.md5Encode(confirmPassword));
-			userrepository.merge(user);
+			userRepository.merge(user);
 			return new ModelAndView("redirect:user","id",user.getId());	
 
 		}
@@ -72,7 +72,7 @@ public class UserChangePasswordController {
 
 	@ModelAttribute
 	public User findUser(@RequestParam("id") Long id){
-		return  userrepository.find(id);
+		return  userRepository.find(id);
 	}
 	
     private void assertCurrentUserMayEditThisUser(User user) {
