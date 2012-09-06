@@ -2,9 +2,11 @@ package reformyourcountry.test;
 
 import java.io.File;
 import java.io.IOException;
-import java.math.*;
 
-import reformyourcountry.test.FileServiceImpl.ImageSaveFormat;
+import reformyourcountry.util.ImageUtil;
+import reformyourcountry.util.ImageUtil.ImageSaveFormat;
+
+
 
 public class MainTest {
 
@@ -14,28 +16,22 @@ public class MainTest {
 	 */
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		String imageName = "sonic.gif";
+		String imageName = "sonic.jpg";
 		String folderName = "C:/";
 		boolean saveOriginal = true;
-		String originalFolderName = "C:/original_image";
-		float surface = 120*200;
-		double width
-		double width = (Math.sqrt((2000.0/290.0) * surface));
-		double heigth = surface / width;
-		int widths = (int) Math.round(width);
-		int heights = (int) Math.round(heigth);
-		if(widths>200){
-			widths = 200;
-		}
-		if(heights>200){
-			heights = 200;
-		}
-		System.out.println(surface + " " + (int) Math.round(width)+ " " + (int) Math.round(heigth));
+		String originalFolderName = "C:/original_image";		
+		boolean noRezise = false;//boolean for allowing resize
+		boolean withDecoration = false;
+		int WIDTH_MAX = 200;
+		int HEIGTH_MAX = 200;
+		int SURFACE_MAX = WIDTH_MAX * HEIGTH_MAX;
 		String scaleFolderNames = "C:/resized";	
 		ImageSaveFormat imageFormat = ImageSaveFormat.PNG;
-		File file = new File ("C:/sonic.gif");
-		FileServiceImpl fsi = new FileServiceImpl();
-		fsi.saveAndScaleImage(file, imageName, folderName, saveOriginal, originalFolderName, false, widths, heights, scaleFolderNames, imageFormat);
+		File file = new File ("C:/sonic.jpg");
+		System.out.println(file.getCanonicalPath());
+		System.out.println(file.getAbsolutePath());
+		System.out.println(file.getName());
+		ImageUtil.saveAndScaleImage(file, imageName, folderName, saveOriginal, originalFolderName, false, false, WIDTH_MAX, HEIGTH_MAX, SURFACE_MAX, scaleFolderNames, imageFormat);
 	}
 }
 
