@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag"%>
+  <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 <%@ page import="java.util.*"%>
 <%@ page import="reformyourcountry.model.Book"%>
 
@@ -12,10 +13,10 @@
 		<c:choose>
 			<c:when test="${stat.index % 2 == 0}">
 				<tr>
-					<td><ryctag:book book="${book}" /></td>
+					<td><ryc:bookInfo book="${book}" /></td>
 			</c:when>
 			<c:otherwise>
-   					<td><ryctag:book book="${book}" /></td>
+   					<td><ryc:bookInfo book="${book}" /></td>
 				</tr>
 			</c:otherwise>
 		</c:choose>
