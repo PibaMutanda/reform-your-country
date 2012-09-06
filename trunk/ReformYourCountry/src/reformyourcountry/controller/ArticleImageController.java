@@ -19,9 +19,7 @@ import reformyourcountry.util.FileUtil;
 import reformyourcountry.util.FileUtil.InvalidImageFileException;
 
 @Controller
-public class ArticleImageController {
-    @Autowired  private ImageUploadController imageUploadController;
-    
+public class ArticleImageController {    
     
     /**
      * Find the names of the files in the Article pictures folder and send it to the jsp
@@ -32,8 +30,8 @@ public class ArticleImageController {
     public ModelAndView articleImage(@RequestParam(value="errorMsg", required=false)String error){
 
         SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
-        FileUtil.ensureFolderExists(FileUtil.getArticlePicsFolderPath());
-        List<File> listFiles = FileUtil.getFilesFromFolder(FileUtil.getArticlePicsFolderPath());
+        FileUtil.ensureFolderExists(FileUtil.getGenFolderPath() + FileUtil.ARTICLE_SUB_FOLDER);
+        List<File> listFiles = FileUtil.getFilesFromFolder(FileUtil.getGenFolderPath() + FileUtil.ARTICLE_SUB_FOLDER);
         Collections.sort(listFiles, LastModifiedFileComparator.LASTMODIFIED_COMPARATOR);
         
         ModelAndView mv =new ModelAndView("articleimage");
@@ -45,14 +43,15 @@ public class ArticleImageController {
     
     /**
      * Upload the file to the server Article pictures folder
+     * @throws Exception 
      */
     @RequestMapping("/articleimageadd")
-    public ModelAndView articleImageAdd(@RequestParam("file") MultipartFile multipartFile) throws IOException{
+    public ModelAndView articleImageAdd(@RequestParam("file") MultipartFile multipartFile) throws Exception{
         SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
         
         ModelAndView mv = new ModelAndView("redirect:articleimage");
         try {
-            FileUtil.uploadPicture(FileUtil.getArticlePicsFolderPath(), multipartFile,  multipartFile.getOriginalFilename(),true);
+            FileUtil.uploadFile(multipartFile, FileUtil.getGenFolderPath() + FileUtil.ARTICLE_SUB_FOLDER, multipartFile.getOriginalFilename());
         } catch (InvalidImageFileException iife) {
             mv.addObject("errorMsg", iife.getMessageToUser());
         }
@@ -66,7 +65,7 @@ public class ArticleImageController {
     public ModelAndView articleImageDel(@RequestParam("fileName") String fileName) throws IOException{
         SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
         
-        File file = new File(FileUtil.getArticlePicsFolderPath()+'/'+fileName);
+        File file = new File(FileUtil.getGenFolderPath() + FileUtil.ARTICLE_SUB_FOLDER + '/'+fileName);
         file.delete();
         return this.articleImage("");
     }
