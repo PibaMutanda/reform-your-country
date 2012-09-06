@@ -8,8 +8,8 @@
 	description="choose if we need to display the edit function"%>
 	
 <div>
-	<img alt="" src="/ReformYourCountry/gen/book/${book.abrev}.jpg"
-		height="150" width="150" style="float: left" />
+	<img alt="${book.title}" src="/ReformYourCountry/gen/book/resized/${book.id}.jpg"
+	style="float: left" />
 
 	<h5>Titre:
 		<c:choose>
