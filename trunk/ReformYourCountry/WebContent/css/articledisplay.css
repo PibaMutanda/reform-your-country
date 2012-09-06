@@ -1,29 +1,27 @@
-.book{
-  font-style:italic;
-  text-align:right;
-}
 
-.bookdialog{
+.booktooltip{
   display:none;
 }
 
-img.book {
+img.booktooltip {
 	float:left;
 }
 
-.booktitle{
-	
+.bibref-after-block{
 	
 font-size: 13px;
 font-family:verdana;
+font-style:italic;
+text-align:right;
+padding-bottom:25px;
+margin-left:50px;
 
 }
-.book{
-	padding-bottom:25px;
-}
+
 .quote-block{
 	
 	margin-left:50px;
 	padding-top:25px;
+	
    
 }
