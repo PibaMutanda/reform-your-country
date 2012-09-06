@@ -20,7 +20,7 @@ import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
 
 @Controller
-public class ArticleEditController {
+public class ArticleEditController extends BaseController<Article>{
 
 	@Autowired ArticleRepository articleRepository;
 	@Autowired ArticleDisplayController displayArticleController;
@@ -39,19 +39,19 @@ public class ArticleEditController {
 
 	@RequestMapping("/articleeditsubmit")
 	public ModelAndView articleEditSubmit(@Valid @ModelAttribute Article article, BindingResult result,
-			@RequestParam("publishDate") String publishDate){
+			@RequestParam("publishDateStr") String publishDate){
 		SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
 		
 		if(result.hasErrors()){
-			
+			System.out.println(result.getAllErrors());
 		    return new ModelAndView("redirect:articleedit","id",article.getId());
 		}else{
-			if (publishDate.length()!=0) { //KESAKO
+			if (!publishDate.isEmpty()) { 
 				Date date = DateUtil.parseyyyyMMdd(publishDate);
 				article.setPublishDate(date);
 			}
 			articleRepository.merge(article);
-			return new ModelAndView("redirect:article", "id", article.getId());//NOOOOOO
+			return new ModelAndView("redirect:article", "id", article.getId());
 		}
 
 	}
@@ -59,9 +59,12 @@ public class ArticleEditController {
 
 	@ModelAttribute
 	public Article findArticle(@RequestParam("id")Long id){
-		Article result=articleRepository.find(id);
-		return result;
-
+		if(id==null){
+			return new Article();
+		} else {
+			return getRequiredEntity(id);
+		}
+	
 	}
 
 }
