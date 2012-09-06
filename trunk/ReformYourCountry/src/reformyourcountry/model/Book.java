@@ -33,7 +33,7 @@ public class Book extends BaseEntity {
     public Book() { }
     
     public Book(String abrev, String title, String description, String author,
-            String pubYear, boolean top, boolean hasImage, String externalUrl) {
+            String pubYear, boolean top, String externalUrl) {
         super();
         this.abrev = abrev;
         this.title = title;
@@ -41,7 +41,6 @@ public class Book extends BaseEntity {
         this.author = author;
         this.pubYear = pubYear;
         this.top = top;
-        this.hasImage = hasImage;
         this.externalUrl = externalUrl;
     }
     
