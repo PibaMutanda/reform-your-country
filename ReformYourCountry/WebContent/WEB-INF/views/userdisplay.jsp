@@ -29,6 +29,9 @@
 				<td><input type="submit" value="Modifier le password" /></td>
 			</tr>
 		</ryctag:form>
+		<a href= "userimage">Upload image</a><br/><br/>
+		
+		<!-- place de l'image apres chargement -->
 	</c:if>
 	Nom : ${user.lastName}<br/>
 Prénom : ${user.firstName}<br/>
