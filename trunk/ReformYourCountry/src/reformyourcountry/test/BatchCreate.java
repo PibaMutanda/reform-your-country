@@ -118,9 +118,6 @@ public class BatchCreate implements Runnable {
     @Transactional 
     public User populateUsers(){
 
-
-
-
         User user = null;
         try {
             user = userService.registerUser(true,"test","secret","test@mail.com");
@@ -134,25 +131,19 @@ public class BatchCreate implements Runnable {
                 user.setLastFailedLoginDate(sdf.parse("2012-07-10"));
                 user.setLastMailSentDate(sdf.parse("2012-07-01"));
             } catch (ParseException e) {
-
                 throw new RuntimeException(e);
             }
             user.setFirstName("Testname");
             user.setLastName("Testlastname");
             user.setGender(Gender.MALE);
-            user.setLastLoginIp("192.168.1.6");
-            user.setLockReason("this is a lock reason");
             user.setMailDelayType(MailingDelayType.IMMEDIATELY);
             user.setNlSubscriber(true);
-            user.setPicture(true);
             user.setRegistrationDate(new Date());
             user.setRole(Role.ADMIN);
             user.setSpammer(false);
             user.setSpamReporter(null);
             user.setAccountStatus(AccountStatus.ACTIVE);
             user.setValidationCode("123456789");
-
-          
         } catch (UserAlreadyExistsException e) {
             throw new RuntimeException(e);
         }
@@ -162,9 +153,6 @@ public class BatchCreate implements Runnable {
 
     @Transactional 
     public User populateUsersWithOneModerator(){
-
-
-
 
         User user = null;
         try {
@@ -186,7 +174,6 @@ public class BatchCreate implements Runnable {
             user.setLastName("Testlastname");
             user.setGender(Gender.MALE);
             user.setLastLoginIp("192.168.1.7");
-            user.setLockReason("this is a lock reason");
             user.setMailDelayType(MailingDelayType.IMMEDIATELY);
             user.setNlSubscriber(true);
             user.setPicture(true);
@@ -212,9 +199,6 @@ public class BatchCreate implements Runnable {
     @Transactional 
     public User populateUsersWithOneUser(){
 
-
-
-
         User user = null;
         try {
             user = userService.registerUser(true,"user","secret","user@mail.com");
@@ -235,7 +219,6 @@ public class BatchCreate implements Runnable {
             user.setLastName("Testlastname");
             user.setGender(Gender.MALE);
             user.setLastLoginIp("192.168.1.8");
-            user.setLockReason("this is a lock reason");
             user.setMailDelayType(MailingDelayType.IMMEDIATELY);
             user.setNlSubscriber(true);
             user.setPicture(true);
@@ -566,11 +549,11 @@ public class BatchCreate implements Runnable {
     @Transactional
     public void populateBook(){
         
-        Book book1 = new Book("abcd","Les clés du succès des systèmes scolaires les plus performants","Excellent rapport, agréable à lire par tous, pour comprendre les différences entre systèmes scolaires dans le monde et ce qui fait que certains s'améliorent.","McKinsey","2007",true, "http://mckinseyonsociety.com/how-the-worlds-best-performing-schools-come-out-on-top/");
-        Book book2 = new Book("mens","Un meilleur enseignement en Communauté française; nous le pouvons si nous le voulons","Facultés Universitaires Notre Dame de la Paix - Namur","Robert Deschamps","2010",false, "http://www.fundp.ac.be/pdf/publications/70749.pdf");
-        Book book3 = new Book("cede","Réflexions en vue d'un système éducatif plus performant pour tous les enfants","Centre d'étude de de défense de l'école publique.","","",false, "http://www.cedep.be/default.asp?contentID=31");
-        Book book4 = new Book("ecol"," Ecole de l'échec: comment la réformer?","Du pédagogisme à la gouvernance","Alain Destexhe, Vincent Vandenberghe, Guy Vlaeminck","2004",false, "http://www.bookfinder.com/dir/i/Lecole_De_Lechec-Comment_La_Reformer-Du_Pedagogisme_a_La_Gouvernance/2804019322/");
-        Book book5 = new Book("muta"," La mutation de l'école secondaire","Questions de sens - Propositions d’action","Francis Tilman, Dominique Grootaers, Barbara Dufour","2011",true, "http://www.couleurlivres.be/html/nouveautes/mutation-ecol-sec.html");
+        Book book1 = new Book("abcd","Les clés du succès des systèmes scolaires les plus performants","Excellent rapport, agréable à lire par tous, pour comprendre les différences entre systèmes scolaires dans le monde et ce qui fait que certains s'améliorent.","McKinsey","2007",true,"http://mckinseyonsociety.com/how-the-worlds-best-performing-schools-come-out-on-top/");
+        Book book2 = new Book("mens","Un meilleur enseignement en Communauté française; nous le pouvons si nous le voulons","Facultés Universitaires Notre Dame de la Paix - Namur","Robert Deschamps","2010",false,"http://www.fundp.ac.be/pdf/publications/70749.pdf");
+        Book book3 = new Book("cede","Réflexions en vue d'un système éducatif plus performant pour tous les enfants","Centre d'étude de de défense de l'école publique.","","",false,"http://www.cedep.be/default.asp?contentID=31");
+        Book book4 = new Book("ecol"," Ecole de l'échec: comment la réformer?","Du pédagogisme à la gouvernance","Alain Destexhe, Vincent Vandenberghe, Guy Vlaeminck","2004",false,"http://www.bookfinder.com/dir/i/Lecole_De_Lechec-Comment_La_Reformer-Du_Pedagogisme_a_La_Gouvernance/2804019322/");
+        Book book5 = new Book("muta"," La mutation de l'école secondaire","Questions de sens - Propositions d’action","Francis Tilman, Dominique Grootaers, Barbara Dufour","2011",true,"http://www.couleurlivres.be/html/nouveautes/mutation-ecol-sec.html");
  
         em.persist(book1);
         em.persist(book2);

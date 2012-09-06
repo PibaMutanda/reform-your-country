@@ -11,24 +11,22 @@
 <body>
 <h1>${user.userName }</h1>
 	<ryc:conditionDisplay privilege="MANAGE_USERS">
-		<ryctag:form action="privilegeedit" modelAttribute="user">
-			<form:hidden path="id" value="${user.id}"/>
+		<form action="privilegeedit" method="get">
+			<input type="hidden" value="${user.id}" name="id" />
 			<input	type="submit" value="Editer privilèges" />
-		</ryctag:form>
+		</form>
 	</ryc:conditionDisplay>
 
 	<c:if test="${canEdit}">
-		<ryctag:form action="useredit" modelAttribute="user">
-			<form:hidden path="id" value="${user.id}" />
-			<input type="submit" value="Modifier le Profil" />
-		</ryctag:form>
-
-		<ryctag:form action="userchangepassword" modelAttribute="user">
+		<form action="useredit" modelAttribute="user" method="get">
 			<input type="hidden" value="${user.id}" name="id" />
-			<tr>
-				<td><input type="submit" value="Modifier le password" /></td>
-			</tr>
-		</ryctag:form>
+			<input type="submit" value="Modifier le Profil" />
+		</form>
+
+		<form action="userchangepassword" modelAttribute="user">
+			<input type="hidden" value="${user.id}" name="id" />
+			<input type="submit" value="Modifier le mot de passe" />
+		</form>
 		<a href= "userimage">Upload image</a><br/><br/>
 		
 		<!-- place de l'image apres chargement -->
@@ -42,14 +40,12 @@ Date d'enregistrement : ${user.registrationDate}<br/>
 Rôle : ${user.role}<br/>
 Dernier accès : ${user.lastAccess}<br/><br/> 
 
-<ryc:conditionDisplay privilege="MANAGE_USERS">
-
+<c:if test="${canEdit}">
 mail : ${user.mail}<br/>
 Dernière IP d'accès : ${user.lastLoginIp}<br/>
 Status du compte : ${user.accountStatus}<br/>
 Raison blocage compte : ${user.lockReason}<br/>
-
-</ryc:conditionDisplay>
+</c:if>
 
 
 </body>

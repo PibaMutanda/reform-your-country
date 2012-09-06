@@ -179,7 +179,7 @@ public class UserService {
             user.addNameChangeLog("Previous name: " + user.getFirstName()
                     + " - " + user.getLastName() + " - " + user.getUserName());
         }
-        user.addNameChangeLog( DateUtil.formatyyyyMMdd(new Date()) + ": "
+        user.addNameChangeLog("\n"+ DateUtil.formatyyyyMMdd(new Date()) + ": "
                 + newFirstName + " - " + newLastName + " - " + newUserName);
         user.setFirstName(newFirstName);
         user.setLastName(newLastName);
