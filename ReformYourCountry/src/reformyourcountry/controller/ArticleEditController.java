@@ -39,7 +39,7 @@ public class ArticleEditController {
 
 	@RequestMapping("/articleeditsubmit")
 	public ModelAndView articleEditSubmit(@Valid @ModelAttribute Article article, BindingResult result,
-			@RequestParam("publishDateStr") String publishDate){
+			@RequestParam("publishDate") String publishDate){
 		SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
 		
 		if(result.hasErrors()){
