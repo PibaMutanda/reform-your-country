@@ -12,63 +12,44 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.web.multipart.MultipartFile;
 
-import reformyourcountry.controller.ImageUploadController;
 import reformyourcountry.web.ContextUtil;
 
 public abstract class FileUtil {
+	
+	final static public String BOOK_SUB_FOLDER = "/book";
+	final static public String BOOK_ORIGINAL_SUB_FOLDER = "/original";
+	final static public String BOOK_RESIZED_SUB_FOLDER = "/resized";
+	final static public String ARTICLE_SUB_FOLDER = "/article";
+
+    static Log log = LogFactory.getLog(FileUtil.class);
+	
 //	@Logger Log logger;//FIXME
     // In dev mode, returns somthing like C:\Users\forma308\Documents\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ReformYourCountry\gen 
     public static String getGenFolderPath() {
         return ContextUtil.getServletContext().getRealPath("/gen");
     }
 
-    public static String getArticlePicsFolderPath() {
-        return getGenFolderPath() + "/article";
-    }
     
-    public static String getBookPicsFolderPath() {
-        return getGenFolderPath() + "/book";
-    }
-    /**
-     * write the picture in the right folder    
-     * @param path
-     * @param multipartFile
-     * @return
-     * @throws IOException
+    /** If an uploaded MultipartFile has the name "toto.jpeg", and we give "123" as newNamePrefixFileName, this method will return "123.jpg".
+     * @throws InvalidImageFileException 
      */
-    public static void uploadPicture(String path, MultipartFile multipartFile, String filename, boolean overwriteIfFileExists) throws IOException, InvalidImageFileException {
-        if (multipartFile.getSize()>1500000)  {
-            throw new InvalidImageFileException("file is too large 1.5Mo maximum");
-        }
-        File genFolder = FileUtil.ensureFolderExists(path);
+    public static String assembleImageFileNameWithCorrectExtention(MultipartFile multipartFile, String newPrefixFileName) throws InvalidImageFileException {
         String type = multipartFile.getContentType();
-        String extension ;
-        Logger logger = Logger.getLogger(ImageUploadController.class);
-        File file = null;
-        if(logger.isDebugEnabled()){
-            logger.debug("genFolder : "+genFolder.getAbsolutePath());
-            logger.debug("file type is :"+multipartFile.getContentType());
-            logger.debug("file original name is "+multipartFile.getOriginalFilename());
-        }
         
-        
-        if (multipartFile.isEmpty()){
-            if(logger.isDebugEnabled()){
-                logger.debug("someone try to submit an empty file : "+multipartFile.getOriginalFilename());}
-            throw new InvalidImageFileException("No file to transfer. File is empty.");
-
-        }
         if (!type.contains("image")) {
-            if(logger.isDebugEnabled()){
-                logger.debug("someone try to upload this fille but this isn't an image : "+multipartFile.getOriginalFilename());}
+            if(log.isDebugEnabled()){
+                log.debug("someone try to upload this fille but this isn't an image : "+multipartFile.getOriginalFilename());}
             throw new InvalidImageFileException("File is not an image.  Detected type = '"+type+"'");
         }
         
-        
-        ////// Get the right extension & replace in fileName
+        ////// Get the right extension
+        String extension;
         switch (type) {
         case "image/gif":
             extension = "gif";
@@ -87,21 +68,48 @@ public abstract class FileUtil {
         default:
             throw new InvalidImageFileException("bad image type : png , svg , jpeg and gif are only accepted. Detected type = '"+type+"'");
         }
-        filename.replace( filename.substring( filename.lastIndexOf(".")),
-                "."+extension);
-
         
-        //now the file is good
-        //Replace the extension by the good one. for example, we replace "JPEG" by "jpg".
-        file = new File(genFolder, filename);
-
-//            file = new File(genFolder, multipartFile.getOriginalFilename().replace(
-//                    multipartFile.getOriginalFilename().substring(0,multipartFile.getOriginalFilename().lastIndexOf(".")),filename));
-
-        //// Writes the file
-        if (overwriteIfFileExists && file.exists()){
-            throw new InvalidImageFileException("file already exist!");
+        // Compute the new file name
+        return newPrefixFileName + "." + extension;
+    }
+    
+    
+    /**
+     * write the picture in the right folder    
+     * @param path
+     * @param multipartFile
+     * @return
+     * @throws Exception 
+     */
+    public static File uploadFile(MultipartFile multipartFile, String path, String fileName) throws Exception {
+        if (multipartFile.getSize()>1500000)  {
+            throw new InvalidImageFileException("file is too large 1.5Mo maximum");
         }
+        if (path == null) {
+            throw new Exception("File path can't be null");
+        }
+        
+        if (fileName == null) {
+            throw new Exception("File name can't be null");
+        }
+        File folder = FileUtil.ensureFolderExists(path);
+        if(log.isDebugEnabled()){
+            log.debug("genFolder : "+folder.getAbsolutePath());
+            log.debug("file type is :"+multipartFile.getContentType());
+            log.debug("file original name is "+multipartFile.getOriginalFilename());
+        }
+        
+        
+        if (multipartFile.isEmpty()){
+            if(log.isDebugEnabled()){
+                log.debug("someone try to submit an empty file : "+multipartFile.getOriginalFilename());}
+            throw new InvalidImageFileException("No file to transfer. File is empty.");
+
+        }
+
+        File file = new File(folder, fileName);
+         
+
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(file);
@@ -112,7 +120,8 @@ public abstract class FileUtil {
             fos.close();
         }
 
-        logger.info("file succesfull uploaded : "+file.getCanonicalPath());
+        log.info("file succesfull uploaded : "+file.getCanonicalPath());
+        return file;
     }
 
     /**
@@ -234,11 +243,11 @@ public abstract class FileUtil {
         return mainFolder;
     }
     
-  /*  public void saveDataToFile(byte[] data, String fileName, String absoluteFolderPath) throws IOException {
+    public void saveDataToFile(byte[] data, String fileName, String absoluteFolderPath) throws IOException {
 		if (StringUtils.isEmpty(absoluteFolderPath)) {
 			throw new IllegalArgumentException("foldernames cannot be empty");
 		}
-		ensureFolderExists(absoluteFolderPath);
+		FileUtil.ensureFolderExists(absoluteFolderPath);
 		org.apache.commons.io.FileUtils.writeByteArrayToFile(new File(absoluteFolderPath + File.separator + fileName), data);
 	}
 
@@ -255,9 +264,9 @@ public abstract class FileUtil {
 			}
 		}
 		return count;
-	}*/
+	}
 
-	/*private boolean deleteFileOlderThan(File file, int numberOfDays){
+	private boolean deleteFileOlderThan(File file, int numberOfDays){
 		boolean deleted = false;
 		Date lastModified = new Date(file.lastModified());
 		if(lastModified.before(DateUtils.addDays(new Date(), -numberOfDays))){
@@ -267,11 +276,11 @@ public abstract class FileUtil {
 			}
 		}
 		return deleted;
-	}*/
+	}
 
 	public String createTemporaryFolder() {
 		String destinationDirectory = System.getProperty("java.io.tmpdir") + UUID.randomUUID().toString() + "/";
-		ensureFolderExists(destinationDirectory); 
+		FileUtil.ensureFolderExists(destinationDirectory); 
 		return destinationDirectory ;
 	}
 
@@ -285,9 +294,9 @@ public abstract class FileUtil {
 		}
 
 		// Create destination directory if needed
-		File destinationDir = ensureFolderExists(destinationPath);
+		File destinationDir = FileUtil.ensureFolderExists(destinationPath);
 
-		for (File file : getFilesFromFolder(sourcePath, filterExtensions)) {
+		for (File file : FileUtil.getFilesFromFolder(sourcePath, filterExtensions)) {
 			String name = file.getName();
 			file.renameTo(new File(destinationDir + "/" + name));
 		}
