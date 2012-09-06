@@ -55,7 +55,7 @@
         <ryctag:input path="mail" label="Mail"/>
         <ryctag:checkbox path="nlSubscriber" label="Newsletters"/>
 		<input type="hidden" name="id" value="${id}"/> <%-- We do not use form:hidden because user.id is sometimes null (fake user)--%>
-        <tr><td><input type="submit" value="Sauver" /></td><td> <a href="user?id=${id}">Annuler</a></td></tr>
+        <tr><td><input type="submit" value="Sauver" /></td><td> <a href="user?username=${user.userName}">Annuler</a></td></tr>
     </ryctag:form>
      <%--Script for the Birthday date picker--%>
             <script type="application/javascript">    
