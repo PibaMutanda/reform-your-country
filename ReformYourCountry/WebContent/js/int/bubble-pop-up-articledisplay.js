@@ -1,4 +1,44 @@
+
 $(document).ready(function(e) {  // do stuff when DOM is ready			
+	
+	 //for info see http://www.maxvergelli.com/jquery-bubble-popup/documentation/#engine   	
+	 $('label,span[class^="bookref"]').CreateBubblePopup({ innerHtml: 'Loading...'});
+	   
+   $('label,span[class^="bookref"]').hover(function(e){
+	   
+	   
+	   var classatrib = $(this).attr("class");
+
+	   var size  = classatrib.lenght;
+	   
+	
+	   var abrev = classatrib.substring(8,12);
+	   
+	   //console.log($("#book-"+abrev).text());
+	   
+       var div = $("#book-"+abrev).html();
+	    console.log(div);
+	 				
+	    $(this).ShowBubblePopup({ 
+	    	              width:300,
+	 				      innerHtmlStyle: {  // give css property to the inner div of the popup	    	   
+				    	                       'text-align':'left',
+				    	                       'font-family': 'Times new roman',
+				    	                       'font-size': '18px',
+				    	                       'opacity':0.9
+				    	                       
+				    	                        },
+				    	   tail: {align:'right', hidden: false},
+				    	   selectable :true,				    	
+				    	   innerHtml: div }, true); 	  
+				return false;
+       },function(){});	  
+	   	
+});
+
+
+
+/*$(document).ready(function(e) {  // do stuff when DOM is ready			
 	
 	 //for info see http://www.maxvergelli.com/jquery-bubble-popup/documentation/#engine   	
 	 $(".bibref-after-block").CreateBubblePopup({ innerHtml: 'Loading...'});
@@ -19,7 +59,7 @@ $(document).ready(function(e) {  // do stuff when DOM is ready
 				return false;
         },function(){});	  
 	   	
-});
+});*/
 
 /*
 A pop up example with ajax: delete when login popup finished
