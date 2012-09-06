@@ -10,7 +10,7 @@
 <title>${book.title}</title>
 </head>
 <body>
-	<ryctag:book book="${book}" />
+	<ryc:bookInfo book="${book}" />
 	<br>
 
 	<c:choose>
