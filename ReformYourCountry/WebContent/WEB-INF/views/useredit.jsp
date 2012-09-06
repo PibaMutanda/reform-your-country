@@ -54,7 +54,7 @@
            <form:errors path="gender"  cssClass="error"/></tr>
         <ryctag:input path="mail" label="Mail"/>
         <ryctag:checkbox path="nlSubscriber" label="Newsletters"/>
-        <form:hidden path="id" value="${id}"/> <%-- We need to add 'value=...' because of bug of Spring 3.1.2: the custom tag will render no value attribute if re redisplay the form after an validation error message --%>
+		<input type="hidden" name="id" value="${id}"/> <%-- We do not use form:hidden because user.id is sometimes null (fake user)--%>
         <tr><td><input type="submit" value="Sauver" /></td><td> <a href="user?id=${id}">Annuler</a></td></tr>
     </ryctag:form>
      <%--Script for the Birthday date picker--%>
@@ -88,3 +88,7 @@
                 </script>
 </body>
 </html>
+
+
+
+

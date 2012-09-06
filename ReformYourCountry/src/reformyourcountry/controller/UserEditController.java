@@ -2,7 +2,6 @@ package reformyourcountry.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.validation.Valid;
@@ -38,11 +37,6 @@ public class UserEditController extends BaseController<User> {
         ModelAndView mv=new ModelAndView("useredit");
                      mv.addObject("id", userId); 
                      mv.addObject("user", user);
-        Calendar birthCalendar = Calendar.getInstance();
-        birthCalendar.setTime(user.getBirthDate());
-                     mv.addObject("birthDay", birthCalendar.get(Calendar.DAY_OF_MONTH));
-                     mv.addObject("birthMonth", birthCalendar.get(Calendar.MONTH));
-                     mv.addObject("birthYear", birthCalendar.get(Calendar.YEAR));
         return mv;
     }
   
@@ -62,6 +56,7 @@ public class UserEditController extends BaseController<User> {
     	
         User user = getRequiredEntity(id); 
     	assertCurrentUserMayEditThisUser(user);
+        	  	
        
     	//birthDate
     	SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
