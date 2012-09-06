@@ -24,12 +24,16 @@ public class Book extends BaseEntity {
     
     boolean top; //true if that book is a favorite book to be displayed at the top of the bibliography.
     
+    boolean hasImage;  // If the book has an image, the image is named book.id + "jpg"
+    
+
+
     String externalUrl; //link to the publisher or another web site about that book.
     
     public Book() { }
     
     public Book(String abrev, String title, String description, String author,
-            String pubYear, boolean top, String externalUrl) {
+            String pubYear, boolean top, boolean hasImage, String externalUrl) {
         super();
         this.abrev = abrev;
         this.title = title;
@@ -37,6 +41,7 @@ public class Book extends BaseEntity {
         this.author = author;
         this.pubYear = pubYear;
         this.top = top;
+        this.hasImage = hasImage;
         this.externalUrl = externalUrl;
     }
     
@@ -83,6 +88,14 @@ public class Book extends BaseEntity {
         this.externalUrl = externalUrl;
     }
    
+    public boolean isHasImage() {
+        return hasImage;
+    }
+
+    public void setHasImage(boolean hasImage) {
+        this.hasImage = hasImage;
+    }
+
 
     @Override
     public String toString() {

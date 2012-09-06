@@ -1,5 +1,7 @@
 package reformyourcountry.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.util.FileUtil;
 import reformyourcountry.util.FileUtil.InvalidImageFileException;
+import reformyourcountry.util.ImageUtil;
 
 @Controller
 public class BookDisplayController extends BaseController<Book> {
@@ -44,33 +47,34 @@ public class BookDisplayController extends BaseController<Book> {
     
     @RequestMapping("/bookimageadd")
     public ModelAndView bookImageAdd(@RequestParam("id") long bookid,
-            @RequestParam("file") MultipartFile multipartFile) throws IOException{    
+            @RequestParam("file") MultipartFile multipartFile) throws Exception{    
         SecurityContext.assertUserHasPrivilege(Privilege.EDIT_BOOK);
 
         Book book = bookRepository.find(bookid);
-        String filename = book.getAbrev() + ".jpg";
-
-//        if(FileUtil.getFilesNamesFromFolder(FileUtil.getBookPicsFolderPath()).contains(filename)){
-//
-//            File file = new File(FileUtil.getBookPicsFolderPath()+'/'+filename);
-//            file.delete();
-//        }
-
- 
+        
         ModelAndView mv = new ModelAndView("bookdisplay");
         mv.addObject("book", book);
-        mv.addObject("file", multipartFile);  // FIXME UTILE ? XXXXXXXXXXXXXXXXXXXXXXXXXX
+        mv.addObject("file", multipartFile);  // TODO: test that this is useful (it's supposed to make the selected filename appear again ???)
+
+        ///// Save original image, scale it and save the resized image.
         try {
-            FileUtil.uploadPicture(FileUtil.getBookPicsFolderPath(),multipartFile, filename,false);
-        } catch (InvalidImageFileException e) {
-           
-            mv.addObject("errorMsg", e.getMessageToUser());
+        	FileUtil.uploadFile(multipartFile, FileUtil.getGenFolderPath() + FileUtil.BOOK_SUB_FOLDER + FileUtil.BOOK_ORIGINAL_SUB_FOLDER, 
+        	        FileUtil.assembleImageFileNameWithCorrectExtention(multipartFile, Long.toString(book.getId())));
+
+        	BufferedImage resizedImage = ImageUtil.scale(new ByteArrayInputStream(multipartFile.getBytes()),120 * 200, 200, 200);
+        	
+        	ImageUtil.saveImageToFileAsJPEG(resizedImage,  
+        			FileUtil.getGenFolderPath() + FileUtil.BOOK_SUB_FOLDER + FileUtil.BOOK_RESIZED_SUB_FOLDER, book.getId() + ".jpg", 0.9f);
+
+        } catch (InvalidImageFileException e) {  //Tell the user that its image is invalid.
+            setMessage(mv, e.getMessageToUser());
         }
       
+        book.setHasImage(true);
+        bookRepository.merge(book);
 
 
         return mv;
-
     }
 
 
