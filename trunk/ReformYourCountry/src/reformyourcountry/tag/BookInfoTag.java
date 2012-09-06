@@ -7,11 +7,7 @@ import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import reformyourcountry.model.Book;
-import reformyourcountry.repository.BookRepository;
-import reformyourcountry.security.Privilege;
-import reformyourcountry.security.SecurityContext;
-import reformyourcountry.utils.HTMLUtil;
-import reformyourcountry.web.ContextUtil;
+import reformyourcountry.util.HTMLUtil;
 
 public class BookInfoTag extends SimpleTagSupport {
     
