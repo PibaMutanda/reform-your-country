@@ -3,7 +3,6 @@ package reformyourcountry.dbupdate;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
@@ -11,21 +10,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import org.hibernate.cfg.Configuration;
 import org.hibernate.ejb.Ejb3Configuration;
-import org.hibernate.ejb.packaging.PersistenceMetadata;
 import org.hibernate.tool.hbm2ddl.SchemaUpdate;
-import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-import reformyourcountry.batch.BatchUtil;
-import reformyourcountry.test.BatchCreate;
 import reformyourcountry.util.DateUtil;
 
 public class SchemaUpdater  {
