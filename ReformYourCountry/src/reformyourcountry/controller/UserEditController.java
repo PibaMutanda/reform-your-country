@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import reformyourcountry.misc.DateUtil;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.Gender;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.UserService;
+import reformyourcountry.util.DateUtil;
 
 
 @Controller

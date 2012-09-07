@@ -10,10 +10,10 @@ import reformyourcountry.exception.InvalidPasswordException;
 import reformyourcountry.exception.UserLockedException;
 import reformyourcountry.exception.UserNotFoundException;
 import reformyourcountry.exception.UserNotValidatedException;
-import reformyourcountry.misc.DateUtil;
 import reformyourcountry.model.User;
 import reformyourcountry.service.LoginService;
 import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
+import reformyourcountry.util.DateUtil;
 
 @Controller
 public class LoginController extends BaseController<User> {

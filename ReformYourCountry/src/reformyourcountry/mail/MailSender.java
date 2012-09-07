@@ -19,13 +19,13 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
-import reformyourcountry.misc.CurrentEnvironment.Environment;
-import reformyourcountry.misc.CurrentEnvironment.MailBehavior;
 import reformyourcountry.model.Mail;
 import reformyourcountry.model.User;
 import reformyourcountry.repository.MailRepository;
 import reformyourcountry.repository.UserRepository;
-import blackbelt.HtmlToTextUtil;
+import reformyourcountry.util.HtmlToTextUtil;
+import reformyourcountry.util.CurrentEnvironment.Environment;
+import reformyourcountry.util.CurrentEnvironment.MailBehavior;
 
 
 
