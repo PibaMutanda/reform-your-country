@@ -7,10 +7,15 @@
 
 <h1>${action.title}</h1>
 
-Contenu : ${action.content}<br/>
-Description brève : ${action.shortDescription}<br/>
-Description étendue : ${action.longDescription}<br/>
-URL : ${action.url}<br/>
+	<form action="actionedit" modelAttribute="action" method="get">
+		<input type="hidden" value="${action.id}" name="id" />
+		<input type="submit" value="Modifier action" />
+	</form>
+
+	Contenu : ${action.content}<br/>
+	Description brève : ${action.shortDescription}<br/>
+	Description étendue : ${action.longDescription}<br/>
+	URL : ${action.url}<br/>
 
 </body>
 </html>

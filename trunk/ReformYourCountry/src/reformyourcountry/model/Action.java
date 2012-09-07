@@ -8,11 +8,14 @@ import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+
+import org.hibernate.validator.constraints.NotBlank;
 @Entity
 public class Action extends BaseEntity{
 	
     
     @Column(length = 100)
+    @NotBlank(message="Il faut entrer un titre svp ")
 	private String title;
     
 	private String url;
