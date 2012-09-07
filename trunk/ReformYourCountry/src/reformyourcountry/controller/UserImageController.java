@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import reformyourcountry.model.Book;
 import reformyourcountry.model.User;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.security.Privilege;
@@ -61,6 +62,22 @@ public class UserImageController extends BaseController<User> {
 	        user.setPicture(true);
 	        userRepository.merge(user);
 
+	        return mv;
+	    }
+	 
+	 @RequestMapping("/userimagedelete")
+	    public ModelAndView userImageDelete(@RequestParam("id") long userid){
+	        
+
+		 	User user = userRepository.find(userid);
+
+	        FileUtil.deleteFilesWithPattern(FileUtil.getGenFolderPath() + FileUtil.USER_SUB_FOLDER + FileUtil.USER_ORIGINAL_SUB_FOLDER, user.getId()+".*");
+	        FileUtil.deleteFilesWithPattern(FileUtil.getGenFolderPath() + FileUtil.USER_SUB_FOLDER + FileUtil.USER_RESIZED_SUB_FOLDER, user.getId()+".*");
+	        user.setPicture(false);
+	        userRepository.merge(user);
+
+	        ModelAndView mv = new ModelAndView("redirect:user");
+	        mv.addObject("username", user.getUserName());
 	        return mv;
 	    }
 	
