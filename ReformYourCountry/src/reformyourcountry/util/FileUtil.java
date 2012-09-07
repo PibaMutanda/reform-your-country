@@ -26,6 +26,11 @@ public abstract class FileUtil {
 	final static public String BOOK_ORIGINAL_SUB_FOLDER = "/original";
 	final static public String BOOK_RESIZED_SUB_FOLDER = "/resized";
 	final static public String ARTICLE_SUB_FOLDER = "/article";
+	final static public String USER_SUB_FOLDER = "/user";
+	final static public String USER_ORIGINAL_SUB_FOLDER = "/original";
+	final static public String USER_RESIZED_SUB_FOLDER = "/resized";
+	//final static public String USER_RESIZED_LARGE_SUB_FOLDER = "/large";
+	//final static public String USER_RESIZED_SMALL_SUB_FOLDER = "/small";
 
     static Log log = LogFactory.getLog(FileUtil.class);
 	
