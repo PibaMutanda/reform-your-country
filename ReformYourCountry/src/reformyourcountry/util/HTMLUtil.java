@@ -6,38 +6,45 @@ import reformyourcountry.security.SecurityContext;
 
 public class HTMLUtil {
     
-    public static String getBookFragment(Book book,boolean readOnly){
+    public static String getBookFragment(Book book, boolean inToolTip) {
         String block = "";
+
+        if (inToolTip) {
+            block += "<div id ='book-"+book.getAbrev()+"' style='display:none;'>"; // This div will be "removed" by jQuery bubbles (tooltip)
+        }
+        block += "<div class='book'>";  // Will be in the tooltip too.
         
-        block += "<div id ='book-"+book.getAbrev()+"' class='booktooltip'>";
         
-              if(readOnly)
-                      block += "<h5><a href='showbooklist#"+book.getAbrev()+"'>Titre: "+book.getTitle()+"</a></h5>"; 
-              else
-                  block += "<h5><a id ='"+book.getAbrev()+"'>Titre: "+book.getTitle()+"</a></h5>"; 
-                  block += "<h5>"+book.getAuthor()+" "+book.getPubYear()+"</h5>";
-                  if(book.isHasImage())
-                  block += "<img src='/ReformYourCountry/gen/book/resized/"+book.getId()+".jpg' alt='"+book.getTitle()+"'>";
-                  
-                   block += "<p>"+book.getDescription()+"</p>"+
-                      "<a href = '"+book.getExternalUrl()+"' target = '_blank'\">Lien externe</a>"+
-                       "</div>";
-         
-        if(!readOnly && SecurityContext.isUserHasPrivilege(Privilege.EDIT_BOOK)){
-            
-            
+        if(inToolTip)
+            block += "<a href='showbooklist#"+book.getAbrev()+"'>"; 
+        else
+            block += "<a id ='"+book.getAbrev()+"'>";
+        block += book.getTitle()+"</a><br/>";
+        block += book.getAuthor()+"<br/> ";
+        block += book.getPubYear()+"<br/> ";
+        if(book.isHasImage())
+            block += "<img src='/ReformYourCountry/gen/book/resized/"+book.getId()+".jpg' alt='"+book.getTitle()+"' class='imgbook'>";
+
+        block += "<p>"+book.getDescription()+"</p>"+
+                "<a href = '"+book.getExternalUrl()+"' target = '_blank'\">Lien externe</a>";
+        
+        block +="</div>\n";
+        if (inToolTip) {
+            block +="</div>\n";
+        }
+
+        // TODO Move in JSP
+        if(!inToolTip && SecurityContext.isUserHasPrivilege(Privilege.EDIT_BOOK)){
             block +=  "<form action=\"bookedit\" method=\"GET\">"+
                     "<input type=\"hidden\" name=\"id\" value=\""+book.getId()+"\" />"+
                     "<input type=\"submit\" value=\"Editer\" />"+
                     "</form>";
-            
-            
         }
-        
+
         return block;
-        
+
     }
-    
+
     
 
 }
