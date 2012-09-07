@@ -22,10 +22,11 @@ public enum Privilege {
 	VIEW_STATS("View stats", Role.MODERATOR),
 
     //article related privileges
+    EDIT_ARTICLE("Edit article", Role.MODERATOR),
+    EDIT_BOOK("Edit book", Role.MODERATOR),
     
-    EDIT_ARTICLE("Edit article",Role.MODERATOR),
-    
-    EDIT_BOOK("Edit book",Role.MODERATOR);
+    EDIT_ACTION("Edit action", Role.MODERATOR);
+  
     
 	String name;
 	Role associatedRole;
