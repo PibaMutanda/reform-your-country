@@ -241,28 +241,38 @@ public class BBConverter {
         
         
 		/// 0. We look for the type of tag (span or div)
-		if (isAttributeTrue(tag, "inline")){ //////////////////// Inline quote, just a little span.
-		    
-		    String id = generateId();
-            html +="<span class="+
-              (book != null ? "'"+getCssClassName(book) : "'bookref-"+id+" ")
-              +" quote-inline'>";
-            processQuoteBody(tag);             // Add the quoted text. 
-            html +="</span>";
-            if(book == null && author != null){
-               
-            html +="<div id='book-"+id+"' class = 'booktooltip'>";
-            
-            if(outUrl != null)
-            html += "<a href='"+outUrl+"' target = '_blank'>"+author+"</a>";
-            else
-               html += author; 
-            
-            html +="</div>";
-            }
-            // TODO: if there is an author, add a mini-tooltip on the quoted text, with the author string in it. That author string should be hiperlinked with the out URL (if not null).
+        if (isAttributeTrue(tag, "inline")){ //////////////////// Inline quote, just a little span.
 
-		} else { //////////////////// Non inline quote, with div and so on.
+            String id = generateId();
+            html +="<span class='"+
+                    (book != null ? getCssClassName(book) : "")
+                    +" quote-inline'>";
+            
+            processQuoteBody(tag);             // Add the quoted text.
+            
+            html +="</span>";
+            
+            if (author != null) { // Normally, here book == null
+                // We need to display, in a bubble tooltip, the author (and maybe with an out link to an URL).
+                // We create a div with that content.
+
+                // Outside div which will not be taken inside the tooltip.
+                html +="<div style='display:none;'>";    // We don't display the author within the text (=> display: none).   
+                
+                // Inner div, taken within the tooltip.
+                html +="<div class='authorToolTip'>";  // div and class to style the tooltip through CSS.
+
+                if (outUrl != null) {
+                    html += "<a href='"+outUrl+"' target = '_blank'>"+author+"</a>";
+                } else {
+                    html += author;
+                }
+
+                html +="</div>";
+                html +="</div>";
+            }
+
+        } else { //////////////////// Non inline quote, with div and so on.
 		    
 		    //// 1. Add the quoted text.
             html +="<div class=\"quote-block\">\n";
@@ -358,16 +368,9 @@ public class BBConverter {
 
 	
 	private void addToolTipBooks(){
-	    
 	    for(Book book :booksRefferedInTheText){
-	        
 	        html += HTMLUtil.getBookFragment(book,true);
-	            
-	        
 	    }
-	    
-	 
-	    
 	}
 	
 	private String processUntranslated(BBTag tag) {
