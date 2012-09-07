@@ -10,7 +10,7 @@
         <fileset dir="${lib.dir}">
             <include name="**/*.jar" />
         </fileset>
-        <fileset dir="${env.TOMCAT_HOME}">
+        <fileset dir="${env.TOMCAT_HOME}/lib">
             <include name="*.jar" />
         </fileset>
     </path>
