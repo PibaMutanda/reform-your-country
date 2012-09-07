@@ -162,7 +162,7 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
   //  @NotNull(message="you must indicate your birthdate in format yyyy-MM-dd")
     private Date birthDate;
 
-    private Boolean picture;  // Picture name = user id + ".jpg"
+    private boolean picture;  // Picture name = user id + ".jpg"
 
     private Date lastMailSentDate;
 
