@@ -98,6 +98,7 @@
                 </patternset>
             </fileset>
         </copy>
+    	<mkdir dir="${dist.dir}"/>
         <war destfile="${dist.dir}/ROOT.war" webxml="${web.dir}/WEB-INF/web.xml">
             <fileset dir="${web.dir}"/>
             <lib dir="${lib.dir}"/>
@@ -108,6 +109,7 @@
     <target name="clean" description="remove build dir">
         <echo message="cleanings..."/>
         <delete dir="${build.dir}" />
+    	<delete dir="${dist.dir}"/>
     </target>
 
     <target name="debug" description="Lists the properties for debugging purposes">
