@@ -24,13 +24,7 @@
 <link rel="stylesheet" href="css/jquery-ui-1.8.23.custom.css"><%-- Jquery added here because they're used inside custom tags, done so to ease maintenance--%>
 <script src="js/ext/jquery-1.8.0.min.js"></script><%-- jquery depandencies --%>
 <script src="js/ext/jquery-ui-1.8.23.custom.min.js"></script><%-- jquery depandencies --%>
-<script type="text/javascript"><%-- Script for the DatePicker; until html5 is more supported --%>
-	$(function() {
-		$("#datepicker").datepicker({
-			dateFormat : "yy-mm-dd" //2012-08-22 
-		});
-	});
-</script>
+<script src="js/int/datepicker.js" type="text/javascript"></script>
 
 <title><decorator:title/></title>
 <decorator:head/>

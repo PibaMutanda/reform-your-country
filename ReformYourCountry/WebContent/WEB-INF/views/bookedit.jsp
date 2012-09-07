@@ -24,64 +24,13 @@
 		<ryctag:input path="pubYear" label="Année de publication:"/>
 		<ryctag:input path="externalUrl" label="Lien de référence:"/>
 		<tr>
-				<td>Top book?</td>
-				<td><form:radiobutton path="top" value="true" />Top
-				    <form:radiobutton path="top" value="false" />Other</td>
-		<tr />
+			<td>Top book?</td>
+			<td><form:radiobutton path="top" value="true" />Top
+				<form:radiobutton path="top" value="false" />Other</td>
+		<tr/>
 		<form:hidden path="id" value="${book.id}"/>
-		<input type="submit" value="
-				<c:choose>
-					<c:when test="${book.id != null}">Sauver</c:when>
-					<c:otherwise>Créer</c:otherwise>
-				</c:choose>
-			" />
+		<tr><td><input type="submit" value="<c:choose><c:when test="${book.id != null}">Sauver</c:when><c:otherwise>Créer</c:otherwise></c:choose>" /></td></tr>
 	</ryctag:form>
-
-	<%--<form:form modelAttribute="book" method="post" action="bookeditsubmit">
-		<table>
-			<tr>
-				<td>Abréviation du livre:</td>
-				<td>
-					<form:input path="abrev" /> 
-					<form:errors path="abrev" cssClass="error" />
-				</td>
-			</tr>
-			<tr>
-				<td>Titre du livre:</td>
-				<td><form:input path="title" /></td>
-			</tr>
-			<tr>
-				<td>Description du livre:</td>
-				<td><form:textarea path="description"/></td>
-			</tr>
-			<tr>
-				<td>Auteur(s) du livre:</td>
-				<td><form:input path="author"/></td>
-			</tr>
-			<tr>
-				<td>Année de publication:</td>
-				<td><form:input path="pubYear"/></td>
-			</tr>
-			<tr>
-				<td>Lien de référence:</td>
-				<td><form:input path="externalUrl"/></td>
-			</tr>
-			<tr>
-				<td>Top book?</td>
-				<td><form:radiobutton path="top" value="true" />Top
-				    <form:radiobutton path="top" value="false" />Other</td>
-			<tr />
-		</table>
-		<input type="hidden" name="id" value="${book.id}" />
-		<input type="submit" value="
-				<c:choose>
-					<c:when test="${book.id != null}">Sauver</c:when>
-					<c:otherwise>Créer</c:otherwise>
-				</c:choose>
-			" />
-			
-	</form:form>--%>
-
 </body>
 </html>
 
