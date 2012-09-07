@@ -28,6 +28,7 @@
 			<input type="submit" value="Modifier le mot de passe" />
 		</form>
 		<img alt="${user.id}" src="/ReformYourCountry/gen/user/resized/${user.id}.jpg"/>
+		
 		<a href= "userimage?id=${user.id}">Uploader une image</a><br/><br/>
 		
 		<!-- place de l'image apres chargement -->
