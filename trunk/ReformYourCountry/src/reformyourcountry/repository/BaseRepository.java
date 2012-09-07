@@ -7,9 +7,9 @@ import javax.persistence.Query;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import reformyourcountry.misc.ClassUtil;
 import reformyourcountry.model.BaseEntity;
 import reformyourcountry.model.User;
+import reformyourcountry.util.ClassUtil;
 
 
 @Transactional

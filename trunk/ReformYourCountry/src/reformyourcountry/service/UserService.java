@@ -11,12 +11,12 @@ import reformyourcountry.exception.UserAlreadyExistsException;
 import reformyourcountry.exception.UserAlreadyExistsException.IdentifierType;
 import reformyourcountry.mail.MailCategory;
 import reformyourcountry.mail.MailType;
-import reformyourcountry.misc.DateUtil;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountStatus;
 import reformyourcountry.repository.UserRepository;
+import reformyourcountry.util.DateUtil;
+import reformyourcountry.util.SecurityUtils;
 import reformyourcountry.web.UrlUtil;
-import blackbelt.util.SecurityUtils;
 
 @Service(value="userService")
 @Scope("singleton")

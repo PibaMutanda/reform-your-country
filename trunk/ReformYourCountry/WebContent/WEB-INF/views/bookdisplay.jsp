@@ -20,10 +20,12 @@
 	</c:choose>
 	
 	<ryc:conditionDisplay privilege="EDIT_BOOK">
-		<form method="post" action="bookimageadd"
-			enctype="multipart/form-data">
+		<form method="post" action="bookimageadd" enctype="multipart/form-data">
 			<input type="file" name="file" />
-			<input type="hidden" name="id" value="${book.id}" /> <input type="submit" value="Uploader une image" />
+			<input type="hidden" name="id" value="${book.id}" /><input type="submit" value="Uploader une image" />
+		</form>
+		<form method="post" action="bookimagedelete">
+			<input type="hidden" name="id" value="${book.id}" />  <br><input type="submit" value="Supprimer une image" />
 		</form>
 	</ryc:conditionDisplay>
 </body>

@@ -12,10 +12,10 @@ import reformyourcountry.mail.MailCategory;
 import reformyourcountry.mail.MailSender;
 import reformyourcountry.mail.MailTemplateService;
 import reformyourcountry.mail.MailType;
-import reformyourcountry.misc.CurrentEnvironment.Environment;
 import reformyourcountry.model.Mail;
 import reformyourcountry.model.User;
 import reformyourcountry.repository.UserRepository;
+import reformyourcountry.util.CurrentEnvironment.Environment;
 
 
 
