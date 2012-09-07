@@ -4,7 +4,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import reformyourcountry.exception.ExceptionUtil;
-import reformyourcountry.test.BatchCreate;
 import reformyourcountry.web.ContextUtil;
 
 public abstract class BatchUtil {
