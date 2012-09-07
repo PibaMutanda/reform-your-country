@@ -28,35 +28,33 @@
 			<input type="submit" value="Modifier le mot de passe" />
 		</form>
 
-		<c:if test="${user.picture}">
 
-			<img alt="${user.userName}"
-				src="/ReformYourCountry/gen/user/resized/${user.id}.jpg"
-				style="float: left" />
-		</c:if>
 		<a href= "userimage?id=${user.id}">Upload image</a><br/><br/>
-				
-		<!-- place de l'image apres chargement -->
-		
 	</c:if>
-	
 
+	<c:if test="${user.picture}">
+		<img alt="${user.userName}"
+			src="/ReformYourCountry/gen/user/resized/${user.id}.jpg"
+			style="float: left" />
+	</c:if>
 
-	Nom : ${user.lastName}<br/>
-Prénom : ${user.firstName}<br/>
-Pseudo : ${user.userName}<br>
-Date de naissance : ${user.birthDate}<br/>
-Genre : ${user.gender}<br/>
-Date d'enregistrement : ${user.registrationDate}<br/>
-Rôle : ${user.role}<br/>
-Dernier accès : ${user.lastAccess}<br/><br/> 
+	Nom : ${user.lastName}
+	<br /> Prénom : ${user.firstName}
+	<br /> Pseudo : ${user.userName}
+	<br> Date de naissance : ${user.birthDate}
+	<br /> Genre : ${user.gender}
+	<br /> Date d'enregistrement : ${user.registrationDate}
+	<br /> Rôle : ${user.role}
+	<br /> Dernier accès : ${user.lastAccess}
+	<br />
+	<br />
 
-<c:if test="${canEdit}">
-mail : ${user.mail}<br/>
-Dernière IP d'accès : ${user.lastLoginIp}<br/>
-Status du compte : ${user.accountStatus}<br/>
-Raison blocage compte : ${user.lockReason}<br/>
-</c:if>
+	<c:if test="${canEdit}">
+mail : ${user.mail}<br />
+Dernière IP d'accès : ${user.lastLoginIp}<br />
+Status du compte : ${user.accountStatus}<br />
+Raison blocage compte : ${user.lockReason}<br />
+	</c:if>
 
 
 </body>
