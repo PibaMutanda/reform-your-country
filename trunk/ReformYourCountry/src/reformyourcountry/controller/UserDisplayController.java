@@ -15,10 +15,11 @@ import reformyourcountry.security.SecurityContext;
 
 @Controller
 public class UserDisplayController extends BaseController<User> {
+    
     @Autowired UserRepository ur;
+    
     @RequestMapping("/user")
-    public ModelAndView userDisplay(
-            @RequestParam(value="username", required=true) String username) {
+    public ModelAndView userDisplay(@RequestParam(value="username", required=true) String username) {
         User user = ur.getUserByUserName(username);
         
         ModelAndView mv = new ModelAndView("userdisplay", "user", user);
