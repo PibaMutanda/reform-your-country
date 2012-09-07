@@ -18,15 +18,15 @@ import reformyourcountry.exception.InvalidPasswordException;
 import reformyourcountry.exception.UserLockedException;
 import reformyourcountry.exception.UserNotFoundException;
 import reformyourcountry.exception.UserNotValidatedException;
-import reformyourcountry.misc.CurrentEnvironment.Environment;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountStatus;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.security.SecurityContext;
+import reformyourcountry.util.SecurityUtils;
+import reformyourcountry.util.CurrentEnvironment.Environment;
 import reformyourcountry.web.ContextUtil;
 import reformyourcountry.web.Cookies;
 import reformyourcountry.web.HttpSessionTracker;
-import blackbelt.util.SecurityUtils;
 
 
 @Component

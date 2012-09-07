@@ -18,8 +18,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import reformyourcountry.misc.CurrentEnvironment;
-import reformyourcountry.misc.CurrentEnvironment.Environment;
+import reformyourcountry.util.CurrentEnvironment;
+import reformyourcountry.util.CurrentEnvironment.Environment;
 
 public class ContextUtil implements Filter, ServletContextListener {
 

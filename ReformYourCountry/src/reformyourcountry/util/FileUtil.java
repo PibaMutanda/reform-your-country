@@ -6,6 +6,12 @@ import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.DirectoryStream;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.PathMatcher;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -91,11 +97,11 @@ public abstract class FileUtil {
             throw new InvalidImageFileException("file is too large 1.5Mo maximum");
         }
         if (path == null) {
-            throw new Exception("File path can't be null");
+            throw new Exception("File path(image) can't be null");
         }
         
         if (fileName == null) {
-            throw new Exception("File name can't be null");
+            throw new Exception("File name(image) can't be null");
         }
         File folder = FileUtil.ensureFolderExists(path);
         if(log.isDebugEnabled()){
@@ -257,7 +263,7 @@ public abstract class FileUtil {
 	}
 
 
-	private int deleteContentOlderThan(File directory, int numberOfDays){
+	private static int deleteContentOlderThan(File directory, int numberOfDays){
 		int count = 0;
 		for (File file : directory.listFiles()) {
 			if(file.isDirectory()){
@@ -271,7 +277,7 @@ public abstract class FileUtil {
 		return count;
 	}
 
-	private boolean deleteFileOlderThan(File file, int numberOfDays){
+	private static boolean deleteFileOlderThan(File file, int numberOfDays){
 		boolean deleted = false;
 		Date lastModified = new Date(file.lastModified());
 		if(lastModified.before(DateUtils.addDays(new Date(), -numberOfDays))){
@@ -282,15 +288,36 @@ public abstract class FileUtil {
 		}
 		return deleted;
 	}
+	
+	/**
+	 * 
+	 * @param path  example: "c:/mydirectory"
+	 * @param filePattern example: "12345.*"
+	 */
+	public static void deleteFilesWithPattern(String pathStr, String filePattern) {  
+	    
+	    try {
+	        Path dir = Paths.get(pathStr);
+	        DirectoryStream<Path> dirStream;
+	        dirStream = Files.newDirectoryStream(dir, filePattern);
+	        for (Path filePath: dirStream) {
+	            Files.delete(filePath);
+	        }
+	    } catch (IOException e) {
+	        new RuntimeException("Problem while deleting files "+filePattern+" in path "+pathStr, e);
+	    } 
+	}
 
-	public String createTemporaryFolder() {
+
+
+	public static String createTemporaryFolder() {
 		String destinationDirectory = System.getProperty("java.io.tmpdir") + UUID.randomUUID().toString() + "/";
 		FileUtil.ensureFolderExists(destinationDirectory); 
 		return destinationDirectory ;
 	}
 
 
-	private void copyFiles(String sourcePath, String destinationPath, String ... filterExtensions){
+	private static void copyFiles(String sourcePath, String destinationPath, String ... filterExtensions){
 		// If source does not exists returns
 		File sourceFolder = new File(sourcePath);
 		if(!sourceFolder.exists()){
@@ -317,4 +344,17 @@ public abstract class FileUtil {
             return messageToUser;
         }
     }
+    
+    @SuppressWarnings("serial")
+    public static class deleteFileException extends Exception {
+        private String messageToUser;
+        deleteFileException(String userMsg) {
+            this.messageToUser = userMsg;
+        }
+        public String getMessageToUser() {
+            return messageToUser;
+        }
+    }
+    
+    
 }

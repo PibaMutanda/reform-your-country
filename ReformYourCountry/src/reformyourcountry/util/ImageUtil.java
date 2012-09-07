@@ -33,8 +33,6 @@ import org.apache.commons.logging.Log;
 
 import reformyourcountry.test.StreamUtils;
 
-import blackbelt.util.image.ImageGenerator;
-import blackbelt.util.image.ImageInfo;
 
 
 public class ImageUtil {
