@@ -20,9 +20,10 @@
 	
 	<div class="">(Attention l'image doit faire moins de 1.5Mo)</div>
 		<form method="post" action="userimageadd" enctype="multipart/form-data">
-				<input type="file" name="file" value="${totalFiles.size()}" /><br>
-				<input type="submit" value="Ajouter" /><a href="redirect:user?username=${user.userName}">Annuler</a><br>
-				<input type="hidden" value="${user.id}"/>
+				<input type="file" name="file"  /><br>
+				 <input type="hidden" name="id" value="${user.id}"/>
+				<input type="submit" value="Ajouter" /><a href="user?username=${user.userName}">Annuler</a><br>
+				
 		</form>
 	
 		
