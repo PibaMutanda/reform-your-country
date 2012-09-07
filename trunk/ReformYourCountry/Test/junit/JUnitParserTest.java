@@ -27,7 +27,8 @@ public class JUnitParserTest {
 	}
 	@Test
 	public void test2() {
-		assertEquals(ExportToHtml("[quote]Je suis une citation avec [link article=\"the-great-article-inside\"]un hyperlien[/link] vers un autre article dedans, ainsi qu’un [link out=\"http://lesoir.be/toto\" label=\"Journal le soir, article du 11 mai 2012\"]hyperlien[/link] vers un site web.[/quote]"),"<div class=\"quote-block\">Je suis une citation avec <a href=\"/Article/the-great-article-inside\">un hyperlien</a> vers un autre article dedans, ainsi qu’un <a href=\"http://lesoir.be/toto\">hyperlien</a> vers un site web.</div>");
+		assertEquals(ExportToHtml("[quote]Je suis une citation avec [link article=\"the-great-article-inside\"]un hyperlien[/link] vers un autre article dedans, ainsi qu’un [link out=\"http://lesoir.be/toto\" label=\"Journal le soir, article du 11 mai 2012\"]hyperlien[/link] vers un site web.[/quote]"),
+		        "<div class=\"quote-block\">Je suis une citation avec <a href=\"/Article/the-great-article-inside\">un hyperlien</a> vers un autre article dedans, ainsi qu’un <a href=\"http://lesoir.be/toto\">hyperlien</a> vers un site web.</div>");
 	}
 	@Test
 	public void test3(){
@@ -43,7 +44,8 @@ public class JUnitParserTest {
 	}
 	@Test
 	public void test6(){
-		assertEquals(ExportToHtml("[quote]Je suis une citation écrite par une dame.[bib out=\"http://lesoir.be/toto\"]une femme - Le Soir[/bib][/quote]"),"<div class=\"quote-block\">Je suis une citation écrite par une dame.</div><div class=\"bibref-after-block\">(<a href=\"http://lesoir.be/toto\">une femme - Le Soir</a>)</div>");
+		assertEquals(ExportToHtml("[quote]Je suis une citation écrite par une dame.[bib out=\"http://lesoir.be/toto\"]une femme - Le Soir[/bib][/quote]"),
+		        "<div class=\"quote-block\">Je suis une citation écrite par une dame.</div><div class=\"bibref-after-block\">(<a href=\"http://lesoir.be/toto\">une femme - Le Soir</a>)</div>");
 	}
 	@Test
 	public void test7(){

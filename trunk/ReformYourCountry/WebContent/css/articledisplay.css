@@ -1,21 +1,20 @@
 
-.booktooltip{
-  display:none;
+/* div defining the content of a book displayed on the bibliography page and in the tooltip */
+.book { 
+	text-align: left;
 }
 
-img.booktooltip {
+.imgbook {
 	float:left;
 }
 
-.bibref-after-block{
-	
-font-size: 13px;
-font-family:verdana;
-font-style:italic;
-text-align:right;
-padding-bottom:25px;
-margin-left:50px;
-
+.bibref-after-block {
+	font-size: 13px;
+	font-family: verdana;
+	font-style: italic;
+	text-align: right;
+	padding-bottom: 25px;
+	margin-left: 50px;
 }
 
 .quote-block{
@@ -24,4 +23,8 @@ margin-left:50px;
 	padding-top:25px;
 	
    
+}
+
+.quote-inline{
+	font-style:italic;
 }
