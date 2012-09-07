@@ -27,7 +27,8 @@
 			<input type="hidden" value="${user.id}" name="id" />
 			<input type="submit" value="Modifier le mot de passe" />
 		</form>
-		<a href= "userimage?id=${user.id}">Upload image</a><br/><br/>
+		<img alt="${user.id}" src="/ReformYourCountry/gen/user/resized/${user.id}.jpg"/>
+		<a href= "userimage?id=${user.id}">Uploader une image</a><br/><br/>
 		
 		<!-- place de l'image apres chargement -->
 	</c:if>
