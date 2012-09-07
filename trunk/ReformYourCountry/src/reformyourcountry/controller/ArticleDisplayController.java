@@ -46,10 +46,8 @@ public class ArticleDisplayController extends BaseController<Article> {
 
         ///// Get publishDate in an usable int format for the countdown
         if (article.getPublishDate() != null) {
-            Calendar publishCalendar;
-            Date publishDate = article.getPublishDate();
-            publishCalendar = Calendar.getInstance();
-            publishCalendar.setTime(publishDate);
+            Calendar publishCalendar = Calendar.getInstance();
+            publishCalendar.setTime(article.getPublishDate());
             int year = publishCalendar.get(Calendar.YEAR);
             int month = publishCalendar.get(Calendar.MONTH);
             int day = publishCalendar.get(Calendar.DAY_OF_MONTH);
@@ -58,8 +56,7 @@ public class ArticleDisplayController extends BaseController<Article> {
             mv.addObject("publishDay", day);
         }
 
-        boolean showContent = (article.isPublished() || SecurityContext.isUserHasPrivilege(Privilege.EDIT_ARTICLE));
-        mv.addObject("showContent", showContent);
+        mv.addObject("showContent", (article.isPublished() || SecurityContext.isUserHasPrivilege(Privilege.EDIT_ARTICLE)));
         BBConverter bbc = new BBConverter(bookRepository);
         mv.addObject("articleContent", bbc.transformBBCodeToHtmlCode(article.getContent()));
         

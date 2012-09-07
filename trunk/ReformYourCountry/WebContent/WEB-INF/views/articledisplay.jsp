@@ -9,12 +9,11 @@
      <%@taglib uri="http://www.springframework.org/tags/form"  prefix="form"%>
      <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
      <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
-<script type="text/javascript" src="js/ext/jquery-1.8.0.min.js"></script>
 <script type="text/javascript" src="js/ext/jquery-ui-1.8.23.custom.min.js"></script>
 <script src="js/ext/jquery-bubble-popup-v3.min.js" type="text/javascript"></script>
 <script src="js/int/bubble-pop-up-articledisplay.js" type = "text/javascript"></script>
 
-<script type="text/javascript" src="js/jquery.countdown.js"></script>
+<script type="text/javascript" src="js/ext/jquery.countdown.js"></script>
 
 
 <title>${article.title}</title>
@@ -50,17 +49,17 @@
     <!-- COUNT DOWN -->
 	<hr/>
 	<c:if test="${!article.published}">
+	<div id="defaultCountdown"></div>
 		<script type="text/javascript">
-		$(function () {
-					var publishDay = new Date();
-					publishDay = new Date(${publishYear}, ${publishMonth}, ${publishDay});
+		$(document).ready(function () {
+					var publishDay = new Date(${publishYear}, ${publishMonth}, ${publishDay});
 					function reload() { 
 						window.location.reload(); 
 					} 
 					$('#defaultCountdown').countdown({until: publishDay, onExpiry:reload, format: 'dHMS',layout: ' {dn} {dl} , {hn} {hl} , {mn} {ml} and {sn} {sl} until the article is published   <<<<<<<<<< DESIGNER, PLEASE IMPROVE (discret si droit de voir le texte, en grand sinon)'});
 			});
 		</script>
-		<div id="defaultCountdown"></div>
+		
 	</c:if>
 	
 	<hr/>
