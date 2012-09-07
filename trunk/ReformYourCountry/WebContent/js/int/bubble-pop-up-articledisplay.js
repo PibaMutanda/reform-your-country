@@ -22,17 +22,25 @@ $(document).ready(function(e) {  // do stuff when DOM is ready
     $('label[class^="bookref"],span[class^="bookref"]').hover(function(e){  // All the labels and having a class starting with "bookref"
 	   
  
-       // 1. We extract the book abbreviation. For example, in the element <label class="bookref-Emile otherClass">, we need to extract "Emile".
+       ///// 1. We extract the book abbreviation. For example, in the element <label class="bookref-Emile otherClass">, we need to extract "Emile".
 	   var classatrib = $(this).attr("class");  // Now contains "bookref-Emile otherClass"
        console.log(classatrib);
-	   // var size  = classatrib.lenght;
-	   var abrev = classatrib.substring(8);  // Extracts "Emile" // TODO: change that to take from 8 to the next space or to lenght.
+       
+       // Extracts "Emile" // TODO: change that to take from 8 to the next space or to lenght.
+       var blankpos = classatrib.indexOf(" ");
+       if (blankpos > 0) {
+    	   end = blankpos;
+       } else {
+    	   end = classatrib.lenght;
+       }
+	   var abrev = classatrib.substring(8, end); 
+	   console.log(abrev);
 	   console.log($("#book-"+abrev).text());
 	   
-	   // 2. We look for the book div (at the end of the html). For example, we look for <div id="book-Emile">
+	   ///// 2. We look for the book div (at the end of the html). For example, we look for <div id="book-Emile">
        var divWithBook = $("#book-"+abrev).html();
 
-       // 3. We create the popup on this with the book inside
+       ////// 3. We create the popup on this with the book inside
 	   $(this).ShowBubblePopup({ 
 	    	              width:400,
 	 				      innerHtmlStyle: {  // give css property to the inner div of the popup	    	   
