@@ -13,11 +13,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 
-import reformyourcountry.misc.DateUtil;
 import reformyourcountry.model.Article;
 import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
+import reformyourcountry.util.DateUtil;
 
 @Controller
 public class ArticleEditController extends BaseController<Article>{

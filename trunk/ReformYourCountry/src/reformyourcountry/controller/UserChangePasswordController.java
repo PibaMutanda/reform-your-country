@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import blackbelt.util.SecurityUtils;
 
 import reformyourcountry.model.User;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
+import reformyourcountry.util.SecurityUtils;
 
 @Controller
 public class UserChangePasswordController {

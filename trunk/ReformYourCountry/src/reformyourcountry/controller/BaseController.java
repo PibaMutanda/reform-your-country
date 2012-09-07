@@ -7,8 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.exception.InvalidUrlException;
-import reformyourcountry.misc.ClassUtil;
 import reformyourcountry.model.BaseEntity;
+import reformyourcountry.util.ClassUtil;
 
 @Transactional
 public class BaseController<E extends BaseEntity> {
