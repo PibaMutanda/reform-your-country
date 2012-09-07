@@ -28,6 +28,7 @@
 	 		<tr><td><input type="submit" value="Sauver"/></td>
 	 		<td><a href="article?id=${article.getId()}">Annuler</a></td></tr>
 	 		<ryctag:input path="title" label="Titre" required="required"/>
+	 		<!-- do not remove the str. Without the str, there is a problem with dirty checking -->
 	 		<ryctag:date path="publishDateStr" value="${article.publishDate}" label="Date de publication"/>
 	 		<ryctag:checkbox path="publicView" label="Public ?"/>
 	 		<!-- do not erase class , cols and rows attribute of the textarea , these values are used by textarea-expander.js -->
