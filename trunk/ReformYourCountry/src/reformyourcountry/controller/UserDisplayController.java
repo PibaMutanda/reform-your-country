@@ -15,19 +15,24 @@ import reformyourcountry.security.SecurityContext;
 
 @Controller
 public class UserDisplayController extends BaseController<User> {
-    
-    @Autowired UserRepository ur;
+	
+    @Autowired UserRepository userRepository;
     
     @RequestMapping("/user")
     public ModelAndView userDisplay(@RequestParam(value="username", required=true) String username) {
-        User user = ur.getUserByUserName(username);
+    	
+        User user = userRepository.getUserByUserName(username);
         
         ModelAndView mv = new ModelAndView("userdisplay", "user", user);
-        mv.addObject("canEdit", user.equals(SecurityContext.getUser()) || SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS));
+        mv.addObject("canEdit", canEdit(user));
         return mv;
         
     }
+     
 
+	private boolean canEdit(User user) {
+		return user.equals(SecurityContext.getUser()) || SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS);
+	}
 
        
 }

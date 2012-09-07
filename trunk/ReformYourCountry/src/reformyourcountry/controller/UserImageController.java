@@ -5,23 +5,21 @@ import java.io.ByteArrayInputStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import reformyourcountry.model.Book;
 import reformyourcountry.model.User;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.util.FileUtil;
-import reformyourcountry.util.ImageUtil;
 import reformyourcountry.util.FileUtil.InvalidImageFileException;
+import reformyourcountry.util.ImageUtil;
 
 @Controller
-public class UserImageController {
+public class UserImageController extends BaseController<User> {
 
 	@Autowired UserRepository userRepository;
 	
@@ -31,11 +29,12 @@ public class UserImageController {
 		User user= userRepository.find(userid);
 		ModelAndView mv= new ModelAndView("userimage");
 		mv.addObject("user",user);
+		
 		return mv;
 	}
 	
 	 @RequestMapping("/userimageadd")
-	    public ModelAndView bookImageAdd(@RequestParam("id") long userid,
+	    public ModelAndView userImageAdd(@RequestParam("id") long userid,
 	            @RequestParam("file") MultipartFile multipartFile) throws Exception{    
 	       
 
@@ -43,8 +42,8 @@ public class UserImageController {
 	        
 	        ModelAndView mv = new ModelAndView("userdisplay");
 	        mv.addObject("user",user);
-	        mv.addObject("file", multipartFile);  // TODO: test that this is useful (it's supposed to make the selected filename appear again ???)
-
+	        mv.addObject("canEdit", canEdit(user));
+	       
 	        ///// Save original image, scale it and save the resized image.
 	        try {
 	        	FileUtil.uploadFile(multipartFile, FileUtil.getGenFolderPath() + FileUtil.USER_SUB_FOLDER + FileUtil.USER_ORIGINAL_SUB_FOLDER, 
@@ -56,7 +55,7 @@ public class UserImageController {
 	        			FileUtil.getGenFolderPath() + FileUtil.USER_SUB_FOLDER + FileUtil.USER_RESIZED_SUB_FOLDER, user.getId() + ".jpg", 0.9f);
 
 	        } catch (InvalidImageFileException e) {  //Tell the user that its image is invalid.
-	            //setMessage(mv, e.getMessageToUser());
+	            setMessage(mv, e.getMessageToUser());
 	        }
 	      
 	        user.setPicture(true);
@@ -65,5 +64,8 @@ public class UserImageController {
 	        return mv;
 	    }
 	
+	 private boolean canEdit(User user) {
+			return user.equals(SecurityContext.getUser()) || SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS);
+		}
 	
 }
