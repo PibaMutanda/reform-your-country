@@ -40,6 +40,8 @@
 					<%@ include file="/WEB-INF/includes/menu.jsp"%>
 				</div>
 				<div class="body-template">
+				<input type="hidden" name="message" value="${message }">
+			
 				    <div>${message}<br/></div>
 					<decorator:body />
 				</div>

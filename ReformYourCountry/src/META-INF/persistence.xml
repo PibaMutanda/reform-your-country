@@ -5,6 +5,7 @@
    version="1.0">
 
    <persistence-unit name="ConnectionPostgres">
+   	   <provider>org.hibernate.ejb.HibernatePersistence</provider>
        <properties>
           <!-- Scan and detect annotated entities -->
           <property name="hibernate.archive.autodetection" value="class"/>
@@ -20,8 +21,6 @@
 
           <!-- Because with postgres/Spring, Large objects cannot be used with Autocommit (?) -->
           <property name="hibernate.connection.autocommit" value="false"/>
-          <property name="hibernate.hbm2ddl.auto" value="validate"/>
-
            <!-- Create the database schema when this test.persistence unit is deployed, drop
                 it (clean the database) when it is undeployed
            -->
