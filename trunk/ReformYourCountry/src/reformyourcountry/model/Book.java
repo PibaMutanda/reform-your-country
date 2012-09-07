@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Lob;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.beans.factory.annotation.Value;
 
 @Entity
 public class Book extends BaseEntity {
@@ -24,6 +25,7 @@ public class Book extends BaseEntity {
     
     boolean top; //true if that book is a favorite book to be displayed at the top of the bibliography.
     
+    @Column(nullable = false, columnDefinition="boolean default '0'")
     boolean hasImage;  // If the book has an image, the image is named book.id + "jpg"
     
 
