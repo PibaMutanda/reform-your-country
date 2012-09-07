@@ -27,12 +27,21 @@
 			<input type="hidden" value="${user.id}" name="id" />
 			<input type="submit" value="Modifier le mot de passe" />
 		</form>
-		<img alt="${user.id}" src="/ReformYourCountry/gen/user/resized/${user.id}.jpg"/>
-		
-		<a href= "userimage?id=${user.id}">Uploader une image</a><br/><br/>
-		
+
+		<c:if test="${user.picture}">
+
+			<img alt="${user.userName}"
+				src="/ReformYourCountry/gen/user/resized/${user.id}.jpg"
+				style="float: left" />
+		</c:if>
+		<a href= "userimage?id=${user.id}">Upload image</a><br/><br/>
+				
 		<!-- place de l'image apres chargement -->
+		
 	</c:if>
+	
+
+
 	Nom : ${user.lastName}<br/>
 Prénom : ${user.firstName}<br/>
 Pseudo : ${user.userName}<br>
