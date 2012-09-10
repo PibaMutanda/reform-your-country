@@ -81,7 +81,7 @@ public class BaseEntity {
 		            "It's typically the case when you put an entity in a " +
 		            "-toMany relationship before you call EntityManager.persist on that entity. " +
 		            "Using this BaseEntity class constraints you not doing that (else subtle bugs may arrive by the back door).");
-    		} else {
+    		} else {//Security disabled. Can typically the case when Spring MVC calls Hibernate validation which calls HashCode() (not related to persist call)
     			return 0;
     		}
     	}
