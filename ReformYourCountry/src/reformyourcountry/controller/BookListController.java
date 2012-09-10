@@ -17,7 +17,7 @@ public class BookListController extends BaseController<Book>{
     @Autowired BookRepository bookRepository;
    
     
-    @RequestMapping ("/showbooklist")
+    @RequestMapping ("/booklist")
     public ModelAndView showBookList(){
        ModelAndView mv = new ModelAndView("displaybooklist");
        List<Book> b = bookRepository.findAllTop();
@@ -38,13 +38,13 @@ public class BookListController extends BaseController<Book>{
     
    
     
-    @RequestMapping ("/bookdetail")
+    /*@RequestMapping ("/bookdetail")
     public ModelAndView detailBook (@RequestParam("id")Long id){
         ModelAndView mv = new ModelAndView("detailbook");
         mv.addObject("book", bookRepository.find(id));
         return mv;
          
         
-    }
+    }*/
 
 }
