@@ -16,7 +16,7 @@ public class HTMLUtil {
         
         
         if(inToolTip)
-            block += "<a href='showbooklist#"+book.getAbrev()+"'>"; 
+            block += "<a href='booklist#"+book.getAbrev()+"'>"; 
         else
             block += "<a id ='"+book.getAbrev()+"'>";
         block += book.getTitle()+"</a><br/>";
@@ -33,13 +33,6 @@ public class HTMLUtil {
             block +="</div>\n";
         }
 
-        // TODO Move in JSP
-        if(!inToolTip && SecurityContext.isUserHasPrivilege(Privilege.EDIT_BOOK)){
-            block +=  "<form action=\"bookedit\" method=\"GET\">"+
-                    "<input type=\"hidden\" name=\"id\" value=\""+book.getId()+"\" />"+
-                    "<input type=\"submit\" value=\"Editer\" />"+
-                    "</form>";
-        }
 
         return block;
 
