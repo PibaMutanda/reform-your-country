@@ -21,7 +21,7 @@ public class SchemaUpdater  {
     public static void main(String[] arg) throws IOException{
         run2();
     }
-
+ 
     @SuppressWarnings("deprecation")
     public static void run2() throws IOException{
         Map<String,Object> map=new HashMap<String,Object>();
