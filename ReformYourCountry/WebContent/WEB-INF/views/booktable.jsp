@@ -13,10 +13,20 @@
 		<c:choose>
 			<c:when test="${stat.index % 2 == 0}">
 				<tr>
-					<td><ryc:bookInfo book="${book}" /></td>
+					<td><ryc:bookInfo book="${book}" />
+					<br>
+					<ryc:conditionDisplay privilege="EDIT_BOOK">
+					<ryctag:submit entity="${book}" value="Editer" action="bookedit"/>		
+					</ryc:conditionDisplay>	                								
+					</td>
 			</c:when>
 			<c:otherwise>
-   					<td><ryc:bookInfo book="${book}" /></td>
+   					<td><ryc:bookInfo book="${book}" />
+   					<br>
+   					<ryc:conditionDisplay privilege="EDIT_BOOK">
+   					<ryctag:submit entity="${book}" value="Editer" action="bookedit"/>	
+   					</ryc:conditionDisplay>
+   					</td>
 				</tr>
 			</c:otherwise>
 		</c:choose>
