@@ -20,6 +20,7 @@
 	</c:choose>
 	
 	<ryc:conditionDisplay privilege="EDIT_BOOK">
+	<ryctag:submit entity="${book}" value="Editer" action="bookedit"/>	
 		<form method="post" action="bookimageadd" enctype="multipart/form-data">
 			<input type="file" name="file" />
 			<input type="hidden" name="id" value="${book.id}" /><input type="submit" value="Uploader une image" />

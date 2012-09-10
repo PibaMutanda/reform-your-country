@@ -3,7 +3,6 @@
 <html>
 <head>
 <link href="css/jquery-bubble-popup-v3.css" rel="stylesheet" type="text/css" />
-<link href="css/articledisplay.css" rel="stylesheet" type="text/css"/>
 <link rel="stylesheet" type="text/css" href="css/jquery.countdown.css"/>
      <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
      <%@taglib uri="http://www.springframework.org/tags/form"  prefix="form"%>
