@@ -12,6 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.model.Action;
 import reformyourcountry.repository.ActionRepository;
+import reformyourcountry.security.Privilege;
+import reformyourcountry.security.SecurityContext;
 
 @Controller
 public class ActionEditController extends BaseController<Action>{
@@ -29,7 +31,9 @@ public class ActionEditController extends BaseController<Action>{
     @RequestMapping("/actioneditsubmit")
     public ModelAndView userEditSubmit(@Valid @ModelAttribute Action action, Errors errors) {
       
-       if (errors.hasErrors()) {
+        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ACTION);
+
+        if (errors.hasErrors()) {
             return new ModelAndView("actionedit","action", action);
         }
        
