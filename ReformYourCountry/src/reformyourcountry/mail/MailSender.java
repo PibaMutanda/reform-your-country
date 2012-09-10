@@ -23,9 +23,10 @@ import reformyourcountry.model.Mail;
 import reformyourcountry.model.User;
 import reformyourcountry.repository.MailRepository;
 import reformyourcountry.repository.UserRepository;
-import reformyourcountry.util.HtmlToTextUtil;
-import reformyourcountry.util.CurrentEnvironment.Environment;
 import reformyourcountry.util.CurrentEnvironment.MailBehavior;
+import reformyourcountry.util.HtmlToTextUtil;
+import reformyourcountry.web.ContextUtil;
+import reformyourcountry.web.UrlUtil;
 
 
 
@@ -37,7 +38,7 @@ import reformyourcountry.util.CurrentEnvironment.MailBehavior;
 @Service
 public class MailSender extends Thread {
 
-   private Logger logger = Logger.getLogger("rycmail");
+    private Logger logger = Logger.getLogger("rycmail");
 
    //TODO rewiew time delay choice for production
     public final static int DELAY_BETWEEN_EACH_MAIL = 50;  // in ms. In case the SMTP server is too slow (cannot accept too many mails too fast). Use this const to temporize between 2 SMTP calls. 
@@ -45,59 +46,18 @@ public class MailSender extends Thread {
 
     private boolean isShutDown = false;
 
-    @Autowired	
-    public MailRepository mailDao;
-    @Autowired  
-    public UserRepository userDao;
+    @Autowired	public MailRepository mailDao;
+    @Autowired  public UserRepository userDao;
+    
+    @Autowired	public MailTemplateService mainTemplate;
 
-    @Autowired	
-    public MailTemplateService mainTemplate;
+    JavaMailSenderImpl javaMailSender; // This is not a Spring bean so @Autowired not usable
 
-    JavaMailSenderImpl javaMailSender;
-
-    @Value("${mail.from.notifier.address}") 
-    String mailNotifierFrom;
-    @Value("${mail.from.notifier.alias}") 
-    String mailNotifierAlias;
-    @Value("${mail.smtp.server}") 
-    String smtpHost ; 
-    @Value("${mail.smtp.port}") 
-    int smtpPort ; 
+    @Value("${mail.smtp.server}")           String smtpHost; 
+    @Value("${mail.smtp.port}")             int smtpPort; 
+    @Value("${mail.from.notifier.address}") String notifier;
+    @Value("${mail.from.notifier.alias}")   String aliasNotifier;
     
-    
-    @Value("${environment}") 
-    Environment environment ;
-    @Value("${mail.from.notifier.address}") 
-    String notifier;
-    @Value("${mail.from.notifier.alias}") 
-    String aliasNotifier;
-    
-    
-    /* setter for the test  purpose delete after spring configuration*/
-    public void setMailDao( MailRepository dao){
-    	mailDao = dao;
-    	
-    }
-    
-    /* setter for the test  purpose delete after spring configuration*/
-    public void setMailTemplateService(MailTemplateService mainTemplate){
-    	this.mainTemplate = mainTemplate;
-    	
-    }
-    /* setter for the test  purpose delete after spring configuration*/
-    public void setEnvironement(Environment env){
-        
-        environment = env;
-        
-        
-    }
-    
-    
-    public void setUserDao(UserRepository userDao){
-        
-        this.userDao = userDao;
-    }
-
     @PostConstruct
     public void postConstruct() {
      	BasicConfigurator.configure();
@@ -107,11 +67,13 @@ public class MailSender extends Thread {
         javaMailSender.setPort(smtpPort);
 
         setName("MailSender"); // Sets the name of the thread to be visible in the prod server thread list.
-       if(this.environment.getMailBehavior() != MailBehavior.NOT_STARTED){
+       if(ContextUtil.getEnvironment().getMailBehavior() != MailBehavior.NOT_STARTED){
         	this.start();
        } else {
        	logger.info("DevMode on, mail thread not started");
        }
+       
+       notifier+= UrlUtil.getMailDomainName();
         
     }
 
@@ -213,7 +175,7 @@ public class MailSender extends Thread {
             logger.info(e);
         }
     }
-
+    //FIXME what this and it is commented? -maxime 10/09/2012
    // 	private void sendToFile(MailTemplateService.MailSubjectAndContent mp) {
    // 	BufferedWriter writer;
     	//	try {
@@ -346,7 +308,7 @@ public class MailSender extends Thread {
 
            logger.info(log.toString());
 
-            if (environment.getMailBehavior() == MailBehavior.SENT) { // Really send the mail to SMTP server now.
+            if (ContextUtil.getEnvironment().getMailBehavior() == MailBehavior.SENT) { // Really send the mail to SMTP server now.
                 MimeMessagePreparator mimeMessagePreparator = new MimeMessagePreparator() {
                     @Override
                     public void prepare(final MimeMessage mimeMessage) throws Exception {
