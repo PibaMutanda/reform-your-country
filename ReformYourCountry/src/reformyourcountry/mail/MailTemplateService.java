@@ -22,8 +22,7 @@ import reformyourcountry.service.UserService;
 @Configurable(preConstruction=true)
 public final class MailTemplateService {
 
-    @Autowired
-    MailRepository dao;
+    @Autowired MailRepository dao;
     @Autowired UserService userService;
 
     public MailTemplateService() {}
