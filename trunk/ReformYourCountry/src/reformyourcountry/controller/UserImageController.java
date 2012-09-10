@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import reformyourcountry.model.Book;
 import reformyourcountry.model.User;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.security.Privilege;
@@ -48,24 +47,23 @@ public class UserImageController extends BaseController<User> {
 					FileUtil.assembleImageFileNameWithCorrectExtention(multipartFile, Long.toString(user.getId())));
 
 			BufferedImage resizedImage = ImageUtil.scale(new ByteArrayInputStream(multipartFile.getBytes()),120 * 200, 200, 200);
-
+						
 			ImageUtil.saveImageToFileAsJPEG(resizedImage,  
-					FileUtil.getGenFolderPath() + FileUtil.USER_SUB_FOLDER + FileUtil.USER_RESIZED_SUB_FOLDER, user.getId() + ".jpg", 0.9f);
-			
-			ImageUtil.saveImageToFileAsJPEG(resizedImage,  
-					FileUtil.getGenFolderPath() + FileUtil.USER_SUB_FOLDER + FileUtil.USER_RESIZED_SUB_FOLDER + FileUtil.USER_RESIZED_LARGE_SUB_FOLDER, user.getId() + ".jpg", 0.9f);
+					FileUtil.getGenFolderPath() + FileUtil.USER_SUB_FOLDER + FileUtil.USER_RESIZED_SUB_FOLDER +  FileUtil.USER_RESIZED_LARGE_SUB_FOLDER, user.getId() + ".jpg", 0.9f);
 			
 			BufferedImage resizedSmallImage = ImageUtil.scale(new ByteArrayInputStream(multipartFile.getBytes()),50 * 75, 75, 75);
 			
 			ImageUtil.saveImageToFileAsJPEG(resizedSmallImage,  
 					FileUtil.getGenFolderPath() + FileUtil.USER_SUB_FOLDER + FileUtil.USER_RESIZED_SUB_FOLDER + FileUtil.USER_RESIZED_SMALL_SUB_FOLDER, user.getId() + ".jpg", 0.9f);
 
+			user.setPicture(true);
+			
+			userRepository.merge(user);
 		} catch (InvalidImageFileException e) {  //Tell the user that its image is invalid.
 			setMessage(mv, e.getMessageToUser());
 		}
 
-		user.setPicture(true);
-		userRepository.merge(user);
+		
 
 		return mv;
 	}
@@ -75,8 +73,11 @@ public class UserImageController extends BaseController<User> {
 		 User user = getRequiredEntity(userid);
 
 		 FileUtil.deleteFilesWithPattern(FileUtil.getGenFolderPath() + FileUtil.USER_SUB_FOLDER + FileUtil.USER_ORIGINAL_SUB_FOLDER, user.getId()+".*");
-		 FileUtil.deleteFilesWithPattern(FileUtil.getGenFolderPath() + FileUtil.USER_SUB_FOLDER + FileUtil.USER_RESIZED_SUB_FOLDER, user.getId()+".*");
-		 user.setPicture(false);
+		 FileUtil.deleteFilesWithPattern(FileUtil.getGenFolderPath() + FileUtil.USER_SUB_FOLDER + FileUtil.USER_RESIZED_SUB_FOLDER + FileUtil.USER_RESIZED_LARGE_SUB_FOLDER, user.getId()+".*");
+		 FileUtil.deleteFilesWithPattern(FileUtil.getGenFolderPath() + FileUtil.USER_SUB_FOLDER + FileUtil.USER_RESIZED_SUB_FOLDER +  FileUtil.USER_RESIZED_SMALL_SUB_FOLDER, user.getId()+".*");
+
+		 
+		 
 		 userRepository.merge(user);
 
 		 ModelAndView mv = new ModelAndView("redirect:user");
