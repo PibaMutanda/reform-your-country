@@ -24,9 +24,9 @@ public class BBConverter {
 	
 	BookRepository bookRepository;  // No @Autowired because we are not in a Spring bean.
 	private Set<Book> booksRefferedInTheText = new HashSet<Book>();  // To collect the books seen in the [quote bib="..."] and [link bib="..."].
-	private Set<String> tooltipsIdForAuthor = new HashSet<String>();
+	
 
-	private static int lastDefaultId = 0 ; 
+	
 	
 	//////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////// PUBLIC ///////////////////////////////////////
@@ -243,7 +243,7 @@ public class BBConverter {
 		/// 0. We look for the type of tag (span or div)
         if (isAttributeTrue(tag, "inline")){ //////////////////// Inline quote, just a little span.
 
-            String id = generateId();
+            
             html +="<span class='"+
                     (book != null ? getCssClassName(book) : "")
                     +" quote-inline'>";
@@ -305,6 +305,7 @@ public class BBConverter {
                     } else {
                         html += author;
                     }
+                    html += "</label>";
                 }
                 html +="</div>\n";
             }
@@ -405,21 +406,6 @@ public class BBConverter {
 	private void addErrorMessage(BBTag tag) {
 		addErrorMessage(tag.getErrorText(), tag);  
 	}	
-	//generate an id  for css class wich look like "1111" or "2222" to maitain compatibility with the javascript
-	// used for book inline tag with no book in DB ( ex : bookref-1111 and book-1111)
-	private String generateId(){
-	    lastDefaultId++;
-	    String id  = "";
-	    int lenght = 4-(""+lastDefaultId).length();
-	    
-	    for(int i = 0; i < lenght ;i++)
-	        id = id + "0";
-	    
-	    id=id+lastDefaultId;
-	    tooltipsIdForAuthor.add(id);
-	    
-	    
-	    return id;
-	}
+	
 
 }
