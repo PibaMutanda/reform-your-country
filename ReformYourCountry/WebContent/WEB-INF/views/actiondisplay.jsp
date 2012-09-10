@@ -7,7 +7,7 @@
 
 <h1>${action.title}</h1>
 
-	<form action="actionedit" modelAttribute="action" method="get">
+	<form action="actionedit" method="get">
 		<input type="hidden" value="${action.id}" name="id" />
 		<input type="submit" value="Modifier action" />
 	</form>

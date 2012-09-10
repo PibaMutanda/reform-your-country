@@ -12,9 +12,7 @@ public class ActionDisplayController extends BaseController<Action> {
     @RequestMapping("action")
     public ModelAndView displayAction(@RequestParam("id") long actionId) {
         Action action = getRequiredEntity(actionId);
-        ModelAndView mv = new ModelAndView("actiondisplay");
-        mv.addObject("action", action);
-        return mv;
+        return new ModelAndView("actiondisplay","action", action);
     }
 
 }
