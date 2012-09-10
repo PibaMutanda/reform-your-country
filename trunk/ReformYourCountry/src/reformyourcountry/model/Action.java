@@ -15,7 +15,7 @@ public class Action extends BaseEntity{
 	
     
     @Column(length = 100)
-    @NotBlank(message="Il faut entrer un titre svp ")
+    @NotBlank(message="Il faut entrer un titre svp")
 	private String title;
     
 	private String url;

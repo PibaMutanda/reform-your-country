@@ -14,14 +14,14 @@
 <h1>Editer une action</h1>
 
     <ryctag:form action="actioneditsubmit" modelAttribute="action">
-        <ryctag:input path="title" label="title"/>
-        <ryctag:input path="content" label="content"/>
-        <ryctag:input path="url" label="url"/>
-         <ryctag:input path="shortDescription" label="shortDescription"/>
-          <ryctag:input path="longDescription" label="longDescription"/>
+        <ryctag:input path="title" label="Titre"/>
+        <ryctag:input path="content" label="Contenu"/>
+        <ryctag:input path="url" label="Url"/>
+        <ryctag:input path="shortDescription" label="Description brève"/>
+        <ryctag:textarea path="longDescription" label="Description étendue"/>
        
-		<input type="hidden" name="id" value="${id}"/> 
-        <tr><td><input type="submit" value="Sauver" /></td><td> <a href="action?id=${id}">Annuler</a></td></tr>
+		<input type="hidden" name="id" value="${action.id}"/> 
+        <tr><td><input type="submit" value="Sauver" /></td><td> <a href="action?id=${action.id}">Annuler</a></td></tr>
     </ryctag:form>
   
 </html>

@@ -13,10 +13,5 @@ public class ActionRepository extends BaseRepository<Action> {
         return    em.createQuery("select a from Action a").getResultList();
  
     }
-    public Action getActionByTitle(String identifier) {
-        return getSingleOrNullResult( 
-                em.createQuery("select a from Action a where a.title =:title")
-                .setParameter("title", identifier)
-                );
-    }
+  
 }
