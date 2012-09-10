@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 @Entity
 public class Book extends BaseEntity {
 	
-    @NotBlank(message = "You must put a abbreviation")
+    @NotBlank(message = "Vous devez introduire une abréviation")
     @Column(nullable = false, unique = true)
     String abrev;
     
