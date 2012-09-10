@@ -87,7 +87,7 @@ public  class SecurityContext {
         EnumSet<Privilege> associatedPrivileges = EnumSet.noneOf(Privilege.class);
         if (role != null) {
             for (Privilege privilege : Privilege.values()) {
-                if (role.isHigerOrEquivalent(privilege.getAssociatedRole())) {
+                if (role.isHigherOrEquivalent(privilege.getAssociatedRole())) {
                     associatedPrivileges.add(privilege);
                 }
             }

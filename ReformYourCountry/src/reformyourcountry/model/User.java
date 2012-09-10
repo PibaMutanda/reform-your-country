@@ -120,7 +120,7 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
          * to test against this <tt>CommunityRole</tt>.
          * @return true or false.
          */
-        public boolean isHigerOrEquivalent(Role level) {
+        public boolean isHigherOrEquivalent(Role level) {
             if (level == null)
                 return this == Role.ANONYMOUS;
             return this.getLevel() <= level.getLevel();

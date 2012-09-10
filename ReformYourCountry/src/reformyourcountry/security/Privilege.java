@@ -16,7 +16,7 @@ public enum Privilege {
 	// News related privileges
 	MANAGE_NEWS("Manage news", Role.MODERATOR),
 	MANAGE_NEWSLETTERS("Manage newsletters", Role.MODERATOR), 
-	SEND_NEWSLETTERS("Send newsletters", Role.MODERATOR), 
+	SEND_NEWSLETTERS("Send newsletters", Role.ADMIN), 
 
 	//status privileges
 	VIEW_STATS("View stats", Role.MODERATOR),
