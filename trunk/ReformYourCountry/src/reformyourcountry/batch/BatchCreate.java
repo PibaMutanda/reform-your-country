@@ -138,6 +138,7 @@ public class BatchCreate implements Runnable {
             user.setGender(Gender.MALE);
             user.setMailDelayType(MailingDelayType.IMMEDIATELY);
             user.setNlSubscriber(true);
+            user.setPicture(true);
             user.setRegistrationDate(new Date());
             user.setRole(Role.ADMIN);
             user.setSpammer(false);
