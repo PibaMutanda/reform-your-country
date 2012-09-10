@@ -19,7 +19,7 @@
 	<ryctag:form action="bookeditsubmit" modelAttribute="book">
 		<ryctag:input path="abrev" label="Abréviation du livre:"/>
 		<ryctag:input path="title" label="Titre du livre:"/>
-		<ryctag:input path="description" label="Description du livre:"/>
+		<ryctag:textarea path="description" label="Description du livre:"/>
 		<ryctag:input path="author" label="Auteur(s) du livre:"/>
 		<ryctag:input path="pubYear" label="Année de publication:"/>
 		<ryctag:input path="externalUrl" label="Lien de référence:"/>
