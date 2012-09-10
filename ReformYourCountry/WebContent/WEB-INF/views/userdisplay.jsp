@@ -23,20 +23,20 @@
 			<input type="submit" value="Modifier le Profil" />
 		</form>
 
-		<form action="userchangepassword">
-			<input type="hidden" value="${user.id}" name="id" /> <input
-				type="submit" value="Modifier le mot de passe" />
+		<form action="userchangepassword" modelAttribute="user">
+			<input type="hidden" value="${user.id}" name="id" />
+			<input type="submit" value="Modifier le mot de passe" />
 		</form>
 
 
 		<a href= "userimage?id=${user.id}">Upload image</a><br/><br/>
 	</c:if>
 
-<%-- 	<c:if test="${user.picture}">
+	<c:if test="${user.picture}">
 		<img alt="${user.userName}"
-			src="/ReformYourCountry/gen/user/resized/${user.id}.jpg"
+			src="/ReformYourCountry/gen/user/resized/large/${user.id}.jpg"
 			style="float: left" />
-	</c:if> --%>
+	</c:if>
 
 	Nom : ${user.lastName}
 	<br /> Prénom : ${user.firstName}
