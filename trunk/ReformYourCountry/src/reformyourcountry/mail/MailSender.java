@@ -23,10 +23,9 @@ import reformyourcountry.model.Mail;
 import reformyourcountry.model.User;
 import reformyourcountry.repository.MailRepository;
 import reformyourcountry.repository.UserRepository;
+import reformyourcountry.util.CurrentEnvironment.Environment;
 import reformyourcountry.util.CurrentEnvironment.MailBehavior;
 import reformyourcountry.util.HtmlToTextUtil;
-import reformyourcountry.web.ContextUtil;
-import reformyourcountry.web.UrlUtil;
 
 
 
@@ -53,9 +52,12 @@ public class MailSender extends Thread {
 
     JavaMailSenderImpl javaMailSender; // This is not a Spring bean so @Autowired not usable
 
+    @Value("${environment}") // need to make this because get value from contextutil throw npe
+    private Environment environment ;
+    
     @Value("${mail.smtp.server}")           String smtpHost; 
     @Value("${mail.smtp.port}")             int smtpPort; 
-    @Value("${mail.from.notifier.address}") String notifier;
+    @Value("${mail.from.notifier.address}") String notifier;//domain can't be harcoded because it seems that simple class are intacied after spring (npe with contextutil)
     @Value("${mail.from.notifier.alias}")   String aliasNotifier;
     
     @PostConstruct
@@ -67,14 +69,12 @@ public class MailSender extends Thread {
         javaMailSender.setPort(smtpPort);
 
         setName("MailSender"); // Sets the name of the thread to be visible in the prod server thread list.
-       if(ContextUtil.getEnvironment().getMailBehavior() != MailBehavior.NOT_STARTED){
+       if(environment.getMailBehavior() != MailBehavior.NOT_STARTED){
         	this.start();
        } else {
        	logger.info("DevMode on, mail thread not started");
        }
        
-       notifier+= UrlUtil.getMailDomainName();
-        
     }
 
     @PreDestroy
@@ -308,7 +308,7 @@ public class MailSender extends Thread {
 
            logger.info(log.toString());
 
-            if (ContextUtil.getEnvironment().getMailBehavior() == MailBehavior.SENT) { // Really send the mail to SMTP server now.
+            if (environment.getMailBehavior() == MailBehavior.SENT) { // Really send the mail to SMTP server now.
                 MimeMessagePreparator mimeMessagePreparator = new MimeMessagePreparator() {
                     @Override
                     public void prepare(final MimeMessage mimeMessage) throws Exception {
