@@ -2,7 +2,7 @@ package reformyourcountry.service;
 
 import java.util.Date;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -15,6 +15,7 @@ import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountStatus;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.util.DateUtil;
+import reformyourcountry.util.Logger;
 import reformyourcountry.util.SecurityUtils;
 import reformyourcountry.web.UrlUtil;
 
@@ -30,7 +31,7 @@ public class UserService {
     // private String registrationTemplate;
     // private String passwordRecoveryTemplate;
 
-    protected Logger logger = Logger.getLogger(getClass());
+    @Logger Log log;
     
     @Autowired 
     private UserRepository userRepository;
@@ -96,7 +97,7 @@ public class UserService {
                 "<br/><br/>merci de vous être inscrit sur enseignement2.be.";
         mailService.sendMail(user, "Votre nouveau compte", htmlMessage, MailType.IMMEDIATE, MailCategory.USER);
         
-        logger.debug("mail sent: " + htmlMessage);  
+        log.debug("mail sent: " + htmlMessage);  
     }
 
 
