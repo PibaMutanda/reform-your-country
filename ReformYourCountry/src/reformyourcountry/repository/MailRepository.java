@@ -149,7 +149,6 @@ public class MailRepository  extends BaseRepository<User>{
         if(idUser !=null){
             User user = (User) em.find(User.class, idUser);
             mail.setUser(user);
-            
         }
         em.persist(mail);
     }
