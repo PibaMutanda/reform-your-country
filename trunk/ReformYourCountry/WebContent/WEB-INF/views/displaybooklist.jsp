@@ -4,7 +4,19 @@
     <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
 <html>
 <head>
-<title>Affichage liste livres</title>
+<style type="text/css">
+
+table
+{
+width:100%;
+}
+td{
+width:50%;
+
+}
+
+</style>
+<title>Liste des livres</title>
 </head>
 
 <body>
