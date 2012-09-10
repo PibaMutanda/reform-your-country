@@ -28,9 +28,7 @@
 
     <target name="compile" description="compile the source and without test classes" depends="init">
         <echo message="Building ${app.name} ..." />
-        <javac srcdir="${src.dir}" destdir="${build.dir}" debug="on" classpathref="classpath">
-            <exclude name="**/test/**" />
-        </javac>
+        <javac srcdir="${src.dir}" destdir="${build.dir}" debug="on" classpathref="classpath" />
     </target>
 
     <target name="set-properties" depends="init" description="Set properties to the appropiate values depending of the mode and the version">
