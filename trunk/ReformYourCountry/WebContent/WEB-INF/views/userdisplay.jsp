@@ -7,7 +7,7 @@
 <html>
 <head>
 <title>UserPage</title>
-</head>
+</head>    
 <body>
 <h1>${user.userName }</h1>
 	<ryc:conditionDisplay privilege="MANAGE_USERS">
@@ -34,7 +34,7 @@
 
 	<c:if test="${user.picture}">
 		<img alt="${user.userName}"
-			src="/ReformYourCountry/gen/user/resized/large/${user.id}.jpg"
+			src="gen/user/resized/large/${user.id}.jpg"
 			style="float: left" />
 	</c:if>
 
