@@ -14,11 +14,8 @@ public class BookInfoTag extends SimpleTagSupport {
     
     private Book book;
     private boolean readOnly = false;
-    //private BookRepository bookRepository;
     
-  
-
-
+    
 
     public Book getBook() {
         return book;
@@ -49,16 +46,14 @@ public class BookInfoTag extends SimpleTagSupport {
     @Override
     public void doTag() throws JspException {
         
-     //   bookRepository =  (BookRepository) ContextUtil.getSpringBean("bookRepository");
-       // Book book = bookRepository.find(id);
         
         JspWriter out = this.getJspContext().getOut();
         
         try {
         
         
-        out.write(HTMLUtil.getBookFragment(book, readOnly));
-        
+        out.write(HTMLUtil.getBookFragment(book,readOnly));
+ 
         
        
         } catch (IOException e) {
