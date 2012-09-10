@@ -7,8 +7,10 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.DirectoryStream;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.PathMatcher;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,9 +38,7 @@ public abstract class FileUtil {
 	final static public String USER_RESIZED_LARGE_SUB_FOLDER = "/large";
 	final static public String USER_RESIZED_SMALL_SUB_FOLDER = "/small";
 
-    static Log log = LogFactory.getLog(FileUtil.class);
-	
-//	@Logger Log logger;//FIXME
+    @Logger static Log log;
     // In dev mode, returns somthing like C:\Users\forma308\Documents\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ReformYourCountry\gen 
     public static String getGenFolderPath() {
         return ContextUtil.getServletContext().getRealPath("/gen");
@@ -281,7 +281,7 @@ public abstract class FileUtil {
 		if(lastModified.before(DateUtils.addDays(new Date(), -numberOfDays))){
 			deleted = file.delete();
 			if(!deleted){
-			//	logger.warn("Cannot delete file : " + file.getAbsolutePath());//TODO
+			log.warn("Cannot delete file : " + file.getAbsolutePath());
 			}
 		}
 		return deleted;
@@ -319,7 +319,7 @@ public abstract class FileUtil {
 		// If source does not exists returns
 		File sourceFolder = new File(sourcePath);
 		if(!sourceFolder.exists()){
-		//	logger.warn("Copy Files source directory does not exists " + sourcePath);//TODO
+			log.warn("Copy Files source directory does not exists " + sourcePath);
 			return;
 		}
 
