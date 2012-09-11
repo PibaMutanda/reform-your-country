@@ -38,7 +38,7 @@ public abstract class FileUtil {
 	final static public String USER_RESIZED_LARGE_SUB_FOLDER = "/large";
 	final static public String USER_RESIZED_SMALL_SUB_FOLDER = "/small";
 
-    @Logger static Log log;
+    static private Log log = LogFactory.getLog(FileUtil.class);
     // In dev mode, returns somthing like C:\Users\forma308\Documents\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ReformYourCountry\gen 
     public static String getGenFolderPath() {
         return ContextUtil.getServletContext().getRealPath("/gen");

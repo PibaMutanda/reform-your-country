@@ -23,7 +23,7 @@ public class HTMLUtil {
         block += book.getAuthor()+"<br/> ";
         block += book.getPubYear()+"<br/> ";
         if(book.isHasImage())
-            block += "<img src='gen/book/resized/"+book.getId()+".jpg' alt='"+book.getTitle()+"' class='imgbook'>";
+            block += "<img src='gen" + FileUtil.BOOK_SUB_FOLDER + FileUtil.BOOK_RESIZED_SUB_FOLDER +"/"+book.getId()+".jpg' alt='"+book.getTitle()+"' class='imgbook'>";
 
         block += "<p>"+book.getDescription()+"</p>"+
                 "<a href = '"+book.getExternalUrl()+"' target = '_blank'\">Lien externe</a>";
