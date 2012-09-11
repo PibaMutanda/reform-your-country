@@ -5,6 +5,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,10 +40,10 @@ public class BookDisplayController extends BaseController<Book> {
     @Deprecated // Not used anymore. Kept for documentation (how to Ajax)
     @RequestMapping("/ajax/popbook")
     public ModelAndView showBookPop(@RequestParam String abrev){
-        Book book = bookRepository.findBookByAbrev(abrev);
+        Book bookHavingThatAbrev = bookRepository.findBookByAbrev(abrev);
 
         ModelAndView mv = new ModelAndView("displaybook");
-        mv.addObject(book);
+        mv.addObject(bookHavingThatAbrev);
 
         return mv;
     }

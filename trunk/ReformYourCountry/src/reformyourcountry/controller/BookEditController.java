@@ -49,10 +49,10 @@ public class BookEditController extends BaseController<Book> {
             return new ModelAndView ("bookedit", "book", book);
         }
 
-        List<Book> bookHavingThatAbrev = bookRepository.findBookByAbrev(book.getAbrev());
+        Book bookHavingThatAbrev = (Book) bookRepository.findBookByAbrev(book.getAbrev());
 
         if (book.getId() == null) { // New book instance (not from DB)
-            if (bookHavingThatAbrev != null && !bookHavingThatAbrev.isEmpty()) {
+            if(bookHavingThatAbrev != null) {
                 ModelAndView mv = new ModelAndView ("bookedit", "book", book);
                 setMessage(mv, "Un autre livre utilise déjà cette abrévation '" + book.getAbrev() + '"');
                 return mv;
@@ -60,9 +60,21 @@ public class BookEditController extends BaseController<Book> {
             bookRepository.persist(book);
 
         } else {  // Edited book instance.
-                bookRepository.merge(book);
+            if(bookHavingThatAbrev != null && !book.equals(bookHavingThatAbrev)) {
+                ModelAndView mv = new ModelAndView ("bookedit", "book", book);
+                setMessage(mv, "Un autre livre utilise déjà cette abrévation '" + book.getAbrev() + '"');
+                return mv;
+            }
+            bookRepository.merge(book);
         }
         return new ModelAndView ("redirect:book", "id", book.getId());//redirect from book display
+    }
+    
+    @RequestMapping ("/removebook")
+    public ModelAndView removeBook(@RequestParam("id")Long id){
+        bookRepository.remove(bookRepository.find(id));
+    
+        return new ModelAndView ("redirect:booklist");
     }
 
 

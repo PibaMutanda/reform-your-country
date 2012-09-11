@@ -29,12 +29,7 @@ public class BookListController extends BaseController<Book>{
     
  
     
-    @RequestMapping ("/removebook")
-    public ModelAndView removeBook(@RequestParam("id")Long id){
-        bookRepository.remove(bookRepository.find(id));
-    
-        return showBookList();
-    }
+   
     
    
     

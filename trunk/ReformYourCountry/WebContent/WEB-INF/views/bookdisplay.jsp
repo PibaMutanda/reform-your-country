@@ -28,6 +28,9 @@
 		<form method="post" action="bookimagedelete">
 			<input type="hidden" name="id" value="${book.id}" />  <br><input type="submit" value="Supprimer une image" />
 		</form>
+		<form method="post" action="removebook">
+			<input type="hidden" name="id" value="${book.id}" />  <br><input type="submit" value="Supprimer un livre" />
+		</form>
 	</ryc:conditionDisplay>
 </body>
 </html>
