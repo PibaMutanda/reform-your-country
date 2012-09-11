@@ -26,7 +26,7 @@
 			<td><c:if test="${user.role.isLowerOrEquivalent(triplets.getRole()) && user.role != triplets.role}">
 				<input type="checkbox" name="${triplets.privilege.name()}" value="${triplets.privilege.name}"<c:if test="${triplets.permitted}">checked="checked"</c:if>>
 			</c:if></td>
-			<td><c:if test="${user.role.isHigerOrEquivalent(triplets.getRole())}">Dérivé du rôle</c:if></td>
+			<td><c:if test="${user.role.isHigherOrEquivalent(triplets.getRole())}">Dérivé du rôle</c:if></td>
 			<td>${triplets.privilege.name}<br></td>
 		</tr>
 		</c:forEach>
