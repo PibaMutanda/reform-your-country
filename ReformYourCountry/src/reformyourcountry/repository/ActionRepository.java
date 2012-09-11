@@ -10,8 +10,7 @@ import reformyourcountry.model.Action;
 public class ActionRepository extends BaseRepository<Action> {
 
     public List<Action> findAll(){
-        return    em.createQuery("select a from Action a").getResultList();
- 
+        return    em.createQuery("select a from Action a order by a.title").getResultList();
     }
   
 }
