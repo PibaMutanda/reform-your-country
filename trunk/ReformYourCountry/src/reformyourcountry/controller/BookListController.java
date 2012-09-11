@@ -19,7 +19,7 @@ public class BookListController extends BaseController<Book>{
     
     @RequestMapping ("/booklist")
     public ModelAndView showBookList(){
-       ModelAndView mv = new ModelAndView("displaybooklist");
+       ModelAndView mv = new ModelAndView("booklist");
        List<Book> b = bookRepository.findAllTop();
        List<Book> bother = bookRepository.findAllOther();
         mv.addObject("bookListTop", b);
