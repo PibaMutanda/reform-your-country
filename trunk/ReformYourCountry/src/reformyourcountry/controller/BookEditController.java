@@ -67,7 +67,7 @@ public class BookEditController extends BaseController<Book> {
             }
             bookRepository.merge(book);
         }
-        return new ModelAndView ("redirect:book", "id", book.getId());//redirect from book display
+        return new ModelAndView ("redirect:book?abrev="+book.getAbrev(), "id", book.getId());//redirect from book display
     }
     
     @RequestMapping ("/removebook")
