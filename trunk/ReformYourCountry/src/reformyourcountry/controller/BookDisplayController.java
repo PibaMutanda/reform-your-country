@@ -28,8 +28,13 @@ public class BookDisplayController extends BaseController<Book> {
     @Autowired BookRepository bookRepository;
 
     @RequestMapping("/book")
-    public ModelAndView bookDisplay(@RequestParam("id") long id){
-        Book book = getRequiredEntity(id);
+    public ModelAndView bookDisplay(@RequestParam(value = "id",required = false) Long id ,@RequestParam(value = "abrev",required = false) String abrev){
+        Book book = null;
+        if(abrev != null)
+         book = bookRepository.findBookByAbrev(abrev);      
+        else
+         book = getRequiredEntity(id);
+        
         ModelAndView mv = new ModelAndView("bookdisplay");
         mv.addObject("book", book);
 
