@@ -32,5 +32,6 @@
 			<input type="hidden" name="id" value="${book.id}" />  <br><input type="submit" value="Supprimer un livre" />
 		</form>
 	</ryc:conditionDisplay>
+	<br><a href="booklist">Retour à la liste de livres</a>
 </body>
 </html>
