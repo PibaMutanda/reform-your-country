@@ -11,7 +11,7 @@
       <c:choose>
         <c:when test="${current.user!=null}">
           <c:out value="${current.user.userName}"></c:out><br />
-          <a href="logout">Déconnexion</a>
+          <a id="logout" href="logout">Déconnexion</a>
         </c:when>
         <c:otherwise>
             <a id="login" style="cursor:pointer;">Connexion</a><br />
