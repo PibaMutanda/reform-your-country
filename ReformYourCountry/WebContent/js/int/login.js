@@ -13,9 +13,9 @@ $(document).ready(function() {
 						var password =  $(this).children().children('input[name="password"]').attr('value');
 						var checkbox = $(this).children().children('input[name="keepLoggedIn"]').is(':checked');
 						
-						console.log(username);
-						console.log(password);
-						console.log(checkbox);
+					//	console.log(username);
+					//	console.log(password);
+					//	console.log(checkbox);
 						
 					// execute the ajax request
 						var request = $.ajax({
@@ -28,14 +28,14 @@ $(document).ready(function() {
 			    	    	});
 						// if success
 						request.done(function(data) {
-							console.log(data);
+					//		console.log(data);
 							location.reload();
 							$('#logindialog').dialog("close");
 						});
 						
 						// if fail
 						request.fail(function(msg){
-							console.log(msg.responseText);
+					//		console.log(msg.responseText);
 							$('#logindialog').children('label[id="errorMsg"]').text(msg.responseText);
 						});
 						
@@ -72,13 +72,12 @@ $(document).ready(function() {
 		
 			var request = $.ajax({
   	    	  url: "ajax/logout",
-  	    	  type: "POST",
-  	    	
+  	    	  type: "POST", 	
   	    	  dataType: "html"
   	    	});
 			// if success
 			request.done(function(data) {
-				console.log(data);
+			//	console.log(data);
 				location.reload();
 				
 			});
