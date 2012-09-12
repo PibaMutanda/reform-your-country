@@ -21,7 +21,7 @@ public class RegisterController {
     
     @Autowired UserService userService;
     
-    @RequestMapping("/register")
+    @RequestMapping("/register")   
     public String register(@ModelAttribute User user){
         return  "register";
     }
