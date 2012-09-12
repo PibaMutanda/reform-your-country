@@ -64,6 +64,28 @@ $(document).ready(function() {
 				return false;
 			});
 	    
-		  
+	    
+	    
+	    $("#logout").click(function(){
+	         
+	   
+		
+			var request = $.ajax({
+  	    	  url: "ajax/logout",
+  	    	  type: "POST",
+  	    	
+  	    	  dataType: "html"
+  	    	});
+			// if success
+			request.done(function(data) {
+				console.log(data);
+				location.reload();
+				
+			});
+	    	
+	    	
+		
+		return false;
+	});
 	
 	 });
