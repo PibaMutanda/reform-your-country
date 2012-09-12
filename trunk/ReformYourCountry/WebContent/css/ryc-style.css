@@ -37,6 +37,7 @@ a:visited {
 a:hover {
 	color:rgb(67, 84, 126);
 	text-decoration: underline;
+	
 }
  /* selected link */
 a:active {
