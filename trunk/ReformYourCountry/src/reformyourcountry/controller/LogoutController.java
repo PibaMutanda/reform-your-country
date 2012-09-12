@@ -3,6 +3,8 @@ package reformyourcountry.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -15,13 +17,13 @@ public class LogoutController {
     
     @Autowired LoginService loginService;
 
-    @RequestMapping("/logout")
-    public String logout() {
+    @RequestMapping("/ajax/logout")
+    public ResponseEntity<String> logout() {
         
          loginService.logout();
         
- 
-        return "redirect:home";
+         
+        return new ResponseEntity<String>("loged out", HttpStatus.OK);
     }
    
 }
