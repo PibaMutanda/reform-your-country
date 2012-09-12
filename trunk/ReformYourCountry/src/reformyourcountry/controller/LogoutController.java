@@ -21,7 +21,7 @@ public class LogoutController {
          loginService.logout();
         
  
-        return "home";
+        return "redirect:home";
     }
    
 }
