@@ -73,13 +73,14 @@ public class BatchCreate implements Runnable {
         Article article4 = proxy.populateArticle4WithParent(article3);
         Action action = proxy.populateAction(article);
         proxy.populateComment(action , user);
-        Group group = proxy.populateGroup();
-        proxy.populateGroupReg(user,group);
-        proxy.populateVoteAction(action,user,group);
+       //Group group = proxy.populateGroup();
+     //   proxy.populateGroupReg(user,group);
+      // proxy.populateVoteAction(action,user,group);
         Argument argument = proxy.populatedArgument(action,user);
         proxy.populateVoteArgument(argument,user);
         proxy.populateBook();
         proxy.polulateAction();
+        proxy.populateGroup();
 
     }
 
@@ -250,14 +251,10 @@ public class BatchCreate implements Runnable {
         String str = "";
 
         try {
-
-
             scan = new Scanner(new File(System.getProperty("user.dir")+"/src/reformyourcountry/"+"article.txt"));
-
 
             while(scan.hasNext()){
                 str = str + scan.nextLine();
-
             }
             scan.close();
         } catch (FileNotFoundException e) {
@@ -285,8 +282,6 @@ public class BatchCreate implements Runnable {
         em.persist(article);
 
         return article;
-
-
     }
 
 
@@ -503,18 +498,37 @@ public class BatchCreate implements Runnable {
 
         return voteAction;
     }
+   
+    
     @Transactional
-    public Group populateGroup(){
-
-        Group group = new  Group();
-        group.setDescription("une description");
-        group.setName("Groupe");
-        group.setUrl("url@unsite.com");
-
-        em.persist(group);
-
-        return group;
+    public void populateGroup(){
+        Group group1 = new  Group();
+        Group group2 = new  Group();
+        Group group3 = new  Group();
+        Group group4 = new  Group();
+        
+        group1.setDescription("Parti Socialiste");
+        group1.setName("PS");
+        group1.setUrl("http://www.ps.be");
+        
+        group2.setDescription("Centre démocrate humaniste");
+        group2.setName("cdH");
+        group2.setUrl("http://www.lecdh.be/");
+        
+        group3.setDescription("Mouvement réformateur");
+        group3.setName("MR");
+        group3.setUrl("http://www.mr.be");
+        
+        group4.setDescription("Parti écologiste");
+        group4.setName("Ecolo");
+        group4.setUrl("http://web4.ecolo.be");
+        
+        em.persist(group1);
+        em.persist(group2);
+        em.persist(group3);
+        em.persist(group4);
     }
+    
     @Transactional
     public void populateGroupReg(User user,Group group){
 
