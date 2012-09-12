@@ -25,7 +25,7 @@
 <script src="js/ext/jquery-1.8.0.min.js"></script><%-- jquery depandencies --%>
 <script src="js/ext/jquery-ui-1.8.23.custom.min.js"></script><%-- jquery depandencies --%>
 <script src="js/int/datepicker.js" type="text/javascript"></script>
-
+<script src="js/int/login.js"></script>
 <title><decorator:title/></title>
 <decorator:head/>
 </head>
