@@ -11,17 +11,23 @@
 <body>
 	<form action="loginsubmit" method="post">
 		<label for="identifier">Pseudo/Adresse e-mail </label>
-        <input type="text" name="identifier" required="required"><br />
-		<c:choose>
-			<c:when test="<%= !ContextUtil.devMode %>">
-				<label for="password">Votre mot de passe </label>
-				<input type="password" name="password" required="required">
+        <input type="text" name="identifier" required="required"/><br />
+        <label for="password">Votre mot de passe </label>
+			<c:choose>
+			<c:when test="<%= !ContextUtil.devMode %>">				
+				<input type="password" name="password" required="required"/>
 				<br />
 			</c:when>
+			<c:otherwise>
+			
+			<input type="password" name="password" required="required" value="secret"/>
+			<label>Your are in dev mode : default password should be "secret"</label><br>
+			</c:otherwise>
 		</c:choose>
+		
 		J'ai oublié mon <a href="">mot de passe</a><br /> <input
 			type="checkbox" name="keepLoggedIn" /><label for="keepLoggedIn">Je
-			souhaite rester connecté</label><br /> <input type="submit" value="Connexion" />
+			souhaite rester connecté</label>
 	</form>
 
 </body>
