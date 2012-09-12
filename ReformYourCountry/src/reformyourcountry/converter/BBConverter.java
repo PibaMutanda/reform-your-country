@@ -51,6 +51,7 @@ public class BBConverter {
 		 dp.setEscapeAsText(true);
 		 dp.addIgnoredTag("[...]");
 		 BBTag root = dp.parse(bbCode);
+		 
 		 transformDomToHtml(root);
 		 addToolTipBooks();
 		 return html;
@@ -287,7 +288,7 @@ public class BBConverter {
                 html += "<div class='bibref-after-block'>\n";
                 
                 if (book != null) { // book title to be added
-                    html += "<label class ='"+getCssClassName(book)+" booktitle'>";
+                    html += "<span class ='"+getCssClassName(book)+" booktitle'>";
                     html += book.getTitle();
                     if (book.getAuthor()!= null && !book.getAuthor().isEmpty()){
                         html += "("+book.getAuthor()+") ";
@@ -295,17 +296,17 @@ public class BBConverter {
                     if(book.getPubYear() != null && !book.getPubYear().isEmpty()){
                         html += book.getPubYear();
                     }
-                    html +="</label>\n";
+                    html +="</span>\n";
                 }
                 
                 if (author != null) {  // author to be added
-                    html += "<label class='author'>";
+                    html += "<span class='author'>";
                     if (outUrl != null) {
                         html += "<a href='"+outUrl+"' target='_blank'>" + author + "</a>";
                     } else {
                         html += author;
                     }
-                    html += "</label>";
+                    html += "</span>";
                 }
                 html +="</div>\n";
             }
