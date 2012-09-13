@@ -28,7 +28,7 @@
 	 		<tr><td><input type="submit" value="Sauver"/></td>
 	 		<td><a href="article?id=${article.getId()}">Annuler</a></td></tr>
 	 		<ryctag:input path="title" label="Titre" required="required"/>
-	 		<ryctag:date path="publishDate" value="${article.publishDate}" label="Date de publication"/>
+	 		<ryctag:date path="publishDate" label="Date de publication"/>
 	 		<ryctag:checkbox path="publicView" label="Public ?"/>
 	 		<!-- do not erase class , cols and rows attribute of the textarea , these values are used by textarea-expander.js -->
 			</table>

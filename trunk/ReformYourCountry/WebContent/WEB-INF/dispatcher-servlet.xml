@@ -18,6 +18,7 @@
     </bean> 
 
 	<mvc:annotation-driven conversion-service="conversionService"/> <!-- It registers the controllers and makes SpringMVC look for a JSR-303 compatible validation framework in the classpath (which is Hibernate validation for us). -->
+	
 	<bean name="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
 		<property name="formatters">
 			<list>
@@ -25,6 +26,7 @@
 			</list>
 		</property>
 	</bean>
+	
 	<bean id="viewResolver"	class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">
 			<value>/WEB-INF/views/</value>
