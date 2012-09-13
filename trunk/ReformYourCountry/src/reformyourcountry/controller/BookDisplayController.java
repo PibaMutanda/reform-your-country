@@ -2,10 +2,6 @@ package reformyourcountry.controller;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,21 +37,11 @@ public class BookDisplayController extends BaseController<Book> {
         return mv;
     }
 
-    // Ajax method (not used anymore) to load an html frag displaying a book
-    @Deprecated // Not used anymore. Kept for documentation (how to Ajax)
-    @RequestMapping("/ajax/popbook")
-    public ModelAndView showBookPop(@RequestParam String abrev){
-        Book bookHavingThatAbrev = bookRepository.findBookByAbrev(abrev);
-
-        ModelAndView mv = new ModelAndView("displaybook");
-        mv.addObject(bookHavingThatAbrev);
-
-        return mv;
-    }
 
     @RequestMapping("/bookimageadd")
     public ModelAndView bookImageAdd(@RequestParam("id") long bookid,
             @RequestParam("file") MultipartFile multipartFile) throws Exception{    
+        
         SecurityContext.assertUserHasPrivilege(Privilege.EDIT_BOOK);
 
         Book book = bookRepository.find(bookid);

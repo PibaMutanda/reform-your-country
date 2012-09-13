@@ -139,7 +139,7 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
 
     @Column(unique = true, nullable=false)
     @Size(max = 15,message = "your username must contain  at max 15 character")
-    @NotBlank(message="enter your username")
+    @NotBlank(message="entrer votre pseudo")
     private String userName; 
     
     @Column(length = 100)

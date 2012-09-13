@@ -1,12 +1,11 @@
 package reformyourcountry.util;
 
 import reformyourcountry.model.Book;
-import reformyourcountry.security.Privilege;
-import reformyourcountry.security.SecurityContext;
 
 public class HTMLUtil {
     
     public static String getBookFragment(Book book, boolean inToolTip) {
+        
         String block = "";
 
         if (inToolTip) {
@@ -29,10 +28,10 @@ public class HTMLUtil {
                 "<a href = '"+book.getExternalUrl()+"' target = '_blank'\">Lien externe</a>";
         
         block +="</div>\n";
+        
         if (inToolTip) {
             block +="</div>\n";
         }
-
 
         return block;
 
