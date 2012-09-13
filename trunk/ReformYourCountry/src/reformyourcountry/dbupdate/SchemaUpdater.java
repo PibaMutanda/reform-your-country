@@ -11,23 +11,45 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.ejb.Ejb3Configuration;
 import org.hibernate.tool.hbm2ddl.SchemaUpdate;
 
 import reformyourcountry.util.DateUtil;
 
+/** Small utility to be run by a developer to identify the difference between
+ * its entities and its DB schema. It produces an SQL to be copy/pasted and applied
+ * on the DB manually. Each developers having its own DB, when a developer commits its
+ * Java code with new entity attributes (needing new DB columns), he also commits
+ * an updated SQL file with the SQL that other developers need to apply on their local DB.
+ * Later, when deploying the next version of the application in production,
+ * this SQL file with cumulated changes will be applied onto the production DB.  
+ * 
+ * Limitations: 
+ * 1. the Hibernate schema update does not detect removed attributes. 
+ * If you have to delete a column, you need to write the SQL manually;
+ * 
+ * 2. the Hibernate schema update does not detect changes on existing columns.
+ * for example, if you add @Column(nullable=false), it will not generates an 
+ * additional DB constraint.
+ * 
+ * @author Cédric Fieux & John Rizzo & Aymeric Levaux
+ *
+ */
 public class SchemaUpdater  {
 
-    public static void main(String[] arg) throws IOException{
-        run2();
-    }
- 
-    @SuppressWarnings("deprecation")
-    public static void run2() throws IOException{
-        Map<String,Object> map=new HashMap<String,Object>();
+    @SuppressWarnings({ "deprecation", "unchecked" })
+    public static void main(String[] arg) throws IOException {
+        
+        ////// 1. Prepare the configuration (connection parameters to the DB, ect.)
+        // Empty map. We add no additional property, everything is already in the persistence.xml
+        Map<String,Object> map=new HashMap<String,Object>();   
+        // Get the config from the persistence.xml file, with the unit name as parameter.
         Ejb3Configuration conf =  new Ejb3Configuration().configure("ConnectionPostgres",map);
         SchemaUpdate schemaUpdate =new SchemaUpdate(conf.getHibernateConfiguration());
-        schemaUpdate.setOutputFile("c:/test.sql");
+
+        /////// 2. Get the SQL
+        // Before we run the update, we start capturing the console output (to add ";" later)
         PrintStream initOut = System.out;
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream(1024);
         PrintStream newOut = new PrintStream(outputStream);
@@ -38,27 +60,26 @@ public class SchemaUpdater  {
 
         //We reset the original out
         System.setOut(initOut);
+        
+        ////// 3. Prints that SQL at the console with a good format (adding a ";" after each line).
         System.out.println("--*******************************************Begin of SQL********************************************");
         System.out.println("-- "+DateUtil.formatyyyyMMdd(new Date()));
-        //We display the output content to the console in LOWER CASE ! (this is the reason of standart stream manip)
         BufferedReader ouReader = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(outputStream.toByteArray())));
-        String str = null;
-        boolean firstPass = true;
-        while(( str = ouReader.readLine()) != null){
-            if (!firstPass ||!"".equals(str)){
-                if ("".equals(str)) { // Previous statement finished
-                    System.out.println(";");
-                } else {
-                    System.out.println();
-                }
+        String str = ouReader.readLine();
+        while(str != null){  // For each (sometimes multiline) SQL statement
+            // now, str equals "".
+            str = ouReader.readLine();  // 
+            while (str != null && !str.trim().equals("")) { // for each line of the same statement
+                System.out.println();  // previous line is finished.
                 System.out.print(str.toLowerCase());
+                str = ouReader.readLine();
             }
-            firstPass=false;
+            // Statement is now finished
+            System.out.println(";");
         }
-        // if ("".equals(str)) { // Previous statement finished
-        System.out.println(";");
-        // }
+        System.out.println("--*******************************************End of SQL********************************************");
 
+        ////// 4. Print eventual exceptions.
         //If some exception occurred we display them
         if(!schemaUpdate.getExceptions().isEmpty()){
             System.out.println();
@@ -67,10 +88,6 @@ public class SchemaUpdater  {
                 System.out.println(e.getMessage());
             }
         }
-        System.out.println("--*******************************************End of SQL********************************************");
     }
-
-
-
 
 }
