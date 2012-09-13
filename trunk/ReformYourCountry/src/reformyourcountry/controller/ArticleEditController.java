@@ -38,18 +38,18 @@ public class ArticleEditController extends BaseController<Article>{
 
 
 	@RequestMapping("/articleeditsubmit")
-	public ModelAndView articleEditSubmit(@Valid @ModelAttribute Article article, BindingResult result,
-			@RequestParam("publishDateStr") String publishDate){
+	public ModelAndView articleEditSubmit(@Valid @ModelAttribute Article article, BindingResult result/*,
+			@RequestParam("publishDateStr") String publishDate*/){
 		SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
 		
 		if(result.hasErrors()){
 			System.out.println(result.getAllErrors());
 		    return new ModelAndView("redirect:articleedit","id",article.getId());
 		}else{
-			if (!publishDate.isEmpty()) { 
+			/*if (!publishDate.isEmpty()) { 
 				Date date = DateUtil.parseyyyyMMdd(publishDate);
 				article.setPublishDate(date);
-			}
+			}*/
 			articleRepository.merge(article);
 			return new ModelAndView("redirect:article", "id", article.getId());
 		}

@@ -1,5 +1,7 @@
 package reformyourcountry.controller;
 
+import java.util.Date;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.ArticleService;
+import reformyourcountry.util.DateUtil;
 
 // Create and Edition of the parent (and title)
 @Controller
@@ -46,6 +49,7 @@ public class ArticleParentEditController extends BaseController<Article>{
 		
 		if (article.getId() == null) { // New article instance (not from DB) 
 			article.setContent("Editez le contenu");
+			article.setReleaseDate(new Date());
 			articleRepository.persist(article);
 			articleService.attachWithParent(article, parentId);
 		} else {  // Edited article instance.

@@ -1,9 +1,16 @@
 package reformyourcountry.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.exception.InvalidUrlException;
@@ -20,7 +27,15 @@ public class BaseController<E extends BaseEntity> {
     public BaseController(){
         entityClass = ClassUtil.getParameterizedType(this, BaseController.class);
     }
-
+    /**
+     * Used for trimming Strings handled by Spring
+     * @param binder
+     */
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
+    }
+    
     @SuppressWarnings("unchecked")
     protected E getRequiredEntity(long id) {
         Object obj =  em.find( entityClass, id );

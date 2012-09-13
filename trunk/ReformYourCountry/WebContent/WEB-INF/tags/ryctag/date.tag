@@ -9,5 +9,7 @@ see http://stackoverflow.com/questions/439861/spring-mvc-tag-interaction-with-cu
  --%>
 <tr>
 	<td><label for="${path}">${label}</label></td>
-	<td><input name="${path}" value="${value}" id="datepicker"/></td>
+	<%-- <td><input name="${path}" value="${value}" id="datepicker"/></td>--%>
+	<td><form:input path="${path}" id="datepicker"/></td>
+	<td><form:errors path="${path}" cssClass="error" /></td>
 </tr>
