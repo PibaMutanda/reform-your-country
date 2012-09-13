@@ -13,15 +13,12 @@ import java.awt.image.FilteredImageSource;
 import java.awt.image.ImageProducer;
 import java.awt.image.RenderedImage;
 import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
@@ -30,6 +27,7 @@ import javax.imageio.plugins.jpeg.JPEGImageWriteParam;
 import javax.imageio.stream.FileImageOutputStream;
 
 import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 
 
@@ -37,7 +35,7 @@ import org.apache.commons.logging.Log;
 public class ImageUtil {
 
 
-
+    static Log log = LogFactory.getLog(FileUtil.class);
 	public static void saveImageToFileAsJPEG(InputStream imageInputStream, String folderPath,
 			String imageName, float quality) throws FileNotFoundException, IOException {
 		saveImageToFileAsJPEG(ImageIO
@@ -171,17 +169,17 @@ public class ImageUtil {
 		/// 1. We downsize if too big surface.
 		double surfaceOrigin = newWidth * newHeight; //surface variable with origin parameter
 		if (surfaceOrigin > maxSurfaceInPixels) {  // Image too big
-			System.out.println("width or height > 200");
+			log.debug("width or height > 200");
 			newWidth = (int)(Math.sqrt(((double)newWidth/(double)newHeight) * maxSurfaceInPixels));
 			newHeight = (int) (maxSurfaceInPixels / newWidth);
-			System.out.println(newWidth + " " + newHeight);
+			log.debug(newWidth + " " + newHeight);
 		}
 		
 		/// 2. We downsize if image still overlaps the boundaries. Surface is right, but the image is thin and one side is too big.
 		if(newWidth > 200||newHeight > 200){
 			double factorX = (double)  original.getWidth() / maxWidth;
 			double factorY = (double) original.getHeight() / maxHeight;
-			System.out.println(" factor x = " + factorX +" factor y = " + factorY);
+			log.debug(" factor x = " + factorX +" factor y = " + factorY);
 		    factorY = factorX = Math.max(factorX, factorY);  // We take the maximal reduction to both fit the maxWidth and maxHeight requirements.
 			newWidth = (int)(original.getWidth()  / factorX);
 			newHeight = (int)(original.getHeight() / factorY);
