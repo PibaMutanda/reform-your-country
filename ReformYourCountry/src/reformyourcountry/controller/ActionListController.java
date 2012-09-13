@@ -18,6 +18,6 @@ public class ActionListController {
     @RequestMapping("/actionlist")
     public ModelAndView actionListDisplay(){
         List<Action> actionList = actionRepository.findAll();
-        return new ModelAndView("actionlistdisplay","actions",actionList);
+        return new ModelAndView("actionlist", "actions", actionList);
     }
 }
