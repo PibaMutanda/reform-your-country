@@ -13,6 +13,7 @@
 <script src="js/int/bubble-pop-up-articledisplay.js" type = "text/javascript"></script>
 
 <script type="text/javascript" src="js/ext/jquery.countdown.js"></script>
+<script type="text/javascript" src="js/ext/jquery.countdown-fr.js"></script>
 
 
 <title>${article.title}</title>
@@ -30,7 +31,7 @@
 	</h2>
 
 	<h2>${article.title}</h2>
-	release date: ${article.releaseDate}<br/>
+	release date: ${displayDate}<br/>
 
 	<ryc:conditionDisplay privilege="EDIT_ARTICLE">
 	
@@ -47,7 +48,7 @@
 	
     <!-- COUNT DOWN -->
 	<hr/>
-	<c:if test="${!article.published}">
+	<c:if test="${!article.published&&article.publicView}">
 	<div id="defaultCountdown"></div>
 		<script type="text/javascript">
 		$(document).ready(function () {
@@ -55,7 +56,7 @@
 					function reload() { 
 						window.location.reload(); 
 					} 
-					$('#defaultCountdown').countdown({until: publishDay, onExpiry:reload, format: 'dHMS',layout: ' {dn} {dl} , {hn} {hl} , {mn} {ml} and {sn} {sl} until the article is published   <<<<<<<<<< DESIGNER, PLEASE IMPROVE (discret si droit de voir le texte, en grand sinon)'});
+					$('#defaultCountdown').countdown({until: publishDay, onExpiry:reload, format: 'dHMS',layout: ' {dn} {dl} , {hn} {hl} , {mn} {ml} et {sn} {sl} jusqu\'à ce que l\'article soit publié   <<<<<<<<<< DESIGNER, PLEASE IMPROVE (discret si droit de voir le texte, en grand sinon)'});
 			});
 		</script>
 		
@@ -67,7 +68,9 @@
 	<c:if test="${showContent}">
 		${articleContent}
 	</c:if>
-	
+	<c:if test="${!article.publicView}">
+		Cet article n'est pas disponible au public.
+	</c:if>
 
 </body>
 </html>   

@@ -25,10 +25,15 @@ public class DateUtil {
 		return formatter.format(date);
 	}
 
-	public static Date parseyyyyMMdd(String str) {
+
+	public static Date parseyyyyMMddWithParseException(String str) throws ParseException {
 	    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        return formatter.parse(str);
+	}
+
+	public static Date parseyyyyMMdd(String str) {
 	    try {
-            return formatter.parse(str);
+            return parseyyyyMMddWithParseException(str);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
