@@ -7,13 +7,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>Editer une action</title>
+
 </head>
 <body>
-       
-<h1>Editer une action</h1>
 
-    <ryctag:form action="actioneditsubmit" modelAttribute="action">
+	<h1>
+		<c:choose>
+			<c:when test="${action.id != null}">Editer une action</c:when>
+			<c:otherwise>Créer une action</c:otherwise>
+		</c:choose>
+	</h1>
+	<ryctag:form action="actioneditsubmit" modelAttribute="action">
         <ryctag:input path="title" label="Titre"/>
         <ryctag:input path="content" label="Contenu"/>
         <ryctag:input path="url" label="Url"/>
@@ -21,7 +25,12 @@
         <ryctag:textarea path="longDescription" label="Description étendue"/>
        
 		<input type="hidden" name="id" value="${action.id}"/> 
-        <tr><td><input type="submit" value="Sauver" /></td><td> <a href="action?id=${action.id}">Annuler</a></td></tr>
+            
+        <tr><td><input type="submit" value="<c:choose><c:when test="${action.id != null}">Sauver</c:when><c:otherwise>Créer</c:otherwise></c:choose>" /></td>
+        <td> <a href="	<c:choose>
+        					<c:when test="${action.id != null}">action?id=${action.id}</c:when>
+        					<c:otherwise>actionlist</c:otherwise>
+        				</c:choose>"     >Annuler</a></td></tr>
     </ryctag:form>
   
 </html>

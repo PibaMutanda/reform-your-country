@@ -13,6 +13,11 @@
 			<input type="submit" value="Modifier action" />
 		</form>
 	</ryc:conditionDisplay>
+	
+	<form action="actionlist" method="get">
+			<input type="submit" value="Liste des actions" />
+	</form>
+		
 	<strong>Contenu:</strong>${action.content}
 	<br />
 	<strong>Description brève:</strong> ${action.shortDescription}
@@ -20,7 +25,7 @@
 	<strong>Description étendue:</strong>${action.longDescription}
 	<br />
 	<strong>URL:</strong>
-	<a href="${action.url}">${action.url}</a>
+	<a href="${action.url}" target="_blank">${action.url}</a>
 	<br />
 </body>
 </html>
