@@ -82,7 +82,6 @@ public class MainTestUser {
             try {
                 Integer.parseInt(genId);
             } catch (NumberFormatException e) {
-                // TODO: handle exception
                 System.out.println("Don't choose a letter ");
                 genId="0";
             }
