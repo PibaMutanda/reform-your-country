@@ -38,15 +38,6 @@ public class UrlUtil {
 		throw new RuntimeException("Unknown Environement");
 	}
 	
-	/**
-	 * returns the domain name for use in mail
-	 */
-	public static String getMailDomainName() {
-	    //TODO review if the domain still the same
-	    return getCookieDomainName(); //in fact the cookie domain are the same as mail domain for the moment
-	}
-	
-	
     public static String getAbsoluteUrl(String path, boolean forceProdUrl,  boolean addVaadinPrefix){
         
         String result;
