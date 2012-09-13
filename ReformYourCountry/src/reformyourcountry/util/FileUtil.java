@@ -7,10 +7,8 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.DirectoryStream;
-import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.PathMatcher;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,6 +35,9 @@ public abstract class FileUtil {
 	final static public String USER_RESIZED_SUB_FOLDER = "/resized";
 	final static public String USER_RESIZED_LARGE_SUB_FOLDER = "/large";
 	final static public String USER_RESIZED_SMALL_SUB_FOLDER = "/small";
+	final static public String GROUP_SUB_FOLDER = "/group";
+	final static public String GROUP_ORIGINAL_SUB_FOLDER = "/original";
+	final static public String GROUP_RESIZED_SUB_FOLDER = "/resized";
 
     static private Log log = LogFactory.getLog(FileUtil.class);
     // In dev mode, returns somthing like C:\Users\forma308\Documents\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ReformYourCountry\gen 

@@ -4,30 +4,35 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 @Table(name="Groups")
 public class Group extends BaseEntity{
-	@Column(length = 100)
+
+    @Column(length= 100, unique = true, nullable=false)
+    @NotBlank(message="entrer le nom de votre groupe svp")
 	private String name; // a group has a lot of users
+	
 	@OneToMany(mappedBy ="group")
 	private List <VoteAction> voteActions = new ArrayList <VoteAction>();
+
 	@ManyToOne
 	@JoinColumn
 	private Group parent;
+
 	@OneToMany(mappedBy ="parent")
 	private List <Group> children = new ArrayList <Group>();
+	
+    @Column(unique = true)
 	private String url;
+	
 	private String description;
+
+	//@Column(nullable = false, columnDefinition="boolean default '0'")
+    //boolean hasImage;  // If the group has an image, the image is named action.id + "jpg"
 		
 	public Group(){
-		
-	}
-
-	public Group(String name) {
-		
-		this.name = name;
-		
-		
 	}
 
 	public String getName() {
@@ -73,7 +78,14 @@ public class Group extends BaseEntity{
         this.description = description;
     }
     
-    
+//    public boolean isHasImage() {
+//        return hasImage;
+//    }
+//
+//    public void setHasImage(boolean hasImage) {
+//        this.hasImage = hasImage;
+//    }
+
     public void addVoteAction(VoteAction voteAction){
         voteActions.add(voteAction);
         

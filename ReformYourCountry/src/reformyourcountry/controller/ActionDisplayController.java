@@ -14,5 +14,5 @@ public class ActionDisplayController extends BaseController<Action> {
         Action action = getRequiredEntity(actionId);
         return new ModelAndView("actiondisplay","action", action);
     }
-
+    
 }

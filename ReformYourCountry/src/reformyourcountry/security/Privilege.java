@@ -25,7 +25,8 @@ public enum Privilege {
     EDIT_ARTICLE("Edit article", Role.MODERATOR),
     EDIT_BOOK("Edit book", Role.MODERATOR),
     
-    EDIT_ACTION("Edit action", Role.MODERATOR);
+    EDIT_ACTION("Edit action", Role.MODERATOR),
+    EDIT_GROUP("Edit group", Role.MODERATOR);
   
     
 	String name;

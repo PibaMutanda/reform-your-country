@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.Lob;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.beans.factory.annotation.Value;
 
 @Entity
 public class Book extends BaseEntity {

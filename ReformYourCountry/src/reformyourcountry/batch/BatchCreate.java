@@ -73,9 +73,6 @@ public class BatchCreate implements Runnable {
         Article article4 = proxy.populateArticle4WithParent(article3);
         Action action = proxy.populateAction(article);
         proxy.populateComment(action , user);
-       //Group group = proxy.populateGroup();
-     //   proxy.populateGroupReg(user,group);
-      // proxy.populateVoteAction(action,user,group);
         Argument argument = proxy.populatedArgument(action,user);
         proxy.populateVoteArgument(argument,user);
         proxy.populateBook();
@@ -509,19 +506,19 @@ public class BatchCreate implements Runnable {
         
         group1.setDescription("Parti Socialiste");
         group1.setName("PS");
-        group1.setUrl("http://www.ps.be");
+        group1.setUrl("ps");
         
         group2.setDescription("Centre démocrate humaniste");
         group2.setName("cdH");
-        group2.setUrl("http://www.lecdh.be/");
+        group2.setUrl("cdh");
         
         group3.setDescription("Mouvement réformateur");
         group3.setName("MR");
-        group3.setUrl("http://www.mr.be");
+        group3.setUrl("mr");
         
         group4.setDescription("Parti écologiste");
         group4.setName("Ecolo");
-        group4.setUrl("http://web4.ecolo.be");
+        group4.setUrl("ecolo");
         
         em.persist(group1);
         em.persist(group2);
