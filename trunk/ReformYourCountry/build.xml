@@ -30,62 +30,18 @@
         <echo message="Building ${app.name} ..." />
         <javac srcdir="${src.dir}" destdir="${build.dir}" debug="on" classpathref="classpath" />
     </target>
+    
+	<target name="set-properties" depends="init" description="Set properties to the appropiate values depending of the mode and the version">
+		<if>
+			<equals arg1="${type}" arg2="PROD" />
+			<then>
+			    <property name="app.name" value="ROOT" />
+			    <copy file="../prod.properties" tofile="secret.properties" overwrite="true"/>
+			</then>
+		</if>
+	</target>
 
-    <target name="set-properties" depends="init" description="Set properties to the appropiate values depending of the mode and the version">
-        <if>
-            <equals arg1="${type}" arg2="PROD" />
-            <then>
-                <property name="tomcat.webapps_path" value="${tomcat.webapps_path.prod}" />
-                <property name="jbb.db" value="${jbb.com_db.prod}" />
-                <property name="jbb.mail.address" value="${jbb.mail.address.prod}" />
-                <property name="lucene.indexdir" value="${lucene.indexdir.prod}" />
-                <property name="devmode" value="false" />
-                <property name="folders.levelspicturesfolderpath" value="${folders.levelspicturesfolderpath.prod}" />
-                <property name="folders.generatedcontent" value="${folders.generatedcontent.prod}" />
-                <property name="assigner.context" value="${assigner.context.prod}" />
-                <property name="assigner.serverip" value="${assigner.serverip.prod}" />
-                <property name="rss.path" value="${rss.path.prod}" />
-                <property name="paypal.environment" value="${paypal.environment.prod}" />
-                <!-- <property name="log4j.rootLogger" value="WARN, File, Jira"/> -->
-                <property name="log4j.rootLogger" value="WARN, File" />
-                <property name="log4j.mailLogger" value="INFO, Mail" />
-                <property name="log4j.batchLogger" value="INFO, Batch" />
-                <property name="vaadin.productionMode" value="true" />
-                <property name="domain.name" value="${domain.name.prod}" />
-
-                <!-- replaces sensible infos with encrypted properties -->
-                <propertyselector property="encrypted.properties.list"
-					                         delimiter=","
-					                         match="encrypted\.(.*)"
-					                         select="\1"
-					                         casesensitive="false" />
-                <foreach list="${encrypted.properties.list}" param="encrypted.property" target="replaceEncryptedProperties" />
-            </then>
-            <elseif>
-                <equals arg1="${type}" arg2="DEV" />
-                <then>
-                    <property name="mail.from.notifier.address" value="no-reply@ryc.be" />
-                    <property name="jbb.mail.address" value="${jbb.mail.address.dev}" />
-                    <property name="lucene.indexdir" value="${lucene.indexdir.dev}" />
-                    <property name="devmode" value="true" />
-                    <property name="folders.levelspicturesfolderpath" value="${folders.levelspicturesfolderpath.dev}" />
-                    <property name="folders.generatedcontent" value="${folders.generatedcontent.dev}" />
-                    <property name="folders.corpreport" value="${folders.corpreport.dev}" />
-                    <property name="assigner.context" value="${assigner.context.dev}" />
-                    <property name="assigner.serverip" value="${assigner.serverip.dev}" />
-                    <property name="rss.path" value="${rss.path.dev}" />
-                    <property name="paypal.environment" value="${paypal.environment.dev}" />
-                    <property name="log4j.rootLogger" value="WARN, Console" />
-                    <property name="log4j.mailLogger" value="INFO, Console" />
-                    <property name="log4j.batchLogger" value="INFO, Console" />
-                    <property name="vaadin.productionMode" value="false" />
-                    <property name="domain.name" value="${domain.name.dev}" />
-                </then>
-            </elseif>
-        </if>
-    </target>
-
-    <target name="war" depends="compile">
+    <target name="war" depends="compile,set-properties">
         <echo message="Making war file ..." />
         <copy todir="${build.dir}" includeEmptyDirs="no">
             <!-- because xml and properties aren't already in the build.dir because javac doesn't seem to make this-->
@@ -97,7 +53,7 @@
             </fileset>
         </copy>
     	<mkdir dir="${dist.dir}"/>
-        <war destfile="${dist.dir}/ROOT.war" webxml="${web.dir}/WEB-INF/web.xml">
+        <war destfile="${dist.dir}/${app.name}.war" webxml="${web.dir}/WEB-INF/web.xml">
             <fileset dir="${web.dir}"/>
             <lib dir="${lib.dir}"/>
             <classes dir="${build.dir}"/>
