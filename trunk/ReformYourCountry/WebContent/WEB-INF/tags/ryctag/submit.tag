@@ -4,8 +4,11 @@
 <%@ attribute name="entity" required="true" type="reformyourcountry.model.BaseEntity"%>
 <%@ attribute name="action" required="true"%>
 <%@ attribute name="value" required="true"%>
+<%@ attribute name="method" required="false" %>
 
-<form action="${action}" method="POST">
+<c:if test="${method == null}"><c:set var="method" value="get" /></c:if>
+
+<form action="${action}" method="${method}">
 <input type="hidden" name="id" value="${entity.getId()}"/>
 <input type="submit" value="${value}"/>
 </form>			
