@@ -29,7 +29,7 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
     </bean>
     <bean id="entityManagerFactory"
     class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
-        <property name="persistenceUnitName" value="ConnectionH2" />
+        <property name="persistenceUnitName" value="ConnectionPostgres" />
         <property name="jpaProperties">
             <!-- set extra properties here, e.g. for Hibernate: -->
             <props>
