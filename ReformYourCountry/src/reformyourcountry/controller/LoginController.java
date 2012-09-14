@@ -25,7 +25,7 @@ public class LoginController extends BaseController<User> {
     @Autowired UserDisplayController userDisplayController;
 
 
-    @RequestMapping("/login")
+    @RequestMapping("/ajax/login")
     public String login() {
         return "login";
     }
