@@ -36,7 +36,7 @@ public class ActionEditController extends BaseController<Action>{
     }
    
     @RequestMapping("/actioneditsubmit")
-    public ModelAndView userEditSubmit(@Valid @ModelAttribute Action action, Errors errors) {
+    public ModelAndView actionEditSubmit(@Valid @ModelAttribute Action action, Errors errors) {
       
         SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ACTION);
 
