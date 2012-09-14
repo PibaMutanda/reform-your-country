@@ -16,7 +16,7 @@ public enum Privilege {
 	// News related privileges
 	MANAGE_NEWS("Manage news", Role.MODERATOR),
 	MANAGE_NEWSLETTERS("Manage newsletters", Role.MODERATOR), 
-	SEND_NEWSLETTERS("Send newsletters", Role.ADMIN), 
+	SEND_NEWSLETTERS("Send newsletters", Role.MODERATOR), 
 
 	//status privileges
 	VIEW_STATS("View stats", Role.MODERATOR),
@@ -26,8 +26,9 @@ public enum Privilege {
     EDIT_BOOK("Edit book", Role.MODERATOR),
     
     EDIT_ACTION("Edit action", Role.MODERATOR),
-    EDIT_GROUP("Edit group", Role.MODERATOR);
-  
+    EDIT_GROUP("Edit group", Role.MODERATOR),
+
+    CAN_VOTE("Is Allowed to vote", Role.MODERATOR);
     
 	String name;
 	Role associatedRole;

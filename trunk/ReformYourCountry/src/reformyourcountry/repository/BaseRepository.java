@@ -8,9 +8,7 @@ import javax.persistence.Query;
 import org.springframework.transaction.annotation.Transactional;
 
 import reformyourcountry.model.BaseEntity;
-import reformyourcountry.model.User;
 import reformyourcountry.util.ClassUtil;
-
 
 @Transactional
 @SuppressWarnings("unchecked")
@@ -49,17 +47,7 @@ public abstract class BaseRepository<E extends BaseEntity> {
             em.remove(entity);
         }
     }
-    
-    
-    public User findUserWhoCreate(E entity){
-        E entity1 = find(entity.getId());
-        return entity1.getCreatedBy();
-    }
-    
-    public User findUserWhoUpdate(E entity){
-        E entity1 = find(entity.getId());
-        return entity1.getUpdatedBy();
-    }
+
 
     
     // The JPA API EntityManager.getsingleResult() throws an exception if not found, which is not nice.
