@@ -14,13 +14,10 @@ import javax.persistence.Transient;
 
 import org.apache.log4j.Logger;
 import org.hibernate.proxy.HibernateProxyHelper;
-import org.springframework.beans.factory.annotation.Autowire;
-import org.springframework.beans.factory.annotation.Configurable;
 
 import reformyourcountry.security.SecurityContext;
 
 @MappedSuperclass
-@Configurable(autowire = Autowire.BY_TYPE, dependencyCheck = true)
 public class BaseEntity {
 
     private static final boolean ENFORCE_CONSISTENT_HASHCODE = false;
