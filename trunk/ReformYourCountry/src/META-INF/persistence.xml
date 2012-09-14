@@ -4,7 +4,7 @@
     http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
    version="1.0">
 
-   <persistence-unit name="ConnectionPostgres">
+   <persistence-unit name="Connection">
    	   <provider>org.hibernate.ejb.HibernatePersistence</provider>
        <properties>
           <!-- Scan and detect annotated entities -->
@@ -14,7 +14,7 @@
           <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
           <!-- CONNECTION info (user, password, url) are injected by spring -->
 
-          <property name="hibernate.showsql" value="true" />
+          <property name="hibernate.showsql" value="false" />
           <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
 
           <!-- Because with postgres/Spring, Large objects cannot be used with Autocommit (?) -->
