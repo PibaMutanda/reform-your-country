@@ -36,7 +36,7 @@ public class BaseController<E extends BaseEntity> {
     protected E getRequiredEntity(long id) {
         Object obj =  em.find( entityClass, id );
         if (obj == null) {
-            throw new InvalidUrlException(entityClass.getName() + " having the id '"+id+"' is not found.");
+            throw new InvalidUrlException(entityClass.getName() + " ayant l'id '"+id+"' est introuvable.");
         }
         return ( E )obj;
     }
