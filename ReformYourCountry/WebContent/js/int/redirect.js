@@ -2,7 +2,7 @@ $(document).ready(function() {
 	// perform a redirection from error.jsp to home when ErrorController has decided it.
 	if (typeof redirectUrl !='undefined' && redirectUrl != "") {  // Has this variable been set in the jsp ?
 		/// Countdown
-		var waitTimeInSec = 5;
+		var waitTimeInSec = 7;
 		var interval;
         interval = setInterval(function(){
 			$("#count").text((waitTimeInSec));

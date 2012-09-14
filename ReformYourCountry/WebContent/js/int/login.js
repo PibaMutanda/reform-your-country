@@ -37,7 +37,7 @@ $(document).ready(function() {			   // do stuff when DOM is ready
 	}  
 
 	$("#login").click(function(){  // To open the dialog box when clicking on the upper right corner login link.
-		// initialise jquery ui dialog box. It is empty and does not open.
+		// 1. initialise jquery ui dialog box. It is empty and does not open.
 		$('#logindialog').dialog({
 			title :   "Identification",
 			autoOpen: false,
@@ -54,23 +54,22 @@ $(document).ready(function() {			   // do stuff when DOM is ready
 			hide:"clip"
 		});
 		
+		// 2. ills the dialog with content from the server (LoginController) whent the user clicks the link
 		$('#logindialog').load("ajax/login", function(){
 			$('#logindialog').children('label[id="errorMsg"]').empty(); // reset the error message
 			$('#logindialog').dialog('open');
+		});
+		
+		// 3. KeyBoard shorcut : enter send the connection request
+		$("#logindialog").keydown(function(e){
+			if(e.which == 13) {
+				sendConnectRequest();
+			}
 		});
 
 		return false;
 	});
 
-	// KeyBoard shorcut : enter send the connection request
-	$("#logindialog").keydown(function(e){
-
-		if(e.which == 13) {
-
-			sendConnectRequest();
-
-		}
-	});
 
 
 	// TODO add secured path to avoid malformed url error due to missing parameter for spring controller
@@ -85,12 +84,8 @@ $(document).ready(function() {			   // do stuff when DOM is ready
 		});
 		// if success
 		request.done(function(data) {
-	
-			location.reload();
-
+			location.reload();  // Maybe will make the server throw an UnauthorizedException if anonymous users cannot see that page. 
 		});
-
-
 
 		return false;
 	});
