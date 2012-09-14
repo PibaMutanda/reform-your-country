@@ -71,7 +71,7 @@ public class SchemaUpdater  {
         map.put("hibernate.connection.username", userName);
         map.put("hibernate.connection.password", password);
         // Get the config from the persistence.xml file, with the unit name as parameter.
-        Ejb3Configuration conf =  new Ejb3Configuration().configure("ConnectionH2",map);
+        Ejb3Configuration conf =  new Ejb3Configuration().configure("Connection",map);
         SchemaUpdate schemaUpdate =new SchemaUpdate(conf.getHibernateConfiguration());
 
         /////// 2. Get the SQL
