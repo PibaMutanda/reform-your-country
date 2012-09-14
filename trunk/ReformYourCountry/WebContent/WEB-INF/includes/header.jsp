@@ -22,9 +22,9 @@
 </div>
 
 
+<!-- Hidden div that JavaScript will move in a dialog box when we press the login link -->
 <div id ="logindialog" style = "display:none;">
-<label id ="errorMsg" style ="color:red;"></label>
-<%@include file="/WEB-INF/views/login.jsp" %>	
+ 
 </div>
 
 </body>
