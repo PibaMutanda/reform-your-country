@@ -6,6 +6,12 @@
     <!-- property for accessing system variable -->
     <property environment="env" />
 
+    <taskdef resource="net/sf/antcontrib/antcontrib.properties">
+      <classpath>
+        <pathelement location="extlib/ant-contrib-0.6.jar"/>
+      </classpath>
+    </taskdef>
+    
     <path id="classpath">
         <fileset dir="${lib.dir}">
             <include name="**/*.jar" />
