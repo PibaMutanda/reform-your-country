@@ -1,49 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="
-			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
-			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
-			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
-			http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
-			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+xsi:schemaLocation="
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
+http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
 
-	<context:annotation-config />
-	<context:component-scan base-package="reformyourcountry">
- 		<!-- <context:exclude-filter expression="org.springframework.stereotype.Controller"	type="annotation" /> -->
- 	</context:component-scan>
-	<aop:config proxy-target-class="true" />
+    <context:annotation-config />
+    <context:component-scan base-package="reformyourcountry">
+        <!-- <context:exclude-filter expression="org.springframework.stereotype.Controller"	type="annotation" /> -->
+    </context:component-scan>
+    <aop:config proxy-target-class="true" />
+    
+    <!-- for injecting value in application context.xml -->
+    <bean id="propertyPlaceholder" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="locations">
+            <list>
+                <value>classpath:/secret.properties</value>
+                <value>classpath:/config.properties</value>
+            </list>
+        </property>
+    </bean>
+    <bean id="entityManagerFactory"
+    class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+        <property name="persistenceUnitName" value="ConnectionH2" />
+        <property name="jpaProperties">
+            <!-- set extra properties here, e.g. for Hibernate: -->
+            <props>
+                <prop key="hibernate.connection.url">${DB.url}</prop>
+                <prop key="hibernate.connection.username">${DB.userName}</prop>
+                <prop key="hibernate.connection.password">${DB.password}</prop>
+            </props>
+        </property>
 
-	<bean id="entityManagerFactory"
-		class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
-		<property name="persistenceUnitName" value="ConnectionPostgres" />
-	</bean>
+    </bean>
 
-	<!-- Transaction manager for a single JPA EntityManagerFactory (alternative 
-		to JTA) -->
-	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
-		p:entityManagerFactory-ref="entityManagerFactory" />
+    <!-- Transaction manager for a single JPA EntityManagerFactory (alternative
+    to JTA) -->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
+    p:entityManagerFactory-ref="entityManagerFactory" />
 
-	<bean id="propertyConfigurer"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="location">
-			<value>classpath:/config.properties</value>
-		</property>
-	</bean>
-
-	<!-- Configure the multipart resolver -->
-	<bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<!-- one of the properties available; the maximum file size in bytes (10mb 
-			here) -->
-		<property name="maxUploadSize" value="10000000" />
-		<property name="maxInMemorySize" value="10000000" />
-	</bean>
-	
-
-	<tx:annotation-driven />
-	
+    <!-- Configure the multipart resolver -->
+    <bean id="multipartResolver"
+    class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- one of the properties available; the maximum file size in bytes (10mb
+        here) -->
+        <property name="maxUploadSize" value="10000000" />
+        <property name="maxInMemorySize" value="10000000" />
+    </bean>
+    <tx:annotation-driven />
 
 </beans>
