@@ -52,7 +52,7 @@ public class MailSender extends Thread {
 
     JavaMailSenderImpl javaMailSender; // This is not a Spring bean so @Autowired not usable
 
-    @Value("${environment}") // can't use ContextUtil because Spring beans (including this one starting) are initialized before ContextUtil Listener
+    @Value("${app.environment}") // can't use ContextUtil because Spring beans (including this one starting) are initialized before ContextUtil Listener
     private Environment environment ;
     
     @Value("${mail.smtp.server}")           String smtpHost; 
