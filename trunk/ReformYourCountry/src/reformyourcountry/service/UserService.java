@@ -100,58 +100,6 @@ public class UserService {
         log.debug("mail sent: " + htmlMessage);  
     }
 
-
-
-
-    // TODO maxime uncomment for the web (picture of a user)
-    //  public void saveUserImages(User user, InputStream imageFileStream) {
-    //          if(user == null || user.getId() == null){
-    //              throw new IllegalArgumentException("Could not save the pircture of an unpersited user");
-    //          }
-    //
-    //          String oldPictureName = user.isPicture() ? user.getPictureName() : null;
-    //          String[] scaleFolderNames = new String[] { "", "medium", "small" };
-    //          
-    //          try {
-    //              user.setPicture(true);
-    //              // add the file name to the user
-    //              user.setPictureName(user.getId() + "-" + new Date().getTime() + ".png");
-    //
-    //              ContextUtil.getBLFacade().getFileService()
-    //                      .saveAndScaleImage(imageFileStream, user.getPictureName(),
-    //                              "users", true, "originals", true,
-    //                              new int[] { 100, 44, 22 },
-    //                              new int[] { 150, 66, 33 },
-    //                              scaleFolderNames,
-    //                              ImageSaveFormat.PNG);
-    //              
-    //              contributionService.addImage(user);
-    //          } catch (Exception e) {
-    //              logger.error("Could not save user images", e);
-    //              user.setPicture(false);
-    //              user.setPictureName(null);
-    //          }
-    //          getDaoFacade().getUserDao().save(user);
-    //          
-    //          if (oldPictureName != null) {
-    //              ContextUtil.getBLFacade().getFileService().deleteUserPictures(oldPictureName);
-    //          }
-    //      }
-//     TODO maxime uncomment for the web (picture of a user)
-//          @Override
-//          public void removeUserImages(User user) {
-//              String oldPictureName = user.isPicture() ? user.getPictureName() : null;
-//              
-//              user.setPicture(false);
-//              user.setPictureName(null);
-//              contributionService.removeImage(user);
-//              userDao.save(user);
-//              
-//              if (oldPictureName != null) {
-//                  ContextUtil.getBLFacade().getFileService().deleteUserPictures(oldPictureName);
-//              }
-//          }
-
     public void generateNewPasswordForUserAndSendEmail(User user) {
         // We generate a password
         String newPassword = SecurityUtils.generateRandomPassword(8, 12);
@@ -170,9 +118,6 @@ public class UserService {
                         MailType.IMMEDIATE, MailCategory.USER);
 
     }
-
-
-
 
     /** Change the name of the user and note it in the log */
     public void changeUserName(User user, String newUserName, String newFirstName, String newLastName) {

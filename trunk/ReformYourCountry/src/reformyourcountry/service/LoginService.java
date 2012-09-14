@@ -20,6 +20,7 @@ import reformyourcountry.exception.UserNotFoundException;
 import reformyourcountry.exception.UserNotValidatedException;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountStatus;
+import reformyourcountry.model.User.Role;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.util.SecurityUtils;
@@ -29,7 +30,7 @@ import reformyourcountry.web.Cookies;
 import reformyourcountry.web.HttpSessionTracker;
 
 
-@Component
+@Component//FIXME why @component
 @Transactional
 public class LoginService {
 
@@ -92,11 +93,10 @@ public class LoginService {
         user.setConsecutiveFailedLogins(0);
         user.setLastFailedLoginDate(null);
 
-        // TODO: uncomment in the web phase 
-        // //We set a bigger session timeout for admin and moderators
-        // if (CommunityRole.MODERATOR.isHigerOrEquivalent(((CommunityUser)user).getCommunityRole())) {
-        //   ContextUtil.getHttpSession().setMaxInactiveInterval(72000);
-        // }
+         //We set a bigger session timeout for admin and moderators
+         if (Role.MODERATOR.isHigherOrEquivalent(SecurityContext.getUser().getRole())) {
+           ContextUtil.getHttpSession().setMaxInactiveInterval(72000);
+         }
 
         // Create a cookie with user id and the encrypted password if asked by user.
         if (keepLoggedIn) {
