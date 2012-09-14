@@ -44,7 +44,7 @@ import reformyourcountry.service.UserService;
 import reformyourcountry.web.ContextUtil;
 
 
-@Service()
+@Service
 public class BatchCreate implements Runnable {
 
 
