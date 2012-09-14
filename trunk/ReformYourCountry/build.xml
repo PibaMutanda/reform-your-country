@@ -42,7 +42,7 @@
 			<equals arg1="${type}" arg2="PROD" />
 			<then>
 			    <property name="app.name" value="ROOT" />
-			    <copy file="../prod.properties" tofile="secret.properties" overwrite="true"/>
+			    <copy file="../../prod.properties" tofile="secret.properties" overwrite="true"/>
 			</then>
 		</if>
 	</target>
