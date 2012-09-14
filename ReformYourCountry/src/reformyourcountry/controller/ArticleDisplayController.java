@@ -3,7 +3,6 @@ package reformyourcountry.controller;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import reformyourcountry.model.Article;
 import reformyourcountry.repository.BookRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
-import reformyourcountry.util.DateUtil;
 
 @Controller
 public class ArticleDisplayController extends BaseController<Article> {
@@ -32,9 +30,6 @@ public class ArticleDisplayController extends BaseController<Article> {
 		Article article = getRequiredEntity(id);
         mv.addObject("article", article);
 
-        ///// Get a formatted date for the jsp
-        mv.addObject("displayDate", DateUtil.formatyyyyMMdd(article.getReleaseDate()));
-        
         // For the breadcrumb
         List<Article> parentArticles = new ArrayList<Article>();
         Article current =  article;
