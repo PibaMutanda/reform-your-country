@@ -7,39 +7,35 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<script src="js/ext/jquery-1.8.0.min.js"></script><%-- jquery depandencies --%>
+<script src="js/ext/jquery-ui-1.8.23.custom.min.js"></script>
+<script src="js/int/redirect.js"></script>
+<script type ="text/javascript">
+  var redirectUrl = "${redirectUrl}";  // Used by redirect.js
+</script>
 
 <title>Error page</title>
 </head>
 <body>
-
-
-
-
-
-			
 	<center>
-		<h2>The application has generated an error</h2>
+		<h2>Ooooops!</h2>
+		<p>Vous avez cassé le système...</p>
+		
 		<img src="images/404.jpg" />
+		
+    	<c:if test="${redirectUrl != null}">
+           <p>Vous allez automatiquement être redirigé vers la page d'accueil dans <span id ="count"></span> secondes.</p>
+        </c:if>
 	</center>
-	<%
-			if(exception instanceof UnauthorizedAccessException){
-			    UnauthorizedAccessException e = (UnauthorizedAccessException) exception;
-			    out.print(e.getErrorMessage());
-			} 
-	%>
-
-	<c:choose>
-		<c:when test="<%=ContextUtil.devMode%>">
-			<h3>Please check for the error given below</h3>
-			<b>Exception:</b>
-			<br>
-			<font size="2" color="red"> <%=ExceptionUtil.getStringBatchUpdateExceptionStackTrace(exception, true)%>
-
-			</font>
-		</c:when>
-	</c:choose>
-
-	
+    
+    
+	<c:if test="${stackTrace != null}">
+		Exception:<br/>
+		<font size="2" color="red">
+		  <pre>  <!-- To take the line returns into account in the stack trace -->
+		    ${stackTrace}
+		  </pre>
+		</font>
+	</c:if>
 </body>
 </html>
