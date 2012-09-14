@@ -3,32 +3,27 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
-<%@page import ="reformyourcountry.web.ContextUtil" %>
-<html>
-<head>
-<title>Login</title>
-</head>
-<body>
+<%@ page import ="reformyourcountry.web.ContextUtil" %>
+
+
+<!-- This fragment will be displayed in a jQuery dialog box. -->
+    <label id ="errorMsg" style ="color:red;"></label>
+
 	<form action="loginsubmit" method="post">
-		<label for="identifier">Pseudo/Adresse e-mail </label>
-        <input type="text" name="identifier" required="required"/><br />
-        <label for="password">Votre mot de passe </label>
-			<c:choose>
+		<label for="identifier">pseudo / adresse e-mail</label><br/>
+        <input type="text" name="identifier" required="required"/><br/>
+        <label for="password">mot de passe</label><br/>
+		<c:choose>
 			<c:when test="<%= !ContextUtil.devMode %>">				
 				<input type="password" name="password" required="required"/>
-				<br />
 			</c:when>
-			<c:otherwise>
-			
-			<input type="password" name="password" required="required" value="secret"/>
-			<label>Your are in dev mode : default password should be "secret"</label><br>
+  		    <c:otherwise>
+			    <input type="password" name="password" required="required" value="secret"/><br/>
+			    <p>Your are in dev mode : default password should be "secret"</p>
 			</c:otherwise>
 		</c:choose>
+		<br />
 		
-		J'ai oublié mon <a href="">mot de passe</a><br /> <input
-			type="checkbox" name="keepLoggedIn" /><label for="keepLoggedIn">Je
-			souhaite rester connecté</label>
+		J'ai <a href="">oublié mon mot de passe</a><br /> 
+		<input type="checkbox" name="keepLoggedIn" /><label for="keepLoggedIn">Je souhaite rester connecté</label>
 	</form>
-
-</body>
-</html>
