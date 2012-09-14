@@ -4,14 +4,15 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
-import org.apache.commons.lang3.StringUtils;
 import org.hibernate.ejb.Ejb3Configuration;
 import org.hibernate.tool.hbm2ddl.SchemaUpdate;
 
@@ -37,15 +38,40 @@ import reformyourcountry.util.DateUtil;
  *
  */
 public class SchemaUpdater  {
+    
+    private static final String PROP_FILE="/secret.properties";
+    private static String url;
+    private static String userName;
+    private static String password;
+
+    public static void readPropertiesFile(){
+        try{
+            InputStream is = SchemaUpdater.class.getResourceAsStream(PROP_FILE);
+            Properties prop = new Properties();
+            prop.load(is);
+            url = prop.getProperty("DB.url");
+            userName = prop.getProperty("DB.userName");
+            password = prop.getProperty("DB.password");
+            is.close();
+            /* code to use values read from the file*/
+        }catch(IOException e){
+            System.out.println("Failed to read from " + PROP_FILE + " file.");
+            e.printStackTrace();
+        }
+    }
 
     @SuppressWarnings({ "deprecation", "unchecked" })
     public static void main(String[] arg) throws IOException {
         
         ////// 1. Prepare the configuration (connection parameters to the DB, ect.)
+        readPropertiesFile();
         // Empty map. We add no additional property, everything is already in the persistence.xml
         Map<String,Object> map=new HashMap<String,Object>();   
+        map.put("hibernate.connection.url", url);
+        map.put("hibernate.connection.username", userName);
+        map.put("hibernate.connection.password", password);
         // Get the config from the persistence.xml file, with the unit name as parameter.
-        Ejb3Configuration conf =  new Ejb3Configuration().configure("ConnectionPostgres",map);
+        Ejb3Configuration conf =  new Ejb3Configuration().configure("ConnectionH2",map);
         SchemaUpdate schemaUpdate =new SchemaUpdate(conf.getHibernateConfiguration());
 
         /////// 2. Get the SQL
