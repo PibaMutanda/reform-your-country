@@ -15,7 +15,7 @@ public class Action extends BaseEntity{
 	
     
     @Column(length = 100)
-    @NotBlank(message="Il faut entrer un titre svp")
+    @NotBlank(message="Il faut entrer un titre svp ")
 	private String title;
     
 	private String url;
@@ -28,9 +28,9 @@ public class Action extends BaseEntity{
 	@Lob
 	private String content;
 	
-	private int voteCountPro;
-	private int voteCountAgainst;
-	private int voteCountTotal;
+//	private int voteCountPro;
+//	private int voteCountAgainst;
+//	private int voteCountTotal;
 	
 	@ManyToMany(mappedBy = "actions")
 	private List<Article> articles = new ArrayList <Article>();
@@ -96,28 +96,28 @@ public class Action extends BaseEntity{
 		this.content = content;
 	}
 	
-	public int getVoteCountPro(){
-		return voteCountPro;
-	}
-	
-	public void incrementVoteCountPro(){
-		voteCountPro++;
-	}
-	public int getVoteCountAgainst(){
-		return voteCountAgainst;
-	}
-	
-	public void incrementVoteCountAgainst(){
-		voteCountAgainst++;
-	}
-	
-	public int getVoteCountTotal(){
-		return voteCountTotal;
-	}
-	
-	public void incrementVoteCountTotal(){
-		voteCountTotal++;
-	}
+//	public int getVoteCountPro(){
+//		return voteCountPro;
+//	}
+//	
+//	public void incrementVoteCountPro(){
+//		voteCountPro++;
+//	}
+//	public int getVoteCountAgainst(){
+//		return voteCountAgainst;
+//	}
+//	
+//	public void incrementVoteCountAgainst(){
+//		voteCountAgainst++;
+//	}
+//	
+//	public int getVoteCountTotal(){
+//		return voteCountTotal;
+//	}
+//	
+//	public void incrementVoteCountTotal(){
+//		voteCountTotal++;
+//	}
 
 	public List<Article> getArticles() {
 		return articles;

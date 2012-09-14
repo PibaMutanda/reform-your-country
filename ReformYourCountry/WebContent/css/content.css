@@ -17,7 +17,29 @@
 .line{
 	color:rgb(67, 84, 126);
 }
+.v-2{
+	 background-color: #ff0000;
+}
+.v-1{
+	 background-color: #ff8800;
+}
+.v0{
+	 background-color: #ffff00;
+}
 
+.v1{
+	 background-color: #88ff00;
+}
+
+.v2{
+	 background-color: #00ff00;
+}
+.vote{
+	display: inline-block; width: 20px; height: 20px; text-align: center;
+}
+.selected{
+	border: .2em solid #000;
+}
 .login-link{
 	text-align: right;
 	
@@ -28,8 +50,6 @@
     text-decoration: underline;
 	
 }
-
-
 /*Style for article display (articledisplay.jsp)*/
 
 /* div defining the content of a book displayed on the bibliography page and in the tooltip */
