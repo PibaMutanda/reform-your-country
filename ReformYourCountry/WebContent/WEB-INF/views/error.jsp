@@ -23,6 +23,8 @@
 		
 		<img src="images/404.jpg" />
 		
+        <p>${message}</p>
+        
     	<c:if test="${redirectUrl != null}">
            <p>Vous allez automatiquement être redirigé vers la page d'accueil dans <span id ="count"></span> secondes.</p>
         </c:if>
