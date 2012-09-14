@@ -8,7 +8,7 @@
 <head>
 	
     <script src="<c:url value="js/ext/jquery.textarea-expander.js" />"></script>
-    
+    <script src="<c:url value="js/int/autosave.js" />"></script>
 
 
 
@@ -25,7 +25,7 @@
 	 
 	 <form:form modelAttribute="article" action="articleeditsubmit">
 		<table>
-	 		<tr><td><input type="submit" value="Sauver"/></td>
+	 		<tr><td><input id="save" type="submit" value="Sauver"/></td>
 	 		<td><a href="article?id=${article.getId()}">Annuler</a></td></tr>
 	 		<ryctag:input path="title" label="Titre" required="required"/>
 	 		<ryctag:date path="publishDate" label="Date de publication"/>
