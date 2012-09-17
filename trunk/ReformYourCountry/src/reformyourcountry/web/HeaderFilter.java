@@ -16,7 +16,7 @@ import javax.servlet.annotation.WebFilter;
 public class HeaderFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		response.setCharacterEncoding("ISO-8859-1");
+		response.setCharacterEncoding("UTF-8");
 		// pass the request along the filter chain
 		chain.doFilter(request, response);
 	}
