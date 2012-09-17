@@ -27,7 +27,7 @@ $(document).ready(function() {
 	function performChange(ms) {
 		$("#save").removeAttr('disabled');  // Make the save button enabled (the text effectively changed since the last save).
 	
-        if (timer != null) { // No timer is currently on-going => we need to create one.
+        if (timer == null) { // No timer is currently on-going => we need to create one.
 		
    		  timer =  // We add an element to the array.  
 				setTimeout(function(){
