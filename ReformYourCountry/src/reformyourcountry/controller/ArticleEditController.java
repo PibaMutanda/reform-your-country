@@ -2,7 +2,7 @@ package reformyourcountry.controller;
 
 
 import javax.validation.Valid;
-import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,7 @@ import reformyourcountry.model.Article;
 import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
-import reformyourcountry.util.DateUtil;
+
 
 @Controller
 public class ArticleEditController extends BaseController<Article>{
