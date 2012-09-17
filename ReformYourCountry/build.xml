@@ -7,11 +7,11 @@
     <property environment="env" />
 
     <taskdef resource="net/sf/antcontrib/antcontrib.properties">
-      <classpath>
-        <pathelement location="extlib/ant-contrib-0.6.jar"/>
-      </classpath>
+        <classpath>
+            <pathelement location="extlib/ant-contrib-0.6.jar"/>
+        </classpath>
     </taskdef>
-    
+
     <path id="classpath">
         <fileset dir="${lib.dir}">
             <include name="**/*.jar" />
@@ -40,26 +40,28 @@
                 <equals arg1="${type}" arg2="DEV" />
                 <then>
                     <property name="war.name" value="${app.name}" />
-                </then>         
+                </then>
             </elseif>
         </if>
     </target>
 
-    <target name="compile" description="compile the source and without test classes" depends="init">
+
+
+    <target name="set-properties" depends="init" description="Set properties to the appropiate values depending of the mode and the version">
+        <if>
+            <equals arg1="${type}" arg2="PROD" />
+            <then>
+                <copy file="../../prod.properties" tofile="secret.properties" overwrite="true"/>
+            </then>
+        </if>
+    </target>
+
+    <target name="compile" description="compile the source and without test classes" depends="set-properties">
         <echo message="Building ${app.name} ..." />
         <javac srcdir="${src.dir}" destdir="${build.dir}" debug="on" classpathref="classpath" />
     </target>
-    
-	<target name="set-properties" depends="init" description="Set properties to the appropiate values depending of the mode and the version">
-		<if>
-			<equals arg1="${type}" arg2="PROD" />
-			<then>
-			    <copy file="../../prod.properties" tofile="secret.properties" overwrite="true"/>
-			</then>
-		</if>
-	</target>
 
-    <target name="war" depends="compile,set-properties">
+    <target name="war" depends="compile">
         <echo message="Making war file ..." />
         <copy todir="${build.dir}" includeEmptyDirs="no">
             <!-- because xml and properties aren't already in the build.dir because javac doesn't seem to make this-->
@@ -70,7 +72,7 @@
                 </patternset>
             </fileset>
         </copy>
-    	<mkdir dir="${dist.dir}"/>
+        <mkdir dir="${dist.dir}"/>
         <war destfile="${dist.dir}/${war.name}.war" webxml="${web.dir}/WEB-INF/web.xml">
             <fileset dir="${web.dir}"/>
             <lib dir="${lib.dir}"/>
@@ -81,7 +83,7 @@
     <target name="clean" description="remove build dir">
         <echo message="cleanings..."/>
         <delete dir="${build.dir}" />
-    	<delete dir="${dist.dir}"/>
+        <delete dir="${dist.dir}"/>
     </target>
 
     <target name="debug" description="Lists the properties for debugging purposes">
