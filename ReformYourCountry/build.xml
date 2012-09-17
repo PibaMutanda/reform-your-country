@@ -69,7 +69,7 @@
         <if>
             <equals arg1="${type}" arg2="PROD" />
             <then>
-                <copy file="../../prod.properties" tofile="${build.dir}/classes/secret.properties" overwrite="true"/>
+                <copy file="../../prod.properties" tofile="${build.dir}/secret.properties" overwrite="true"/>
             </then>
         </if>
         <mkdir dir="${dist.dir}"/>
