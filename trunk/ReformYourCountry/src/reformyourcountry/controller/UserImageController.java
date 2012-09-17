@@ -26,9 +26,8 @@ public class UserImageController extends BaseController<User> {
 	@RequestMapping("/userimage")
 	public ModelAndView userImage(@RequestParam("id") long userid){
 		User user = getRequiredEntity(userid);
-		ModelAndView mv= new ModelAndView("userimage");
-		mv.addObject("user",user);
-
+		ModelAndView mv= new ModelAndView("userimage", "user", user);
+		
 		return mv;
 	}
 
@@ -40,6 +39,7 @@ public class UserImageController extends BaseController<User> {
 		ModelAndView mv = new ModelAndView("userdisplay");
 		mv.addObject("user",user);
 		mv.addObject("canEdit", canEdit(user));
+		mv.addObject("random", System.currentTimeMillis());
 
 		///// Save original image, scale it and save the resized image.
 		try {
@@ -80,9 +80,8 @@ public class UserImageController extends BaseController<User> {
 		 
 		 userRepository.merge(user);
 
-		 ModelAndView mv = new ModelAndView("redirect:user");
-		 mv.addObject("username", user.getUserName());
-		 return mv;
+		 return new ModelAndView("redirect:user", "username", user.getUserName());
+		 
 	 }
 
 	 private boolean canEdit(User user) {
