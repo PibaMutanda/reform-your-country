@@ -10,14 +10,24 @@
 <title>${group.name}</title>
 </head>
 <body>
+
 <h1>Nom du groupe : ${group.name}</h1>	
 Description : ${group.description} <br/>
-Url : <a href=${group.url} target="_blank">${group.url}</a> <br/>
+Url : ${group.url} <br/>
 
-	<ryc:conditionDisplay privilege="EDIT_GROUP">
+
+<c:if test="${group.hasImage==true}">
+   <img src="gen/group/resized/${group.id}.jpg?random=${random}"  <%-- Random, to force the reload of the image in case it changes (but its name does not change) --%>
+        alt="${group.name}" class="imggroup">
+</c:if>
+ 
+<ryc:conditionDisplay privilege="EDIT_GROUP">
 		<ryctag:submit entity="${group}" value="Editer" action="groupedit" />
+		
+		<%-- IMAGE --%>
 		<form method="post" action="groupimageadd" enctype="multipart/form-data">
 			<input type="file" name="file" /> 
+			
 			<input type="hidden" name="id" value="${group.id}" />
 			<input type="submit" value="Uploader une image" />
 		</form>
@@ -29,7 +39,8 @@ Url : <a href=${group.url} target="_blank">${group.url}</a> <br/>
 			<input type="hidden" name="id" value="${group.id}" /> <br>
 			<input type="submit" value="Supprimer un group" />
 		</form>
-	</ryc:conditionDisplay>
-	<br><a href="grouplist">Liste des groupes</a>
+</ryc:conditionDisplay>
+	
+<br><a href="grouplist">Liste des groupes</a>
 </body>
 </html>
