@@ -33,7 +33,7 @@
 
 	<c:if test="${user.picture}">
 		<img alt="${user.userName}"
-			src="gen/user/resized/large/${user.id}.jpg"
+			src="gen/user/resized/large/${user.id}.jpg<c:if test="${random!=null}">?random=${random}</c:if>" <%-- Random, to force the reload of the image in case it changes (but its name does not change) --%>
 			style="float: left" />
 	</c:if>
 
