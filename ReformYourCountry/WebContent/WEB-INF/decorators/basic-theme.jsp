@@ -27,6 +27,7 @@
 <script src="js/int/datepicker.js" type="text/javascript"></script>
 <script src="js/int/login.js"></script>
 <script src="js/int/redirect.js"></script>
+ <script src="js/int/focusevent.js"></script>
 <title><decorator:title/></title>
 <decorator:head/>
 </head>
