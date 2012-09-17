@@ -29,8 +29,8 @@ public class Group extends BaseEntity{
 	
 	private String description;
 
-	//@Column(nullable = false, columnDefinition="boolean default '0'")
-    //boolean hasImage;  // If the group has an image, the image is named action.id + "jpg"
+	@Column(nullable = false, columnDefinition="boolean default '0'")
+    boolean hasImage;  // If the group has an image, the image is named group.id + "jpg"
 		
 	public Group(){
 	}
@@ -78,13 +78,13 @@ public class Group extends BaseEntity{
         this.description = description;
     }
     
-//    public boolean isHasImage() {
-//        return hasImage;
-//    }
-//
-//    public void setHasImage(boolean hasImage) {
-//        this.hasImage = hasImage;
-//    }
+    public boolean isHasImage() {
+        return hasImage;
+    }
+
+    public void setHasImage(boolean hasImage) {
+        this.hasImage = hasImage;
+    }
 
     public void addVoteAction(VoteAction voteAction){
         voteActions.add(voteAction);

@@ -73,6 +73,14 @@ public class GroupEditController extends BaseController<Group> {
             
         return new ModelAndView("redirect:group", "id", group.getId());
     }
+    
+    @RequestMapping ("/groupremove")
+    public ModelAndView groupRemove(@RequestParam("id")Long id){
+        groupRepository.remove(groupRepository.find(id));
+    
+        return new ModelAndView ("redirect:grouplist");
+    }
+        
     @ModelAttribute
     public Group findGroup(@RequestParam("id") Long id){
         if (id == null){ //create
