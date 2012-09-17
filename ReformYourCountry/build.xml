@@ -28,8 +28,21 @@
     </pathconvert>
 
     <target name="init" description="get timestamp and create the dir where the compiled classes would be drop in" depends="clean">
+        <fail message="Property type must be defined" unless="type" />
         <tstamp />
         <mkdir dir="${build.dir}" />
+        <if>
+            <equals arg1="${type}" arg2="PROD" />
+            <then>
+                <property name="war.name" value="ROOT" />
+            </then>
+            <elseif>
+                <equals arg1="${type}" arg2="DEV" />
+                <then>
+                    <property name="war.name" value="${app.name}" />
+                </then>         
+            </elseif>
+        </if>
     </target>
 
     <target name="compile" description="compile the source and without test classes" depends="init">
@@ -41,7 +54,6 @@
 		<if>
 			<equals arg1="${type}" arg2="PROD" />
 			<then>
-			    <property name="app.name" value="ROOT" />
 			    <copy file="../../prod.properties" tofile="secret.properties" overwrite="true"/>
 			</then>
 		</if>
@@ -59,7 +71,7 @@
             </fileset>
         </copy>
     	<mkdir dir="${dist.dir}"/>
-        <war destfile="${dist.dir}/${app.name}.war" webxml="${web.dir}/WEB-INF/web.xml">
+        <war destfile="${dist.dir}/${war.name}.war" webxml="${web.dir}/WEB-INF/web.xml">
             <fileset dir="${web.dir}"/>
             <lib dir="${lib.dir}"/>
             <classes dir="${build.dir}"/>
