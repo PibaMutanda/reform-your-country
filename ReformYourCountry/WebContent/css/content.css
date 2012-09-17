@@ -50,6 +50,8 @@
     text-decoration: underline;
 	
 }
+
+
 /*Style for article display (articledisplay.jsp)*/
 
 /* div defining the content of a book displayed on the bibliography page and in the tooltip */
@@ -80,4 +82,12 @@
 
 .quote-inline{
 	font-style:italic;
+}
+
+/*article edit page*/
+
+#content{
+	
+	border: 3px solid #cccccc;
+	font-family: Tahoma, sans-serif;
 }

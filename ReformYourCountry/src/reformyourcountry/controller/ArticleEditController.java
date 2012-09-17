@@ -2,18 +2,24 @@ package reformyourcountry.controller;
 
 
 import javax.validation.Valid;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+
+
 import reformyourcountry.model.Article;
 import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
-
+import reformyourcountry.util.DateUtil;
 
 @Controller
 public class ArticleEditController extends BaseController<Article>{
@@ -26,7 +32,7 @@ public class ArticleEditController extends BaseController<Article>{
 	public ModelAndView articleEdit(@ModelAttribute Article article){
 
 		SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
-		ModelAndView mv = new ModelAndView("articleedit","id",article.getId());
+		ModelAndView mv = new ModelAndView("articleedit");
 		mv.addObject("article",article);
 		return mv;
 
@@ -34,8 +40,7 @@ public class ArticleEditController extends BaseController<Article>{
 
 
 	@RequestMapping("/articleeditsubmit")
-	public ModelAndView articleEditSubmit(@Valid @ModelAttribute Article article, BindingResult result
-			){
+	public ModelAndView articleEditSubmit(@Valid @ModelAttribute Article article, BindingResult result){
 		SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
 		
 		if(result.hasErrors()){
@@ -49,6 +54,24 @@ public class ArticleEditController extends BaseController<Article>{
 
 	}
 
+	
+	@RequestMapping("/ajax/articleeditsubmit")
+    public ResponseEntity<?> articleEditSubmitAjax(@Valid @ModelAttribute Article article, BindingResult result){
+        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
+     
+        if(result.hasErrors()){
+            System.out.println(result.getAllErrors());
+            return new ResponseEntity<BindingResult>(result,HttpStatus.OK);
+            
+           
+        }else{
+          
+            articleRepository.merge(article);
+            return new ResponseEntity<String>("sauvegarde",HttpStatus.OK);
+        }
+
+    }
+	
 
 	@ModelAttribute
 	public Article findArticle(@RequestParam("id")Long id){
