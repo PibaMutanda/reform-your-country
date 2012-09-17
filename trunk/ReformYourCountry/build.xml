@@ -48,12 +48,6 @@
 
 
     <target name="set-properties" depends="init" description="Set properties to the appropiate values depending of the mode and the version">
-        <if>
-            <equals arg1="${type}" arg2="PROD" />
-            <then>
-                <copy file="../../prod.properties" tofile="secret.properties" overwrite="true"/>
-            </then>
-        </if>
     </target>
 
     <target name="compile" description="compile the source and without test classes" depends="set-properties">
@@ -72,6 +66,12 @@
                 </patternset>
             </fileset>
         </copy>
+        <if>
+            <equals arg1="${type}" arg2="PROD" />
+            <then>
+                <copy file="../../prod.properties" tofile="${build.dir}/classes/secret.properties" overwrite="true"/>
+            </then>
+        </if>
         <mkdir dir="${dist.dir}"/>
         <war destfile="${dist.dir}/${war.name}.war" webxml="${web.dir}/WEB-INF/web.xml">
             <fileset dir="${web.dir}"/>
