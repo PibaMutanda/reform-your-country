@@ -149,6 +149,8 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     @Column(length = 100)
     @Size(min = 4 ,message = "your password must contain at least 4 character")
     private String password;
+    
+    private String url;
 
     @Lob
     private String nameChangeLog; // record the name changes
