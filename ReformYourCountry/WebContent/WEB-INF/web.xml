@@ -45,11 +45,12 @@
 		<servlet-name>default</servlet-name>
 		<url-pattern>*.png</url-pattern>
 	</servlet-mapping>
-
 	<servlet-mapping>
 		<servlet-name>default</servlet-name>
 		<url-pattern>*.gif</url-pattern>
 	</servlet-mapping>
+	<!-- first we tried with "*.html" or "/helptxt/*.html" but it didn't work, the home page wasn't 
+		  accessible with the simple "/" in the url (http://localhost:8080/ReformYourCountry/) -->
 	<servlet-mapping>
 		<servlet-name>default</servlet-name>
 		<url-pattern>/helptxt/*</url-pattern>
