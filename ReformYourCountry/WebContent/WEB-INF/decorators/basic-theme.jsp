@@ -94,7 +94,7 @@
 
 <!-- ***************** - LOGO - ***************** -->
 
-<div class="logodiv"  onclick="location.href='home';"><img src="images/logo/enseignement2-logo-white-small.png"/></div>
+<div class="logodiv" ><a href="home"><img src="images/logo/enseignement2-logo-white-small.png"/></a></div>
 <!-- ***************** - END LOGO - ***************** -->
 <ul id="menu-main-nav">
 <li><a href="content-3d-effects.html"><span><strong>Features</strong><span class="navi-description">about this theme</span></span></a>
@@ -216,7 +216,7 @@
 
 
 <!--|||||||||||||||||||||||||||     Ne sera utilie que pour les articles               |||||||||||||||||||||||||||||-->
-<p class="breadcrumb"><a href="Home">Home</a><a href="Home">Pages</a><span class='current_crumb'>Accueil</span></p></div><!-- end frame -->
+<p class="breadcrumb"><a href="home">Home</a><a href="home">Pages</a><span class='current_crumb'>Accueil</span></p></div><!-- end frame -->
 
 </div><!-- end holder -->
 </div><!-- end tools -->
