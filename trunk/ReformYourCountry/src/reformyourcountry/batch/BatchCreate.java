@@ -43,6 +43,7 @@ import reformyourcountry.service.LoginService;
 import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
 import reformyourcountry.service.UserService;
 import reformyourcountry.web.ContextUtil;
+import reformyourcountry.web.UrlUtil;
 
 @Service
 public class BatchCreate implements Runnable {
@@ -284,7 +285,7 @@ public class BatchCreate implements Runnable {
 		}
 
 		article.setSummary("1.Échanger pour se former/2.Construire ensemble/3.Du plaisir de la mise en réseau");
-		article.setUrl("http://www.cahiers-pedagogiques.com/Le-Web-2-0-et-les-profs.html");
+		article.setUrl(UrlUtil.computeUrlFragmentFromName(article.getTitle()));
 
 		em.persist(article);
 
@@ -336,7 +337,7 @@ public class BatchCreate implements Runnable {
 		}
 
 		article2.setSummary("1.Règles actuelles/2.Décrets pédagogiques/3.Contrôle des résultats/4.Recrutement/Licenciement/5.Libre plus autonome");
-		article2.setUrl("https://sites.google.com/site/enseignement2be/ecoles/autonomie-des-ecoles");
+		article2.setUrl(UrlUtil.computeUrlFragmentFromName(article2.getTitle()));
 
 		em.persist(article2);
 		return article2;
@@ -387,7 +388,7 @@ public class BatchCreate implements Runnable {
 		}
 
 		article3.setSummary("1.Règles actuelles/2.Décrets pédagogiques/3.Contrôle des résultats/4.Recrutement/Licenciement/5.Libre plus autonome");
-		article3.setUrl("https://sites.google.com/site/enseignement2be/ecoles/auto");
+		article3.setUrl(UrlUtil.computeUrlFragmentFromName(article3.getTitle()));
 
 		em.persist(article3);
 
@@ -439,7 +440,7 @@ public class BatchCreate implements Runnable {
 		}
 
 		article4.setSummary("1.Règles actuelles/2.Décrets pédagogiques/3.Contrôle des résultats/4.Recrutement/Licenciement/5.Libre plus autonome");
-		article4.setUrl("https://sites.google.com/site/enseignement2be/ecoles/auto");
+		article4.setUrl(UrlUtil.computeUrlFragmentFromName(article4.getTitle()));
 
 		em.persist(article4);
 

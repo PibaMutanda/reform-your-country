@@ -9,6 +9,7 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<script type="text/javascript" src="js/int/url-generate.js"></script>
 <style type="text/css">
 .li{
 list-style-type:none; 
@@ -23,10 +24,11 @@ list-style-type:none;
 			<c:otherwise>Créer un article</c:otherwise>
 		</c:choose></h1>
 		<ryctag:form action="articleparenteditsubmit" modelAttribute="article" method="post">
-			<ryctag:input path="title" label="Titre"/>
+			<ryctag:input path="title" label="Titre" id="title"/>
+			<ryctag:input path="url" label="Nom de la page de l'article" id="url"/>
+			<input type="submit" value="Générer une url" id="generate"/>
 			<form:hidden path="id" value="${article.id}"/>
-			<input type="submit" value="<c:choose><c:when test="${article.id !=null}">Sauver</c:when>
-		<c:otherwise>Créer article</c:otherwise></c:choose>"/>
+			<input type="submit" value="<c:choose><c:when test="${article.id !=null}">Sauver</c:when><c:otherwise>Créer article</c:otherwise></c:choose>"/>
 		<tr>
 		<td>Parent: </td>
 		<td><ryc:articlesTree radio="true" /></td></tr>

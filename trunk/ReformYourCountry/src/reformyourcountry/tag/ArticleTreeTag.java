@@ -12,6 +12,7 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 import reformyourcountry.model.Article;
 import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.web.ContextUtil;
+import reformyourcountry.web.UrlUtil;
 
 
 public class ArticleTreeTag extends SimpleTagSupport{
@@ -104,7 +105,7 @@ public class ArticleTreeTag extends SimpleTagSupport{
 			}
 		}
 		if (link == true) {
-            result += "<a href =\"article/"+article.getUrl()+"\">";
+            result += "<a href =\""+UrlUtil.getAbsoluteUrl("article/")+article.getUrl()+"\">";
 		}
 		result += article.getTitle();
 		if (link == true) {

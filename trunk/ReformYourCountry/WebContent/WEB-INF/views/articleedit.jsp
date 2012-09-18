@@ -29,7 +29,7 @@
 	 <form:form modelAttribute="article" action="articleeditsubmit">
 		<table>
 	 		<tr><td><input id="save" type="submit" value="Sauver"/><span id ="saving" style="font-family:tahoma;font-size:9px;"></span></td>
-	 		<td><a href="article?id=${article.getId()}">Annuler</a></td></tr>
+	 		<td><a href="article/${article.getUrl()}">Annuler</a></td></tr>
 	 		<ryctag:input path="title" label="Titre" required="required"/>
 	 		<ryctag:date path="publishDate" label="Date de publication"/>
 	 		<ryctag:checkbox path="publicView" label="Public ?"/>
