@@ -27,8 +27,18 @@ function clicked(item) {
 			$("#voted").text("Erreur lors du vote : "+textStatus);
 		});
 	}else{
-		$("#log").show();
-		$("#voted").css('background-color',$(item).css('background-color'));
+		
+	     
+		$(item).CreateBubblePopup({ 
+	           innerHtmlStyle: {  // give css property to the inner div of the popup	    	   
+	               'opacity':0.9
+	           },
+	           tail: {align:'center', hidden: false},
+	           selectable :true,				    	
+	           innerHtml: 'Pour voter veuillez vous logger : '
+	        	   +'<script src="js/int/login.js"></script>'
+	        	   +'<a class="login" style="cursor:pointer;">Connexion</a>'
+	       }); 	 
 
 	}
 }
