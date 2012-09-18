@@ -4,8 +4,6 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import reformyourcountry.model.Article;
-import reformyourcountry.model.Book;
-import reformyourcountry.model.User;
 
 @Repository
 public class ArticleRepository extends BaseRepository<Article>{
