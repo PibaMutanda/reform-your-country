@@ -5,7 +5,7 @@
 <link href="css/jquery-bubble-popup-v3.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="css/jquery.countdown.css"/>
      <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-     <%@taglib uri="http://www.springframework.org/tags/form"  prefix="form"%>
+     <%@ taglib uri="http://www.springframework.org/tags/form"  prefix="form"%>
      <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
      <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
 <script type="text/javascript" src="js/ext/jquery-ui-1.8.23.custom.min.js"></script>

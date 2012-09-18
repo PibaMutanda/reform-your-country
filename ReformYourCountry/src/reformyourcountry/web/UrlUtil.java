@@ -86,8 +86,8 @@ public class UrlUtil {
     }
     /** nameParam is something like "Java & OO - Fundamentals". The urlFragment is set to "Java_OO_Fundamentals" */ 
     public static String computeUrlFragmentFromName(String nameParam) {
-    	nameParam = nameParam.replaceAll("[^A-Za-z0-9]", "_"); // remove all non alphanumeric values (blanks, spaces,...).
-    	nameParam = nameParam.replaceAll("___", "_"); //Sometimes, there is a '&' in the title. The name is compute like : Java___OO_etc. Whith this method, the name will be Java_OO_etc.
+    	nameParam = nameParam.replaceAll("[^A-Za-z\u00E0-\u00FC0-9]", "-"); // remove all non alphanumeric values (blanks, spaces,...).
+    	nameParam = nameParam.replaceAll("---", "-"); //Sometimes, there is a '&' in the title. The name is compute like : Java___OO_etc. Whith this method, the name will be Java_OO_etc.
         return nameParam;
     }
 }

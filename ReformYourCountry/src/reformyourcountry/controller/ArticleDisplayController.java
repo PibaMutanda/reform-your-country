@@ -15,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.converter.BBConverter;
 import reformyourcountry.model.Article;
-import reformyourcountry.repository.ActionRepository;
 import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.repository.BookRepository;
 import reformyourcountry.security.Privilege;
@@ -66,12 +65,4 @@ public class ArticleDisplayController extends BaseController<Article> {
         
         return mv;
 	}
-	@ModelAttribute
-    public Article findArticle(@RequestParam(value="id",required=false) Long id){
-        if (id == null) { // create
-            return new Article();
-        } else { // edit
-            return getRequiredEntity(id);
-        }
-    }
 }

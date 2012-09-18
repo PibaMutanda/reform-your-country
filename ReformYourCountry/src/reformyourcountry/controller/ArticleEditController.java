@@ -47,9 +47,8 @@ public class ArticleEditController extends BaseController<Article>{
 			System.out.println(result.getAllErrors());
 		    return new ModelAndView("redirect:articleedit","id",article.getId());
 		}else{
-			
 			articleRepository.merge(article);
-			return new ModelAndView("redirect:article", "id", article.getId());
+			return new ModelAndView("redirect:article/"+article.getUrl());
 		}
 
 	}

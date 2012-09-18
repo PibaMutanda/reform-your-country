@@ -19,6 +19,7 @@ import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.ArticleService;
 import reformyourcountry.util.DateUtil;
 import reformyourcountry.util.HTMLUtil;
+import reformyourcountry.web.UrlUtil;
 
 // Create and Edition of the parent (and title)
 @Controller
@@ -58,7 +59,7 @@ public class ArticleParentEditController extends BaseController<Article>{
 			articleService.changeParent(article, parentId);
 		}
 		
-		article.setUrl(HTMLUtil.getRewritedUrl(article.getTitle()));
+		article.setUrl(UrlUtil.computeUrlFragmentFromName(article.getTitle()));
 		
 	    return new ModelAndView ("redirect:article/"+article.getUrl());
 	}

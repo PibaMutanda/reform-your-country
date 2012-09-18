@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Home</title>
+<title>Enseignement2.be</title>
 </head>
 <body>
 <p class="title">Accueil</p>
