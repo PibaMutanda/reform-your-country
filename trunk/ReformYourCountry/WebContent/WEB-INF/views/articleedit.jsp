@@ -8,15 +8,23 @@
 <head>
 	
     <script src="<c:url value="js/ext/jquery.textarea-expander.js" />"></script>
-    <script src="<c:url value="js/int/autosave.js"/>" charset="UTF-8"></script>
+	<script src="<c:url value="js/int/help.js" />"></script>
+	<script src="<c:url value="js/int/autosave.js"/>" charset="UTF-8"></script>
 
-    <title>Page pour l'édition d'article</title>
+    <title>${article.title} - Edition</title>
 </head>
 
 <body>   
+	 <%-- Help handle --%>
+	 <div id="helphandle">
+	   <span style="color:#182947"><b>?</b></span>
+	   <div id="helptext"></div>  <%-- Will content the help text--%>
+	 </div>
+	 <br/>
 	<h1>Edit an article</h1>	
 	
 	 ${error}
+	 
 	 
 	 <form:form modelAttribute="article" action="articleeditsubmit">
 		<table>
