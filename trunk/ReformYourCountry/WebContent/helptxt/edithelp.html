@@ -1,6 +1,84 @@
+<!doctype html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+
+</head>
+<b>Aide BBCode</b><br/>
+<a href="#quote">1.quote</a>
+<a href="#link">2.link</a>
+<a href="#action">3.action</a>
+<a href="#image">4.image</a>
+<a href="#escape">5.escape</a>
 
 
-<u><b>help text2</b></u><br/>
 
 
-<label>[quote out="http://www.google.be" author="une femme"]Je suis une citation �crite par une dame.[/quote]</label>
+<h2><a id = "quote">1.Quote</a>,rééférence bibliographique</h2>
+
+<h3>Reférencer un livre:</h3>
+<p>[quote bib="abreviation"]ma citation[/quote]<p>
+
+Affichera le texte "ma citation" ,sur lequel le deplacement de la souris créera une pop up qui référencera les details
+du livre renseigné par l'attribut "bib",bib étant l'abréviation du livre.Le titre du livre ,le nom de l'auteur et l'année
+de publication seront affichés sous le texte "ma citation".
+
+<h3>Reférencer un livre dans le texte:</h3>
+<p>[quote bib="abreviation" inline="true"]ma citation[/quote]<p>
+
+Affichera le texte "ma citation" , sur lequel le deplacement de la souris créera une pop up qui référencera les details
+du livre renseigné par l'attribut "bib",bib étant l'abréviation du livre.
+
+<h3>Réferencer un auteur:</h3>
+<p>[quote author="Anonyme" ]Sors les deux vaches qu'on les compte[/quote]</p>
+
+Affichera "Sors les deux vaches qu'on les compte" .Le text sera suivi du nom de l'auteur.
+
+<h3>Réferencer un auteur avec un lien web externe:</h3>
+<p>[quote author="Anonyme" out="www.site.com"]Sors les deux vaches qu'on les compte[/quote]</p>
+
+Affichera "Sors les deux vaches qu'on les compte" .Le text sera suivi du nom de l'auteur,sur lequel le lecteur pourra cliquer.
+
+<h2>Attributs</h2>
+<table>
+<tr><th>Nom</th><th>Usage</th><th>Type</th><th>Description</th></tr>
+<tr><td>bib</td><td>optionel</td><td>alphanumérique</td><td>renseigne l'abreviation du livre existant dans la base de donnée</td></tr>
+<tr><td>inline</td><td>optionel</td><td>"true" or "false"</td><td>si true , la citation sera affichée tel quel</td></tr>
+<tr><td>author</td><td>optionel  si "bib" pas utilisé</td><td>alphabétique</td><td>renseigne le nom d'un auteur d'une citation,le nom sera affiché sous la citation,ne  doit pas être utilisé conjointement de "bib"</td></tr>
+<tr><td>out</td><td>optionel si "author" est utilisé</td><td>url</td><td>affiche un lien html,ne peut-être utilisé que si l'attribut "author" est renseigné</td></tr>
+</table>
+
+<h2><a id = "link">2.Link</a></h2>
+
+
+<h3>Référencer un lien</h3>
+
+<p>[Link article="abcd"]un article[/link]</p>
+
+<p>Affichera un lien html vers un article enregistré sur enseignement2.be.</p>
+
+<h3>Référencer un lien dans une citation</h3>
+
+<p>[quote]Je suis une citation avec [link article="the-great-article-inside"]un hyperlien[/link] vers un autre article dedans[/quote]</p>
+
+<p>Affichera une citation avec un lien html à l'intérieur</p>
+
+
+<h3>Référencer un lien labélisé</h3>
+<p>[link out="http://lesoir.be/" label="Journal le soir, article du 11 mai 2012"]hyperlien[/link]</p>
+
+<p> Affichera "Journal le soir, article du 11 mai 2012" cliquable et affichera la page "http://lesoir.be/".
+<h2>Attributs</h2>
+<table>
+<tr><th>Nom</th><th>Usage</th><th>Type</th><th>Description</th></tr>
+<tr><td>article</td><td>optionel</td><td>alphanumérique</td><td>renseigne l'URI d'un article du site enseignement2.be</td></tr>
+<tr><td>out</td><td>optionel</td><td>URL</td><td>renseigne un lien web vers lequel le lecteur sera redirigé</td></tr>
+<tr><td>abrev</td><td>optionel</td><td>alphabétique</td><td>abréviation d'un article d'enseignement2.be</td></tr>
+<tr><td>label</td><td>optionel </td><td>alphabétique</td><td>texte utilisé pour afficher le lien web</td></tr>
+</table>
+
+<h2><a id="action">3.Action</a></h2>
+
+
+
+</html>
