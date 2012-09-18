@@ -37,6 +37,12 @@ public class HTMLUtil {
 
     }
 
-    
+    public static String getRewritedUrl (String title){
+        
+        title = title.replace(" ", "-");
+        title = title.replace(".", "%2E");
+        return title;
+        
+    }
 
 }

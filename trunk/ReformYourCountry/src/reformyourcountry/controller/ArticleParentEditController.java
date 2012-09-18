@@ -18,6 +18,7 @@ import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.ArticleService;
 import reformyourcountry.util.DateUtil;
+import reformyourcountry.util.HTMLUtil;
 
 // Create and Edition of the parent (and title)
 @Controller
@@ -42,7 +43,7 @@ public class ArticleParentEditController extends BaseController<Article>{
 			@RequestParam("parentid") Long parentId){
 		
 		SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
-		
+	
 		if (result.hasErrors()){
 			return new ModelAndView ("articleparentedit", "article", article);
 		} 
@@ -57,7 +58,9 @@ public class ArticleParentEditController extends BaseController<Article>{
 			articleService.changeParent(article, parentId);
 		}
 		
-		return new ModelAndView ("redirect:article", "id", article.getId());
+		article.setUrl(HTMLUtil.getRewritedUrl(article.getTitle()));
+		
+	    return new ModelAndView ("redirect:article/"+article.getUrl());
 	}
 
 
