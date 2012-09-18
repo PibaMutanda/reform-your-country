@@ -135,7 +135,21 @@
 
 
 
-<li><a href="template-blog.html"><span><strong>Blog</strong><span class="navi-description">articles &amp; ideas</span></span></a>
+<li class="login-link">
+      <c:choose>
+        <c:when test="${current.user!=null}">
+          <a id="logout" href="logout"><span><strong>Déconnexion</strong></span></a>
+          <a><span><c:out value="${current.user.userName}"></c:out></span></a><br />
+        </c:when>
+        <c:otherwise>
+            <a class="login" style="cursor:pointer;"><span><strong>Connexion</strong></span></a><br />
+            <a href="register"><span>Créer un compte</span></a>
+         </c:otherwise>
+     </c:choose>
+</li>
+
+
+
 <li>
 <form method="get" id="searchform" action="#" class="search-form">
 <fieldset>
@@ -147,7 +161,10 @@
 </form>
 </li></ul>
 <!-- ***************** - END Main Navigation - ***************** -->
-
+<!-- Hidden div that JavaScript will move in a dialog box when we press the login link -->
+<div id ="logindialog" style = "display:none;">
+ 
+</div>
 
 
 
