@@ -2,9 +2,13 @@ package reformyourcountry.converter;
 import java.util.HashSet;
 import java.util.Set;
 
+import antlr.debug.ParserListener;
+
+import reformyourcountry.model.Article;
 import reformyourcountry.model.Book;
 import reformyourcountry.parser.BBDomParser;
 import reformyourcountry.parser.BBTag;
+import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.repository.BookRepository;
 import reformyourcountry.util.HTMLUtil;
 import reformyourcountry.web.UrlUtil;
@@ -23,6 +27,7 @@ public class BBConverter {
 	String html;
 	
 	BookRepository bookRepository;  // No @Autowired because we are not in a Spring bean.
+	ArticleRepository articleRepository;
 	private Set<Book> booksRefferedInTheText = new HashSet<Book>();  // To collect the books seen in the [quote bib="..."] and [link bib="..."].
 	
 
@@ -32,9 +37,9 @@ public class BBConverter {
 	/////////////////////////////////// PUBLIC ///////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////
 	
-	public BBConverter(BookRepository bRep) {
+	public BBConverter(BookRepository bRep, ArticleRepository aRep) {
 	    bookRepository = bRep;
-	
+	    articleRepository = aRep;
 	}
 	
 	
@@ -80,7 +85,7 @@ public class BBConverter {
 		
 		// TODO: Loop through the set of books to generate the bood divs (call a method).
 	}
-	 
+	
 	private void processTag(BBTag tag) {
 		switch(tag.getName()) {
 		
@@ -111,49 +116,17 @@ public class BBConverter {
 	}
 
 	private void processLink(BBTag tag) {
-		String article = tag.getAttributeValue("article");
-        String abrev = tag.getAttributeValue("abrev");
-		String content="";
-		content = getInnerTextContent(tag);
+		String abrev = tag.getAttributeValue("article");//until pretty url system isn't implemented , use of id for abrev
+		String content = getInnerTextContent(tag);
 		
-		
-		if (article == null){
-		    if (abrev !=null){
-		        html+= "<div class=\"bookdiv\">"
-		                +"<label class=\"book\">"+content+"</label>"
-		                +"<input type =\"hidden\" name=\"abrev\" value=\"" 
-		                +abrev+"\">"
-		                +"</div>";
-		    }else{
-		        String out = tag.getAttributeValue("out");
-		        String label = tag.getAttributeValue("label");
-		        html+= "<a href=\""+out+"\">"+content+"</a>";
-			}
-		}else
-		{
-			html+= "<a href=\"/Article/"+article+"\">"+content+"</a>";
-		}
-		
-	}
+		Article article = articleRepository.find(Long.parseLong(abrev)); //TODO use abbrev when implemented
 
-	private String getInnerTextContent(BBTag tag) {
-		String content = "";
-		for (BBTag child: tag.getChildrenList())
-		{
-			switch (child.getType()){
-			case Text: 
-				content+= child.getContent();
-				break;
-			case Error:
-				addErrorMessage(child);
-				return "";
-			case Tag: 
-				addErrorMessage("this tag cannot contains other tags", child);
-				return "";
-				
-			}
-		}
-		return content;
+        if (article == null) {
+            addErrorMessage("Article not found in DB for article = '"+abrev+"'", tag);
+            return;
+        };
+		
+		html+= "<a href=\"article?id="+abrev+"\">"+content+"</a>";//TODO use /article/"article.url" when pretty url implemented
 	}
 
 	private void processAction(BBTag tag) {
@@ -180,6 +153,26 @@ public class BBConverter {
 		// }
 		
 		html += "<div class=\"action-title\">" + "Coca gratuit" + "</div><div class=\"action-body\">"+"Il faut que le coca-cola soit gratuit chez TechnofuturTic"+"</div>"; 
+	}
+	
+	private String getInnerTextContent(BBTag tag) {
+		String content = "";
+		for (BBTag child: tag.getChildrenList())
+		{
+			switch (child.getType()){
+			case Text: 
+				content+= child.getContent();
+				break;
+			case Error:
+				addErrorMessage(child);
+				return "";
+			case Tag: 
+				addErrorMessage("this tag cannot contains other tags", child);
+				return "";
+				
+			}
+		}
+		return content;
 	}
 
 	/** Retruns false if attribute = "false" or if not defined. */
