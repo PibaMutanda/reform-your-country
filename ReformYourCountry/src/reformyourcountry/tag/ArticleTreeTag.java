@@ -104,7 +104,7 @@ public class ArticleTreeTag extends SimpleTagSupport{
 			}
 		}
 		if (link == true) {
-            result += "<a href =\"article?id="+article.getId().toString()+"\">";
+            result += "<a href =\"article/"+article.getUrl()+"\">";
 		}
 		result += article.getTitle();
 		if (link == true) {

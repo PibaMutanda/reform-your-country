@@ -7,12 +7,16 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.converter.BBConverter;
 import reformyourcountry.model.Article;
+import reformyourcountry.repository.ActionRepository;
+import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.repository.BookRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
@@ -21,13 +25,14 @@ import reformyourcountry.security.SecurityContext;
 public class ArticleDisplayController extends BaseController<Article> {
     
     @Autowired BookRepository bookRepository;
+    @Autowired ArticleRepository articleRepository;
     
-	@RequestMapping(value={"/article"})
-	public ModelAndView displayArticle(@RequestParam(value="id") long id){
+	@RequestMapping(value={"/article/{articleUrl}"})
+	public ModelAndView displayArticle( @PathVariable("articleUrl") String articleUrl){
 
 		ModelAndView mv = new ModelAndView("articledisplay");
 
-		Article article = getRequiredEntity(id);
+		Article article = articleRepository.findArticleByUrl(articleUrl);
         mv.addObject("article", article);
 
         // For the breadcrumb
@@ -61,5 +66,12 @@ public class ArticleDisplayController extends BaseController<Article> {
         
         return mv;
 	}
-
+	@ModelAttribute
+    public Article findArticle(@RequestParam(value="id",required=false) Long id){
+        if (id == null) { // create
+            return new Article();
+        } else { // edit
+            return getRequiredEntity(id);
+        }
+    }
 }

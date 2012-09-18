@@ -23,7 +23,7 @@ public class Article extends BaseEntity {
 	@Column(length = 100)
 	private String title;
 
-	private String url;
+	private String url; //Used to create a more readable URL; derived from the title (ie: if the title is "Le Web 2.0", url will be "le-Web-2.0") 
 
 	@Lob
 	private String summary;

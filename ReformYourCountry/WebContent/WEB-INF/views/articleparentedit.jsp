@@ -22,7 +22,7 @@ list-style-type:none;
 			<c:when test="${article.id != null}">Editer le parent d'un article</c:when>
 			<c:otherwise>Créer un article</c:otherwise>
 		</c:choose></h1>
-		<ryctag:form action="articleparenteditsubmit" modelAttribute="article">
+		<ryctag:form action="articleparenteditsubmit" modelAttribute="article" method="post">
 			<ryctag:input path="title" label="Titre"/>
 			<form:hidden path="id" value="${article.id}"/>
 			<input type="submit" value="<c:choose><c:when test="${article.id !=null}">Sauver</c:when>

@@ -273,7 +273,7 @@ public class BatchCreate implements Runnable {
         }
 
         article.setSummary("1.Échanger pour se former/2.Construire ensemble/3.Du plaisir de la mise en réseau");
-        article.setUrl("http://www.cahiers-pedagogiques.com/Le-Web-2-0-et-les-profs.html");
+        article.setUrl("Le Web 2.0 et les profs");
 
 
         em.persist(article);
