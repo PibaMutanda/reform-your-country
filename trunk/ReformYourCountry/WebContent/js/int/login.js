@@ -38,6 +38,7 @@ $(document).ready(function() {			   // do stuff when DOM is ready
 
 	$(".login").click(function(){  // To open the dialog box when clicking on the upper right corner login link.
 		// 1. initialise jquery ui dialog box. It is empty and does not open.
+		console.log("login");
 		$('#logindialog').dialog({
 			title :   "Identification",
 			autoOpen: false,
