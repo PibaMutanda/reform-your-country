@@ -22,7 +22,7 @@ public class Article extends BaseEntity {
 	@NotBlank//Hibernate constraint, improves upon @NotNull
 	@Column(length = 100)
 	private String title;
-
+		
 	private String url; //Used to create a more readable URL; derived from the title (ie: if the title is "Le Web 2.0", url will be "le-Web-2.0") 
 
 	@Lob
@@ -47,16 +47,6 @@ public class Article extends BaseEntity {
 	@OneToMany(mappedBy = "parent")
 	private List<Article> children = new ArrayList <Article>();
 
-
-	public Article() {
-	}
-
-
-	public Article(String title, String content) {
-
-		this.title = title;
-		this.content = content;
-	}
 
 	public String getTitle() {
 		return title;
