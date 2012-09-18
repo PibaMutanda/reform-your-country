@@ -21,7 +21,7 @@
 				<td>${user.userName}</td>
 				<td>${user.firstName}</td>
 				<td>${user.lastName}</td>
-				<td><a href="user?id=${user.id}">Afficher les détails</a></td>
+				<td><a href="user?username=${user.userName}">Afficher les détails</a></td>
 			</tr>
 		</c:forEach>
 	</table>
