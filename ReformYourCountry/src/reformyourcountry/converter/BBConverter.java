@@ -85,7 +85,7 @@ public class BBConverter {
 		
 		// TODO: Loop through the set of books to generate the bood divs (call a method).
 	}
-	
+	 
 	private void processTag(BBTag tag) {
 		switch(tag.getName()) {
 		
@@ -112,7 +112,22 @@ public class BBConverter {
 	}
 	
 	private void processImage(BBTag tag) {
-	    html+="<img src=\"gen/article/"+tag.getAttributeValue("name")+"\" width=\""+tag.getAttributeValue("width")+"\"/>";
+	    if(tag.getAttributeValue("name") != null){
+	    
+	    html+="<img src=\"gen/article/"+tag.getAttributeValue("name")+"\"";
+	    
+	    if(tag.getAttributeValue("width") != null)
+	        html +=" width=\""+tag.getAttributeValue("width")+"\"";
+	    
+	    if(tag.getAttributeValue("style") != null)
+	        html+=" style=\""+tag.getAttributeValue("style")+"\"";
+	    
+	     html += "/>";
+	    }
+	    else{
+	        
+	        addErrorMessage("You must specifie a name for the image",tag);
+	    }
 	}
 
 	private void processLink(BBTag tag) {
