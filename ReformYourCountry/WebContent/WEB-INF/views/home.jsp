@@ -8,8 +8,8 @@
 <title>Enseignement2.be</title>
 </head>
 <body>
-<p class="title">Accueil</p>
-Enseignement2.be rassemble des pistes sur l'amélioration de l'enseignement en Belgique francophone.
+
+<a href="home">Enseignement2.be</a> rassemble des pistes sur l'amélioration de l'enseignement en Belgique francophone.
 
 <p class="subtitle">D'abord, pourquoi changer?</p>
 

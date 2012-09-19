@@ -1,73 +1,84 @@
-.title {
+.title{
 	font-size: 26px;
-	color: rgb(67, 84, 126);
-	font-weight: bold;
+    color:rgb(67, 84, 126);
+    font-weight: bold;
 }
-
-.subtitle {
-	color: rgb(67, 84, 126);
-	font-weight: bold;
-	text-decoration: underline;
+.subtitle{
+    color:rgb(67, 84, 126);
+    font-weight: bold;
+    text-decoration: underline;
+	
 }
-
-.logo {
+.logo{
 	font-size: 40px;
-	float: left;
+	float:left;
 }
 /*Separating line*/
-.line {
-	color: rgb(67, 84, 126);
+.line{
+	color:rgb(67, 84, 126);
+}
+.v-2{
+	 background-color: #ff0000;
+}
+.v-1{
+	 background-color: #ff8800;
+}
+.v0{
+	 background-color: #ffff00;
 }
 
-.v-2 {
-	background-color: #ff0000;
+.v1{
+	 background-color: #88ff00;
 }
 
-.v-1 {
-	background-color: #ff8800;
+.v2{
+	 background-color: #00ff00;
 }
-
-.v0 {
-	background-color: #ffff00;
+.vote{
+	display: inline-block; width: 20px; height: 20px; text-align: center;
 }
-
-.v1 {
-	background-color: #88ff00;
-}
-
-.v2 {
-	background-color: #00ff00;
-}
-
-.vote {
-	display: inline-block;
-	width: 20px;
-	height: 20px;
-	text-align: center;
-}
-
-.selected {
+.selected{
 	border: .2em solid #000;
 }
-
-.login-link {
-	text-align: right;
+.login-link{
+	background-color: #1f3252;
+ 	text-align: right; 
+ 	padding-right: 200px;
+/* 	float:right; */
+/* 	position:relative; */
+/* 	width:200px;	 */
+}
+.login-link a{
+	color:#7D92B9 ;
+	text-decoration: none;
+}
+.login-link a:hover{
+	color:#ffffff ;
+	text-decoration: none;
+}
+.error{
+    color:rgb(255, 60, 60);
+    font-weight: bold;
+    text-decoration: underline;
+	
+}
+.subarticle{
+display: block;
+padding: 4px 0 8px 20px;
+height: 1%;
+position: relative;
+margin: 0 13px 0 0;
 }
 
-.error {
-	color: rgb(255, 60, 60);
-	font-weight: bold;
-	text-decoration: underline;
-}
 /*Style for article display (articledisplay.jsp)*/
 
 /* div defining the content of a book displayed on the bibliography page and in the tooltip */
-.book {
+.book { 
 	text-align: left;
 }
 
 .imgbook {
-	float: left;
+	float:left;
 }
 
 .bibref-after-block {
@@ -79,33 +90,13 @@
 	margin-left: 50px;
 }
 
-.quote-block {
-	margin-left: 50px;
-	padding-top: 25px;
+.quote-block{
+	
+	margin-left:50px;
+	padding-top:25px;
+	
+   
 }
-
-.quote-inline {
-	font-style: italic;
-}
-
-
-/************** Article Display ******************************************/
-/*this div.pos, #text define the position of the help button and its text*/ 
-#helphandle, #helptext {
-	position: fixed;
-}
-/*#text defines the form of the help text*/
-#helptext {
-	color: blue;
-	width: 690px;
-	height: 400px;
-	background: #e5eecc;
-	border: solid 1px #c3c3c3;
-	text-align: left;
-	opacity:0.8;
-	overflow:scroll;
-}
-
 
 .quote-inline{
 	font-style:italic;

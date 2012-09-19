@@ -2,7 +2,8 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator"
 	prefix="decorator"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 
 <!-- <!DOCTYPE html > -->
 <!-- <html> -->
@@ -39,8 +40,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
 <head>
 
-<base href="/ReformYourCountry/">
-<meta charset="UTF-8">
+<base href="/ReformYourCountry/"/>
+<meta charset="UTF-8"/>
 
 <!-- Force latest IE rendering engine or ChromeFrame if installed -->
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
@@ -48,12 +49,12 @@
 <!-- Shim to make HTML5 elements usable in older Internet Explorer versions -->
 <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
-<meta name="viewport" content="width=device-width">
+<meta name="viewport" content="width=device-width"/>
 
 <link rel="stylesheet" type="text/css" href="css/ryc-style.css" />
 <link rel="stylesheet" type="text/css" href="css/template.css" />
 <link rel="stylesheet" type="text/css" href="css/content.css" />
-
+<link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 <link rel="stylesheet" href="css/jquery-ui-1.8.23.custom.css"><%-- Jquery added here because they're used inside custom tags, done so to ease maintenance--%>
 <script src="js/ext/jquery-1.8.0.min.js"></script><%-- jquery depandencies --%>
 <script src="js/ext/jquery-ui-1.8.23.custom.min.js"></script><%-- jquery depandencies --%>
@@ -77,7 +78,19 @@
 <div id="wrapper">
 <div id="header">
 
-
+	<div class="login-link">
+	      <c:choose>
+	        <c:when test="${current.user!=null}">
+	          <a id="logout" href="logout">Déconnexion</a>
+	          <a><c:out value="${current.user.userName}"></c:out></a>
+	        </c:when>
+	        <c:otherwise>
+	            <a class="login" style="cursor:pointer;">Connexion</a>&nbsp;&nbsp;&nbsp;
+	            <a href="register">Créer un compte</a>
+	         </c:otherwise>
+	     </c:choose>
+	
+	</div>
 
 
 <div class="header-holder">
@@ -97,69 +110,46 @@
 <div class="logodiv" ><a href="home"><img src="images/logo/enseignement2-logo-white-small.png"/></a></div>
 <!-- ***************** - END LOGO - ***************** -->
 <ul id="menu-main-nav">
-<li><a href="content-3d-effects.html"><span><strong>Features</strong><span class="navi-description">about this theme</span></span></a>
-<ul class="sub-menu">
-	<li><a href="content-3d-effects.html"><span>Amazing 3D Effects</span></a></li>
-	<li><a href="content-code-snippets.html"><span>100+ Code Snippets</span></a></li>
-    <li><a href="content-pricing-tables.html"><span>Pricing Tables</span></a></li>
-	<li><a href="content-20-page-layouts.html"><span>20 Page Layouts</span></a></li>
-	<li><a href="content-20-color-variations.html"><span>20 Color Variations</span></a></li>
-	<li><a href="content-ajax-contact-form.html"><span>AJAX + PHP Contact Form</span></a></li>
-	<li><a href="content-top-notch-support.html"><span>Top Notch Customer Support</span></a></li>
-	</ul>
-</li>
+	<li><a href="content-3d-effects.html"><span><strong>UTILISATEURS</strong>
+	<span class="navi-description">utilisateurs actifs</span></span></a>
+		<ul class="sub-menu">
+			<li><a href="content-code-snippets.html"><span>groupes</span></a></li>
+		</ul>
+	</li>
+	
+	<li ><a href="index-jquery-2.html"><span><strong>Bibliographie</strong>
+		<span class="navi-description">voir liste des livres</span></span></a>
 
-<li class="current_page_item"><a href="index-jquery-2.html"><span><strong>Pages</strong><span class="navi-description">layout templates</span></span></a>
-<ul class="sub-menu">
- <li><a href="index-jquery-2.html"><span>Homepage &#8211; jQuery 2</span></a></li>
- <li><a href="index-video-left.html"><span>Homepage &#8211; Video Left</span></a></li>
- <li><a href="index-video-right.html"><span>Homepage &#8211; Video Right</span></a></li>
- <li><a href="index-3d-1.html"><span>Homepage &#8211; 3D 1</span></a></li>
- <li><a href="index-3d-2.html"><span>Homepage &#8211; 3D 2</span></a></li>
- <li class="current-menu-item"><a href="template-leftnav.html"><span>Left Nav</span></a></li>
- <li><a href="template-leftnav-sidebar.html"><span>Left Nav + Sidebar</span></a></li>
- <li><a href="template-leftsidebar.html"><span>Left Sidebar + No Nav</span></a></li>
- <li><a href="template-leftsidebar-horizontal-nav.html"><span>Left Sidebar + Horizontal Nav</span></a></li>
- <li><a href="template-rightnav.html"><span>Right Nav</span></a></li>
- <li><a href="template-rightnav-sidebar.html"><span>Right Nav + Sidebar</span></a></li>
- <li><a href="template-rightsidebar.html"><span>Right Sidebar + No Nav</span></a></li>
- <li><a href="template-rightsidebar-horizontal-nav.html"><span>Right Sidebar + Horizontal Nav</span></a></li>
- <li><a href="template-fullwidth.html"><span>Full Width + No Nav</span></a></li>
- <li><a href="template-fullwidth-horizontal-nav.html"><span>Full Width + Horizontal Nav</span></a></li>
- <li><a href="template-contact-iphone.html"><span>Contact Page (iPhone)</span></a></li>
- <li><a href="template-contact-google-map.html"><span>Contact Page (Google map)</span></a></li>
- <li><a href="template-sitemap.html"><span>Sitemap</span></a></li>
- <li><a href="template-404error.html"><span>404 Error Page</span></a></li></ul>
-</li>
+	</li>
+	<li ><a href="index-jquery-2.html"><span><strong>A propos</strong><span class="navi-description">Qui sommes nous?</span></span></a>
+		<ul class="sub-menu">
+			 <li><a href="index-jquery-2.html"><span>Pourquoi ce site?</span></a></li>
+			 <li><a href="index-video-left.html"><span>Fonctionnalités</span></a></li>
+			 <li><a href="index-video-right.html"><span>Comment contribuer?</span></a></li>
+			 <li><a href="index-3d-1.html"><span>Contactez-nous</span></a></li>
+		 </ul>
+	</li>
+	
+	
+	
+	
+	
+	
+	
+	<li>
+		<form method="get" id="searchform" action="#" class="search-form">
+		<fieldset>
+		<span class="text">
+		 <input type="submit" class="submit" value="search" id="searchsubmit" />
+		 <input type="text" name="s" id="s" value="Search" onfocus="this.value=(this.value=='Search') ? '' : this.value;" onblur="this.value=(this.value=='') ? 'Search' : this.value;" />
+		</span>
+		</fieldset>
+		</form>
+	</li>
 
-
-
-
-<li class="login-link">
-      <c:choose>
-        <c:when test="${current.user!=null}">
-          <a id="logout" href="logout"><span><strong>Déconnexion</strong></span></a>
-          <a><span><c:out value="${current.user.userName}"></c:out></span></a><br />
-        </c:when>
-        <c:otherwise>
-            <a class="login" style="cursor:pointer;"><span><strong>Connexion</strong></span></a><br />
-            <a href="register"><span>Créer un compte</span></a>
-         </c:otherwise>
-     </c:choose>
-</li>
+</ul>
 
 
-
-<li>
-<form method="get" id="searchform" action="#" class="search-form">
-<fieldset>
-<span class="text">
- <input type="submit" class="submit" value="search" id="searchsubmit" />
- <input type="text" name="s" id="s" value="Search" onfocus="this.value=(this.value=='Search') ? '' : this.value;" onblur="this.value=(this.value=='') ? 'Search' : this.value;" />
-</span>
-</fieldset>
-</form>
-</li></ul>
 <!-- ***************** - END Main Navigation - ***************** -->
 <!-- Hidden div that JavaScript will move in a dialog box when we press the login link -->
 <div id ="logindialog" style = "display:none;">
@@ -169,6 +159,7 @@
 
 
 </div><!-- header-area -->
+
 </div><!-- end rays -->
 </div><!-- end header-holder -->
 </div><!-- end header -->
@@ -188,6 +179,7 @@
 
 <!-- ***************** - START sub-nav - ***************** -->
 <div id="sub_nav">
+<ryc:articlesTree link="true" />
 <ul class="sub-menu">
 <li class="current_page_item"><a href="#"><span>Left Nav</span></a></li>
 <li><a href="template-leftnav-sidebar.html"><span>Left Nav + Sidebar</span></a></li>

@@ -74,7 +74,26 @@
 
 
 
-<li><a href="template-blog.html"><span><strong>Blog</strong><span class="navi-description">articles &amp; ideas</span></span></a>
+<li><div class="login-link" >
+      <c:choose>
+        <c:when test="${current.user!=null}">
+          <c:out value="${current.user.userName}"></c:out><br />
+          <a id="logout" href="logout">Déconnexion</a>
+        </c:when>
+        <c:otherwise>
+            <a class="login" style="cursor:pointer;">Connexion</a><br />
+            <a href="register">Créer un compte</a>
+         </c:otherwise>
+     </c:choose>
+    
+</div>
+
+
+<!-- Hidden div that JavaScript will move in a dialog box when we press the login link -->
+<div id ="logindialog" style = "display:none;">
+ 
+</div>
+
 <li>
 <form method="get" id="searchform" action="#" class="search-form">
 <fieldset>

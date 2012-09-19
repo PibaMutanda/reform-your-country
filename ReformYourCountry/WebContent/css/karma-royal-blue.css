@@ -38,7 +38,7 @@
 #menu-main-nav .drop ul li.current-menu-item a span,
 #menu-main-nav .drop ul .drop ul li.current-menu-item a,
 #menu-main-nav .drop ul .drop ul li.current-menu-item a span{text-decoration:none;color:#6984AB !important;} /* B. active dropdown link color (if different than A)  */
-#menu-main-nav li {background:url(../images/_global/seperator-main-nav.png) 0 50% no-repeat !important;}
+#menu-main-nav li {background:url(../images/_global/seperator-main-nav.png) 0 50% repeat-y !important;}
 
 /* dropdown */
 #menu-main-nav .drop .t {background:url(../images/_global/global-sprite.png) -724px -938px no-repeat !important;}
