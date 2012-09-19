@@ -529,10 +529,11 @@ public class BatchCreate implements Runnable {
 
 		GroupReg groupReg = new GroupReg();
 
-		User user1 = userRepository.getUserByEmail(user.getUserName());
-		groupReg.setUser(user1);
+		
+		groupReg.setUser(user);
 		groupReg.setGroup(group);
 
+		//em.persist(groupReg);
 		em.merge(groupReg);
 		
 		return groupReg;
