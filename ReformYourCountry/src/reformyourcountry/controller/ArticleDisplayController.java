@@ -7,10 +7,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.converter.BBConverter;
@@ -60,7 +58,7 @@ public class ArticleDisplayController extends BaseController<Article> {
         }
 
         mv.addObject("showContent", (article.isPublished() || SecurityContext.isUserHasPrivilege(Privilege.EDIT_ARTICLE)));
-        BBConverter bbc = new BBConverter(bookRepository);
+        BBConverter bbc = new BBConverter(bookRepository, articleRepository);
         mv.addObject("articleContent", bbc.transformBBCodeToHtmlCode(article.getContent()));
         
         return mv;
