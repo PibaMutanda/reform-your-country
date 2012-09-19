@@ -116,10 +116,10 @@ body {margin:0;background:#f4f4f2;font:1.2em/19px "helvetica neue",Helvetica,Ari
 /* 1. GENERAL LAYOUT
 /*---------------------------------------------------------------*/
 #wrapper {width:100%;display:table;}
-#wrapper #header {display:table-header-group;height:}
+#wrapper #header {display:table-header-group;max-height:135px;}
 .top-block .top-holder {width:980px;margin:0 auto;font-size:10px;padding:4px 0;min-height:4px;height:auto;}
 .top-block .top-holder:after {clear:both;display:block;content:"";}
-#header .rays {background: url(../images/_global/rays.png) 50% 0 no-repeat;}
+#header .rays {background: url(../images/_global/rays.png) 50% 0 no-repeat;height:135px;}
 #header .header-area {width:980px;margin:0 auto;padding:38px 0 33px 0;}
 #header .header-area:after {clear:both;display:block;content:"";}
 #main {background:url(../images/_global/bg-main.gif) repeat-x;display:table-footer-group;position:relative;width:100%;}
@@ -549,7 +549,7 @@ body {margin:0;background:#f4f4f2;font:1.2em/19px "helvetica neue",Helvetica,Ari
 /*---------------------------------------------------------------*/
 #menu-main-nav {list-style:none;margin:0;padding:0;list-style:none;float:right;}
 #menu-main-nav a {outline: none;}
-#menu-main-nav li {float:left;padding:5px 31px 12px 13px;position:relative;vertical-align:top;height:1%;margin-right: 2px;}
+#menu-main-nav li {float:left;padding:5px 31px 12px 13px;position:relative;vertical-align:top;height:1%;margin-right: 2px;min-height:30px;}
 #menu-main-nav ul li {background: none !important;}
 #menu-main-nav li.parent:hover {position:relative;}
 #menu-main-nav li.parent li.parent:hover {background:none !important;}
@@ -654,7 +654,7 @@ body {margin:0;background:#f4f4f2;font:1.2em/19px "helvetica neue",Helvetica,Ari
 /* 4. BREADCRUMBS
 /*---------------------------------------------------------------*/
 .tools .breadcrumb {margin:0;padding:4px 0 19px 0;float:right;overflow:hidden;font-size:.9em;}
-.tools .breadcrumb a {padding:0 15px 0 7px;background:url(../images/_global/arrow-right.png) 100% 50% no-repeat;margin:0 0 0 6px;color:#FFF;outline: none;}
+.tools .breadcrumb a {padding:0 15px 0 7px;background:url(../images/_global/arrow-right.png) 100% 50% no-repeat;margin:0 0 0 6px;color:#FFF;outline: none;text-decoration:none;}
 .tools .breadcrumb a:hover {color:#CCC;}
 .tools .breadcrumb .current_crumb {background:url(../images/_global/arrow-up.png) 50% 100% no-repeat;padding:0 5px 23px 7px;font-weight: bold;}
 
@@ -1121,7 +1121,7 @@ input, textarea, select {vertical-align:middle;font-size:100%;}
 textarea, input {font-size:1em;font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;}
 .tools input, .tools textarea, .tools select {color:#fff;}
 form, fieldset {margin:0;padding:0;border-style:none;}
-.search-form {width:18px;margin:-2px 0 0 0px;}
+.search-form {}
 .search-form .text {display:block;overflow:hidden;height:20px;padding:8px 0 0 7px;}
 .search-form .text input {width:120px;background:none;border:0;padding:0;margin:-2px 8px 0 0;float:left;color:#ffffff;}
 .search-form .text .submit {font-size:0;line-height:0;text-indent:-9999px;width:15px;height:17px;margin:0 8px 0 0;cursor:pointer;}

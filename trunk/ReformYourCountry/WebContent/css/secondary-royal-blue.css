@@ -6,7 +6,8 @@
 /*---------------------------------------------------------------*/
 /* LINKS + LISTS
 /*---------------------------------------------------------------*/
-#content a, #sidebar a, .content_full_width a, p a strong {color:#456793;}
+#content a, #sidebar a, .content_full_width a, p a strong {color:#7D92B9;}
+#content a:hover {color:#cccccc;}
 #horizontal_nav ul a:hover, #horizontal_nav ul .current_page_item {background:url(../images/secondary-royal-blue/bg-horz-active.jpg) 100% 0 no-repeat;}
 #horizontal_nav ul .current_page_item span, #horizontal_nav ul a:hover span {background:url(../images/secondary-royal-blue/bg-horz-active.jpg) no-repeat;}
 .nav_right_sub_nav ul a:hover,

@@ -14,7 +14,6 @@ import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.web.ContextUtil;
 import reformyourcountry.web.UrlUtil;
 
-
 public class ArticleTreeTag extends SimpleTagSupport{
 
 
@@ -63,31 +62,34 @@ public class ArticleTreeTag extends SimpleTagSupport{
 						 " pas d'article parent");
 			}
 
-			displayArticleList(articles, out);
+			displayArticleList(articles, out,true);
 			
 		} catch(IOException e) {
 			throw new RuntimeException(e);
 		}
 	}
-
-	private void displayArticleList(Collection<Article> articles, JspWriter out) throws JspException, IOException { 
-		out.write("<ul>");         
+	
+	private void displayArticleList(Collection<Article> articles, JspWriter out,boolean isFirstPass) throws JspException, IOException { 
+		if (isFirstPass){
+		    out.write("<ul class=\"sub-menu\"><li>");         
+		}else{
+            out.write("<ul class=\"subarticle\"><li>");    
+		    
+		}
 		for (Article child: articles) {
 			displayArticle(child, out); 
 		}
-		out.write("</ul>");          
+		out.write("</li></ul>");          
 	}
 
 
-	private void displayArticle(Article article, JspWriter out) throws JspException, IOException {
-		out.write("<li>");      
+	private void displayArticle(Article article, JspWriter out) throws JspException, IOException { 
 		out.write(getArticleString(article));
-		displayArticleList(article.getChildren(), out);
-		out.write("</li>");       
+		displayArticleList(article.getChildren(), out,false);    
 	}
 	
 	private String getArticleString(Article article) {
-		String result = "<div class=\""+cssClass+"\">";
+		String result = "";
 		if (radio == true) {
 			if (articleFromRequest == null) {
 				throw new RuntimeException("Bug: if radio = true, an article should be attached to the request");
@@ -105,13 +107,12 @@ public class ArticleTreeTag extends SimpleTagSupport{
 			}
 		}
 		if (link == true) {
-            result += "<a href =\""+UrlUtil.getAbsoluteUrl("article/")+article.getUrl()+"\">";
+            result += "<a href =\"article/"+UrlUtil.getAbsoluteUrl("article/")+article.getUrl()+"\"><span>";
 		}
 		result += article.getTitle();
 		if (link == true) {
 			result += "</a>";
 		}
-		result += "</div>";
 		return result;
 	}	
 	
