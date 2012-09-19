@@ -35,8 +35,8 @@
 		<img alt="${user.userName}"
 			src="gen/user/resized/large/${user.id}.jpg<c:if test="${random!=null}">?random=${random}</c:if>" <%-- Random, to force the reload of the image in case it changes (but its name does not change) --%>
 			style="float: left" />
-	</c:if>
-
+	</c:if><br />
+    <a href=""></a>
 	Nom : ${user.lastName}
 	<br /> Prénom : ${user.firstName}
 	<br /> Pseudo : ${user.userName}
@@ -47,7 +47,11 @@
 	<br /> Dernier accès : ${user.lastAccess}
 	<br />
 	<br />
-
+    Mes groupes:
+    <c:forEach items="${user.groupRegs }" var="groupRegs"  >
+      <br /> ${groupRegs.group.name}
+   </c:forEach>
+    <br />
 	<c:if test="${canEdit}">
 mail : ${user.mail}<br />
 Dernière IP d'accès : ${user.lastLoginIp}<br />
