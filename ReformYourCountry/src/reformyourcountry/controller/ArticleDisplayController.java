@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,9 +18,12 @@ import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.repository.BookRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
+import reformyourcountry.util.Logger;
 
 @Controller
 public class ArticleDisplayController extends BaseController<Article> {
+    
+    @Logger Log log;
     
     @Autowired BookRepository bookRepository;
     @Autowired ArticleRepository articleRepository;
@@ -27,9 +31,15 @@ public class ArticleDisplayController extends BaseController<Article> {
 	@RequestMapping(value={"/article/{articleUrl}"})
 	public ModelAndView displayArticle( @PathVariable("articleUrl") String articleUrl){
 
+	    log.debug("display article i get articleUrl"+articleUrl);
+	    
 		ModelAndView mv = new ModelAndView("articledisplay");
 
 		Article article = articleRepository.findArticleByUrl(articleUrl);
+		
+		log.debug("i found "+article.getTitle());
+		log.debug("his content"+article.getContent());
+		
         mv.addObject("article", article);
 
         // For the breadcrumb
@@ -38,8 +48,6 @@ public class ArticleDisplayController extends BaseController<Article> {
         while((current = current.getParent()) != null){
             if(!current.getChildren().isEmpty())
             parentArticles.add(current);
-            
-
         }
         Collections.reverse(parentArticles);
         mv.addObject("parentsPath",parentArticles);
@@ -56,7 +64,7 @@ public class ArticleDisplayController extends BaseController<Article> {
             mv.addObject("publishMonth", month);
             mv.addObject("publishDay", day);
         }
-
+        
         mv.addObject("showContent", (article.isPublished() || SecurityContext.isUserHasPrivilege(Privilege.EDIT_ARTICLE)));
         BBConverter bbc = new BBConverter(bookRepository, articleRepository);
         mv.addObject("articleContent", bbc.transformBBCodeToHtmlCode(article.getContent()));
