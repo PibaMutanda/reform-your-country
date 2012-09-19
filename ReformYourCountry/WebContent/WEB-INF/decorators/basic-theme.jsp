@@ -3,8 +3,8 @@
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator"
 	prefix="decorator"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import ="reformyourcountry.web.ContextUtil" %>
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
-
 <!-- <!DOCTYPE html > -->
 <!-- <html> -->
 <!-- <head> -->
@@ -39,8 +39,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
 <head>
-
-<base href="/ReformYourCountry/"/>
+<c:choose>
+			<c:when test="<%= ContextUtil.devMode %>">				
+				<base href="/ReformYourCountry/"/>
+			</c:when>
+  		    <c:otherwise>
+			    <base href="/"/>
+			</c:otherwise>
+		</c:choose>
 <meta charset="UTF-8"/>
 
 <!-- Force latest IE rendering engine or ChromeFrame if installed -->
