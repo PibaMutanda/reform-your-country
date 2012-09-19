@@ -60,7 +60,10 @@
 <link rel="stylesheet" type="text/css" href="css/ryc-style.css" />
 <link rel="stylesheet" type="text/css" href="css/template.css" />
 <link rel="stylesheet" type="text/css" href="css/content.css" />
-<link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+<!-- <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" /> --><%--maybe must we put an ie condition --%>
+<link rel="icon" type="image/png" href="images/favicon.png">
+
 <link rel="stylesheet" href="css/jquery-ui-1.8.23.custom.css"><%-- Jquery added here because they're used inside custom tags, done so to ease maintenance--%>
 <script src="js/ext/jquery-1.8.0.min.js"></script><%-- jquery depandencies --%>
 <script src="js/ext/jquery-ui-1.8.23.custom.min.js"></script><%-- jquery depandencies --%>
