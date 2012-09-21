@@ -47,7 +47,6 @@
 			    <base href="/"/>
 			</c:otherwise>
 		</c:choose>
-<meta charset="UTF-8"/>
 
 <!-- Force latest IE rendering engine or ChromeFrame if installed -->
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
@@ -62,9 +61,9 @@
 <link rel="stylesheet" type="text/css" href="css/content.css" />
 
 <!-- <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" /> --><%--maybe must we put an ie condition --%>
-<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="icon" type="image/png" href="images/favicon.png"/>
 
-<link rel="stylesheet" href="css/jquery-ui-1.8.23.custom.css"><%-- Jquery added here because they're used inside custom tags, done so to ease maintenance--%>
+<link rel="stylesheet" href="css/jquery-ui-1.8.23.custom.css"/><%-- Jquery added here because they're used inside custom tags, done so to ease maintenance--%>
 <script src="js/ext/jquery-1.8.0.min.js"></script><%-- jquery depandencies --%>
 <script src="js/ext/jquery-ui-1.8.23.custom.min.js"></script><%-- jquery depandencies --%>
 <script src="js/int/datepicker.js" type="text/javascript"></script>
@@ -223,7 +222,7 @@
 </div><!-- end tools -->
 <!-- ***************** - END Title Bar - ***************** -->
 <div class="body-template">
-				<input type="hidden" name="message" value="${message }">
+				<input type="hidden" name="message" value="${message }"/>
 			
 				    <div>${message}<br/></div>
 					<decorator:body />
@@ -257,8 +256,9 @@
  <h3>Utilisateurs</h3>
  <div class="footer_post">
  <ul class="list sitemap-list">
- <li><a href="userlist">utilisateurs actifs</a>
- <li><a href="grouplist">groupes</a></ul>
+ <li><a href="userlist">utilisateurs actifs</a></li>
+ <li><a href="grouplist">groupes</a></li>
+ </ul>
 </div><!-- end footer_post -->
 </div><!-- end first one_fourth_column -->
 
@@ -271,11 +271,13 @@
 <h3>A propos</h3>
 <div class="footer_post">
 <ul class="list sitemap-list">
- <li><a href="#">Qui sommes nous?</a>
- <li><a href="#">Pourquoi ce site?</a>
- <li><a href="#">fonctionnalités</a>
- <li><a href="#">Comment contribuer?</a>
- <li><a href="#">Contactez-nous</a>
+ <li><a href="#">Qui sommes nous?</a></li>
+ <li><a href="#">Pourquoi ce site?</a></li>
+ <li><a href="#">fonctionnalités</a></li>
+ <li><a href="#">Comment contribuer?</a></li>
+ <li><a href="#">Contactez-nous</a></li>
+ </ul>
+
 </div><!-- end footer_post -->
 </div><!-- end third one_fourth_column -->
 
@@ -330,6 +332,7 @@
 
 
 
+</div>
 </div>
 <script type="text/javascript" src="js/jquery.cycle.all.min.js"></script>
 <script type="text/javascript" src="js/jquery-1-slider.js"></script>
