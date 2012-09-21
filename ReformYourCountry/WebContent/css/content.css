@@ -100,3 +100,19 @@
 #content{
 	
 }
+/************** Article Display ******************************************/
+/*this div.pos, #text define the position of the help button and its text*/ 
+#helphandle, #helptext {
+	position: fixed;
+}
+/*#text defines the form of the help text*/
+#helptext {
+	color: blue;
+	width: 690px;
+ 	height: 400px; 
+	background: #e5eecc;
+	border: solid 1px #c3c3c3;
+	text-align: left;
+	opacity:0.8;
+	overflow:scroll;
+}
