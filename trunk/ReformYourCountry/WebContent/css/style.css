@@ -597,16 +597,16 @@ body {margin:0;background:#f4f4f2;font:1.2em/19px "helvetica neue",Helvetica,Ari
 /*---------------------------------------------------------------*/
 /* 2. VERTICAL SUB NAVIGATION
 /*---------------------------------------------------------------*/
-#sub_nav {float: left;width:160px;float:left;background:url(../images/_global/bg-sidebar.gif) 148px 0 repeat-y;padding-bottom:65px;overflow:hidden;}
-#sub_nav ul a {display:block;background:url(../images/_global/separator3.gif) 0 100% repeat-x;padding:4px 0 8px 20px;height:1%;position:relative;margin:0 13px 0 0;}
+#sub_nav {list-style-type: none;float: left;width:160px;float:left;background:url(../images/_global/bg-sidebar.gif) 148px 0 repeat-y;padding-bottom:0px;overflow:hidden;}
+#sub_nav ul a {list-style-type: none;display:block;background:url(../images/_global/separator3.gif) -10px 100% repeat-x;padding:0 0 0 0;height:1%;position:relative;margin:0 12px 0 0;}
 #sub_nav ul a:hover,
-#sub_nav ul li.current_page_item a {margin-right:0;color:#fff;text-decoration:none;}
-#sub_nav ul ul a {background:url(../images/_global/bullet1.gif) 0 9px no-repeat;padding:4px 0 1px 14px;}
-#sub_nav ul ul a:hover {display:block;text-decoration:underline;color:#666;position:relative;margin:0 13px 0 0;padding:4px 0 8px 20px;height:1%;}
-#sub_nav ul {margin:0;padding:0;list-style:none;}
-#sub_nav ul li {vertical-align:top;height:1%;}
-#sub_nav ul ul {list-style:none;margin:0;padding:9px 0 6px 31px;}
-#sub_nav ul ul ul {padding:5px 0 9px 23px;}
+#sub_nav ul li.current_page_item a {list-style-type: none;margin-right:0;color:#fff;text-decoration:none;}
+#sub_nav ul ul a {list-style-type: none;background:url(../images/_global/bullet1.gif) 0 -9px no-repeat;padding:0 0 0 ;}
+#sub_nav ul ul a:hover {display:block;text-decoration:underline;color:#666;position:relative;margin:0 13px 0 0;padding:0 0 0 0 ;height:1%;}
+#sub_nav ul {list-style-type: none;margin:0;padding:0;list-style:none;}
+#sub_nav ul li {list-style-type: none;vertical-align:top;height:1%;}
+#sub_nav ul ul {list-style-type: none;margin:0;padding:0 0 0 0;font-size:10px;}
+#sub_nav ul ul ul {list-style-type: none;padding:0 0 0 10px ;}
 
 
 .nav_right_sub_nav ul li.current_page_item ul li a,
