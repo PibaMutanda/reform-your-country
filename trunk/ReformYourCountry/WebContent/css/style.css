@@ -597,15 +597,16 @@ body {margin:0;background:#f4f4f2;font:1.2em/19px "helvetica neue",Helvetica,Ari
 /*---------------------------------------------------------------*/
 /* 2. VERTICAL SUB NAVIGATION
 /*---------------------------------------------------------------*/
-#sub_nav {list-style-type: none;float: left;width:160px;float:left;background:url(../images/_global/bg-sidebar.gif) 148px 0 repeat-y;padding-bottom:0px;overflow:hidden;}
-#sub_nav ul a {list-style-type: none;display:block;background:url(../images/_global/separator3.gif) -10px 100% repeat-x;padding:0 0 0 0;height:1%;position:relative;margin:0 12px 0 0;}
+#sub_nav {list-style-type: none;float: left;width:160px;float:left;background:url(../images/_global/bg-sidebar.gif) 100% 0 repeat-y;	padding-bottom:0px;overflow:hidden;}
+#sub_nav ul a {list-style-type: none;display:block;background:url(../images/_global/separator3.gif) 0 0 repeat-x;padding:0 0 0 0;height:1%;position:relative;margin:0 0 0 0;}
 #sub_nav ul a:hover,
-#sub_nav ul li.current_page_item a {list-style-type: none;margin-right:0;color:#fff;text-decoration:none;}
-#sub_nav ul ul a {list-style-type: none;background:url(../images/_global/bullet1.gif) 0 -9px no-repeat;padding:0 0 0 ;}
-#sub_nav ul ul a:hover {display:block;text-decoration:underline;color:#666;position:relative;margin:0 13px 0 0;padding:0 0 0 0 ;height:1%;}
-#sub_nav ul {list-style-type: none;margin:0;padding:0;list-style:none;}
+#sub_nav ul li.current_page_item a {list-style-type: none;margin-right:0;color:#ccc;text-decoration:none;}
+#sub_nav ul ul a {list-style-type: none;background:url(../images/_global/bullet1.gif) 0 -9px no-repeat;padding:0 0 0 ;margin-bottom: -5px}
+#sub_nav ul ul li a:hover,
+#sub_nav ul ul a:hover {display:block;color:#ccc;position:relative;margin:0 13px 0 0;padding:0 0 0 0 ;height:1%;}
+#sub_nav ul {list-style-type: none;margin:0;padding:0;list-style:none;font-size:14px;}
 #sub_nav ul li {list-style-type: none;vertical-align:top;height:1%;}
-#sub_nav ul ul {list-style-type: none;margin:0;padding:0 0 0 0;font-size:10px;}
+#sub_nav ul ul {list-style-type: none;margin:0;padding:0 0 0 0;font-size:11px;}
 #sub_nav ul ul ul {list-style-type: none;padding:0 0 0 10px ;}
 
 
@@ -676,9 +677,9 @@ body {margin:0;background:#f4f4f2;font:1.2em/19px "helvetica neue",Helvetica,Ari
 /*---------------------------------------------------------------*/
 /* 1. GENERAL LINKS
 /*---------------------------------------------------------------*/
-a {color:#666;outline: none;}
+a {color:#666;outline: none; text-decoration: none;}
 #menu-main-nav a, #sub_nav a, #wrapper .tabset a {text-decoration: none;}
-a:hover { text-decoration:underline;}
+a:hover { text-decoration:none;}
 #header .logo {float:left;margin-left:22px;outline: none;}
 #header .sub-nav a, #header .sub-nav2 a {color: #575C60;text-decoration: none;}
 #header .sub-nav a:hover, #header .sub-nav2 a:hover {color: #8B949A;}
@@ -720,12 +721,14 @@ a:hover { text-decoration:underline;}
 /*---------------------------------------------------------------*/
 .ka_button, .ka_button:hover {text-decoration: none;border: 0;display:inline-block;letter-spacing:1.2px;text-transform: uppercase;color: #DDD !important;}
 .ka_button span {display:block;}
+.ka_button input {display:block;}
 .small_button{margin:5px 10px 5px 0;padding:0 21px 0 0;font-size: .9em;background: transparent url(../images/_global/bg-buttons-sprite.png) 100% -43px no-repeat scroll;color: #F4F4F2;}
 .small_button span{margin:0;padding:16px 0 17px 21px;line-height: 10px;background:transparent url(../images/_global/bg-buttons-sprite.png) 0 0 no-repeat scroll;}
+.small_button input{margin:0;padding:16px 0 17px 21px;line-height: 10px;background:transparent url(../images/_global/bg-buttons-sprite.png) 0 0 no-repeat scroll;border:none;}
 
 
 .medium_button{margin:5px 10px 5px 0;padding:0 23px 0 0;font-size: 1em;background: transparent url(../images/_global/bg-buttons-sprite.png) 100% -136px no-repeat scroll;color: #F4F4F2;}
-.medium_button span{margin:0;padding:19px 0 19px 23px;line-height: 12px;background:transparent url(../images/_global/bg-buttons-sprite.png) 0 -86px no-repeat scroll;}
+.medium_button span{margin:0;padding:19px 0 19px 23px;line-height: 12px;background:transparent url(../images/_global/bg-buttons-sprite.png) 0 -86px no-repeat scroll;border:none;}
 
 
 .large_button{margin:5px 10px 5px 0;padding:0 34px 0 0;font-size: 1.1em;background: transparent url(../images/_global/bg-buttons-sprite.png) 100% -261px no-repeat scroll;color: #F4F4F2;border:0;outline:none;cursor:pointer;}
@@ -1801,3 +1804,18 @@ border-radius: 5px;
 /* Added By cedric
 /*---------------------------------------------------------------*/
 .logodiv {cursor:pointer; float:left;  padding-top: 28px;}
+.button{
+	margin: 0;
+padding: 16px 0 17px 21px;
+line-height: 10px;
+background: transparent url(images/_global/bg-buttons-sprite.png) 0 0 no-repeat scroll;
+}
+.spanbutton{
+	background-image: url(images/_global/bg-buttons-sprite-royalblue.png) !important;
+}
+.small{
+	margin: 5px 10px 5px 0px;
+padding: 0px 21px 0px 0px;
+font-size: 0.9em;
+background: url("../images/_global/bg-buttons-sprite.png") no-repeat scroll 100% -43px transparent;
+}

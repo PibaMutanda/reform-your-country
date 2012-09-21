@@ -14,15 +14,15 @@
 .nav_right_sub_nav ul li.current_page_item a {background:url(../images/secondary-royal-blue/sprite.png) 0px -39px no-repeat !important;}
 
 #sub_nav ul li.current_page_item a {background:url(../images/secondary-royal-blue/sprite.png) -62px 0px no-repeat;}
-#sub_nav ul a:hover{background-color:#1f3252;}
+#sub_nav ul a:hover{}
 #sub_nav ul ul a,
 #sub_nav ul ul a:hover,
 .list li,
 #sidebar ul li,
 #sub_nav ul li.current_page_item ul li a,
-#sub_nav ul li.current_page_parent ul li.current_page_item a{color:#456793 !important;}
+#sub_nav ul li.current_page_parent ul li.current_page_item a{}
 #sub_nav ul li.current_page_item .children a {padding:4px 0 1px 14px;color:#666;}
-#sub_nav ul li.current_page_item .children a:hover {text-decoration:underline;color:#666;}
+#sub_nav ul li.current_page_item .children a:hover {text-decoration:none;color:#666;}
 #sub_nav ul .children .current_page_item a, #sub_nav ul .children .current_page_item a:hover {padding:4px 0 1px 14px;color:#40618C;}
 .list2 li {background:url(../images/secondary-royal-blue/bullet2.png) 0 9px no-repeat !important;padding:5px 0 0 19px !important;}
 .list3 li {background:url(../images/secondary-royal-blue/bullet3.png) 0 10px no-repeat !important;padding:5px 0 0 18px !important;}

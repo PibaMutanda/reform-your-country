@@ -97,7 +97,8 @@
 
 <!-- ***************** - LOGO - ***************** -->
 
-<div class="logodiv" ><a href="home"><img src="images/logo/enseignement2-logo-white-small.png"/></a></div>
+<div class="logodiv" ><a href="home"><img src="images/logo/enseignement2-logo-white-small.png" style="display: block; "/></a>
+<div style="color:#999999; font-size:10px; padding-top:16px;">Analyse ind&eacute;pendante de l'enseignement en Wallonie-Bruxelles.</div></div>
 <!-- ***************** - END LOGO - ***************** -->	
 
 <div style="float:right">
@@ -105,12 +106,12 @@
   	<div class="login-link">
 	      <c:choose>
 	        <c:when test="${current.user!=null}">
-	          <a id="logout" href="logout">Déconnexion</a>
+	          <a id="logout" href="logout">DÃ©connexion</a>
 	          <a><c:out value="${current.user.userName}"></c:out></a>
 	        </c:when>
 	        <c:otherwise>
 	            <a class="login" style="cursor:pointer;">Connexion</a>&nbsp;&nbsp;&nbsp;
-	            <a href="register">Créer un compte</a>
+	            <a href="register">CrÃ©er un compte</a>
 	         </c:otherwise>
 	     </c:choose>
 	
@@ -136,7 +137,7 @@
 	<li ><a href="index-jquery-2.html"><span><strong>A propos</strong><span class="navi-description">Qui sommes nous?</span></span></a>
 		<ul class="sub-menu">
 			 <li><a href="index-jquery-2.html"><span>Pourquoi ce site?</span></a></li>
-			 <li><a href="index-video-left.html"><span>Fonctionnalités</span></a></li>
+			 <li><a href="index-video-left.html"><span>FonctionnalitÃ©s</span></a></li>
 			 <li><a href="index-video-right.html"><span>Comment contribuer?</span></a></li>
 			 <li><a href="index-3d-1.html"><span>Contactez-nous</span></a></li>
 		 </ul>
@@ -189,17 +190,7 @@
 <!-- ***************** - START sub-nav - ***************** -->
 <div id="sub_nav">
 <ryc:articlesTree link="true" />
-<ul class="sub-menu">
-<li class="current_page_item"><a href="#"><span>Left Nav</span></a></li>
-<li><a href="template-leftnav-sidebar.html"><span>Left Nav + Sidebar</span></a></li>
-<li><a href="template-leftsidebar.html"><span>Left Sidebar + No Nav</span></a></li>
-<li><a href="template-leftsidebar-horizontal-nav.html"><span>Left Sidebar + Horizontal Nav</span></a></li>
-<li><a href="template-rightnav.html"><span>Right Nav</span></a></li>
-<li><a href="template-rightnav-sidebar.html"><span>Right Nav + Sidebar</span></a></li>
-<li><a href="template-rightsidebar.html"><span>Right Sidebar + No Nav</span></a></li>
-<li><a href="template-rightsidebar-horizontal-nav.html"><span>Right Sidebar + Horizontal Nav</span></a></li>
-<li><a href="template-fullwidth.html"><span>Full Width + No Nav</span></a></li>
-<li><a href="template-fullwidth-horizontal-nav.html"><span>Full Width + Horizontal Nav</span></a></li></ul>
+
 </div><!-- end sub_nav -->
 
 <!-- ***************** - END sub-nav - ***************** -->
@@ -274,7 +265,7 @@
 <ul class="list sitemap-list">
  <li><a href="#">Qui sommes nous?</a></li>
  <li><a href="#">Pourquoi ce site?</a></li>
- <li><a href="#">fonctionnalités</a></li>
+ <li><a href="#">fonctionnalitÃ©s</a></li>
  <li><a href="#">Comment contribuer?</a></li>
  <li><a href="#">Contactez-nous</a></li>
  </ul>

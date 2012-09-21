@@ -16,8 +16,13 @@
     		<td><form:errors path="mail" cssClass="error" /></td>
     	</tr>
     	<tr>
-    	<td><input type="submit" value="m'inscrire" /></td>
+    	<td>
+    	<span class="ka_button small_button small_royalblue">
+    	<input type="submit" value="m'inscrire" />
+    	</span>
+    	</td>
     	</tr>
+    	<a href="#" class="ka_button small_button small_royalblue" ><span>Small Button</span></a>
     </ryctag:form>
 
    <%--
@@ -28,7 +33,8 @@
         <br />
             <label for="mail">e-mail</label> <form:input path="mail" type="mail" required="required"/>
         <br />
-        <input type="submit" value="m'inscrire" />
+         <input type="submit" value="m'inscrire" />
     </form:form>
+    
     --%>
 </body>
