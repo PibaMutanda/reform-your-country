@@ -6,13 +6,7 @@
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
 
 <head>
-	
-    <script src="<c:url value="js/ext/jquery.textarea-expander.js" />"></script>
-	<script src="<c:url value="js/int/help.js" />"></script>
-	<script src="<c:url value="js/int/autosave.js"/>" charset="UTF-8"></script>
-   
-
-    <title>Page pour l'édition d'article</title>
+	<title>Page pour l'édition d'article</title>
 </head>
 
 <body>   
@@ -35,8 +29,11 @@
 	 		<ryctag:checkbox path="publicView" label="Public ?"/>
 	 		<!-- do not erase class , cols and rows attribute of the textarea , these values are used by textarea-expander.js -->
 			</table>
-			<form:textarea path="content" class="expand" cols="60" rows="3" style="width:100%" />
+			<form:textarea path="content" id="articleContent" class="expand" cols="60" rows="3" style="width:100%" />
 			<form:hidden path="id" /><br/>
 	</form:form>
+	<script src="<c:url value="js/ext/jquery.textarea-expander.js" />"></script>
+	<script src="<c:url value="js/int/help.js" />"></script>
+	<script src="<c:url value="js/int/autosave.js"/>" charset="UTF-8"></script>
 </body>
 </html>
