@@ -1,4 +1,77 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@page import="reformyourcountry.web.Current" %>
-<center>enseignement2.be - v<%= Current.getVersion()%></center>
+<%-- <center>enseignement2.be - v<%= Current.getVersion()%></center> --%>
+
+
+
+<!-- ***************** - Top Footer - ***************** --> 
+<div id="footer">
+<div class="footer-area">
+<div class="footer-wrapper">
+<div class="footer-holder">
+
+
+<!-- ***************** - Footer Content Starts Here - *****************  -->
+<div class="one_fourth">
+	 <h3>Utilisateurs</h3>
+	 <div class="footer_post">
+		 <ul class="list sitemap-list">
+		 <li><a href="userlist">liste des utilisateurs</a></li>
+		 <li><a href="grouplist">groupes</a></li>
+		 </ul>
+	</div><!-- end footer_post -->
+</div><!-- end first one_fourth_column -->
+
+<div class="one_fourth">
+	<h3>Bibliographie</h3>
+ </div><!-- end second one_fourth_column -->
+
+<div class="one_fourth">
+	<h3>A propos</h3>
+	<div class="footer_post">
+		<ul class="list sitemap-list">
+			 <li><a href="#">Qui sommes nous?</a></li>
+			 <li><a href="#">Pourquoi ce site?</a></li>
+			 <li><a href="#">fonctionnalités</a></li>
+			 <li><a href="#">Comment contribuer?</a></li>
+			 <li><a href="#">Contactez-nous</a></li>
+		</ul>	
+	</div><!-- end footer_post -->
+</div><!-- end third one_fourth_column -->
+
+<div class="one_fourth_last">
+	<h3>Follow Us</h3>
+	<ul class="social_icons">
+		<li><a href="#" onclick="window.open(this.href);return false;" class="rss">rss</a></li>
+		<li><a href="http://www.twitter.com/truethemes" class="twitter" onclick="window.open(this.href);return false;">Twitter</a></li>
+		<li><a href="#" class="facebook" onclick="window.open(this.href);return false;">Facebook</a></li>
+		<li><a href="#" class="flickr" onclick="window.open(this.href);return false;">Flickr</a></li>
+		<li><a href="#" class="youtube" onclick="window.open(this.href);return false;">YouTube</a></li>
+		<li><a href="#" class="linkedin" onclick="window.open(this.href);return false;">LinkedIn</a></li>
+		<li><a href="#" class="foursquare" onclick="window.open(this.href);return false;">FourSquare</a></li>
+		<li><a href="#" class="delicious" onclick="window.open(this.href);return false;">Delicious</a></li>
+		<li><a href="#" class="digg" onclick="window.open(this.href);return false;">Digg</a></li>
+	</ul>
+</div><!-- end fourth one_fourth_column -->
+
+
+<!-- ***************** - END Footer Content - *****************  -->
+</div><!-- footer-holder -->
+</div><!-- end footer-wrapper -->
+</div><!-- end footer-area -->
+
+
+<!-- /***************** - Bottom Footer - *****************  -->
+<div id="footer_bottom">
+ <div class="info" >
+  <a href="#">2012 enseignement2.be - v0.0.1.</a> 
+ </div><!-- end info -->
+</div><!-- end footer_bottom -->
+
+
+<!-- /***************** - END Bottom Footer - *****************  -->
+</div><!-- end footer -->
+
+
+<!-- /***************** - END Top Footer Area - *****************  -->
