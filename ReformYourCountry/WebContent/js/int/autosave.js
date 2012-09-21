@@ -5,7 +5,7 @@ $(document).ready(function() {
 
 	var timer = null;  // Current timer waiting to save the content in a few seconds.
 
-	$("#content,#title,#datepicker,#publicView1").keydown(function(event){
+	$("#articleContent,#title,#datepicker,#publicView1").keydown(function(event){
 		if(event.ctrlKey  && event.keyCode == 83) { // touche s = 83
 			console.log(event.wich + " "+ event.keyCode);	
 			event.preventDefault();
@@ -13,7 +13,7 @@ $(document).ready(function() {
 		}
 	});
 
-	$("#content,#title,#datepicker,#publicView1").keyup(function(event) {
+	$("#articleContent,#title,#datepicker,#publicView1").keyup(function(event) {
 		performChange(5000);  // We'll save in 120 seconds from now.
 	});
 
@@ -52,7 +52,7 @@ $(document).ready(function() {
 					publicviewForSpring = "off";
 					
 				}
-				var content = $("#content").val();
+				var content = $("#articleContent").val();
 				var id = $("#id").attr("value");
 
 				// Ask the server to save
