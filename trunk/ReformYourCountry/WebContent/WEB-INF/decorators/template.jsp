@@ -86,7 +86,23 @@
 <div id="wrapper">
 <div id="header">
 
-	<div class="login-link">
+
+
+
+<div class="header-holder">
+<div class="rays">
+
+
+<div class="header-area">
+
+<!-- ***************** - LOGO - ***************** -->
+
+<div class="logodiv" ><a href="home"><img src="images/logo/enseignement2-logo-white-small.png"/></a></div>
+<!-- ***************** - END LOGO - ***************** -->	
+
+<div style="float:right">
+<div style="width:100%; ">
+  	<div class="login-link">
 	      <c:choose>
 	        <c:when test="${current.user!=null}">
 	          <a id="logout" href="logout">Déconnexion</a>
@@ -99,24 +115,12 @@
 	     </c:choose>
 	
 	</div>
-
-
-<div class="header-holder">
-<div class="rays">
-<div class="header-area">
-
-
-
-
-
+</div>
 
 
 <!-- ***************** - Main Navigation - ***************** -->
-
-<!-- ***************** - LOGO - ***************** -->
-
-<div class="logodiv" ><a href="home"><img src="images/logo/enseignement2-logo-white-small.png"/></a></div>
-<!-- ***************** - END LOGO - ***************** -->
+<div>
+<div style="float:left;">
 <ul id="menu-main-nav">
 	<li><a href="content-3d-effects.html"><span><strong>UTILISATEURS</strong>
 	<span class="navi-description">utilisateurs actifs</span></span></a>
@@ -138,33 +142,30 @@
 		 </ul>
 	</li>
 	
-	
-	
-	
-	
-	
-	
 	<li>
-		<form method="get" id="searchform" action="#" class="search-form">
-		<fieldset>
-		<span class="text">
-		 <input type="submit" class="submit" value="search" id="searchsubmit" />
-		 <input type="text" name="s" id="s" value="Search" onfocus="this.value=(this.value=='Search') ? '' : this.value;" onblur="this.value=(this.value=='') ? 'Search' : this.value;" />
-		</span>
-		</fieldset>
-		</form>
+		
 	</li>
 
 </ul>
-
-
+</div>
+<div style="float:right;padding-top: 30px;">
+<form method="get" id="searchform" action="#" class="search-form">
+		<fieldset>
+		<span class="text">
+		 <input type="submit" class="submit" value="search" id="searchsubmit" />
+		 <input type="text" name="s" id="s" value="Rechercher" onfocus="this.value=(this.value=='Rechercher') ? '' : this.value;" onblur="this.value=(this.value=='') ? 'Rechercher' : this.value;" />
+		</span>
+		</fieldset>
+		</form>
+</div>
+</div>
 <!-- ***************** - END Main Navigation - ***************** -->
 <!-- Hidden div that JavaScript will move in a dialog box when we press the login link -->
 <div id ="logindialog" style = "display:none;">
  
 </div>
 
-
+</div>
 
 </div><!-- header-area -->
 

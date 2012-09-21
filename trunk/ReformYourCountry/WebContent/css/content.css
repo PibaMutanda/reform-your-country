@@ -41,9 +41,8 @@
 	border: .2em solid #000;
 }
 .login-link{
-	background-color: #1f3252;
+	/* padding-right:65px;*/
  	text-align: right; 
- 	padding-right: 200px;
 /* 	float:right; */
 /* 	position:relative; */
 /* 	width:200px;	 */
