@@ -62,13 +62,6 @@
     text-decoration: underline;
 	
 }
-.subarticle{
-display: block;
-padding: 4px 0 8px 20px;
-height: 1%;
-position: relative;
-margin: 0 13px 0 0;
-}
 
 /*Style for article display (articledisplay.jsp)*/
 
