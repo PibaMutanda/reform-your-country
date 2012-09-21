@@ -26,7 +26,12 @@
 			<input type="hidden" value="${user.id}" name="id" />
 			<input type="submit" value="Modifier le mot de passe" />
 		</form>
-        
+		
+        <form action="manageGroupe" modelAttribute="user">
+		    <input type="hidden" value="${user.id}" name="id"/>
+		    <input type="submit" value="Gérer les groupes"/> 
+		</form>   
+		
 		<a href= "userimage?id=${user.id}">Upload image</a><br/>
 		
 	</c:if>
