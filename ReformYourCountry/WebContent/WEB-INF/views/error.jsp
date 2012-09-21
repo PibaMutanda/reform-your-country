@@ -18,6 +18,7 @@
 </head>
 <body>
 	<center>
+		<font face="Arial">
 		<h2>Ooooops!</h2>
 		<p>Vous avez cassé le système...</p>
 		
@@ -28,6 +29,7 @@
     	<c:if test="${redirectUrl != null}">
            <p>Vous allez automatiquement être redirigé vers la page d'accueil dans <span id ="count"></span> secondes.</p>
         </c:if>
+        </font>
 	</center>
     
     
@@ -35,9 +37,9 @@
 		Exception:<br/>
 		<font size="2" color="red">
 		  <pre>  <!-- To take the line returns into account in the stack trace -->
-		    ${stackTrace}
+		     ${stackTrace}
 		  </pre>
 		</font>
-	</c:if>
+	</c:if> 
 </body>
 </html>
