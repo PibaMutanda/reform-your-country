@@ -2,6 +2,7 @@ package reformyourcountry.controller;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
-import reformyourcountry.model.Book;
 import reformyourcountry.model.Group;
+import reformyourcountry.model.GroupReg;
+import reformyourcountry.repository.GroupRegRepository;
 import reformyourcountry.repository.GroupRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
@@ -23,11 +24,15 @@ import reformyourcountry.util.ImageUtil;
 public class GroupDisplayController extends BaseController<Group> {
 
     @Autowired  GroupRepository groupRepository;
-
+    @Autowired  GroupRegRepository groupRegRepository;
+    
     @RequestMapping("/group")
     public ModelAndView groupDisplay(@RequestParam("id") long id) {
         Group group = getRequiredEntity(id);
-        ModelAndView mv = new ModelAndView("groupdisplay", "group", group);
+        List<GroupReg>listGroup=groupRegRepository.findAllByGroup(group);
+        ModelAndView mv = new ModelAndView("groupdisplay");
+        mv.addObject("listGroup", listGroup);
+        mv.addObject("group", group);   
         mv.addObject("random", System.currentTimeMillis());
         return mv;
     }
