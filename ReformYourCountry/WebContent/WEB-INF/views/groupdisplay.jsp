@@ -14,7 +14,12 @@
 <h1>Nom du groupe : ${group.name}</h1>	
 Description : ${group.description} <br/>
 Url : ${group.url} <br/>
-
+La liste du groupe  ${group.name}<br /> 
+<table>
+     <c:forEach items="${listGroup}" var="gReg">
+        <tr><td>${gReg.user.firstName}</td></tr>
+     </c:forEach> 
+</table>
 
 <c:if test="${group.hasImage==true}">
    <img src="gen/group/resized/${group.id}.jpg?random=${random}"  <%-- Random, to force the reload of the image in case it changes (but its name does not change) --%>
@@ -40,7 +45,7 @@ Url : ${group.url} <br/>
 			<input type="submit" value="Supprimer un group" />
 		</form>
 </ryc:conditionDisplay>
-	
+	    
 <br><a href="grouplist">Liste des groupes</a>
 </body>
 </html>
