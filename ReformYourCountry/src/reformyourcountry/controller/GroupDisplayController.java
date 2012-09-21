@@ -29,9 +29,9 @@ public class GroupDisplayController extends BaseController<Group> {
     @RequestMapping("/group")
     public ModelAndView groupDisplay(@RequestParam("id") long id) {
         Group group = getRequiredEntity(id);
-        List<GroupReg>listGroup=groupRegRepository.findAllByGroup(group);
+        List<GroupReg>groupRegList = groupRegRepository.findAllByGroup(group);
         ModelAndView mv = new ModelAndView("groupdisplay");
-        mv.addObject("listGroup", listGroup);
+        mv.addObject("groupRegList", groupRegList);
         mv.addObject("group", group);   
         mv.addObject("random", System.currentTimeMillis());
         return mv;
