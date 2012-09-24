@@ -1,4 +1,4 @@
-package reformyourcountry.service;
+﻿package reformyourcountry.service;
 
 import java.util.Date;
 
@@ -108,7 +108,7 @@ public class UserService {
         // we set the new password to the user
         user.setPassword(SecurityUtils.md5Encode(newPassword));
         userRepository.merge(user);
-        //TODO translate
+
         mailService.sendMail(user.getMail(), "Password Recovery",
                 "You requested a new password for your account '"+ user.getUserName()+"' on KnowledgeBlackBelt.com<br/>" + 
                         "We could not give you back your old password because we do not store it directly, for security and (your own) privacy reason it is encrypted in a non reversible way. <br/><br/>" + 
