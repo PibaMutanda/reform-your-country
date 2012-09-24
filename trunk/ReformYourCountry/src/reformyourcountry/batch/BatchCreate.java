@@ -147,7 +147,7 @@ public class BatchCreate implements Runnable {
 			user.setGender(Gender.MALE);
 			user.setMailDelayType(MailingDelayType.IMMEDIATELY);
 			user.setNlSubscriber(true);
-			user.setPicture(true);
+			user.setPicture(false);
 			user.setRegistrationDate(new Date());
 			user.setRole(Role.ADMIN);
 			user.setSpammer(false);
@@ -187,7 +187,7 @@ public class BatchCreate implements Runnable {
 			user.setLastLoginIp("192.168.1.7");
 			user.setMailDelayType(MailingDelayType.IMMEDIATELY);
 			user.setNlSubscriber(true);
-			user.setPicture(true);
+			user.setPicture(false);
 			user.setRegistrationDate(new Date());
 			user.setRole(Role.MODERATOR);
 			user.getPrivileges().add(Privilege.EDIT_ARTICLE);
@@ -232,7 +232,7 @@ public class BatchCreate implements Runnable {
 			user.setLastLoginIp("192.168.1.8");
 			user.setMailDelayType(MailingDelayType.IMMEDIATELY);
 			user.setNlSubscriber(true);
-			user.setPicture(true);
+			user.setPicture(false);
 			user.setRegistrationDate(new Date());
 			user.setRole(Role.USER);
 
@@ -286,7 +286,6 @@ public class BatchCreate implements Runnable {
 
 		article.setSummary("1.Échanger pour se former/2.Construire ensemble/3.Du plaisir de la mise en réseau");
 		article.setUrl(UrlUtil.computeUrlFragmentFromName(article.getTitle()));
-
 		em.persist(article);
 
 		return article;
@@ -337,7 +336,7 @@ public class BatchCreate implements Runnable {
 		}
 
 		article2.setSummary("1.Règles actuelles/2.Décrets pédagogiques/3.Contrôle des résultats/4.Recrutement/Licenciement/5.Libre plus autonome");
-		article2.setUrl(UrlUtil.computeUrlFragmentFromName(article2.getTitle()));
+        article2.setUrl(UrlUtil.computeUrlFragmentFromName(article2.getTitle()));
 
 		em.persist(article2);
 		return article2;
@@ -388,7 +387,7 @@ public class BatchCreate implements Runnable {
 		}
 
 		article3.setSummary("1.Règles actuelles/2.Décrets pédagogiques/3.Contrôle des résultats/4.Recrutement/Licenciement/5.Libre plus autonome");
-		article3.setUrl(UrlUtil.computeUrlFragmentFromName(article3.getTitle()));
+        article3.setUrl(UrlUtil.computeUrlFragmentFromName(article3.getTitle()));
 
 		em.persist(article3);
 
