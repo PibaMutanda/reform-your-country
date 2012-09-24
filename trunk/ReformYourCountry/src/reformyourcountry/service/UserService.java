@@ -52,9 +52,11 @@ public class UserService {
         if (userRepository.getUserByUserName(username) != null)    {
             throw new UserAlreadyExistsException(IdentifierType.USERNAME, username);
         }
+       
         if (userRepository.getUserByEmail(mail) != null){
             throw new UserAlreadyExistsException(IdentifierType.MAIL, mail);
         }
+        
         User newUser = new User();
         newUser.setUserName(username);
         newUser.setPassword(SecurityUtils.md5Encode(passwordInClear));

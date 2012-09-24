@@ -3,3 +3,5 @@
         add column hasimage boolean default '0' not null; 
 -- 2012-09-18 Jamal
     alter table users add column url varchar(255);
+-- 2012-09-21
+    alter table users drop column url;

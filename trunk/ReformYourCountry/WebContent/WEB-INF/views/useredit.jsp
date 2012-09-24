@@ -62,7 +62,7 @@
         
 		<input type="hidden" name="id" value="${id}"/> <%-- We do not use form:hidden because user.id is sometimes null (fake user)--%>
 		
-        <tr><td><input type="submit" value="Sauver" /></td><td> <a href="user?username=${user.userName}">Annuler</a></td></tr>
+        <tr><td><input type="submit" value="Sauver" /></td><td> <a href="user/${user.userName}">Annuler</a></td></tr>
     </ryctag:form> 
 </body>
 </html>

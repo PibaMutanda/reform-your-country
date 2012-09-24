@@ -26,7 +26,7 @@
 	<%-- BREADCRUMB --%>
 	<h2>
 		<c:forEach items="${parentsPath}" var="article">
-			<a href="article?id=${article.id}">${article.title}></a>
+			<a href="article/${article.url}">${article.title}></a>
 		</c:forEach>
 	</h2>
 

@@ -72,8 +72,9 @@ public class PrivilegeController extends BaseController<User> {
 	@RequestMapping(value="/privilegeeditsubmit")
 	public ModelAndView privilegeEditSubmit(@RequestParam Map <String, String> params){
 		SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_USERS);
-		ModelAndView mv = new ModelAndView("redirect:user", "id", params.get("id"));
 		User user = getRequiredEntity(Long.parseLong(params.get("id")));
+		//ModelAndView mv = new ModelAndView("redirect:user", "username", user.getUserName());
+		ModelAndView mv = new ModelAndView("redirect:user/"+user.getUserName());
 		params.remove("id");
 		user.getPrivileges().clear();		
 		for (Map.Entry<String, String> entry: params.entrySet()) {

@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
     
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-    <%@taglib uri="http://www.springframework.org/tags/form"  prefix="form"%>
+    <%@ taglib uri="http://www.springframework.org/tags/form"  prefix="form"%>
     <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
     
 
@@ -19,7 +19,7 @@
 		<tr><td>Nouveau password: </td><td><input type="password" name="newPassword" /></td><td>${errorEmpty}${errorDiff}</td></tr>
 		<tr><td>Confirmer le nouveau password: </td><td><input type="password" name="confirmPassword" /></td><td>${errorEmpty}${errorDiff}</td></tr>
 		<form:hidden path="id" />
-		<tr><td><input type="submit" value="changer"/></td><td><a href="user?username=${user.userName}">Annuler</a></td></tr>
+		<tr><td><input type="submit" value="changer"/></td><td><a href="user/${user.userName}">Annuler</a></td></tr>
 	</table>
 	</form:form>
 </body>
