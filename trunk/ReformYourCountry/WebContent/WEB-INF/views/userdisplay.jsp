@@ -27,7 +27,7 @@
 			<input type="submit" value="Modifier le mot de passe" />
 		</form>
 		
-        <form action="manageGroupe" modelAttribute="user">
+        <form action="manageGroup" modelAttribute="user">
 		    <input type="hidden" value="${user.id}" name="id"/>
 		    <input type="submit" value="Gérer les groupes"/> 
 		</form>   
