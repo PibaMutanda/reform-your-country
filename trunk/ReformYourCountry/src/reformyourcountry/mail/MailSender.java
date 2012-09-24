@@ -10,8 +10,8 @@ import javax.annotation.PreDestroy;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
 import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -26,6 +26,7 @@ import reformyourcountry.repository.UserRepository;
 import reformyourcountry.util.CurrentEnvironment.Environment;
 import reformyourcountry.util.CurrentEnvironment.MailBehavior;
 import reformyourcountry.util.HtmlToTextUtil;
+import reformyourcountry.util.Logger;
 
 
 
@@ -37,7 +38,7 @@ import reformyourcountry.util.HtmlToTextUtil;
 @Service
 public class MailSender extends Thread {
 
-    private Logger logger = Logger.getLogger("rycmail");
+    @Logger Log log;
 
    //TODO rewiew time delay choice for production
     public final static int DELAY_BETWEEN_EACH_MAIL = 50;  // in ms. In case the SMTP server is too slow (cannot accept too many mails too fast). Use this const to temporize between 2 SMTP calls. 
@@ -69,38 +70,38 @@ public class MailSender extends Thread {
         javaMailSender.setPort(smtpPort);
 
         setName("MailSender"); // Sets the name of the thread to be visible in the prod server thread list.
-       if(environment.getMailBehavior() != MailBehavior.NOT_STARTED){
-        	this.start();
-       } else {
-       	logger.info("DevMode on, mail thread not started");
-       }
+        if(environment.getMailBehavior() != MailBehavior.NOT_STARTED){
+            this.start();
+        } else {
+            log.info("DevMode on, mail thread not started");
+        }
        
     }
 
     @PreDestroy
     public void shutDown () {
         this.isShutDown = true;
-        logger.info("MailSender shutting down");
+        log.info("MailSender shutting down");
         interrupt();  // In case the thread is sleeping or waiting.
     }	
 
     @Override
     public void run(){
 
-        logger.info("MailSender thread started");
+        log.info("MailSender thread started");
         try {
             //TODO: 1*60*1000
 			Thread.sleep(1 * 10 * 1000);  // sleep 2 minute to make sure all the bean are ready
 		} catch (InterruptedException e) {
-	        logger.info("MailSender initial sleep interrupted");
+	        log.info("MailSender initial sleep interrupted");
 		}
 
-        logger.info("MailSender awaken from its initial sleep");
+        log.info("MailSender awaken from its initial sleep");
 
         mainLoop: while (!isShutDown) {
 
         	List<Mail> nextMailList = this.findNextMails();
-            logger.info(nextMailList.size() + " mails found to send");
+            log.info(nextMailList.size() + " mails found to send");
             
             while (nextMailList != null && nextMailList.size() > 0) {
                 Mail nextMail = nextMailList.get(0);
@@ -145,7 +146,7 @@ public class MailSender extends Thread {
             sleepBad(WAKE_UP_DELAY_WHEN_NO_MAIL);
         }
 
-        logger.info("MailSender thread ended");
+        log.info("MailSender thread ended");
     }
 
     /** Sleep even if a new urgent mail needs to be sent */
@@ -157,7 +158,7 @@ public class MailSender extends Thread {
             //There is no mail in database, sleep
             sleep(delayMs);
         } catch (InterruptedException e) {
-            logger.info(e);
+            log.info(e);
         }
     }
 
@@ -172,7 +173,7 @@ public class MailSender extends Thread {
                 wait(delayMs);
             }
         } catch (InterruptedException e) {
-            logger.info(e);
+            log.info(e);
         }
     }
     //FIXME what this and it is commented? -maxime 10/09/2012
@@ -202,8 +203,7 @@ public class MailSender extends Thread {
         // Sanity Check
         if(StringUtils.isBlank(emailSender)){
         	
-        	
-       		logger.error("User with no email found : " + mail.getReplyTo().getFullName());
+       		log.error("User with no email found : " + mail.getReplyTo().getFullName());
         	return; // Do not continue
         }
         
@@ -283,30 +283,30 @@ public class MailSender extends Thread {
 
             final String rawText = (textIsHtml ? HtmlToTextUtil.convert(text) : text);
 
-            StringBuilder log = new StringBuilder();
-            log.append(Thread.currentThread().getName());
-            log.append("\n================ MAIL ================\n");
-            log.append("TO : \n");
-            log.append(to);
-            log.append("\n");
-            log.append("CC : \n");
-            log.append(cc);
-            log.append("\n");
-            log.append("BCC : \n");
-            log.append(bcc);
-            log.append("\n");
-            log.append("FROM : ");
-            log.append(from + " <" + fromAlias + ">");
-            log.append("\n");
-            log.append("SUBJECT : ");
-            log.append(subject);
-            log.append("\n");
-            log.append("TEXT:\n");
-            log.append(text);
-            log.append("\n");
-            log.append("============== END MAIL ==============");
+            StringBuilder strLog = new StringBuilder();
+            strLog.append(Thread.currentThread().getName());
+            strLog.append("\n================ MAIL ================\n");
+            strLog.append("TO : \n");
+            strLog.append(to);
+            strLog.append("\n");
+            strLog.append("CC : \n");
+            strLog.append(cc);
+            strLog.append("\n");
+            strLog.append("BCC : \n");
+            strLog.append(bcc);
+            strLog.append("\n");
+            strLog.append("FROM : ");
+            strLog.append(from + " <" + fromAlias + ">");
+            strLog.append("\n");
+            strLog.append("SUBJECT : ");
+            strLog.append(subject);
+            strLog.append("\n");
+            strLog.append("TEXT:\n");
+            strLog.append(text);
+            strLog.append("\n");
+            strLog.append("============== END MAIL ==============");
 
-           logger.info(log.toString());
+            log.info(strLog.toString());
 
             if (environment.getMailBehavior() == MailBehavior.SENT) { // Really send the mail to SMTP server now.
                 MimeMessagePreparator mimeMessagePreparator = new MimeMessagePreparator() {
@@ -344,7 +344,7 @@ public class MailSender extends Thread {
         } catch(Exception e){//if we can't send the mail, continue
             // if we can't send for any reason, we don't stop the thread, we will just remove this mail from the database and we will continue to send mails.
             // Typical exception: the mail address is invalid.
-            logger.error("Exception while sending mail", e);
+            log.error("Exception while sending mail", e);
         	
         }
 
