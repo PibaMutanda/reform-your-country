@@ -7,6 +7,7 @@ import javax.persistence.Query;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import reformyourcountry.model.Article;
 import reformyourcountry.model.BaseEntity;
 import reformyourcountry.util.ClassUtil;
 
@@ -60,6 +61,8 @@ public abstract class BaseRepository<E extends BaseEntity> {
         }
     }
 
-
+    public E getRequiredEntityByUrl(String url){
+        return getSingleOrNullResult( em.createQuery("select e from "+entityClass.getCanonicalName()+" e where e.url = :url").setParameter("url",url) );
+    }
     
 }

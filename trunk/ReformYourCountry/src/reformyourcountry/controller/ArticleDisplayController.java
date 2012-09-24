@@ -35,7 +35,7 @@ public class ArticleDisplayController extends BaseController<Article> {
 	    
 		ModelAndView mv = new ModelAndView("articledisplay");
 
-		Article article = articleRepository.findArticleByUrl(articleUrl);
+		Article article = articleRepository.getRequiredEntityByUrl(articleUrl);
 		
 		log.debug("i found "+article.getTitle());
 		log.debug("his content"+article.getContent());
