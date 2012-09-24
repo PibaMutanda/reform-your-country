@@ -58,9 +58,6 @@ public class ArticleParentEditController extends BaseController<Article>{
 			articleRepository.merge(article);
 			articleService.changeParent(article, parentId);
 		}
-		
-		article.setUrl(UrlUtil.computeUrlFragmentFromName(article.getTitle()));
-		
 	    return new ModelAndView ("redirect:article/"+article.getUrl());
 	}
 
