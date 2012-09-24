@@ -80,10 +80,7 @@ public class UserEditController extends BaseController<User> {
             mv.addObject("errorBirthDate",errorBirthDate);
             return mv;
         }
-
-    	
-    	    	
-    	
+   	
         // userName
         boolean hasUserAlreadyExist=false;
         newUserName = org.springframework.util.StringUtils.trimAllWhitespace(newUserName).toLowerCase();  // remove blanks
@@ -127,7 +124,7 @@ public class UserEditController extends BaseController<User> {
         
         user = userRepository.merge(user);
     
-        return new ModelAndView("redirect:user", "username", user.getUserName());
+        return new ModelAndView("redirect:user/"+user.getUserName());
     }
     
     

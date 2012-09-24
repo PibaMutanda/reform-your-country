@@ -63,7 +63,7 @@ public class UserChangePasswordController {
 			}
 			user.setPassword(SecurityUtils.md5Encode(confirmPassword));
 			userRepository.merge(user);
-			return new ModelAndView("redirect:user","id",user.getId());	
+			return new ModelAndView("redirect:user/"+user.getUserName());	
 
 		}
 

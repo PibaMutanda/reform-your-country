@@ -7,6 +7,7 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
+import reformyourcountry.model.Book;
 import reformyourcountry.model.User;
 
 @Repository
@@ -44,4 +45,5 @@ public class UserRepository extends BaseRepository<User>{
                 .getResultList();
         return results;
     }
+        
 }

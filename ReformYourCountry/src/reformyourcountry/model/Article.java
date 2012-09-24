@@ -22,8 +22,9 @@ public class Article extends BaseEntity {
 	@NotBlank//Hibernate constraint, improves upon @NotNull
 	@Column(length = 100)
 	private String title;
-		
-	private String url; //Used to create a more readable URL; derived from the title (ie: if the title is "Le Web 2.0", url will be "le-Web-2.0") 
+	
+	@Column(unique = true, nullable=false)
+	private String url; //Used to create a more readable URL; derived from the title (ie: if the title is "Le Web 2.0", url will be "le-Web-2-0") 
 
 	@Lob
 	private String summary;
@@ -34,8 +35,10 @@ public class Article extends BaseEntity {
 	private Date releaseDate;
 
 	private Date publishDate;
+	
 	@NotNull
 	private boolean publicView=true;
+	
 	@ManyToMany
 	@JoinTable(name = "ARTICLE_ACTION", joinColumns = @JoinColumn(name = "ARTICLE_ID"), inverseJoinColumns = @JoinColumn(name="ACTION_ID"))
 	private List<Action> actions = new ArrayList<Action>();

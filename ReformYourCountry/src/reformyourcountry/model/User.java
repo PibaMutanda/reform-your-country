@@ -130,15 +130,15 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     
     
     @Column(length = 50)
-    @Size(max=50, message="your firstname must contain  at max 50 character")
+    @Size(max=50, message="your firstname must contain at max 50 character")
     private String firstName;
     
     @Column(length = 50)
-    @Size(max=50, message="your lastname must contain  at max 50 character")
+    @Size(max=50, message="your lastname must contain at max 50 character")
     private String lastName;
 
     @Column(unique = true, nullable=false)
-    @Size(max = 15,message = "your username must contain  at max 15 character")
+    @Size(max = 15,message = "your username must contain at max 15 character")
     @NotBlank(message="entrer votre pseudo")
     private String userName; 
     
@@ -149,8 +149,6 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     @Column(length = 100)
     @Size(min = 4 ,message = "your password must contain at least 4 character")
     private String password;
-    
-    private String url;
 
     @Lob
     private String nameChangeLog; // record the name changes
@@ -225,7 +223,6 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     /////////////////////////////////////////: GETTERS & SETTERS //////////////////////////
     /////////////////////////////////////////: GETTERS & SETTERS //////////////////////////
     /////////////////////////////////////////: GETTERS & SETTERS //////////////////////////
-
     
     public Role getRole() {
         return role;
@@ -387,9 +384,6 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     public Set<Privilege> getPrivileges() {
         return privileges;
     }
-
-  
-    
 
     public static long getSerialversionuid() {
         return serialVersionUID;

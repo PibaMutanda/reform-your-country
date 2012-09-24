@@ -10,7 +10,7 @@
 </head>
 <body>
 	${errorMsg}
-	<h1>Liste de tous les users</h1>
+	<h1>Liste de tous les utilisateurs</h1>
 	<form action="userlist" method="GET">
 		prénom, nom ou pseudo <input type="text" name="name"/> <input
 			type="submit" value="rechercher" />
@@ -21,7 +21,7 @@
 				<td>${user.userName}</td>
 				<td>${user.firstName}</td>
 				<td>${user.lastName}</td>
-				<td><a href="user?username=${user.userName}">Afficher les détails</a></td>
+				<td><a href="user/${user.userName}">Afficher les détails</a></td>
 			</tr>
 		</c:forEach>
 	</table>
