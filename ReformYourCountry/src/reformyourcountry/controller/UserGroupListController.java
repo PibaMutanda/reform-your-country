@@ -22,7 +22,7 @@ public class UserGroupListController extends BaseController<GroupReg> {
 	@Autowired GroupRepository groupRepository;
 	@Autowired UserRepository userRepository;
 	
-	@RequestMapping("/manageGroupe")
+	@RequestMapping("/manageGroup")
 	public ModelAndView userGroupList(@RequestParam("id")long id){
 		
 		ModelAndView mv= new ModelAndView("usergrouplist");
