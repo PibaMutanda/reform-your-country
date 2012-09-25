@@ -1,12 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 
 <script type="text/javascript"
 	src="js/ext/jquery-ui-1.8.23.custom.min.js"></script>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
@@ -39,7 +37,7 @@
 
     	    	request.done(function(msg) {
     	        $("#valuetext").text($(item).attr('id'));
-    	        $("#voted").text("Vous avez voté : "+$("#valuetext").text());
+    	        $("#voted").text("Vous avez votï¿½ : "+$("#valuetext").text());
     	    	});
 
     	    	request.fail(function(jqXHR, textStatus) {
@@ -64,7 +62,7 @@
 			onmouseover="focused(this);" onclick="clicked(this);"
 			style="display: inline-block; width: 20px; height: 20px; background-color: #ffff00; text-align: center;">
 			3</div>
-		<div id="D'accord excepté un petit détail" value="4"
+		<div id="D'accord exceptï¿½ un petit dï¿½tail" value="4"
 			onmouseout="unfocused(this);" onmouseover="focused(this);"
 			onclick="clicked(this);"
 			style="display: inline-block; width: 20px; height: 20px; background-color: #88ff00; text-align: center;">
@@ -78,6 +76,6 @@
 	</div>
 	<div id="voted"
 		style="text-align: center; width: 400px; height: 20px;">
-		vous n'avez pas encore voté</div>
+		vous n'avez pas encore votï¿½</div>
 </body>
 </html>
