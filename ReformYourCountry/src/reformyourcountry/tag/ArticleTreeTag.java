@@ -71,21 +71,22 @@ public class ArticleTreeTag extends SimpleTagSupport{
 	
 	private void displayArticleList(Collection<Article> articles, JspWriter out,boolean isFirstPass) throws JspException, IOException { 
 		if (isFirstPass){
-		    out.write("<ul class=\"sub-menu\"><li>");         
+		    out.write("<ul id=\"articletree\">");         
 		}else{
-            out.write("<ul class=\"subarticle\"><li>");    
+            out.write("<ul class=\"subarticle\">");    
 		    
 		}
 		for (Article child: articles) {
 			displayArticle(child, out); 
 		}
-		out.write("</li></ul>");          
+		out.write("</ul>");          
 	}
 
 
 	private void displayArticle(Article article, JspWriter out) throws JspException, IOException { 
-		out.write(getArticleString(article));
-		displayArticleList(article.getChildren(), out,false);    
+		out.write("<li>"+getArticleString(article));
+		displayArticleList(article.getChildren(), out,false);   
+		out.write("</li>");
 	}
 	
 	private String getArticleString(Article article) {
@@ -107,7 +108,7 @@ public class ArticleTreeTag extends SimpleTagSupport{
 			}
 		}
 		if (link == true) {
-            result += "<a href ='article/"+article.getUrl()+"'><span>";
+            result += "<a href =\"article/"+UrlUtil.getAbsoluteUrl("article/")+article.getUrl()+"\"><span>";
 		}
 		result += article.getTitle();
 		if (link == true) {

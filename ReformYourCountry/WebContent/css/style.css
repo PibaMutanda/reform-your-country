@@ -598,7 +598,7 @@ body {margin:0;background:#f4f4f2;font:1.2em/19px "helvetica neue",Helvetica,Ari
 /* 2. VERTICAL SUB NAVIGATION
 /*---------------------------------------------------------------*/
 #sub_nav {list-style-type: none;float: left;width:160px;float:left;background:url(../images/_global/bg-sidebar.gif) 100% 0 repeat-y;	padding-bottom:0px;overflow:hidden;}
-#sub_nav ul a {list-style-type: none;display:block;background:url(../images/_global/separator3.gif) 0 0 repeat-x;padding:0 0 0 0;height:1%;position:relative;margin:0 0 0 0;}
+#sub_nav ul a {list-style-type: none;display:block;background:url(../images/_global/separator3.gif) 0 0 repeat-x;padding:4px 0 0 0;height:1%;position:relative;margin:0 0 0 0;}
 #sub_nav ul a:hover,
 #sub_nav ul li.current_page_item a {list-style-type: none;margin-right:0;color:#ccc;text-decoration:none;}
 #sub_nav ul ul a {list-style-type: none;background:url(../images/_global/bullet1.gif) 0 -9px no-repeat;padding:0 0 0 ;margin-bottom: -5px}
@@ -608,7 +608,7 @@ body {margin:0;background:#f4f4f2;font:1.2em/19px "helvetica neue",Helvetica,Ari
 #sub_nav ul li {list-style-type: none;vertical-align:top;height:1%;}
 #sub_nav ul ul {list-style-type: none;margin:0;padding:0 0 0 0;font-size:11px;}
 #sub_nav ul ul ul {list-style-type: none;padding:0 0 0 10px ;}
-
+#articletree > li{padding-bottom: 12px;}
 
 .nav_right_sub_nav ul li.current_page_item ul li a,
 .nav_right_sub_nav ul li.current_page_item ul li a:hover,

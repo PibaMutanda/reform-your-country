@@ -1,10 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator"
 	prefix="decorator"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import ="reformyourcountry.web.ContextUtil" %>
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
+<%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
 <!-- <!DOCTYPE html > -->
 <!-- <html> -->
 <!-- <head> -->
@@ -199,26 +200,8 @@
 <!-- ***************** - START Content - ***************** -->
 <div id="content">
 
-<!-- ***************** - START Title Bar - ***************** -->
-<div class="tools">
-<div class="holder">
-<div class="frame">
-<h1>Accueil</h1>
+<decorator:body />
 
-
-
-<!--|||||||||||||||||||||||||||     Ne sera utilie que pour les articles               |||||||||||||||||||||||||||||-->
-<p class="breadcrumb"><a href="home">Home</a><a href="home">Pages</a><span class='current_crumb'>Accueil</span></p></div><!-- end frame -->
-
-</div><!-- end holder -->
-</div><!-- end tools -->
-<!-- ***************** - END Title Bar - ***************** -->
-<div class="body-template">
-				<input type="hidden" name="message" value="${message }"/>
-			
-				    <div>${message}<br/></div>
-					<decorator:body />
-</div>
 <br class="clear" />
 
 
@@ -232,9 +215,6 @@
 </div><!-- main-area -->
 
 <%@ include file="/WEB-INF/includes/footer.jsp"%>
-
-
-
 </div>
 </div>
 <script type="text/javascript" src="js/jquery.cycle.all.min.js"></script>

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -11,11 +11,11 @@
       <c:choose>
         <c:when test="${current.user!=null}">
           <c:out value="${current.user.userName}"></c:out><br />
-          <a id="logout" href="logout">Déconnexion</a>
+          <a id="logout" href="logout">DÃ©connexion</a>
         </c:when>
         <c:otherwise>
             <a class="login" style="cursor:pointer;">Connexion</a><br />
-            <a href="register">Créer un compte</a>
+            <a href="register">CrÃ©er un compte</a>
          </c:otherwise>
      </c:choose>
     
