@@ -9,6 +9,13 @@
 <meta name="Keywords" content="enseignement, éducation, élève, professeur, instituteur, institutrice, ressources, études, secondaire, fondamental, technique, professionnel, primaire, cours, pédagogie, classe" />
 <meta name="Language" content="be" />
 <meta name="robots" content="index, follow" />	
+
+<!-- CU3ER content JavaScript part starts here   -->
+<script type="text/javascript" src="js/swfobject.js"></script>
+<script type="text/javascript" src="js/CU3ER.js"></script>
+<script type="text/javascript" src="js/home.js"></script>
+<!-- CU3ER content JavaScript part ends here   -->
+
 <title>Accueil</title>
 </head>
 <body>
@@ -18,7 +25,22 @@
 
 <p class="subtitle">D'abord, pourquoi changer?</p>
 
-<p><img src="images/fille-faim.jpg" ></p>
+<!-- ***************** - Homepage 3D Slider - ***************** --><!-- locations where are the pictures -->
+
+<div id="CU3ER-containter">
+	<!-- CU3ER content HTML part starts here   -->
+		<div id="CU3ER">
+			<!-- modify this content to provide users without Flash or enabled Javascript 
+			   with alternative content information -->
+			<p>
+			Click to get Flash Player<br />
+			<a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" /></a>
+			</p>
+			<p>or try to enable JavaScript and reload the page</p>
+		</div>
+</div>
+
+<!-- ***************** - END Homepage 3D Slider - ***************** -->
 
 <p>Ce site n'est pas encore destiné au grand public, sans pour autant se cacher. Il est tout à fait officieux et n'est lié à aucun acteur traditionnel (ni politique, ni syndical, ni association de parents).
 </p>
