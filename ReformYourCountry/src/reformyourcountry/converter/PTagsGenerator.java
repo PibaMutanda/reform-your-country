@@ -77,7 +77,7 @@ public  class PTagsGenerator {
 			updateOpenTagsCount(trimmedLine);
 			thereAreOpenTagsWithOrWithoutCurrentLine = thereAreOpenTagsWithOrWithoutCurrentLine || tagOpenCountMap.size() > 0;
 
-			if (!thereAreOpenTagsWithOrWithoutCurrentLine) { // ok, no pending tag open for <ul>, <li> and co.
+			if (!thereAreOpenTagsWithOrWithoutCurrentLine && !isATitle(trimmedLine)) { // ok, no pending tag open for <ul>, <li> and co.
 
 				if (openPHasNotBeenClosed) {//if we are in a paragraph
 
@@ -108,6 +108,7 @@ public  class PTagsGenerator {
 			openPHasNotBeenClosed = false;
 		}
 	}
+
 
 	/** Adds <br/> */
 	private void processBr() {
@@ -242,6 +243,9 @@ public  class PTagsGenerator {
 				- StringUtils.countOccurrencesOf(line, tagName+"/>") - StringUtils.countOccurrencesOf(line, tagName+" />");  // Not really robust, because there could be attributes between the tag name and the closing bracket.
 	}
 
+	private boolean isATitle(String trimmedLine) {
+		return trimmedLine.startsWith("<h");
+	}
 
 
 
