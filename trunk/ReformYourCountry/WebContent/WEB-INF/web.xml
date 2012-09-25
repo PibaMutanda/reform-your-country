@@ -27,6 +27,10 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>default</servlet-name>
+		<url-pattern>*.swf</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
 		<url-pattern>*.ico</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
@@ -56,6 +60,10 @@
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>*.woff</url-pattern>
+    </servlet-mapping>
+        <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.xml</url-pattern>
     </servlet-mapping>
        <servlet-mapping>
         <servlet-name>default</servlet-name>
