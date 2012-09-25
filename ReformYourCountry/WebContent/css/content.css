@@ -67,10 +67,16 @@
 /* div defining the content of a book displayed on the bibliography page and in the tooltip */
 .book { 
 	text-align: left;
+	font-size: 110%;
 }
 
 .imgbook {
 	float:left;
+	padding: 0px 10px 10px 0px;
+}
+
+.authorbook {   /* Inside tooltip  */
+	font-size: 70%;
 }
 
 .bibref-after-block {

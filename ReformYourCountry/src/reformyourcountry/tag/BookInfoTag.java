@@ -51,9 +51,10 @@ public class BookInfoTag extends SimpleTagSupport {
         
         try {
         
-        
-        out.write(HTMLUtil.getBookFragment(book,readOnly));
- 
+  
+// TODO: turn this custom tag into a .tag (used by BookDisplay and BookList (booktable.jsp))        	
+//        out.write(HTMLUtil.getBookFragment(book,readOnly));
+          out.write("TODO: turn this custom tag into a .tag (used by BookDisplay and BookList (booktable.jsp))");
         
        
         } catch (IOException e) {
