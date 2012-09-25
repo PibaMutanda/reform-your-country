@@ -86,6 +86,7 @@ public class UrlUtil {
     }
     /** nameParam is something like "Java & OO - Fundamentals". The urlFragment is set to "Java_OO_Fundamentals" */ 
     public static String computeUrlFragmentFromName(String nameParam) {
+    	nameParam.trim();
     	nameParam = nameParam.replaceAll("é", "e");
     	nameParam = nameParam.replaceAll("è", "e");
     	nameParam = nameParam.replaceAll("ê", "e");

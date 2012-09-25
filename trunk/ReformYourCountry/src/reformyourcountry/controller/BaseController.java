@@ -41,6 +41,16 @@ public class BaseController<E extends BaseEntity> {
         return ( E )obj;
     }
     
+    @SuppressWarnings("unchecked")
+    public E getRequiredEntityByUrl(String url){
+    	Object obj;
+		try {
+			obj = em.createQuery("select e from "+entityClass.getName()+" e where e.url = :url").setParameter("url",url).getSingleResult();
+		} catch (Exception e) {
+			throw new InvalidUrlException(entityClass.getName() + " ayant l'url '"+url+"' est introuvable.", e);
+		}
+        return ( E )obj;
+    }
     /** Useful for SpringMVC @ModelAttribute method.
      * When a form is submitted, our @ModelAttribute method returns a detached entity.
      * Then Spring injects the parameters values in that entity, then the @RequestMapping method is called.
