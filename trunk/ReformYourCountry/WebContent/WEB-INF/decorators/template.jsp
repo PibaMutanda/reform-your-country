@@ -1,41 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="charset=UTF-8"%>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator"
 	prefix="decorator"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import ="reformyourcountry.web.ContextUtil" %>
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
-<!-- <!DOCTYPE html > -->
-<!-- <html> -->
-<!-- <head> -->
-
-<!-- </head> -->
-
-<!-- <body> -->
-<!-- 		<div class="header-template"> -->
-<%-- 			<%@ include file="/WEB-INF/includes/header.jsp"%> --%>
-<!-- 		</div> -->
-<!-- 		<div class="container-template"> -->
-<!-- 			<div> -->
-<!-- 				<div class="menu-template"> -->
-<%-- 					<%@ include file="/WEB-INF/includes/menu.jsp"%> --%>
-<!-- 				</div> -->
-<!-- 				<div class="body-template"> -->
-<%-- 				<input type="hidden" name="message" value="${message }"> --%>
-			
-<%-- 				    <div>${message}<br/></div> --%>
-<%-- 					<decorator:body /> --%>
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 			<div class="footer-template"> -->
-<%-- 				<%@ include file="/WEB-INF/includes/footer.jsp"%> --%>
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- </body> -->
-<!-- </html> -->
-
-
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
@@ -112,7 +82,7 @@
 	        </c:when>
 	        <c:otherwise>
 	            <a class="login" style="cursor:pointer;">Connexion</a>&nbsp;&nbsp;&nbsp;
-	            <a href="register">Créer un compte</a>
+	            <a href="register">Cr&eacute;er un compte</a>
 	         </c:otherwise>
 	     </c:choose>
 	
