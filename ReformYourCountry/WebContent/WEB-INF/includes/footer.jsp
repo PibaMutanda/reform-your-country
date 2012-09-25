@@ -1,5 +1,4 @@
-﻿
-    <%@page import="reformyourcountry.web.Current" %>
+﻿    <%@page import="reformyourcountry.web.Current" %>
 <%-- <center>enseignement2.be - v<%= Current.getVersion()%></center> --%>
 
 
