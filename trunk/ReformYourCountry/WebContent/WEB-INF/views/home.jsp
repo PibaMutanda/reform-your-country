@@ -12,7 +12,8 @@
 <title>Accueil</title>
 </head>
 <body>
-<ryctag:pageheadertitle title="Accueil">
+
+<ryctag:pageheadertitle title="Accueil"/>
 <a href="home">Enseignement2.be</a> rassemble des pistes sur l'amélioration de l'enseignement en Belgique francophone.
 
 <p class="subtitle">D'abord, pourquoi changer?</p>
@@ -23,7 +24,7 @@
 </p>
 <p>Ce site traite de beaucoup de sujets, si bien qu'il n'est pas facile de voir l'essentiel. Pour nous, le plus important à l'heure actuelle, c'est (dans le désordre) de:
 </p>
-<p>
+
 <ul>
 <li>
     Rendre les écoles plus autonomes, notamment en terme de recrutement/licenciement, et de contrôler les résultats avec plus d'examens centralisés.
@@ -44,7 +45,5 @@
     Attirer les meilleurs vers le métier d'enseignant.
     </li>
 </ul>
-</p>
-</ryctag:pageheadertitle>
 </body>
 </html>

@@ -52,137 +52,27 @@
 </head>
 <body>
 <div id="wrapper">
-<div id="header">
-
-
-
-
-<div class="header-holder">
-<div class="rays">
-
-
-<div class="header-area">
-
-<!-- ***************** - LOGO - ***************** -->
-
-<div class="logodiv" ><a href="home"><img src="images/logo/enseignement2-logo-white-small.png" style="display: block; "/></a>
-<div style="color:#999999; font-size:10px; padding-top:16px;">Analyse ind&eacute;pendante de l'enseignement en Wallonie-Bruxelles.</div></div>
-<!-- ***************** - END LOGO - ***************** -->	
-
-<div style="float:right">
-<div style="width:100%; ">
-  	<div class="login-link">
-	      <c:choose>
-	        <c:when test="${current.user!=null}">
-	          <a id="logout" href="logout">Déconnexion</a>
-	          <a><c:out value="${current.user.userName}"></c:out></a>
-	        </c:when>
-	        <c:otherwise>
-	            <a class="login" style="cursor:pointer;">Connexion</a>&nbsp;&nbsp;&nbsp;
-	            <a href="register">Cr&eacute;er un compte</a>
-	         </c:otherwise>
-	     </c:choose>
-	
+	<%@ include file="/WEB-INF/includes/header.jsp"%>
+	<div id="main">
+		<div class="main-area">
+			<div class="main-holder">
+				<!-- ***************** - START sub-nav - ***************** -->
+				<div id="sub_nav">
+				  <ryc:articlesTree link="true" />
+				</div>
+				<!-- ***************** - END sub-nav - ***************** -->
+				<!-- ***************** - START Content - ***************** -->
+				<div id="content">
+					<div class="body-template">
+				         <decorator:body />
+					</div>
+					<br class="clear" />				
+				</div><!-- end content -->
+				<!-- ***************** - END content - ***************** -->
+			</div><!-- end main-holder -->
+		</div><!-- main-area -->
+		<%@ include file="/WEB-INF/includes/footer.jsp"%>
 	</div>
-</div>
-
-
-<!-- ***************** - Main Navigation - ***************** -->
-<div>
-<div style="float:left;">
-<ul id="menu-main-nav">
-	<li><a href="content-3d-effects.html"><span><strong>UTILISATEURS</strong>
-	<span class="navi-description">utilisateurs actifs</span></span></a>
-		<ul class="sub-menu">
-			<li><a href="content-code-snippets.html"><span>groupes</span></a></li>
-		</ul>
-	</li>
-	
-	<li ><a href="index-jquery-2.html"><span><strong>Bibliographie</strong>
-		<span class="navi-description">voir liste des livres</span></span></a>
-
-	</li>
-	<li ><a href="index-jquery-2.html"><span><strong>A propos</strong><span class="navi-description">Qui sommes nous?</span></span></a>
-		<ul class="sub-menu">
-			 <li><a href="index-jquery-2.html"><span>Pourquoi ce site?</span></a></li>
-			 <li><a href="index-video-left.html"><span>Fonctionnalités</span></a></li>
-			 <li><a href="index-video-right.html"><span>Comment contribuer?</span></a></li>
-			 <li><a href="index-3d-1.html"><span>Contactez-nous</span></a></li>
-		 </ul>
-	</li>
-	
-	<li>
-		
-	</li>
-
-</ul>
-</div>
-<div style="float:right;padding-top: 30px;">
-<form method="get" id="searchform" action="#" class="search-form">
-		<fieldset>
-		<span class="text">
-		 <input type="submit" class="submit" value="search" id="searchsubmit" />
-		 <input type="text" name="s" id="s" value="Rechercher" onfocus="this.value=(this.value=='Rechercher') ? '' : this.value;" onblur="this.value=(this.value=='') ? 'Rechercher' : this.value;" />
-		</span>
-		</fieldset>
-		</form>
-</div>
-</div>
-<!-- ***************** - END Main Navigation - ***************** -->
-<!-- Hidden div that JavaScript will move in a dialog box when we press the login link -->
-<div id ="logindialog" style = "display:none;">
- 
-</div>
-
-</div>
-
-</div><!-- header-area -->
-
-</div><!-- end rays -->
-</div><!-- end header-holder -->
-</div><!-- end header -->
- 
- 
-
- 
-<div id="main">
-<div class="main-area">
-
-
-
-
-
-
-<div class="main-holder">
-
-<!-- ***************** - START sub-nav - ***************** -->
-<div id="sub_nav">
-<ryc:articlesTree link="true" />
-
-</div><!-- end sub_nav -->
-
-<!-- ***************** - END sub-nav - ***************** -->
-
-
-<!-- ***************** - START Content - ***************** -->
-<div id="content">
-
-<decorator:body />
-
-<br class="clear" />
-
-
-</div><!-- end content -->
-
-<!-- ***************** - END content - ***************** -->
-
-
-		
-</div><!-- end main-holder -->
-</div><!-- main-area -->
-
-<%@ include file="/WEB-INF/includes/footer.jsp"%>
-</div>
 </div>
 <script type="text/javascript" src="js/jquery.cycle.all.min.js"></script>
 <script type="text/javascript" src="js/jquery-1-slider.js"></script>

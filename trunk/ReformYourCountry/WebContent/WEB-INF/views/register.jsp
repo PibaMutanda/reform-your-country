@@ -6,7 +6,7 @@
 <title>Inscription</title>
 </head>
 <body>
-    <ryctag:pageheadertitle title="Inscription">
+    <ryctag:pageheadertitle title="Inscription"/>
     ${error}
    <ryctag:form action="registersubmit" modelAttribute="user">
     	<ryctag:input path="userName" label="pseudo"/>
@@ -17,24 +17,12 @@
     		<td><form:errors path="mail" cssClass="error" /></td>
     	</tr>
     	<tr>
-    	<td>
-    	<span class="ka_button small_button small_royalblue">
+    	<td COLSPAN="2" align="center">
+    	<span class="ka_button small_button small_royalblue" >
     	<input type="submit" value="m'inscrire" />
     	</span>
     	</td>
     	</tr>
     </ryctag:form>
 
-   <%--
-     <form:form modelAttribute="user" action="registersubmit">
-            <label for="userName">pseudo</label><form:input path="userName" required="required"/>
-        <br />
-            <label for="password">mot de passe</label> <form:password path="password" required="required"/>
-        <br />
-            <label for="mail">e-mail</label> <form:input path="mail" type="mail" required="required"/>
-        <br />
-         <input type="submit" value="m'inscrire" />
-    </form:form>
-    --%>
-    </ryctag:pageheadertitle>
 </body>
