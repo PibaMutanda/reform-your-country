@@ -1,8 +1,10 @@
 package reformyourcountry.converter;
+
 import java.util.HashSet;
 import java.util.Set;
 
-import antlr.debug.ParserListener;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import reformyourcountry.model.Article;
 import reformyourcountry.model.Book;
@@ -10,6 +12,7 @@ import reformyourcountry.parser.BBDomParser;
 import reformyourcountry.parser.BBTag;
 import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.repository.BookRepository;
+import reformyourcountry.util.FileUtil;
 import reformyourcountry.util.HTMLUtil;
 import reformyourcountry.web.UrlUtil;
 /**
@@ -23,15 +26,16 @@ import reformyourcountry.web.UrlUtil;
  * ainsi qu�un <a href="http://lesoir.be/toto">hyperlien</a> vers un site web.</div>
  */
 public class BBConverter {
+	
+	static private Log log = LogFactory.getLog(FileUtil.class);
+	
 	boolean errorFound = false;
 	String html;
 	
 	BookRepository bookRepository;  // No @Autowired because we are not in a Spring bean.
 	ArticleRepository articleRepository;
 	private Set<Book> booksRefferedInTheText = new HashSet<Book>();  // To collect the books seen in the [quote bib="..."] and [link bib="..."].
-	
-
-	
+		
 	
 	//////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////// PUBLIC ///////////////////////////////////////
@@ -74,8 +78,9 @@ public class BBConverter {
 				addErrorMessage(tag);
 				break;
 			case Text:
+				System.out.println("transformDomToHtml in case Text");
 				String addText = tag.getContent();
-				html += addText;
+				html += processText(addText);
 				break;
 			case Tag:
 				processTag(tag);
@@ -93,8 +98,9 @@ public class BBConverter {
             processImage(tag);
             break;  
         case "escape":
+        	System.out.println("processTag in case Text");
 			String addText = getInnerTextContent(tag);
-			html+= addText;
+			html += addText;
 			break;
 		case "quote" :
 			processQuote(tag);
@@ -184,12 +190,19 @@ public class BBConverter {
 			case Tag: 
 				addErrorMessage("this tag cannot contains other tags", child);
 				return "";
-				
+
 			}
 		}
 		return content;
 	}
 
+	private String processText(String content) {
+		PTagsGenerator pTagsGenerator = new PTagsGenerator();
+		String result = pTagsGenerator.transformTextBlocksIntoStringWithPTags(content);
+		return result;
+		
+	}
+	
 	/** Retruns false if attribute = "false" or if not defined. */
 	private boolean isAttributeTrue(BBTag tag, String attributeName) {
 	    String valueStr = tag.getAttributeValue(attributeName);
@@ -334,7 +347,7 @@ public class BBConverter {
 				break;
 			case Text :
 				String addText = child.getContent();
-				html += addText;
+				html += processText(addText);
 				break;
 			case Tag :
 				switch(child.getName()){
@@ -367,8 +380,6 @@ public class BBConverter {
 		html+=untranslatedHtml;
     }
 
-
-	
 	
 	/** Returns the class name with the book abbrev in it, so the JavaScript code can find it easily, for example with the book "emile":  $(".bookref-emile")
 	 */

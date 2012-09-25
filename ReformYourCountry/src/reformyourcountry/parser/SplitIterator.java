@@ -83,12 +83,13 @@ class SplitIterator implements Iterator<Part> {
 					buf.setLength(0);
 				}
 				braceOpen = false;
-			} else if (c == '\n' && !braceOpen) {
-				buf.append(c);
-				if (buf.length() > 0) {
-					result = new Part(buf.toString());
-					buf.setLength(0);
-				}
+// We do not want a separate part (DOM tree node) for each text lines.
+//			} else if (c == '\n' && !braceOpen) {
+//				buf.append(c);
+//				if (buf.length() > 0) {
+//					result = new Part(buf.toString());
+//					buf.setLength(0);
+//				}
 			} else {
 				buf.append(c);
 			}
