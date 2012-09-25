@@ -15,6 +15,9 @@ public class Book extends BaseEntity {
     
     String title;
     
+    @Column(unique = true, nullable=false)
+	private String url; //Used to create a more readable URL; derived from the title (ie: if the title is "Le Web 2.0", url will be "le-Web-2-0")
+    
     @Lob
     String description;
     
@@ -33,11 +36,12 @@ public class Book extends BaseEntity {
     
     public Book() { }
     
-    public Book(String abrev, String title, String description, String author,
+    public Book(String abrev, String title, String url, String description, String author,
             String pubYear, boolean top, String externalUrl) {
         super();
         this.abrev = abrev;
         this.title = title;
+        this.url = url;
         this.description = description;
         this.author = author;
         this.pubYear = pubYear;
