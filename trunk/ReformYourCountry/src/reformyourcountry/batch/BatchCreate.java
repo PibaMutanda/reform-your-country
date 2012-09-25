@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -254,6 +255,7 @@ public class BatchCreate implements Runnable {
 		// article.
 		Article article = new Article();
 		article.setTitle("Le Web 2.0 et les profs");
+		article.setShortName("web2.0");
 
 		Scanner scan;
 		String str = "";
@@ -297,7 +299,7 @@ public class BatchCreate implements Runnable {
 
 		Article article2 = new Article();
 		article2.setTitle("Autonomie des écoles");
-
+		article2.setShortName("auto");
 		int ch;
 		StringBuffer strContent = new StringBuffer("");
 		File f = new File(System.getProperty("user.dir")
@@ -307,7 +309,7 @@ public class BatchCreate implements Runnable {
 		try {
 
 			fis = new FileInputStream(f);
-			InputStreamReader isr = new InputStreamReader(fis, "UTF8");
+			InputStreamReader isr = new InputStreamReader(fis, Charset.forName("UTF-8"));
 
 			while ((ch = isr.read()) != -1)
 
@@ -337,7 +339,6 @@ public class BatchCreate implements Runnable {
 
 		article2.setSummary("1.Règles actuelles/2.Décrets pédagogiques/3.Contrôle des résultats/4.Recrutement/Licenciement/5.Libre plus autonome");
         article2.setUrl(UrlUtil.computeUrlFragmentFromName(article2.getTitle()));
-
 		em.persist(article2);
 		return article2;
 
@@ -349,6 +350,7 @@ public class BatchCreate implements Runnable {
 		// Article 3
 		Article article3 = new Article();
 		article3.setTitle("Directeurs d'école");
+		article3.setShortName("dir");
 
 		int ch;
 		StringBuffer strContent = new StringBuffer("");
@@ -401,6 +403,7 @@ public class BatchCreate implements Runnable {
 		// Article 4
 		Article article4 = new Article();
 		article4.setTitle("Ecole de l'avenir");
+		article4.setShortName("avenir");
 
 		int ch;
 		StringBuffer strContent = new StringBuffer("");
