@@ -1,4 +1,4 @@
-<%@ tag body-content="empty" isELIgnored="false" %>
+﻿<%@ tag body-content="empty" isELIgnored="false" %>
 <%@taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
 <%@ attribute name="entity" required="true" type="reformyourcountry.model.BaseEntity"%>
