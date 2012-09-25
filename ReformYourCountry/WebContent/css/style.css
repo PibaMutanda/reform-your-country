@@ -597,6 +597,8 @@ body {margin:0;background:#f4f4f2;font:1.2em/19px "helvetica neue",Helvetica,Ari
 /*---------------------------------------------------------------*/
 /* 2. VERTICAL SUB NAVIGATION
 /*---------------------------------------------------------------*/
+#sub_nav ul a:hover,
+.current_page_item  {background:url(../images/secondary-royal-blue/navblueback.png) 0 0 repeat-y;list-style-type: none;margin-right:0;color:#ccc;text-decoration:none;}
 #sub_nav {list-style-type: none;float: left;width:160px;float:left;background:url(../images/_global/bg-sidebar.gif) 100% 0 repeat-y;	padding-bottom:0px;overflow:hidden;}
 #sub_nav ul a {list-style-type: none;display:block;background:url(../images/_global/separator3.gif) 0 0 repeat-x;padding:4px 0 0 0;height:1%;position:relative;margin:0 0 0 0;}
 #sub_nav ul a:hover,
