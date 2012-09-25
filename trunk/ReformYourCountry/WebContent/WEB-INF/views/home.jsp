@@ -15,7 +15,7 @@
 <title>Accueil</title>
 </head>
 <body>
-<ryctag:breadcrumb title="Accueil">
+<ryctag:pageheadertitle title="Accueil">
 <a href="home">Enseignement2.be</a> rassemble des pistes sur l'amélioration de l'enseignement en Belgique francophone.
 
 <p class="subtitle">D'abord, pourquoi changer?</p>
@@ -48,6 +48,6 @@
     </li>
 </ul>
 </p>
-</ryctag:breadcrumb>
+</ryctag:pageheadertitle>
 </body>
 </html>
