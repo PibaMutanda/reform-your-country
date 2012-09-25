@@ -18,6 +18,8 @@ public class ArticleRepository extends BaseRepository<Article>{
         return    em.createQuery("select a from Article a where a.parent is null order by a.releaseDate").getResultList();
     }
     
-   
+    public Article findByShortName(String shortName){
+    	return getSingleOrNullResult(em.createQuery("select a from Article a where a.shortName = :shortname").setParameter("shortname",shortName));
+    }
 
 }
