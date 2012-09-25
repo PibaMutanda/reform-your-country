@@ -38,9 +38,7 @@
 					<div>
 						<div style="float:left;">
 						<ul id="menu-main-nav">
-							<li><a href=""><span><strong>Utilisateurs</strong>
-									</span>
-								</a>
+							<li><a href=""><span><strong>Utilisateurs</strong></span></a>
 								<ul class="sub-menu">
 									<li><a href="grouplist"><span>Groupes</span></a></li>
 									<c:if test="${current.user!=null}"><li><a href="user/${current.user.userName}"><span>Mon profil</span></a></li></c:if>
@@ -48,16 +46,14 @@
 								</ul>
 							</li>
 							
-							<li ><a href=""><span><strong>Contenu</strong>
-								</span></a>
+							<li ><a href=""><span><strong>Contenu</strong></span></a>
 								<ul class="sub-menu">
 								 	<li><a href="articlelist"><span>Articles</span></a></li>
 									 <li><a href="actionlist"><span>Actions</span></a></li>
 									 <li><a href="booklist"><span>Bibliographie</span></a></li>
 								 </ul>
 							</li>
-							<li ><a href=""><span><strong>A propos</strong>
-							</span></a>
+							<li ><a href=""><span><strong>A propos</strong></span></a>
 								<ul class="sub-menu">
 								 <li><a href="index-jquery-2.html"><span>Qui sommes-nous?</span></a></li>
 									 <li><a href="index-jquery-2.html"><span>Pourquoi ce site?</span></a></li>
@@ -67,14 +63,13 @@
 								 </ul>
 							</li>
 							
-							<li>
-								
-							</li>
-						
+							<li></li>  <%-- Empty LI to have a vertical separator between the last menu item and the search tool --%> 
 						</ul>
 						</div>
+						
+						<!-- Search -->
 						<div style="float:right;padding-top: 30px;">
-						  <form method="get" id="searchform" action="#" class="search-form">
+						  <form method="get" id="searchform" action="search" class="search-form"> <%-- TODO: implement seach page. --%>
 								<fieldset>
 								<span class="text">
 								 <input type="submit" class="submit" value="search" id="searchsubmit" />
