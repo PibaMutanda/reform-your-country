@@ -32,7 +32,7 @@
 		<ul class="list sitemap-list">
 			 <li><a href="#">Qui sommes nous?</a></li>
 			 <li><a href="#">Pourquoi ce site?</a></li>
-			 <li><a href="#">fonctionnalit�s</a></li>
+			 <li><a href="#">fonctionnalités</a></li>
 			 <li><a href="#">Comment contribuer?</a></li>
 			 <li><a href="#">Contactez-nous</a></li>
 		</ul>	
