@@ -60,9 +60,4 @@ public abstract class BaseRepository<E extends BaseEntity> {
             return null;  // Normal, entity is just not found.
         }
     }
-
-    public E getRequiredEntityByUrl(String url){
-        return getSingleOrNullResult( em.createQuery("select e from "+entityClass.getCanonicalName()+" e where e.url = :url").setParameter("url",url) );
-    }
-    
 }

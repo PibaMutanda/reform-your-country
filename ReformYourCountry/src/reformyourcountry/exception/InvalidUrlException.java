@@ -9,6 +9,10 @@ public class InvalidUrlException extends RuntimeException {
 		super(messageToUser);
 		this.messageToUser = messageToUser;
 	}
+	public InvalidUrlException(String messageToUser, Exception e) {
+		super(messageToUser,e);
+		this.messageToUser = messageToUser;
+	}
 	public String getMessageToUser() {
 		return messageToUser;
 	}
