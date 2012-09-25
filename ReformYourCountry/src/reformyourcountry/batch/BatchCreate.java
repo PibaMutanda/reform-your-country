@@ -72,12 +72,15 @@ public class BatchCreate implements Runnable {
 		User user2 = proxy.populateUsersWithOneUser();
 	
 		proxy.populateUsersWithOneModerator();
-		// proxy.loginUser(user);
+	    //proxy.loginUser(user);
 
 		Article article = proxy.populateArticle();
 		Article article2 = proxy.populateArticle2WithParent(null);
 		Article article3 = proxy.populateArticle3WithParent(article2);
 		Article article4 = proxy.populateArticle4WithParent(article3);
+		Article article5 = proxy.populateArticle5();
+		Article article6 = proxy.populateArticle6();
+		
 		Action action = proxy.populateAction(article);
 		proxy.populateComment(action, user);
 		Argument argument = proxy.populatedArgument(action, user);
@@ -449,7 +452,109 @@ public class BatchCreate implements Runnable {
 		return article4;
 
 	}
+    @Transactional
+    public Article populateArticle5(){
+    	Article article5=new Article();
+    	article5.setTitle("Article effort");
+    	article5.setShortName("effort");
+    	int ch;
+		StringBuffer strContent = new StringBuffer("");
+		File f = new File(System.getProperty("user.dir")
+				+ "/src/reformyourcountry/" + "articleEffort.txt");
 
+		FileInputStream fis = null;
+		try {
+
+			fis = new FileInputStream(f);
+			InputStreamReader isr = new InputStreamReader(fis, "UTF8");
+
+			while ((ch = isr.read()) != -1)
+
+				strContent.append((char) ch);
+
+			fis.close();
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		article5.setContent(strContent.toString());
+		article5.setParent(null);
+		article5.setPublicView(true);
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		try {
+			article5.setReleaseDate(sdf.parse("2012-09-25"));
+		} catch (ParseException e) {
+
+			throw new RuntimeException(e);
+		}
+		
+		article5.setSummary("1.Règles actuelles/2.Décrets pédagogiques/3.Contrôle des résultats/4.Recrutement/Licenciement/5.Libre plus autonome");
+		article5.setUrl(UrlUtil.computeUrlFragmentFromName(article5.getTitle()));
+
+		em.persist(article5);
+
+		return article5;
+		
+    }
+	
+    @Transactional
+    public Article populateArticle6(){
+    	Article article6=new Article();
+    	article6.setTitle("Article autonomie");
+    	article6.setShortName("autonomie");
+    	int ch;
+		StringBuffer strContent = new StringBuffer("");
+		File f = new File(System.getProperty("user.dir")
+				+ "/src/reformyourcountry/" + "articleAutonomie.txt");
+
+		FileInputStream fis = null;
+		try {
+
+			fis = new FileInputStream(f);
+			InputStreamReader isr = new InputStreamReader(fis, "UTF8");
+
+			while ((ch = isr.read()) != -1)
+
+				strContent.append((char) ch);
+
+			fis.close();
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		article6.setContent(strContent.toString());
+		article6.setParent(null);
+		article6.setPublicView(true);
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		try {
+			article6.setReleaseDate(sdf.parse("2012-09-25"));
+		} catch (ParseException e) {
+
+			throw new RuntimeException(e);
+		}
+		
+		article6.setSummary("1.Règles actuelles/2.Décrets pédagogiques/3.Contrôle des résultats/4.Recrutement/Licenciement/5.Libre plus autonome");
+		article6.setUrl(UrlUtil.computeUrlFragmentFromName(article6.getTitle()));
+
+		em.persist(article6);
+
+		return article6;
+		
+    }
+    
+	
 	@Transactional
 	public Action populateAction(Article article) {
 
