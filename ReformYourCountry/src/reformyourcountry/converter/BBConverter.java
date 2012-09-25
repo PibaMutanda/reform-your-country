@@ -78,7 +78,6 @@ public class BBConverter {
 				addErrorMessage(tag);
 				break;
 			case Text:
-				System.out.println("transformDomToHtml in case Text");
 				String addText = tag.getContent();
 				html += processText(addText);
 				break;
@@ -98,7 +97,6 @@ public class BBConverter {
             processImage(tag);
             break;  
         case "escape":
-        	System.out.println("processTag in case Text");
 			String addText = getInnerTextContent(tag);
 			html += addText;
 			break;
@@ -137,17 +135,16 @@ public class BBConverter {
 	}
 
 	private void processLink(BBTag tag) {
-		String abrev = tag.getAttributeValue("article");//until pretty url system isn't implemented , use of id for abrev
+		String shortName = tag.getAttributeValue("article");
 		String content = getInnerTextContent(tag);
 		
-		Article article = articleRepository.find(Long.parseLong(abrev)); //TODO use abbrev when implemented
+		Article article = articleRepository.findByShortName(shortName);
 
         if (article == null) {
-            addErrorMessage("Article not found in DB for article = '"+abrev+"'", tag);
-            return;
-        };
-		
-		html+= "<a href=\"article?id="+abrev+"\">"+content+"</a>";//TODO use /article/"article.url" when pretty url implemented
+            addErrorMessage("Aucun article trouvé pour le raccourci suivant : '"+shortName+"'", tag);
+        }else{
+        	html+= "<a href=\"article/"+article.getUrl()+"\">"+content+"</a>";
+        }
 	}
 
 	private void processAction(BBTag tag) {
@@ -390,7 +387,7 @@ public class BBConverter {
 	
 	private void addToolTipBooks(){
 	    for(Book book :booksRefferedInTheText){
-	        html += HTMLUtil.getBookFragment(book,true);
+	        html += getBookFragment(book);
 	    }
 	}
 	
@@ -427,5 +424,27 @@ public class BBConverter {
 		addErrorMessage(tag.getErrorText(), tag);  
 	}	
 	
+    public static String getBookFragment(Book book) {
+        String block = "";
+
+        block += "<div id ='book-"+book.getAbrev()+"' style='display:none;'>"; // This div will be "removed" by jQuery bubbles (tooltip)
+        block += "<div class='book'>";  // Will be in the tooltip too.
+        
+        if(book.isHasImage())  // TODO: Change the URL
+            block += "<img src='gen" + FileUtil.BOOK_SUB_FOLDER + FileUtil.BOOK_RESIZED_SUB_FOLDER +"/"+book.getId()+".jpg' alt='"+book.getTitle()+"' class='imgbook'>";
+
+        block += "<a href='booklist#"+book.getAbrev()+"'>"; 
+        block += book.getTitle()+"</a><br/>";
+        block += "<span class='authorbook'>"+book.getAuthor()+" - "+ book.getPubYear()+"</span><br/>";
+
+        block += "<p>"+book.getDescription()+"</p>";
+        
+        block +="</div>\n";
+        
+        block +="</div>\n";
+
+        return block;
+
+    }
 
 }

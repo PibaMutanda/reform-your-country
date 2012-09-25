@@ -23,6 +23,10 @@ public class Article extends BaseEntity {
 	@Column(length = 100)
 	private String title;
 	
+	@NotBlank
+	@Column(length=20)
+	private String shortName;
+	
 	@Column(unique = true, nullable=false)
 	private String url; //Used to create a more readable URL; derived from the title (ie: if the title is "Le Web 2.0", url will be "le-Web-2-0") 
 
@@ -59,6 +63,16 @@ public class Article extends BaseEntity {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
+	public String getShortName() {
+		return shortName;
+	}
+
+
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
+	}
+
 
 	public Article getParent() {
 		return parent;
