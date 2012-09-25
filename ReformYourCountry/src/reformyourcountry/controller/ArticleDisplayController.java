@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.converter.BBConverter;
@@ -70,5 +71,12 @@ public class ArticleDisplayController extends BaseController<Article> {
         mv.addObject("articleContent", bbc.transformBBCodeToHtmlCode(article.getContent()));
         
         return mv;
+	}
+
+	// Used during development (to not retype the full url)
+	@RequestMapping(value={"/article"})
+	public String displayArticleWithShortName( @RequestParam("shortname") String shortName){
+		Article article = articleRepository.findByShortName(shortName);
+        return ("redirect:/article/"+article.getUrl());
 	}
 }
