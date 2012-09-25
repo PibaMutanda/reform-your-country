@@ -3,20 +3,13 @@
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator"
 	prefix="decorator"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import ="reformyourcountry.web.ContextUtil" %>
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
 <!DOCTYPE html>
 <head>
-<c:choose>
-			<c:when test="<%= ContextUtil.devMode %>">				
-				<base href="/ReformYourCountry/"/>
-			</c:when>
-  		    <c:otherwise>
-			    <base href="/"/>
-			</c:otherwise>
-		</c:choose>
+<base href="${pageContext.request.contextPath}/"/>
 
+<meta charset="UTF-8" />
 <!-- Force latest IE rendering engine or ChromeFrame if installed -->
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
 
@@ -29,18 +22,22 @@
 <link rel="stylesheet" type="text/css" href="css/template.css" />
 <link rel="stylesheet" type="text/css" href="css/content.css" />
 
-<!-- <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" /> --><%--maybe must we put an ie condition --%>
+<!-- <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" /> -->
+<%--maybe must we put an ie condition --%>
 <link rel="icon" type="image/png" href="images/favicon.png"/>
 
-<link rel="stylesheet" href="css/jquery-ui-1.8.23.custom.css"/><%-- Jquery added here because they're used inside custom tags, done so to ease maintenance--%>
-<script src="js/ext/jquery-1.8.0.min.js"></script><%-- jquery depandencies --%>
-<script src="js/ext/jquery-ui-1.8.23.custom.min.js"></script><%-- jquery depandencies --%>
+<link rel="stylesheet" href="css/jquery-ui-1.8.23.custom.css" />
+<%-- Jquery added here because they're used inside custom tags, done so to ease maintenance--%>
+<script src="js/ext/jquery-1.8.0.min.js"></script>
+<%-- jquery depandencies --%>
+<script src="js/ext/jquery-ui-1.8.23.custom.min.js"></script>
+<%-- jquery depandencies --%>
 <script src="js/int/datepicker.js" type="text/javascript"></script>
 <script src="js/int/login.js"></script>
 <script src="js/int/redirect.js"></script>
- <script src="js/int/focusevent.js"></script>
-<title><decorator:title/></title>
-<decorator:head/>
+<script src="js/int/focusevent.js"></script>
+<title><decorator:title /></title>
+<decorator:head />
 <!--[if lte IE 8]><meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /><![endif]-->
 <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
 <script type="text/javascript" src="js/karma.js"></script>
