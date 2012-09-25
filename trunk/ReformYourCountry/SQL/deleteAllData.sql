@@ -4,6 +4,7 @@ DELETE FROM article_action ;
 DELETE FROM article ;
 DELETE FROM comment ;
 DELETE FROM article_action ;
+DELETE FROM voteaction ;
 DELETE FROM action ;
 
 DELETE FROM book ;
@@ -13,5 +14,5 @@ DELETE FROM groups ;
 DELETE FROM mail ;
 DELETE FROM users_privileges ;
 DELETE FROM users ;
-DELETE FROM voteaction ;
+
  
