@@ -6,7 +6,7 @@
 <title>Inscription</title>
 </head>
 <body>
-    <ryctag:breadcrumb title="Inscription">
+    <ryctag:pageheadertitle title="Inscription">
     ${error}
    <ryctag:form action="registersubmit" modelAttribute="user">
     	<ryctag:input path="userName" label="pseudo"/>
@@ -36,5 +36,5 @@
          <input type="submit" value="m'inscrire" />
     </form:form>
     --%>
-    </ryctag:breadcrumb>
+    </ryctag:pageheadertitle>
 </body>
