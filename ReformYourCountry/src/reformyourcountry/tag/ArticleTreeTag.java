@@ -109,7 +109,13 @@ public class ArticleTreeTag extends SimpleTagSupport{
 			}
 		}
 		if (link == true) {
-            result += "<a href =\""+UrlUtil.getAbsoluteUrl("article/")+article.getUrl()+"\"><span>";
+            if (ContextUtil.getHttpServletRequest().getRequestURL().toString().equals(UrlUtil.getAbsoluteUrl("article/")+ article.getUrl())) {
+				result += "<a class=\"current_page_item\" href =\"" + UrlUtil.getAbsoluteUrl("article/")
+						+ article.getUrl() + "\"><span>";
+			}else{
+				result += "<a href =\"" + UrlUtil.getAbsoluteUrl("article/")
+						+ article.getUrl() + "\"><span>";
+			}
 		}
 		result += article.getTitle();
 		if (link == true) {
