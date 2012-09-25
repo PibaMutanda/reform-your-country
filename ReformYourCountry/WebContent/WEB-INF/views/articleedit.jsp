@@ -13,12 +13,13 @@
 </head>
 
 <body>   
-	 <%-- Help handle --%>
-	 <div id="helphandle">
-	   <span style="color:#182947"><b>?</b></span>
-	   <div id="helptext"></div>  <%-- Will content the help text--%>
-	 </div>
-	 <br/>
+	<%-- Help handle --%>
+	<div id="helphandle">
+	   <span id="click" style="color:#182947;"><b>?</b></span>
+	   <div id="helptext"></div>  <%-- Will contain the help text--%>
+	</div>
+	<br/>
+	
 	<h1>Editer un article</h1>	
 	 <form:form modelAttribute="article" action="articleeditsubmit">
 		<table>
