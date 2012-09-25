@@ -5,14 +5,16 @@
 <%-- This is in a .tag file and not in a Java file because in JSP 2.0, only .tag file can be used to make custom tags producing custom tags
 see http://stackoverflow.com/questions/439861/spring-mvc-tag-interaction-with-custom-tag
  --%>
- <!-- ***************** START Title Bar ***************** -->
+  <!-- ***************** START Title Bar ***************** -->
 <div class="tools">
 	<div class="holder">
 		<div class="frame">
 			<h1>${title}</h1>
 			
 			<c:if test ="${breadcrumb != null}">
-				<p class="breadcrumb"><a href="home">Home</a><a href="home">Pages</a><span class='current_crumb'>Accueil</span></p>
+				<p class="breadcrumb">
+					<jsp:doBody/>
+				</p>
 			</c:if>
 		</div><!-- end frame -->
 			

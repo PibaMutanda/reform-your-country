@@ -598,11 +598,11 @@ body {margin:0;background:#f4f4f2;font:1.2em/19px "helvetica neue",Helvetica,Ari
 /* 2. VERTICAL SUB NAVIGATION
 /*---------------------------------------------------------------*/
 #sub_nav ul a:hover,
-.current_page_item  {background:url(../images/secondary-royal-blue/navblueback.png) 0 0 repeat-y;list-style-type: none;margin-right:0;color:#ccc;text-decoration:none;}
+
 #sub_nav {list-style-type: none;float: left;width:160px;float:left;background:url(../images/_global/bg-sidebar.gif) 100% 0 repeat-y;	padding-bottom:0px;overflow:hidden;}
 #sub_nav ul a {list-style-type: none;display:block;background:url(../images/_global/separator3.gif) 0 0 repeat-x;padding:4px 0 0 0;height:1%;position:relative;margin:0 0 0 0;}
 #sub_nav ul a:hover,
-#sub_nav ul li.current_page_item a {list-style-type: none;margin-right:0;color:#ccc;text-decoration:none;}
+#sub_nav ul li a.current_page_item {background:url(../images/secondary-royal-blue/navblueback.png) 0 0 repeat-y;list-style-type: none;margin-right:0;color:#ccc;text-decoration:none;}
 #sub_nav ul ul a {list-style-type: none;background:url(../images/_global/bullet1.gif) 0 -9px no-repeat;padding:0 0 0 ;margin-bottom: -5px}
 #sub_nav ul ul li a:hover,
 #sub_nav ul ul a:hover {display:block;color:#ccc;position:relative;margin:0 13px 0 0;padding:0 0 0 0 ;height:1%;}
@@ -611,7 +611,7 @@ body {margin:0;background:#f4f4f2;font:1.2em/19px "helvetica neue",Helvetica,Ari
 #sub_nav ul ul {list-style-type: none;margin:0;padding:0 0 0 0;font-size:11px;}
 #sub_nav ul ul ul {list-style-type: none;padding:0 0 0 10px ;}
 #articletree > li{padding-bottom: 12px;}
-
+.current_page_item  {background:url(../images/secondary-royal-blue/navblueback.png) 0 0 repeat-y;list-style-type: none;margin-right:0;color:#ff0000;text-decoration:none;}
 .nav_right_sub_nav ul li.current_page_item ul li a,
 .nav_right_sub_nav ul li.current_page_item ul li a:hover,
 .nav_right_sub_nav ul li.current-menu-parent ul li.current_page_item a,
@@ -645,7 +645,6 @@ body {margin:0;background:#f4f4f2;font:1.2em/19px "helvetica neue",Helvetica,Ari
 #horizontal_nav ul .current_page_item a, #horizontal_nav ul a:hover {color:#fff !important;}
 #horizontal_nav ul a span {float:left;padding:4px 0 4px 13px;cursor:pointer;}
 #horizontal_nav ul .current_page_item span, #horizontal_nav ul a:hover span {background:url(../images/_global/bg-horz-active.jpg) no-repeat;}
-
 
 
 
@@ -837,7 +836,7 @@ a:hover { text-decoration:none;}
 /* 2. CUSTOM LIST BULLETS
 /*---------------------------------------------------------------*/
 .list {margin:0;list-style:none;padding:0 0 20px 0;}
-.list li {padding:5px 0 0 15px;background:url(../images/_global/bullet2.gif) 0 11px no-repeat;margin-bottom: 5px;}
+.list li {padding:5px 0 0 15px;background:url(../images/secondary-royal-blue/bullet1.png) 0 9px no-repeat !important;margin-bottom: 5px;}
 .list2 li {background:url(../images/_global/bullet3.gif) 0 11px no-repeat;}
 .list3 li {background:url(../images/_global/bullet4.gif) 0 11px no-repeat;}
 .list4 li {background:url(../images/_global/bullet5.gif) 0 11px no-repeat;padding-left:20px;}

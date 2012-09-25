@@ -18,35 +18,44 @@
 
 <body>
 
+
+ <ryctag:pageheadertitle title="${article.title}" breadcrumb="true">
+ 	<c:forEach items="${parentsPath}" var="subarticle">
+ 		<c:if test="${article.title != subarticle.title}">
+			<ryctag:breadcrumbelement label="${subarticle.title}" link="article/${subarticle.url}" />
+		</c:if>
+	</c:forEach>
+	<ryctag:breadcrumbelement label="${article.title}" />
+ </ryctag:pageheadertitle>
+
+
+
+
+
 <div  class="dialog"  > Loading ...</div>
 
-	<%-- BREADCRUMB --%>
-	<h2>
-		<c:forEach items="${parentsPath}" var="article">
-			<a href="article/${article.url}">${article.title}></a>
-		</c:forEach>
-	</h2>
 
-	<h2>${article.title}</h2>
-	release date: ${displayDate}<br/>
-
-	<ryc:conditionDisplay privilege="EDIT_ARTICLE">
-	
-		<ryctag:form action="articleedit" modelAttribute="article">
-			<form:hidden path="id" value="${article.id}"/>
-			<input	type="submit" value="Editer" />
-		</ryctag:form>
-		<ryctag:form action="articleparentedit" modelAttribute="article">
-			<form:hidden path="id" value="${article.id}"/>
-			<input	type="submit" value="Editer parent" />
-		</ryctag:form>
-	</ryc:conditionDisplay>
-
-	
+	<div class="article-info">
+		${article.shortName}<br/>  
+		publish date: ${displayDate}
+	</div>
+	<div class="article-options">
+		<ryc:conditionDisplay privilege="EDIT_ARTICLE">
+		
+			<ryctag:form action="articleedit" modelAttribute="article">
+				<form:hidden path="id" value="${article.id}"/>
+				<input	type="submit" value="Editer" />
+			</ryctag:form>
+			<ryctag:form action="articleparentedit" modelAttribute="article">
+				<form:hidden path="id" value="${article.id}"/>
+				<input	type="submit" value="Editer parent" />
+			</ryctag:form>
+		</ryc:conditionDisplay>
+	</div>
     <!-- COUNT DOWN -->
-	<hr/>
+
 	<c:if test="${!article.published&&article.publicView}">
-	<div id="defaultCountdown"></div>
+	<div  class="opener" id="defaultCountdown"></div>
 		<script type="text/javascript">
 		$(document).ready(function () {
 					var publishDay = new Date(${publishYear}, ${publishMonth}, ${publishDay});
@@ -59,8 +68,8 @@
 		
 	</c:if>
 	
-	<hr/>
-	
+
+	<div class="">
 	<!-- ARTICLE CONTENT -->
 	<c:if test="${showContent}">
 		${articleContent}
@@ -68,7 +77,7 @@
 	<c:if test="${!article.publicView}">
 		Cet article n'est pas disponible au public.
 	</c:if>
-
+	</div>
 </body>
 </html>   
 
