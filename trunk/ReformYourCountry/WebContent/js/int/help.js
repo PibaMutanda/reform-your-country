@@ -13,7 +13,7 @@ $(function(){  // on document ready
 	
 	////// Hide the help text and show on click.
 	$('#helptext').hide();
-	$("#helphandle").click(function(){
+	$("#click", "body").click(function(){
 	   $('#helptext').load("helptxt/edithelp.html");  // takes the content from the server.
     	$("#helptext").slideToggle("slow");//replace functions "slideUp" and "slideDown" in a single function "slideToggle"
     });	
