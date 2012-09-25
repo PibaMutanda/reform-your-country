@@ -106,6 +106,10 @@
 }
 /*#text defines the form of the help text*/
 #helptext {
+	padding-bottom:20px;
+	padding-top:20px;
+	padding-left:20px;
+	padding-right:20px;
 	color: blue;
 	width: 690px;
  	height: 400px; 
@@ -114,4 +118,8 @@
 	text-align: left;
 	opacity:0.8;
 	overflow:scroll;
+}
+#click{
+	color:#182947;
+	cursor: pointer;
 }
