@@ -5,7 +5,7 @@
     alter table users add column url varchar(255);
 -- 2012-09-21
     alter table users drop column url;
+-- 2012-09-25 maxime
+    alter table article add column shortname varchar(20);
 -- 2012-09-25 Thomas
-
-    alter table book 
-        add column url varchar(255) not null unique;
+    alter table book add column url varchar(255) not null unique;
