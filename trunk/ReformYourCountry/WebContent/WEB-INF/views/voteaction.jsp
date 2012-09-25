@@ -1,4 +1,4 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+﻿<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <link href="css/jquery-bubble-popup-v3.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="js/ext/jquery-ui-1.8.23.custom.min.js"></script>

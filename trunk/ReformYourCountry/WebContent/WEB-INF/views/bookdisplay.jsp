@@ -1,12 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>${book.title}</title>
 </head>
 <body>
@@ -32,6 +30,6 @@
 			<input type="hidden" name="id" value="${book.id}" />  <br><input type="submit" value="Supprimer un livre" />
 		</form>
 	</ryc:conditionDisplay>
-	<br><a href="booklist">Retour � la liste de livres</a>
+	<br><a href="booklist">Retour à la liste de livres</a>
 </body>
 </html>

@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+ï»¿<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>   
 <%@taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c' %> 
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
@@ -16,7 +16,7 @@
 
     <ryctag:form action="usereditsubmit" modelAttribute="user">
         <ryctag:input path="lastName" label="Nom" required="required"/>
-        <ryctag:input path="firstName" label="Prénom"/>
+        <ryctag:input path="firstName" label="Prï¿½nom"/>
         <ryctag:input path="userName" label="Pseudonyme"/>
         
         <tr>
@@ -41,7 +41,7 @@
                         <option value="9" <c:if test="${birthMonth==8}">selected="selected"</c:if>>Septembre</option>
                         <option value="10" <c:if test="${birthMonth==9}">selected="selected"</c:if>>Octobre</option>
                         <option value="11" <c:if test="${birthMonth==10}">selected="selected"</c:if>>Novembre</option>
-                        <option value="12" <c:if test="${birthMonth==11}">selected="selected"</c:if>>Décembre</option>
+                        <option value="12" <c:if test="${birthMonth==11}">selected="selected"</c:if>>Dï¿½cembre</option>
                 </select>
                 <select name="birthYear" id="birthYear" class="input_pulldown">
                     <c:forEach var="i" begin="0" end="100" step="1" varStatus ="status">

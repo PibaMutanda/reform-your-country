@@ -1,21 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+ï»¿<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form"  prefix="form"%>
+<%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
+<%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
 <html>
 <head>
-<link href="css/jquery-bubble-popup-v3.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" type="text/css" href="css/jquery.countdown.css"/>
-     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-     <%@ taglib uri="http://www.springframework.org/tags/form"  prefix="form"%>
-     <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
-     <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
+<link rel="stylesheet" href="css/jquery-bubble-popup-v3.css"  type="text/css" />
+<link rel="stylesheet" href="css/jquery.countdown.css" type="text/css"/>
 <script type="text/javascript" src="js/ext/jquery-ui-1.8.23.custom.min.js"></script>
 <script src="js/ext/jquery-bubble-popup-v3.min.js" type="text/javascript"></script>
 <script src="js/int/bubble-pop-up-articledisplay.js" type = "text/javascript"></script>
-
 <script type="text/javascript" src="js/ext/jquery.countdown.js"></script>
 <script type="text/javascript" src="js/ext/jquery.countdown-fr.js"></script>
-
-
 <title>${article.title}</title>
 </head>
 
@@ -56,7 +53,7 @@
 					function reload() { 
 						window.location.reload(); 
 					} 
-					$('#defaultCountdown').countdown({until: publishDay, onExpiry:reload, format: 'dHMS',layout: ' {dn} {dl} , {hn} {hl} , {mn} {ml} et {sn} {sl} jusqu\'à ce que l\'article soit publié   <<<<<<<<<< DESIGNER, PLEASE IMPROVE (discret si droit de voir le texte, en grand sinon)'});
+					$('#defaultCountdown').countdown({until: publishDay, onExpiry:reload, format: 'dHMS',layout: ' {dn} {dl} , {hn} {hl} , {mn} {ml} et {sn} {sl} jusqu\'Ã  ce que l\'article soit publiÃ©   <<<<<<<<<< DESIGNER, PLEASE IMPROVE (discret si droit de voir le texte, en grand sinon)'});
 			});
 		</script>
 		
