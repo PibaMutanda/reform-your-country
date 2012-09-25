@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html;"
+﻿<%@ page language="java" contentType="text/html;"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator"
 	prefix="decorator"%>
@@ -6,6 +6,7 @@
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
 <!DOCTYPE html>
+<html>
 <head>
 <base href="${pageContext.request.contextPath}/"/>
 
@@ -36,8 +37,9 @@
 <script src="js/int/login.js"></script>
 <script src="js/int/redirect.js"></script>
 <script src="js/int/focusevent.js"></script>
-<title><decorator:title /></title>
-<decorator:head />
+<script type="text/javascript" src="js/jquery.cycle.all.min.js"></script>
+<script type="text/javascript" src="js/jquery-1-slider.js"></script>
+<script type="text/javascript" src="js/testimonial-slider.js"></script>
 <!--[if lte IE 8]><meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /><![endif]-->
 <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
 <script type="text/javascript" src="js/karma.js"></script>
@@ -46,6 +48,8 @@
 <link href="css/secondary-royal-blue.css" rel="stylesheet" type="text/css" />
 <link rel="shortcut icon" href="#"/>
 <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="css/lt8.css" media="screen"/><![endif]-->
+<title><decorator:title /></title>
+<decorator:head />
 </head>
 <body>
 <div id="wrapper">
@@ -71,8 +75,5 @@
 		<%@ include file="/WEB-INF/includes/footer.jsp"%>
 	</div>
 </div>
-<script type="text/javascript" src="js/jquery.cycle.all.min.js"></script>
-<script type="text/javascript" src="js/jquery-1-slider.js"></script>
-<script type="text/javascript" src="js/testimonial-slider.js"></script>
 </body>
 </html>
