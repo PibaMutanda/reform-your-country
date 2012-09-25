@@ -71,7 +71,7 @@ public class ArticleTreeTag extends SimpleTagSupport{
 	
 	private void displayArticleList(Collection<Article> articles, JspWriter out,boolean isFirstPass) throws JspException, IOException { 
 		if (isFirstPass){
-		    out.write("<ul id=\"articletree\">");         
+		    out.write("<ul id=\"articletree\"");         
 		}else{
             out.write("<ul class=\"subarticle\">");    
 		    
@@ -84,7 +84,8 @@ public class ArticleTreeTag extends SimpleTagSupport{
 
 
 	private void displayArticle(Article article, JspWriter out) throws JspException, IOException { 
-		out.write("<li>"+getArticleString(article));
+	    // class=\"current_page_item\"
+		out.write("<li  >"+getArticleString(article));
 		displayArticleList(article.getChildren(), out,false);   
 		out.write("</li>");
 	}
