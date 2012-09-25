@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+ï»¿<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>   
 <%@taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c' %> 
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
@@ -13,8 +13,8 @@
 
 	<h1>
 		<c:choose>
-			<c:when test="${group.id != null}">Editer un group</c:when>
-			<c:otherwise>Créer un group</c:otherwise>
+			<c:when test="${group.id != null}">Editer un groupe</c:when>
+			<c:otherwise>CrÃ©er un groupe</c:otherwise>
 		</c:choose>
 	</h1>
 	<ryctag:form action="groupeditsubmit" modelAttribute="group">
@@ -24,7 +24,7 @@
      	
        	<input type="hidden" name="id" value="${group.id}"/> 
             
-        <tr><td><input type="submit" value="<c:choose><c:when test="${group.id != null}">Sauver</c:when><c:otherwise>Créer</c:otherwise></c:choose>" /></td>
+        <tr><td><input type="submit" value="<c:choose><c:when test="${group.id != null}">Sauver</c:when><c:otherwise>CrÃ©er</c:otherwise></c:choose>" /></td>
         <td> <a href="	<c:choose>
         					<c:when test="${group.id != null}">group?id=${group.id}</c:when>
         					<c:otherwise>grouplist</c:otherwise>

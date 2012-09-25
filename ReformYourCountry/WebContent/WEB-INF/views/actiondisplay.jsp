@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+ï»¿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 <html>
 <head>
@@ -20,8 +20,8 @@
 	<form action="actionlist" method="get">
 			<input type="submit" value="Liste des actions" />
 	</form>
-			Contenu : ${action.content}<br /> Description brève :
-			${action.shortDescription}<br /> Description étendue :
+			Contenu : ${action.content}<br /> Description brÃ¨ve :
+			${action.shortDescription}<br /> Description Ã©tendue :
 			${action.longDescription}<br /> URL : <a href="${action.url}">${action.url}</a><br />
 		</div>
 	</div>

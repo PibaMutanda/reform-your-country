@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+ï»¿<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <%@taglib uri="http://www.springframework.org/tags/form"  prefix="form"%>
 
@@ -12,7 +12,7 @@
 	${errorMsg}
 	<h1>Liste de tous les utilisateurs</h1>
 	<form action="userlist" method="GET">
-		prénom, nom ou pseudo <input type="text" name="name"/> <input
+		prÃ©nom, nom ou pseudo <input type="text" name="name"/> <input
 			type="submit" value="rechercher" />
 	</form>
 	<table>
@@ -21,7 +21,7 @@
 				<td>${user.userName}</td>
 				<td>${user.firstName}</td>
 				<td>${user.lastName}</td>
-				<td><a href="user/${user.userName}">Afficher les détails</a></td>
+				<td><a href="user/${user.userName}">Afficher les dÃ©tails</a></td>
 			</tr>
 		</c:forEach>
 	</table>
