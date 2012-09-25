@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+
     <%@page import="reformyourcountry.web.Current" %>
 <%-- <center>enseignement2.be - v<%= Current.getVersion()%></center> --%>
 
@@ -33,7 +32,7 @@
 		<ul class="list sitemap-list">
 			 <li><a href="#">Qui sommes nous?</a></li>
 			 <li><a href="#">Pourquoi ce site?</a></li>
-			 <li><a href="#">fonctionnalités</a></li>
+			 <li><a href="#">fonctionnalitï¿½s</a></li>
 			 <li><a href="#">Comment contribuer?</a></li>
 			 <li><a href="#">Contactez-nous</a></li>
 		</ul>	
