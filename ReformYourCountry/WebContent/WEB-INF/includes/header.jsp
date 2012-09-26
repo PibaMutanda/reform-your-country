@@ -7,7 +7,7 @@
 				<!-- ***************** - LOGO - ***************** -->
 				<div class="logodiv" >
 					<a href="home">
-						<img src="images/logo/enseignement2-logo-white-small.png" style="display: block; "/>
+						<img src="images/logo/enseignement2-logo-white-small.png"/>
 					</a>
 					<div style="color:#999999; font-size:10px; padding-top:16px;">
 						Analyse indépendante de l'enseignement en Wallonie-Bruxelles.
