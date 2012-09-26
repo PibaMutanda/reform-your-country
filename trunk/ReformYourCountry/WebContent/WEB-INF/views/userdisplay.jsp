@@ -4,9 +4,19 @@
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
 <%@ taglib uri="http://www.springframework.org/tags/form"  prefix="form"%>
 <html>
+
 <head>
-<title>UserPage</title>
-</head>    
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="Description" lang="fr" content="${user.firstName} ${user.lastName}"/>
+<meta name="Keywords" content="utilisateur, informations" />
+<meta name="Language" content="be" />
+<meta name="robots" content="index, follow" />
+<meta name="googlebot" content="noarchive" />
+
+<title>informations utilisateur du site enseignement2.be</title>
+
+</head>   
 <body>
 <h1>${user.userName }</h1>
 	<ryc:conditionDisplay privilege="MANAGE_USERS">
