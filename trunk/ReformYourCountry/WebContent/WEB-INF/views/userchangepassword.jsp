@@ -9,10 +9,10 @@
 <html>
 <head>
 
-	<title>Changer de password</title>
+	<title>Changer de mot de passe</title>
 </head>
 <body>
-<h1>Formulaire de changement de password</h1>
+<h1>Formulaire de changement du mot de passe</h1>
 	<form:form modelAttribute="user" action="userchangepasswordsubmit">
 	<table>
 		<tr><td>Password actuel: </td><td><input type="password" name="oldPassword" /></td><td>${errorNoOld}</td></tr>
