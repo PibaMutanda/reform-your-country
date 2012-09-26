@@ -33,25 +33,21 @@
 
 
 <div  class="dialog"  > Loading ...</div>
-
+<div style="display:block;margin:0;">
 
 	<div class="article-info">
 		${article.shortName}<br/>  
 		publish date: ${displayDate}
 	</div>
 	<div class="article-options">
-		<ryc:conditionDisplay privilege="EDIT_ARTICLE">
-		
-			<ryctag:form action="articleedit" modelAttribute="article">
-				<form:hidden path="id" value="${article.id}"/>
-				<input	type="submit" value="Editer" />
-			</ryctag:form>
-			<ryctag:form action="articleparentedit" modelAttribute="article">
-				<form:hidden path="id" value="${article.id}"/>
-				<input	type="submit" value="Editer parent" />
-			</ryctag:form>
-		</ryc:conditionDisplay>
+	<ul class="list sitemap-list">
+			 <li><a href="articleedit?id=${article.id}">Editer l'article</a></li>
+			 <li><a href="articleparentedit?id=${article.id}">Editer l'article parent</a></li>
+		</ul>	
+
 	</div>
+</div>
+	<div style="position:relative;display: inline-block; margin:0;">
     <!-- COUNT DOWN -->
 
 	<c:if test="${!article.published&&article.publicView}">
@@ -69,7 +65,7 @@
 	</c:if>
 	
 
-	<div class="">
+	<div>
 	<!-- ARTICLE CONTENT -->
 	<c:if test="${showContent}">
 		${articleContent}
@@ -77,6 +73,7 @@
 	<c:if test="${!article.publicView}">
 		Cet article n'est pas disponible au public.
 	</c:if>
+	</div>
 	</div>
 </body>
 </html>   

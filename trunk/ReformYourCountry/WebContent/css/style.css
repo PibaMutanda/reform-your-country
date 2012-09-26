@@ -98,9 +98,25 @@ Stylesheet Guide
 html {font-size: 62.5%;margin:0;padding:0;}
 body {margin:0;background:#f4f4f2;font:1.2em/19px "helvetica neue",Helvetica,Arial,Verdana,sans-serif;color:#666;min-width:1003px;}
 
+.realshadow{
+padding: 10px;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+border-radius: 5px;
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#182947), color-stop(51%,#436591), color-stop(100%,#182947)); /* Chrome,Safari4+ */
+/* background: #182947; Old browsers */
+/* background: -moz-linear-gradient(top, #182947 0%, #436591 51%, #182947 100%); FF3.6+ */
+/* background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#182947), color-stop(51%,#436591), color-stop(100%,#182947)); Chrome,Safari4+ */
+/* background: -webkit-linear-gradient(top, #182947 0%,#436591 51%,#182947 100%); Chrome10+,Safari5.1+ */
+/* background: -o-linear-gradient(top, #182947 0%,#436591 51%,#182947 100%); Opera 11.10+ */
+/* background: -ms-linear-gradient(top, #182947 0%,#436591 51%,#182947 100%); IE10+ */
+/* background: linear-gradient(to bottom, #182947 0%,#436591 51%,#182947 100%); W3C */
+/* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#182947', endColorstr='#182947',GradientType=0 ); IE6-9 */
+}
 
-
-
+#CU3ER-containter{
+	width:465px;
+}
 
 
 
@@ -142,8 +158,17 @@ body {margin:0;background:#f4f4f2;font:1.2em/19px "helvetica neue",Helvetica,Ari
 .content_right_sidebar {width: 510px !important;}
 .content_full_width {width: 800px !important;padding: 0 20px 0 20px;float:left;margin-left: 0 !important;}
 .portfolio_full_width {margin-left: 0 !important;width:980px !important;}
-
-
+.content-separator{
+	border-left-color: red;
+	border-left-width: 2px;
+	border-left-style: solid;
+	margin-left:2px;
+	height:auto;
+	min-height:30px;
+	height:auto !important;        /* for IE as it does not support min-height */
+	float:left;
+        margin: 0px;
+}
 
 
 
@@ -600,18 +625,18 @@ body {margin:0;background:#f4f4f2;font:1.2em/19px "helvetica neue",Helvetica,Ari
 #sub_nav ul a:hover,
 
 #sub_nav {list-style-type: none;float: left;width:160px;float:left;background:url(../images/_global/bg-sidebar.gif) 100% 0 repeat-y;	padding-bottom:0px;overflow:hidden;}
-#sub_nav ul a {list-style-type: none;display:block;background:url(../images/_global/separator3.gif) 0 0 repeat-x;padding:4px 0 0 0;height:1%;position:relative;margin:0 0 0 0;}
-#sub_nav ul a:hover,
-#sub_nav ul li a.current_page_item {background:url(../images/secondary-royal-blue/navblueback.png) 0 0 repeat-y;list-style-type: none;margin-right:0;color:#ccc;text-decoration:none;}
-#sub_nav ul ul a {list-style-type: none;background:url(../images/_global/bullet1.gif) 0 -9px no-repeat;padding:0 0 0 ;margin-bottom: -5px}
+#sub_nav ul a {display:block;background:url(../images/_global/separator3.gif) 0 0 repeat-x ;padding:4px 0 0 0;height:1%;margin:0 0 0 0;}
+#sub_nav ul a:hover {background:url(../images/secondary-royal-blue/navblueback.png) 0 0 repeat-y;padding:0 0 0 ;margin-right:0;color:#ccc;text-decoration:none;}
+#sub_nav ul li a.current_page_item {background:url(../images/secondary-royal-blue/navblueback.png) 0 0 repeat-y;padding:0 0 0 ;margin-right:0;color:#ccc;text-decoration:none;}
+#sub_nav ul ul a {background:url(../images/_global/bullet1.gif) 0 -9px no-repeat;padding:0 0 0 ;margin-bottom: -5px}
 #sub_nav ul ul li a:hover,
 #sub_nav ul ul a:hover {display:block;color:#ccc;position:relative;margin:0 13px 0 0;padding:0 0 0 0 ;height:1%;}
-#sub_nav ul {list-style-type: none;margin:0;padding:0;list-style:none;font-size:14px;}
-#sub_nav ul li {list-style-type: none;vertical-align:top;height:1%;}
-#sub_nav ul ul {list-style-type: none;margin:0;padding:0 0 0 0;font-size:11px;}
-#sub_nav ul ul ul {list-style-type: none;padding:0 0 0 10px ;}
+#sub_nav ul {margin:0;padding:0;list-style:none;font-size:14px;}
+#sub_nav ul li {vertical-align:top;height:1%;}
+#sub_nav ul ul {margin:0;padding:0 0 0 0;font-size:11px;}
+#sub_nav ul ul ul {padding:0 0 0 10px ;}
 #articletree > li{padding-bottom: 12px;}
-.current_page_item  {background:url(../images/secondary-royal-blue/navblueback.png) 0 0 repeat-y;list-style-type: none;margin-right:0;color:#ff0000;text-decoration:none;}
+#sub_nav ul a.current_page_item  {background:url(../images/secondary-royal-blue/navblueback.png) 0 0 repeat-y; color:#ccc;}
 .nav_right_sub_nav ul li.current_page_item ul li a,
 .nav_right_sub_nav ul li.current_page_item ul li a:hover,
 .nav_right_sub_nav ul li.current-menu-parent ul li.current_page_item a,
@@ -1804,6 +1829,15 @@ border-radius: 5px;
 /*---------------------------------------------------------------*/
 /* Added By cedric
 /*---------------------------------------------------------------*/
+.article-info{
+	float:left;
+	margin:0;
+	
+}
+.article-options{
+	float:right;
+	margin:0;
+}
 .logodiv {cursor:pointer; float:left;  padding-top: 28px;}
 .button{
 	margin: 0;

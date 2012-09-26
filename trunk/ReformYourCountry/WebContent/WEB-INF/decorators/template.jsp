@@ -63,6 +63,7 @@
 				</div>
 				<!-- ***************** - END sub-nav - ***************** -->
 				<!-- ***************** - START Content - ***************** -->
+				<div class="content-separator"> </div>
 				<div id="content">
 					<div class="body-template">
 				         <decorator:body />
@@ -75,5 +76,22 @@
 		<%@ include file="/WEB-INF/includes/footer.jsp"%>
 	</div>
 </div>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script type="text/javascript" src="https://raw.github.com/Indamix/real-shadow/master/realshadow.js"></script>
+	<script type="text/javascript">
+	$(function(){
+
+	
+
+		$('.realshadow').realshadow({
+			// followMouse: false
+		});
+
+		$('.inset').realshadow({
+			inset: true
+		});
+
+	});
+	</script>
 </body>
 </html>
