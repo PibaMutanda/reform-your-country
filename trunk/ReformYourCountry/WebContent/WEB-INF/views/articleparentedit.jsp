@@ -4,6 +4,7 @@
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
 <html>
 <head>
+
 <title><c:choose>
 		<c:when test="${article.id != null}">Editer le parent d'un article</c:when>
 		<c:otherwise>Créer un article</c:otherwise>
