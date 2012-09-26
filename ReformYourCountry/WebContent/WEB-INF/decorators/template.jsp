@@ -33,7 +33,6 @@
 <%-- jquery depandencies --%>
 <script src="js/ext/jquery-ui-1.8.23.custom.min.js"></script>
 <%-- jquery depandencies --%>
-<script src="js/int/datepicker.js" type="text/javascript"></script>
 <script src="js/int/login.js"></script>
 <script src="js/int/redirect.js"></script>
 <script src="js/int/focusevent.js"></script>
@@ -41,15 +40,36 @@
 <script type="text/javascript" src="js/jquery-1-slider.js"></script>
 <script type="text/javascript" src="js/testimonial-slider.js"></script>
 <!--[if lte IE 8]><meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /><![endif]-->
+
+<!-- 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> -->
+	<script type="text/javascript" src="https://raw.github.com/Indamix/real-shadow/master/realshadow.js"></script>
+	<script type="text/javascript">
+	$(function(){
+
+	
+
+		$('.realshadow').realshadow({
+			// followMouse: false
+		});
+
+		$('.inset').realshadow({
+			inset: true
+		});
+
+	});
+	</script>
+
+
+<decorator:head />
 <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
 <script type="text/javascript" src="js/karma.js"></script>
+
 <link href="css/style.css" rel="stylesheet" type="text/css" />
 <link href="css/karma-royal-blue.css" rel="stylesheet" type="text/css" />
 <link href="css/secondary-royal-blue.css" rel="stylesheet" type="text/css" />
 <link rel="shortcut icon" href="#"/>
 <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="css/lt8.css" media="screen"/><![endif]-->
 <title><decorator:title /></title>
-<decorator:head />
 </head>
 <body>
 <div id="wrapper">
@@ -76,22 +96,6 @@
 		<%@ include file="/WEB-INF/includes/footer.jsp"%>
 	</div>
 </div>
-	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<script type="text/javascript" src="https://raw.github.com/Indamix/real-shadow/master/realshadow.js"></script>
-	<script type="text/javascript">
-	$(function(){
-
 	
-
-		$('.realshadow').realshadow({
-			// followMouse: false
-		});
-
-		$('.inset').realshadow({
-			inset: true
-		});
-
-	});
-	</script>
 </body>
 </html>
