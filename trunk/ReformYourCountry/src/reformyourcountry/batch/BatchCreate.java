@@ -607,19 +607,19 @@ public class BatchCreate implements Runnable {
 
 		group1.setDescription("Parti Socialiste");
 		group1.setName("PS");
-		group1.setUrl("ps");
+		group1.setUrl("parti-socialiste");
 
 		group2.setDescription("Centre démocrate humaniste");
 		group2.setName("cdH");
-		group2.setUrl("cdh");
+		group2.setUrl("centre-democrate-humaniste");
 
 		group3.setDescription("Mouvement réformateur");
 		group3.setName("MR");
-		group3.setUrl("mr");
+		group3.setUrl("mouvement-reformateur");
 
 		group4.setDescription("Parti écologiste");
 		group4.setName("Ecolo");
-		group4.setUrl("ecolo");
+		group4.setUrl("parti-ecologiste");
 
 		em.persist(group1);
 		em.persist(group2);
