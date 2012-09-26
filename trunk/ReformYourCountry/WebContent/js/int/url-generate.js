@@ -1,4 +1,4 @@
-$(document).ready(function() {
+﻿$(document).ready(function() {
 	$("#generate").click(function(event){
 		event.preventDefault();
 		var titleValue = $("#title").val();
