@@ -20,6 +20,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.StringUtils;
@@ -130,24 +131,27 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     
     
     @Column(length = 50)
-    @Size(max=50, message="your firstname must contain at max 50 character")
+    @Size(max=50, message="votre prénom doit contenir 50 caractères maximum")
     private String firstName;
     
     @Column(length = 50)
-    @Size(max=50, message="your lastname must contain at max 50 character")
+    @Size(max=50, message="votre nom doit contenir 50 caractères maximum")
     private String lastName;
 
     @Column(unique = true, nullable=false)
-    @Size(max = 15,message = "your username must contain at max 15 character")
+    @Size(max = 15, message = "votre pseudonyme doit contenir 15 caractères maximum")
     @NotBlank(message="entrer votre pseudo")
+    @Pattern(message ="ne peut pas contenir de caractères spéciaux", regexp="[A-Za-z0-9_-]{2,256}")
     private String userName; 
     
     @Column(length = 100)
-    @Email(message ="Email address is not valid", regexp="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$")
+    @NotBlank(message="entrer votre mail")
+    @Email(message ="adresse mail pas valide", regexp="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$")
     private String mail;
     
     @Column(length = 100)
-    @Size(min = 4 ,message = "your password must contain at least 4 character")
+    @NotBlank(message="entrer votre mot de passe")
+    @Size(min = 4, message = "votre mot de passe doit contenir au moins 4 caractères")
     private String password;
 
     @Lob
