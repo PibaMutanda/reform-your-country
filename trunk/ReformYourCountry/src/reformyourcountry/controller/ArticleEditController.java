@@ -28,14 +28,12 @@ public class ArticleEditController extends BaseController<Article>{
 	@Autowired ArticleDisplayController displayArticleController;
 
 
-	@RequestMapping("/articleedit")
+	@RequestMapping(value={"/articleedit","/articlecreate"})
 	public ModelAndView articleEdit(@ModelAttribute Article article){
-
 		SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
 		ModelAndView mv = new ModelAndView("articleedit");
 		mv.addObject("article",article);
 		return mv;
-
 	}
 
 
@@ -44,7 +42,6 @@ public class ArticleEditController extends BaseController<Article>{
 		SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
 		
 		if(result.hasErrors()){
-			System.out.println(result.getAllErrors());
 		    return new ModelAndView("redirect:articleedit","id",article.getId());
 		}else{
 			articleRepository.merge(article);
@@ -79,7 +76,6 @@ public class ArticleEditController extends BaseController<Article>{
 		} else {
 			return getRequiredEntity(id);
 		}
-	
 	}
 
 }
