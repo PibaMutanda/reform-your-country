@@ -17,9 +17,6 @@ import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.ArticleService;
-import reformyourcountry.util.DateUtil;
-import reformyourcountry.util.HTMLUtil;
-import reformyourcountry.web.UrlUtil;
 
 // Create and Edition of the parent (and title)
 @Controller
@@ -61,13 +58,12 @@ public class ArticleParentEditController extends BaseController<Article>{
 	    return new ModelAndView ("redirect:article/"+article.getUrl());
 	}
 
-
 	 @ModelAttribute
 	 public Article findArticle(@RequestParam(value="id",required=false) Long id){
 	 	 if (id == null) { // create
 	 		 return new Article();
 	 	 } else { // edit
-			 return getRequiredEntity(id);
+	 	     return getRequiredDetachedEntity(id);
 	 	 }
 	 }
 	
