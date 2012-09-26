@@ -106,25 +106,23 @@
 	
 }
 /************** Article Display ******************************************/
-/*this div.pos, #text define the position of the help button and its text*/ 
+/*#helphandle, #helptext define the position of the help button and its text*/ 
 #helphandle, #helptext {
 	position: fixed;
 }
-/*#text defines the form of the help text*/
+/*#helptext defines the form of the help text*/
 #helptext {
-	padding-bottom:20px;
-	padding-top:20px;
-	padding-left:20px;
-	padding-right:20px;
-	color: blue;
+	padding:20px 20px 20px 20px; /* configure a padding top, right, bottom,left */
+	color: white;
 	width: 690px;
  	height: 400px; 
-	background: #e5eecc;
-	border: solid 1px #c3c3c3;
+	background: #1C2F4F;
+	border: solid 3px white;
 	text-align: left;
 	opacity:0.8;
 	overflow:scroll;
 }
+/*define the question mark of the help text*/ 
 #click{
 	color:#182947;
 	cursor: pointer;
