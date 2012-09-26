@@ -1,7 +1,6 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-    <%@taglib uri="http://www.springframework.org/tags/form"  prefix="form"%>
 
 <html>
 <head>
@@ -12,8 +11,8 @@
 	${errorMsg}
 	<h1>Liste de tous les utilisateurs</h1>
 	<form action="userlist" method="GET">
-		prénom, nom ou pseudo <input type="text" name="name"/> <input
-			type="submit" value="rechercher" />
+		prénom, nom ou pseudo <input type="text" name="name"/> 
+		<input type="submit" value="rechercher" />
 	</form>
 	<table>
 		<c:forEach items="${userList}" var="user">
