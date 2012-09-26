@@ -15,7 +15,7 @@
 <body>   
 	<%-- Help handle --%>
 	<div id="helphandle">
-	   <span id="click" style="color:#182947;"><b>?</b></span>
+	   <span id="click" ><b>?</b></span>
 	   <div id="helptext"></div>  <%-- Will contain the help text--%>
 	</div>
 	<br/>
