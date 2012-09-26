@@ -1,14 +1,17 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
-    
+<%@taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %> 
+
 <html>
 <head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="Description" lang="fr" content="Vers un nouvel enseignement secondaire et fondamental en Communauté française de Belgique" />
 <meta name="Keywords" content="enseignement, éducation, élève, professeur, instituteur, institutrice, ressources, études, secondaire, fondamental, technique, professionnel, primaire, cours, pédagogie, classe" />
 <meta name="Language" content="be" />
-<meta name="robots" content="index, follow" />	
+<meta name="robots" content="index, follow" />
+<meta name="googlebot" content="noarchive" />
 
 <!-- CU3ER content JavaScript part starts here   -->
 <script type="text/javascript" src="js/swfobject.js"></script>
@@ -16,7 +19,8 @@
 <script type="text/javascript" src="js/home.js"></script>
 <!-- CU3ER content JavaScript part ends here   -->
 
-<title>Accueil</title>
+<title>Accueil du site Enseignement2.be</title>
+
 </head>
 <body>
 
@@ -29,7 +33,7 @@
 
 <div id="CU3ER-containter" class="realshadow">
 	<!-- CU3ER content HTML part starts here   -->
-		<div id="CU3ER" >
+		<div id="CU3ER">
 			<!-- modify this content to provide users without Flash or enabled Javascript 
 			   with alternative content information -->
 			<p>
