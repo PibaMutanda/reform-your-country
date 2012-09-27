@@ -105,6 +105,7 @@
 		if (e === undefined) e = {
 			pageX: settings.pageX !== undefined ? settings.pageX : $window.width() >> 1,
 			pageY: settings.pageY !== undefined ? settings.pageY : 0
+					
 		};
 
 		var i = els.length,
