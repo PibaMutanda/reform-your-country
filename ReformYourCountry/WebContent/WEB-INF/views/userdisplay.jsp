@@ -46,6 +46,8 @@
 	</div>
 	
 	<div style="float:left; padding-left:50px;">
+				Prénom: ${user.firstName} <br/>
+				Nom de famille: ${user.lastName} <br/>
 				Pseudo : ${user.userName}<br/>
 				Genre : ${user.gender} <br/>
 				<c:if test="${canEdit}">
