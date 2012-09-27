@@ -31,7 +31,7 @@
 
 <!-- ***************** - Homepage 3D Slider - ***************** --><!-- locations where are the pictures -->
 
-<div id="CU3ER-containter" class="realshadow">
+<div id="CU3ER-containter" >
 	<!-- CU3ER content HTML part starts here   -->
 		<div id="CU3ER">
 			<!-- modify this content to provide users without Flash or enabled Javascript 
