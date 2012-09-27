@@ -12,12 +12,13 @@ import reformyourcountry.model.Book;
 import reformyourcountry.repository.BookRepository;
 
 @Controller
+@RequestMapping("/book")
 public class BookListController extends BaseController<Book>{
     
     @Autowired BookRepository bookRepository;
    
     
-    @RequestMapping ("/booklist")
+    @RequestMapping ("")
     public ModelAndView showBookList(){
        ModelAndView mv = new ModelAndView("booklist");
        List<Book> b = bookRepository.findAllTop();

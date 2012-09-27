@@ -16,7 +16,7 @@
 					<td><ryc:bookInfo book="${book}" />
 					<br>
 					<ryc:conditionDisplay privilege="EDIT_BOOK">
-					<ryctag:submit entity="${book}" value="Editer" action="bookedit"/>		
+					<ryctag:submit entity="${book}" value="Editer" action="book/edit"/>		
 					</ryc:conditionDisplay>	                								
 					</td>
 			</c:when>
@@ -24,7 +24,7 @@
    					<td><ryc:bookInfo book="${book}" />
    					<br>
    					<ryc:conditionDisplay privilege="EDIT_BOOK">
-   					<ryctag:submit entity="${book}" value="Editer" action="bookedit"/>	
+   					<ryctag:submit entity="${book}" value="Editer" action="book/edit"/>	
    					</ryc:conditionDisplay>
    					</td>
 				</tr>

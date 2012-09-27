@@ -61,7 +61,16 @@ public class Book extends BaseEntity {
     public void setTitle(String title) {
         this.title = title;
     }
-    public String getDescription() {
+    
+    public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getDescription() {
         return description;
     }
     public void setDescription(String description) {
