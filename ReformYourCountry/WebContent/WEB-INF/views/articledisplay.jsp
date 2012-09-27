@@ -13,6 +13,8 @@
 <script src="js/int/bubble-pop-up-articledisplay.js" type = "text/javascript"></script>
 <script type="text/javascript" src="js/ext/jquery.countdown.js"></script>
 <script type="text/javascript" src="js/ext/jquery.countdown-fr.js"></script>
+<meta name="robots" content="index, follow"/>
+<meta name="description" content="${article.description}"/>
 <title>${article.title}</title>
 </head>
 

@@ -290,6 +290,7 @@ public class BatchCreate implements Runnable {
 		}
 
 		article.setSummary("1.Échanger pour se former/2.Construire ensemble/3.Du plaisir de la mise en réseau");
+		article.setDescription(article.getSummary());
 		article.setUrl(UrlUtil.computeUrlFragmentFromName(article.getTitle()));
 		em.persist(article);
 
@@ -341,6 +342,7 @@ public class BatchCreate implements Runnable {
 		}
 
 		article2.setSummary("1.Règles actuelles/2.Décrets pédagogiques/3.Contrôle des résultats/4.Recrutement/Licenciement/5.Libre plus autonome");
+		article2.setDescription(article2.getSummary());
         article2.setUrl(UrlUtil.computeUrlFragmentFromName(article2.getTitle()));
 		em.persist(article2);
 		return article2;
@@ -392,6 +394,7 @@ public class BatchCreate implements Runnable {
 		}
 
 		article3.setSummary("1.Règles actuelles/2.Décrets pédagogiques/3.Contrôle des résultats/4.Recrutement/Licenciement/5.Libre plus autonome");
+		article3.setDescription(article3.getSummary());
         article3.setUrl(UrlUtil.computeUrlFragmentFromName(article3.getTitle()));
 
 		em.persist(article3);
@@ -445,6 +448,7 @@ public class BatchCreate implements Runnable {
 		}
 
 		article4.setSummary("1.Règles actuelles/2.Décrets pédagogiques/3.Contrôle des résultats/4.Recrutement/Licenciement/5.Libre plus autonome");
+		article4.setDescription(article4.getSummary());
 		article4.setUrl(UrlUtil.computeUrlFragmentFromName(article4.getTitle()));
 
 		em.persist(article4);
@@ -496,7 +500,7 @@ public class BatchCreate implements Runnable {
 		
 		article5.setSummary("1.Règles actuelles/2.Décrets pédagogiques/3.Contrôle des résultats/4.Recrutement/Licenciement/5.Libre plus autonome");
 		article5.setUrl(UrlUtil.computeUrlFragmentFromName(article5.getTitle()));
-
+		article5.setDescription(article5.getSummary());
 		em.persist(article5);
 
 		return article5;
@@ -547,7 +551,7 @@ public class BatchCreate implements Runnable {
 		
 		article6.setSummary("1.Règles actuelles/2.Décrets pédagogiques/3.Contrôle des résultats/4.Recrutement/Licenciement/5.Libre plus autonome");
 		article6.setUrl(UrlUtil.computeUrlFragmentFromName(article6.getTitle()));
-
+		article6.setDescription(article6.getSummary());
 		em.persist(article6);
 
 		return article6;

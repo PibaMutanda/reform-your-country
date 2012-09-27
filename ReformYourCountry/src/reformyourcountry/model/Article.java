@@ -37,6 +37,9 @@ public class Article extends BaseEntity {
 	private String summary;
 	
 	@Lob
+	private String description;//Used by meta tag for search engines.
+	
+	@Lob
 	private String content;
 
 	private Date releaseDate;
@@ -97,6 +100,17 @@ public class Article extends BaseEntity {
 	public void setSummary(String summary){
 		this.summary=summary;
 	}
+	
+
+	public String getDescription() {
+		return description;
+	}
+
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 
 	public Date getReleaseDate(){
 		return releaseDate;
