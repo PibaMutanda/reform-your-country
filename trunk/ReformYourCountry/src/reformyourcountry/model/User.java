@@ -55,8 +55,9 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
      * ACTIVE: Account with valid email address.<br />
      */
     public enum AccountStatus {
-        LOCKED("Locked"), NOTVALIDATED("Mail not validated yet"), ACTIVE(
-                "Active");
+        LOCKED("Locked"),
+        NOTVALIDATED("Mail not validated yet"),
+        ACTIVE("Active");
 
         String name;
 
@@ -73,7 +74,10 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     public enum Gender {
         FEMALE, MALE;
     }
-
+    
+    public boolean isMale(){
+    	return this.gender==Gender.MALE;
+    }
 
     public enum Role {
         NONE("non", -1), 
@@ -202,7 +206,7 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
     @Column(nullable = false)
-    private Set<GroupReg> groupRegs = new HashSet<GroupReg>();
+    private List<GroupReg> groupRegs = new ArrayList<GroupReg>();
     
     @Enumerated(EnumType.STRING)
     private MailingDelayType mailingDelayType = MailingDelayType.IMMEDIATELY; 
@@ -408,11 +412,8 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     public void setSpamReporter(User spamReporter) {
         this.spamReporter = spamReporter;
     }
-    public void setGroupRegs(Set<GroupReg> groupRegs) {
-        this.groupRegs = groupRegs;
-    }
 
-    public Set<GroupReg> getGroupRegs() {
+    public List<GroupReg> getGroupRegs() {
         return groupRegs;
     }
 
