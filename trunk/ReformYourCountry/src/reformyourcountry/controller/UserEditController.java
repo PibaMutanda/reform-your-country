@@ -42,10 +42,13 @@ public class UserEditController extends BaseController<User> {
     	
     	// Sets an initial date in the form
     	Calendar birthCalendar = Calendar.getInstance();
-    	birthCalendar.setTime(user.getBirthDate());
-    	mv.addObject("birthDay", birthCalendar.get(Calendar.DAY_OF_MONTH));
-    	mv.addObject("birthMonth", birthCalendar.get(Calendar.MONTH));
-    	mv.addObject("birthYear", birthCalendar.get(Calendar.YEAR));
+    	if (user.getBirthDate()!=null) {
+			birthCalendar.setTime(user.getBirthDate());
+			mv.addObject("birthDay", birthCalendar.get(Calendar.DAY_OF_MONTH));
+	    	mv.addObject("birthMonth", birthCalendar.get(Calendar.MONTH));
+	    	mv.addObject("birthYear", birthCalendar.get(Calendar.YEAR));
+		}
+		
 
     	return mv;
     }
