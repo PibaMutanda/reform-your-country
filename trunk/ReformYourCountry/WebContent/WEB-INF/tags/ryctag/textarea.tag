@@ -18,6 +18,6 @@ see http://stackoverflow.com/questions/439861/spring-mvc-tag-interaction-with-cu
  	</c:otherwise>
  </c:choose>
  	<td><label for="${path}">${label}</label></td>
- 	<td><form:textarea path="${path}"/>
-	<td><form:errors path="${path}" cssClass="error" /></td>
+ 	<td><form:textarea path="${path}" cssStyle="width:100%;" />
+	<td><form:errors path="${path}" cssClass="error"  /></td>
 </tr>

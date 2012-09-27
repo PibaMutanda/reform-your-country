@@ -5,6 +5,7 @@
     <%@ taglib uri="http://www.springframework.org/tags/form"  prefix="form"%>
     <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
     
+    
 
 <html>
 <head>
@@ -12,7 +13,12 @@
 	<title>Changer de mot de passe</title>
 </head>
 <body>
-<h1>Formulaire de changement du mot de passe</h1>
+<!-- <h1>Formulaire de changement de password</h1> -->
+<ryctag:pageheadertitle title="changement de password" breadcrumb="true">
+	<ryctag:breadcrumbelement label="${user.firstName} ${user.lastName}" link="user/${user.userName}" />
+	<ryctag:breadcrumbelement label="changement de password" />
+</ryctag:pageheadertitle>
+
 	<form:form modelAttribute="user" action="userchangepasswordsubmit">
 	<table>
 		<tr><td>Password actuel: </td><td><input type="password" name="oldPassword" /></td><td>${errorNoOld}</td></tr>

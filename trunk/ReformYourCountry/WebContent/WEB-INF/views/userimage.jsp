@@ -3,13 +3,18 @@
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     <%@taglib uri="http://www.springframework.org/tags/form"  prefix="form"%>
 	<%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
+	 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
 <html>
 <head>
 <title>Insert title here</title>
 </head>
 <body>
 
-<h1>Page pour uploader une image d'un utilisateur</h1>
+<!-- <h1>Page pour uploader une image d'un utilisateur</h1> -->
+<ryctag:pageheadertitle title="Ajouter une image" breadcrumb="true">
+	<ryctag:breadcrumbelement label="${user.firstName} ${user.lastName}" link="user/${user.userName}" />
+	<ryctag:breadcrumbelement label="Ajouter une image" />
+</ryctag:pageheadertitle>
 
 	<!-- If there is a error message, show it! -->
 	<c:choose>

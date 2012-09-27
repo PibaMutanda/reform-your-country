@@ -12,11 +12,17 @@
 <body>
 <script src="js/int/birthday_picker.js" type = "text/javascript"></script> 
 
-<h1>Editer un utilisateur</h1>
+<font face="Arial">
+<ryctag:pageheadertitle title="${user.firstName} ${user.lastName}" breadcrumb="true">
+	<ryctag:breadcrumbelement label="${user.firstName} ${user.lastName}" link="user/${user.userName}" />
+	<ryctag:breadcrumbelement label="Edition" />
+</ryctag:pageheadertitle>
+
+
 
     <ryctag:form action="usereditsubmit" modelAttribute="user">
         <ryctag:input path="lastName" label="Nom" required="required"/>
-        <ryctag:input path="firstName" label="Pr�nom"/>
+        <ryctag:input path="firstName" label="Prénom"/>
         <ryctag:input path="userName" label="Pseudonyme"/>
         
         <tr>
@@ -26,7 +32,7 @@
                 <fmt:formatDate var="year" value="${now}" pattern="yyyy" /><%-- Used by the birthday picker, "year" variable --%>	
                 <select name="birthDay" id="birthDay" class="input_pulldown">
                         <c:forEach var="i" begin="1" end="31" step="1" varStatus ="status">
-                            <option value="${i}" <c:if test="${birthDay==i}">selected="selected"</c:if>>${i}</option>
+                            <option  value="${i}" <c:if test="${birthDay==i}">selected="selected"</c:if>>${i}</option>
                         </c:forEach> 
                 </select>
                 <select name="birthMonth" id="birthMonth" class="input_pulldown" >
@@ -52,8 +58,8 @@
         </tr>       
         
         <tr><td><form:label path="gender">Genre</form:label></td>
-           <td><form:radiobutton path="gender" value="MALE"/>MALE
-           <form:radiobutton path="gender" value="FEMALE"/>FEMALE</td>
+           <td><form:radiobutton  path="gender" value="MALE"/>MALE
+           <form:radiobutton   path="gender" value="FEMALE"/>FEMALE</td>
            <form:errors path="gender"  cssClass="error"/>
         </tr>
         
