@@ -83,7 +83,6 @@
 				</div>
 				<!-- ***************** - END sub-nav - ***************** -->
 				<!-- ***************** - START Content - ***************** -->
-				<div class="content-separator"> </div>
 				<div id="content">
 					<div class="body-template">
 				         <decorator:body />

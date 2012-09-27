@@ -120,7 +120,7 @@ body {margin:0;background:#f4f4f2;font:1.2em/19px "helvetica neue",Helvetica,Ari
 #header .header-area {width:980px;margin:0 auto;padding:5px 0 0 0;}
 #header .header-area:after {clear:both;display:block;content:"";}
 #main {background:url(../images/_global/bg-main.png) repeat-x;display:table-footer-group;position:relative;width:100%;}
-#main .main-area {background:url(../images/_global/redline.png) repeat-y;width:980px;margin:0 auto;padding:43px 0 5px 0;}
+#main .main-area {background:url(../images/_global/redline.png) -8px repeat-y;width:980px;margin:0 auto;padding:43px 0 5px 0;}
 .tools .place {position:relative;}
 .main-holder {height:1%;overflow:hidden;padding-top:45px;}
 .carousel-holder {width:315px !important;}
@@ -605,7 +605,7 @@ body {margin:0;background:#f4f4f2;font:1.2em/19px "helvetica neue",Helvetica,Ari
 /*---------------------------------------------------------------*/
 #sub_nav ul a:hover,
 
-#sub_nav {list-style-type: none;float: left;width:160px;float:left;background:url(../images/_global/bg-sidebar.gif) 100% 0 repeat-y;	padding-bottom:0px;overflow:hidden;}
+#sub_nav {list-style-type: none;float: left;width:160px;float:left;	padding-bottom:0px;overflow:hidden;}
 #sub_nav ul a {display:block;background:url(../images/_global/separator3.gif) 0 0 repeat-x ;padding:4px 0 0 0;height:1%;margin:0 0 0 0;}
 #sub_nav ul a:hover {background:url(../images/secondary-royal-blue/navblueback.png) 0 0 repeat-y;padding:0 0 0 ;margin-right:0;color:#ccc;text-decoration:none;}
 #sub_nav ul li a.current_page_item {background:url(../images/secondary-royal-blue/navblueback.png) 0 0 repeat-y;padding:0 0 0 ;margin-right:0;color:#ccc;text-decoration:none;}
