@@ -41,7 +41,7 @@
 <script type="text/javascript" src="js/testimonial-slider.js"></script>
 <!--[if lte IE 8]><meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /><![endif]-->
 
-	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<!-- <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> -->
 	<script type="text/javascript" src="js/realshadow.js"></script>
 	<script type="text/javascript">
 	$(function(){
