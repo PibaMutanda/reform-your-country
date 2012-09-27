@@ -5,6 +5,8 @@
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag"%>
 <html>
 <head>
+<link rel="canonical" href="http://enseignement2.be/book/${book.url}"/>
+<meta name="robots" content="index, follow"/>
 </head>
 <body>
 <ryctag:pageheadertitle title="${book.title}"/>

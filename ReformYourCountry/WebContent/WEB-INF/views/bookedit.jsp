@@ -5,7 +5,7 @@
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
 <html>
 <head>
-
+<script type="text/javascript" src="js/int/url-generate.js"></script>
 </head>
 <body>
 
@@ -16,9 +16,11 @@
 		</c:choose>
 	</h1>
 
-	<ryctag:form action="bookeditsubmit" modelAttribute="book">
+	<ryctag:form action="book/editsubmit" modelAttribute="book">
 		<ryctag:input path="abrev" label="Abréviation du livre:"/>
-		<ryctag:input path="title" label="Titre du livre:"/>
+		<ryctag:input path="title" label="Titre du livre:" id="title"/>
+		<ryctag:input path="url" label="Nom de la page du livre" id="url" />
+		<td><input type="submit" value="Générer une url" id="generate" /></td>
 		<ryctag:textarea path="description" label="Description du livre:"/>
 		<ryctag:input path="author" label="Auteur(s) du livre:"/>
 		<ryctag:input path="pubYear" label="Année de publication:"/>
