@@ -25,6 +25,6 @@ see http://stackoverflow.com/questions/439861/spring-mvc-tag-interaction-with-cu
 </div><!-- end tools -->
 <!-- ***************** - END Title Bar - ***************** -->
 	
-<input type="hidden" name="message" value="${message }"/>
-<div>${message}<br/></div>
+
+<div><c:if test='${message != null}'>${message}</c:if><c:if test='${param.message != null}'>${param.message}</c:if><br/></div>
 	

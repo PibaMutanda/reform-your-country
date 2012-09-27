@@ -20,22 +20,22 @@ import reformyourcountry.util.FileUtil.InvalidImageFileException;
 import reformyourcountry.util.ImageUtil;
 
 @Controller
+@RequestMapping("/book")
 public class BookDisplayController extends BaseController<Book> {
 
     @Autowired BookRepository bookRepository;
 
-    @RequestMapping("/book/{bookUrl}")
+    @RequestMapping("/{bookUrl}")
     public ModelAndView bookDisplay(@PathVariable("bookUrl") String bookUrl){
         Book book = getRequiredEntityByUrl(bookUrl);      
         
         ModelAndView mv = new ModelAndView("bookdisplay");
         mv.addObject("book", book);
-
         return mv;
     }
 
 
-    @RequestMapping("/bookimageadd")
+    @RequestMapping("/imageadd")
     public ModelAndView bookImageAdd(@RequestParam("id") long bookid,
             @RequestParam("file") MultipartFile multipartFile) throws Exception{    
         
@@ -43,7 +43,7 @@ public class BookDisplayController extends BaseController<Book> {
 
         Book book = bookRepository.find(bookid);
 
-        ModelAndView mv = new ModelAndView("bookdisplay");
+        ModelAndView mv = new ModelAndView("redirect:/book/"+book.getUrl());
         mv.addObject("book", book);
 
         ///// Save original image, scale it and save the resized image.
@@ -66,7 +66,7 @@ public class BookDisplayController extends BaseController<Book> {
 
         return mv;
     }
-    @RequestMapping("/bookimagedelete")
+    @RequestMapping("/imagedelete")
     public ModelAndView bookImageDelete(@RequestParam("id") long bookid){
         SecurityContext.assertUserHasPrivilege(Privilege.EDIT_BOOK);
 
@@ -77,8 +77,7 @@ public class BookDisplayController extends BaseController<Book> {
         book.setHasImage(false);
         bookRepository.merge(book);
 
-        ModelAndView mv = new ModelAndView("redirect:book");
-        mv.addObject("id", book.getId());
+        ModelAndView mv = new ModelAndView("redirect:/book/"+book.getUrl());
         mv.addObject("book", book);
         return mv;
     }

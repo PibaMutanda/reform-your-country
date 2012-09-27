@@ -5,31 +5,23 @@
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag"%>
 <html>
 <head>
-<title>${book.title}</title>
 </head>
 <body>
+<ryctag:pageheadertitle title="${book.title}"/>
 	<ryc:bookInfo book="${book}" />
-	<br>
-
-	<c:choose>
-		<c:when test="${!empty errorMsg}">
-			<div class="error">Error:${errorMsg}</div>
-		</c:when>
-	</c:choose>
-	
 	<ryc:conditionDisplay privilege="EDIT_BOOK">
-	<ryctag:submit entity="${book}" value="Editer" action="bookedit"/>	
-		<form method="post" action="bookimageadd" enctype="multipart/form-data">
+	<ryctag:submit entity="${book}" value="Editer" action="book/edit"/>	
+		<form method="post" action="book/imageadd" enctype="multipart/form-data">
 			<input type="file" name="file" />
 			<input type="hidden" name="id" value="${book.id}" /><input type="submit" value="Uploader une image" />
 		</form>
-		<form method="post" action="bookimagedelete">
+		<form method="post" action="book/imagedelete">
 			<input type="hidden" name="id" value="${book.id}" />  <br><input type="submit" value="Supprimer une image" />
 		</form>
-		<form method="post" action="removebook">
+		<form method="post" action="book/remove">
 			<input type="hidden" name="id" value="${book.id}" />  <br><input type="submit" value="Supprimer un livre" />
 		</form>
 	</ryc:conditionDisplay>
-	<br><a href="booklist">Retour à la liste de livres</a>
+	<br><a href="book">Retour à la liste de livres</a>
 </body>
 </html>

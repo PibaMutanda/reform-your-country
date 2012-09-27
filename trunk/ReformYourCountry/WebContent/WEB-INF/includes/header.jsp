@@ -50,7 +50,7 @@
 								<ul class="sub-menu">
 								 	<li><a href="articlelist"><span>Articles</span></a></li>
 									 <li><a href="actionlist"><span>Actions</span></a></li>
-									 <li><a href="booklist"><span>Bibliographie</span></a></li>
+									 <li><a href="book"><span>Bibliographie</span></a></li>
 								 </ul>
 							</li>
 							<li ><a href=""><span><strong>A propos</strong></span></a>

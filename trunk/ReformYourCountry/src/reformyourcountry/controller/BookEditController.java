@@ -17,18 +17,19 @@ import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
 
 @Controller
+@RequestMapping("/book")
 public class BookEditController extends BaseController<Book> {
 
     @Autowired BookRepository bookRepository;
     @Autowired BookListController booklistController;
 
-    @RequestMapping("/bookcreate")
+    @RequestMapping("/create")
     public ModelAndView bookCreate(){
         SecurityContext.assertUserHasPrivilege(Privilege.EDIT_BOOK);
         return prepareModelAndView(new Book());
     }
 
-    @RequestMapping("/bookedit")
+    @RequestMapping("/edit")
     public ModelAndView bookEdit(@RequestParam("id") long id){
         SecurityContext.assertUserHasPrivilege(Privilege.EDIT_BOOK);
         Book book = getRequiredEntity(id);
@@ -43,7 +44,7 @@ public class BookEditController extends BaseController<Book> {
         return mv; 
     }
 
-    @RequestMapping("/bookeditsubmit")
+    @RequestMapping("/editsubmit")
     public ModelAndView bookEditSubmit(@Valid @ModelAttribute Book book, BindingResult result){
        
         SecurityContext.assertUserHasPrivilege(Privilege.EDIT_BOOK);
@@ -70,14 +71,14 @@ public class BookEditController extends BaseController<Book> {
             }
             bookRepository.merge(book);
         }
-        return new ModelAndView ("redirect:book?abrev="+book.getAbrev(), "id", book.getId());//redirect from book display
+        return new ModelAndView ("redirect:/book/"+book.getUrl());//redirect from book display
     }
     
-    @RequestMapping ("/removebook")
+    @RequestMapping ("/remove")
     public ModelAndView removeBook(@RequestParam("id")Long id){
         bookRepository.remove(bookRepository.find(id));
     
-        return new ModelAndView ("redirect:booklist");
+        return new ModelAndView ("redirect:/book");
     }
 
 
