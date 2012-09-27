@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<ryctag:pageheadertitle title="Liste des Privileges pour ${user.userName }" breadcrumb="true">
+<ryctag:pageheadertitle title="Privileges de ${user.userName }" breadcrumb="true">
 	<ryctag:breadcrumbelement label="${user.firstName} ${user.lastName}" link="user/${user.userName}" />
 	<ryctag:breadcrumbelement label="Permission" />
 </ryctag:pageheadertitle>
@@ -20,10 +20,12 @@
 		<input type="hidden" name="id" value="${user.id}">
 		<input type="radio" name="role" value="ADMIN" <c:if test="${user.role == 'ADMIN'}">checked="checked"</c:if>>Administrateur	<br>
 		<input type="radio" name="role" value="MODERATOR" <c:if test="${user.role == 'MODERATOR'}">checked="checked"</c:if>>Modérateur<br>
-		<input type="radio" name="role" value="USER" <c:if test="${user.role == 'USER'}">checked="checked"</c:if>>Utilisateur<br>
+		<input type="radio" name="role" value="USER" <c:if test="${user.role == 'USER'}">checked="checked"</c:if>>Utilisateur<br><br/>
 		<input type="submit" value="Changer rôle"><br>
 	</form>
-	
+	<br/>
+	<br/>
+	<br/>
 	<form action="privilegeeditsubmit" method="post">
 		<input type="hidden" name ="id" value="${user.id}">
 		<table border="1">
@@ -36,8 +38,8 @@
 			<td>${triplets.privilege.name}<br></td>
 		</tr>
 		</c:forEach>
-		</table>
-		<input type="submit" value="Enregistrer"><a href="user/${user.userName}">Annuler</a>
+		</table><br/>
+		<input type="submit" value="Enregistrer"><a href="user/${user.userName}">  Annuler</a>
 	</form>
 
 </body>
