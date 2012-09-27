@@ -26,6 +26,7 @@ public class UserDisplayController extends BaseController<User> {
         
         ModelAndView mv = new ModelAndView("userdisplay", "user", user);
         mv.addObject("canEdit", canEdit(user));
+        mv.addObject("lastGroupReg", user.getGroupRegs().lastIndexOf(user.getGroupRegs()));
         return mv;
         
     }
