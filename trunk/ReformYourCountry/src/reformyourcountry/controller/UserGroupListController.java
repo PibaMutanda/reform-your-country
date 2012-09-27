@@ -43,6 +43,7 @@ public class UserGroupListController extends BaseController<GroupReg> {
 		}
 		mv.addObject("myGroups", myGroups);          
 		mv.addObject("id",id);  
+		mv.addObject("user", user);
 		return mv;
 	}
 	
