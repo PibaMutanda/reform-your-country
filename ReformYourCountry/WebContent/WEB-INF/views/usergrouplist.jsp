@@ -1,13 +1,21 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
 
 <html>
 <head>
 
-<title>Insert title here</title>
+<title>Mes groupes</title>
 </head>
 <body> 
+
+<ryctag:pageheadertitle title="liste de mes groupes" breadcrumb="true">
+	<ryctag:breadcrumbelement label="${user.firstName} ${user.lastName}" link="user/${user.userName}" />
+	<ryctag:breadcrumbelement label="Mes groupes" />
+</ryctag:pageheadertitle>
+
+
 	<form action="usergrouplistsubmit" method="post">
 		<table>
 			<c:forEach items="${allGroups}" var="currentGroup">
