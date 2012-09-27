@@ -8,7 +8,7 @@ see http://stackoverflow.com/questions/439861/spring-mvc-tag-interaction-with-cu
 
  <c:choose>
 	 <c:when test="${link != null}">
-		<a href="${link}">${label}></a>
+		<a href="${link}">${label}</a>
 	 </c:when>
 	 <c:otherwise>
 		<span class='current_crumb'>${label}</span>
