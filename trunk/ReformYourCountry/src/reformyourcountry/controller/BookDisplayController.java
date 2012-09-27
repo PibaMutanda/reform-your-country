@@ -5,6 +5,7 @@ import java.io.ByteArrayInputStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,13 +24,9 @@ public class BookDisplayController extends BaseController<Book> {
 
     @Autowired BookRepository bookRepository;
 
-    @RequestMapping("/book")
-    public ModelAndView bookDisplay(@RequestParam(value = "id",required = false) Long id ,@RequestParam(value = "abrev",required = false) String abrev){
-        Book book = null;
-        if(abrev != null)
-         book = bookRepository.findBookByAbrev(abrev);      
-        else
-         book = getRequiredEntity(id);
+    @RequestMapping("/book/{bookUrl}")
+    public ModelAndView bookDisplay(@PathVariable("bookUrl") String bookUrl){
+        Book book = getRequiredEntityByUrl(bookUrl);      
         
         ModelAndView mv = new ModelAndView("bookdisplay");
         mv.addObject("book", book);
