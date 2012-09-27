@@ -2,12 +2,18 @@
     pageEncoding="UTF-8"%>
     <%@taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c' %>
     <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
+    <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
 <html>
 <head>
 <title>Privilege</title>
 </head>
 <body>
-<h1>Liste des Privileges pour ${user.userName }</h1><br>
+
+<ryctag:pageheadertitle title="Liste des Privileges pour ${user.userName }" breadcrumb="true">
+	<ryctag:breadcrumbelement label="${user.firstName} ${user.lastName}" link="user/${user.userName}" />
+	<ryctag:breadcrumbelement label="Permission" />
+</ryctag:pageheadertitle>
+
 <h2>Roles :</h2><br>
 
 	<form action="roleeditsubmit" method="post">
