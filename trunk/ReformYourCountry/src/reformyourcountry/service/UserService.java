@@ -1,4 +1,4 @@
-﻿package reformyourcountry.service;
+package reformyourcountry.service;
 
 import java.util.Date;
 
