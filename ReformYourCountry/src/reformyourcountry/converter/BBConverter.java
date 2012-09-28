@@ -1,6 +1,7 @@
 package reformyourcountry.converter;
-
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
@@ -8,12 +9,12 @@ import org.apache.commons.logging.LogFactory;
 
 import reformyourcountry.model.Article;
 import reformyourcountry.model.Book;
+import reformyourcountry.parser.BBAttribute;
 import reformyourcountry.parser.BBDomParser;
 import reformyourcountry.parser.BBTag;
 import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.repository.BookRepository;
 import reformyourcountry.util.FileUtil;
-import reformyourcountry.util.HTMLUtil;
 import reformyourcountry.web.UrlUtil;
 /**
  * @author FIEUX Cédric
@@ -116,25 +117,39 @@ public class BBConverter {
 	}
 	
 	private void processImage(BBTag tag) {
-	    if(tag.getAttributeValue("name") != null){
-	    
-	    html+="<img src=\"gen/article/"+tag.getAttributeValue("name")+"\"";
-	    
-	    if(tag.getAttributeValue("width") != null)
-	        html +=" width=\""+tag.getAttributeValue("width")+"\"";
-	    
-	    if(tag.getAttributeValue("style") != null)
-	        html+=" style=\""+tag.getAttributeValue("style")+"\"";
-	    
-	     html += "/>";
+		supportedAttributes(tag, "name", "style");
+		
+		String name = tag.getAttributeValue("name");
+
+	    if( name == null){
+	        addErrorMessage("You must specifie a name for the image", tag);
+	        return;
 	    }
-	    else{
-	        
-	        addErrorMessage("You must specifie a name for the image",tag);
-	    }
+
+    	html+="<img src=\"gen/article/"+tag.getAttributeValue("name")+"\"";
+
+    	if(tag.getAttributeValue("style") != null)
+	    		html+=" style=\""+tag.getAttributeValue("style")+"\"";
+
+	    html += "/>";
 	}
 
+	/** Verify that the tag contains no other attribute than those passed as parameter. */
+	private void supportedAttributes(BBTag tag, String... attrNamesArray) {
+		List<String> attrNames = Arrays.asList(attrNamesArray);
+		for (BBAttribute attribute : tag.attributes()) {
+			if (!attrNames.contains(attribute.getName())) {
+				 addErrorMessage("Unsupported attribute named '"+attribute.getName()+"'", tag);
+			}
+		}
+		
+	}
+
+
 	private void processLink(BBTag tag) {
+		supportedAttributes(tag, "article");
+		
+		String abrev = tag.getAttributeValue("article");//until pretty url system isn't implemented , use of id for abrev
 		String shortName = tag.getAttributeValue("article");
 		String content = getInnerTextContent(tag);
 		
@@ -148,6 +163,8 @@ public class BBConverter {
 	}
 
 	private void processAction(BBTag tag) {
+		supportedAttributes(tag, "id");
+		
 		///// Get the id attribute
 		String idStr = tag.getAttributeValue("id");
 		if (idStr == null) {
@@ -225,6 +242,7 @@ public class BBConverter {
 
 	 */
 	private void processQuote(BBTag tag) {
+		supportedAttributes(tag, "bib", "author", "out", "inline");
 		// bib  either [quote bib="book-ref"]I say it! [/quote]
 	    //   or either [quote author="anonymous" out="http://myblog/article/happy"] I say it! [/quote]
 		// either bib refers a Book or out refers a link to another site (outlink)
@@ -398,6 +416,8 @@ public class BBConverter {
 	}
 
 	private void processUnquote(BBTag tag) {
+		supportedAttributes(tag);
+		
 		String htmlTxt="";
 		htmlTxt +="<span class=\"unquote\">"+getInnerTextContent(tag)+"</span>";
 		
