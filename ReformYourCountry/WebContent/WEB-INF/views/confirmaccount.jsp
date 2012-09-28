@@ -6,9 +6,10 @@
 </head>
   <body>
 	Ce login est nouveau sur enseignement2
-<!--here we can insert the email of the user -->
-	<form method="post" action="">
+<p> votre email:${email} sera utilisée pour l'enregistrement<p>
+	<form method="post" action="confirmaccountsubmit">
 		<input type="submit" value="Confirmer et créer un nouveau compte" />
+		<input name ="usermail" type ="hidden" value="${email}"/>
 	</form>
 	<form method="post" action="home">
 		<input type="submit" value="Annuler" />

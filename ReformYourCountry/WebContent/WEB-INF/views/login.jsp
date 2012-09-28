@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -24,6 +24,8 @@
 		</c:choose>
 		<br />
 		
-		J'ai <a href="">oubli� mon mot de passe</a><br /> 
-		<input type="checkbox" name="keepLoggedIn" /><label for="keepLoggedIn">Je souhaite rester connect�</label>
+		J'ai <a href="">oublié mon mot de passe</a><br /> 
+		<input type="checkbox" name="keepLoggedIn" /><label for="keepLoggedIn">Je souhaite rester connecté</label>
+		
+		<input type="submit" value="se connecter"/>
 	</form>
