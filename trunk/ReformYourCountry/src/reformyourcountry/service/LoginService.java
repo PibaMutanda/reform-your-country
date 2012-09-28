@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import reformyourcountry.exception.InvalidPasswordException;
+import reformyourcountry.exception.SocialAccountAlreadyExistException;
 import reformyourcountry.exception.UserLockedException;
 import reformyourcountry.exception.UserNotFoundException;
 import reformyourcountry.exception.UserNotValidatedException;
@@ -49,7 +50,7 @@ public class LoginService {
      */
 
     public User login(String identifier, String clearPassword, boolean keepLoggedIn)
-            throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
+            throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException,SocialAccountAlreadyExistException{
                                          //In dev mode we don't give pswd to login page and encode () throw Exception when it get a null String
         return loginEncrypted(identifier, SecurityUtils.md5Encode(clearPassword == null ? "" : clearPassword), keepLoggedIn);
     }
@@ -63,12 +64,17 @@ public class LoginService {
      * @throws WaitDelayNotReachedException if user has to wait before login due to successive invalid attempts.
      */
     public User loginEncrypted(String identifier, String md5Password, boolean keepLoggedIn) 
-            throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
+            throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException,IllegalStateException,SocialAccountAlreadyExistException {
 
         // Identification
         User user = identifyUser(identifier);
         if (user == null) {
             throw new UserNotFoundException(identifier);
+        }
+        
+        if(user.getAccountStatus().equals(AccountStatus.ACTIVE_SOCIAL)){
+            
+            throw new SocialAccountAlreadyExistException(user.getUserName(),"An account is already registered in local with a social account");
         }
 
         assertNoInvalidDelay(user);
@@ -104,6 +110,31 @@ public class LoginService {
         }
     
         return user;
+    }
+    
+    
+    public User login(long localId) throws Exception{
+        
+        User user = identifyUser(localId);
+        
+        //////////// Ok, we do the login.
+
+        if (ContextUtil.isInBatchNonWebMode()) {
+            throw new IllegalStateException("Trying to login in batch mode?");
+        } else { // normal web case
+            ContextUtil.getHttpSession().setAttribute(USERID_KEY, user.getId());
+        }
+        
+        // Reset for validation.
+        user.setConsecutiveFailedLogins(0);
+        user.setLastFailedLoginDate(null);
+
+         //We set a bigger session timeout for admin and moderators
+         if (Role.MODERATOR.isHigherOrEquivalent(SecurityContext.getUser().getRole())) {
+           ContextUtil.getHttpSession().setMaxInactiveInterval(72000);
+         }
+        
+         return user;
     }
 
     public void assertNoInvalidDelay(User user) throws WaitDelayNotReachedException {
@@ -178,6 +209,12 @@ public class LoginService {
             result = userRepository.getUserByUserName(identifier);
         }
 
+        return result;
+    }
+    
+    
+    public User identifyUser(long id) throws UserNotFoundException{
+        User result = userRepository.find(id);
         return result;
     }
 
