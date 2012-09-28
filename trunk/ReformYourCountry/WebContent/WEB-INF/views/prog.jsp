@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>    
 
 <html>
 <head>
 <title></title>
 </head>
 <body>
-            <center><h1>Informations des développeurs du projet</h1></center>
-            
+          
+            <ryctag:pageheadertitle title="Informations des développeurs du projet"/> 
    <div style="display: inline-block;"> 
           
 	 <div style=" padding-left:60px; position:relative; float:left;">
