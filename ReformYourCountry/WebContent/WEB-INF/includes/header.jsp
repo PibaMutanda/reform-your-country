@@ -26,7 +26,8 @@
 						          <a id="logout" href="logout">déconnexion</a>
 						        </c:when>
 						        <c:otherwise>
-						            <a class="login"  style="cursor:pointer;">connexion</a>&nbsp;-&nbsp;
+						           <!-- <a class="login"  style="cursor:pointer;">connexion</a>&nbsp;-&nbsp;-->
+						            <a href="signin">connexion</a>
 						            <a href="register">créer un compte</a>
 						         </c:otherwise>
 						     </c:choose>
