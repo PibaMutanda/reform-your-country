@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,13 +23,14 @@ import reformyourcountry.security.SecurityContext;
 
 
 @Controller
+@RequestMapping(value={"/article"})
 public class ArticleEditController extends BaseController<Article>{
 
 	@Autowired ArticleRepository articleRepository;
 	@Autowired ArticleDisplayController displayArticleController;
 
 
-	@RequestMapping(value={"/articleedit","/articlecreate"})
+	@RequestMapping(value={"/edit","/create"})
 	public ModelAndView articleEdit(@ModelAttribute Article article){
 		SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
 		ModelAndView mv = new ModelAndView("articleedit");
@@ -36,16 +38,22 @@ public class ArticleEditController extends BaseController<Article>{
 		return mv;
 	}
 
-
-	@RequestMapping("/articleeditsubmit")
+	@RequestMapping("/editsubmit")
 	public ModelAndView articleEditSubmit(@Valid @ModelAttribute Article article, BindingResult result){
 		SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
-		
 		if(result.hasErrors()){
-		    return new ModelAndView("redirect:articleedit","id",article.getId());
+			ModelAndView mv = new ModelAndView("redirect:/article/edit","id",article.getId());
+			for (ObjectError error : result.getAllErrors()) {
+				setMessage(mv, error.getDefaultMessage());
+			}
+			return mv;
+		}else if(!getRequiredEntityByUrl(article.getUrl()).equals(article)){
+			ModelAndView mv = new ModelAndView("redirect:/article/edit","id",article.getId());
+			setMessage(mv, "L'url est déja utilisée par un autre article");
+			return mv;
 		}else{
 			articleRepository.merge(article);
-			return new ModelAndView("redirect:article/"+article.getUrl());
+			return new ModelAndView("redirect:/article/"+article.getUrl());
 		}
 
 	}
@@ -70,11 +78,11 @@ public class ArticleEditController extends BaseController<Article>{
 	
 
 	@ModelAttribute
-	public Article findArticle(@RequestParam("id")Long id){
+	public Article findArticle(@RequestParam(value="id",required=false)Long id){
 		if(id==null){
 			return new Article();
 		} else {
-			return getRequiredEntity(id);
+			return getRequiredDetachedEntity(id);
 		}
 	}
 
