@@ -10,8 +10,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class CurrentEnvironment {
 
-	@Value("${app.environment}") // comes from the config.properties file. Value is modified by ant at build time
+	@Value("${app.environment}") // comes from the secret.properties file. Value is modified by ant at build time
 	private Environment environment;
+	@Value("${facebook.clientId}") //comes from secret.properties files.used to identify the app on facebook 
+	private String facebookClientId;
+	@Value("${facebook.clientSecret}") // needed by facebook when user token requested
+	private String facebookClientSecret;
 	
 	public Environment getEnvironment() {
 		return environment;
@@ -68,4 +72,15 @@ public class CurrentEnvironment {
 		}
 
 	}
+
+    public String getFacebookClientId() {
+        return facebookClientId;
+    }
+
+    public String getFacebookClientSecret() {
+        return facebookClientSecret;
+    }
+	
+	
+	
 }
