@@ -6,7 +6,7 @@
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
 	<base href="${pageContext.request.contextPath}/"/>
 	

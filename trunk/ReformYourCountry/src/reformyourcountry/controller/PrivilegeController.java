@@ -20,6 +20,7 @@ import reformyourcountry.security.SecurityContext;
 
 /** To edit the role and privileges of a user */
 @Controller
+@RequestMapping("/user")
 public class PrivilegeController extends BaseController<User> {
 	
 	// Stores 3 values for each privilege. It eases the job of the JSP putting these values in a table.
@@ -50,31 +51,28 @@ public class PrivilegeController extends BaseController<User> {
 	}
 	
 	@Autowired 	UserRepository userRepository;
-	
-	
-	@RequestMapping(value="/privilegeedit")
-	public ModelAndView privilegeEdit(@RequestParam(value="id") Long userId) {
+		
+	@RequestMapping("/privilegeedit")
+	public ModelAndView privilegeEdit(@RequestParam("id") Long userId) {
 		SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_USERS);
 		User user = userRepository.find(userId);
 		return createModelAndView(user);
 	}
-	
-	
-	
-	@RequestMapping(value="/roleeditsubmit")
-	public ModelAndView roleEditSubmit(@RequestParam(value="role")String role,@RequestParam(value="id") Long userId) {
+		
+	@RequestMapping("/roleeditsubmit")
+	public ModelAndView roleEditSubmit(@RequestParam("role")String role,@RequestParam("id") Long userId) {
 		SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_USERS);
 		User user = userRepository.find(userId);
 		user.setRole(Role.valueOf(role));
 		return createModelAndView(user);
 	}
 
-	@RequestMapping(value="/privilegeeditsubmit")
+	@RequestMapping("/privilegeeditsubmit")
 	public ModelAndView privilegeEditSubmit(@RequestParam Map <String, String> params){
 		SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_USERS);
 		User user = getRequiredEntity(Long.parseLong(params.get("id")));
 		//ModelAndView mv = new ModelAndView("redirect:user", "username", user.getUserName());
-		ModelAndView mv = new ModelAndView("redirect:user/"+user.getUserName());
+		ModelAndView mv = new ModelAndView("redirect:/user/"+user.getUserName());
 		params.remove("id");
 		user.getPrivileges().clear();		
 		for (Map.Entry<String, String> entry: params.entrySet()) {
