@@ -1809,7 +1809,7 @@ border-radius: 5px;
 
 
 /*---------------------------------------------------------------*/
-/* Added By cedric
+/* Added By cedric and Delphine
 /*---------------------------------------------------------------*/
 .realshadow{
 
@@ -1839,11 +1839,7 @@ border-radius: 5px;
 }
 
 
-.article-info{
-	float:left;
-	margin:0;
-	
-}
+
 .article-options{
 	float:right;
 	margin:0;

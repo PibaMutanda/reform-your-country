@@ -31,52 +31,64 @@
  </ryctag:pageheadertitle>
 
 
-
-
-
-<div  class="dialog"  > Loading ...</div>
-<div style="display:block;margin:0;">
-
-	<div class="article-info">
-		${article.shortName}<br/>  
-		publish date: ${displayDate}
-	</div>
-	<div class="article-options">
-	<ul class="list sitemap-list">
+<ryc:conditionDisplay privilege="EDIT_ARTICLE">
+  <div>
+      <span class="tooltip" data-tooltip='identifiant de cet article pour utilisation dans la balise [link article="identifiant"]'>${article.shortName}</span>   <!--  Tooltip avec "identifiant de cet article pour utilisation dans la balise [link article="identifiant"]" -->
+	  <div class="article-options">
+	    <ul class="list sitemap-list">
 			 <li><a href="articleedit?id=${article.id}">Editer l'article</a></li>
 			 <li><a href="articleparentedit?id=${article.id}">Editer l'article parent</a></li>
 		</ul>	
+	  </div>
+  </div>
+</ryc:conditionDisplay>
 
-	</div>
-</div>
-	<div style="position:relative;display: inline-block; margin:0;">
-    <!-- COUNT DOWN -->
 
-	<c:if test="${!article.published&&article.publicView}">
-	<div  class="opener" id="defaultCountdown"></div>
-		<script type="text/javascript">
-		$(document).ready(function () {
-					var publishDay = new Date(${publishYear}, ${publishMonth}, ${publishDay});
-					function reload() { 
-						window.location.reload(); 
-					} 
-					$('#defaultCountdown').countdown({until: publishDay, onExpiry:reload, format: 'dHMS',layout: ' {dn} {dl} , {hn} {hl} , {mn} {ml} et {sn} {sl} jusqu\'à ce que l\'article soit publié   <<<<<<<<<< DESIGNER, PLEASE IMPROVE (discret si droit de voir le texte, en grand sinon)'});
-			});
-		</script>
-		
-	</c:if>
-	
+<c:if test="${!article.publicView}">
+		<p>Cet article n'est pas disponible au public.
+     	<c:choose>
+  	       <c:when test="${displayDate != null}">
+  	          Il sera publié le ${displayDate}.
+		   </c:when>
+		   <c:otherwise>
+		      Sa date de publication est inconnue.
+		   </c:otherwise>
+		 </c:choose>
+		 </p>
+		 <br/>
+  	     <ryc:conditionDisplay privilege="EDIT_ARTICLE">
+  	       <hr/>
+  	     </ryc:conditionDisplay>  
+</c:if>
 
-	<div>
-	<!-- ARTICLE CONTENT -->
-	<c:if test="${showContent}">
+<!-- ARTICLE CONTENT -->
+<c:choose>
+  	  <c:when test="${showContent}">
 		${articleContent}
-	</c:if>
-	<c:if test="${!article.publicView}">
-		Cet article n'est pas disponible au public.
-	</c:if>
-	</div>
-	</div>
+	  </c:when>
+	  
+	  <c:otherwise> <%-- We do not show the text, but the countdown --%>
+		<c:if test="${displayDate != null}">
+  		  <br/><br/><br/>
+          <!-- COUNT DOWN -->
+		  <div   id="defaultCountdown" style="margin-left:100px;"></div>
+			<script type="text/javascript">
+			    $(document).ready(function () {
+						var publishDay = new Date(${publishYear}, ${publishMonth}, ${publishDay});
+						function reload() { 
+							window.location.reload(); 
+						} 
+						$('#defaultCountdown').countdown(
+								{until: publishDay, onExpiry:reload, format: 'dHMS',
+								 layout: '<span style="font-size:100px;">{dn}</span> {dl} ,  &nbsp; &nbsp; &nbsp; <span style="font-size:100px;">{hn}</span> {hl}, &nbsp; &nbsp; &nbsp; <span style="font-size:100px;">{mn}</span> {ml} et  &nbsp; &nbsp; &nbsp;  <span style="font-size:100px;">{sn}</span> {sl}'}); 
+				});
+			</script>
+			<br/><br/><br/> avant publication.
+		</c:if>
+	  
+	  </c:otherwise>
+</c:choose>
+
 </body>
 </html>   
 
