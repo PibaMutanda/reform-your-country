@@ -38,8 +38,8 @@
 <script src="js/int/redirect.js"></script>
 <script src="js/int/focusevent.js"></script>
 <script type="text/javascript" src="js/jquery.cycle.all.min.js"></script>
-<script type="text/javascript" src="js/jquery-1-slider.js"></script>
-<script type="text/javascript" src="js/testimonial-slider.js"></script>
+<!-- <script type="text/javascript" src="js/jquery-1-slider.js"></script> -->
+<!-- <script type="text/javascript" src="js/testimonial-slider.js"></script> -->
 <!--[if lte IE 8]><meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /><![endif]-->
 
 	<!-- <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> -->
@@ -97,5 +97,11 @@
 	</div>
 </div>
 	
+<!-- ******************* BETA ************************ -->	
+<div style= "position:absolute; top:10px;right:10px;" class="tooltip" data-tooltip="${tooltip}">
+	<img src= "images/beta_sign.jpg" alt= "Plate-forme en construction, pas encore destinée au grand public. Sortie prévue: janvier 2013"
+	title="Plate-forme en construction, pas encore destinée au grand public. Sortie prévue: janvier 2013"/>
+</div>
+
 </body>
 </html>

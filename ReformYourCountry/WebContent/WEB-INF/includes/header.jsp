@@ -84,7 +84,8 @@
 						<div id ="logindialog" style = "display:none;">
 					</div>
 				</div>
-			</div><!-- header-area -->
+			</div><!-- end header-area -->
+			
 		</div><!-- end rays -->
 	</div><!-- end header-holder -->
 </div><!-- end header -->

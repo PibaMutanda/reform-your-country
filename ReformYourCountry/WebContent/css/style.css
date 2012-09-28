@@ -1863,3 +1863,6 @@ padding: 0px 21px 0px 0px;
 font-size: 0.9em;
 background: url("../images/_global/bg-buttons-sprite.png") no-repeat scroll 100% -43px transparent;
 }
+.text-big{
+	font-size: 15px;
+}

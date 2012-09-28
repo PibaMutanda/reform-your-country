@@ -6,7 +6,7 @@
 	 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
 <html>
 <head>
-<title>Insert title here</title>
+<title>Ajouter une image</title>
 </head>
 <body>
 

@@ -12,7 +12,6 @@
 <body>
 <script src="js/int/birthday_picker.js" type = "text/javascript"></script> 
 
-<font face="Arial">
 
 <ryctag:pageheadertitle title="${user.firstName} ${user.lastName}" breadcrumb="true">
 	<ryctag:breadcrumbelement label="${user.firstName} ${user.lastName}" link="user/${user.userName}" />
@@ -73,6 +72,6 @@
 		
         <tr><td><input type="submit" value="Sauver" /></td><td> <a href="user/${user.userName}">Annuler</a></td></tr>
     </ryctag:form> 
-    </font>
+
 </body>
 </html>
