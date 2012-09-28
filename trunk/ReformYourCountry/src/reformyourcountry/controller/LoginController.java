@@ -1,5 +1,12 @@
 package reformyourcountry.controller;
 
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.exception.InvalidPasswordException;
+import reformyourcountry.exception.SocialAccountAlreadyExistException;
 import reformyourcountry.exception.UserLockedException;
 import reformyourcountry.exception.UserNotFoundException;
 import reformyourcountry.exception.UserNotValidatedException;
 import reformyourcountry.model.User;
+import reformyourcountry.security.FacebookSecret;
 import reformyourcountry.service.LoginService;
 import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
 import reformyourcountry.util.DateUtil;
@@ -24,6 +33,8 @@ public class LoginController extends BaseController<User> {
     @Autowired LoginService loginService;
     @Autowired UserDisplayController userDisplayController;
 
+    
+    
 
     @RequestMapping("/ajax/login")
     public String login() {
@@ -64,9 +75,14 @@ public class LoginController extends BaseController<User> {
             errorMsg="Suite à de multiples tentatives de login échouées, votre utilisateur s'est vu imposé un délai d'attente avant de pouvoir se relogguer, ceci pour des raisons de sécurité." +
                     " Actuellement, il reste "+ DateUtil.formatIntervalFromToNow(e.getNextPossibleTry()) +" à attendre.";
         }
+        catch(SocialAccountAlreadyExistException e){
+            
+            errorMsg="Vous possédez déjà un compte actif sur enseignement2 associé à un compte social(Facebook,Google+,LinkedIn.....) avec ce nom d'utilisateur";
+            
+        }
 
         if (errorMsg != null) {
-            ModelAndView mv = new ModelAndView("login");
+            ModelAndView mv = new ModelAndView("signin");
             this.setMessage(mv, errorMsg);
             return mv;
         } else {
@@ -108,6 +124,11 @@ public class LoginController extends BaseController<User> {
             errorMsg="Suite à de multiples tentatives de login échouées, votre utilisateur s'est vu imposé un délai d'attente avant de pouvoir se relogguer, ceci pour des raisons de sécurité." +
                     " Actuellement, il reste "+ DateUtil.formatIntervalFromToNow(e.getNextPossibleTry()) +" à attendre.";
         }
+       catch(SocialAccountAlreadyExistException e){
+            
+            errorMsg="Vous possédez déjà un compte actif sur enseignement2 associé à un compte social(Facebook,Google+,LinkedIn.....) avec ce nom d'utilisateur";
+            
+        }
 
         
         //ResponseEntity<String> response = new ResponseEntity<String>(errorMsg, null);
@@ -120,4 +141,43 @@ public class LoginController extends BaseController<User> {
             return new ResponseEntity<String>("ok", HttpStatus.OK);
         }
     }
+    
+    @RequestMapping(value="/signin", method=RequestMethod.GET)
+    public String signin() {
+        
+        
+        
+        return "signin";
+        
+    }
+    
+    
+    /*@RequestMapping("/loginFacebook")
+    public String loginFacebook(HttpServletRequest request,HttpSession session){
+        
+      
+        double randomValue = Math.random();
+        
+        String state = Math.round(randomValue*1000)+"";
+        session.setAttribute("fbstate",state);
+        
+        URL u;
+        try {
+            u = new URL("https://www.facebook.com/dialog/oauth?"+
+                            "client_id="+FacebookSecret.appId+
+                            "&redirect_uri="+FacebookSecret.redirect_uri+
+                            "&state="+state);
+            
+        } catch (Exception e) {
+        
+          throw new RuntimeException(e);
+        }
+       
+        
+        return "redirect:"+u.toExternalForm();
+        
+    }*/
+    
+    
+    
 }
