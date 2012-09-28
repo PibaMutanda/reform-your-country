@@ -9,14 +9,18 @@ import java.util.List;
 import org.junit.Test;
 
 import reformyourcountry.converter.BBConverter;
+import reformyourcountry.repository.ArticleRepository;
+import reformyourcountry.repository.BookRepository;
 
 
 public class JUnitParserTest {
 
-	public static String ExportToHtml(String txt){
+	private BookRepository bookRepository;
+	private ArticleRepository articleRepository;
+	public  String ExportToHtml(String txt){
 		List<String> tags = new ArrayList<String>();
 		tags.add("[...]");
-		BBConverter bbc = new BBConverter(); 
+		BBConverter bbc = new BBConverter(bookRepository, articleRepository); 
 		return bbc.transformBBCodeToHtmlCode(txt);
 	}
 
