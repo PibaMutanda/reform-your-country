@@ -28,18 +28,43 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
         </property>
     </bean>
     <bean id="entityManagerFactory"
-    class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+    class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="persistenceUnitName" value="Connection" />
+        <property name="dataSource" ref="dataSource"/>  
         <property name="jpaProperties">
             <!-- set extra properties here, e.g. for Hibernate: -->
             <props>
-                <prop key="hibernate.connection.url">${DB.url}</prop>
+<!--                 <prop key="hibernate.connection.url">${DB.url}</prop>
                 <prop key="hibernate.connection.username">${DB.userName}</prop>
                 <prop key="hibernate.connection.password">${DB.password}</prop>
-            </props>
+ -->            </props>
         </property>
 
     </bean>
+    
+    
+     <bean id="dataSource"
+        class="org.apache.commons.dbcp.datasources.SharedPoolDataSource"
+        destroy-method="close">
+        <property name="connectionPoolDataSource">
+            <bean
+                class="org.apache.commons.dbcp.cpdsadapter.DriverAdapterCPDS">
+                <property name="driver" value="org.postgresql.Driver" />
+                <property name="url" value="${DB.url}" />
+                <property name="user" value="${DB.userName}" />
+                <property name="password" value="${DB.password}" />
+                <property name="maxActive" value="0" />
+                <property name="maxIdle" value="0" />
+                <property name="poolPreparedStatements" value="true" />
+            </bean>
+        </property>
+        <property name="maxWait" value="60000" />
+        <property name="defaultAutoCommit" value="false" />
+        <property name="defaultReadOnly" value="false" />
+    </bean>
+    
+
+    
 
     <!-- Transaction manager for a single JPA EntityManagerFactory (alternative
     to JTA) -->
