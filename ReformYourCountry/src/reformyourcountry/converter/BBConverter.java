@@ -1,4 +1,5 @@
 package reformyourcountry.converter;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -31,7 +32,9 @@ public class BBConverter {
 	static private Log log = LogFactory.getLog(FileUtil.class);
 	
 	boolean errorFound = false;
-	String html;
+	String html="";
+
+	String textBuffer=""; // We accumulate Strings fragments that are within the same line (but from consecutive nodes), to place <p> around all the fragments alltogether.
 	
 	BookRepository bookRepository;  // No @Autowired because we are not in a Spring bean.
 	ArticleRepository articleRepository;
@@ -54,8 +57,7 @@ public class BBConverter {
 	 * @return htmlCode
 	 */
     public String transformBBCodeToHtmlCode(String bbCode){
-    	html="";
-    	
+    	 html="";
     	
 		 BBDomParser dp = new BBDomParser();
 		 dp.setEscapeAsText(true);
@@ -63,7 +65,6 @@ public class BBConverter {
 		 BBTag root = dp.parse(bbCode);
 		 
 		 transformDomToHtml(root);
-		 addToolTipBooks();
 		 return html;
 	 }
 
@@ -80,7 +81,8 @@ public class BBConverter {
 				break;
 			case Text:
 				String addText = tag.getContent();
-				html += processText(addText);
+				bufferTextForP(addText);
+				//html += processText(addText);
 				break;
 			case Tag:
 				processTag(tag);
@@ -88,7 +90,12 @@ public class BBConverter {
 			}
 		}
 		
-		// TODO: Loop through the set of books to generate the bood divs (call a method).
+		if (!textBuffer.isEmpty()) {
+		    processTextHtmlAfterHavingClosedPendingP("");  // Flush the remaining text of currentLine.
+		}
+		
+		//Loop through the set of books to generate the bood divs (call a method).
+		addToolTipBooks();
 	}
 	 
 	private void processTag(BBTag tag) {
@@ -115,25 +122,27 @@ public class BBConverter {
 			
 		}
 	}
-	
+
 	private void processImage(BBTag tag) {
 		supportedAttributes(tag, "name", "style");
 		
 		String name = tag.getAttributeValue("name");
+		
+		if(name != null) {
 
-	    if( name == null){
-	        addErrorMessage("You must specifie a name for the image", tag);
-	        return;
-	    }
+			String imgHtml = "<img src=\"gen/article/"+name+"\"";
 
-    	html+="<img src=\"gen/article/"+tag.getAttributeValue("name")+"\"";
+			if(tag.getAttributeValue("style") != null)
+				imgHtml +=" style=\""+tag.getAttributeValue("style")+"\"";
 
-    	if(tag.getAttributeValue("style") != null)
-	    		html+=" style=\""+tag.getAttributeValue("style")+"\"";
-
-	    html += "/>";
+			imgHtml += "/>";
+			bufferTextForP(imgHtml);
+		}
+		else{
+			addErrorMessage("You must specifie a name for the image",tag);
+		}
 	}
-
+	
 	/** Verify that the tag contains no other attribute than those passed as parameter. */
 	private void supportedAttributes(BBTag tag, String... attrNamesArray) {
 		List<String> attrNames = Arrays.asList(attrNamesArray);
@@ -144,7 +153,6 @@ public class BBConverter {
 		}
 		
 	}
-
 
 	private void processLink(BBTag tag) {
 		supportedAttributes(tag, "article");
@@ -158,7 +166,7 @@ public class BBConverter {
         if (article == null) {
             addErrorMessage("Aucun article trouvé pour le raccourci suivant : '"+shortName+"'", tag);
         }else{
-        	html+= "<a href=\"article/"+article.getUrl()+"\">"+content+"</a>";
+        	bufferTextForP("<a href=\"article/"+article.getUrl()+"\">"+content+"</a>");
         }
 	}
 
@@ -204,18 +212,29 @@ public class BBConverter {
 			case Tag: 
 				addErrorMessage("this tag cannot contains other tags", child);
 				return "";
-
 			}
 		}
 		return content;
 	}
 
-	private String processText(String content) {
-		PTagsGenerator pTagsGenerator = new PTagsGenerator();
-		String result = pTagsGenerator.transformTextBlocksIntoStringWithPTags(content);
-		return result;
-		
+	
+	/** Buffers the output text, to keep fragments together before putting a <p> element around it. */
+	private void bufferTextForP(String text) {
+		textBuffer += text;
 	}
+
+	/** Used to insert html, and we want no <p> around it. It's typically the case when we want to insert a <div>: any pending open <p> should be closes (</p>) before that */
+	private void processTextHtmlAfterHavingClosedPendingP(String htmlText) {
+		if (! textBuffer.isEmpty()) {
+			// It's time to put a <p> around the fragments in the buffer, and empty the buffer. 
+			PTagsGenerator pTagsGenerator = new PTagsGenerator();
+			html+=pTagsGenerator.transformTextBlocksIntoStringWithPTags(textBuffer);
+			textBuffer = "";
+		}
+		
+		html += htmlText;
+	}
+
 	
 	/** Retruns false if attribute = "false" or if not defined. */
 	private boolean isAttributeTrue(BBTag tag, String attributeName) {
@@ -244,111 +263,114 @@ public class BBConverter {
 	private void processQuote(BBTag tag) {
 		supportedAttributes(tag, "bib", "author", "out", "inline");
 		// bib  either [quote bib="book-ref"]I say it! [/quote]
-	    //   or either [quote author="anonymous" out="http://myblog/article/happy"] I say it! [/quote]
+		//   or either [quote author="anonymous" out="http://myblog/article/happy"] I say it! [/quote]
 		// either bib refers a Book or out refers a link to another site (outlink)
-	    
-        /// 1. We look for a book reference in the quote tag attribute: [quote bib="emile"]...
-        //Book book = null; 
-        Book book = null;
-        String bibValueFromAttrib = tag.getAttributeValue("bib");  // Books can only be referred throub attribute (not nested tag)
-        if (bibValueFromAttrib != null) {
-            book = bookRepository.findBookByAbrev(bibValueFromAttrib);
-            if (book == null) {
-                addErrorMessage("Book not found in DB for abrev = '"+bibValueFromAttrib+"'", tag);
-                return;
-            }
-            booksRefferedInTheText.add(book);
-        }
 
-        /// 2. We look for an author with eventually an out link.
-        String author = tag.getAttributeValue("author");  
-        if (book != null && author != null) {
-            addErrorMessage("In a [quote] tag, you may not specify both a book and an author. Either give a book reference, or an author (with maybe an out url)", tag);
-        }
-        
-        String outUrl = tag.getAttributeValue("out");  
-        if (outUrl != null) {
-            if (!UrlUtil.isUrlValid(outUrl)) {  // FIXME: opening a connection each time is probably a bad performance idea (unless we buffer the generated html).
-                addErrorMessage("Invalid url '" + outUrl+"'", tag);
-            }
-            if (author == null) {
-                addErrorMessage("You may not speficy an 'out' attribute in a quote, when you have no author. Please remove the out attribut or add an author attribute.", tag);
-            }
-        }
-        
-        
-		/// 0. We look for the type of tag (span or div)
-        if (isAttributeTrue(tag, "inline")){ //////////////////// Inline quote, just a little span.
-
-            
-            html +="<span class='"+
-                    (book != null ? getCssClassName(book) : "")
-                    +" quote-inline'>";
-            
-            processQuoteBody(tag);             // Add the quoted text.
-            
-            html +="</span>";
-            
-            if (author != null) { // Normally, here book == null
-                // We need to display, in a bubble tooltip, the author (and maybe with an out link to an URL).
-                // We create a div with that content.
-
-                // Outside div which will not be taken inside the tooltip.
-                html +="<div style='display:none;'>";    // We don't display the author within the text (=> display: none).   
-                
-                // Inner div, taken within the tooltip.
-                html +="<div class='authorToolTip'>";  // div and class to style the tooltip through CSS.
-
-                if (outUrl != null) {
-                    html += "<a href='"+outUrl+"' target = '_blank'>"+author+"</a>";
-                } else {
-                    html += author;
-                }
-
-                html +="</div>";
-                html +="</div>";
-            }
-
-        } else { //////////////////// Non inline quote, with div and so on.
-		    
-		    //// 1. Add the quoted text.
-            html +="<div class=\"quote-block\">\n";
-            processQuoteBody(tag);             // Add the quoted text. 
-            html +="</div>\n";
-
-            //// 2. Add the line below, with who (book or author) is the author of the quote.
-            String lineBelowQuote = "";  // Will either contain the book title and other information, or the content of a [bib] subtag.
-            
-            // We add the title of the book or the external link below the quoted text block
-            if (book != null || author != null) {  // We need a line below the quote.
-                html += "<div class='bibref-after-block'>\n";
-                
-                if (book != null) { // book title to be added
-                    html += "<span class ='"+getCssClassName(book)+" booktitle'>";
-                    html += book.getTitle();
-                    if (book.getAuthor()!= null && !book.getAuthor().isEmpty()){
-                        html += "("+book.getAuthor()+") ";
-                    }
-                    if(book.getPubYear() != null && !book.getPubYear().isEmpty()){
-                        html += book.getPubYear();
-                    }
-                    html +="</span>\n";
-                }
-                
-                if (author != null) {  // author to be added
-                    html += "<span class='author'>";
-                    if (outUrl != null) {
-                        html += "<a href='"+outUrl+"' target='_blank'>" + author + "</a>";
-                    } else {
-                        html += author;
-                    }
-                    html += "</span>";
-                }
-                html +="</div>\n";
-            }
+		/// 1. We look for a book reference in the quote tag attribute: [quote bib="emile"]...
+		//Book book = null; 
+		Book book = null;
+		String bibValueFromAttrib = tag.getAttributeValue("bib");  // Books can only be referred throub attribute (not nested tag)
+		if (bibValueFromAttrib != null) {
+			book = bookRepository.findBookByAbrev(bibValueFromAttrib);
+			if (book == null) {
+				addErrorMessage("Book not found in DB for abrev = '"+bibValueFromAttrib+"'", tag);
+				return;
+			}
+			booksRefferedInTheText.add(book);
 		}
-		
-       
+
+		/// 2. We look for an author with eventually an out link.
+		String author = tag.getAttributeValue("author");  
+		if (book != null && author != null) {
+			addErrorMessage("In a [quote] tag, you may not specify both a book and an author. Either give a book reference, or an author (with maybe an out url)", tag);
+		}
+
+		String outUrl = tag.getAttributeValue("out");  
+		if (outUrl != null) {
+			if (!UrlUtil.isUrlValid(outUrl)) {  // FIXME: opening a connection each time is probably a bad performance idea (unless we buffer the generated html).
+				addErrorMessage("Invalid url '" + outUrl+"'", tag);
+			}
+			if (author == null) {
+				addErrorMessage("You may not speficy an 'out' attribute in a quote, when you have no author. Please remove the out attribut or add an author attribute.", tag);
+			}
+		}
+
+
+		/// 0. We look for the type of tag (span or div)
+		if (isAttributeTrue(tag, "inline")){ //////////////////// Inline quote, just a little span.
+
+
+			bufferTextForP("<span class='"+
+					(book != null ? getCssClassName(book) : "")
+					+" quote-inline'>");
+
+			processQuoteBody(tag);             // Add the quoted text.
+
+			String quoteHtml ="</span>";
+
+			if (author != null) { // Normally, here book == null
+				// We need to display, in a bubble tooltip, the author (and maybe with an out link to an URL).
+				// We create a div with that content.
+
+				// Outside div which will not be taken inside the tooltip.
+				quoteHtml +="<div style='display:none;'>";    // We don't display the author within the text (=> display: none).   
+
+				// Inner div, taken within the tooltip.
+				quoteHtml +="<div class='authorToolTip'>";  // div and class to style the tooltip through CSS.
+
+				if (outUrl != null) {
+					quoteHtml += "<a href='"+outUrl+"' target = '_blank'>"+author+"</a>";
+				} else {
+					quoteHtml += author;
+				}
+
+				quoteHtml +="</div>";
+				quoteHtml +="</div>";
+			}
+			
+			bufferTextForP(quoteHtml);
+
+		} else { //////////////////// Non inline quote, with div and so on.
+
+			//// 1. Add the quoted text.
+			processTextHtmlAfterHavingClosedPendingP("<div class=\"quote-block\">\n");
+			processQuoteBody(tag);             // Add the quoted text. 
+			String quoteHtml ="</div>\n";
+
+			//// 2. Add the line below, with who (book or author) is the author of the quote.
+			String lineBelowQuote = "";  // Will either contain the book title and other information, or the content of a [bib] subtag.
+
+			// We add the title of the book or the external link below the quoted text block
+			if (book != null || author != null) {  // We need a line below the quote.
+				quoteHtml += "<div class='bibref-after-block'>\n";
+
+				if (book != null) { // book title to be added
+					quoteHtml += "<span class ='"+getCssClassName(book)+" booktitle'>";
+					quoteHtml += book.getTitle();
+					if (book.getAuthor()!= null && !book.getAuthor().isEmpty()){
+						quoteHtml += "("+book.getAuthor()+") ";
+					}
+					if(book.getPubYear() != null && !book.getPubYear().isEmpty()){
+						quoteHtml += book.getPubYear();
+					}
+					quoteHtml +="</span>\n";
+				}
+
+				if (author != null) {  // author to be added
+					quoteHtml += "<span class='author'>";
+					if (outUrl != null) {
+						quoteHtml += "<a href='"+outUrl+"' target='_blank'>" + author + "</a>";
+					} else {
+						quoteHtml += author;
+					}
+					quoteHtml += "</span>";
+				}
+				quoteHtml +="</div>\n";
+			}
+			processTextHtmlAfterHavingClosedPendingP(quoteHtml);
+		}
+
+
 	}
 
 
@@ -362,7 +384,7 @@ public class BBConverter {
 				break;
 			case Text :
 				String addText = child.getContent();
-				html += processText(addText);
+				bufferTextForP(addText);
 				break;
 			case Tag :
 				switch(child.getName()){
@@ -434,10 +456,9 @@ public class BBConverter {
 		}
 		return null;
 	}
-
 	private void addErrorMessage(String message, BBTag tag) {
 		errorFound = true;
-		html += "<span class=\"error\">"+ message + " (for tag "+tag.getContent()+")</span>";    
+		processTextHtmlAfterHavingClosedPendingP("<span class=\"error\">"+ message + " (for tag "+tag.getContent()+")</span>");    
 	}
 
 	private void addErrorMessage(BBTag tag) {

@@ -1,44 +1,25 @@
 package junit;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
-
-import reformyourcountry.converter.BBConverter;
-import reformyourcountry.converter.PTagsGenerator;
-import reformyourcountry.repository.ArticleRepository;
-import reformyourcountry.repository.BookRepository;
 
 public class JUnitConvertArticle {
 
-	private BookRepository bookRepository;
-	private ArticleRepository articleRepository;
 	
-	private BBConverter converter = new BBConverter(bookRepository, articleRepository);
-		
-	@Test
-	public void newStringGen() {
-		String example = "je m'appelle jordy\n\nj'ai quatre ans et jsuis petit\n ouwéwé baby\n\n dur dur d'être bébé\n\n";
-        PTagsGenerator pTagsGenerator = new PTagsGenerator();
-		String result = pTagsGenerator.transformTextBlocksIntoStringWithPTags(example);
-		System.out.println(result);
-	}
+	
+	
 
-	@Test
-	public void lists() {
-		String example = "Trois points:\n<ul><li>le premier,</li>\n<li>Le deuxième</li>\n\n\n<li>Le troisième</li></ul>Voilà.";
-        PTagsGenerator pTagsGenerator = new PTagsGenerator();
-		String result = pTagsGenerator.transformTextBlocksIntoStringWithPTags(example);
-		System.out.println(result);
-	}
+//	@Test
+//	public void lists() {
+//		String example = "Trois points:\n<ul><li>le premier,</li>\n<li>Le deuxième</li>\n\n\n<li>Le troisième</li></ul>Voilà.";
+//		converter.processSrc(example);
+//     		
+//	}
 	
-	@Test
-	public void manuelBR() {
-		String example = "je retourne à la ligne<br/>\n ou pas\n\n";
-        PTagsGenerator pTagsGenerator = new PTagsGenerator();
-		String result = pTagsGenerator.transformTextBlocksIntoStringWithPTags(example);
-		System.out.println(result);
-	}
+//	@Test
+//	public void linkwithoutN() {
+//		String example = "machin [link article=\"mens\"]mens[/link] chose";
+//		converter.processSrc(example);
+//	}
+	
 	
 
 	
