@@ -1,4 +1,4 @@
-package mainClass;
+package reformyourcountry.maintest;
 
 import java.util.Scanner;
 
