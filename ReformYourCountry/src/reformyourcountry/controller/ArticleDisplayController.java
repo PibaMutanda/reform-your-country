@@ -19,6 +19,7 @@ import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.repository.BookRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
+import reformyourcountry.util.DateUtil;
 import reformyourcountry.util.Logger;
 
 @Controller
@@ -64,6 +65,7 @@ public class ArticleDisplayController extends BaseController<Article> {
             mv.addObject("publishYear", year);
             mv.addObject("publishMonth", month);
             mv.addObject("publishDay", day);
+            mv.addObject("displayDate", DateUtil.formatyyyyMMdd(article.getPublishDate()));
         }
         
         mv.addObject("showContent", (article.isPublished() || SecurityContext.isUserHasPrivilege(Privilege.EDIT_ARTICLE)));
