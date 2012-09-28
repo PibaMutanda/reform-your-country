@@ -2,12 +2,8 @@ package reformyourcountry.repository;
 
 import java.util.List;
 
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
-
 import org.springframework.stereotype.Repository;
 
-import reformyourcountry.model.Book;
 import reformyourcountry.model.User;
 
 @Repository
@@ -45,5 +41,10 @@ public class UserRepository extends BaseRepository<User>{
                 .getResultList();
         return results;
     }
+    
+    
+    public Long findMaxIdValue(){
         
+      return (Long)em.createQuery("select max(u.id) from User u").getSingleResult();
+    }
 }
