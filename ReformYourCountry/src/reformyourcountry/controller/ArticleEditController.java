@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-
-
 import reformyourcountry.model.Article;
 import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.security.Privilege;
@@ -85,5 +83,6 @@ public class ArticleEditController extends BaseController<Article>{
 			return getRequiredDetachedEntity(id);
 		}
 	}
-
+	
+	
 }

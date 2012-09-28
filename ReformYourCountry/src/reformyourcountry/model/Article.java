@@ -47,7 +47,7 @@ public class Article extends BaseEntity {
 	private Date publishDate;
 	
 	@NotNull
-	private boolean publicView=true;
+	private boolean publicView = true;
 	
 	@ManyToMany
 	@JoinTable(name = "ARTICLE_ACTION", joinColumns = @JoinColumn(name = "ARTICLE_ID"), inverseJoinColumns = @JoinColumn(name="ACTION_ID"))

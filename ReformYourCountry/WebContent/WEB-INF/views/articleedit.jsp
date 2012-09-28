@@ -25,7 +25,7 @@
 		<ryctag:input path="url" label="Nom de la page de l'article" id="url" />
 		<td><input type="submit" value="Générer une url" id="generate" /></td>
 		<ryctag:date path="publishDate" label="Date de publication"/>
-		<ryctag:checkbox path="publicView" label="Public ?" required="required" />
+		<ryctag:checkbox path="publicView" label="Public ?"  />
 		<form:hidden path="id" />
 	</ryctag:form>
 </body>

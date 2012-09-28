@@ -11,6 +11,7 @@
 <!-- ***************************** CSS **************************** -->     
 
 <meta name="viewport" content="width=device-width"/>
+<link rel="stylesheet" type="text/css" href="css/ryc-tooltip.css" />
 <link rel="stylesheet" type="text/css" href="css/ryc-style.css" />
 <link rel="stylesheet" type="text/css" href="css/template.css" />
 <link rel="stylesheet" type="text/css" href="css/content.css" />
