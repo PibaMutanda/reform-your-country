@@ -73,7 +73,7 @@ public class ContextUtil implements Filter, ServletContextListener {
 		return environment;
 	}
 	
-	/** Returns "/KnowledgeBlackBelt" in dev, and "/" in prod. */
+	/** Returns "/ReformYourCountry" in dev, and "/" in prod. */
 	public static String getRealContextPath() {
 		return servletContext.getContextPath();
 	}	
