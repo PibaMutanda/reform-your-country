@@ -21,7 +21,7 @@ import org.hibernate.validator.constraints.NotBlank;
 public class Article extends BaseEntity {
 
 	@NotBlank//Hibernate constraint, improves upon @NotNull
-	@Column(length = 100)
+	@Column(length = 100, unique = true, nullable=false)// need nullable= false for schemaupdate
 	private String title;
 	
 	@NotBlank
@@ -42,12 +42,10 @@ public class Article extends BaseEntity {
 	@Lob
 	private String content;
 
-	private Date releaseDate;
-
 	private Date publishDate;
 	
 	@NotNull
-	private boolean publicView = true;
+	private boolean publicView = false;
 	
 	@ManyToMany
 	@JoinTable(name = "ARTICLE_ACTION", joinColumns = @JoinColumn(name = "ARTICLE_ID"), inverseJoinColumns = @JoinColumn(name="ACTION_ID"))
@@ -109,15 +107,6 @@ public class Article extends BaseEntity {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-
-	public Date getReleaseDate(){
-		return releaseDate;
-	}
-
-	public void setReleaseDate(Date releaseDate){
-		this.releaseDate=releaseDate;
 	}
 
 
