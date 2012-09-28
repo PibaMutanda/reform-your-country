@@ -5,6 +5,25 @@
 <html>
 <head>
 <title></title>
+<style type="text/css">
+.col1 {
+   position:relative; 
+   float:left;
+   width:224px;
+}
+.col2{
+ padding-left:60px;
+ position:relative;
+ float:left; 
+ width:224px;
+}
+.col3{
+ padding-left:60px;
+ position:relative; 
+ float:left; 
+ width:224px;"
+}
+</style>
 </head>
 <body>
           
@@ -17,24 +36,24 @@
     
    <div style="display: inline-block;"> 
           
-	 <div style=" padding-left:60px; position:relative; float:left;">
+	 <div class="col1">
 
-        <div><img alt="" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
-        <div>Cédric Fieux</div>
+        <div><img alt="Cédric Fieux" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
+        <div>Cédric Fieux</div><br />
         <div>Absent, n'iiiiiiiiimporte quoi</div>   
      </div>
      
-     <div style=" padding-left:60px; position:relative; float:left;">
+     <div class="col2">
 
-        <div><img alt="" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
-        <div>Delphine Lafaille</div>
+        <div><img alt="Delphine Lafaille" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
+        <div>Delphine Lafaille</div><br />
         <div>Présent, n'iiiiiiiiimporte quoi</div>   
      </div>
      
-     <div style=" padding-left:60px; position:relative; float:left;">
+     <div class="col3">
 
-        <div><img alt="" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
-        <div>Jamal Bouda</div>
+        <div><img alt="Jamal Bouda" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
+        <div>Jamal Bouda</div><br />
         <div>Présent, n'iiiiiiiiimporte quoi</div>   
      </div>
      
@@ -42,25 +61,25 @@
    
    <div style="display: inline-block;">  
    
-     <div style=" padding-left:60px; position:relative; float:left;">
+     <div class="col1">
 
-        <div><img alt="" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
-        <div>Jérôme Panaioli</div>
+        <div><img alt="Jérôme Panaioli" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
+        <div>Jérôme Panaioli</div><br />
         <div>Absent, n'iiiiiiiiimporte quoi</div>   
      </div>
      
-     <div style=" padding-left:60px; position:relative; float:left;">
+     <div class="col2">
 
-        <div><img alt="" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
-        <div>Johnny Shamoon</div>
+        <div><img alt="Johnny Shamoon" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
+        <div>Johnny Shamoon</div><br />
         <div style="max-width:178px ">Présent, n'iiiiiiiiimporte quoi fffffffffffffffff
          </div>   
      </div>
      
-     <div style=" padding-left:60px; position:relative; float:left;">
+     <div class="col3">
 
-        <div><img alt="" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
-        <div>Julien Ciarma</div>
+        <div><img alt="Julien Ciarma" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
+        <div>Julien Ciarma</div><br />
         <div>Présent, n'iiiiiiiiimporte quoi</div>   
      </div>
      
@@ -68,34 +87,34 @@
    
    <div style="display: inline-block;">
    
-     <div style=" padding-left:60px; position:relative; float:left;">
+     <div class="col1">
 
-        <div><img alt="" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
-        <div>Lionel Timmerman</div>
-        <div>Absent, n'iiiiiiiiimporte quoi</div>   
+        <div><img alt="Lionel Timmerman" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
+        <div>Lionel Timmerman</div><br />
+        <div>Absent, n'iiiiiiiiimporte quoi vvvvvvvvvvvvvv vvvvvvvvvvvvvvvvvvvvvvv vvvvvvvvvv vvvvvvvvv</div>   
      </div>
      
-     <div style=" padding-left:60px; position:relative; float:left;">
+     <div  class="col2"  >
 
-        <div><img alt="" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
-        <div>Maxime Sauvage</div>
+        <div><img alt="Maxime Sauvage" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
+        <div>Maxime Sauvage</div><br />
         <div>Présent, n'iiiiiiiiimporte quoi</div>   
      </div>
      
-     <div style=" padding-left:60px; position:relative; float:left;">
+     <div class="col3">
 
-        <div><img alt="" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
-        <div>Piba Mutanda Kanzevu</div>
+        <div><img alt="Piba Mutanda Kanzevu" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
+        <div>Piba Mutanda Kanzevu</div><br />
         <div>Présent, n'iiiiiiiiimporte quoi</div>   
      </div>
      
    </div>  
    
    <div style="display: inline-block;">  
-     <div style=" padding-left:60px; position:relative; float:left;">
+     <div class="col1">
     
-        <div><img alt="" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
-        <div>Thomas Van Roy</div>
+        <div><img alt="Thomas Van Roy" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
+        <div>Thomas Van Roy</div><br />
         <div>Présent, n'iiiiiiiiimporte quoi</div>   
      </div>
   </div>    
