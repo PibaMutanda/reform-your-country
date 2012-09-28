@@ -105,7 +105,7 @@
     </thumb>
   </thumbnails> -->
   <defaults>
-    <slide time="5" color="0x000000"> <!-- time between 2 slides -->
+    <slide time="10" color="0x000000"> <!-- time between 2 slides -->
       <image align_pos="MC" x="0" y="0" fit="outside" scaleX="1" scaleY="1"/>
       <seo>
         <show image="true" heading="true" paragraph="true" caption="true"/>
