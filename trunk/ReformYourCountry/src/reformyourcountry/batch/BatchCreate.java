@@ -458,6 +458,8 @@ public class BatchCreate implements Runnable {
 	}
     @Transactional
     public Article populateArticle5(){
+    	
+    	// Article 5
     	Article article5=new Article();
     	article5.setTitle("Article effort");
     	article5.setShortName("effort");
@@ -509,6 +511,8 @@ public class BatchCreate implements Runnable {
 	
     @Transactional
     public Article populateArticle6(){
+    	
+    	// Article 6
     	Article article6=new Article();
     	article6.setTitle("Article autonomie");
     	article6.setShortName("autonomie");
