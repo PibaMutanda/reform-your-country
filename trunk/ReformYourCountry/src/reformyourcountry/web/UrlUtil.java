@@ -8,9 +8,10 @@ import java.net.URL;
 
 public class UrlUtil {
 
-    public final static String TEST_ABSOLUTE_DOMAIN_NAME = "enseignement2.be"; 
-    public final static String PROD_ABSOLUTE_DOMAIN_NAME = "enseignement2.be"; 
+    public final static String TEST_ABSOLUTE_DOMAIN_NAME = "enseignement2.be";
+    public final static String PROD_ABSOLUTE_DOMAIN_NAME = "enseignement2.be";
     public final static String DEV_ABSOLUTE_DOMAIN_NAME = "localhost:8080";
+    public final static String WEB_APP_NAME = "ReformYourCountry";
 
 
     // Usually for images.
@@ -18,38 +19,47 @@ public class UrlUtil {
         if(path.startsWith("/")){ //We need to normalize the incoming string. we remove the first / in the path if there is one.
             path = path.substring(1); 
         }
-        return getAbsoluteUrl(path, false);
+        return getAbsoluteUrl(path, null);
     }
 
-    // Usually for images.
-    public static String getAbsoluteUrl(String path, boolean forceProdUrl){
-        return getAbsoluteUrl(path, forceProdUrl, false);
-    }
-    
+   
   
 	/** Returns the domain name for use in the cookies.
 	 */
 	public static String getCookieDomainName() {
 		switch(ContextUtil.getEnvironment()) {
-			case DEV  : return ".localhost.local/ReformYourCountry/"; //Domain name need two dots to be valid so we have to write 127.0.0.1 or .localhost.local (just "localhost" will not work).
+			case DEV  : return ".localhost.local" + ContextUtil.getRealContextPath()+"/"; //Domain name need two dots to be valid so we have to write 127.0.0.1 or .localhost.local (just "localhost" will not work).
 			case TEST : return TEST_ABSOLUTE_DOMAIN_NAME;
 			case PROD : return PROD_ABSOLUTE_DOMAIN_NAME;
 		}
 		throw new RuntimeException("Unknown Environement");
 	}
 	
-    public static String getAbsoluteUrl(String path, boolean forceProdUrl,  boolean addVaadinPrefix){
+	public static enum  Mode {DEV, PROD}; 
+	
+	
+    public static String getAbsoluteUrl(String path, Mode forceMode){
         
         String result;
-        if (!ContextUtil.devMode || forceProdUrl || ContextUtil.isInBatchNonWebMode()) {
+        Mode resultType = forceMode;
+        if (resultType == null) {
+            if (ContextUtil.devMode && !ContextUtil.isInBatchNonWebMode()) {
+                resultType = Mode.DEV;
+            } else {
+                resultType = Mode.PROD;
+            }
+        }
+        if (resultType == Mode.PROD) {
             // In dev, it should be "http://enseignement2.be/"  (because images are not loaded on developers machines).
         	
             result = "http://" + PROD_ABSOLUTE_DOMAIN_NAME        + "/"; // The "/" is crucial at the end of the project name. Without it, you loose the session.
             // i.e.:  http://  + enseignement2.be                 +  /
             
         } else {  // We are in dev and we don't force prod urls.
-            result = "http://" + DEV_ABSOLUTE_DOMAIN_NAME +  ContextUtil.getRealContextPath() + "/";  // The "/" is crucial at the end of the project name. Without it, you loose the session.
-            // i.e.:  http://    localhost:8080           +  /ReformYourCountry               +  /
+            result = "http://"
+                + DEV_ABSOLUTE_DOMAIN_NAME    // localhost:8080
+                + "/" + WEB_APP_NAME   // We do not call ContextUtil.getRealContextPath() because we have a case (spring social) where we need to call this method before ContextUtil has been initialized. 
+                + "/";  // The "/" is crucial at the end of the project name. Without it, you loose the session.
         }
         result += path;    //        mypage?params
         return result;
