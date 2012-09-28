@@ -25,12 +25,13 @@ import reformyourcountry.util.DateUtil;
 
 
 @Controller
+@RequestMapping("/user")
 public class UserEditController extends BaseController<User> {
     
     @Autowired UserRepository userRepository;
     @Autowired UserService userService; 
     
-    @RequestMapping("/useredit")
+    @RequestMapping("/edit")
     public ModelAndView userEdit(@RequestParam(value="id", required=true) long userId) {
         
         User user = getRequiredEntity(userId); 
@@ -53,7 +54,7 @@ public class UserEditController extends BaseController<User> {
     	return mv;
     }
   
-    @RequestMapping("/usereditsubmit")
+    @RequestMapping("/editsubmit")
     public ModelAndView userEditSubmit(@RequestParam("lastName") String newLastName,
                                         @RequestParam("firstName") String newFirstName,
                                         @RequestParam("userName") String newUserName,
@@ -127,7 +128,7 @@ public class UserEditController extends BaseController<User> {
         
         user = userRepository.merge(user);
     
-        return new ModelAndView("redirect:user/"+user.getUserName());
+        return new ModelAndView("redirect:/user/"+user.getUserName());
     }
     
     

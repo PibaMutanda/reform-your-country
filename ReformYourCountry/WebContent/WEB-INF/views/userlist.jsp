@@ -1,16 +1,18 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
 
 <html>
 <head>
-
-<title>List of users</title>
+<meta name="description" content="Utilisateurs d'enseignement2.be">
+<meta name="Keywords" content="utilisateur, informations" />
+<meta name="robots" content="index, follow" />
+<meta name="googlebot" content="noarchive"/>
 </head>
 <body>
-	${errorMsg}
-	<h1>Liste de tous les utilisateurs</h1>
-	<form action="userlist" method="GET">
+<ryctag:pageheadertitle title="Rechercher des utilisateurs"></ryctag:pageheadertitle>
+	<form action="user" method="GET">
 		prénom, nom ou pseudo <input type="text" name="name"/> 
 		<input type="submit" value="rechercher" />
 	</form>

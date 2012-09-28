@@ -18,11 +18,12 @@ import reformyourcountry.security.SecurityContext;
 import reformyourcountry.util.SecurityUtils;
 
 @Controller
+@RequestMapping ("/user")
 public class UserChangePasswordController {
 
 	@Autowired UserRepository userRepository;
 
-	@RequestMapping("/userchangepassword")
+	@RequestMapping("/changepassword")
 	public ModelAndView userChangePassword(@ModelAttribute User user) {
 		
 		ModelAndView mv= new ModelAndView("userchangepassword");
@@ -30,7 +31,7 @@ public class UserChangePasswordController {
 		return mv;
 	}
 
-	@RequestMapping("/userchangepasswordsubmit")
+	@RequestMapping("/changepasswordsubmit")
 	public ModelAndView userChangePasswordSubmit(@Valid @ModelAttribute User user, BindingResult result,
 			@RequestParam("oldPassword") String oldPassword,
 			@RequestParam("newPassword") String newPassword,
@@ -63,7 +64,7 @@ public class UserChangePasswordController {
 			}
 			user.setPassword(SecurityUtils.md5Encode(confirmPassword));
 			userRepository.merge(user);
-			return new ModelAndView("redirect:user/"+user.getUserName());	
+			return new ModelAndView("redirect:/user/"+user.getUserName());	
 
 		}
 

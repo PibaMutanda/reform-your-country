@@ -19,11 +19,12 @@ import reformyourcountry.util.FileUtil.InvalidImageFileException;
 import reformyourcountry.util.ImageUtil;
 
 @Controller
+@RequestMapping("/user")
 public class UserImageController extends BaseController<User> {
 
 	@Autowired UserRepository userRepository;
 	
-	@RequestMapping("/userimage")
+	@RequestMapping("/image")
 	public ModelAndView userImage(@RequestParam("id") long userid){
 		User user = getRequiredEntity(userid);
 		ModelAndView mv= new ModelAndView("userimage", "user", user);
@@ -31,7 +32,7 @@ public class UserImageController extends BaseController<User> {
 		return mv;
 	}
 
-	@RequestMapping("/userimageadd")
+	@RequestMapping("/imageadd")
 	public ModelAndView userImageAdd(@RequestParam("id") long userid,
 			@RequestParam("file") MultipartFile multipartFile) throws Exception{    
 		User user = getRequiredEntity(userid);
@@ -68,7 +69,7 @@ public class UserImageController extends BaseController<User> {
 		return mv;
 	}
 
-	 @RequestMapping("/userimagedelete")
+	 @RequestMapping("/imagedelete")
 	 public ModelAndView userImageDelete(@RequestParam("id") long userid){
 		 User user = getRequiredEntity(userid);
 
@@ -80,7 +81,7 @@ public class UserImageController extends BaseController<User> {
 		 
 		 userRepository.merge(user);
 
-		 return new ModelAndView("redirect:user", "username", user.getUserName());
+		 return new ModelAndView("redirect:/user/"+user.getUserName());
 		 
 	 }
 

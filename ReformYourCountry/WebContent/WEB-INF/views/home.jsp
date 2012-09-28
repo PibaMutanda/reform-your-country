@@ -5,11 +5,8 @@
 
 <html>
 <head>
-
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="Description" lang="fr" content="Vers un nouvel enseignement secondaire et fondamental en Communauté française de Belgique" />
+<meta name="Description" lang="fr" content="Vers un nouvel enseignement fondamental et secondaire en Fédération Wallonie-Bruxelles. Des réformes du système scolaire pour des professeurs moins stressés dans des écoles plus sereines et pour des élèves plus instruits et plus heureux." />
 <meta name="Keywords" content="enseignement, éducation, élève, professeur, instituteur, institutrice, ressources, études, secondaire, fondamental, technique, professionnel, primaire, cours, pédagogie, classe" />
-<meta name="Language" content="be" />
 <meta name="robots" content="index, follow"/>	
 <link rel="canonical" href="http://enseignement2.be/"/>
 <meta name="googlebot" content="noarchive" />
@@ -20,11 +17,10 @@
 <script type="text/javascript" src="js/home.js"></script>
 <!-- CU3ER content JavaScript part ends here   -->
 
-<title>Accueil du site Enseignement2.be</title>
 </head>
 <body>
 
-<ryctag:pageheadertitle title="Accueil"/>
+<ryctag:pageheadertitle title="Enseignement2.be"/>
 <a href="">Enseignement2.be</a> rassemble des pistes sur l'amélioration de l'enseignement en Belgique francophone.
 
 <p class="subtitle">D'abord, pourquoi changer?</p>

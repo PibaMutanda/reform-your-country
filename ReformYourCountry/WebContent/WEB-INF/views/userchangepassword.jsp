@@ -19,7 +19,7 @@
 	<ryctag:breadcrumbelement label="changement de mot de passe" />
 </ryctag:pageheadertitle>
 
-	<form:form modelAttribute="user" action="userchangepasswordsubmit">
+	<form:form modelAttribute="user" action="user/changepasswordsubmit">
 	<table>
 		<tr><td>Password actuel: </td><td><input type="password" name="oldPassword" /></td><td>${errorNoOld}</td></tr>
 		<tr><td>Nouveau password: </td><td><input type="password" name="newPassword" /></td><td>${errorEmpty}${errorDiff}</td></tr>

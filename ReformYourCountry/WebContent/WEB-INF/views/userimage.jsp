@@ -6,7 +6,6 @@
 	 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
 <html>
 <head>
-<title>Ajouter une image</title>
 </head>
 <body>
 
@@ -24,14 +23,14 @@
 	</c:choose>
 
 	(l'image doit faire moins de 1,5Mo)
-	<form method="post" action="userimageadd" enctype="multipart/form-data">
+	<form method="post" action="user/imageadd" enctype="multipart/form-data">
 		<input type="file" name="file" /><br>
 		<input type="hidden" name="id" value="${user.id}" />
 		<input type="submit" value="Ajouter" />
-		<a href="user?username=${user.userName}">Annuler</a><br>
+		<a href="user/${user.userName}">Annuler</a><br>
 	</form>
 	
-	<form method="post" action="userimagedelete">
+	<form method="post" action="user/imagedelete">
 		<input type="hidden" name="id" value="${user.id}" />
 		<input type="submit" value="Supprimer" />
 	</form>

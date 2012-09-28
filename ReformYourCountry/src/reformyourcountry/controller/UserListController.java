@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import org.springframework.web.servlet.ModelAndView;
@@ -13,11 +14,12 @@ import reformyourcountry.model.User;
 import reformyourcountry.repository.UserRepository;
 
 @Controller
+@RequestMapping("/user")
 public class UserListController {
 
 	@Autowired	UserRepository userRepository;
 	
-	@RequestMapping("/userlist")
+	@RequestMapping(method=RequestMethod.GET)
 	public ModelAndView userListDisplay(@RequestParam(value="name", required=false) String name){
 		String errorMsg = null;
 		ModelAndView mv = new ModelAndView("userlist");

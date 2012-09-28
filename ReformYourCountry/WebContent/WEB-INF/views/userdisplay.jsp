@@ -6,20 +6,12 @@
 <html>
 
 <head>
-
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="Description" lang="fr" content="${user.firstName} ${user.lastName}"/>
-<meta name="Keywords" content="utilisateur, informations" />
-<meta name="Language" content="be" />
-<meta name="robots" content="index, follow" />
-<meta name="googlebot" content="noarchive" />
-
-<title>${user.firstName} ${user.lastName}</title>
-
+<link rel="canonical" href="http://enseignement2.be/user/${user.userName}"/>
+<meta name="description" content="${user.firstName} ${user.lastName}">
 </head>   
 <body>
 
-<ryctag:pageheadertitle title="${user.firstName} ${user.lastName} "/>
+<ryctag:pageheadertitle title="${user.firstName} ${user.lastName}"/>
 
 <div style="display:inline-block;" class="text-big">
 	<div style="float:left;">
@@ -42,7 +34,7 @@
 			</c:otherwise>
 		</c:choose>
 		<br />
-			<a href= "userimage?id=${user.id}">Ajouter image</a><br/>
+			<a href= "user/image?id=${user.id}">Ajouter image</a><br/>
 	</div>
 	
 	<div style="float:left; padding-left:50px;">
@@ -67,12 +59,12 @@
 	<div style="float:right; padding-left:50px;" >
 		<ul class="list sitemap-list">
 			<ryc:conditionDisplay privilege="MANAGE_USERS">
-				 <li><a href="privilegeedit?id=${user.id}">Privilèges</a></li>
+				 <li><a href="user/privilegeedit?id=${user.id}">Privilèges</a></li>
 			</ryc:conditionDisplay>
 			
 			 <c:if test="${canEdit}">
-				 <li><a href="useredit?id=${user.id}">Editer le Profil</a></li>
-				 <li><a href="userchangepassword?id=${user.id}">Modifier le mot de passe</a></li>
+				 <li><a href="user/edit?id=${user.id}">Editer le Profil</a></li>
+				 <li><a href="user/changepassword?id=${user.id}">Modifier le mot de passe</a></li>
 			 </c:if>
 		</ul>	
 	</div>
@@ -92,7 +84,5 @@ Groupes:
 	</c:if>
 <br />
 </div>
-
-
 </body>
 </html>

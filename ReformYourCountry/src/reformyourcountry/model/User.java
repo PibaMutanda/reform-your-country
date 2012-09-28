@@ -135,17 +135,17 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     
     
     @Column(length = 50)
-    @Size(max=50, message="votre prénom doit contenir 50 caractères maximum")
+    @Size(max=50, message="votre prénom ne peut contenir que 50 caractères maximum")
     private String firstName;
     
     @Column(length = 50)
-    @Size(max=50, message="votre nom doit contenir 50 caractères maximum")
+    @Size(max=50, message="votre nom ne peut contenir que 50 caractères maximum")
     private String lastName;
 
     @Column(unique = true, nullable=false)
-    @Size(max = 15, message = "votre pseudonyme doit contenir 15 caractères maximum")
-    @NotBlank(message="entrer votre pseudo")
-    @Pattern(message ="ne peut pas contenir de caractères spéciaux", regexp="[A-Za-z0-9_-]{2,256}")
+    @Size(max = 15, message = "votre pseudonyme ne peut contenir que 15 caractères maximum")
+    @NotBlank(message="entrer votre pseudonyme")
+    @Pattern(message ="votre pseudonyme ne peut pas contenir de caractères spéciaux", regexp="[A-Za-z0-9_-]{2,256}")
     private String userName; 
     
     @Column(length = 100)
@@ -154,7 +154,7 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     private String mail;
     
     @Column(length = 100)
-    @NotBlank(message="entrer votre mot de passe")
+    //@NotBlank(message="entrer votre mot de passe")
     @Size(min = 4, message = "votre mot de passe doit contenir au moins 4 caractères")
     private String password;
 

@@ -22,7 +22,7 @@
 
 
 
-    <ryctag:form action="usereditsubmit" modelAttribute="user">
+    <ryctag:form action="user/editsubmit" modelAttribute="user">
         <ryctag:input path="lastName" label="Nom" required="required"/>
         <ryctag:input path="firstName" label="Prénom"/>
         <ryctag:input path="userName" label="Pseudonyme"/>

@@ -15,22 +15,12 @@ import reformyourcountry.security.SecurityContext;
 
 
 @Controller
+@RequestMapping("/user")
 public class UserDisplayController extends BaseController<User> {
 	
     @Autowired UserRepository userRepository;
     
-    @RequestMapping("/user")
-    public ModelAndView userDisplay(@RequestParam(value="username", required=true) String username) {
-    	
-        User user = userRepository.getUserByUserName(username);
-        
-        ModelAndView mv = new ModelAndView("userdisplay", "user", user);
-        mv.addObject("canEdit", canEdit(user));
-        return mv;
-        
-    }
-    
-    @RequestMapping("/user/{userName}")
+    @RequestMapping("/{userName}")
     public ModelAndView userDisplayByUrl(@PathVariable("userName") String userName) {
         
         User user = userRepository.getUserByUserName(userName);
