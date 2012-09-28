@@ -96,7 +96,7 @@ Stylesheet Guide
 
 * {font-size: 100.01%;}
 html {font-size: 62.5%;margin:0;padding:0;}
-body {margin:0;background:#f4f4f2;font:1.2em/19px "helvetica neue",Helvetica,Arial,Verdana,sans-serif;color:#666;min-width:1003px;}
+body {margin:0;background:#f4f4f2;font:1.4em/19px "helvetica neue",Helvetica,Arial,Verdana,sans-serif;color:#666;min-width:1003px;}
 
 
 
@@ -119,10 +119,11 @@ body {margin:0;background:#f4f4f2;font:1.2em/19px "helvetica neue",Helvetica,Ari
 #header .rays {background: url(../images/_global/rays.png) 50% 0 no-repeat;height:135px;}
 #header .header-area {width:980px;margin:0 auto;padding:5px 0 0 0;}
 #header .header-area:after {clear:both;display:block;content:"";}
-#main {background:url(../images/_global/bg-main.png) repeat-x;display:table-footer-group;position:relative;width:100%;}
-#main .main-area {background:url(../images/_global/redline.png) -8px repeat-y;width:980px;margin:0 auto;padding:43px 0 5px 0;}
+#main {background:url(../images/_global/bg-main.png)  repeat-x;display:table-footer-group;position:relative;width:100%;}
+#main .main-area {background:url(../images/_global/redline.png) -8px repeat-y;width:980px;margin:1px auto;padding:0 0 5px 0;}
+#main .top-line{background:url(../images/_global/topline.png) -8px repeat-y;width:980px;margin:0 auto;padding: 0px  0 0 0; }
 .tools .place {position:relative;}
-.main-holder {height:1%;overflow:hidden;padding-top:45px;}
+.main-holder {height:1%;overflow:hidden;padding-top:10px;}
 .carousel-holder {width:315px !important;}
 
 
