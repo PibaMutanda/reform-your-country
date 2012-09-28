@@ -23,6 +23,7 @@ import reformyourcountry.exception.UserAlreadyExistsException;
 import reformyourcountry.exception.UserLockedException;
 import reformyourcountry.exception.UserNotFoundException;
 import reformyourcountry.exception.UserNotValidatedException;
+import reformyourcountry.exception.SocialAccountAlreadyExistException;
 import reformyourcountry.mail.MailingDelayType;
 import reformyourcountry.model.Action;
 import reformyourcountry.model.Argument;
@@ -121,7 +122,7 @@ public class BatchCreate implements Runnable {
 			loginService.login(user.getUserName(), "secret", false);
 		} catch (UserNotFoundException | InvalidPasswordException
 				| UserNotValidatedException | UserLockedException
-				| WaitDelayNotReachedException e) {
+				| WaitDelayNotReachedException | SocialAccountAlreadyExistException e) {
 			throw new RuntimeException(e);
 		}
 
