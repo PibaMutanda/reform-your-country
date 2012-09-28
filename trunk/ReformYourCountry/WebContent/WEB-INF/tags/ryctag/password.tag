@@ -17,6 +17,6 @@ see http://stackoverflow.com/questions/439861/spring-mvc-tag-interaction-with-cu
  	</c:otherwise>
  </c:choose>
  	<td><label for="${path}">${label}</label></td>
-	<td><form:password path="${path}"/></td>
+	<td><form:password path="${path}" style="width:100%;"/></td>
 	<td><form:errors path="${path}" cssClass="error" /></td>
 </tr>
