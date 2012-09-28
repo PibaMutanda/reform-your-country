@@ -56,8 +56,9 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
      */
     public enum AccountStatus {
         LOCKED("Locked"),
-        NOTVALIDATED("Mail not validated yet"),
-        ACTIVE("Active");
+        NOTVALIDATED("Mail not validated yet"), 
+        ACTIVE( "Active"),
+        ACTIVE_SOCIAL("Registered with a social account");
 
         String name;
 
@@ -224,17 +225,17 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     private Role role = Role.USER;
 
     
-
-    
     /////////////////////////////////////////: GETTERS & SETTERS //////////////////////////
     /////////////////////////////////////////: GETTERS & SETTERS //////////////////////////
     /////////////////////////////////////////: GETTERS & SETTERS //////////////////////////
     /////////////////////////////////////////: GETTERS & SETTERS //////////////////////////
     /////////////////////////////////////////: GETTERS & SETTERS //////////////////////////
-    
     public Role getRole() {
         return role;
     }
+
+  
+
 
     public void setRole(Role roleParam) {
         this.role = roleParam;
