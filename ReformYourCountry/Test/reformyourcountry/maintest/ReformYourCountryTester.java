@@ -1,4 +1,4 @@
-package mainClass;
+package reformyourcountry.maintest;
 
 import reformyourcountry.model.Action;
 import reformyourcountry.model.Argument;
