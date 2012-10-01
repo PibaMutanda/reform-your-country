@@ -4,11 +4,8 @@ package reformyourcountry.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,47 +34,42 @@ public class ArticleEditController extends BaseController<Article>{
 	}
 
 	@RequestMapping("/editsubmit")
-	public ModelAndView articleEditSubmit(@Valid @ModelAttribute Article article, BindingResult result){
+	public ModelAndView articleEditSubmit(@Valid @ModelAttribute Article article, Errors errors){
 		SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
-		if(result.hasErrors()){
-			ModelAndView mv = new ModelAndView("redirect:/article/edit","id",article.getId());
-			for (ObjectError error : result.getAllErrors()) {
-				setMessage(mv, error.getDefaultMessage());
-			}
-			return mv;
-		}else if(!getRequiredEntityByUrl(article.getUrl()).equals(article)){
-			ModelAndView mv = new ModelAndView("redirect:/article/edit","id",article.getId());
-			setMessage(mv, "L'url est déja utilisée par un autre article");
-			return mv;
-		}else{
-			articleRepository.merge(article);
-			return new ModelAndView("redirect:/article/"+article.getUrl());
-		}
+		
+		Article otherArticleInDB = null;
+		
+		if(errors.hasErrors()){
+		    ModelAndView mv = new ModelAndView("articleedit","article",article);
+		    return mv;
 
-	}
-
-	
-	@RequestMapping("/ajax/articleeditsubmit")
-    public ResponseEntity<?> articleEditSubmitAjax(@Valid @ModelAttribute Article article, BindingResult result){
-        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
-     
-        if(result.hasErrors()){
-            System.out.println(result.getAllErrors());
-            return new ResponseEntity<BindingResult>(result,HttpStatus.OK);
-            
-           
-        }else{
-          
-            articleRepository.merge(article);
-            return new ResponseEntity<String>("sauvegarde",HttpStatus.OK);
+		}else if ((otherArticleInDB = articleRepository.findByTitle(article.getTitle())) != null && ! otherArticleInDB.equals(article)) {
+            ModelAndView mv = new ModelAndView("articleedit","article",article);
+            setMessage(mv, "Le titre est déja utilisé par un autre article");
+            return mv;
+        }else if ((otherArticleInDB = articleRepository.findByShortName(article.getShortName())) != null && ! otherArticleInDB.equals(article)) {
+            ModelAndView mv = new ModelAndView("articleedit","article",article);
+            setMessage(mv, "Le raccourci est déja utilisé par un autre article");
+            return mv;
+        }else if ((otherArticleInDB = articleRepository.findByUrl(article.getUrl())) != null && ! otherArticleInDB.equals(article)) {
+            ModelAndView mv = new ModelAndView("articleedit","article",article);
+            setMessage(mv, "L'url est déja utilisée par un autre article");
+            return mv;
+        }else{//if the article has no error
+            if(article.getId() == null){//if this is a new article
+                articleRepository.persist(article);
+                return new ModelAndView("redirect:articleparentedit","id",article.getId()); // Next step after creation: select the parent.
+            }else{
+                articleRepository.merge(article);
+                return new ModelAndView("redirect:article/"+article.getUrl());
+            }
         }
 
-    }
+	}
 	
-
 	@ModelAttribute
 	public Article findArticle(@RequestParam(value="id",required=false)Long id){
-		if(id==null){
+	    if(id==null){
 			return new Article();
 		} else {
 			return getRequiredDetachedEntity(id);
