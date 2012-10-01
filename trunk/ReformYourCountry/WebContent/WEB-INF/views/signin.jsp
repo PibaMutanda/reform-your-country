@@ -5,19 +5,25 @@
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag"%>
 <%@ page session="false"%>
 
-<LINK href="css/social.css" rel="stylesheet" type="text/css">
-<ryctag:pageheadertitle title="Connexion" breadcrumb="false">
+<head>
+  <LINK href="css/social.css" rel="stylesheet" type="text/css">
+</head>
 
-</ryctag:pageheadertitle>
-<!-- LOCAL SIGNIN -->
+<body>
+<ryctag:pageheadertitle title="Connexion" breadcrumb="false" />
+
+<!-- LOCAL SIGNIN - LEFT COLUMN -->
 <div style="float: left; border-right-style: solid; border-width: 1px; padding-right: 5px;">
-	<h5>Connexion avec votre compte enseignement2</h5>
+	<h3>Connexion avec votre compte enseignement2</h3>
+	<p>Si vous n'avez pas de compte facebook, google ou autre (ou ne désirez simplement pas les utiliser ici), vous pouvez vous connecter avec un pseudonyme enseignement2.be (qui nécessite que vous créiez un utilisateur au préalable)</p>
 	<%@ include file="login.jsp"%>
 </div>
 
+<!-- SOCIAL SIGNIN - RIGHT COLUMN -->
 <div style="float: left; padding-left: 5px;">
 	
-	<h5>Connexion avec un autre compte</h5>
+	<h5>Connexion via un réseau social</h5>
+	<p>Vous pouvez facilement utiliser votre compte facebook, google ou autre pour vous connecter à enseignement2.be</p>
 	<!-- FACEBOOK SIGNIN -->
 	<form name="fb_signin" id="fb_signin" action="<c:url value="/signin/facebook"/>" method="POST">
 		<input type="hidden" name="scope"
@@ -44,3 +50,4 @@
 		new account.
 
 </div>
+</body>
