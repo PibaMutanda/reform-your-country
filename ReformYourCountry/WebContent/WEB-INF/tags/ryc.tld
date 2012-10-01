@@ -40,16 +40,5 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-	
-	<tag>
-		<name>bookInfo</name>
-		<tag-class>reformyourcountry.tag.BookInfoTag</tag-class>
-		<body-content>scriptless</body-content>
-		<attribute>
-			<name>book</name>
-			<required>true</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-	</tag>
 
 </taglib>
