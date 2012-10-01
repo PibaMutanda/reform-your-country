@@ -12,6 +12,7 @@ DELETE FROM book ;
 DELETE FROM groupreg ;
 DELETE FROM groups ;
 DELETE FROM mail ;
+DELETE FROM userconnection;
 DELETE FROM users_privileges ;
 DELETE FROM users ;
 
