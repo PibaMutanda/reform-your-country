@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>    
 
 <html>
@@ -40,21 +39,21 @@
 
         <div><img alt="Cédric Fieux" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
         <div>Cédric Fieux</div><br />
-        <div>Absent, n'iiiiiiiiimporte quoi</div>   
+        <div>Design (Css,template), BBCode Converter, Picture Uploader,Hosting, DB (SchemaUpdate, java configuration), Vote system, Spring MVC adjustmen</div>   
      </div>
      
      <div class="col2">
 
-        <div><img alt="Delphine Lafaille" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
+        <div><img alt="Delphine Lafaille" class="realshadow"  src="images/developpers/delphine.jpg"></div>
         <div>Delphine Lafaille</div><br />
-        <div>Présent, n'iiiiiiiiimporte quoi</div>   
+        <div>bibliography, user image, Hosting, site styling (cu3er: 3d application, CSS, template), beta label</div>   
      </div>
      
      <div class="col3">
 
         <div><img alt="Jamal Bouda" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
         <div>Jamal Bouda</div><br />
-        <div>Présent, n'iiiiiiiiimporte quoi</div>   
+        <div>Domain model, Spring forms (user: display & edit, action: create, edit, display), Validation (user, article & url’s), Navigation, SEO</div>   
      </div>
      
    </div> 
@@ -63,7 +62,7 @@
    
      <div class="col1">
 
-        <div><img alt="Jérôme Panaioli" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
+        <div><img alt="Jérôme Panaioli" class="realshadow"  src="images/developpers/jerome_panaioli.jpg"></div>
         <div>Jérôme Panaioli</div><br />
         <div>Absent, n'iiiiiiiiimporte quoi</div>   
      </div>
@@ -72,13 +71,12 @@
 
         <div><img alt="Johnny Shamoon" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
         <div>Johnny Shamoon</div><br />
-        <div style="max-width:178px ">Présent, n'iiiiiiiiimporte quoi fffffffffffffffff
-         </div>   
+        <div style="max-width:178px ">Group create , group edit,group list & display ,  user group list, user group list edit</div>   
      </div>
      
      <div class="col3">
 
-        <div><img alt="Julien Ciarma" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
+        <div><img alt="Julien Ciarma" class="realshadow"  src="images/developpers/julien_ciarma.jpg"></div>
         <div>Julien Ciarma</div><br />
         <div>Présent, n'iiiiiiiiimporte quoi</div>   
      </div>
@@ -105,7 +103,7 @@
 
         <div><img alt="Piba Mutanda Kanzevu" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
         <div>Piba Mutanda Kanzevu</div><br />
-        <div>Présent, n'iiiiiiiiimporte quoi</div>   
+        <div>Login, Logout, Register, Action edit & action display, User group list edit, List  users of group, User group list, Page prog</div>   
      </div>
      
    </div>  
@@ -115,7 +113,7 @@
     
         <div><img alt="Thomas Van Roy" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
         <div>Thomas Van Roy</div><br />
-        <div>Présent, n'iiiiiiiiimporte quoi</div>   
+        <div>BBCode parser , SEO , article publishing, form tags, privilege edit, various scripts</div>   
      </div>
   </div>    
 </body>
