@@ -1,0 +1,130 @@
+.title{
+	font-size: 26px;
+    color:rgb(67, 84, 126);
+    font-weight: bold;
+}
+.subtitle{
+    color:rgb(67, 84, 126);
+    font-weight: bold;
+    text-decoration: underline;
+	
+}
+.logo{
+	font-size: 40px;
+	float:left;
+}
+
+
+/*Separating line*/
+.line{
+	color:rgb(67, 84, 126);
+}
+.v-2{
+	 background-color: #ff0000;
+}
+.v-1{
+	 background-color: #ff8800;
+}
+.v0{
+	 background-color: #ffff00;
+}
+
+.v1{
+	 background-color: #88ff00;
+}
+
+.v2{
+	 background-color: #00ff00;
+}
+.vote{
+	display: inline-block; width: 20px; height: 20px; text-align: center;
+}
+.selected{
+	border: .2em solid #000;
+}
+.login-link{
+	/* padding-right:65px;*/
+ 	text-align: right; 
+/* 	float:right; */
+/* 	position:relative; */
+/* 	width:200px;	 */
+}
+.login-link a{
+	color:#7D92B9 ;
+	text-decoration: none;
+}
+.login-link a:hover{
+	color:#ffffff ;
+	text-decoration: none;
+}
+.error{
+    color:rgb(255, 60, 60);
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+/*Style for article display (articledisplay.jsp)*/
+
+/* div defining the content of a book displayed on the bibliography page and in the tooltip */
+.book { 
+	text-align: left;
+	font-size: 110%;
+}
+
+.imgbook {
+	float:left;
+	padding: 0px 10px 10px 0px;
+}
+
+.authorbook {   /* Inside tooltip  */
+	font-size: 70%;
+}
+
+.bibref-after-block {
+	font-size: 13px;
+	font-family: verdana;
+	font-style: italic;
+	text-align: right;
+	padding-bottom: 25px;
+	margin-left: 50px;
+}
+
+.quote-block{
+	
+	margin-left:50px;
+	padding-top:25px;
+	
+   
+}
+
+.quote-inline{
+	font-style:italic;
+}
+
+/*article edit page*/
+
+#content{
+	
+}
+/************** Article Display ******************************************/
+/*#helphandle, #helptext define the position of the help button and its text*/ 
+#helphandle, #helptext {
+	position: fixed;
+}
+/*#helptext defines the form of the help text*/
+#helptext {
+	padding:20px 20px 20px 20px; /* configure a padding top, right, bottom,left */
+	color: white;
+	width: 690px;
+ 	height: 400px; 
+	background: #1C2F4F;
+	border: solid 3px white;
+	text-align: left;
+	opacity:0.8;
+	overflow:scroll;
+}
+/*define the question mark of the help text*/ 
+#click{
+	color:#182947;
+	cursor: pointer;
+}

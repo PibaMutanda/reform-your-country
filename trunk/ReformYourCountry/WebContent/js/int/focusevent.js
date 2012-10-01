@@ -6,7 +6,7 @@ $(document).ready(function() {
 	});
 
 	$("#content,#title,#datepicker,#publicView1").focusout(function(){
-		$(this).css("background-color","white");
+		$(this).css("background-color","#f4f4f2");
 	});
 	
 	
