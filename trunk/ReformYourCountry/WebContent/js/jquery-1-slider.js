@@ -1,8 +1,8 @@
 //<![CDATA[
-TTjquery(window).load(function() {
-  TTjquery('.home-bnr-jquery ul').css("background-image", "none");
-  TTjquery('.jqslider').css("display", "block");
-  TTjquery('.home-bnr-jquery ul').after('<div class="jquery-pager">&nbsp;</div>').cycle({
+$(window).load(function() {
+  $('.home-bnr-jquery ul').css("background-image", "none");
+  $('.jqslider').css("display", "block");
+  $('.home-bnr-jquery ul').after('<div class="jquery-pager">&nbsp;</div>').cycle({
 	  fx: 'fade',
 	  timeout: 8000,
 	  height: 'auto',

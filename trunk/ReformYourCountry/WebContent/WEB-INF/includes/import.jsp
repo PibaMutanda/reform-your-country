@@ -34,9 +34,7 @@
 <!-- ***************************** JAVASCRIPT **************************** -->   
 	<script src="js/ext/jquery-1.8.0.min.js"></script>
 	
-	<!-- ***************************** Design from themeforest/karma template **************************** -->   
-		<script type="text/javascript" src="js/karma.js"></script>
-	<!-- ***************************** End Design **************************** -->   
+
 	<script src="js/ext/jquery-ui-1.8.23.custom.min.js"></script>
 	
 	<!-- ***************************** Script from our dev **************************** -->   
@@ -47,12 +45,18 @@
 		
 	<!-- ***************************** End Script from our dev **************************** -->   
 	
+	<!-- ***************************** Design from themeforest/karma template **************************** -->   
+		<script type="text/javascript" src="js/karma.js"></script>
+	<!-- ***************************** End Design **************************** -->   
+	
 	<!-- ***************************** ???????????? **************************** -->   
 		<script type="text/javascript" src="js/jquery.cycle.all.min.js"></script>
 		<script type="text/javascript" src="js/jquery-1-slider.js"></script>
 		<script type="text/javascript" src="js/testimonial-slider.js"></script>
 	<!--[if lte IE 8]><meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /><![endif]-->
 	<!-- ***************************** End ???????????? **************************** -->   	
+	
+	
 	<!-- ***************************** Shadow For pics script **************************** -->   
 		<script type="text/javascript" src="js/realshadow.js"></script>
 		<script type="text/javascript">
