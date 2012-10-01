@@ -283,7 +283,6 @@ public class BatchCreate implements Runnable {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		try {
-			article.setReleaseDate(sdf.parse("2012-07-06"));
 			article.setPublishDate(sdf.parse("2012-09-09"));
 		} catch (ParseException e) {
 
@@ -335,7 +334,6 @@ public class BatchCreate implements Runnable {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		try {
-			article2.setReleaseDate(sdf.parse("2012-08-10"));
 			article2.setPublishDate(sdf.parse("2012-08-08"));
 		} catch (ParseException e) {
 
@@ -388,7 +386,7 @@ public class BatchCreate implements Runnable {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 		try {
-			article3.setReleaseDate(sdf.parse("2012-08-10"));
+			article3.setPublishDate(sdf.parse("2012-08-10"));
 		} catch (ParseException e) {
 
 			throw new RuntimeException(e);
@@ -442,7 +440,7 @@ public class BatchCreate implements Runnable {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 		try {
-			article4.setReleaseDate(sdf.parse("2012-08-10"));
+			article4.setPublishDate(sdf.parse("2012-08-10"));
 		} catch (ParseException e) {
 
 			throw new RuntimeException(e);
@@ -495,7 +493,7 @@ public class BatchCreate implements Runnable {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 		try {
-			article5.setReleaseDate(sdf.parse("2012-09-25"));
+			article5.setPublishDate(sdf.parse("2012-09-25"));
 		} catch (ParseException e) {
 
 			throw new RuntimeException(e);
@@ -548,7 +546,7 @@ public class BatchCreate implements Runnable {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 		try {
-			article6.setReleaseDate(sdf.parse("2012-09-25"));
+			article6.setPublishDate(sdf.parse("2012-09-25"));
 		} catch (ParseException e) {
 
 			throw new RuntimeException(e);
