@@ -1,4 +1,4 @@
-﻿﻿﻿<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c' %>
+﻿﻿<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c' %>
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 <%@ taglib uri="http://www.springframework.org/tags/form"  prefix="form"%>
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
@@ -15,9 +15,9 @@ list-style-type:none;
 </head>
 <body>
 	<h1>Choisir le parent de l'article</h1>
-	<ryctag:form action="articleparenteditsubmit" modelAttribute="article" method="post">
+	<ryctag:form action="articleparenteditsubmit" modelAttribute="article">
 		<form:hidden path="id" />
-		<ryctag:input path="title" readonly="readonly"/>
+		${article.title}
 		<tr>
 			<td>Parent:</td>
 			<td><ryc:articlesTree radio="true" /></td>
