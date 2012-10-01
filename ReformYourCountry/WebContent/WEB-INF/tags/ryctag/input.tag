@@ -6,6 +6,7 @@
 <%@ attribute name="id"%>
 <%@ attribute name="required"%>
 <%@ attribute name="tooltip" %>
+<%@ attribute name="type" %>
 <%-- This is in a .tag file and not in a Java file because in JSP 2.0, only .tag file can be used to make custom tags producing custom tags
 see http://stackoverflow.com/questions/439861/spring-mvc-tag-interaction-with-custom-tag
  --%>
@@ -19,6 +20,6 @@ see http://stackoverflow.com/questions/439861/spring-mvc-tag-interaction-with-cu
  	</c:otherwise>
  </c:choose>
 	<td><label for="${path}">${label}</label></td>
-	<td><form:input path="${path}" required="${required}" id="${id}" cssStyle="width:100%;" /></td>
+	<td><form:input path="${path}" required="${required}" id="${id}" type="${type}" cssStyle="width:100%;" /></td>
 	<td><form:errors path="${path}" cssClass="error" /></td>
 </tr>
