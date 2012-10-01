@@ -6,8 +6,8 @@
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
 <html>
 <head>
-<link rel="stylesheet" href="css/jquery-bubble-popup-v3.css"  type="text/css" />
-<link rel="stylesheet" href="css/jquery.countdown.css" type="text/css"/>
+<link rel="stylesheet" href="css/ext/jquery-bubble-popup-v3.css"  type="text/css" />
+<link rel="stylesheet" href="css/ext/jquery.countdown.css" type="text/css"/>
 <script type="text/javascript" src="js/ext/jquery-ui-1.8.23.custom.min.js"></script>
 <script src="js/ext/jquery-bubble-popup-v3.min.js" type="text/javascript"></script>
 <script src="js/int/bubble-pop-up-articledisplay.js" type = "text/javascript"></script>

@@ -9,12 +9,10 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<base href="<%= UrlUtil.getAbsoluteUrl("") %>"/>
-
-<meta charset="UTF-8" />
-	
+	<base href="<%= UrlUtil.getAbsoluteUrl("") %>"/>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width"/><%--Define the base-width as the screen width --%>
 	<%@ include file="/WEB-INF/includes/import.jsp"%>
-	
 	<decorator:head />
 	<link rel="shortcut icon" href="#"/>
 	<title><decorator:title /></title>

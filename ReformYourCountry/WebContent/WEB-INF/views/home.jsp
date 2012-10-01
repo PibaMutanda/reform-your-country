@@ -12,9 +12,9 @@
 <meta name="googlebot" content="noarchive" />
 
 <!-- CU3ER content JavaScript part starts here   -->
-<script type="text/javascript" src="js/swfobject.js"></script>
-<script type="text/javascript" src="js/CU3ER.js"></script>
-<script type="text/javascript" src="js/home.js"></script>
+<script type="text/javascript" src="js/ext/swfobject.js"></script>
+<script type="text/javascript" src="js/ext/CU3ER.js"></script>
+<script type="text/javascript" src="js/ext/home.js"></script>
 <!-- CU3ER content JavaScript part ends here   -->
 
 </head>

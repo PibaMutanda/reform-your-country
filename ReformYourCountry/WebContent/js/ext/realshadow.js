@@ -11,7 +11,7 @@
 	// TODO add fn(height) to pass shape form
 	var settings = {
 			followMouse: true,
-			length: 5
+			length: 5                        // Modified by ReformYourCountry  (size of the shadow).
 		},
 		$window = $(window),
 		pi = Math.PI,
