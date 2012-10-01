@@ -11,7 +11,6 @@ public class UrlUtil {
     public final static String TEST_ABSOLUTE_DOMAIN_NAME = "enseignement2.be";
     public final static String PROD_ABSOLUTE_DOMAIN_NAME = "enseignement2.be";
     public final static String DEV_ABSOLUTE_DOMAIN_NAME = "localhost:8080";
-    public final static String WEB_APP_NAME = "ReformYourCountry";
 
 
     // Usually for images.
@@ -58,10 +57,9 @@ public class UrlUtil {
         } else {  // We are in dev and we don't force prod urls.
             result = "http://"
                 + DEV_ABSOLUTE_DOMAIN_NAME    // localhost:8080
-                + "/" + WEB_APP_NAME   // We do not call ContextUtil.getRealContextPath() because we have a case (spring social) where we need to call this method before ContextUtil has been initialized. 
                 + "/";  // The "/" is crucial at the end of the project name. Without it, you loose the session.
         }
-        result += path;    //        mypage?params
+        result += path;    //   mypage?params
         return result;
     }
 
