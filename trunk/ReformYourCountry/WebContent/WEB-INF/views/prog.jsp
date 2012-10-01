@@ -1,9 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
-<%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>    
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
+<%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %> 
 
 <html>
 <head>
-<title></title>
 <style type="text/css">
 .col1 {
    position:relative; 
@@ -26,8 +27,7 @@
 </head>
 <body>
           
-   <ryctag:pageheadertitle title="Programmeurs"/>
-   
+   <ryctag:pageheadertitle title="Enseignement2.be"/>
    <p>
      <a href="TODO">La partie technique</a> de ce site a été bénévolement développée par ces informaticiens que nous remercions de tout coeur pour leur travail exceptionnel. Cette plate-forme est open-source et disponible sur <a href="http://code.google.com/p/reform-your-country/">Google code</a>.
    </p>
