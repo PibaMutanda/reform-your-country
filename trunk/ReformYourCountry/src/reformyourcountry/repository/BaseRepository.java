@@ -7,7 +7,6 @@ import javax.persistence.Query;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import reformyourcountry.model.Article;
 import reformyourcountry.model.BaseEntity;
 import reformyourcountry.util.ClassUtil;
 
@@ -30,6 +29,14 @@ public abstract class BaseRepository<E extends BaseEntity> {
         return ( E )obj;
     }
 
+    public E findByUrl(String url){
+        Object obj = getSingleOrNullResult(em.createQuery("select e from "+entityClass.getName()+" e where e.url = :url").setParameter("url",url));
+        if (obj == null)
+            return null;  // Cannot downcast null.
+        return ( E )obj;
+    }
+    
+    
      public void persist(E entity) {
       
         em.persist(entity);
