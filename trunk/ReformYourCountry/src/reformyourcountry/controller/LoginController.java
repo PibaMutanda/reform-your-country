@@ -22,7 +22,6 @@ import reformyourcountry.exception.UserLockedException;
 import reformyourcountry.exception.UserNotFoundException;
 import reformyourcountry.exception.UserNotValidatedException;
 import reformyourcountry.model.User;
-import reformyourcountry.security.FacebookSecret;
 import reformyourcountry.service.LoginService;
 import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
 import reformyourcountry.util.DateUtil;
