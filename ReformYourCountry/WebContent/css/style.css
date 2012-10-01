@@ -95,8 +95,8 @@ Stylesheet Guide
 /* *********************************************************************************** */
 
 * {font-size: 100.01%;}
-html {font-size: 62.5%;margin:0;padding:0;}
-body {margin:0;background:#f4f4f2;font:1.4em/19px "helvetica neue",Helvetica,Arial,Verdana,sans-serif;color:#666;min-width:1003px;}
+html {margin:0;padding:0;}
+body {margin:0;background:#f4f4f2;font:1em "helvetica neue",Helvetica,Arial,Verdana,sans-serif;color:#666;min-width:1003px;}
 
 
 
@@ -1813,10 +1813,10 @@ border-radius: 5px;
 /*---------------------------------------------------------------*/
 .realshadow{
 
-/*-moz-border-image: url(../images/_global/cadre.png) 30 / 30px  stretch;*/
+/*-moz-border-image: url(../images/_global/cadre.png) 8 / 10px  stretch;*/
    -webkit-border-image: url(../images/_global/cadre.png) 8 / 10px  stretch; 
-/*   -o-border-image: url(../images/_global/cadre.png) 20   stretch; */
-/*    border-image: url(../images/_global/cadre.png) 20 / 30px   stretch; */
+/*   -o-border-image: url(../images/_global/cadre.png) 8 / 10px    stretch; */
+/*    border-image: url(../images/_global/cadre.png) 8 / 10px    stretch; */
 	
 	
 /* padding: 10px; */
