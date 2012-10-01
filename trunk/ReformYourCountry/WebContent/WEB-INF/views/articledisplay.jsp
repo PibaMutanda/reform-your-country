@@ -30,21 +30,9 @@
 	<ryctag:breadcrumbelement label="${article.title}" />
  </ryctag:pageheadertitle>
 
-
-<ryc:conditionDisplay privilege="EDIT_ARTICLE">
-  <div>
-      <span class="tooltip" data-tooltip='identifiant de cet article pour utilisation dans la balise [link article="identifiant"]'>${article.shortName}</span>   <!--  Tooltip avec "identifiant de cet article pour utilisation dans la balise [link article="identifiant"]" -->
-	  <div class="article-options">
-	    <ul class="list sitemap-list">
-			 <li><a href="articleedit?id=${article.id}">Editer l'article</a></li>
-			 <li><a href="articleparentedit?id=${article.id}">Editer l'article parent</a></li>
-		</ul>	
-	  </div>
-  </div>
-</ryc:conditionDisplay>
-
-
-<c:if test="${!article.publicView}">
+ <div style="display:block;">
+  <div style="float: left;">
+ <c:if test="${!article.publicView}">
 		<p>Cet article n'est pas disponible au public.
      	<c:choose>
   	       <c:when test="${displayDate != null}">
@@ -56,10 +44,27 @@
 		 </c:choose>
 		 </p>
 		 <br/>
-  	     <ryc:conditionDisplay privilege="EDIT_ARTICLE">
-  	       <hr/>
-  	     </ryc:conditionDisplay>  
 </c:if>
+</div>
+<div class="article-options">
+<ryc:conditionDisplay privilege="EDIT_ARTICLE">
+	    <ul class="list sitemap-list">
+			 <li><a href="articleedit?id=${article.id}">Editer l'article</a></li>
+			 <li><a href="articleparentedit?id=${article.id}">Editer l'article parent</a></li>
+		</ul>	
+      <span class="tooltip" data-tooltip='identifiant de cet article pour utilisation dans la balise [link article="identifiant"]'>${article.shortName}</span>   <!--  Tooltip avec "identifiant de cet article pour utilisation dans la balise [link article="identifiant"]" -->
+
+</ryc:conditionDisplay>
+</div>
+
+
+</div>
+<div  style="display:inline-block;"	>
+
+<ryc:conditionDisplay privilege="EDIT_ARTICLE">
+  <hr/>
+</ryc:conditionDisplay>  
+
 
 <!-- ARTICLE CONTENT -->
 <c:choose>
@@ -88,7 +93,7 @@
 	  
 	  </c:otherwise>
 </c:choose>
-
+</div>
 </body>
 </html>   
 
