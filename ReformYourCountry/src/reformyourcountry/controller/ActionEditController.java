@@ -17,25 +17,26 @@ import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
 
 @Controller
+@RequestMapping("/action")
 public class ActionEditController extends BaseController<Action>{
     
     @Autowired ActionRepository actionRepository;
   
     
-    @RequestMapping("/actioncreate")
+    @RequestMapping("/create")
     public ModelAndView actionCreate(){
         SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ACTION);
         return new ModelAndView("actionedit","action", new Action());
     }
     
     
-    @RequestMapping("/actionedit")
+    @RequestMapping("/edit")
     public ModelAndView actionEdit(@RequestParam("id") long actionId){
         Action action = getRequiredEntity(actionId); 
         return new ModelAndView("actionedit","action",action);
     }
    
-    @RequestMapping("/actioneditsubmit")
+    @RequestMapping("/editsubmit")
     public ModelAndView actionEditSubmit(@Valid @ModelAttribute Action action, Errors errors) {
       
         SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ACTION);
@@ -50,7 +51,7 @@ public class ActionEditController extends BaseController<Action>{
             actionRepository.merge(action);
         }
             
-        return new ModelAndView("redirect:action", "id", action.getId());
+        return new ModelAndView("redirect:/action/"+action.getUrl());
     }
         
     @ModelAttribute

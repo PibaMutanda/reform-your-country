@@ -146,7 +146,7 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     @Column(unique = true, nullable=false)
     @Size(max = 15, message = "votre pseudonyme ne peut contenir que 15 caractères maximum")
     @NotBlank(message="entrer votre pseudonyme")
-    @Pattern(message ="votre pseudonyme ne peut pas contenir de caractères spéciaux", regexp="[A-Za-z0-9_-]{2,256}")
+    @Pattern(message ="ne peut contenir que des caractère alphanumériques, sans accents. Les 2 caractères \"-\" et \"_\" sont autorisés, mais pas les espaces.", regexp="[A-Za-z0-9_-]{2,256}")
     private String userName; 
     
     @Column(length = 100)
@@ -233,9 +233,6 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     public Role getRole() {
         return role;
     }
-
-  
-
 
     public void setRole(Role roleParam) {
         this.role = roleParam;

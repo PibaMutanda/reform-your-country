@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,7 +19,7 @@ public class BookListController extends BaseController<Book>{
     @Autowired BookRepository bookRepository;
    
     
-    @RequestMapping ("")
+    @RequestMapping(method=RequestMethod.GET)
     public ModelAndView showBookList(){
        ModelAndView mv = new ModelAndView("booklist");
        List<Book> b = bookRepository.findAllTop();
@@ -27,20 +28,4 @@ public class BookListController extends BaseController<Book>{
         mv.addObject("bookListOther",bother);
         return mv;
     }
-    
- 
-    
-   
-    
-   
-    
-    /*@RequestMapping ("/bookdetail")
-    public ModelAndView detailBook (@RequestParam("id")Long id){
-        ModelAndView mv = new ModelAndView("detailbook");
-        mv.addObject("book", bookRepository.find(id));
-        return mv;
-         
-        
-    }*/
-
 }

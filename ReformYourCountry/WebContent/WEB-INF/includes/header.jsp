@@ -49,8 +49,8 @@
 							
 							<li ><a href=""><span><strong>Contenu</strong></span></a>
 								<ul class="sub-menu">
-								 	<li><a href="articlelist"><span>Articles</span></a></li>
-									 <li><a href="actionlist"><span>Actions</span></a></li>
+								 	<li><a href="article"><span>Articles</span></a></li>
+									 <li><a href="action"><span>Actions</span></a></li>
 									 <li><a href="book"><span>Bibliographie</span></a></li>
 								 </ul>
 							</li>

@@ -22,7 +22,7 @@ width:50%;
 </head>
 
 <body>
-<ryctag:pageheadertitle title="Liste des livres"/>
+<ryctag:pageheadertitle title="Bibliographie"/>
 <c:set var="bookList" value="${bookListTop}" scope ="request"/>
 <c:set var="tablename" value="Top Book" scope ="request"/>
  <%@include file="booktable.jsp" %>	

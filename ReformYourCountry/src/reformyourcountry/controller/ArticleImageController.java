@@ -18,6 +18,7 @@ import reformyourcountry.util.FileUtil;
 import reformyourcountry.util.FileUtil.InvalidImageFileException;
 
 @Controller
+@RequestMapping(value={"/article"})
 public class ArticleImageController {    
     
     /**
@@ -25,7 +26,7 @@ public class ArticleImageController {
      * @param error Will show the error (from uploading) in the jsp
      * @return 
      */
-    @RequestMapping("/articleimage")
+    @RequestMapping("/image")
     public ModelAndView articleImage(@RequestParam(value="errorMsg", required=false)String error){
 
         SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
@@ -44,11 +45,11 @@ public class ArticleImageController {
      * Upload the file to the server Article pictures folder
      * @throws Exception 
      */
-    @RequestMapping("/articleimageadd")
+    @RequestMapping("/imageadd")
     public ModelAndView articleImageAdd(@RequestParam("file") MultipartFile multipartFile) throws Exception{
         SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
         
-        ModelAndView mv = new ModelAndView("redirect:articleimage");
+        ModelAndView mv = new ModelAndView("redirect:/article/image");
         try {
             FileUtil.uploadFile(multipartFile, FileUtil.getGenFolderPath() + FileUtil.ARTICLE_SUB_FOLDER, multipartFile.getOriginalFilename());
         } catch (InvalidImageFileException iife) {
@@ -60,7 +61,7 @@ public class ArticleImageController {
     /**
      * Will delete the file
      */
-    @RequestMapping("/articleimagedel")
+    @RequestMapping("/imagedel")
     public ModelAndView articleImageDel(@RequestParam("fileName") String fileName) throws IOException{
         SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
         

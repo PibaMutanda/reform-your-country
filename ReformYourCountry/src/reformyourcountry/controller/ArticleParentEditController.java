@@ -1,7 +1,6 @@
 package reformyourcountry.controller;
 
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -16,14 +15,15 @@ import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.ArticleService;
 
-// Create and Edition of the parent (and title)
+// Edition of the parents
 @Controller
+@RequestMapping("/article")
 public class ArticleParentEditController extends BaseController<Article>{
 
 	@Autowired ArticleService articleService;
 	
 	
-	@RequestMapping("/articleparentedit")
+	@RequestMapping("/parentedit")
 	public ModelAndView articleParentEdit(@ModelAttribute Article article){
 		SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
 		ModelAndView mv = new ModelAndView("articleparentedit");
@@ -31,7 +31,7 @@ public class ArticleParentEditController extends BaseController<Article>{
 	}	
 
 	
-	@RequestMapping("/articleparenteditsubmit")
+	@RequestMapping("/parenteditsubmit")
 	public ModelAndView articleParentEditSubmit(@Valid @ModelAttribute Article article, BindingResult result,
 			@RequestParam("parentid") Long parentId){
 		
@@ -43,7 +43,7 @@ public class ArticleParentEditController extends BaseController<Article>{
 			//article do not need a merge because the following method do it already
 		    articleService.changeParent(article, parentId);
 		}
-	    return new ModelAndView ("redirect:articlecontentedit","id",article.getId());
+	    return new ModelAndView ("redirect:/article/"+article.getUrl());
 	}
 
 

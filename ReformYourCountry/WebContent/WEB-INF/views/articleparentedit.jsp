@@ -4,7 +4,6 @@
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
 <html>
 <head>
-<title>Editer le parent d'un article</title>
 <script type="text/javascript" src="js/int/url-generate.js"></script>
 <style type="text/css">
 .li{
@@ -14,8 +13,8 @@ list-style-type:none;
 
 </head>
 <body>
-	<h1>Choisir le parent de l'article</h1>
-	<ryctag:form action="articleparenteditsubmit" modelAttribute="article">
+<ryctag:pageheadertitle title="Choisir le parent de l'article"/>
+	<ryctag:form action="article/parenteditsubmit" modelAttribute="article">
 		<form:hidden path="id" />
 		${article.title}
 		<tr>

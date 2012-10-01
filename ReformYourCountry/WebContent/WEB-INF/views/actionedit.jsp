@@ -6,20 +6,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
-
+<script type="text/javascript" src="js/int/url-generate.js"></script>
 </head>
 <body>
-
-	<h1>
-		<c:choose>
-			<c:when test="${action.id != null}">Editer une action</c:when>
-			<c:otherwise>Créer une action</c:otherwise>
-		</c:choose>
-	</h1>
-	<ryctag:form action="actioneditsubmit" modelAttribute="action">
-        <ryctag:input path="title" label="Titre"/>
+<c:choose><c:when test="${action.id != null}"><ryctag:pageheadertitle title="Modifier une action"/></c:when><c:otherwise><ryctag:pageheadertitle title="Créer une action"/></c:otherwise></c:choose>
+	<ryctag:form action="action/editsubmit" modelAttribute="action">
+        <ryctag:input path="title" label="Titre" id="title"/>        
+        <ryctag:input path="url" label="Nom de la page de l'action" id="url"/>
+        <td><input type="submit" value="Générer une url" id="generate" /></td>
         <ryctag:input path="content" label="Contenu"/>
-        <ryctag:input path="url" label="Url"/>
         <ryctag:input path="shortDescription" label="Description brève"/>
         <ryctag:textarea path="longDescription" label="Description étendue"/>
        
@@ -27,8 +22,8 @@
             
         <tr><td><input type="submit" value="<c:choose><c:when test="${action.id != null}">Sauver</c:when><c:otherwise>Créer</c:otherwise></c:choose>" /></td>
         <td> <a href="	<c:choose>
-        					<c:when test="${action.id != null}">action?id=${action.id}</c:when>
-        					<c:otherwise>actionlist</c:otherwise>
+        					<c:when test="${action.id != null}">action/${action.url}</c:when>
+        					<c:otherwise>action</c:otherwise>
         				</c:choose>"     >Annuler</a></td></tr>
     </ryctag:form>
   

@@ -23,6 +23,7 @@ import reformyourcountry.util.DateUtil;
 import reformyourcountry.util.Logger;
 
 @Controller
+@RequestMapping(value={"/article"})
 public class ArticleDisplayController extends BaseController<Article> {
     
     @Logger Log log;
@@ -30,7 +31,7 @@ public class ArticleDisplayController extends BaseController<Article> {
     @Autowired BookRepository bookRepository;
     @Autowired ArticleRepository articleRepository;
     
-	@RequestMapping(value={"/article/{articleUrl}"})
+	@RequestMapping(value={"/{articleUrl}"})
 	public ModelAndView displayArticle( @PathVariable("articleUrl") String articleUrl){
 
 	    log.debug("display article i get articleUrl"+articleUrl);
@@ -75,10 +76,4 @@ public class ArticleDisplayController extends BaseController<Article> {
         return mv;
 	}
 
-	// Used during development (to not retype the full url)
-	@RequestMapping(value={"/article"})
-	public String displayArticleWithShortName( @RequestParam("shortname") String shortName){
-		Article article = articleRepository.findByShortName(shortName);
-        return ("redirect:/article/"+article.getUrl());
-	}
 }

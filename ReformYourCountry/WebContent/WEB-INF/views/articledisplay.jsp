@@ -7,21 +7,17 @@
 <html>
 <head>
 <link rel="stylesheet" href="css/ext/jquery-bubble-popup-v3.css"  type="text/css" />
-<link rel="stylesheet" href="css/ext/jquery.countdown.css" type="text/css"/>
-<script type="text/javascript" src="js/ext/jquery-ui-1.8.23.custom.min.js"></script>
 <script src="js/ext/jquery-bubble-popup-v3.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="css/ext/jquery.countdown.css" type="text/css"/>
 <script src="js/int/bubble-pop-up-articledisplay.js" type = "text/javascript"></script>
+<link rel="stylesheet" href="css/ext/jquery.countdown.css" type="text/css"/>
 <script type="text/javascript" src="js/ext/jquery.countdown.js"></script>
 <script type="text/javascript" src="js/ext/jquery.countdown-fr.js"></script>
 <meta name="robots" content="index, follow"/>
 <meta name="description" content="${article.description}"/>
-<title>${article.title}</title>
 </head>
-
 <body>
-
-
- <ryctag:pageheadertitle title="${article.title}" breadcrumb="true">
+ <ryctag:pageheadertitle title="${article.title}">
  	<c:forEach items="${parentsPath}" var="subarticle">
  		<c:if test="${article.title != subarticle.title}">
 			<ryctag:breadcrumbelement label="${subarticle.title}" link="article/${subarticle.url}" />
@@ -32,7 +28,7 @@
 
  <div style="display:block;">
   <div style="float: left;">
- <c:if test="${!article.publicView}">
+    <c:if test="${!article.publicView}">
 		<p>Cet article n'est pas disponible au public.
      	<c:choose>
   	       <c:when test="${displayDate != null}">
@@ -44,13 +40,14 @@
 		 </c:choose>
 		 </p>
 		 <br/>
-</c:if>
-</div>
+   </c:if>
+ </div>
 <div class="article-options">
 <ryc:conditionDisplay privilege="EDIT_ARTICLE">
 	    <ul class="list sitemap-list">
-			 <li><a href="articleedit?id=${article.id}">Editer l'article</a></li>
-			 <li><a href="articleparentedit?id=${article.id}">Editer l'article parent</a></li>
+			 <li><a href="article/edit?id=${article.id}">Editer l'article</a></li>
+			 <li><a href="article/parentedit?id=${article.id}">Editer l'article parent</a></li>
+			 <li><a href="article/contentedit?id=${article.id}">Editer le contenu de l'article</a></li>
 		</ul>	
       <span class="tooltip" data-tooltip='identifiant de cet article pour utilisation dans la balise [link article="identifiant"]'>${article.shortName}</span>   <!--  Tooltip avec "identifiant de cet article pour utilisation dans la balise [link article="identifiant"]" -->
 

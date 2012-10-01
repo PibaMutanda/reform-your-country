@@ -2,17 +2,18 @@
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 	<%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
-
+	<%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
 <html>
 <head>
-
-<title>Liste des actions</title>
+<meta name="description" lang="fr" content="Actions à entreprendre pour réformer l'enseignement"/>
+<meta name="robots" content="index, follow"/>	
+<meta name="googlebot" content="noarchive" />
 </head>
 <body>	
-	<h1>Liste des actions</h1>
+<ryctag:pageheadertitle title="Liste des actions"/>
 	
 	<ryc:conditionDisplay privilege="EDIT_ACTION">
-		<form action="actioncreate" method="get" >
+		<form action="action/create" method="post" >
 			<input type="hidden" name="id" value="">
 			<input type="submit"  value="Créer action" />
 		</form>
@@ -22,7 +23,7 @@
 		<c:forEach items="${actions}" var="action">
 			<tr>
 				<td>${action.title}</td>			
-				<td><a href="action?id=${action.id}">Détails</a></td>
+				<td><a href="action/${action.url}">Détails</a></td>
 			</tr>
 			
 
