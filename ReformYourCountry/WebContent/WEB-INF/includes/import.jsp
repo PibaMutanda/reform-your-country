@@ -31,46 +31,45 @@
 <link rel="icon" type="image/png" href="images/favicon.png"/>
 <!-- ***************************** END ICON **************************** -->    
 
-
-
-
-
-
-
-
-<%-- Jquery added here because they're used inside custom tags, done so to ease maintenance--%>
-<script src="js/ext/jquery-1.8.0.min.js"></script>
-<%-- jquery depandencies --%>
-<script src="js/ext/jquery-ui-1.8.23.custom.min.js"></script>
-<%-- jquery depandencies --%>
-<script src="js/int/datepicker.js" type="text/javascript"></script>
-<script src="js/int/login.js"></script>
-<script src="js/int/redirect.js"></script>
-<script src="js/int/focusevent.js"></script>
-<script type="text/javascript" src="js/jquery.cycle.all.min.js"></script>
-<script type="text/javascript" src="js/jquery-1-slider.js"></script>
-<script type="text/javascript" src="js/testimonial-slider.js"></script>
-<!--[if lte IE 8]><meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /><![endif]-->
-
-	<!-- <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> -->
-	<script type="text/javascript" src="js/realshadow.js"></script>
-	<script type="text/javascript">
-	$(function(){
-
+<!-- ***************************** JAVASCRIPT **************************** -->   
+	<script src="js/ext/jquery-1.8.0.min.js"></script>
 	
-
-		$('.realshadow').realshadow({
-			// followMouse: false
+	<!-- ***************************** Design from themeforest/karma template **************************** -->   
+		<script type="text/javascript" src="js/karma.js"></script>
+	<!-- ***************************** End Design **************************** -->   
+	<script src="js/ext/jquery-ui-1.8.23.custom.min.js"></script>
+	
+	<!-- ***************************** Script from our dev **************************** -->   
+		<script src="js/int/datepicker.js" type="text/javascript"></script>
+		<script src="js/int/login.js"></script>
+		<script src="js/int/redirect.js"></script>
+		<script src="js/int/focusevent.js"></script>
+		
+	<!-- ***************************** End Script from our dev **************************** -->   
+	
+	<!-- ***************************** ???????????? **************************** -->   
+		<script type="text/javascript" src="js/jquery.cycle.all.min.js"></script>
+		<script type="text/javascript" src="js/jquery-1-slider.js"></script>
+		<script type="text/javascript" src="js/testimonial-slider.js"></script>
+	<!--[if lte IE 8]><meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /><![endif]-->
+	<!-- ***************************** End ???????????? **************************** -->   	
+	<!-- ***************************** Shadow For pics script **************************** -->   
+		<script type="text/javascript" src="js/realshadow.js"></script>
+		<script type="text/javascript">
+		$(function(){
+	
+		
+	
+			$('.realshadow').realshadow({
+				// followMouse: false
+			});
+	
+			$('.inset').realshadow({
+				inset: true
+			});
+	
 		});
+		</script>
+	<!-- ***************************** End Shadow For pics script **************************** -->   
 
-		$('.inset').realshadow({
-			inset: true
-		});
-
-	});
-	</script>
-
-
-
-<!--  <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script> 
-<script type="text/javascript" src="js/karma.js"></script>--> 
+<!-- ***************************** END JAVASCRIPT **************************** -->   
