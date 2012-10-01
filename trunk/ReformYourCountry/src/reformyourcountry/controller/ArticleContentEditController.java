@@ -24,7 +24,7 @@ public class ArticleContentEditController extends BaseController<Article>{
     
     @Autowired ArticleRepository articleRepository;
     
-    @RequestMapping("/articlecontentedit")
+    @RequestMapping("/article/contentedit")
     public ModelAndView articleContentEdit(@ModelAttribute Article article)
     {
         SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
@@ -34,29 +34,32 @@ public class ArticleContentEditController extends BaseController<Article>{
     }
     
     /** Auto save or ctrl + s */
-    @RequestMapping(value = "/ajax/articlecontenteditsubmit", method = RequestMethod.POST)
+    @RequestMapping(value = "/ajax/article/contenteditsubmit", method = RequestMethod.POST)
     public ResponseEntity<?> articleContentEditSubmitAjax(@Valid @ModelAttribute Article article, BindingResult result){
         SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
      
         if(result.hasErrors()){
             return new ResponseEntity<BindingResult>(result,HttpStatus.OK);
+        }else if(article.getContent()==null){
+        	return new ResponseEntity<String>("ne peut sauvegarder un contenu vide",  // that tiny message will appear next to the save button and a save hour.
+        			HttpStatus.OK);        
         }else{
             articleRepository.merge(article);
-            return new ResponseEntity<String>("sauvegarde",  // that tiny message will appear next to the save button and a savec hour.
+            return new ResponseEntity<String>("sauvegarde",  // that tiny message will appear next to the save button and a save hour.
                     HttpStatus.OK);
         }
     }
     
     /** Press the save button and close the page */
-    @RequestMapping("/articlecontenteditsubmit")
+    @RequestMapping("/article/contenteditsubmit")
     public ModelAndView articleContentEditSubmit(@Valid @ModelAttribute Article article, BindingResult result){
         SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
         
-        if(result.hasErrors()){
+        if(result.hasErrors()||article.getContent()==null){
             return new ModelAndView("articlecontentedit","id",article.getId());
         }else{
             articleRepository.merge(article);
-            return new ModelAndView("redirect:article/"+article.getUrl());
+            return new ModelAndView("redirect:"+article.getUrl());
         }
 
     }

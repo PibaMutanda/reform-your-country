@@ -57,11 +57,12 @@ public class ArticleEditController extends BaseController<Article>{
             return mv;
         }else{//if the article has no error
             if(article.getId() == null){//if this is a new article
+            	article.setContent("Contenu à compléter.");
                 articleRepository.persist(article);
-                return new ModelAndView("redirect:articleparentedit","id",article.getId()); // Next step after creation: select the parent.
+                return new ModelAndView("redirect:parentedit","id",article.getId()); // Next step after creation: select the parent.
             }else{
                 articleRepository.merge(article);
-                return new ModelAndView("redirect:article/"+article.getUrl());
+                return new ModelAndView("redirect:"+article.getUrl());
             }
         }
 

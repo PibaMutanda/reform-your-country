@@ -569,7 +569,7 @@ public class BatchCreate implements Runnable {
 				"l'interaction virtuelle dynamique dans l'aprentissage.....");
 
 		action.setContent("this is the content of the action");
-		action.setUrl("http://www.cahiers-pedagogiques.com/Le-Web-2-0-et-les-profs.html");
+		action.setUrl(UrlUtil.computeUrlFragmentFromName(action.getTitle()));
 
 		action.addArticle(article);
 
@@ -736,16 +736,16 @@ public class BatchCreate implements Runnable {
 		action1.setTitle("Statut du Directeur");
 		action1.setShortDescription("Sanction contre un directeur d'école!");
 		action1.setContent("L’Inspection académique de l’Isère a décidé de démettre de ses fonctions un directeur d’école primaire, tout en lui conservant sa fonction d’instituteur. Jean-Yves Le Gall, directeur de l’école primaire de Notre-Dame-de-Vaulx, refusait d’enregistrer des informations dans la banque de données “base élèves”.");
-		action1.setUrl("http://blogs.mediapart.fr/blog/velveth/040209/base-eleves-sanction-contre-un-directeur-d-ecole-2");
+		action1.setUrl(UrlUtil.computeUrlFragmentFromName(action1.getTitle()));
 
 		action2.setTitle("Les droits et obligations des enseignants");
 		action2.setContent("Les enseignants bénéficient de droits liés aux missions qu'ils exercent, mais aussi d'un certain nombre d'obligations. Chaque membre de la communauté éducative doit avoir un comportement et une conduite irréprochable vis-à-vis des élèves, de ses collègues et de l'environnement scolaire dans lequel il se trouve. ");
-		action2.setUrl("http://www.cap-concours.fr/enseignement/preparer-les-concours/concours-de-cpe/les-droits-et-obligations-des-enseignants-mas_educ_09");
+		action2.setUrl(UrlUtil.computeUrlFragmentFromName(action2.getTitle()));
 
 		action3.setTitle("Les obligations enseignants");
 		action3.setShortDescription("L'obligation d'obéissance hiérarchique");
 		action3.setContent("L'enseignant doit toujours se conformer aux instructions de son supérieur hiérarchique, sauf dans le cas où l'ordre donné est manifestement illégal et de nature à compromettre gravement un intérêt public. Le refus d'obéissance est considéré comme une faute professionnelle. En outre, l'enseignant se doit de respecter les lois et règlements de toute nature.");
-		action3.setUrl("http://www.cap-concours.fr/enseignement/preparer-les-concours/concours-de-cpe/les-droits-et-obligations-des-enseignants-mas_educ_09#/page3");
+		action3.setUrl(UrlUtil.computeUrlFragmentFromName(action3.getTitle()));
 
 		em.persist(action1);
 		em.persist(action2);
