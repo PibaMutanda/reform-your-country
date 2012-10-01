@@ -116,7 +116,8 @@ public class Article extends BaseEntity {
 
 
 	public void setPublishDate(Date publishDate) {
-		if (publishDate.after(new Date())) {
+	    //FIXME isn't more useable if we put this condition in the controller -- maxime 28-09-12
+		if (publishDate != null && publishDate.after(new Date())) {//test not null because sometimes users doesn't to fix publishDate
 			this.publishDate = publishDate;
 		}else{
 			this.publishDate = null;
