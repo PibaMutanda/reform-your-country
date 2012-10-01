@@ -11,12 +11,7 @@
    <ryctag:form action="registersubmit" modelAttribute="user">
     	<ryctag:input path="userName" label="pseudo"/>
     	<ryctag:password path="password" label="mot de passe"/>
-    	<ryctag:input path="mail" label="e-mail"/>
-<!--     	<tr> -->
-<!-- 	    	<td><label for="mail">e-mail</label></td> -->
-<%--     		<td><form:input path="mail" type="mail" /></td> --%>
-<%--     		<td><form:errors path="mail" cssClass="error" /></td> --%>
-<!--     	</tr> -->
+    	<ryctag:input path="mail" label="e-mail" type="mail"/>
     	<tr> 
     	<td COLSPAN="2" align="center"> 
     	<span class="ka_button small_button small_royalblue" >
