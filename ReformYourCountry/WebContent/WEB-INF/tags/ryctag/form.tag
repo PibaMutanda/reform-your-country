@@ -8,7 +8,6 @@
 <%-- This is in a .tag file and not in a Java file because in JSP 2.0, only .tag file can be used to make custom tags producing custom tags
 see http://stackoverflow.com/questions/439861/spring-mvc-tag-interaction-with-custom-tag
  --%>
-<c:if test="${method == null}"><c:set var="method" value="get" /></c:if>
 <form:form modelAttribute="${modelAttribute}" action="${action}" method="${method}">
 	<table>
 		<jsp:doBody/>
