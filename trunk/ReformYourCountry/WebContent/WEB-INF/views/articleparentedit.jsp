@@ -4,7 +4,6 @@
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
 <html>
 <head>
-<script type="text/javascript" src="js/int/url-generate.js"></script>
 <style type="text/css">
 .li{
 list-style-type:none; 

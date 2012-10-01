@@ -12,6 +12,7 @@
 <script type="application/javascript" src="js/int/autosave.js"></script>
 </head>
 <body>
+<ryctag:pageheadertitle title="Éditer le contenu de l'article"/>
     <%-- Help handle --%>
     <div id="helphandle">
         <span id="click" style="color: #182947;"><b>?</b></span>
