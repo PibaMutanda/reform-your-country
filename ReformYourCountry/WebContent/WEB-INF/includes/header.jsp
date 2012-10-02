@@ -69,7 +69,7 @@
 						</div>
 						
 						<!-- Search -->
-						<div style="float:right;padding-top: 30px;">
+						<div style="float:right;padding-top: 30px; display:none;">
 						  <form method="get" id="searchform" action="search" class="search-form"> <%-- TODO: implement seach page. --%>
 								<fieldset>
 								<span class="text">

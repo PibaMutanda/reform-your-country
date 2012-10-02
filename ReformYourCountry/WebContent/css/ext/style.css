@@ -1137,7 +1137,7 @@ input, textarea, select {vertical-align:middle;font-size:100%;}
 form, fieldset {margin:0;padding:0;border-style:none;}
 .search-form {}
 .search-form .text {display:block;overflow:hidden;height:20px;padding:8px 0 0 0px;}
-.search-form .text input {background:none;border:0;padding:0;margin:-2px 8px 0 0;float:left;color:#ffffff;}
+.search-form .text input {background:none;border:0;padding:0;margin:-2px 8px 0 0;float:left;color:#666666;width:110px;}
 .search-form .text .submit {font-size:0;line-height:0;text-indent:-9999px;width:15px;height:17px;margin:0 8px 0 0;cursor:pointer;}
 
 
