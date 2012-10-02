@@ -36,7 +36,7 @@
           
    <ryctag:pageheadertitle title="Fonctionnalités du site"/>
    <p>
-     Cette section regroupe les fonctionnalités du site qui ne sont pas immédiatement apparentes ou évidentes.
+     Ce site comporte diverses fonctionnalités, plus ou moins visibles au grand public. Elles ont été implémentées par des <a href="prog">informaticiens bénévoles</a>.
    </p>
 	<div style="display: inline-block;">      
 	<div class="col1">
