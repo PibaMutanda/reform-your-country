@@ -92,6 +92,12 @@ public class DateUtil {
 			years -= 1;
 		}
 
+		return assembleIntervalStringFR(shorten, minutes, hours, days, months,
+				years);
+	}
+
+	private static String assembleIntervalString(boolean shorten, int minutes,
+			int hours, int days, int months, int years) {
 		String result = "";
 		if (shorten) {
 			
@@ -162,7 +168,103 @@ public class DateUtil {
 		}
 		return result.trim(); // leading " "
 	}
+	
+	
 
+
+	private static String assembleIntervalStringFR(boolean shorten, int minutes,
+			int hours, int days, int months, int years) {
+		String result = "";
+		if (shorten) {
+			
+			if(months >= 10 && years == 0){
+				return "un an";
+			} if(months >= 5 && years == 0){
+				return "6 mois";
+			} else if (months >= 5 && years == 1){
+				return "un an et demi";	
+			}	else if (months >= 5 && years > 1){
+				return "" + (years) + " ans et 6 mois";	
+			} else if (years > 0){
+				return "" + (years+1) + " ans";	
+			}
+
+			if (years > 0) {
+				result += " " + years + " an" + ((years > 1) ? "s" : "");
+				return result.trim();
+			}
+
+			if(days >= 20 && months == 0){
+				return "un mois";
+			} else if (months > 0){
+				return "" + (months+1) + " mois";	
+			}
+			
+			if (months > 0) {
+				result += " " + months + " mois" + ((months > 1) ? "s" : "");
+				return result.trim();
+			}
+			if (days > 0) {
+				result += " " + days + " jour" + ((days > 1) ? "s" : "");
+				return result.trim();
+			}
+			if (hours > 0) {
+//				result += " " + hours + " hour" + ((hours > 1) ? "s" : "");
+                result += hours + "h";  // Shorter
+				return result.trim();
+			}
+			if (minutes > 0) {
+//                result += " " + minutes + " minute" + ((minutes > 1) ? "s" : "");
+				result += minutes + "min"; // shorter
+				return result.trim();
+			}
+			if (years == 0 && months == 0 && days == 0 && minutes == 0) {
+				result = "moins d'une minute";
+				return result.trim();
+			}
+		} else {
+			if (years > 0) {
+				result += " " + years + " an" + ((years > 1) ? "s" : "");
+			}
+			if (months > 0) {
+				result += " " + months + " mois" + ((months > 1) ? "s" : "");
+			}
+			if (years == 0 && days > 0) {
+				result += " " + days + " jour" + ((days > 1) ? "s" : "");
+			}
+			if (years == 0 && months == 0 && days == 0 && hours > 0) {
+				result += " " + hours + " heure" + ((hours > 1) ? "s" : "");
+			}
+			if (years == 0 && months == 0 && days == 0 && minutes > 0) {
+				result += " " + minutes + " minute" + ((minutes > 1) ? "s" : "");
+			}
+			if (years == 0 && months == 0 && days == 0 && minutes == 0) {
+				result = "moins d'une minute";
+			}
+		}
+		return result.trim(); // leading " "
+	}
+	
+	public static String formatIntervalFromToNowFR(Date date) {
+		return formatIntervalFromToNowFR(date, false);
+	}
+	
+	public static String formatIntervalFromToNowFR(Date date, boolean shorten) {
+		if (date == null) {
+			return "-";
+		}
+		Date now = new Date();
+		if (now.after(date)) { // date is in the past
+			return "il y a "+formatDuration(date, now, shorten) ; // example:
+			// "3 hours 23 minutes ago"
+			// or "15 days ago"
+		} else { // present or future
+			return "dans " + formatDuration(now, date, shorten); // example:
+			// "in 3 hours 23 minutes"
+			// or "in 15 days"
+		}
+	}
+	
 	public static String formatIntervalFromToNow(Date date) {
 		return formatIntervalFromToNow(date, false);
 	}

@@ -1,9 +1,11 @@
 package reformyourcountry.repository;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 import reformyourcountry.model.Article;
+
 
 @Repository
 @SuppressWarnings("unchecked")
@@ -25,4 +27,9 @@ public class ArticleRepository extends BaseRepository<Article>{
         return getSingleOrNullResult(em.createQuery("select a from Article a where a.title = :title").setParameter("title",title));
     }
     
+    public List<Article> findByDate(Date publishDate, int maxAmount){
+    	return em.createQuery("select a from Article a where a.publishDate != null order by a.publishDate DESC")
+    			.setMaxResults(maxAmount)
+    			.getResultList();
+    }
 }
