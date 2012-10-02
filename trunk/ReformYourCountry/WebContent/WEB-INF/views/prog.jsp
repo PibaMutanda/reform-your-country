@@ -53,7 +53,7 @@
      
      <div class="col2">
 
-        <div><img alt="Delphine Lafaille" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
+        <div><img alt="Delphine Lafaille" class="realshadow"  src="images/developpers/delphine_lafaille.jpg"></div>
         <div class="developer_name">Delphine Lafaille</div>
         <p class="developer_descr">bibliography, user image, Hosting, site styling (cu3er: 3d application, CSS, template), beta label</p>  
         <br/>
@@ -62,7 +62,7 @@
      
      <div class="col3">
 
-        <div><img alt="Jamal Bouda" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
+        <div><img alt="Jamal Bouda" class="realshadow"  src="images/developpers/jamal_bouda.jpg"></div>
         <div class="developer_name">Jamal Bouda</div>
         <p class="developer_descr">Domain model, Spring forms (user: display & edit, action: create, edit, display), Validation (user, article & url’s), Navigation, SEO</p> 
         <br/>
@@ -106,7 +106,7 @@
    
      <div class="col1">
 
-        <div><img alt="Lionel Timmerman" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
+        <div><img alt="Lionel Timmerman" class="realshadow"  src="images/developpers/lionel_timmerman.jpg"></div>
         <div class="developer_name">Lionel Timmerman</div>
         <p class="developer_descr">Absent, n'iiiiiiiiimporte quoi vvvvvvvvvvvvvv vvvvvvvvvvvvvvvvvvvvvvv vvvvvvvvvv vvvvvvvvv</p>   
         <br />
@@ -115,7 +115,7 @@
      
      <div  class="col2"  >
 
-        <div><img alt="Maxime Sauvage" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
+        <div><img alt="Maxime Sauvage" class="realshadow"  src="images/developpers/maxime_sauvage.jpg"></div>
         <div class="developer_name">Maxime Sauvage</div>
         <p class="developer_descr">Présent, n'iiiiiiiiimporte quoi</p>   
         <br />
