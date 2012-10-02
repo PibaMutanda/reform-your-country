@@ -17,7 +17,7 @@ Points d’action: Nous vous invitons à voter pour ou contre les points d’act
 <li>
 Diffusion: N’hésitez pas à inviter vos connaissances, parents et enseignants, à s’informer et à donner leur avis ici. Vous pouvez le faire oralement ou via internet:
 sur enseignement2.be, en cliquant le bouton “j’aime” d’un article,
-sur youtube (LINK XXXXXXX notre channel youtube) en cliquant sur le bouton “j’aime” de nos vidéos.
+sur <a href="www.youtube.com">youtube</a> en cliquant sur le bouton “j’aime” de nos vidéos.
 </li>
 </ul>
 
@@ -25,7 +25,7 @@ sur youtube (LINK XXXXXXX notre channel youtube) en cliquant sur le bouton “j�
 <img src="/images/Mobile-Commerce2.jpg" class="realshadow"/>
 </center>
 <p>
-D’autres tâches sont plus lourdes et nécessitent de nous contacter (LINK XXXXXXXXXXXXXXXXX). Voici les rôles/tâches typique de contributeurs d’enseignement2.be:
+D’autres tâches sont plus lourdes et nécessitent de <a href="/contact">nous contacter</a>. Voici les rôles/tâches typique de contributeurs d’enseignement2.be:
 </p>
 <ul class="list sitemap-list">
 <li>
