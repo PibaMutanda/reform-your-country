@@ -14,7 +14,7 @@
 </head>
 <body>
 <!-- <h1>Formulaire de changement de password</h1> -->
-<ryctag:pageheadertitle title="changement de mot de passe" breadcrumb="true">
+<ryctag:pageheadertitle title="changement de mot de passe">
 	<ryctag:breadcrumbelement label="${user.firstName} ${user.lastName}" link="user/${user.userName}" />
 	<ryctag:breadcrumbelement label="changement de mot de passe" />
 </ryctag:pageheadertitle>

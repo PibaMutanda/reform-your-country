@@ -81,7 +81,7 @@ public class UserImageController extends BaseController<User> {
 		 
 		 userRepository.merge(user);
 
-		 return new ModelAndView("redirect:user/"+user.getUserName());
+		 return new ModelAndView("redirect:"+user.getUserName());
 		 
 	 }
 

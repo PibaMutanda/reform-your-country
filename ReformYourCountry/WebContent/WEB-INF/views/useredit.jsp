@@ -13,7 +13,7 @@
 <script src="js/int/birthday_picker.js" type = "text/javascript"></script> 
 
 
-<ryctag:pageheadertitle title="${user.firstName} ${user.lastName}" breadcrumb="true">
+<ryctag:pageheadertitle title="${user.firstName} ${user.lastName}">
 	<ryctag:breadcrumbelement label="${user.firstName} ${user.lastName}" link="user/${user.userName}" />
 	<ryctag:breadcrumbelement label="Edition" />
 </ryctag:pageheadertitle>

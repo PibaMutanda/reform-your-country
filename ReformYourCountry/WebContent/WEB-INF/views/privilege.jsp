@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<ryctag:pageheadertitle title="Privileges de ${user.userName }" breadcrumb="true">
+<ryctag:pageheadertitle title="Privileges de ${user.userName }">
 	<ryctag:breadcrumbelement label="${user.firstName} ${user.lastName}" link="user/${user.userName}" />
 	<ryctag:breadcrumbelement label="Permission" />
 </ryctag:pageheadertitle>
