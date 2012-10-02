@@ -113,7 +113,7 @@
     </slide>
     <transition type="3D" columns="5" rows="1" type2D="slide" flipAngle="180" flipOrder="315" flipShader="none" flipOrderFromCenter="false" flipDirection="up,left,right,down" flipColor="0x2b1601" flipBoxDepth="20" flipDepth="250" flipEasing="Sine.easeOut" flipDuration="0.8" flipDelay="0.2"/>
   </defaults>
-  <slides width="465" height="311" align_pos="TL" x="0" y="0" corner_TL="0,0" corner_TR="465,0" corner_BL="0,311" corner_BR="465,311">
+  <slides width="465" height="311" align_pos="TL" x="0" y="0" corner_TL="0,0" corner_TR="465,0" corner_BL="0,311" corner_BR="465,311" >
   
     <transition rows="3" columns="5"/>
     <slide>
