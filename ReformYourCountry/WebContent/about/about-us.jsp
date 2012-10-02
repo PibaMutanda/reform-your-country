@@ -13,14 +13,14 @@
 
 <p>
 		
-enseignement2.be est un site indépendant du politique et de l’administration. Le site officiel de l’Etat est “<a href= "enseignement.be">enseignement.be”</a>  
+enseignement2.be est un site indépendant du politique et de l’administration. Le site officiel de l’Etat est “<a href= "http://www.enseignement.be/">enseignement.be”</a>  
 </p>
 <p>
 Nos analyses font grincer beaucoup de dents et nos fondateurs désirent rester anonyme afin d’être moins accessibles aux pressions. 
 Que ce soit dans les commentaires sur les forums spécialisés ou dans les sites des journaux, la plupart des enseignants réagissent de manière anonyme par peur des représailles.
  Aussi, la plupart des acteurs avec qui nous nous discutons (directeurs, inspecteurs, enseignants, élèves, syndicalistes) désirent rester anonyme dans leurs réponses que vous trouverez sur ce site. 
  Il semble régner dans l’enseignement un climat de méfiance, probablement engendré par des expériences traumatisantes. 
- Ainsi, lorsque les fondateurs du site “<a href="enseignons.be">enseignons.be</a>” nous ont racontés les pressions qu’ils ont subies, nous avons décidé d’être anonymes.</p>
+ Ainsi, lorsque les fondateurs du site “<a href="http://www.enseignons.be/">enseignons.be</a>” nous ont racontés les pressions qu’ils ont subies, nous avons décidé d’être anonymes.</p>
 <p>
 Pour ce qui importe:
 nous ne sommes affilié à aucun parti parti politique ni syndicat,
