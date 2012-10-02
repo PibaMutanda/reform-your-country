@@ -23,12 +23,19 @@ width:50%;
 
 <body>
 <ryctag:pageheadertitle title="Bibliographie"/>
+
+Nos articles référencient abondamment les ouvrages listés ici. Certains nous ont particulièrement marqués et nous les listons en premier, dans la liste "favoris".
+Les autres peuvent être très bons aussi et sont listés juste après.
+D'autres ouvrages qui nous ont parus moins significatifs ne sont pas repris sur cette page.
+
+
 <c:set var="bookList" value="${bookListTop}" scope ="request"/>
-<c:set var="tablename" value="Top Book" scope ="request"/>
+<c:set var="tablename" value="Favoris" scope ="request"/>
  <%@include file="booktable.jsp" %>	
  
+<div style="width:100%;background: url(/images/_global/separator3.gif) 0 0 repeat-x; min-height: 10px;"></div>
 <c:set var="bookList" value="${bookListOther}" scope ="request"/> 
-<c:set var="tablename" value="Other Book" scope ="request"/>
+<c:set var="tablename" value="Autres ouvrages" scope ="request"/>
  <%@include file="booktable.jsp" %>	
 
 </body>

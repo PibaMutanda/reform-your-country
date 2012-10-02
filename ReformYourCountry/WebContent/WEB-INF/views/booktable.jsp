@@ -12,11 +12,11 @@
 		<c:choose>
 			<c:when test="${stat.index % 2 == 0}">   <%-- 2 columns --%>
 				<tr>
-					<td><ryctag:book book="${book}"/>
+					<td valign="top" style="padding:15px 40px 15px 0px"><ryctag:book book="${book}"/>
 					</td>
 			</c:when>
 			<c:otherwise>
-                    <td><ryctag:book book="${book}"/>
+                    <td valign="top"style="padding:15px 0px 15px 40px"><ryctag:book book="${book}"/>
    					</td>
 				</tr>
 			</c:otherwise>
