@@ -96,9 +96,9 @@ Stylesheet Guide
 /* 01. GLOBAL
 /* *********************************************************************************** */
 
-* {font-size: 100.01%;}
-html {margin:0;padding:0;}
-body {margin:0;background:#f4f4f2;font:1em "helvetica neue",Helvetica,Arial,Verdana,sans-serif;color:#666;min-width:1003px;}
+/** {font-size: 100.01%;}*/ /*why all font must have equals height? and * lack of perf --maxime 2/10/2012*/
+html {margin:0;padding:0;font-size:100%;}
+body {margin:0;background:#f4f4f2;font-size:1em;font-family:"helvetica neue",Helvetica,Arial,Verdana,sans-serif;color:#666;min-width:1003px;}
 
 
 
@@ -137,7 +137,7 @@ body {margin:0;background:#f4f4f2;font:1em "helvetica neue",Helvetica,Arial,Verd
 /*---------------------------------------------------------------*/
 /* 2. CONTENT AREA
 /*---------------------------------------------------------------*/
-#content {width:800px;float:right;}
+#content {width:800px;/*float:right; //use of inline-block now --maxime 2/10/2012*/}
 .content_left_sidebar {float: right !important;}
 .content_right_sidebar {width: 510px !important;}
 .content_full_width {width: 800px !important;padding: 0 20px 0 20px;float:left;margin-left: 0 !important;}
@@ -220,7 +220,7 @@ body {margin:0;background:#f4f4f2;font:1em "helvetica neue",Helvetica,Arial,Verd
 #foot_left {float: left;width:440px;}
 #foot_left .textwidget {margin-top:-18px;}
 #foot_right {float: right;width:520px;text-align: right;}
-.info {margin:0 auto;font-size:11px;overflow:hidden;padding:0 0 0px;position:relative; text-align:center;vertical-align;}
+.info {margin:0 auto;font-size:11px;overflow:hidden;padding:0 0 0px;position:relative; text-align:center;}
 #foot .info a{text-decoration: none;}
 #footer .footer_post {padding: 2px 0 16px 0;}
 
@@ -608,7 +608,7 @@ body {margin:0;background:#f4f4f2;font:1em "helvetica neue",Helvetica,Arial,Verd
 /*---------------------------------------------------------------*/
 #sub_nav ul a:hover,
 
-#sub_nav {list-style-type: none;float: left;width:160px;float:left;	padding-bottom:0px;overflow:hidden;}
+#sub_nav {list-style-type: none;width:160px;/*float:left //use of inline-block now --maxime 2/10/2012*/padding-bottom:0px;overflow:hidden;}
 #sub_nav ul a {display:block;background:url(/images/_global/separator3.gif) 0 0 repeat-x ;padding:4px 0 0 0;height:1%;margin:0 0 0 0;}
 #sub_nav ul a:hover {background:url(/images/secondary-royal-blue/navblueback.png) 0 0 repeat-y;padding:0 0 0 ;margin-right:0;color:#ccc;text-decoration:none;}
 #sub_nav ul li a.current_page_item {background:url(/images/secondary-royal-blue/navblueback.png) 0 0 repeat-y;padding:0 0 0 ;margin-right:0;color:#ccc;text-decoration:none;}
@@ -908,13 +908,13 @@ a:hover { text-decoration:none;}
 /*---------------------------------------------------------------*/
 /* 1. GENERAL TYPOGRAPHY
 /*---------------------------------------------------------------*/
-#main .frame h1 {padding-bottom: 15px !important;font-size:24px !important;float:left;margin:3px 0 0 0 !important;color: #FFF;}
-#main h1, #main h2, #main h3, #main h4, #main h5, #main h6 ,  {padding-bottom: 10px;font-weight: normal;margin:0;color: #222;}
+#main .frame h1 {padding-bottom: 15px !important;font-size:24px /*!important*/;float:left;margin:3px 0 0 0 /*!important*/;color: #FFF;}
+/*#main h1, #main h2, #main h3, #main h4, #main h5, #main h6  {padding-bottom: 10px;font-weight: normal;margin:0;color: #222;}
 #main h1 {font-size:2.1em;}
 #main h2 {font-size:1.9em;}
 #main h3 {font-size:1.7em;}
 #main h4 {font-size:1.5em;}
-#main h5 {font-size:1.3em;}
+#main h5 {font-size:1.3em;}*//*use of default title size -- maxime 2/10/2012*/
 #main h6 {font-size:.9em;color: #222;text-transform: uppercase;font-weight: 600;letter-spacing: 1px;padding-bottom: 5px !important;}
 
 #sidebar h2 {padding-bottom: 5px;font-size:10px;}
@@ -1142,7 +1142,7 @@ form, fieldset {margin:0;padding:0;border-style:none;}
 
 
 .contact-form input, .contact-form textarea {padding:8px !important;}
-.textwidget input[type='text'], .textwidget textarea { width: 100% !important; }\
+.textwidget input[type='text'], .textwidget textarea { width: 100% !important; }
 .contact-form {padding-top:15px;}
 .contact-form .clear-form { clear: both; }
 .contact-form input[type='text'] { width: 300px; margin-bottom: 13px; }
