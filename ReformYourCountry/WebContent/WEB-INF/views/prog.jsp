@@ -23,6 +23,13 @@
  float:left; 
  width:224px;"
 }
+.developer_name {
+ font-size: 1.3em;
+ margin-top:5px;
+}
+.developer_descr {
+ font-size: 0.8em;
+}
 </style>
 </head>
 <body>
@@ -38,22 +45,28 @@
 	 <div class="col1">
 
         <div><img alt="Cédric Fieux" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
-        <div>Cédric Fieux</div><br />
-        <div>Design (Css,template), BBCode Converter, Picture Uploader,Hosting, DB (SchemaUpdate, java configuration), Vote system, Spring MVC adjustmen</div>   
+        <div class="developer_name">Cédric Fieux</div>
+        <p class="developer_descr">Design (Css,template), BBCode Converter, Picture Uploader,Hosting, DB (SchemaUpdate, java configuration), Vote system, Spring MVC adjustment.</p>
+        <br/>
+        <br/>
      </div>
      
      <div class="col2">
 
-        <div><img alt="Delphine Lafaille" class="realshadow"  src="images/developpers/delphine.jpg"></div>
-        <div>Delphine Lafaille</div><br />
-        <div>bibliography, user image, Hosting, site styling (cu3er: 3d application, CSS, template), beta label</div>   
+        <div><img alt="Delphine Lafaille" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
+        <div class="developer_name">Delphine Lafaille</div>
+        <p class="developer_descr">bibliography, user image, Hosting, site styling (cu3er: 3d application, CSS, template), beta label</p>  
+        <br/>
+        <br/> 
      </div>
      
      <div class="col3">
 
         <div><img alt="Jamal Bouda" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
-        <div>Jamal Bouda</div><br />
-        <div>Domain model, Spring forms (user: display & edit, action: create, edit, display), Validation (user, article & url’s), Navigation, SEO</div>   
+        <div class="developer_name">Jamal Bouda</div>
+        <p class="developer_descr">Domain model, Spring forms (user: display & edit, action: create, edit, display), Validation (user, article & url’s), Navigation, SEO</p> 
+        <br/>
+        <br/> 
      </div>
      
    </div> 
@@ -63,22 +76,28 @@
      <div class="col1">
 
         <div><img alt="Jérôme Panaioli" class="realshadow"  src="images/developpers/jerome_panaioli.jpg"></div>
-        <div>Jérôme Panaioli</div><br />
-        <div>Absent, n'iiiiiiiiimporte quoi</div>   
+        <div class="developer_name">Jérôme Panaioli</div>
+        <p class="developer_descr">Absent, n'iiiiiiiiimporte quoi</p>
+        <br/>
+        <br/>   
      </div>
      
      <div class="col2">
 
-        <div><img alt="Johnny Shamoon" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
-        <div>Johnny Shamoon</div><br />
-        <div style="max-width:178px ">Group create , group edit,group list & display ,  user group list, user group list edit</div>   
+        <div><img alt="Johnny Shamoon" class="realshadow"  src="images/developpers/johnny_shamoon.jpg"></div>
+        <div class="developer_name">Johnny Shamoon</div>
+        <p class="developer_descr">Group create , group edit,group list & display ,  user group list, user group list edit</p>   
+        <br />
+        <br />
      </div>
      
      <div class="col3">
 
         <div><img alt="Julien Ciarma" class="realshadow"  src="images/developpers/julien_ciarma.jpg"></div>
-        <div>Julien Ciarma</div><br />
-        <div>Présent, n'iiiiiiiiimporte quoi</div>   
+        <div class="developer_name">Julien Ciarma</div>
+        <p class="developer_descr">Présent, n'iiiiiiiiimporte quoi</p>   
+        <br />
+        <br />
      </div>
      
    </div>
@@ -88,22 +107,28 @@
      <div class="col1">
 
         <div><img alt="Lionel Timmerman" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
-        <div>Lionel Timmerman</div><br />
-        <div>Absent, n'iiiiiiiiimporte quoi vvvvvvvvvvvvvv vvvvvvvvvvvvvvvvvvvvvvv vvvvvvvvvv vvvvvvvvv</div>   
+        <div class="developer_name">Lionel Timmerman</div>
+        <p class="developer_descr">Absent, n'iiiiiiiiimporte quoi vvvvvvvvvvvvvv vvvvvvvvvvvvvvvvvvvvvvv vvvvvvvvvv vvvvvvvvv</p>   
+        <br />
+        <br />
      </div>
      
      <div  class="col2"  >
 
         <div><img alt="Maxime Sauvage" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
-        <div>Maxime Sauvage</div><br />
-        <div>Présent, n'iiiiiiiiimporte quoi</div>   
+        <div class="developer_name">Maxime Sauvage</div>
+        <p class="developer_descr">Présent, n'iiiiiiiiimporte quoi</p>   
+        <br />
+        <br />
      </div>
      
      <div class="col3">
 
-        <div><img alt="Piba Mutanda Kanzevu" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
-        <div>Piba Mutanda Kanzevu</div><br />
-        <div>Login, Logout, Register, Action edit & action display, User group list edit, List  users of group, User group list, Page prog</div>   
+        <div><img alt="Piba Mutanda Kanzevu" class="realshadow"  src="images/developpers/piba_mutanda_kanzevu.jpg"></div>
+        <div class="developer_name">Piba Mutanda Kanzevu</div>
+        <p class="developer_descr">Login, Logout, Register, Action edit & action display, User group list edit, List  users of group, User group list, Page prog</p>  
+        <br/>
+        <br /> 
      </div>
      
    </div>  
@@ -112,8 +137,10 @@
      <div class="col1">
     
         <div><img alt="Thomas Van Roy" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
-        <div>Thomas Van Roy</div><br />
-        <div>BBCode parser , SEO , article publishing, form tags, privilege edit, various scripts</div>   
+        <div class="developer_name">Thomas Van Roy</div>
+        <p class="developer_descr">BBCode parser , SEO , article publishing, form tags, privilege edit, various scripts</p>   
+        <br/>
+        <br/>
      </div>
   </div>    
 </body>
