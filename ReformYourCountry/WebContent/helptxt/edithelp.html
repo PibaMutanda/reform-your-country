@@ -1,85 +1,196 @@
 <!doctype html>
 <html>
 <head>
-<META http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
-Aide BBCode<br/><br/>
+<style type="text/css">
+.titre1 {
+	text-align: center;
+	font-size: 30px;
+	font-weight: bold;
+}
+
+.titre2 {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.titre3 {
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.exemple {
+	color: red;
+}
+/* .titre3{color:white;} */
+</style>
+</head>
+<body>
+	<div class="titre1">Aide BBCode</div>
+	<br />
+	<br />
+
+	<div class="titre2">1.[Quote], référence bibliographique</div>
+	<br />
+
+	<div class="titre3">Référencer un livre:</div>
+
+	<p class="exemple">[quote bib="abreviation"]ma citation[/quote]
+	<p>Affichera le texte "ma citation" ,sur lequel le deplacement de
+		la souris créera une pop up qui référencera les details du livre
+		renseigné par l'attribut "bib", bib étant l'abréviation du livre. Le
+		titre du livre, le nom de l'auteur et l'année de publication seront
+		affichés sous le texte "ma citation".
+	<div class="titre3">Reférencer un livre dans le texte:</div>
+
+	<p class="exemple">L'auteur dit: [quote bib="abreviation"
+		inline="true"]ma citation[/quote]</p>
+
+	<p>Affichera juste "ma citation" au sein du texte courant, sur
+		lequel le deplacement de la souris créera une pop up qui affichera les
+		details du livre renseigné par l'attribut "bib". L'attribut "inline",
+		avec la valeur "true", permet de voir "ma citation" au coeur du texte
+		autours ("L'auteur dit:" dans notre exemple) et sans la ligne avec les
+		détails sur le livre.</p>
+
+	<div class="titre3">Réferencer un auteur:</div>
+
+	<p class="exemple">[quote author="Anonyme" ]Sors les deux vaches
+		qu'on les compte[/quote]</p>
+
+	<p>Affichera "Sors les deux vaches qu'on les compte". Le texte sera
+		suivi du nom de l'auteur qui, ici est "Anonyme".</p>
+
+	<div class="titre3">Réferencer un auteur avec un lien web
+		externe:</div>
+
+	<p class="exemple">[quote author="Anonyme"
+		out="http://www.site.com"]Sors les deux vaches qu'on les
+		compte[/quote]</p>
+
+	<p>Affichera "Sors les deux vaches qu'on les compte". Le texte sera
+		suivi du nom de l'auteur, sur lequel le lecteur pourra cliquer.
+		L'attribut out (optionnel) permet de spécifier le site vers lequel
+		diriger le visiteur(ne pas oublier le "http://"). C'est en général le
+		site d'où est extrait la citation.</p>
+
+	<div class="titre3">Attributs</div>
+	<table>
+		<tr>
+			<th>Nom</th>
+			<th>Usage</th>
+			<th>Type</th>
+			<th>Description</th>
+		</tr>
+		<tr>
+			<td class="exemple">bib</td>
+			<td>optionel</td>
+			<td>alphanumérique</td>
+			<td>renseigne l'abreviation du livre existant dans la base de
+				donnée</td>
+			</p>
+		</tr>
+		<tr>
+			<td class="exemple">inline</td>
+			<td>optionel</td>
+			<td>"true" or "false"</td>
+			<td>si true , la citation sera affichée tel quel</td>
+		</tr>
+		<tr>
+			<td class="exemple">author</td>
+			<td>optionel si "bib" pas utilisé</td>
+			<td>alphabétique</td>
+			<td>renseigne le nom d'un auteur d'une citation, le nom sera
+				affiché sous la citation, ne doit pas être utilisé conjointement de
+				"bib"</td>
+		</tr>
+		<tr>
+			<td class="exemple">out</td>
+			<td>optionel si "author" est utilisé</td>
+			<td>url</td>
+			<td>affiche un lien html, ne peut-être utilisé que si l'attribut
+				"author" est renseigné</td>
+		</tr>
+	</table>
 
 
-<h2>1.[Quote], référence bibliographique</h2>
+	<!-- LINK - LINK - LINK - LINK - LINK - LINK - LINK - LINK - LINK - LINK - LINK - LINK - LINK - LINK -  -->
+	<br />
+	<div class="titre2">2.[Link]</div>
 
-<h3>Référencer un livre:</h3>
-<p>[quote bib="abreviation"]ma citation[/quote]<p>
+	<br />
+	<div class="titre3">Référencer un lien:</div>
 
-Affichera le texte "ma citation" ,sur lequel le deplacement de la souris créera une pop up qui référencera les details
-du livre renseigné par l'attribut "bib", bib étant l'abréviation du livre. Le titre du livre, le nom de l'auteur et l'année
-de publication seront affichés sous le texte "ma citation".
+	<p class="exemple">[Link article="abcd"]un article[/link]</p>
 
-<h3>Reférencer un livre dans le texte:</h3>
-<p>L'auteur dit: [quote bib="abreviation" inline="true"]ma citation[/quote]<p>
+	<p>Affichera un lien html vers un article enregistré sur
+		enseignement2.be. Dans notre exemple, "abcd" est le nom
+		symbolique-raccourci de l'article.</p>
 
-Affichera juste "ma citation" au sein du texte courant, sur lequel le deplacement de la souris créera une pop up qui affichera les details
-du livre renseigné par l'attribut "bib". L'attribut "inline", avec la valeur "true", permet de voir "ma citation" au coeur du texte autours ("L'auteur dit:" dans notre exemple) et sans la ligne avec les détails sur le livre.
+	<div class="titre3">Référencer un lien dans une citation:</div>
 
-<h3>Réferencer un auteur:</h3>
-<p>[quote author="Anonyme" ]Sors les deux vaches qu'on les compte[/quote]</p>
+	<p class="exemple">[quote]Je suis une citation avec [link
+		article="devoirs"]un hyperlien[/link] vers un autre article
+		dedans[/quote]</p>
 
-Affichera "Sors les deux vaches qu'on les compte". Le texte sera suivi du nom de l'auteur qui, ici est "Anonyme".
-
-<h3>Réferencer un auteur avec un lien web externe:</h3>
-<p>[quote author="Anonyme" out="http://www.site.com"]Sors les deux vaches qu'on les compte[/quote]</p>
-
-Affichera "Sors les deux vaches qu'on les compte". Le texte sera suivi du nom de l'auteur, sur lequel le lecteur pourra cliquer. 
-L'attribut out (optionnel) permet de spécifier le site vers lequel diriger le visiteur(ne pas oublier le "http://"). C'est en général le site d'où est extrait la citation.
-
-<h3>Attributs</h3>
-<table>
-<tr><th>Nom</th><th>Usage</th><th>Type</th><th>Description</th></tr>
-<tr><td>bib</td><td>optionel</td><td>alphanumérique</td><td>renseigne l'abreviation du livre existant dans la base de donnée</td></tr>
-<tr><td>inline</td><td>optionel</td><td>"true" or "false"</td><td>si true , la citation sera affichée tel quel</td></tr>
-<tr><td>author</td><td>optionel  si "bib" pas utilisé</td><td>alphabétique</td><td>renseigne le nom d'un auteur d'une citation, le nom sera affiché sous la citation, ne  doit pas être utilisé conjointement de "bib"</td></tr>
-<tr><td>out</td><td>optionel si "author" est utilisé</td><td>url</td><td>affiche un lien html, ne peut-être utilisé que si l'attribut "author" est renseigné</td></tr>
-</table>
+	<p>Affichera une citation avec un lien html vers l'article
+		"devoirs" à l'intérieur</p>
 
 
-<!-- LINK - LINK - LINK - LINK - LINK - LINK - LINK - LINK - LINK - LINK - LINK - LINK - LINK - LINK -  -->
-<h2><a id = "link">2.[Link]</a></h2>
+	<div class="titre3">Attributs</div>
+	<table>
+		<tr>
+			<th>Nom</th>
+			<th>Usage</th>
+			<th>Type</th>
+			<th>Description</th>
+		</tr>
+		<tr>
+			<td class="exemple">article</td>
+			<td>optionel</td>
+			<td>alphanumérique</td>
+			<td>renseigne l'URI d'un article du site enseignement2.be</td>
+		</tr>
+		<tr>
+			<td class="exemple">out</td>
+			<td>optionel</td>
+			<td>URL</td>
+			<td>renseigne un lien web vers lequel le lecteur sera redirigé</td>
+		</tr>
+		<tr>
+			<td class="exemple">abrev</td>
+			<td>optionel</td>
+			<td>alphabétique</td>
+			<td>abréviation d'un article d'enseignement2.be</td>
+		</tr>
+	</table>
 
+	<br />
+	<div class="titre2">3.[Action]</div>
+	... TODO: texte à écrire.
 
-<h3>Référencer un lien:</h3>
+	<br />
+	<br />
+	<div class="titre2">4.[Image]</div>
 
-<p>[Link article="abcd"]un article[/link]</p>
+	<br />
+	<div class="titre3">Référencer une image:</div>
 
-<p>Affichera un lien html vers un article enregistré sur enseignement2.be. Dans notre exemple, "abcd" est le nom symbolique-raccourci de l'article.</p>
+	<p class="exemple">class="exemple">[image name="monImage.jpg"
+		style="float:right;"/]</p>
+	<p>
 
-<h3>Référencer un lien dans une citation:</h3>
+		Affichera une image uploadée. L'attribut "name" identifie l'image.<br />
+		Optionnellement, on peut indiquer un attribut style qui sera transcrit
+		tel quel dans l'html. C'est typiquement utilisé pour positionner
+		l'image dans le texte à gauche ou a droite, avec un padding.
+	<div class="titre2">5.[Escape]</div>
+	<div class="titre3">Inclure des brackets</div>
+	<div class="exemple">[escape] Je fais des maths [ comme ceci [ ou
+		cela ]]]]]]]]]]. Point. [/escape]</div>
 
-<p>[quote]Je suis une citation avec [link article="devoirs"]un hyperlien[/link] vers un autre article dedans[/quote]</p>
-
-<p>Affichera une citation avec un lien html vers l'article "devoirs" à l'intérieur</p>
-
-
-<h3>Attributs</h3>
-<table>
-<tr><th>Nom</th><th>Usage</th><th>Type</th><th>Description</th></tr>
-<tr><td>article</td><td>optionel</td><td>alphanumérique</td><td>renseigne l'URI d'un article du site enseignement2.be</td></tr>
-<tr><td>out</td><td>optionel</td><td>URL</td><td>renseigne un lien web vers lequel le lecteur sera redirigé</td></tr>
-<tr><td>abrev</td><td>optionel</td><td>alphabétique</td><td>abréviation d'un article d'enseignement2.be</td></tr>
-</table>
-
-<h2><a id="action">3.[Action]</a></h2>
-... TODO: texte à écrire.
-
-<h2><a id="image">4.[Image]</a></h2>
-<h3>Référencer une image:</h3>
-<p>[image name="monImage.jpg" style="float:right;"/]<p>
-
-Affichera une image uploadée. L'attribut "name" identifie l'image.<br/>
-Optionnellement, on peut indiquer un attribut style qui sera transcrit tel quel dans l'html. C'est typiquement utilisé pour positionner l'image dans le texte à gauche ou a droite, avec un padding.
-
-   
-<h2><a id="action">5.[Escape]</a></h2>
-Permet d'include des brackets "[" ou "]" dans le texte sans qu'ils ne soient interprétés comme des débuts ou des fins de balises.
-exemple: [escape] Je fais des maths [ comme ceci [ ou cela ]]]]]]]]]]. Point. [/escape]
-
+	<br />Permet d'include des brackets "[" ou "]" dans le texte sans
+	qu'ils ne soient interprétés comme des débuts ou des fins de balises.
+</body>
 </html>
