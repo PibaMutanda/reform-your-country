@@ -6,49 +6,72 @@
 <%@ page session="false"%>
 
 <head>
-  <LINK href="css/social.css" rel="stylesheet" type="text/css">
+<LINK href="css/social.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
-<ryctag:pageheadertitle title="Connexion"/>
+<ryctag:pageheadertitle title="Connexion"/> 
+Pour participer (voter, argumenter, etc.), vous devez vous connecter avec votre utilisateur.
+<div style="padding-top:20px;">    
+	<!-- SOCIAL SIGNIN - RIGHT COLUMN -->
+	<div style="border-left-style: solid; border-width: 1px; float:right; padding-left:20px; width:300px;">
 
-<!-- LOCAL SIGNIN - LEFT COLUMN -->
-<div style="float: left; border-right-style: solid; border-width: 1px; padding-right: 20px;">
-	<h5>Connexion avec votre compte enseignement2</h5>
-	<p>Si vous n'avez pas de compte facebook, google ou autre <br>(ou ne désirez simplement pas les utiliser ici), <br>vous pouvez vous connecter avec un pseudonyme enseignement2.be <br>(qui nécessite que vous créiez un utilisateur au préalable)</p>
-	<%@ include file="login.jsp"%>
-</div>
+		<h5>Connexion via un réseau social</h5>
+		<p>Vous pouvez facilement utiliser votre compte facebook, google ou autre pour vous connecter à enseignement2.be</p>
+		<!-- FACEBOOK SIGNIN -->
+	
+		<div>
+		<form name="fb_signin" id="fb_signin" action="<c:url value="/signin/facebook"/>" method="POST">
+			<input type="hidden" name="scope" value="email,publish_stream,offline_access" /> 
+				<div class="container">
+				se connecter avec<br> 
+					<input class="image-login" type="image" alt="logo facebook" src="images/social_logo/facebook.jpg" />
+				</div>
+		</form>
+		</div>
+		<br/>
 
+		<!-- TWITTER SIGNIN -->
+		
+		<div>
+		<form id="tw_signin" action="<c:url value="/signin/twitter"/>"
+			method="POST">
+			<div class="container">se connecter avec<br> 
+				<input style="padding-top:5px;" type="image" alt="logo twitter" src="images/social_logo/twitter.jpg" />
+			</div>
+		</form>
+		</div>
+		<br/>
+		
+		<!-- LINKEDIN SIGNIN -->
+		<div>
+		<form name="li_signin" id="li_signin"
+			action="<c:url value="/signin/linkedin"/>" method="POST">
+				<div class="container">se connecter avec<br>
+			     	<input style="padding-top:5px;" type="image" alt="logo linkedin" src="images/social_logo/linkedin.jpg" />
+				</div>
+		</form>
+		</div>
+		<br/>
 
-<!-- SOCIAL SIGNIN - RIGHT COLUMN -->
-<div style="float: left; padding-left: 20px;">
+		<!-- GOOGLE SIGNIN -->
+		<div>
+		<form name="go_signin" id="go_signin"
+			action="<c:url value="/signin/google"/>" method="POST">
+			<div class="container">se connecter avec<br> 
+				<input class="image-login" type="image" alt="logo google"
+				src="images/social_logo/google.jpg" />
+			</div>
+		</form>
+		</div>
+	</div>
 	
-	<h5>Connexion via un réseau social</h5>
-	<p>Vous pouvez facilement utiliser votre compte facebook,<br>google ou autre pour vous connecter à enseignement2.be</p>
-	<!-- FACEBOOK SIGNIN -->
-	<form name="fb_signin" id="fb_signin" action="<c:url value="/signin/facebook"/>" method="POST">
-		<input type="hidden" name="scope"
-			value="email,publish_stream,offline_access" />
-		<input class="img" type="image" alt="logo facebook" src="images/social_logos/facebook.jpg"/>
-	</form>
+	<!-- LOCAL SIGNIN - LEFT COLUMN -->
+	<div style="padding-right: 20px;">
+		<h5>Connexion avec votre compte enseignement2</h5>
+		<p>Si vous n'avez pas de compte facebook, google ou autre <br>(ou ne désirez simplement pas les utiliser ici), <br>vous pouvez vous connecter avec un pseudonyme <br>enseignement2.be (qui nécessite que vous <a href="<c:url value="register"/>">créiez un utilisateur</a> <br>au préalable)</p> 
+		<%@ include file="login.jsp"%>
+	</div>
 	
-	<!-- TWITTER SIGNIN -->
-	<form id="tw_signin" action="<c:url value="/signin/twitter"/>" method="POST">
-			<input class="img" type="image"  alt="logo twitter" src="images/social_logos/twitter.jpg"/>
-	</form>
-
-	<!-- LINKEDIN SIGNIN -->
-	<form name="li_signin" id="li_signin" action="<c:url value="/signin/linkedin"/>" method="POST">
-	    <input class="img" type="image"  alt="logo linkedin" src="images/social_logos/linkedin.jpg"/>
-	</form>
-	
-	<!-- GOOGLE SIGNIN -->
-	<form name="go_signin" id="go_signin" action="<c:url value="/signin/google"/>" method="POST">
-	    <input class="img" type="image"  alt="logo google" src="images/social_logos/google.jpg"/>
-	</form>
-	<p>Vous pouvez vous connecter sur enseignement2 avec <br>
-	un compte social ci-dessus ou bien <a href="<c:url value="register"/>">vous enregistrer</a> <br> 
-	avec un nouveau compte enseignement2.be.</p>
-	
-</div>
+</div>	
 </body>
