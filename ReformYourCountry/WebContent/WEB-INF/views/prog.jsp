@@ -44,7 +44,7 @@
           
 	 <div class="col1">
 
-        <div><img alt="Cédric Fieux" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
+        <div><img alt="Cédric Fieux" class="realshadow"  src="images/developpers/cedric_fieux.jpg"></div>
         <div class="developer_name">Cédric Fieux</div>
         <p class="developer_descr">Design (Css,template), BBCode Converter, Picture Uploader,Hosting, DB (SchemaUpdate, java configuration), Vote system, Spring MVC adjustment.</p>
         <br/>
