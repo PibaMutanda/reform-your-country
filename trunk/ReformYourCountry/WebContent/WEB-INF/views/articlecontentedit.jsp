@@ -12,22 +12,22 @@
 <script type="application/javascript" src="js/int/autosave.js"></script>
 </head>
 <body>
-<ryctag:pageheadertitle title="Éditer le contenu de l'article"/>
+    <ryctag:pageheadertitle title="Éditer le contenu de l'article"/>
+    
     <%-- Help handle --%>
     <div id="helphandle">
         <span id="click" style="color: #182947;"><b>?</b></span>
         <div id="helptext"></div>
         <%-- Will contain the help text--%>
     </div>
-    <br />
-	<h1>Editer le contenu d'un article</h1>	
+
 	<form:form modelAttribute="article" action="article/contenteditsubmit">
 		<table><tr>
 				<td><input id="save" type="submit" value="Sauver" /><span id="saving" style="font-family: tahoma; font-size: 9px;"></span></td>
 				<td><form:errors path="content" cssClass="error" /></td>
 				</tr></table>
 		<!-- do not erase class , cols and rows attribute of the textarea , these values are used by textarea-expander.js -->
-		<form:textarea path="content" class="expand autosaveable" cols="60" rows="3" style="width:96%" />
+		<form:textarea path="content" class="expand autosaveable" cols="60" rows="3" style="width:100%" />
 		<form:hidden path="id" />
 	</form:form>
 </body>
