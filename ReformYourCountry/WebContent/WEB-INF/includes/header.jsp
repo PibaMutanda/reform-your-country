@@ -60,7 +60,7 @@
 									 <li><a href="/about/pourquoi.jsp"><span>Pourquoi ce site?</span></a></li>
 									 <li><a href="index-video-left.html"><span>Fonctionnalités</span></a></li>
 									 <li><a href="/about/contribuer.jsp"><span>Comment contribuer?</span></a></li>
-									 <li><a href="index-3d-1.html"><span>Contactez-nous</span></a></li>
+									 <li><a href="/contact"><span>Contactez-nous</span></a></li>
 								 </ul>
 							</li>
 							
