@@ -5,38 +5,43 @@
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag"%>
 <html>
 <body>
-    <ryctag:pageheadertitle title="Pourquoi ce site?"> 
+    <ryctag:pageheadertitle title="Comment contribuer?"> 
     </ryctag:pageheadertitle>
 <p>
-enseignement2.be veut montrer la voie vers une nouvelle version de l’enseignement dans notre pays. Une version améliorée qui fonctionnerait mieux. Beaucoup d'encre a coulé sur notre système d'enseignement et sur les modifications qu'il faut y apporter. Avec toutes ces publications dispersées, iI nous semblait manquer une vision cohérente et complète de l'avenir souhaitable, avec la liste des prochaines actions à prendre et ce qui empêche de les prendre.
+Vous aimeriez contribuer à ce site? Vous êtes le bienvenu. Certaines contributions peuvent être apportées directement sur le site; il suffit d’avoir créé un utilisateur et d’être connecté.
 </p>
-<p>
-Par ce site, nous voulons informer la population des problèmes qui minent notre système scolaire. Ce dernier est si difficile à comprendre, que même les professionnels de l’enseignement que nous avons rencontrés sont souvent bien ignorants des sous-domaines qui ne les concernent pas quotidiennement.
-</p>
-<p>
-Or, nous pensons que tout est lié: démotivation, affectations, budget, autonomie, devoirs, échecs, formation des enseignants, autorité, réseaux, massification, compartimentage, etc.
-La liste est très longue, comme en témoigne la liste des articles ci-contre. Toucher à l’un de ces domaines, influe sur les autres. De loin, pour plupart des gens, cela parraît flou, alors on accable la fatalité: c’est à cause de la télévision; les jeunes ne sont plus comme avant; c’est l’immigration; c’est faute d’argent; et pourquoi pas à cause du climat... Pourtant il existe des causes nombreuses et précises sur lesquels on peut agir, et qui ne laissent que très peu de place à la fatalité. Par contre, en parler peut fâcher certains.
-</p>
-<p>
-Depuis des années, la plupart des acteurs de l’enseignement (ministres, pouvoirs organisateurs, associations de parents, syndicats) évitent souvent le débat utile, celui qui (malheureusement) fâche. Lorsqu’on analyse leurs échanges dans les médias, ils aboutissent généralement, à “on aimerait bien faire ceci ou cela, mais on n’a pas assez d’argent”. Or, de l’argent, il y en a plus qu’assez dans l’enseignement Belge francophone. Il est mal utilisé (LINK PAGE BUDGET). Mais si on l’utilisait mieux, il faudrait en retirer à certains qui se sentiraient lésés. La conséquence est un immobilisme: comme on a peur de ce qui fâche, on se cantonne à décider sur les détails.
-</p>
-<p>
-Ce site a été créé pour susciter des débats utiles, porteurs de changements. Il structure l’information en 3 couches:
-</p>
+<ul>
+<li>
+Points d’action: Nous vous invitons à voter pour ou contre les points d’actions qui vous inspirent. Plus avant dans un point d’action, vous pouvez aussi voter pour les arguments qui vous semblent les plus pertinents, voir rédiger un argument vous-même.
+</li>
+<li>
+Diffusion: N’hésitez pas à inviter vos connaissances, parents et enseignants, à s’informer et à donner leur avis ici. Vous pouvez le faire oralement ou via internet:
+sur enseignement2.be, en cliquant le bouton “j’aime” d’un article,
+sur youtube (LINK XXXXXXX notre channel youtube) en cliquant sur le bouton “j’aime” de nos vidéos.
+</li>
+</ul>
+
 <center>
-<img src="/images/iceberg.jpg"/>
+<img src="/images/Mobile-Commerce2.jpg" class="realshadow"/>
 </center>
 <p>
-Cet iceberg représente l’information disponible ici. Le grand public n’a le temps de regarder que la partie émergée: de courtes vidéos dont la vocation est d’interpeler sur des dysfonctionnements.
+D’autres tâches sont plus lourdes et nécessitent de nous contacter (LINK XXXXXXXXXXXXXXXXX). Voici les rôles/tâches typique de contributeurs d’enseignement2.be:
 </p>
+<ul class="list sitemap-list">
+<li>
+Textes - fond: Avez-vous des choses à raconter sur notre système scolaire? Vous pouvez contribuer à la rédaction des <a href="/article">articles à publier.</a> Vous pouvez également contribuer sous la forme d’une interview, anonyme ou non.
+</li>
+<li>
+Textes - forme: Avez-vous une belle écriture? Ajoutez un peu de style, d’orthographe et d’âme aux <a href="/article">articles à publier.</a> 
+</li>
+<li>
+Programmation: un projet open-source a spécialement été créé pour ce site par <a href="/prog">des bénévoles</a>. Vous pouvez mettre vos compétences de programmation Java/JavaScript ou votre sensibilité artistique html/CSS en valeur pour une bonne cause.
+</li>
+</ul>
+<center>
+<img src="/images/flower.png" class="realshadow"/>
+</center>
 <p>
-La couche du milieu est constituée des résumés d’articles, pour ceux qui veulent en savoir plus sans y passer des heures.
 </p>
-<p>
-La masse principale est constituée du texte des articles. Elle tente de décortiquer les problèmes en profondeur avec de nombreuses références.
-</p>
-<p>
-Ces trois couches invitent chacun à s’instruire autant qu’il le désire sur ses sujets préférés. Si nous voulons un débat utile, il doit être raisonné et non passionnel. Nous avons tenté de faciliter au maximum le travail de celui qui veut comprendre de quoi il parle avant d’argumenter dans son foyer, sa salle des profs ou à la radio.
-</p>    
 </body>
 </html>
