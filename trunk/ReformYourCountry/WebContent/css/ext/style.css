@@ -909,7 +909,7 @@ a:hover { text-decoration:none;}
 /* 1. GENERAL TYPOGRAPHY
 /*---------------------------------------------------------------*/
 #main .frame h1 {padding-bottom: 15px !important;font-size:24px !important;float:left;margin:3px 0 0 0 !important;color: #FFF;}
-#main h1, #main h2, #main h3, #main h4, #main h5, #main h6 {padding-bottom: 10px;font-weight: normal;margin:0;color: #222;}
+/* #main h1, #main h2, #main h3, #main h4, #main h5, #main h6 {padding-bottom: 10px;font-weight: normal;color: #222;} */ /*no need --maxime 2012/10/01*/
 #main h1 {font-size:2.1em;}
 #main h2 {font-size:1.9em;}
 #main h3 {font-size:1.7em;}
@@ -920,7 +920,7 @@ a:hover { text-decoration:none;}
 
 .search-title {color: #000;font-size:1.9em;}
 #main .portfolio_full_width h3 {color: #000;}
-#content p {margin:0;padding:0 0 20px 0;}
+/*#content p {margin:0;padding:0 0 20px 0;}*/ /* no need --maxime 10/01/2012*/
 p strong {color: #555;}
 .sitemap-last p {line-height:25px;}
 #content .sub-box3 .cols-holder {padding:41px 0 0;}
