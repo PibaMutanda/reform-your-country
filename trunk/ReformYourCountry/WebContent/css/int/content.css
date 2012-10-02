@@ -99,12 +99,20 @@
 /* div defining the content of a book displayed on the bibliography page and in the tooltip */
 .book { 
 	text-align: left;
-	font-size: 110%;
+	font-size:0.8em;
 }
-
+.book .bookInfo{
+	font-size:0.8em;
+	font-style: italic;
+	text-align: right;
+	margin-top:2px;
+}
+.book .bookContent{
+	text-align: justify;
+}
+.book div >a{font-size:1.2em;}
 .imgbook {
-	float:left;
-	padding: 0px 10px 10px 0px;
+	float:left;padding-right: 15px;
 }
 
 .authorbook {   /* Inside tooltip  */
