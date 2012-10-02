@@ -29,11 +29,11 @@
 	<h3>A propos</h3>
 	<div class="footer_post">
 		<ul class="list sitemap-list">
-			 <li><a href="#">Qui sommes nous?</a></li>
+			 <li><a href="/about/about-us.jsp">Qui sommes nous?</a></li>
 			 <li><a href="#">Pourquoi ce site?</a></li>
 			 <li><a href="#">fonctionnalités</a></li>
 			 <li><a href="#">Comment contribuer?</a></li>
-			 <li><a href="#">Contactez-nous</a></li>
+			 <li><a href="/contact">Contactez-nous</a></li>
 		</ul>	
 	</div><!-- end footer_post -->
 </div><!-- end third one_fourth_column -->
