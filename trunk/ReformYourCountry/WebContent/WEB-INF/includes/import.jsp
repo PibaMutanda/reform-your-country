@@ -16,8 +16,10 @@
 <link rel="stylesheet" type="text/css" href="/css/ext/style.css"  /> 
 <link rel="stylesheet" type="text/css" href="/css/ext/karma-royal-blue.css" />
 <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/css/ext/lt8.css" media="screen"/><![endif]-->
-<!-- ***************************** END CSS **************************** -->    
 
+<!-- *****for printing***** -->
+<link rel="stylesheet" type="text/css" href="/css/print.css" media="print" />
+<!-- ***************************** END CSS **************************** -->    
 
 <!-- ***************************** ICON **************************** -->    
 <%--maybe must we put an ie condition --%>
