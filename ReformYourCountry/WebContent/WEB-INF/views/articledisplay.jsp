@@ -26,9 +26,10 @@
 	<ryctag:breadcrumbelement label="${article.title}" />
  </ryctag:pageheadertitle>
 
- <div style="display:block;">
-  <div style="float: left;">
+ <div style="display:block;"><%-- block who containing edit tool and no public view message --%>
+  
     <c:if test="${!article.publicView}">
+		<div style="float: left;">
 		<p>Cet article n'est pas disponible au public.
      	<c:choose>
   	       <c:when test="${displayDate != null}">
@@ -40,8 +41,9 @@
 		 </c:choose>
 		 </p>
 		 <br/>
+ 	</div>
    </c:if>
- </div>
+
 <div class="article-options">
 <ryc:conditionDisplay privilege="EDIT_ARTICLE">
 	    <ul class="list sitemap-list">
@@ -53,9 +55,8 @@
 
 </ryc:conditionDisplay>
 </div>
+</div><%-- /block who containing edit tool and no public view message --%>
 
-
-</div>
 <div  style="display:inline-block;"	>
 
 <ryc:conditionDisplay privilege="EDIT_ARTICLE">
@@ -64,9 +65,10 @@
 
 
 <!-- ARTICLE CONTENT -->
+
 <c:choose>
   	  <c:when test="${showContent}">
-		${articleContent}
+		<div class="article_content">${articleContent}</div>
 	  </c:when>
 	  
 	  <c:otherwise> <%-- We do not show the text, but the countdown --%>
@@ -91,6 +93,7 @@
 	  </c:otherwise>
 </c:choose>
 </div>
+
 </body>
 </html>   
 
