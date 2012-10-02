@@ -57,9 +57,9 @@
 							<li ><a href=""><span><strong>A propos</strong></span></a>
 								<ul class="sub-menu">
 								 <li><a href="index-jquery-2.html"><span>Qui sommes-nous?</span></a></li>
-									 <li><a href="index-jquery-2.html"><span>Pourquoi ce site?</span></a></li>
+									 <li><a href="/about/pourquoi.jsp"><span>Pourquoi ce site?</span></a></li>
 									 <li><a href="index-video-left.html"><span>Fonctionnalités</span></a></li>
-									 <li><a href="index-video-right.html"><span>Comment contribuer?</span></a></li>
+									 <li><a href="/about/contribuer.jsp"><span>Comment contribuer?</span></a></li>
 									 <li><a href="index-3d-1.html"><span>Contactez-nous</span></a></li>
 								 </ul>
 							</li>
