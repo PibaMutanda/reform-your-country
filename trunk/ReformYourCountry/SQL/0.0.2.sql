@@ -9,12 +9,10 @@
 -- 2012-09-25 Thomas
     alter table book add column url varchar(255) ;
 -- 2012-09-27 Thomas
-    alter table article 
-    add column description text;
+    alter table article add column description text;
 -- 2012-09-28 Lionel
 CREATE TABLE userconnection
-(
-  userid character varying(255) NOT NULL,
+( userid character varying(255) NOT NULL,
   providerid character varying(255) NOT NULL,
   provideruserid character varying(255) NOT NULL,
   rank integer NOT NULL,
@@ -26,7 +24,6 @@ CREATE TABLE userconnection
   refreshtoken character varying(255),
   expiretime bigint,
   CONSTRAINT userconnection_pkey PRIMARY KEY (userid , providerid , provideruserid ));
-  
 -- 2012-09-28 Maxime
     ALTER TABLE article ALTER url SET NOT NULL;
     ALTER TABLE article ADD UNIQUE (url);
