@@ -36,7 +36,7 @@ Si, dans notre quête, nous pouvons les épargner, tant mieux. Par contre, si l�
 <p>
 Au delà de la création du site et de son contenu de base, nous invitons tous ceux qui se sentent concernés, à participer au contenu, de manière anonyme ou pas.
 </p>
-Une page permet de nous contacter. <a href= "/about/contact.jsp">Contactez-nous</a>
+Une page permet de nous contacter. <a href= "/contact">Contactez-nous</a>
 <p>
 La mission que nous nous sommes donnée est de faire en sorte d’améliorer le système scolaire de la Belgique francophone, c’est à dire augmenter:
 les connaissances acquises par les enfants,
