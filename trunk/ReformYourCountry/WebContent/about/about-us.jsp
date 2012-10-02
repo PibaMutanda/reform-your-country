@@ -9,7 +9,7 @@
 
 <body>
 
-<ryctag:pageheadertitle title="${user.firstName} ${user.lastName}"/>
+<ryctag:pageheadertitle title="Qui sommes nous?"/>
 
 <p>
 		
