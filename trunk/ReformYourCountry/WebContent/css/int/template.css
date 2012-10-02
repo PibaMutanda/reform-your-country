@@ -6,6 +6,15 @@
 .container-template{
 	position:relative;
 }
+/*cf style.css use of inline-blokc instead of floating*/
+#sub_nav, #content{
+    display: inline-block;
+    vertical-align: top;
+}
+#sub_nav{
+    margin-right: 10px;
+}
+
 .menu-template{
 	overflow-x: hidden;  
 	float:left;
@@ -15,10 +24,7 @@
  	border-right: 2px solid rgb(67, 84, 126); 
 }
 .body-template{
-	float:left; 
 	width:800px;
-	top:0;
-	right:0;
 }
 .footer-template{
 	 clear:both;

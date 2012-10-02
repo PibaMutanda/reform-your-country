@@ -68,8 +68,13 @@
 /***Display***/
 .article_content {
 	font-family: Georgia, "DejaVu Serif", Norasi, serif;
-	line-height: 1.4em;  
 	color:#444;
+}
+
+.article_content p{
+    line-height: 1.4em;
+    margin-top: .5em;
+    margin-bottom: .5em;
 }
 
 
@@ -85,12 +90,13 @@
 .quote-block{
 	color:#777;
 	font-family: "Times New Roman", Times, "Liberation Serif", FreeSerif, serif;
-	margin-left:50px;
+	margin: 0;
+	margin-left: 40px;
 }
 
 .quote-block p {   /* Only the <p>'s inside quote-blocks (and not the normal text outside quote-block but inside article_content.
                       Overrides the .article_content selector */
-	margin: 0.5em; /* to override defaut p style */
+/*	margin: 0.5em;*/ /* to override defaut p style */
 	font-size: 1.05em;
 }
 
@@ -114,7 +120,8 @@
 }
 .book div >a{font-size:1.2em;}
 .imgbook {
-	float:left;padding-right: 15px;
+	float:left;
+	padding-right: 15px;
 }
 
 .authorbook {   /* Inside tooltip  */
