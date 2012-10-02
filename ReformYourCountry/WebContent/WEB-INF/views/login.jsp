@@ -19,13 +19,14 @@
 			</c:when>
   		    <c:otherwise>
 			    <input type="password" name="password" required="required" value="secret"/><br/>
-			    <p>Your are in dev mode : default password should be "secret"</p>
+			    Your are in dev mode: password is not verified (type any).<br/>
 			</c:otherwise>
 		</c:choose>
+        J'ai <a href="">oublié mon mot de passe</a><br />
 		<br />
 		
-		J'ai <a href="">oublié mon mot de passe</a><br /> 
-		<input type="checkbox" name="keepLoggedIn" /><label for="keepLoggedIn">Je souhaite rester connecté</label>
+		 
+		<input type="checkbox" name="keepLoggedIn" /><label for="keepLoggedIn"><span class="tooltip" data-tooltip="Si vous cochez cette case, lors de votre prochaine visite vous serez connectés automatiquement">Je souhaite rester connecté</span></label>
 		
-		<input type="submit" value="se connecter"/>
+		<input type="submit" value="me connecter"/>
 	</form>
