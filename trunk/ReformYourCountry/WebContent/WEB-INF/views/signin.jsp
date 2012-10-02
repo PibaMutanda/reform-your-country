@@ -10,7 +10,7 @@
 </head>
 
 <body>
-<ryctag:pageheadertitle title="Connexion" breadcrumb="false" />
+<ryctag:pageheadertitle title="Connexion"/>
 
 <!-- LOCAL SIGNIN - LEFT COLUMN -->
 <div style="float: left; border-right-style: solid; border-width: 1px; padding-right: 20px;">

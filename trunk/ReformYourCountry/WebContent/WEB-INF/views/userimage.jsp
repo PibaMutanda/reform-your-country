@@ -10,7 +10,7 @@
 <body>
 
 <!-- <h1>Page pour uploader une image d'un utilisateur</h1> -->
-<ryctag:pageheadertitle title="Ajouter une image" breadcrumb="true">
+<ryctag:pageheadertitle title="Ajouter une image">
 	<ryctag:breadcrumbelement label="${user.firstName} ${user.lastName}" link="user/${user.userName}" />
 	<ryctag:breadcrumbelement label="Ajouter une image" />
 </ryctag:pageheadertitle>
