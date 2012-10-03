@@ -20,7 +20,7 @@
         </div>
         </c:if>
         <p class="bookContent">${book.description}</p>
-        <a href="${book.externalUrl}"><img  alt="Lien externe" title="Lien externe"src="/images/_global/links.png" width="32px" height="32px"/></a>
+        <a href="${book.externalUrl}"target="_blank"><img  alt="Lien externe" title="Lien externe"src="/images/_global/links.png" width="32px" height="32px"/></a>
          <ryc:conditionDisplay privilege="EDIT_BOOK">
 	 		 <ryctag:submit entity="${book}" value="Editer" action="book/edit"/>	
 	    <form method="post" action="book/remove">

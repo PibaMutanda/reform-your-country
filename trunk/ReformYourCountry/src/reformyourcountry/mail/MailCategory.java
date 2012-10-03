@@ -23,6 +23,7 @@ package reformyourcountry.mail;
  * 
  */
 public enum MailCategory {
+    USER("User"),
     CONTACT("Contact"),
     NEWSLETTER("NewsLetter");
 //    QUESTION("Question update(s)"),

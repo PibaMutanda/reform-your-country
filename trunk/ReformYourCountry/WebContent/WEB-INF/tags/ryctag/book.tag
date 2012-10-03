@@ -21,11 +21,11 @@
 	    ${book.description}
 	    </p>
 	    <center>
-	   		<a href="${book.externalUrl}">
+	   		<a href="${book.externalUrl}"target="_blank">
 	   			<img  alt="Lien externe" title="Lien externe"src="/images/_global/links.png" width="32px" height="32px"/>
 	   		</a>
     		<ryc:conditionDisplay privilege="EDIT_BOOK">
-    			<a href="book/${book.url}">
+    			<a href="book/${book.url}" >
     				<img  alt="Editer" title="Editer"src="/images/_global/edit.png" width="32px" height="32px"/>
     			</a>
 	   	 	</ryc:conditionDisplay>
