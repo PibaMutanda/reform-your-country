@@ -16,9 +16,16 @@ import reformyourcountry.service.LoginService;
 public class LogoutController {
     
     @Autowired LoginService loginService;
-
+    @RequestMapping("/logout")
+    public String logout() {
+        
+         loginService.logout();
+        
+         
+        return "home";
+    }
     @RequestMapping("/ajax/logout")
-    public ResponseEntity<String> logout() {
+    public ResponseEntity<String> logoutAjax() {
         
          loginService.logout();
         
