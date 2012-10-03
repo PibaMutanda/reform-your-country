@@ -55,7 +55,7 @@
 
         <div><img alt="Delphine Lafaille" class="realshadow"  src="images/developpers/delphine_lafaille.jpg"></div>
         <div class="developer_name">Delphine Lafaille</div>
-        <p class="developer_descr">bibliography, user image, Hosting, site styling (cu3er: 3d application, CSS, template), beta label</p>  
+        <p class="developer_descr">bibliography, user image, Hosting, site styling (cu3er: 3d application, CSS, template), beta label, sitemesh</p>  
         <br/>
         <br/> 
      </div>
