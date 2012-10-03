@@ -30,15 +30,16 @@
         </c:if>
         </font>
 	</center>
-    
-    
-	<c:if test="${stackTrace != null}">
-		Exception:<br/>
-		<font size="2" color="red">
-		  <pre>  <!-- To take the line returns into account in the stack trace -->
-		     ${stackTrace}
-		  </pre>
-		</font>
-	</c:if> 
+
+	<c:if test="<%=ContextUtil.devMode%>">    
+		<c:if test="${stackTrace != null}">
+			Exception:<br/>
+			<font size="2" color="red">
+			  <pre>  <!-- To take the line returns into account in the stack trace -->
+			     ${stackTrace}
+			  </pre>
+			</font>
+		</c:if> 
+	</c:if>
 </body>
 </html>
