@@ -14,16 +14,17 @@ import java.util.Scanner;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.apache.commons.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import reformyourcountry.exception.InvalidPasswordException;
+import reformyourcountry.exception.SocialAccountAlreadyExistException;
 import reformyourcountry.exception.UserAlreadyExistsException;
 import reformyourcountry.exception.UserLockedException;
 import reformyourcountry.exception.UserNotFoundException;
 import reformyourcountry.exception.UserNotValidatedException;
-import reformyourcountry.exception.SocialAccountAlreadyExistException;
 import reformyourcountry.mail.MailingDelayType;
 import reformyourcountry.model.Action;
 import reformyourcountry.model.Argument;
@@ -44,6 +45,7 @@ import reformyourcountry.security.Privilege;
 import reformyourcountry.service.LoginService;
 import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
 import reformyourcountry.service.UserService;
+import reformyourcountry.util.Logger;
 import reformyourcountry.web.ContextUtil;
 import reformyourcountry.web.UrlUtil;
 
@@ -52,7 +54,9 @@ public class BatchCreate implements Runnable {
 
 	@PersistenceContext
 	EntityManager em;
-
+	
+	@Logger Log log;
+	
 	@Autowired
 	UserService userService;
 	@Autowired
@@ -485,7 +489,6 @@ public class BatchCreate implements Runnable {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		
 		article5.setContent(strContent.toString());
 		article5.setParent(null);
 		article5.setPublicView(true);
