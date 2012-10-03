@@ -41,8 +41,15 @@
 				<!-- ***************** - END content - ***************** -->
 			</div><!-- end main-holder -->
 		</div><!-- main-area -->
-		<%@ include file="/WEB-INF/includes/footer.jsp"%>
+	<div class="mainbottom">
+		<div class="main-ar">
+
+			<div style="padding-left:160px; bottom:0px" >
+				<img src="images/_global/bottomline.png" width="1px"height="48px"/>
+			</div>
+			</div>
 	</div>
+	<%@ include file="/WEB-INF/includes/footer.jsp"%>
 </div>
 	
 <!-- ******************* BETA ************************ -->	

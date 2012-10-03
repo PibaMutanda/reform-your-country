@@ -41,15 +41,15 @@
 <div class="one_fourth_last">
 	<h3>Follow Us</h3>
 	<ul class="social_icons">
-		<li><a href="#" onclick="window.open(this.href);return false;" class="rss">rss</a></li>
-		<li><a href="http://www.twitter.com/truethemes" class="twitter" onclick="window.open(this.href);return false;">Twitter</a></li>
-		<li><a href="#" class="facebook" onclick="window.open(this.href);return false;">Facebook</a></li>
-		<li><a href="#" class="flickr" onclick="window.open(this.href);return false;">Flickr</a></li>
-		<li><a href="http://www.youtube.com/user/enseignement2" class="youtube" onclick="window.open(this.href);return false;">YouTube</a></li>
-		<li><a href="#" class="linkedin" onclick="window.open(this.href);return false;">LinkedIn</a></li>
-		<li><a href="#" class="foursquare" onclick="window.open(this.href);return false;">FourSquare</a></li>
-		<li><a href="#" class="delicious" onclick="window.open(this.href);return false;">Delicious</a></li>
-		<li><a href="#" class="digg" onclick="window.open(this.href);return false;">Digg</a></li>
+<!-- 		<li><a href="#" onclick="window.open(this.href);return false;" class="rss">rss</a></li> -->
+<!-- 		<li><a href="http://www.twitter.com/truethemes" class="twitter" onclick="window.open(this.href);return false;">Twitter</a></li> -->
+<!-- 		<li><a href="#" class="facebook" onclick="window.open(this.href);return false;">Facebook</a></li> -->
+<!-- 		<li><a href="#" class="flickr" onclick="window.open(this.href);return false;">Flickr</a></li> -->
+		<li><a href="http://www.youtube.com/user/enseignement2" class="youtube" onclick="window.open(this.href);return false;">YouTube</a></li> 
+<!-- 		<li><a href="#" class="linkedin" onclick="window.open(this.href);return false;">LinkedIn</a></li> -->
+<!-- 		<li><a href="#" class="foursquare" onclick="window.open(this.href);return false;">FourSquare</a></li> -->
+<!-- 		<li><a href="#" class="delicious" onclick="window.open(this.href);return false;">Delicious</a></li> -->
+<!-- 		<li><a href="#" class="digg" onclick="window.open(this.href);return false;">Digg</a></li> -->
 	</ul>
 </div><!-- end fourth one_fourth_column -->
 
@@ -63,7 +63,7 @@
 <!-- /***************** - Bottom Footer - *****************  -->
 <div id="footer_bottom">
  <div class="info" >
-  <a href="#">2012 enseignement2.be - v0.0.1.</a> 
+  <a href="#">2012 enseignement2.be - <%= Current.getVersion()%></a> 
  </div><!-- end info -->
 </div><!-- end footer_bottom -->
 
