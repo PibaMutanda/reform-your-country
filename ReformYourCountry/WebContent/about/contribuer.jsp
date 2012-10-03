@@ -8,7 +8,7 @@
     <ryctag:pageheadertitle title="Comment contribuer?"> 
     </ryctag:pageheadertitle>
 <p>
-Vous aimeriez contribuer à ce site? Vous êtes le bienvenu. Certaines contributions peuvent être apportées directement sur le site; il suffit d’avoir créé un utilisateur et d’être connecté.
+Aimeriez-vous contribuer à ce site? Vous êtes le bienvenu. Certaines contributions peuvent être apportées directement sur le site; il suffit d’avoir créé un utilisateur et d’être connecté.
 </p>
 <ul class="list">
 <li>
