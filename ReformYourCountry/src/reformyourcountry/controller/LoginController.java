@@ -27,10 +27,8 @@ public class LoginController extends BaseController<User> {
     @Autowired UserDisplayController userDisplayController;
 
     
-    
-
-    @RequestMapping("/ajax/login")
-    public String login() {
+    @RequestMapping(value="/login", method=RequestMethod.GET)
+    public String signin() {
         return "login";
     }
 
@@ -88,7 +86,11 @@ public class LoginController extends BaseController<User> {
      * @param password required=false because we don't use pswd in DEV
      * @param keepLoggedIn required=false because when user don't check the checkbox we get a 400 error
      * @return
+     * 
+     * used with login.js
+     * Actualy not used because we dedicated a signin page
      */
+    /*
     @RequestMapping(value="ajax/loginsubmit",method=RequestMethod.POST)
     public ResponseEntity<String> loginSubmitAjax(@RequestParam("identifier") String userNameOrMail,
             @RequestParam(value="password",required=false) String password,
@@ -135,41 +137,15 @@ public class LoginController extends BaseController<User> {
         }
     }
     
-    @RequestMapping(value="/signin", method=RequestMethod.GET)
-    public String signin() {
-        
-        
-        
-        return "signin";
-        
+    @RequestMapping("/ajax/login")
+    public String login() {
+        return "login";
     }
+
+*/
     
     
-    /*@RequestMapping("/loginFacebook")
-    public String loginFacebook(HttpServletRequest request,HttpSession session){
-        
-      
-        double randomValue = Math.random();
-        
-        String state = Math.round(randomValue*1000)+"";
-        session.setAttribute("fbstate",state);
-        
-        URL u;
-        try {
-            u = new URL("https://www.facebook.com/dialog/oauth?"+
-                            "client_id="+FacebookSecret.appId+
-                            "&redirect_uri="+FacebookSecret.redirect_uri+
-                            "&state="+state);
-            
-        } catch (Exception e) {
-        
-          throw new RuntimeException(e);
-        }
-       
-        
-        return "redirect:"+u.toExternalForm();
-        
-    }*/
+  
     
     
     
