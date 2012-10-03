@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import reformyourcountry.exception.InvalidPasswordException;
+import reformyourcountry.exception.SocialAccountAlreadyExistException;
 import reformyourcountry.exception.UserAlreadyExistsException;
 import reformyourcountry.exception.UserLockedException;
 import reformyourcountry.exception.UserNotFoundException;
@@ -26,16 +27,16 @@ public class BatchSecurity {
     @Autowired 
     private UserRepository ur;
 
-    public void run(User user) throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException, UserAlreadyExistsException {
+    public void run(User user) throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException, UserAlreadyExistsException ,SocialAccountAlreadyExistException{
         LoginService loginService = (LoginService) ContextUtil.getSpringBean("loginService"); 
         UserService userService = (UserService)ContextUtil.getSpringBean("userService");
 
-        if(loginService.identifyUser(user.getUserName()) == null){
+        if(loginService.identifyUserByEMailOrName(user.getUserName()) == null){
             user = userService.registerUser(true,user.getUserName(),user.getPassword(),user.getMail());
             user.setAccountStatus(AccountStatus.ACTIVE);
-            user = loginService.login(user.getUserName(), user.getPassword(), false);
+            user = loginService.login(user.getUserName(), user.getPassword(), false,user.getId());
         } else {
-            user = loginService.login(user.getUserName(), user.getPassword(), false);
+            user = loginService.login(user.getUserName(), user.getPassword(), false,user.getId());
         }          
 
         // Set privileges
