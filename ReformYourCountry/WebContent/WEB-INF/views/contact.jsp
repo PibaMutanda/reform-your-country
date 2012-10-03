@@ -7,7 +7,7 @@
 <ryctag:pageheadertitle title="Contactez-nous"> 
     </ryctag:pageheadertitle>
     
-<p>Nous sommes joignables par e-mail à l’adresse IMG“info@enseignement2.be” ou bien via le formulaire ci-dessous.  <!-- demander Cédric -->
+<p>Nous sommes joignables par e-mail à l’adresse <img style= "position:relative; top:3px;" src="/images/_global/image-mailbon.png"/> ou bien via le formulaire ci-dessous.  
 </p>
 <center>
 <form  action="/sendmail" method="post">
