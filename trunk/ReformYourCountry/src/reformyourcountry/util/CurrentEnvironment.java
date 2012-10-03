@@ -16,8 +16,22 @@ public class CurrentEnvironment {
 	private String facebookClientId;
 	@Value("${facebook.clientSecret}") // needed by facebook when user token requested
 	private String facebookClientSecret;
+	@Value("${tweeter.clientId}")
+	private String tweeterClientId;
+	@Value("${tweeter.clientSecret}")
+	private String tweeterClientSecret;
 	
-	public Environment getEnvironment() {
+	
+	
+	public String getTweeterClientId() {
+        return tweeterClientId;
+    }
+
+    public String getTweeterClientSecret() {
+        return tweeterClientSecret;
+    }
+
+    public Environment getEnvironment() {
 		return environment;
 	}
 
