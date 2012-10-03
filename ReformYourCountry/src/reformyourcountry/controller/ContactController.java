@@ -28,7 +28,7 @@ public class ContactController extends BaseController<User> {
 
     @RequestMapping("/sendmail")
     public ModelAndView sendMail(@RequestParam String sender,@RequestParam String subject,@RequestParam String content){
-        mailService.sendMail(mailService.ADMIN_MAIL, sender,subject,content,MailType.IMMEDIATE,MailCategory.QUESTION);
+        mailService.sendMail(mailService.ADMIN_MAIL, sender,subject,content,MailType.IMMEDIATE,MailCategory.CONTACT);
         ModelAndView mv = new ModelAndView("contact");
         if (SecurityContext.getUser()!=null){
             mv.addObject("mailsender",SecurityContext.getUser().getMail());
