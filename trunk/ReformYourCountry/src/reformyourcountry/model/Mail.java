@@ -3,6 +3,9 @@ package reformyourcountry.model;
 import java.util.Date;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.Type;
+
 import reformyourcountry.mail.MailCategory;
 import reformyourcountry.mail.MailType;
 
@@ -28,7 +31,7 @@ public class Mail extends BaseEntity {
 	@Column(nullable = false,length = 255)
 	private String subject;
 	
-	@Lob
+	@Type(type = "org.hibernate.type.TextType") //https://github.com/Jasig/uPortal/pull/47
 	@Column(nullable = false)
 	private String content;
 	
