@@ -31,7 +31,19 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
     class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="persistenceUnitName" value="Connection" />
         <property name="dataSource" ref="dataSource"/>  
+        
+        <!-- we add this jpaVendorAdapter because it seem this class synchronises JPA and JDBCTemplate used in spring social 
+         without it the method ProviderSignInUtils.handlePostSignUp(user.getId()+"", request) 
+         calling the method JdbcConnectionRepository.addConnection() (containing the SQL insert)
+         will never perform commit after subsequent insert sql.
+         We don't understand why. We see the insert statement on the traced JDBC connection, but no record in the DB.
+         The following thread made his think about the hack. 
+         http://stackoverflow.com/questions/6777419/how-to-configure-spring-to-make-jpa-hibernate-and-jdbc-jdbctemplate-or-mybati -->
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+        </property>
         <property name="jpaProperties">
+        
             <!-- set extra properties here, e.g. for Hibernate: -->
             <props>
 <!--                 <prop key="hibernate.connection.url">${DB.url}</prop>
@@ -49,6 +61,7 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
         <property name="connectionPoolDataSource">
             <bean
                 class="org.apache.commons.dbcp.cpdsadapter.DriverAdapterCPDS">
+               <!-- <property name="driver" value="net.sf.log4jdbc.DriverSpy" /> use this to trace jdbc BOTH JPA AND JdbcTemplate--> 
                 <property name="driver" value="org.postgresql.Driver" />
                 <property name="url" value="${DB.url}" />
                 <property name="user" value="${DB.userName}" />
