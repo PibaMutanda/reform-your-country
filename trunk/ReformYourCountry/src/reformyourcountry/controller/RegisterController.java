@@ -33,7 +33,7 @@ public class RegisterController extends BaseController<User> {
             return mv;
         }else{
             try {
-                user = userService.registerUser(false, user.getUserName(), user.getPassword(), user.getMail());
+                user = userService.registerUser(false, user.getUserName(), user.getPassword(), user.getMail(),false);
             } catch (UserAlreadyExistsException uaee) {
                 ModelAndView mv = new ModelAndView("register");
                 String msg;
