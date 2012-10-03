@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import reformyourcountry.exception.InvalidPasswordException;
+import reformyourcountry.exception.SocialAccountAlreadyExistException;
 import reformyourcountry.exception.UserLockedException;
 import reformyourcountry.exception.UserNotFoundException;
 import reformyourcountry.exception.UserNotValidatedException;
@@ -50,10 +51,10 @@ public class BatchTestUpdate {
     
     public void loginUser(User user){
         try {
-             loginService.login(user.getUserName(), "secret", false);
+             loginService.login(user.getUserName(), "secret", false,user.getId());
         } catch (UserNotFoundException | InvalidPasswordException
                 | UserNotValidatedException | UserLockedException
-                | WaitDelayNotReachedException e) {
+                | WaitDelayNotReachedException | SocialAccountAlreadyExistException e) {
             throw new RuntimeException (e);
         }
        

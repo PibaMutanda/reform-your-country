@@ -119,7 +119,7 @@ public class BatchCreate implements Runnable {
 	// }
 	public void loginUser(User user) {
 		try {
-			loginService.login(user.getUserName(), "secret", false);
+			loginService.login(user.getUserName(), "secret", false,user.getId());
 		} catch (UserNotFoundException | InvalidPasswordException
 				| UserNotValidatedException | UserLockedException
 				| WaitDelayNotReachedException | SocialAccountAlreadyExistException e) {
