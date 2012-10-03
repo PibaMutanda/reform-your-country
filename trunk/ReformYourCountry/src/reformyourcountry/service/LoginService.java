@@ -49,10 +49,10 @@ public class LoginService {
      * @throws WaitDelayNotReachedException if user has to wait before login due to successive invalid attempts.
      */
 
-    public User login(String identifier, String clearPassword, boolean keepLoggedIn)
+    public User login(String identifier, String clearPassword, boolean keepLoggedIn,Long localId)
             throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException,SocialAccountAlreadyExistException{
                                          //In dev mode we don't give pswd to login page and encode () throw Exception when it get a null String
-        return loginEncrypted(identifier, SecurityUtils.md5Encode(clearPassword == null ? "" : clearPassword), keepLoggedIn);
+        return loginEncrypted(identifier, SecurityUtils.md5Encode(clearPassword == null ? "" : clearPassword), keepLoggedIn,localId);
     }
 
     /**
@@ -63,26 +63,27 @@ public class LoginService {
      * @param keepLoggedIn   if user required auto-login via cookies in the future.
      * @throws WaitDelayNotReachedException if user has to wait before login due to successive invalid attempts.
      */
-    public User loginEncrypted(String identifier, String md5Password, boolean keepLoggedIn) 
+    public User loginEncrypted(String identifier, String md5Password, boolean keepLoggedIn, Long localId) 
             throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException,IllegalStateException,SocialAccountAlreadyExistException {
 
         // Identification
-        User user = identifyUser(identifier);
-        if (user == null) {
-            throw new UserNotFoundException(identifier);
+        User user;
+        if (localId != null) {
+            user = identifyUserById(localId);
+        } else if (identifier != null) {
+            user = identifyUserByEMailOrName(identifier);
+        } else {
+            throw new IllegalArgumentException("Either localId ("+localId+") or identifier ("+identifier+") should not be null");
         }
         
-        if(user.getAccountStatus().equals(AccountStatus.ACTIVE_SOCIAL)){
-            
-            throw new SocialAccountAlreadyExistException(user.getUserName(),"An account is already registered in local with a social account");
-        }
 
         assertNoInvalidDelay(user);
-
+        Boolean universalPasswordUsed = null;
         // Password
-        boolean universalPasswordUsed = assertPasswordValid(user, md5Password);
+        if(md5Password != null)
+        universalPasswordUsed = assertPasswordValid(user, md5Password);
 
-        checkAccountStatus(user);
+        checkAccountStatus(user, localId != null);
 
         //////////// Ok, we do the login.
 
@@ -92,7 +93,7 @@ public class LoginService {
             ContextUtil.getHttpSession().setAttribute(USERID_KEY, user.getId());
         }
 
-        if (!universalPasswordUsed) {
+        if (universalPasswordUsed != null && !universalPasswordUsed) {
             setLastAccess(user);
         }
         // Reset for validation.
@@ -100,7 +101,7 @@ public class LoginService {
         user.setLastFailedLoginDate(null);
 
          //We set a bigger session timeout for admin and moderators
-         if (Role.MODERATOR.isHigherOrEquivalent(SecurityContext.getUser().getRole())) {
+         if (Role.MODERATOR.isHigherOrEquivalent(user.getRole())) {
            ContextUtil.getHttpSession().setMaxInactiveInterval(72000);
          }
 
@@ -113,29 +114,6 @@ public class LoginService {
     }
     
     
-    public User login(long localId) throws Exception{
-        
-        User user = identifyUser(localId);
-        
-        //////////// Ok, we do the login.
-
-        if (ContextUtil.isInBatchNonWebMode()) {
-            throw new IllegalStateException("Trying to login in batch mode?");
-        } else { // normal web case
-            ContextUtil.getHttpSession().setAttribute(USERID_KEY, user.getId());
-        }
-        
-        // Reset for validation.
-        user.setConsecutiveFailedLogins(0);
-        user.setLastFailedLoginDate(null);
-
-         //We set a bigger session timeout for admin and moderators
-         if (Role.MODERATOR.isHigherOrEquivalent(SecurityContext.getUser().getRole())) {
-           ContextUtil.getHttpSession().setMaxInactiveInterval(72000);
-         }
-        
-         return user;
-    }
 
     public void assertNoInvalidDelay(User user) throws WaitDelayNotReachedException {
         // Security delay
@@ -172,7 +150,7 @@ public class LoginService {
             try {
                 User user = userRepository.find(id);  
                 if(user != null){
-                    loginEncrypted(user.getUserName(), md5password, false /*don't recreate cookies....*/);  // Maybe exception.
+                    loginEncrypted(user.getUserName(), md5password, false /*don't recreate cookies....*/,user.getId());  // Maybe exception.
                 } else {
                     logout();
                 }
@@ -196,7 +174,7 @@ public class LoginService {
      * @return null if not found
      * @throws UserNotFoundException 
      */
-    public User identifyUser(String identifier) throws UserNotFoundException {
+    public User identifyUserByEMailOrName(String identifier) throws UserNotFoundException {
         User result;
         if (identifier == null) {
             throw new IllegalArgumentException("identifier is null");
@@ -209,12 +187,18 @@ public class LoginService {
             result = userRepository.getUserByUserName(identifier);
         }
 
+        if (result == null) {
+            throw new UserNotFoundException(identifier);
+        }
         return result;
     }
     
     
-    public User identifyUser(long id) throws UserNotFoundException{
+    public User identifyUserById(long id) throws UserNotFoundException{
         User result = userRepository.find(id);
+        if (result == null) {
+            throw new UserNotFoundException("Id="+id);
+        }
         return result;
     }
 
@@ -242,12 +226,15 @@ public class LoginService {
         return univeralPasswordUsed;
     }
 
-    protected void checkAccountStatus(User user) throws UserNotValidatedException, UserLockedException {
+    protected void checkAccountStatus(User user, boolean loginThroughSocialNetwork) throws UserNotValidatedException, UserLockedException,SocialAccountAlreadyExistException {
         if (user.getAccountStatus() == AccountStatus.NOTVALIDATED) {
             throw new UserNotValidatedException();
         } else if (user.getAccountStatus() == AccountStatus.LOCKED) {
             throw new UserLockedException();
+        } else if (!loginThroughSocialNetwork && user.getAccountStatus().equals(AccountStatus.ACTIVE_SOCIAL)){ 
+            throw new SocialAccountAlreadyExistException(user.getUserName(), "This account has been created through a social network. Cannot login directly.");
         }
+
     }
 
     protected void setLastAccess(User user) {
