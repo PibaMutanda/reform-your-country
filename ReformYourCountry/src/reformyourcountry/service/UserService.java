@@ -47,7 +47,7 @@ public class UserService {
      *            : validate an account directly without send a mail
      */
 
-    public User registerUser(boolean directValidation, String username, String passwordInClear, String mail) throws UserAlreadyExistsException {
+    public User registerUser(boolean directValidation, String username, String passwordInClear, String mail, boolean isSocialAccount) throws UserAlreadyExistsException {
         
         if (userRepository.getUserByUserName(username) != null)    {
             throw new UserAlreadyExistsException(IdentifierType.USERNAME, username);
@@ -68,8 +68,9 @@ public class UserService {
 
         if (directValidation) {
             newUser.setAccountStatus(AccountStatus.ACTIVE);
-        } 
-        else {
+        }  else  if(isSocialAccount){
+            newUser.setAccountStatus(AccountStatus.NOTVALIDATEDSOCIAL);
+        }  else {
             newUser.setAccountStatus(AccountStatus.NOTVALIDATED);
         }
 
