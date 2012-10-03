@@ -1,11 +1,5 @@
 package reformyourcountry.controller;
 
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -55,7 +49,7 @@ public class LoginController extends BaseController<User> {
         String errorMsg = null;
         User user = null;
         try {
-            user = loginService.login(userNameOrMail, password, keepLoggedIn);
+            user = loginService.login(userNameOrMail, password, keepLoggedIn,null);
 
 
         } catch (UserNotFoundException e) {
@@ -85,7 +79,7 @@ public class LoginController extends BaseController<User> {
             this.setMessage(mv, errorMsg);
             return mv;
         } else {
-            return new ModelAndView("redirect:user/"+user.getUserName());
+            return new ModelAndView("redirect:user", "username", user.getUserName());
         }
     }
     
@@ -104,7 +98,7 @@ public class LoginController extends BaseController<User> {
         String errorMsg = null;
         User user = null;
         try {
-            user = loginService.login(userNameOrMail, password, keepLoggedIn);
+            user = loginService.login(userNameOrMail, password, keepLoggedIn,null);
 
 
         } catch (UserNotFoundException e) {
