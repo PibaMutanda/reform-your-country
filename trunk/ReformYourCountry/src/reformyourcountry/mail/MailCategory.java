@@ -23,20 +23,21 @@ package reformyourcountry.mail;
  * 
  */
 public enum MailCategory {
-    CONTRIBUTION("Contribution(s)"),
-    QUESTION("Question update(s)"),
-    BELT("Belt"),
-    COACH("Coach"),
-    COURSE("Course access"),
-    USER("User management"),
-    AUCTION("Auction"),
-    GROUP("Group"),
-    DISCUSSION("Discussion"),
-    NEWSLETTER("NewsLetter"),
-    SPAM("Spam"),
-    BUG("Bug"),
-    INVENTORY("Inventory"),    
-    OBJECTIVE("Objective");
+    CONTACT("Contact"),
+    NEWSLETTER("NewsLetter");
+//    QUESTION("Question update(s)"),
+//    BELT("Belt"),
+//    COACH("Coach"),
+//    COURSE("Course access"),
+//    USER("User management"),
+//    AUCTION("Auction"),
+//    GROUP("Group"),
+//    DISCUSSION("Discussion"),
+//    NEWSLETTER("NewsLetter"),
+//    SPAM("Spam"),
+//    BUG("Bug"),
+//    INVENTORY("Inventory"),    
+//    OBJECTIVE("Objective");
 
     private String text;
     
