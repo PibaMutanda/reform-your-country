@@ -1,4 +1,4 @@
-1) test bug commit svn
+1) test jérome generates a conflict bug commit svn
 2) Voici une petite experience pour reproduire un conflit lors du
 3) commit d'un fichier dans le cas où l'on se synchronise avec le 
 4) repository pour commiter le fichier en question, mais entre le 
