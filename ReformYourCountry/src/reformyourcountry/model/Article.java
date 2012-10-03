@@ -34,10 +34,10 @@ public class Article extends BaseEntity {
 	private String url; //Used to create a more readable URL; derived from the title (ie: if the title is "Le Web 2.0", url will be "le-Web-2-0") 
 
 	@Lob
-	private String summary;
+	private String summary;  // Longer than Article.description, probably 1 page long.
 	
 	@Lob
-	private String description;//Used by meta tag for search engines.
+	private String description; // Used by meta tag for search engines.
 	
 	@Lob
 	private String content;
