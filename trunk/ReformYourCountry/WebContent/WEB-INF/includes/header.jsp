@@ -6,11 +6,11 @@
 			<div class="header-area">
 				<!-- ***************** - LOGO - ***************** -->
 				<div class="logodiv" >
-					<a href="home">
+					<a href="/home">
 						<img src="images/logo/enseignement2-logo-white-small.png"/>
 					</a>
-					<div style="color:#999999; font-size:10px; padding-top:16px;">
-						Analyse indépendante de l'enseignement en Wallonie-Bruxelles.
+					<div style=" font-size:10px; padding-top:16px;">
+						<a href="/about/about-us.jsp">Analyse indépendante de l'enseignement en Wallonie-Bruxelles.</a>
 					</div>
 				</div>
 				<!-- ***************** - END LOGO - ***************** -->	
@@ -22,7 +22,7 @@
 					  	<div class="login-link">
 						      <c:choose>
 						        <c:when test="${current.user!=null}">
-						          <a href="user/${current.user.userName}">${current.user.userName}</a>&nbsp;-&nbsp;
+						          <a href="/user/${current.user.userName}">${current.user.userName}</a>&nbsp;-&nbsp;
 						          <a id="logout" href="logout">déconnexion</a>
 						        </c:when>
 						        <c:otherwise>

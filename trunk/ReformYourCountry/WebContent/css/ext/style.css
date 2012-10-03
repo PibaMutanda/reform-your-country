@@ -1847,6 +1847,7 @@ border-radius: 5px;
 	float:right;
 }
 .logodiv {cursor:pointer; float:left;  padding-top: 28px;}
+.logodiv div a{color:#7D92B9}
 .button{
 	margin: 0;
 padding: 16px 0 17px 21px;
