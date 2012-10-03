@@ -110,7 +110,9 @@ public class MailService {
     public void sendMail(String recipient, User replyTo, String subject, String content, MailType mailType, MailCategory mailCategory){
         this.sendMail(new Mail(recipient, replyTo, subject, mailCategory, content, mailType, true ));
     }
-
+    public void sendMail(String recipient, String replyTo, String subject, String content, MailType mailType, MailCategory mailCategory){
+        this.sendMail(new Mail(recipient, replyTo, subject, mailCategory, content, mailType, true ));
+    }
 
     /**
      * Save a mail to database

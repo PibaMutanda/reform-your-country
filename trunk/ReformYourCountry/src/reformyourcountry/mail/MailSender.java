@@ -198,11 +198,11 @@ public class MailSender extends Thread {
 
         //	this.sendToFile(mp);
         String emailTarget = mail.getUser() != null ? mail.getUser().getMail() : mail.getEmailTarget();
-        String emailSender = mail.getReplyTo() != null ? mail.getReplyTo().getMail() : notifier;
+        String emailSender = mail.getReplyTo() != null ? mail.getReplyTo().getMail() : 
+                (mail.getEmailReplyTo()!=null ?mail.getEmailReplyTo():notifier);
 
         // Sanity Check
         if(StringUtils.isBlank(emailSender)){
-        	
        		log.error("User with no email found : " + mail.getReplyTo().getFullName());
         	return; // Do not continue
         }

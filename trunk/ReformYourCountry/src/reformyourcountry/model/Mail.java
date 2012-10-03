@@ -25,6 +25,10 @@ public class Mail extends BaseEntity {
     @Column(nullable = true,length = 100)
     private String emailTarget;
 
+    //in case the person is not in the database. Null if user is not null.
+    @Column(nullable = true,length = 100)
+    private String emailReplyTo;
+    
 	@Enumerated(EnumType.STRING)
 	private MailCategory mailCategory;
 		
@@ -93,6 +97,20 @@ public class Mail extends BaseEntity {
         this.subject=subject;
         this.useTemplate = useTemplate;
 	}
+	
+	public Mail(String recipient, String replyTo, String subject,
+            MailCategory mailCategory, String content, MailType mailType, boolean useTemplate) {
+        this.user = null;
+        this.replyTo = null;
+        this.setEmailReplyTo(replyTo);
+        this.emailTarget = recipient;
+        this.mailCategory = mailCategory;
+        this.content = content;
+        this.mailType=mailType;
+        this.subject=subject;
+        this.useTemplate = useTemplate;
+    }
+
 
 	//Getters and setters
 
@@ -151,5 +169,13 @@ public class Mail extends BaseEntity {
 	public String getSubject(){
 		return subject;
 	}
+
+    public String getEmailReplyTo() {
+        return emailReplyTo;
+    }
+
+    public void setEmailReplyTo(String emailReplyTo) {
+        this.emailReplyTo = emailReplyTo;
+    }
 
 }
