@@ -9,22 +9,16 @@ import org.springframework.web.context.request.NativeWebRequest;
 import reformyourcountry.service.LoginService;
 import reformyourcountry.web.ContextUtil;
 
-public class RycSignInAdapter implements SignInAdapter{
+public class RycSignInAdapter implements SignInAdapter {
 
-    
- 
-     
     @Override
     public String signIn(String localId, Connection<?> connection, NativeWebRequest request) {
         
         try {
             LoginService loginService = ContextUtil.getSpringBean(LoginService.class);
-                    
-            loginService.login(Long.parseLong(localId));
+            loginService.login(null,null,false,Long.parseLong(localId));
                    
         } catch (Exception e) {
-            
-   
             throw new RuntimeException(e);
         }
              
