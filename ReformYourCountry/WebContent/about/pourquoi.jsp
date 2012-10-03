@@ -8,7 +8,7 @@
     <ryctag:pageheadertitle title="Pourquoi ce site?"> 
     </ryctag:pageheadertitle>
 <p>
-enseignement2.be veut montrer la voie vers une nouvelle version de l’enseignement dans notre pays. Une version améliorée qui fonctionnerait mieux. Beaucoup d'encre a coulé sur notre système d'enseignement et sur les modifications qu'il faut y apporter. Avec toutes ces publications dispersées, iI nous semblait manquer une vision cohérente et complète de l'avenir souhaitable, avec la liste des prochaines actions à prendre et ce qui empêche de les prendre.
+enseignement2.be veut montrer la voie vers une nouvelle version de l’enseignement dans notre pays. Une version améliorée qui fonctionnerait mieux. Beaucoup d'encre a coulé sur notre système d'enseignement et sur les modifications qu'il faut y apporter. Avec toutes <a href= "/book">ces publications dispersées</a>, iI nous semblait manquer une vision cohérente et complète de l'avenir souhaitable, avec <a href= "/action">la liste des prochaines actions à prendre</a> et ce qui empêche de les prendre.
 </p>
 <p>
 Par ce site, nous voulons informer la population des problèmes qui minent notre système scolaire. Ce dernier est si difficile à comprendre, que même les professionnels de l’enseignement que nous avons rencontrés sont souvent bien ignorants des sous-domaines qui ne les concernent pas quotidiennement.
