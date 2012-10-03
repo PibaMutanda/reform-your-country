@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.validation.constraints.Pattern;
 
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
@@ -21,6 +22,13 @@ public class Book extends BaseEntity {
 	private String url; //Used to create a more readable URL; derived from the title (ie: if the title is "Le Web 2.0", url will be "le-Web-2-0")
     
     @Lob
+    /*Forcing type definition to have text type column in postgresql instead of automatic indirect storage of large object (postgresql store lob in a separate table named pg_largeobject and store his id in the "content" column).
+     *Without forcing, JDBC driver use write() method of the BlobOutputStream to store Clob into the database;
+     * this method take an int as parameter an convert it into a byte causing lose of 3 byte information so character are render as ASCII instead of UTF-8 expected .
+     * @see http://stackoverflow.com/questions/9993701/cannot-store-euro-sign-into-lob-string-property-with-hibernate-postgresql
+     * @see http://stackoverflow.com/questions/5043992/postgres-utf-8-clobs-with-jdbc
+     */
+    @Type(type="org.hibernate.type.TextType")
     String description;
     
     String author; // could a list of many authors.

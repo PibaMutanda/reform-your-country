@@ -24,6 +24,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -160,6 +161,13 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     private String password;
 
     @Lob
+    /*Forcing type definition to have text type column in postgresql instead of automatic indirect storage of large object (postgresql store lob in a separate table named pg_largeobject and store his id in the "content" column).
+     *Without forcing, JDBC driver use write() method of the BlobOutputStream to store Clob into the database;
+     * this method take an int as parameter an convert it into a byte causing lose of 3 byte information so character are render as ASCII instead of UTF-8 expected .
+     * @see http://stackoverflow.com/questions/9993701/cannot-store-euro-sign-into-lob-string-property-with-hibernate-postgresql
+     * @see http://stackoverflow.com/questions/5043992/postgres-utf-8-clobs-with-jdbc
+     */
+    @Type(type="org.hibernate.type.TextType")
     private String nameChangeLog; // record the name changes
 
     @Column(nullable = true)

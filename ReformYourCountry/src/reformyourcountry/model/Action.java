@@ -10,6 +10,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Pattern;
 
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotBlank;
 @Entity
 public class Action extends BaseEntity{
@@ -28,6 +29,13 @@ public class Action extends BaseEntity{
 	private String longDescription;
 	
 	@Lob
+    /*Forcing type definition to have text type column in postgresql instead of automatic indirect storage of large object (postgresql store lob in a separate table named pg_largeobject and store his id in the "content" column).
+     *Without forcing, JDBC driver use write() method of the BlobOutputStream to store Clob into the database;
+     * this method take an int as parameter an convert it into a byte causing lose of 3 byte information so character are render as ASCII instead of UTF-8 expected .
+     * @see http://stackoverflow.com/questions/9993701/cannot-store-euro-sign-into-lob-string-property-with-hibernate-postgresql
+     * @see http://stackoverflow.com/questions/5043992/postgres-utf-8-clobs-with-jdbc
+     */
+    @Type(type="org.hibernate.type.TextType")
 	private String content;
 	
 //	private int voteCountPro;
