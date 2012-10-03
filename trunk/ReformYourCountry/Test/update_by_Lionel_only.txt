@@ -5,7 +5,4 @@
 5) moment où l'on se synchronise et le moment ou l'on commit, une personne 
 6) commit le meme fichier, si on ne se resynchronise pas il y a tout qui
 7) pete
-
-
-
-             MA SUPER MODIFICATION
+8)voici le test qui fait tout peter
