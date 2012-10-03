@@ -35,7 +35,7 @@ public class ValidationController {
                     user.setAccountStatus(User.AccountStatus.ACTIVE);
                     log.debug(user.getMail()+" just validated");
                     try {
-                        loginService.loginEncrypted(user.getMail(), user.getPassword(), true);
+                        loginService.loginEncrypted(user.getMail(), user.getPassword(), true,user.getId());
                         result = Result.VALID_AND_LOGGED;
                     } catch (Exception e) {
                         result = Result.VALID_BUT_NOT_LOGGED;  
