@@ -17,7 +17,7 @@ import reformyourcountry.model.User;
 import reformyourcountry.service.UserService;
 
 @Controller
-public class RegisterController {
+public class RegisterController extends BaseController<User> {
     
     @Autowired UserService userService;
     
@@ -44,12 +44,13 @@ public class RegisterController {
                 } else {  // defensive coding
                     throw new RuntimeException("Unsupported type: " + uaee.getType());
                 }
-                mv.addObject("error", msg);
+                setMessage(mv, msg);
                 return mv;
             }
+            
+            return new ModelAndView("redirect:home");
         }
 
-        return new ModelAndView("redirect:home");
     }
 
 }
