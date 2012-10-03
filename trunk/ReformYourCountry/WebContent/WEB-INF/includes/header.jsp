@@ -39,7 +39,7 @@
 					<div>
 						<div style="float:left;">
 						<ul id="menu-main-nav">
-							<li><a href=""><span><strong>Utilisateurs</strong></span></a>
+							<li><a href="user"><span><strong>Utilisateurs</strong></span></a>
 								<ul class="sub-menu">
 									<li><a href="grouplist"><span>Groupes</span></a></li>
 									<c:if test="${current.user!=null}"><li><a href="user/${current.user.userName}"><span>Mon profil</span></a></li></c:if>

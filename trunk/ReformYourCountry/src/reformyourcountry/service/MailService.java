@@ -27,8 +27,6 @@ public class MailService {
     
     @Value("${mail.for.admin.address}")
 	public static String ADMIN_MAIL;  
-    @Value("${mail.for.bug.adress}")
-    public static String BUG_MAIL;  
 
 	@Logger Log logger;
 
