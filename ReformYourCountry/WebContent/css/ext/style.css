@@ -121,16 +121,15 @@ body {margin:0;background:#f4f4f2;font-size:1em;font-family:"helvetica neue",Hel
 #header .rays {background: url(/images/_global/rays.png) 50% 0 no-repeat;height:135px;}
 #header .header-area {width:980px;margin:0 auto;padding:5px 0 0 0;}
 #header .header-area:after {clear:both;display:block;content:"";}
-#main {background:url(/images/_global/bg-main.png)  repeat-x;display:table-footer-group;position:relative;width:100%;}
+#main {background:url(/images/_global/bg-main.png)  repeat-x;position:relative;width:100%;
+padding-top: 1px;}
 #main .main-area {background:url(/images/_global/redline.png) -8px repeat-y;width:980px;margin:1px auto;padding:0 0 5px 0;}
 #main .top-line{background:url(/images/_global/topline.png) -8px repeat-y;width:980px;margin:0 auto;padding: 0px  0 0 0; }
 .tools .place {position:relative;}
 .main-holder {height:1%;overflow:hidden;padding-top:10px;}
 .carousel-holder {width:315px !important;}
-
-
-
-
+.mainbottom{background:url(/images/_global/bg-main-bottom.jpg) repeat-x;position:relative;width:100%;min-height:48px;}
+.main-ar {background:url(/images/_global/redline.png) -8px repeat-y;width:980px;margin: -2px auto -5px auto;}
 
 
 
@@ -211,7 +210,7 @@ body {margin:0;background:#f4f4f2;font-size:1em;font-family:"helvetica neue",Hel
 /*---------------------------------------------------------------*/
 /* 4. FOOTER
 /*---------------------------------------------------------------*/
-#footer {width:100%;position:relative;padding-top: 40px;}
+#footer {width:100%;position:relative;bottom: 0px;/*padding-top: 40px;*/}
 #footer .footer-area {width:980px;margin:0 auto;position:relative;}
 #footer .footer-wrapper {width:980px;overflow:hidden;}
 #footer .footer-holder {width:100%;overflow:hidden;padding:45px 0 25px 6px;}
