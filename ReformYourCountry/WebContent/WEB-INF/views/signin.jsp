@@ -31,39 +31,41 @@ Pour participer (voter, argumenter, etc.), vous devez vous connecter avec votre 
 		</div>
 		<br/>
 
+		<!-- GOOGLE SIGNIN -->
+<!-- 		<div> -->
+<!-- 		<form name="go_signin" id="go_signin" -->
+<%-- 			action="<c:url value="/signin/google"/>" method="POST"> --%>
+<!-- 			<div class="container">se connecter avec<br>  -->
+<!-- 				<input class="image-login" type="image" alt="logo google" -->
+<!-- 				src="images/social_logo/google.jpg" /> -->
+<!-- 			</div> -->
+<!-- 		</form> -->
+<!-- 		</div> -->
+<!-- 		<br/> -->
+
 		<!-- TWITTER SIGNIN -->
 		
-		<div>
-		<form id="tw_signin" action="<c:url value="/signin/twitter"/>"
-			method="POST">
-			<div class="container">se connecter avec<br> 
-				<input style="padding-top:5px;" type="image" alt="logo twitter" src="images/social_logo/twitter.jpg" />
-			</div>
-		</form>
-		</div>
-		<br/>
+<!-- 		<div> -->
+<%-- 		<form id="tw_signin" action="<c:url value="/signin/twitter"/>" --%>
+<!-- 			method="POST"> -->
+<!-- 			<div class="container">se connecter avec<br>  -->
+<!-- 				<input style="padding-top:5px;" type="image" alt="logo twitter" src="images/social_logo/twitter.jpg" /> -->
+<!-- 			</div> -->
+<!-- 		</form> -->
+<!-- 		</div> -->
+<!-- 		<br/> -->
 		
 		<!-- LINKEDIN SIGNIN -->
-		<div>
-		<form name="li_signin" id="li_signin"
-			action="<c:url value="/signin/linkedin"/>" method="POST">
-				<div class="container">se connecter avec<br>
-			     	<input style="padding-top:5px;" type="image" alt="logo linkedin" src="images/social_logo/linkedin.jpg" />
-				</div>
-		</form>
-		</div>
-		<br/>
+<!-- 		<div> -->
+<!-- 		<form name="li_signin" id="li_signin" -->
+<%-- 			action="<c:url value="/signin/linkedin"/>" method="POST"> --%>
+<!-- 				<div class="container">se connecter avec<br> -->
+<!-- 			     	<input style="padding-top:5px;" type="image" alt="logo linkedin" src="images/social_logo/linkedin.jpg" /> -->
+<!-- 				</div> -->
+<!-- 		</form> -->
+<!-- 		</div> -->
+<!-- 		<br/> -->
 
-		<!-- GOOGLE SIGNIN -->
-		<div>
-		<form name="go_signin" id="go_signin"
-			action="<c:url value="/signin/google"/>" method="POST">
-			<div class="container">se connecter avec<br> 
-				<input class="image-login" type="image" alt="logo google"
-				src="images/social_logo/google.jpg" />
-			</div>
-		</form>
-		</div>
 	</div>
 	
 	<!-- LOCAL SIGNIN - LEFT COLUMN -->
