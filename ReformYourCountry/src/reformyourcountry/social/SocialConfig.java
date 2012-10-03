@@ -19,6 +19,9 @@ import org.springframework.social.connect.web.ProviderSignInController;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.api.impl.FacebookTemplate;
 import org.springframework.social.facebook.connect.FacebookConnectionFactory;
+import org.springframework.social.twitter.api.Twitter;
+import org.springframework.social.twitter.api.impl.TwitterTemplate;
+import org.springframework.social.twitter.connect.TwitterConnectionFactory;
 
 import reformyourcountry.model.User;
 import reformyourcountry.security.SecurityContext;
@@ -41,6 +44,11 @@ public class SocialConfig {
         registry.addConnectionFactory(new FacebookConnectionFactory(
             environment.getFacebookClientId(),
             environment.getFacebookClientSecret()));
+        
+        
+        registry.addConnectionFactory(new TwitterConnectionFactory(
+                environment.getTweeterClientId(),
+                environment.getTweeterClientSecret()));
         // add here new oauth provider such as twitter,linked in ...
            
         return registry;
@@ -51,8 +59,6 @@ public class SocialConfig {
     @Bean
     @Scope(value="request", proxyMode=ScopedProxyMode.INTERFACES)
     public ConnectionRepository connectionRepository(){
-        
-       
         User user = SecurityContext.getUser();
         
         if (user == null) {
@@ -81,7 +87,7 @@ public class SocialConfig {
         String url = UrlUtil.getAbsoluteUrl("",Mode.DEV);
         String prepareurl = url.substring(0,url.lastIndexOf("/"));
         controller.setApplicationUrl(prepareurl);  // 1st part of the URL, where "/signing/facebook" will be appended by Spring Social. Then the full URL is given to facebook who will redirect there when facebook login done.
-        controller.setSignUpUrl("/confirmaccount");  // Used if facebook login fails.
+        controller.setSignUpUrl("/confirmaccount");  // Used by Spring Social to enable the user to confirm it's RYC user creation.
         
         return controller;
     }
@@ -97,6 +103,13 @@ public class SocialConfig {
     public Facebook facebook() {
         Connection<Facebook> facebook = connectionRepository().findPrimaryConnection(Facebook.class);
         return facebook != null ? facebook.getApi() : new FacebookTemplate();
+    }
+    
+    @Bean
+    @Scope(value="request", proxyMode=ScopedProxyMode.INTERFACES)   
+    public Twitter tweeter() {
+        Connection<Twitter> twitter = connectionRepository().findPrimaryConnection(Twitter.class);
+        return twitter != null ? twitter.getApi() : new TwitterTemplate();
     }
     
 }
