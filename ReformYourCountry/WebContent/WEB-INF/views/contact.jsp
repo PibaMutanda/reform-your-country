@@ -17,7 +17,7 @@
 			Votre adresse mail
 		</td>
 		<td >
-			<input type="text" name="sender" value="${mailsender}"style="width:100%"/>
+			<input type="email" name="sender" value="${mailsender}"style="width:100%"/>
 		</td>
 	</tr>
 	<tr>

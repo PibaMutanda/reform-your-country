@@ -33,3 +33,7 @@ CREATE TABLE userconnection
     
     ALTER TABLE article ALTER shortName SET NOT NULL;
     ALTER TABLE article ADD UNIQUE (shortName);
+-- 2012-10-03 Cedric
+
+    alter table mail 
+        add column emailreplyto varchar(100);
