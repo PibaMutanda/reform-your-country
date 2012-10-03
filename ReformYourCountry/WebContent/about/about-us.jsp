@@ -9,7 +9,8 @@
 
 <body>
 
-<ryctag:pageheadertitle title="Qui sommes nous?"/>
+<ryctag:pageheadertitle title="Qui sommes nous?">
+</ryctag:pageheadertitle>
 
 <p>
 		

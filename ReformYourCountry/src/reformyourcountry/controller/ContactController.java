@@ -11,7 +11,7 @@ public class ContactController {
 
     @RequestMapping("/contact")
     public ModelAndView contactDisplay(){
-        ModelAndView mv =new ModelAndView("contact");
+        ModelAndView mv = new ModelAndView("contact");
         mv.addObject("user",SecurityContext.getUser());
         return mv;
     }
