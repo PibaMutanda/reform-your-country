@@ -5,7 +5,8 @@
 	id="WebApp_ID" version="3.0">
 	<display-name>ReformYourCountry</display-name>
  		<welcome-file-list>
-        	<welcome-file>/home</welcome-file>
+        	<welcome-file>/home</welcome-file><!-- I don't know why, but when we call the root of the website, the dispatcher don't intercept it, so
+        	we call it from another requestmapping that we add to the welcome-file-list -->
         </welcome-file-list>
 
 

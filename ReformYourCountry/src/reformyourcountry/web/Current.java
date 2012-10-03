@@ -18,8 +18,8 @@ public class Current {
     public User getUser(){
         return SecurityContext.getUser();
     }
-    
-    public static String getVersion() {
+                            
+    public  String getVersion() {
         return VERSION;
     }
 }

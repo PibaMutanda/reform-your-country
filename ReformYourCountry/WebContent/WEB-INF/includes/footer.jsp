@@ -63,7 +63,7 @@
 <!-- /***************** - Bottom Footer - *****************  -->
 <div id="footer_bottom">
  <div class="info" >
-  <a href="#">2012 enseignement2.be - <%= Current.getVersion()%></a> 
+   2012 enseignement2.be - ${current.version} 
  </div><!-- end info -->
 </div><!-- end footer_bottom -->
 
