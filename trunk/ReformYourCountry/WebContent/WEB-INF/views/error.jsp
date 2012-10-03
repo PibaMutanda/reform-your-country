@@ -21,7 +21,7 @@
 		<h2>Ooooops!</h2>
 		<p>Vous avez cassé le système...</p>
 		
-		<img src="images/error.jpg" />
+		<img src="/images/error.jpg" />
 		
         <p>${message}</p>
         

@@ -6,7 +6,7 @@
 			<div class="header-area">
 				<!-- ***************** - LOGO - ***************** -->
 				<div class="logodiv" >
-					<a href="/home">
+					<a href="/">
 						<img src="images/logo/enseignement2-logo-white-small.png"/>
 					</a>
 					<div style=" font-size:10px; padding-top:16px;">
