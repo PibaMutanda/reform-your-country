@@ -70,6 +70,7 @@
         <if>
             <equals arg1="${type}" arg2="PROD" />
             <then>
+                <copy file="${build.dir}/secret.properties" tofile="${build.dir}/secret.properties.back" overwrite="true"/>
                 <copy file="../../prod.properties" tofile="${build.dir}/secret.properties" overwrite="true"/>
             </then>
         </if>
