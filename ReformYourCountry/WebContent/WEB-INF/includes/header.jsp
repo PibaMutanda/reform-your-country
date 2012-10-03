@@ -47,14 +47,14 @@
 								</ul>
 							</li>
 							
-							<li ><a href=""><span><strong>Contenu</strong></span></a>
+							<li ><a href="article"><span><strong>Contenu</strong></span></a>
 								<ul class="sub-menu">
 								 	<li><a href="article"><span>Articles</span></a></li>
 									 <li><a href="action"><span>Actions</span></a></li>
 									 <li><a href="book"><span>Bibliographie</span></a></li>
 								 </ul>
 							</li>
-							<li ><a href=""><span><strong>A propos</strong></span></a>
+							<li ><a href="/about/about-us.jsp"><span><strong>A propos</strong></span></a>
 								<ul class="sub-menu">
 								 <li><a href="/about/about-us.jsp"><span>Qui sommes-nous?</span></a></li>
 									 <li><a href="/about/pourquoi.jsp"><span>Pourquoi ce site?</span></a></li>
