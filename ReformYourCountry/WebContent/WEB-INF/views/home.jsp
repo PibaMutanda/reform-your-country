@@ -16,10 +16,9 @@
 <script type="text/javascript" src="js/ext/CU3ER.js"></script>
 <script type="text/javascript" src="js/ext/home.js"></script>
 <!-- CU3ER content JavaScript part ends here   -->
-
+<title>enseignement2.be</title>
 </head>
 <body>
-
 <!-- ***************** - Homepage 3D Slider - ***************** --><!-- locations where are the pictures -->
 <center>
 <div id="CU3ER-containter" >

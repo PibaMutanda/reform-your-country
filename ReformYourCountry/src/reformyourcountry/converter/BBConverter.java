@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -105,8 +106,15 @@ public class BBConverter {
             processImage(tag);
             break;  
         case "escape":
-			String addText = getInnerTextContent(tag);
-			html += addText;
+        	if(!tag.attributes().isEmpty()){
+				addErrorMessage("You cannot have attributes in an escape tag",tag);
+			}
+			String addText = getInnerTextContent(tag)
+								.replaceAll("\\[", "&#91;")
+								.replaceAll("\\]", "&#93;")
+								.replaceAll("\\<", "&lt;")
+								.replaceAll("\\>", "&gt;");
+			bufferTextForP(addText);
 			break;
 		case "quote" :
 			processQuote(tag);
@@ -205,6 +213,7 @@ public class BBConverter {
 			switch (child.getType()){
 			case Text: 
 				content+= child.getContent();
+				
 				break;
 			case Error:
 				addErrorMessage(child);
@@ -267,9 +276,8 @@ public class BBConverter {
 		// either bib refers a Book or out refers a link to another site (outlink)
 
 		/// 1. We look for a book reference in the quote tag attribute: [quote bib="emile"]...
-		//Book book = null; 
 		Book book = null;
-		String bibValueFromAttrib = tag.getAttributeValue("bib");  // Books can only be referred throub attribute (not nested tag)
+		String bibValueFromAttrib = tag.getAttributeValue("bib");  // Books can only be referred through attribute (not nested tag)
 		if (bibValueFromAttrib != null) {
 			book = bookRepository.findBookByAbrev(bibValueFromAttrib);
 			if (book == null) {
@@ -396,7 +404,7 @@ public class BBConverter {
 				switch(child.getName()){
 				///////////// Unquote
 				case "unquote": 
-					processUnquote(child);
+					bufferTextForP(processUnquote(child));
 					break;
 				case "untranslated":
 					/////////// Untranslate
@@ -407,7 +415,14 @@ public class BBConverter {
 					processLink(child);
 					break;
 				case "escape":
-					String addTxt = getInnerTextContent(child);
+					if(!child.attributes().isEmpty()){
+						addErrorMessage("You cannot have attributes in an escape tag",child);
+					}
+					String addTxt = getInnerTextContent(child)
+							.replaceAll("\\[", "&#91;")
+					        .replaceAll("\\]", "&#93;")
+					        .replaceAll("\\<", "&lt;")
+					        .replaceAll("\\>", "&gt;");
 					html+= addTxt;
 					break;
 				default:
@@ -443,13 +458,13 @@ public class BBConverter {
 		return result;
 	}
 
-	private void processUnquote(BBTag tag) {
+	private String processUnquote(BBTag tag) {
 		supportedAttributes(tag);
 		
-		String htmlTxt="";
-		htmlTxt +="<span class=\"unquote\">"+getInnerTextContent(tag)+"</span>";
+		String result="";
+		result ="<span class=\"unquote\">"+getInnerTextContent(tag)+"</span>";
 		
-		html+= htmlTxt;
+		return result;
 	}
 
 	private BBTag getChildTagWithName(BBTag tag, String name) {

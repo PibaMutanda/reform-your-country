@@ -147,6 +147,7 @@
 /*#helphandle, #helptext define the position of the help button and its text*/ 
 #helphandle, #helptext {
 	position: fixed;
+	z-index: 100;
 }
 /*#helptext defines the form of the help text*/
 #helptext {
