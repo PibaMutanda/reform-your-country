@@ -4,9 +4,15 @@
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag"%>
 <html>
+<head>
+<style type="text/css">
+    .align{
+        text-align: center;
+    }
+</style>
+</head>
 <body>
-    <ryctag:pageheadertitle title="Pourquoi ce site?"> 
-    </ryctag:pageheadertitle>
+    <ryctag:pageheadertitle title="Pourquoi ce site?"></ryctag:pageheadertitle>
 <p>
 enseignement2.be veut montrer la voie vers une nouvelle version de l’enseignement dans notre pays. Une version améliorée qui fonctionnerait mieux. Beaucoup d'encre a coulé sur notre système d'enseignement et sur les modifications qu'il faut y apporter. Avec toutes <a href= "/book">ces publications dispersées</a>, iI nous semblait manquer une vision cohérente et complète de l'avenir souhaitable, avec <a href= "/action">la liste des prochaines actions à prendre</a> et ce qui empêche de les prendre.
 </p>
@@ -23,9 +29,7 @@ Depuis des années, la plupart des acteurs de l’enseignement (ministres, pouvo
 <p>
 Ce site a été créé pour susciter des débats utiles, porteurs de changements. Il structure l’information en 3 couches:
 </p>
-<center>
-<img src="/images/iceberg.jpg" class="realshadow"/>
-</center>
+<div class="align"><img src="/images/iceberg.jpg" class="realshadow"/></div>
 <p>
 Cet iceberg représente l’information disponible ici. Le grand public n’a le temps de regarder que la partie émergée: de courtes vidéos dont la vocation est d’interpeler sur des dysfonctionnements.
 </p>
@@ -37,6 +41,6 @@ La masse principale est constituée du texte des articles. Elle tente de décort
 </p>
 <p>
 Ces trois couches invitent chacun à s’instruire autant qu’il le désire sur ses sujets préférés. Si nous voulons un débat utile, il doit être raisonné et non passionnel. Nous avons tenté de faciliter au maximum le travail de celui qui veut comprendre de quoi il parle avant d’argumenter dans son foyer, sa salle des profs ou à la radio.
-</p>    
+</p>
 </body>
 </html>
