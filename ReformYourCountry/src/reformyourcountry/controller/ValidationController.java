@@ -38,8 +38,8 @@ public class ValidationController {
                 } else {  // Not validated yet (or locked...)
                     if (user.getAccountStatus().equals(User.AccountStatus.NOTVALIDATED)) {
                         user.setAccountStatus(User.AccountStatus.ACTIVE);
-                    } else if (user.getAccountStatus().equals(User.AccountStatus.NOTVALIDATEDSOCIAL)){
-                        user.setAccountStatus(AccountStatus.ACTIVE_SOCIAL);
+                    /*}//TODO uncommentelse if (user.getAccountStatus().equals(User.AccountStatus.NOTVALIDATEDSOCIAL)){
+                        user.setAccountStatus(AccountStatus.ACTIVE_SOCIAL);*/
                     } else {
                         throw new RuntimeException("Unsupported value " + user.getAccountStatus()); // TODO: replace with a nice user message (probably account locked, for example).
                     }

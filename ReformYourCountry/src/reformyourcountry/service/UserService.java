@@ -68,9 +68,9 @@ public class UserService {
 
         if (directValidation) {
             newUser.setAccountStatus(AccountStatus.ACTIVE);
-        }  else  if(isSocialAccount){
+        } /*//TODO uncomment else  if(isSocialAccount){
             newUser.setAccountStatus(AccountStatus.NOTVALIDATEDSOCIAL);
-        }  else {
+        }*/  else {
             newUser.setAccountStatus(AccountStatus.NOTVALIDATED);
         }
 

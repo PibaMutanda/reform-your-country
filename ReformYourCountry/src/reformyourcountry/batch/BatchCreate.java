@@ -138,7 +138,7 @@ public class BatchCreate implements Runnable {
 		User user = null;
 		try {
 			user = userService.registerUser(true, "test", "secret",
-					"test@mail.com");
+					"test@mail.com", false);
 
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Date bithdate;
@@ -176,7 +176,7 @@ public class BatchCreate implements Runnable {
 		User user = null;
 		try {
 			user = userService.registerUser(true, "moder", "secret",
-					"moder@mail.com");
+					"moder@mail.com", false);
 
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Date bithdate;
@@ -221,7 +221,7 @@ public class BatchCreate implements Runnable {
 		User user = null;
 		try {
 			user = userService.registerUser(true, "user", "secret",
-					"user@mail.com");
+					"user@mail.com", false);
 
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Date bithdate;
