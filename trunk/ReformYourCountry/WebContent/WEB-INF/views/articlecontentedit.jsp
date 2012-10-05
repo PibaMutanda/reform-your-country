@@ -15,10 +15,9 @@
     <ryctag:pageheadertitle title="Éditer le contenu de l'article"/>
     
     <%-- Help handle --%>
-    <div id="helphandle">
-        <span id="click" style="color: #182947;"><b>?</b></span>
-        <div id="helptext"></div>
-        <%-- Will contain the help text--%>
+    <div id="helphandle" style="display:none;">
+        <span id="click" style="color: #182947; font-weight:bold;">?</span>
+        <div id="helptext"></div><%-- Will contain the help text--%>
     </div>
 
 	<form:form modelAttribute="article" action="article/contenteditsubmit">
