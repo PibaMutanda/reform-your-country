@@ -15,8 +15,8 @@
 	 <h3>Utilisateurs</h3>
 	 <div class="footer_post">
 		 <ul class="list sitemap-list">
-		 <li><a href="user">liste des utilisateurs</a></li>
-		 <li><a href="grouplist">groupes</a></li>
+		 <li><a href="user">Liste des utilisateurs</a></li>
+		 <li><a href="grouplist">Groupes</a></li>
 		 </ul>
 	</div><!-- end footer_post -->
 </div><!-- end first one_fourth_column -->
