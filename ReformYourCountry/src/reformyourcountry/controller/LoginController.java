@@ -27,9 +27,9 @@ public class LoginController extends BaseController<User> {
     @Autowired UserDisplayController userDisplayController;
 
     
-    @RequestMapping(value="/login", method=RequestMethod.GET)
+    @RequestMapping(value="/signin", method=RequestMethod.GET)
     public String signin() {
-        return "login";
+        return "signin";
     }
 
     /**
