@@ -106,15 +106,7 @@ public class BBConverter {
             processImage(tag);
             break;  
         case "escape":
-        	if(!tag.attributes().isEmpty()){
-				addErrorMessage("You cannot have attributes in an escape tag",tag);
-			}
-			String addText = getInnerTextContent(tag)
-								.replaceAll("\\[", "&#91;")
-								.replaceAll("\\]", "&#93;")
-								.replaceAll("\\<", "&lt;")
-								.replaceAll("\\>", "&gt;");
-			bufferTextForP(addText);
+        	processEscape(tag);
 			break;
 		case "quote" :
 			processQuote(tag);
@@ -129,6 +121,17 @@ public class BBConverter {
 			addErrorMessage("Unrecognized tag",tag);
 			
 		}
+	}
+
+
+	private void processEscape(BBTag tag) {
+		supportedAttributes(tag);
+		String addText = getInnerTextContent(tag)
+							.replaceAll("\\[", "&#91;")
+							.replaceAll("\\]", "&#93;")
+							.replaceAll("\\<", "&lt;")
+							.replaceAll("\\>", "&gt;");
+		bufferTextForP(addText);
 	}
 
 	private void processImage(BBTag tag) {
