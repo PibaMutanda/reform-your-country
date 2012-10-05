@@ -57,6 +57,6 @@
 	<img src= "images/beta_sign.jpg" alt= "Plate-forme en construction, pas encore destinée au grand public. Sortie prévue: janvier 2013"
 	title="Plate-forme en construction, pas encore destinée au grand public. Sortie prévue: janvier 2013"/>
 </div>
-
+</div><!--  end wrapper -->
 </body>
 </html>
