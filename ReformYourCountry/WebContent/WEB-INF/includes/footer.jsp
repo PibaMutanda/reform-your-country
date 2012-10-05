@@ -31,7 +31,7 @@
 		<ul class="list sitemap-list">
 			 <li><a href="/about/about-us.jsp">Qui sommes nous?</a></li>
 			 <li><a href="/about/pourquoi.jsp">Pourquoi ce site?</a></li>
-			 <li><a href="/fonctionnalites">fonctionnalités</a></li>
+			 <li><a href="/fonctionnalites">Fonctionnalités</a></li>
 			 <li><a href="/about/contribuer.jsp#">Comment contribuer?</a></li>
 			 <li><a href="/contact">Contactez-nous</a></li>
 		</ul>	
