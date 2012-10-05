@@ -36,7 +36,7 @@
   	          Il sera publié le ${displayDate}.
 		   </c:when>
 		   <c:otherwise>
-		      Sa date de publication est inconnue.
+		      Sa date de publication est indéterminée.
 		   </c:otherwise>
 		 </c:choose>
 		 </p>
