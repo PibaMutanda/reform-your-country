@@ -2,14 +2,13 @@
     display: none;
 }
 #wrapper{
-    display: block;
+    display: block;/*otherwise text cut at bottom*/
 }
 
 body{
-    height: 100%;
+    height: 100%;/*otherwise text cut at bottom*/
 }
 #content{
-    width: 21cm; 
-    position: absolute;
-    top:0;  
+    width: 21cm; /*without text is cut to the right of the page*/
+    position: absolute;top:0;/*position to top 0 otherwise ther's a blank page*/  
 }
