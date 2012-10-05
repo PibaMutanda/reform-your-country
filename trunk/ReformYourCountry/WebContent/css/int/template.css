@@ -8,8 +8,7 @@
 }
 /*cf style.css use of inline-blokc instead of floating*/
 #sub_nav, #content{
-    display: inline-block;
-    vertical-align: top;
+    float: left;
 }
 #sub_nav{
     margin-right: 10px;

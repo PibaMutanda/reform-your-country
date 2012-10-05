@@ -14,11 +14,8 @@
 					<jsp:doBody/>
 				</span>
 		</div><!-- end frame -->
-			
 	</div><!-- end holder -->
 </div><!-- end tools -->
 <!-- ***************** - END Title Bar - ***************** -->
-	
-
-<div><c:if test='${message != null}'>${message}</c:if><c:if test='${param.message != null}'>${param.message}</c:if><br/></div>
+<c:if test='${message != null}'>${message}<br/></c:if><c:if test='${param.message != null}'>${param.message}<br/></c:if>
 	

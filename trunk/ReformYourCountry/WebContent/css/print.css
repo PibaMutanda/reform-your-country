@@ -1,25 +1,15 @@
-#header,#header *,#sub_nav,.tooltip,#footer{
+#header,#header *,#sub_nav,.tooltip,#footer,.mainbottom,.breadcrumb{
     display: none;
 }
-.main-area img:first-child{/* to select red vertical bar who the first img child of div with class maibn-area*/
-    display: none;
+#wrapper{
+    display: block;
 }
 
-/********** need to have absolute position otherwise there is a big blank on first page*********/
-.tools h1{
-    position: absolute;
-    top: 0;
-    left: 0; 
+body{
+    height: 100%;
 }
-.tools .breadcrumb{
+#content{
+    width: 21cm; 
     position: absolute;
-    top: 0;
-    right: 0; 
+    top:0;  
 }
-.article_content{/*positioned a 5em from top to don't override title and 2em from left to do not be on the same vertical line*/
-    position: absolute;
-    top: 5em;
-    left: 2em; 
-}
-
-//TODO to avoid first blank page maybe dealing with min height of the template

@@ -26,8 +26,6 @@
 	<ryctag:breadcrumbelement label="${article.title}" />
  </ryctag:pageheadertitle>
 
- <div style="display:block;"><%-- block who containing edit tool and no public view message --%>
-  
     <c:if test="${!article.publicView}">
 		<div style="float: left;">
 		<p>Cet article n'est pas disponible au public.
@@ -55,14 +53,10 @@
 
 </ryc:conditionDisplay>
 </div>
-</div><%-- /block who containing edit tool and no public view message --%>
-
-<div  style="display:inline-block;"	>
 
 <ryc:conditionDisplay privilege="EDIT_ARTICLE">
   <hr/>
 </ryc:conditionDisplay>  
-
 
 <!-- ARTICLE CONTENT -->
 
@@ -92,7 +86,6 @@
 	  
 	  </c:otherwise>
 </c:choose>
-</div>
 
 </body>
 </html>   

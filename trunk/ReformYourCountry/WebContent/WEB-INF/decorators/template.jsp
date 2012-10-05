@@ -33,9 +33,7 @@
 				<!-- ***************** - END sub-nav - ***************** -->
 				<!-- ***************** - START Content - ***************** -->
 				<div id="content">
-					<div class="body-template">
 				         <decorator:body />
-					</div>
 					<br class="clear" />				
 				</div><!-- end content -->
 				<!-- ***************** - END content - ***************** -->

@@ -6,9 +6,9 @@
 <html>
 <head>
 <style type="text/css">
-    .align{
-        text-align: center;
-    }
+.align {
+    text-align: center;
+}
 </style>
 </head>
 <body>
