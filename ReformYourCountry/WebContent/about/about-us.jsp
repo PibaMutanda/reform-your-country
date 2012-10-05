@@ -20,12 +20,13 @@ Il semble régner dans l’enseignement un climat de méfiance, probablement eng
 Ainsi, lorsque les fondateurs du site “<a href="http://www.enseignons.be/">enseignons.be</a>” nous ont racontés les pressions qu’ils ont subies, nous avons décidé d’être anonymes.
 </p>
 <p>Pour ce qui importe:</p>
-<ul>
+<ul class="list">
 <li>nous ne sommes affilié à aucun parti parti politique ni syndicat,</li>
 <li>nous ne sommes ni d’extrême droite, ni d’extrême gauche,</li>
 <li>nous ne sommes pas connus du grand public,</li>
 <li>nous ne sommes pas financés par l’Etat.</li>
 <li>s’il fallait nous placer dans une caste, nous dirions que nous avons un background scientifique,</li>
+</ul>
 </p>
 <p>
 Nous ne sommes tenu à défendre aucun intérêt particulier: classe politique, fonctionnaires, écoles, hautes écoles, universités, enseignants, pouvoirs organisateurs, sociétés privées, associations, etc..</br>
@@ -36,7 +37,7 @@ Au delà de la création du site et de son contenu de base, nous invitons tous c
 </p>
 <p><a href= "/contact">Une page</a> permet de nous contacter.</p>
 <p>La mission que nous nous sommes donnée est de faire en sorte d’améliorer le système scolaire de la Belgique francophone, c’est à dire augmenter:</p>
-<ul>
+<ul class="list">
 <li>les connaissances acquises par les enfants,</li>
 <li>le plaisir des enfants à s’instruire,</li>
 <li>le plaisir des enseignants à faire leur métier.</li>

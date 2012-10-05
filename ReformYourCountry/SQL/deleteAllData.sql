@@ -1,4 +1,5 @@
-﻿DELETE FROM voteargument ;
+﻿--Deleting 	all values in the db
+DELETE FROM voteargument ;
 DELETE FROM argument ;
 DELETE FROM article_action ;
 DELETE FROM article ;
