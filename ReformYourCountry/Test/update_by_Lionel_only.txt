@@ -1,8 +1,0 @@
-1) test jérome generates a conflict bug commit svn
-2) Voici une petite experience pour reproduire un conflit lors du
-3) commit d'un fichier dans le cas où l'on se synchronise avec le 
-4) repository pour commiter le fichier en question, mais entre le 
-5) moment où l'on se synchronise et le moment ou l'on commit, une personne 
-6) commit le meme fichier, si on ne se resynchronise pas il y a tout qui
-7) pete
-8)voici le test qui fait tout peter
