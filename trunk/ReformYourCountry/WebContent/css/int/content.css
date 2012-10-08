@@ -1,3 +1,12 @@
+/************** General ******************************************/
+/****images***/
+
+.center-align { /* use this class instead of <center>*/
+    text-align: center;
+}
+
+/*********** bordel à classer********/
+
 .title{
 	font-size: 26px;
     color:rgb(67, 84, 126);
@@ -220,6 +229,8 @@ height: 32px;
 #helptext {
 	padding:20px 20px 20px 20px; /* configure a padding top, right, bottom,left */
 	color: white;
+	width: 690px;       
+    height: 400px;
 	background: #1C2F4F;
 	border: solid 3px white;
 	text-align: left;
