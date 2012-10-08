@@ -1,3 +1,9 @@
+/*
+ * Script who generate a jquerydialog popup for the user login
+ * Actually not used because we need a dedicated page with more login option and some redirect
+ */
+
+/*
 $(document).ready(function() {			   // do stuff when DOM is ready
 			
 	
@@ -92,4 +98,4 @@ $(document).ready(function() {			   // do stuff when DOM is ready
 	});
 
 
-});
+});*/
