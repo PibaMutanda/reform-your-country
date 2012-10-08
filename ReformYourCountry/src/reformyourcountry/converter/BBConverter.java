@@ -34,7 +34,7 @@ public class BBConverter {
 	
 	boolean errorFound = false;
 	String html="";
-	String untranslatedText ="";  //Will contain the text in the tag untraslated (we need it as global variable to sue it between different methods
+	String untranslatedText ="";  //Will contain the text in the tag untranslated (we need it as global variable to use it between different methods)
 	String textBuffer=""; // We accumulate Strings fragments that are within the same line (but from consecutive nodes), to place <p> around all the fragments alltogether.
 	
 	BookRepository bookRepository;  // No @Autowired because we are not in a Spring bean.
@@ -165,7 +165,7 @@ public class BBConverter {
 		
 	}
 
-	private String processLink(BBTag tag) {
+	private void processLink(BBTag tag) {
 		supportedAttributes(tag, "article");
 		
 		String abrev = tag.getAttributeValue("article");//until pretty url system isn't implemented , use of id for abrev
@@ -177,9 +177,8 @@ public class BBConverter {
         if (article == null) {
             addErrorMessage("Aucun article trouvé pour le raccourci suivant : '"+shortName+"'", tag);
         }else{
-        	return "<p><a href=\"article/"+article.getUrl()+"\">"+content+"</a></p>";
+        	bufferTextForP("<a href=\"article/"+article.getUrl()+"\">"+content+"</a>");
         }
-        return"";
 	}
 
 	private void processAction(BBTag tag) {
@@ -278,6 +277,7 @@ public class BBConverter {
 		// bib  either [quote bib="book-ref"]I say it! [/quote]
 		//   or either [quote author="anonymous" out="http://myblog/article/happy"] I say it! [/quote]
 		// either bib refers a Book or out refers a link to another site (outlink)
+
 		/// 1. We look for a book reference in the quote tag attribute: [quote bib="emile"]...
 		Book book = null;
 		String bibValueFromAttrib = tag.getAttributeValue("bib");  // Books can only be referred through attribute (not nested tag)
@@ -289,7 +289,7 @@ public class BBConverter {
 			}
 			booksRefferedInTheText.add(book);
 		}
-		
+
 		/// 2. We look for an author with eventually an out link.
 		String author = tag.getAttributeValue("author");  
 		if (book != null && author != null) {
@@ -314,9 +314,8 @@ public class BBConverter {
 			bufferTextForP("<span class='"+
 					(book != null ? getCssClassName(book) : "")
 					+" quote-inline'>");
-
 			// TODO: prevents  [untranslated]  inside quote inline.
-			processQuoteBody(tag,false);             // Add the quoted text.
+			processQuoteBody(tag);             // Add the quoted text.
 
 			String quoteHtml ="</span>";
 
@@ -382,80 +381,80 @@ public class BBConverter {
 			
 			//// 1. Add the quoted text.
 			processTextHtmlAfterHavingClosedPendingP("<blockquote class=\"quote-block\" "+cite+">\n");
-			String content = processQuoteBodyToString(tag,true); 
-			if (this.untranslatedText!=""){
-			    this.html+= "<div class=\"translated\"><div class=\"translatedcontent\">"+content+"</div></div>";
-			}else{
-			    this.html+=content; // Add the quoted text. 
-			}
-			this.html+= this.untranslatedText;
-			this.untranslatedText="";
-			//TODO: use this.untranslated to output <div> + this.untranslate + </div> here
-			processTextHtmlAfterHavingClosedPendingP("</blockquote>\n");
 			
+			// For text that has a translation, we add div arounds.
+			boolean hasUntranslated = containsSubTag(tag, "untranslated");
+			if(hasUntranslated){
+				processTextHtmlAfterHavingClosedPendingP("<div class=\"translated\"><div class=\"translatedcontent\">");
+			}
+			
+			processQuoteBody(tag);             // Add the quoted text. 
+			
+			if(hasUntranslated){
+				processTextHtmlAfterHavingClosedPendingP("</div></div>");
+				processTextHtmlAfterHavingClosedPendingP(untranslatedText);
+			}
+			processTextHtmlAfterHavingClosedPendingP("</blockquote>\n");
+
+			///// 2. The ref line (book title) below the quote.
 			processTextHtmlAfterHavingClosedPendingP(lineBelowQuote);
 		}
 
 
 	}
-	
-	private String processQuoteBodyToString(BBTag tag,boolean isUntranslatedTagSupported){
-	    String value="";
-	    int untranslatedCounter=0;
-        for(BBTag child:tag.getChildrenList()){
-            switch(child.getType()) {
-            case Error :
-                addErrorMessage(child);
-                break;
-            case Text :
-                String addText = child.getContent();
-                value+="<p>"+addText+"</p>";
-                break;
-            case Tag :
-                switch(child.getName()){
-                ///////////// Unquote
-                case "unquote": 
-                    value+="<p>"+processUnquote(child)+"</p>";
-                    break;
-                case "untranslated":
-                    /////////// Untranslate
-                    if (!isUntranslatedTagSupported){
-                        addErrorMessage("You cannot have untranslated tags in this tag (for example, [quote inline='true'] does not support [untranslated] tags inside it)",child);
-                    } else{
-                        this.untranslatedText = processUntranslated(child);
-                    }
-                    untranslatedCounter++;
-                    break;
-                case "link":
-                    value+= processLink(child);
-                    break;
-                case "escape":
-                    if(!child.attributes().isEmpty()){
-                        addErrorMessage("You cannot have attributes in an escape tag",child);
-                    }
-                    String addTxt = getInnerTextContent(child)
-                            .replaceAll("\\[", "&#91;")
-                            .replaceAll("\\]", "&#93;")
-                            .replaceAll("\\<", "&lt;")
-                            .replaceAll("\\>", "&gt;");
-                    value+= addTxt;
-                    break;
-                default:
-                    addErrorMessage("You cannot put this sort of tag in a [quote] tag", child);
-                }
-                break;
-            }
-            if (untranslatedCounter>1){
-                addErrorMessage("There can be only one untranslated tag in [quote]", child);
-                break;
-            }
-        }
-        return value;
+
+
+	private boolean containsSubTag(BBTag tag, String searchedName) {
+		for(BBTag child : tag.getChildrenList()){
+			if(child.getName().equals(searchedName)){
+				return true;
+			}
+		}
+		return false;
 	}
 
-    private void processQuoteBody(BBTag tag,boolean isUntranslatedTagSupported) {
-        
-		this.html+= processQuoteBodyToString(tag,isUntranslatedTagSupported);
+
+    private void processQuoteBody(BBTag tag) {
+		int untranslatedCounter=0; // To verify that there are 0 or 1 (no more)
+		
+		for(BBTag child:tag.getChildrenList()){
+			switch(child.getType()) {
+			case Error :
+				addErrorMessage(child);
+				break;
+			case Text :
+				String addText = child.getContent();
+				bufferTextForP(addText);
+				break;
+			case Tag :
+				switch(child.getName()){
+				///////////// Unquote
+				case "unquote": 
+					bufferTextForP(processUnquote(child));
+					break;
+				case "untranslated":
+					/////////// Untranslate TODO add error if tag inside untranslated
+					untranslatedText = processUntranslated(child);
+					untranslatedCounter++;
+					break;
+				case "link":
+					processLink(child);
+					break;
+				case "escape":
+				
+					processEscape(tag);
+					
+					break;
+				default:
+					addErrorMessage("You cannot put this sort of tag in a [quote] tag", child);
+				}
+				break;
+			}
+			if (untranslatedCounter>1){
+				addErrorMessage("There can be only one untranslated tag in [quote]", child);
+				break;
+			}
+		}
     }
 
 	
@@ -482,7 +481,7 @@ public class BBConverter {
 		supportedAttributes(tag);
 		
 		String result="";
-		result ="<span class=\"unquote\">"+getInnerTextContent(tag)+"</span>";
+		result ="<span class=\"unquote article_content\">"+getInnerTextContent(tag)+"</span>";//we add article_content in the class to change the style of the unquote to the one of article_content
 		
 		return result;
 	}
