@@ -8,11 +8,11 @@
 <head>
 <link rel="stylesheet" href="css/ext/jquery-bubble-popup-v3.css"  type="text/css" />
 <script src="js/ext/jquery-bubble-popup-v3.min.js" type="text/javascript"></script>
-<link rel="stylesheet" href="css/ext/jquery.countdown.css" type="text/css"/>
 <script src="js/int/bubble-pop-up-articledisplay.js" type = "text/javascript"></script>
 <link rel="stylesheet" href="css/ext/jquery.countdown.css" type="text/css"/>
 <script type="text/javascript" src="js/ext/jquery.countdown.js"></script>
 <script type="text/javascript" src="js/ext/jquery.countdown-fr.js"></script>
+<script type="text/javascript" src="js/int/untranslate.js"></script>
 <meta name="robots" content="index, follow"/>
 <meta name="description" content="${article.description}"/>
 </head>
