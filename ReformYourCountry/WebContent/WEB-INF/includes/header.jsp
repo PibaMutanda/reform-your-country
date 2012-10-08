@@ -27,7 +27,7 @@
 						        </c:when>
 						        <c:otherwise>
 						           <!-- <a class="login"  style="cursor:pointer;">connexion</a>&nbsp;-&nbsp;-->
-						            <a href="signin">connexion</a>
+						            <a href="login">connexion</a>
 						            <a href="register">créer un compte</a>
 						         </c:otherwise>
 						     </c:choose>
