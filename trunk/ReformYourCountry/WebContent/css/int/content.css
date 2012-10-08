@@ -66,6 +66,15 @@
 /************** Article ******************************************/
 
 /***Display***/
+
+.untranslated p,.translated p{
+	display:inline;
+}
+.untranslatedButton,.translatedButton {
+	font-style: italic;
+	font-weight: bold;
+	
+}
 .article_content {
 	font-family: Georgia, "DejaVu Serif", Norasi, serif;
 	color:#444;

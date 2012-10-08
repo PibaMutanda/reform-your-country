@@ -384,8 +384,10 @@ public class BBConverter {
 			processTextHtmlAfterHavingClosedPendingP("<blockquote class=\"quote-block\" "+cite+">\n");
 			String content = processQuoteBodyToString(tag,true); 
 			if (this.untranslatedText!=""){
-			    this.html+= "<div class=\"translated\">"+content+"</div>";
-			}// Add the quoted text. 
+			    this.html+= "<div class=\"translated\"><div class=\"translatedcontent\">"+content+"<div></div>";
+			}else{
+			    this.html+=content; // Add the quoted text. 
+			}
 			this.html+= this.untranslatedText;
 			this.untranslatedText="";
 			//TODO: use this.untranslated to output <div> + this.untranslate + </div> here
@@ -472,7 +474,7 @@ public class BBConverter {
 	
 	private String processUntranslated(BBTag tag) {
 		String result="";
-		result = "<div class=\"untranslated\">"+ getInnerTextContent(tag)+"</div>";
+		result = "<div class=\"untranslated\"><div class=\"untranslatedcontent\">"+ getInnerTextContent(tag)+"</div></div>";
 		return result;
 	}
 
