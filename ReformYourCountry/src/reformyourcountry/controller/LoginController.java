@@ -27,11 +27,12 @@ public class LoginController extends BaseController<User> {
     @Autowired UserDisplayController userDisplayController;
 
     
-    @RequestMapping(value="/signin", method=RequestMethod.GET)
+    @RequestMapping(value="/login", method=RequestMethod.GET)
     public String signin() {
-        return "signin";
+        return "login";
     }
-
+  
+    
     /**
      * 
      * @param password required=false because we don't use pswd in DEV
@@ -77,7 +78,7 @@ public class LoginController extends BaseController<User> {
             this.setMessage(mv, errorMsg);
             return mv;
         } else {
-            return new ModelAndView("redirect:user/"+user.getUserName());
+            return new ModelAndView("redirect:user", "username", user.getUserName());
         }
     }
     
