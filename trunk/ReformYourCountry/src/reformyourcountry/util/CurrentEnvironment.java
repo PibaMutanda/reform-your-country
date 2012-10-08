@@ -49,9 +49,9 @@ public class CurrentEnvironment {
 	public enum Environment {
 
 		// XXX(Domain Name, Mail Deamon Started,Social NW Connected, Paypal Env.)
-		DEV("127.0.0.1", MailBehavior.NOT_STARTED, true),
+		DEV("127.0.0.1", MailBehavior.SENT, true),
 		TEST("logicblackbelt.com", MailBehavior.NOT_STARTED, false),
-		PROD("knowledgeblackbelt.com", MailBehavior.SENT, true);
+		PROD("enseignement2.be", MailBehavior.SENT, true);
 
 		// String containing the domain name of the environment (useful to
 		// create absolute path to images, ...)
