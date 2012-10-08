@@ -908,13 +908,13 @@ a:hover { text-decoration:none;}
 /* 1. GENERAL TYPOGRAPHY
 /*---------------------------------------------------------------*/
 #main .frame h1 {padding-bottom: 15px !important;font-size:24px /*!important*/;float:left;margin:3px 0 0 0 /*!important*/;color: #FFF;}
-/*#main h1, #main h2, #main h3, #main h4, #main h5, #main h6  {padding-bottom: 10px;font-weight: normal;margin:0;color: #222;}
+#main h1, #main h2, #main h3, #main h4, #main h5, #main h6  {padding-bottom: 10px;font-weight: normal;margin:0;}
 #main h1 {font-size:2.1em;}
 #main h2 {font-size:1.9em;}
 #main h3 {font-size:1.7em;}
 #main h4 {font-size:1.5em;}
-#main h5 {font-size:1.3em;}*//*use of default title size -- maxime 2/10/2012*/
-#main h6 {font-size:.9em;color: #222;text-transform: uppercase;font-weight: 600;letter-spacing: 1px;padding-bottom: 5px !important;}
+#main h5 {font-size:1.3em;}
+#main h6 {font-size:1.1em;font-weight:bold; padding-bottom: 5px !important;}
 
 #sidebar h2 {padding-bottom: 5px;font-size:10px;}
 
@@ -976,7 +976,7 @@ p strong {color: #555;}
     font-style: normal;
 
 }
-#main .blog_wrap h1, #main .single_blog_wrap h1, #main .comment-title, .four_o_four, .callout-wrap span, .video-sub h2, .two-d-sub h2, .three-d-sub h2, .main-holder h1, .main-holder h2, .main-holder h3, .main-holder h4, .main-holder h5, .search-title, .home-banner-main h2, #main .portfolio_full_width h3, #main .frame h1, #main .month, .home-bnr-jquery-content h2, .callout2, #main .contact_iphone h4, .comment-author-about {font-family:'ColaborateLightRegular', Arial, sans-serif;}
+#main .blog_wrap h1, #main .single_blog_wrap h1, #main .comment-title, .four_o_four, .callout-wrap span, .video-sub h2, .two-d-sub h2, .three-d-sub h2, .main-holder h1, .main-holder h2, .main-holder h3, .main-holder h4, .main-holder h5,.main-holder h6, .search-title, .home-banner-main h2, #main .portfolio_full_width h3, #main .frame h1, #main .month, .home-bnr-jquery-content h2, .callout2, #main .contact_iphone h4, .comment-author-about {font-family:'ColaborateLightRegular', Arial, sans-serif;}
 
 
 
