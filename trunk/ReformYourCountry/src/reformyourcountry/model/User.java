@@ -58,6 +58,7 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     public enum AccountStatus {
         LOCKED("Locked"),
         NOTVALIDATED("Mail not validated yet"), 
+        NOTVALIDATEDSOCIAL("Mail not validated yet for a social account signup"),
         ACTIVE( "Active"),
         ACTIVE_SOCIAL("Registered with a social account");
 
