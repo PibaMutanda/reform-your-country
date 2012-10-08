@@ -8,7 +8,7 @@ import java.util.List;
  * For example, in "blabla [quote inline'tru']abc[/quote]"
  * this would hold the information of the quote tag, with a list of attributes (defined in descendant class), and the text....
  * (Added children list and errorText) 
- * @author xBlackCat and FIEUX Cédric and Thomasn Van roy
+ * @author xBlackCat and FIEUX Cédric and Thomas Van roy
  *
  */
 public abstract class ABBTag implements BBTag {
