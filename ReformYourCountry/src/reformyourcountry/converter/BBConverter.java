@@ -384,7 +384,7 @@ public class BBConverter {
 			processTextHtmlAfterHavingClosedPendingP("<blockquote class=\"quote-block\" "+cite+">\n");
 			String content = processQuoteBodyToString(tag,true); 
 			if (this.untranslatedText!=""){
-			    this.html+= "<div class=\"translated\"><div class=\"translatedcontent\">"+content+"<div></div>";
+			    this.html+= "<div class=\"translated\"><div class=\"translatedcontent\">"+content+"</div></div>";
 			}else{
 			    this.html+=content; // Add the quoted text. 
 			}
