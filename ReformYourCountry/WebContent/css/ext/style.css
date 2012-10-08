@@ -663,7 +663,7 @@ padding-top: 1px;}
 /*---------------------------------------------------------------*/
 /* 4. BREADCRUMBS
 /*---------------------------------------------------------------*/
-.tools .breadcrumb {margin:0;padding:4px 0 19px 0;float:right;overflow:hidden;font-size:.9em;}
+.tools .breadcrumb {margin:0;padding:4px 0 19px 0;float:right;font-size:.9em;}
 .tools .breadcrumb a {padding:0 15px 0 7px;background:url(/images/_global/arrow-right.png) 100% 50% no-repeat;margin:0 0 0 6px;color:#FFF;outline: none;text-decoration:none;}
 .tools .breadcrumb a:hover {color:#CCC;}
 .tools .breadcrumb .current_crumb {background:url(/images/_global/arrow-up.png) 50% 100% no-repeat;padding:0 5px 23px 7px;font-weight: bold;}
@@ -1842,9 +1842,7 @@ border-radius: 5px;
 
 
 
-.article-options{
-	float:right;
-}
+
 .logodiv {cursor:pointer; float:left;  padding-top: 28px;}
 .logodiv div a{color:#7D92B9}
 .button{

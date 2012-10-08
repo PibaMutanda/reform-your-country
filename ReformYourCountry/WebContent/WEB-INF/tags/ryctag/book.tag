@@ -22,7 +22,7 @@
 	    </p>
 	    <center>
 	   		<a href="${book.externalUrl}"target="_blank">
-	   			<img  alt="Lien externe" title="Lien externe"src="/images/_global/links.png" width="32px" height="32px"/>
+	   			<img  alt="Lien externe" class="icon-32" title="Lien externe"src="/images/_global/links.png"/>
 	   		</a>
     		<ryc:conditionDisplay privilege="EDIT_BOOK">
     			<a href="book/${book.url}" >
