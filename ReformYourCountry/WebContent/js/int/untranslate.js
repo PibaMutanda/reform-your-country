@@ -1,23 +1,24 @@
+
+// Adds buttons and divs to enable switching between the original and translated versions.
 $(document).ready(function() {
-	//$(".untranslated").hide();
-	var i =1;
+	var untranslatedIdCounter =1;
 	$(".untranslated").each(function(){
-		$(this).hide();
-		$(this).attr("id","untranslated"+i);
-		$(this).append("<div class=\"untranslatedoption\"><a class=\"untranslatedButton\" onclick=\"javascript:showTranslated("+i+")\">VF</a></div>");
-		i++;
+		$(this).hide();// We hide the VO
+		$(this).attr("id","untranslated"+untranslatedIdCounter);//Increment the id of the Untranslated tag
+		$(this).append("<div class=\"untranslatedoption\"><a class=\"untranslatedButton\" onclick=\"javascript:showTranslated("+untranslatedIdCounter+")\">VF</a></div>");//add the div with the button to change the version
+		untranslatedIdCounter++;
 	});
-	i=1;
-	$(".translated").each(function(){
-		$(this).attr("id","translated"+i);
-		$(this).append("<div class=\"translatedoption\"><a class=\"translatedButton\"  onclick=\"javascript:showUntranslated("+i+")\">VO</a></div>");
-		i++;
+	var translatedIdCounter=1;
+	$(".translated").each(function(){ // Same than VO but for VF
+		$(this).attr("id","translated"+translatedIdCounter);
+		$(this).append("<div class=\"translatedoption\"><a class=\"translatedButton\"  onclick=\"javascript:showUntranslated("+translatedIdCounter+")\">VO</a></div>");
+		translatedIdCounter++;
 	});
 });
 
-function showTranslated(id) {
-	$("#untranslated"+id).hide("slide",{direction: "right"},700);
-	$("#translated"+id).delay(700).show("slide",{direction: "left"},700);
+function showTranslated(id) {//We slide the two div as if they were binded to each other
+	$("#untranslated"+id).hide("slide",{direction: "right"},700);//hide to the right in 700ms
+	$("#translated"+id).delay(700).show("slide",{direction: "left"},700);//wait the end of the hiding before showing the VF
 }
 function showUntranslated(id) {
 	$("#translated"+id).hide("slide",{direction: "left"},700);
