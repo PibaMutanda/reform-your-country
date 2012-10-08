@@ -66,8 +66,14 @@
 /************** Article ******************************************/
 
 /***Display***/
+.icon-32{  /* Because i'm to lazy to go in GIMP and change every icons we have to 32px... */
+width:32px;
+height: 32px;
+
+}
 .untranslated,.translated{
-	display:inline-block;
+	/*if not inline-block the jquery slideshow will not be visible*/
+	display:inline-block;	
 }
 .untranslatedcontent,.translatedcontent{
 	 width:715px; display:block;
@@ -87,7 +93,7 @@
 }
 .untranslatedoption{
 	float:right; 
-	padding-left: 10px;
+	padding-left: 20px;
 }
 .translatedoption{
 	float:left;
@@ -124,6 +130,7 @@
 .article_content {
 	font-family: Georgia, "DejaVu Serif", Norasi, serif;
 	color:#444;
+    display:inline-block; /*DO NOT REMOVE OR THE MENU IS IN THE CONTENT!!!!!*/
 }
 
 .article_content p{
@@ -132,7 +139,12 @@
     margin-bottom: .5em;
 }
 
-
+.article-options{
+	float:right;
+}
+.article-title{
+	float:left;
+}
 .bibref-after-block {
 	color: #AAA;
 	font-family: Arial, Helvetica, "Liberation Sans", FreeSans, sans-serif;
