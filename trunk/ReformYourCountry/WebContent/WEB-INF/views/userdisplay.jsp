@@ -22,12 +22,12 @@
 			</c:when>
 			<c:otherwise>
 				<c:choose>
-					<c:when test="${user.isMale()}">
-						<img src="images/Homme_anonyme.jpg<c:if test="${random!=null}">?random=${random}</c:if>" <%-- Random, to force the reload of the image in case it changes (but its name does not change) --%>
+					<c:when test="${user.isFemale()}">
+						<img src="images/Femme_anonyme.jpg<c:if test="${random!=null}">?random=${random}</c:if>" <%-- Random, to force the reload of the image in case it changes (but its name does not change) --%>
 							style="float: left" />
 					</c:when>
 					<c:otherwise>
-						<img src="images/Femme_anonyme.jpg<c:if test="${random!=null}">?random=${random}</c:if>" <%-- Random, to force the reload of the image in case it changes (but its name does not change) --%>
+						<img src="images/Homme_anonyme.jpg<c:if test="${random!=null}">?random=${random}</c:if>" <%-- Random, to force the reload of the image in case it changes (but its name does not change) --%>
 							style="float: left" />
 					</c:otherwise>
 				</c:choose>
@@ -38,17 +38,17 @@
 	</div>
 	
 	<div style="float:left; padding-left:50px;">
-				Prénom: ${user.firstName} <br/>
-				Nom de famille: ${user.lastName} <br/>
-				Pseudo : ${user.userName}<br/>
-				Genre : ${user.gender} <br/>
+				Prénom: <c:choose><c:when test="${user.firstName ne null}">${user.firstName}</c:when><c:otherwise>?</c:otherwise></c:choose> <br/>
+				Nom de famille: <c:choose><c:when test="${user.lastName ne null}">${user.lastName}</c:when><c:otherwise>?</c:otherwise></c:choose> <br/>
+				Pseudo : <c:choose><c:when test="${user.userName ne null}">${user.userName}</c:when><c:otherwise>?</c:otherwise></c:choose><br/>
+				Genre : <c:choose><c:when test="${user.gender ne null}">${user.gender}</c:when><c:otherwise>?</c:otherwise></c:choose> <br/>
 				<c:if test="${canEdit}">
-					Né le  ${user.birthDate}<br />
+					Né le : <c:choose><c:when test="${user.birthDate ne null}">${user.birthDate}</c:when><c:otherwise>?</c:otherwise></c:choose><br />
 					mail : ${user.mail}<br />
 					Date d'enregistrement : ${user.registrationDate} <br />
 					Rôle : ${user.role}<br/>
 					Dernier accès : ${user.lastAccess} <br/>
-					à l'adresse ${user.lastLoginIp}<br/>
+					Depuis l'adresse ${user.lastLoginIp}<br/>
 					Status du compte : ${user.accountStatus}<br/>
 					<c:if test="${user.lockReason}!= ACTIVE ">
 						Raison blocage compte : ${user.lockReason}<br /> <br/>

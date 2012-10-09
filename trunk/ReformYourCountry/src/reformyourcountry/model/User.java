@@ -78,8 +78,8 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
         FEMALE, MALE;
     }
     
-    public boolean isMale(){
-    	return this.gender==Gender.MALE;
+    public boolean isFemale(){
+    	return this.gender==Gender.FEMALE;
     }
 
     public enum Role {

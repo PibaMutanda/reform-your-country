@@ -27,6 +27,6 @@ public class BookRepository extends BaseRepository<Book> {
     
     
     public Book findBookByAbrev(String abrev){
-        return getSingleOrNullResult( em.createQuery("select b from Book b where b.abrev = :abrev").setParameter("abrev",abrev) );
+        return getSingleOrNullResult( em.createQuery("select b from Book b where lower(b.abrev) = :abrev").setParameter("abrev",abrev.toLowerCase()) );
     }
 }

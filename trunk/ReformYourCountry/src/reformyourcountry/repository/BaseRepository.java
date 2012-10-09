@@ -30,7 +30,7 @@ public abstract class BaseRepository<E extends BaseEntity> {
     }
 
     public E findByUrl(String url){
-        Object obj = getSingleOrNullResult(em.createQuery("select e from "+entityClass.getName()+" e where e.url = :url").setParameter("url",url));
+        Object obj = getSingleOrNullResult(em.createQuery("select e from "+entityClass.getName()+" e where lower(e.url) = :url").setParameter("url",url.toLowerCase()));
         if (obj == null)
             return null;  // Cannot downcast null.
         return ( E )obj;

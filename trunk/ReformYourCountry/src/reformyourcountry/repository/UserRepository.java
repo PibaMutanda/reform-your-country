@@ -11,22 +11,22 @@ import reformyourcountry.model.User;
 public class UserRepository extends BaseRepository<User>{
 
     public  User getUserByEmail(String identifier)  {
-        return getSingleOrNullResult( em.createQuery("select u from User u where u.mail =:mail")
-                .setParameter("mail", identifier)
+        return getSingleOrNullResult( em.createQuery("select u from User u where lower(u.mail) =:mail")
+                .setParameter("mail", identifier.toLowerCase())
                 );
         }
 
     public  User getUserByUserName(String identifier) {
         return getSingleOrNullResult( 
-                em.createQuery("select u from User u where u.userName =:userName")
-                .setParameter("userName", identifier)
+                em.createQuery("select u from User u where lower(u.userName) =:userName")
+                .setParameter("userName", identifier.toLowerCase())
                 );
 
     }
 
     public User getUserByValidationCode(String code){
-        return getSingleOrNullResult( em.createQuery("select u from User u where u.validationCode =:validationCode")
-                .setParameter("validationCode", code)
+        return getSingleOrNullResult( em.createQuery("select u from User u where lower(u.validationCode) =:validationCode")
+                .setParameter("validationCode", code.toLowerCase())
                 );
     }
  
