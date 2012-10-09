@@ -1,6 +1,11 @@
 /************** General ******************************************/
 /****images***/
 
+.beta-sign{
+	width:70%;
+	padding-top:63px; 
+}
+
 .center-align { /* use this class instead of <center>*/
     text-align: center;
 }
