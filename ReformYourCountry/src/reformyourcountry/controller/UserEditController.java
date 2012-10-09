@@ -7,6 +7,8 @@ import java.util.Date;
 
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
@@ -55,15 +57,15 @@ public class UserEditController extends BaseController<User> {
     }
   
     @RequestMapping("/editsubmit")
-    public ModelAndView userEditSubmit(@RequestParam("lastName") String newLastName,
-                                        @RequestParam("firstName") String newFirstName,
-                                        @RequestParam("userName") String newUserName,
-                                        @RequestParam("gender") Gender newGender,
-                                        @RequestParam("mail") String newMail,
-                                        @RequestParam("birthDay") String day,
-                                        @RequestParam("birthMonth") String month,
-                                        @RequestParam("birthYear") String year,
-                                        @RequestParam("nlSubscriber") boolean newNlSubscriber,
+    public ModelAndView userEditSubmit(@RequestParam(value="lastName",required=false) String newLastName,
+                                        @RequestParam(value="firstName",required=false) String newFirstName,
+                                        @RequestParam(value="userName") String newUserName,
+                                        @RequestParam(value="gender",required=false) Gender newGender,
+                                        @RequestParam(value="mail") String newMail,
+                                        @RequestParam(value="birthDay") String day,
+                                        @RequestParam(value="birthMonth") String month,
+                                        @RequestParam(value="birthYear") String year,
+                                        @RequestParam(value="nlSubscriber",required=false) boolean newNlSubscriber,
                                         @RequestParam("id") long id,
                                         @Valid @ModelAttribute User doNotUseThisUserInstance,  // To enable the use of errors param.
                                         Errors errors) {
@@ -73,19 +75,21 @@ public class UserEditController extends BaseController<User> {
         	  	
        
         //birthDate
-        Date dateNaiss=DateUtil.parseyyyyMMdd(year+"-"+month+"-"+day);
-        if (dateNaiss.after(new Date())) {
+    	Date dateNaiss = null;
+        if ((!day.equals("null"))||(!month.equals("null"))||(!year.equals("null"))) {
+			dateNaiss = DateUtil.parseyyyyMMdd(year + "-" + month + "-" + day);
+			if (dateNaiss.after(new Date())) {
 
-            ModelAndView mv=new ModelAndView("useredit");
-            String errorBirthDate="Vous avez sélectionné une date dans le futur. Veuillez choisir une date de naissance passée.";
+				ModelAndView mv = new ModelAndView("useredit");
+				String errorBirthDate = "Vous avez sélectionné une date dans le futur. Veuillez choisir une date de naissance passée.";
 
-            mv.addObject("id", id); 
-            mv.addObject("user", user);
-            mv.addObject("errorBirthDate",errorBirthDate);
-            return mv;
-        }
-   	
-        // userName
+				mv.addObject("id", id);
+				mv.addObject("user", user);
+				mv.addObject("errorBirthDate", errorBirthDate);
+				return mv;
+			}
+		}
+		// userName
         boolean hasUserAlreadyExist=false;
         newUserName = org.springframework.util.StringUtils.trimAllWhitespace(newUserName).toLowerCase();  // remove blanks
         if (! org.apache.commons.lang3.StringUtils.equalsIgnoreCase(user.getUserName(), newUserName)) {  // Want to change username
@@ -118,7 +122,7 @@ public class UserEditController extends BaseController<User> {
         }
         
         // We start modifiying user (that may then be automatically saved by hibernate due to dirty checking.
-        if((!newFirstName.equals(user.getFirstName()))||(!newLastName.equals(user.getLastName()))||(!newUserName.equals(user.getUserName()))){
+        if (!ObjectUtils.equals(newFirstName, user.getFirstName()) || !ObjectUtils.equals(newLastName, user.getLastName()) || !ObjectUtils.equals(newUserName, user.getUserName())){
            userService.changeUserName(user, newUserName, newFirstName, newLastName); 
         }
         user.setBirthDate(dateNaiss);
