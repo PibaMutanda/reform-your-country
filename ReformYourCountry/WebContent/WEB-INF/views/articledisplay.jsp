@@ -20,7 +20,7 @@
  <ryctag:pageheadertitle title="${article.title}">
  	<c:forEach items="${parentsPath}" var="subarticle">
  		<c:if test="${article.title != subarticle.title}">
-			<ryctag:breadcrumbelement label="${subarticle.title}" link="article/${subarticle.url}" />
+			<ryctag:breadcrumbelement label="${subarticle.title}" link="/article/${subarticle.url}" />
 		</c:if>
 	</c:forEach>
 	<ryctag:breadcrumbelement label="${article.title}" />
@@ -49,9 +49,9 @@
 		<ryc:conditionDisplay privilege="EDIT_ARTICLE">
 		<div class="article-options">
 			    <ul class="list sitemap-list">
-					 <li><a href="article/edit?id=${article.id}">Editer l'article</a></li>
-					 <li><a href="article/parentedit?id=${article.id}">Editer l'article parent</a></li>
-					 <li><a href="article/contentedit?id=${article.id}">Editer le contenu de l'article</a></li>
+					 <li><a href="/article/edit?id=${article.id}">Editer l'article</a></li>
+					 <li><a href="/article/parentedit?id=${article.id}">Editer l'article parent</a></li>
+					 <li><a href="/article/contentedit?id=${article.id}">Editer le contenu de l'article</a></li>
 				</ul>	
 		</div>
 		</ryc:conditionDisplay>
