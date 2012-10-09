@@ -9,16 +9,16 @@
 <!-- This fragment will be displayed in a jQuery dialog box. -->
     <label id ="errorMsg" style ="color:red;"></label>
 
-	<form action="loginsubmit" method="post">
+	
 		<label for="identifier">pseudo / adresse e-mail</label><br/>
-        <input type="text" name="identifier" required="required"/><br/>
+        <input type="text" name="identifier" /><br/>
         <label for="password">mot de passe</label><br/>
 		<c:choose>
 			<c:when test="<%= !ContextUtil.devMode %>">				
-				<input type="password" name="password" required="required"/>
+				<input type="password" name="password" />
 			</c:when>
   		    <c:otherwise>
-			    <input type="password" name="password" required="required" value="secret"/><br/>
+			    <input type="password" name="password"  value="secret"/><br/>
 			    Your are in dev mode: password is not verified (type any).<br/>
 			</c:otherwise>
 		</c:choose>
@@ -26,7 +26,7 @@
 		<br />
 		
 		 
-		<input type="checkbox" name="keepLoggedIn" /><label for="keepLoggedIn"><span class="tooltip" data-tooltip="Si vous cochez cette case, lors de votre prochaine visite vous serez connectés automatiquement">Je souhaite rester connecté</span></label>
 		
-		<input type="submit" value="me connecter"/>
-	</form>
+
+		<input id ="ryc" class="image-login" type="submit" value="me connecter"/>
+	
