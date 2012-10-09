@@ -61,6 +61,11 @@ public class BookEditController extends BaseController<Book> {
                 setMessage(mv, "Un autre livre utilise déjà cette abrévation '" + book.getAbrev() + '"');
                 return mv;
             }
+            if(book.getUrl()==null){
+            	ModelAndView mv = new ModelAndView ("bookedit", "book", book);
+                setMessage(mv, "Vous devez entrer un fragment d'url");
+                return mv;
+            }
             bookRepository.persist(book);
 
         } else {  // Edited book instance.

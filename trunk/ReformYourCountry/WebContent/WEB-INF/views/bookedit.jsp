@@ -25,7 +25,7 @@
 		<ryctag:input path="abrev" label="Abréviation du livre:"/>
 		<ryctag:input path="title" label="Titre du livre:" id="title"/>
 		<tr class="tooltip" data-tooltip="identifiant pour le livre dans les URLs">
-			<td><label for="url">fragment d'URL</label></td>
+			<td><label for="url">Fragment d'URL</label></td>
 			<td><form:input path="url" required="required" id="url" type="input" cssStyle="width:100%;" /></td>
 			<td><input type="submit" value="Générer une url" id="generate" /></td>
 		</tr>
