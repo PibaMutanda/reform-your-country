@@ -145,7 +145,7 @@ height: 32px;
 .article_content {
 	font-family: Georgia, "DejaVu Serif", Norasi, serif;
 	color:#444;
-    display:inline-block; /*DO NOT REMOVE OR THE MENU IS IN THE CONTENT!!!!!*/
+    display:block; /*DO NOT REMOVE OR THE MENU IS IN THE CONTENT!!!!!*/
 }
 
 .article_content p{
