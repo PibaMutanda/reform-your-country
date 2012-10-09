@@ -22,12 +22,12 @@
 					  	<div class="login-link">
 						      <c:choose>
 						        <c:when test="${current.user!=null}">
-						          <a href="/user/${current.user.userName}">${current.user.userName}</a>&nbsp;-&nbsp;
+						          <a href="/user/${current.user.userName}">${current.user.userName}</a> &ndash;
 						          <a id="logout" href="logout">déconnexion</a>
 						        </c:when>
 						        <c:otherwise>
 						           <!-- <a class="login"  style="cursor:pointer;">connexion</a>&nbsp;-&nbsp;-->
-						            <a href="login">connexion</a>
+						            <a href="login">connexion</a> &ndash;
 						            <a href="register">créer un compte</a>
 						         </c:otherwise>
 						     </c:choose>

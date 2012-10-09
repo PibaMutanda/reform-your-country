@@ -20,7 +20,10 @@ public class ArticleRepository extends BaseRepository<Article>{
     }
     
     public Article findByShortName(String shortName){
-    	return getSingleOrNullResult(em.createQuery("select a from Article a where lower(a.shortName) = :shortname").setParameter("shortname",shortName.toLowerCase()));
+        if (shortName!=null){
+            return getSingleOrNullResult(em.createQuery("select a from Article a where lower(a.shortName) = :shortname").setParameter("shortname",shortName.toLowerCase()));
+        }
+        return null;
     }
     
     public Article findByTitle(String title){
