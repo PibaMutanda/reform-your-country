@@ -9,18 +9,27 @@
 </head>
 <body>
 
-	<h1>
-		<c:choose>
-			<c:when test="${book.id != null}">Editer un livre</c:when>
-			<c:otherwise>Créer un livre</c:otherwise>
-		</c:choose>
-	</h1>
+<c:choose>
+	<c:when test="${book.id != null}">
+		 <ryctag:pageheadertitle title="Editer un livre">
+			<ryctag:breadcrumbelement label="${book.title}" />
+		 </ryctag:pageheadertitle>
+	</c:when>
+	<c:otherwise> 
+		<ryctag:pageheadertitle title="Créer un livre"/>
+	</c:otherwise>
+</c:choose>
 
-	<ryctag:form action="book/editsubmit" modelAttribute="book">
+
+	<ryctag:form action="book/editsubmit" modelAttribute="book" width="800px">
 		<ryctag:input path="abrev" label="Abréviation du livre:"/>
 		<ryctag:input path="title" label="Titre du livre:" id="title"/>
-		<ryctag:input path="url" label="Nom de la page du livre" id="url" />
-		<td><input type="submit" value="Générer une url" id="generate" /></td>
+		<tr class="tooltip" data-tooltip="identifiant pour l'article dans les URLs">
+			<td><label for="url">fragment d'URL</label></td>
+			<td><form:input path="url" required="true" id="url" type="input" cssStyle="width:100%;" /></td>
+			<td><input type="submit" value="Générer une url" id="generate" /></td>
+		</tr>
+		
 		<ryctag:textarea path="description" label="Description du livre:"/>
 		<ryctag:input path="author" label="Auteur(s) du livre:"/>
 		<ryctag:input path="pubYear" label="Année de publication:"/>
@@ -31,7 +40,7 @@
 				<form:radiobutton path="top" value="false" />Other</td>
 		<tr/>
 		<form:hidden path="id" value="${book.id}"/>
-		<tr><td><input type="submit" value="<c:choose><c:when test="${book.id != null}">Sauver</c:when><c:otherwise>Créer</c:otherwise></c:choose>" /></td></tr>
+		<tr><td colspan="2" align="center" style="text-align: center;"><input type="submit" value="<c:choose><c:when test="${book.id != null}">Sauver</c:when><c:otherwise>Créer</c:otherwise></c:choose>" /></td></tr>
 	</ryctag:form>
 </body>
 </html>

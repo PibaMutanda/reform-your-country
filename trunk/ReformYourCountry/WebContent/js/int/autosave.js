@@ -1,7 +1,10 @@
 $(document).ready(function() {
 
 	//disable the save button
-	$("#save").attr('disabled', 'disabled');
+	$(".save").each(function(){
+		$(this).attr('disabled', 'disabled');
+	});
+	
 
 	$(".autosaveable").keydown(function(event){
 		//it save when we type CTRL+S
@@ -12,7 +15,7 @@ $(document).ready(function() {
 	});
 
 	$(".autosaveable").keyup(function(event) {
-		$("#save").removeAttr('disabled');  // Make the save button enabled (the text effectively changed since the last save).
+		$(".save").removeAttr('disabled');  // Make the save button enabled (the text effectively changed since the last save).
 
 		if(event.ctrlKey == false  &&  event.keyCode != 83) {// get the save timer only when new content not after a CTRL+S pressed
 			setTimeout(function(){performChange();}, 120000);  // We'll save in 120 seconds from now.
@@ -30,7 +33,9 @@ $(document).ready(function() {
 																						//For example if the tag with autosaveable  is contain in a form(with id #exmaple1) and this form is contain in an other form(with id #exmaple2) 
 																						//only #exmaple1 is selected and submit via .serialize().
 		.done(function(){
-			$("#save").attr('disabled', 'disabled');
+			$(".save").each(function(){
+				$(this).attr('disabled', 'disabled');
+			});
 			$("#saving").text("sauvé à "+getDate());	
 		});
 	}

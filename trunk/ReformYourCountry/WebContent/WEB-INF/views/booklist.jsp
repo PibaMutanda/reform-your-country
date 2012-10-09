@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
+<%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 <html>
 <head>
 <meta name="description" lang="fr" content="Bibliographie, livres cités dans les articles sur l'enseignement. "/>
@@ -23,12 +24,25 @@ width:50%;
 
 <body>
 <ryctag:pageheadertitle title="Bibliographie"/>
+<div style="display:inline-block;">
 
-Nos articles référencient abondamment les ouvrages listés ici. Certains nous ont particulièrement marqués et nous les listons en premier, dans la liste "favoris".
-Les autres peuvent être très bons aussi et sont listés juste après.
-D'autres ouvrages qui nous ont parus moins significatifs ne sont pas repris sur cette page.
+	<div style="float:right; ">
+		<ryc:conditionDisplay privilege="EDIT_BOOK">
 
+			    <ul class="list sitemap-list">
+					 <li><a href="/book/create">Créer livre</a></li>
+				</ul>	
 
+		</ryc:conditionDisplay>
+	</div>
+	
+		Nos articles référencient abondamment les ouvrages listés ici. Certains nous ont particulièrement marqués et nous les listons en premier, dans la liste "favoris".
+		Les autres peuvent être très bons aussi et sont listés juste après.
+		D'autres ouvrages qui nous ont parus moins significatifs ne sont pas repris sur cette page.
+	
+</div>
+
+<div style="width:100%;background: url(/images/_global/separator3.gif) 0 0 repeat-x; min-height: 10px;"></div>
 <c:set var="bookList" value="${bookListTop}" scope ="request"/>
 <c:set var="tablename" value="Favoris" scope ="request"/>
  <%@include file="booktable.jsp" %>	
