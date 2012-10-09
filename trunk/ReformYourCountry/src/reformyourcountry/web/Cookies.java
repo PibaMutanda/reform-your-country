@@ -12,13 +12,12 @@ public class Cookies {
 	public final static String PASSCOOKIE_KEY = "pmark";
 	public final static String LOGINCOOKIE_KEY = "login";
 
-	/**
-	 * Stores a volatile cookie 
-	 */
-    static public void createCookie(String domain, String name, String value) {
+
+	static public void createCookie(String name, String value) {
         Cookie cookie = new Cookie(name, value);
-        cookie.setDomain(domain);
-        cookie.setPath("/test");
+// TODO: remove this line        cookie.setDomain(domain);
+        cookie.setMaxAge(15552000);
+        cookie.setPath("/");
         ContextUtil.getHttpServletResponse().addCookie(cookie);
     }
 	
@@ -78,25 +77,12 @@ public class Cookies {
         	cookie.setValue(null);
             // By setting the cookie maxAge to 0 it will deleted immediately
             cookie.setMaxAge(0);
-            cookie.setDomain(UrlUtil.getCookieDomainName());
+//            cookie.setDomain(UrlUtil.getCookieDomainName());
             cookie.setPath("/");
             ContextUtil.getHttpServletResponse().addCookie(cookie);
         }
     }
 	
-    /* 
-     * Need to keep the jsessionid for the org user and other.
-     * Configure the context.xml of the server
-     * and define the domain of the cookie
-     * check : http://stackoverflow.com/questions/7400025
-     **/
-    static public void createCookie(String name, String value) {
-        Cookie cookie = new Cookie(name, value);
-        cookie.setDomain(UrlUtil.getCookieDomainName()); //Set the domain of the cookie to get the same cookie for the org user and other user.
-        cookie.setMaxAge(15552000);// Cookie is stored for 6 month
-        cookie.setPath("/");  // So it does not depends on the request path (like /KnowledgeBlackBelt/ui/UIDL) -- John 2009-07-13)
-        ContextUtil.getHttpServletResponse().addCookie(cookie);
-    }
     
 
 	public static void setLoginCookies(User user) {
