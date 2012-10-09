@@ -1,24 +1,24 @@
-$(function(){  // on document ready
+$(function(){  
+		var helpMark = $('#helphandle'); //the "?"
+		var helpText = $('#helphandle  div');
+		var refrencePositionnedBlock = $('#content');
 
-	$('#helptext').hide();
-	
-	///// Position the "?" help handle, and the div for the help text.
-	var posLeft = $('.main-holder').position().left+$('.main-area').width();
-	
-	$('#helphandle').css('left',  posLeft);  // clickable "?"
-	$('#helphandle').css('top',  $('.main-holder').offset().top);  // clickable "?"
-
-	$('#helphandle').show();
-	
-	$("#click").click(function(){
+		helpMark.show();//showed only when javascript enable
 		
-		$('#helptext').css('left',  posLeft-$('#helptext').width());  // large div with the help text.
-
-		/// Computes the height of the help text to go to the bottom border of the browser.
-		// Top of the help div, relative to the window.
-		$('#helptext').css('height', $(window).height() - $('#helptext').offset().top - $(window).scrollTop());
-		
-		$('#helptext').load("helptxt/edithelp.html");  // takes the content from the server.
-		$("#helptext").slideToggle("slow");//replace functions "slideUp" and "slideDown" in a single function "slideToggle"
-    });	
+        ///// Position the "?" help handle, and the div for the help text.
+        var leftPosition = refrencePositionnedBlock.offset().left + refrencePositionnedBlock.width() + 20;
+       
+        helpMark.css("left", leftPosition);  // clickable "?"
+        helpMark.css("top", refrencePositionnedBlock.offset().top);
+       
+        helpText.css('left',  (leftPosition - helpText.width() - 40));  // -40 because of css padding
+        helpText.css('height', ($(window).height() - helpText.offset().top - $(window).scrollTop() - 60) );//-60 don't know why. Top of the help div, relative to the window.
+        
+        helpText.hide();//hide after add css otherweise javascript cannot compute height and width of the text div
+        
+        helpMark.click(function(){
+        	helpText.load("helptxt/edithelp.html");  // takes the content from the server.
+        	helpText.slideToggle("slow");//replace functions "slideUp" and "slideDown" in a single function "slideToggle"
+        });
 });
+

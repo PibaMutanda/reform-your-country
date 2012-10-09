@@ -1,6 +1,5 @@
 /************** General ******************************************/
 /****images***/
-
 .beta-sign{
 	width:70%;
 	height:70%;
@@ -226,26 +225,27 @@ height: 32px;
 
 
 
-/***Edit***/
-/*#helphandle, #helptext define the position of the help button and its text*/ 
-#helphandle, #helptext {
+/********Edit********/
+/***helpbox***/
+#helphandle{
+    display:none; /* don't diplay "?" when javascript disable*/ 
+}
+#helphandle , #helphandle > div {/*#helphandle, #helptext define the position of the help button and its text*/ 
 	position: fixed;
 	z-index: 100;
 }
-/*#helptext defines the form of the help text*/
-#helptext {
+#helphandle > div {/*defines the help text*/
 	padding:20px 20px 20px 20px; /* configure a padding top, right, bottom,left */
 	color: white;
 	width: 690px;       
     height: 400px;
 	background: #1C2F4F;
 	border: solid 3px white;
-	text-align: left;
 	opacity:0.95;
-	overflow:scroll;
+	overflow:auto;
 }
-/*define the question mark of the help text*/ 
-#click{
+#helphandle > span{/*define the question mark of the help text*/
+    font-weight: bold;
 	color:#182947;
 	cursor: pointer;
 }
