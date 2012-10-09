@@ -89,18 +89,20 @@ public abstract class FileUtil {
      * @param path
      * @param multipartFile
      * @return
+     * @throws InvalidImageFileException 
+     * @throws IOException 
      * @throws Exception 
      */
-    public static File uploadFile(MultipartFile multipartFile, String path, String fileName) throws Exception {
+    public static File uploadFile(MultipartFile multipartFile, String path, String fileName) throws InvalidImageFileException, IOException {
         if (multipartFile.getSize()>1500000)  {
             throw new InvalidImageFileException("file is too large 1.5Mo maximum");
         }
         if (path == null) {
-            throw new Exception("File path(image) can't be null");
+            throw new IllegalArgumentException("File path(image) can't be null");
         }
         
         if (fileName == null) {
-            throw new Exception("File name(image) can't be null");
+            throw new IllegalArgumentException("File name(image) can't be null");
         }
         File folder = FileUtil.ensureFolderExists(path);
         if(log.isDebugEnabled()){
@@ -121,16 +123,11 @@ public abstract class FileUtil {
          
 
         FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(file);
-            fos.write(multipartFile.getBytes());
-        } catch (final java.io.FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } finally {
-            fos.close();
-        }
+        fos = new FileOutputStream(file);
+        fos.write(multipartFile.getBytes());
+        fos.close();
 
-        log.info("file succesfull uploaded : "+file.getCanonicalPath());
+        log.debug("file succesfull uploaded : "+file.getCanonicalPath());
         return file;
     }
 

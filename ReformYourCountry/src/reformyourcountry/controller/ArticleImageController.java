@@ -1,5 +1,6 @@
 package reformyourcountry.controller;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
@@ -12,14 +13,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import reformyourcountry.model.Article;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.util.FileUtil;
 import reformyourcountry.util.FileUtil.InvalidImageFileException;
+import reformyourcountry.util.ImageUtil;
 
 @Controller
 @RequestMapping(value={"/article"})
-public class ArticleImageController {    
+public class ArticleImageController extends BaseController<Article>{    
     
     /**
      * Find the names of the files in the Article pictures folder and send it to the jsp
@@ -36,8 +39,7 @@ public class ArticleImageController {
         
         ModelAndView mv =new ModelAndView("articleimage");
         mv.addObject("listFiles",listFiles); 
-        mv.addObject("errorMsg",error);
-        mv.addObject("validUser",true);
+        setMessage( mv, error);
         return mv;
     }
     
@@ -46,15 +48,46 @@ public class ArticleImageController {
      * @throws Exception 
      */
     @RequestMapping("/imageadd")
-    public ModelAndView articleImageAdd(@RequestParam("file") MultipartFile multipartFile) throws Exception{
+    public ModelAndView articleImageAdd(@RequestParam("file") MultipartFile multipartFile){
+        
         SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
         
         ModelAndView mv = new ModelAndView("redirect:/article/image");
         try {
             FileUtil.uploadFile(multipartFile, FileUtil.getGenFolderPath() + FileUtil.ARTICLE_SUB_FOLDER, multipartFile.getOriginalFilename());
         } catch (InvalidImageFileException iife) {
-            mv.addObject("errorMsg", iife.getMessageToUser());
+            setMessage(mv, iife.getMessageToUser());
+        } catch (IOException e) {
+            setMessage(mv, e.getMessage());
         }
+        
+        return mv;
+    }
+    
+    /**
+     * Download the image from url to the server Article pictures folder 
+     * @throws Exception 
+     */
+    @RequestMapping("/imageaddfromurl")
+    public ModelAndView articleImageAddFromUrl(@RequestParam("fileurl") String url,@RequestParam("name")String imageName) {
+        
+        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
+        ModelAndView mv = new ModelAndView("redirect:/article/image");
+        BufferedImage image = null;
+        
+        try{
+            image = ImageUtil.readImage(url);
+        }catch (RuntimeException e) {
+            setMessage(mv, "veuillez indiquer une URL valide");
+            return mv;//useless to try to save image if we don't have it
+        }
+        
+        try {
+            ImageUtil.saveImageToFileAsJPEG(image, FileUtil.getGenFolderPath() + FileUtil.ARTICLE_SUB_FOLDER, imageName+".jpg",0.9f);
+        } catch (IOException e) {
+            throw new RuntimeException();
+        }
+       
         return mv;
     }
     

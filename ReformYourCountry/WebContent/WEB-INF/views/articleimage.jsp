@@ -1,29 +1,11 @@
 ﻿<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
-<html>
-<head>
-<title>Librairie d'images pour les articles</title>
-</head>
-<body>
+<%@ taglib tagdir="/WEB-INF/tags/ryctag" prefix="ryctag"%>
 
-
-	<!-- If there is a error message, show it! -->
-	<c:choose>
-		<c:when test="${!empty errorMsg}">
-			<div class="error">Error:${errorMsg}</div>
-		</c:when>
-	</c:choose>
-
-	
+<ryctag:pageheadertitle title="Librairie d'images pour les articles"></ryctag:pageheadertitle>
 	<ryc:conditionDisplay privilege="EDIT_ARTICLE">
-			<!-- Uploader form -->
-			<div class="">(Attention l'image doit faire moins de 1.5Mo)</div>
-			<form method="post" action="article/imageadd"
-				enctype="multipart/form-data">
-				<input type="file" name="file" value="${totalFiles.size()}" /><br>
-				<input type="submit" value="Ajouter" /><br>
-			</form>
+        <ryctag:imageupload action="/article/imageadd"/>
 	</ryc:conditionDisplay>
 
 
@@ -46,9 +28,9 @@
 					<tr>
 				</c:when>
 			</c:choose>
-			<td align="center" valign="top"><img
-				src="gen/article/${image.getName()}" width="200" /> <br>
-				${image.getName()}<br>
+			<td align="center" valign="top">
+                <img src="/gen/article/${image.getName()}" width="200" /> <br/>
+                ${image.getName()}<br/>
 				<ryc:conditionDisplay privilege="EDIT_ARTICLE">
 						<a href="article/imagedel?fileName=${image.getName()}">remove</a>
 				</ryc:conditionDisplay>
@@ -59,6 +41,3 @@
 		</c:forEach>
 		</tr>
 	</table>
-
-</body>
-</html>

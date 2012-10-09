@@ -4,6 +4,7 @@
 <%@taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 <%@ attribute name="book" type="reformyourcountry.model.Book"%>
 <%@tag import="reformyourcountry.util.FileUtil" %>
+
 <div class="book" id="${book.abrev}">
     <h3>${book.title}</h3>
     <p class="bookInfo">${book.author} - ${book.pubYear}</p>
