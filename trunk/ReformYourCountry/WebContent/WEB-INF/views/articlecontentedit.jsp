@@ -12,15 +12,11 @@
 <script type="application/javascript" src="js/int/autosave.js"></script>
 </head>
 <body>
-    <ryctag:pageheadertitle title="Éditer le contenu de l'article"/>
-    
+    <ryctag:pageheadertitle title="Éditer le contenu de l'article"></ryctag:pageheadertitle>
     <%-- Help handle --%>
-    <div id="helphandle" style="display:none;">
-        <span id="click" style="color: #182947; font-weight:bold;">?</span>
-        <div id="helptext"></div><%-- Will contain the help text--%>
-    </div>
-
-	<form:form modelAttribute="article" action="article/contenteditsubmit">
+    <div id="helphandle"><span>?</span><div><%--contains the helptext--%></div></div>
+    <br />
+    <form:form modelAttribute="article" action="article/contenteditsubmit">
 		<table><tr>
 				<td><input id="save" type="submit" value="Sauver" /><span id="saving" style="font-family: tahoma; font-size: 9px;"></span></td>
 				<td><form:errors path="content" cssClass="error" /></td>

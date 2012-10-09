@@ -9,7 +9,7 @@
 <meta name="googlebot" content="noarchive" />
 </head>
 <body>
-<ryctag:pageheadertitle title="Liste des articles"/>
+<ryctag:pageheadertitle title="Liste des articles"></ryctag:pageheadertitle>
 
 <ryc:conditionDisplay privilege="EDIT_ARTICLE">
 <div class="article-options">

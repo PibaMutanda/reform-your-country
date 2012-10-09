@@ -2,6 +2,10 @@ package reformyourcountry.controller;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,8 +40,7 @@ public class BookDisplayController extends BaseController<Book> {
 
 
     @RequestMapping("/imageadd")
-    public ModelAndView bookImageAdd(@RequestParam("id") long bookid,
-            @RequestParam("file") MultipartFile multipartFile) throws Exception{    
+    public ModelAndView bookImageAdd(@RequestParam("id") long bookid, @RequestParam("file") MultipartFile multipartFile) {    
         
         SecurityContext.assertUserHasPrivilege(Privilege.EDIT_BOOK);
 
@@ -53,8 +56,7 @@ public class BookDisplayController extends BaseController<Book> {
 
             BufferedImage resizedImage = ImageUtil.scale(new ByteArrayInputStream(multipartFile.getBytes()),120 * 200, 200, 200);
 
-            ImageUtil.saveImageToFileAsJPEG(resizedImage,  
-                    FileUtil.getGenFolderPath() + FileUtil.BOOK_SUB_FOLDER + FileUtil.BOOK_RESIZED_SUB_FOLDER, book.getId() + ".jpg", 0.9f);
+            ImageUtil.saveImageToFileAsJPEG(resizedImage, FileUtil.getGenFolderPath() + FileUtil.BOOK_SUB_FOLDER + FileUtil.BOOK_RESIZED_SUB_FOLDER, book.getId() + ".jpg", 0.9f);
 
             book.setHasImage(true);
             bookRepository.merge(book);
@@ -62,10 +64,55 @@ public class BookDisplayController extends BaseController<Book> {
 
         } catch (InvalidImageFileException e) {  //Tell the user that its image is invalid.
             setMessage(mv, e.getMessageToUser());
+        } catch (IOException e) {
+            throw new RuntimeException();
         }
 
         return mv;
     }
+    
+    @RequestMapping("/imageaddfromurl")
+    public ModelAndView bookImageAddFromUrl(@RequestParam("id") long bookid, @RequestParam(value="fileurl") String url) {    
+        
+        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_BOOK);
+
+        Book book = bookRepository.find(bookid);
+
+        ModelAndView mv = new ModelAndView("redirect:/book/"+book.getUrl());
+        mv.addObject("book", book);
+        
+        BufferedImage image = null;
+        
+        try{
+            image = ImageUtil.readImage(url);
+        }catch (RuntimeException e) {
+            setMessage(mv, "veuillez indiquer une URL valide");
+            return mv;//useless to try to save image if we don't have it
+        }
+
+        ///// Save original image, scale it and save the resized image.
+        try {
+            
+            ByteArrayOutputStream outStream= new ByteArrayOutputStream();
+            ImageIO.write(image, "jpg", outStream);
+            
+            image = ImageUtil.scale(new ByteArrayInputStream(outStream.toByteArray()),120 * 200, 200, 200);
+
+            ImageUtil.saveImageToFileAsJPEG(image,  
+                    FileUtil.getGenFolderPath() + FileUtil.BOOK_SUB_FOLDER + FileUtil.BOOK_RESIZED_SUB_FOLDER, book.getId() + ".jpg", 0.9f);
+
+            book.setHasImage(true);
+            bookRepository.merge(book);
+
+
+        } catch (IOException e) {
+            throw new RuntimeException();
+        }
+
+        return mv;
+    }
+    
+    
     @RequestMapping("/imagedelete")
     public ModelAndView bookImageDelete(@RequestParam("id") long bookid){
         SecurityContext.assertUserHasPrivilege(Privilege.EDIT_BOOK);

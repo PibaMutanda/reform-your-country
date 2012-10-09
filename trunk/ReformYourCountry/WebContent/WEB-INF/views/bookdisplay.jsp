@@ -30,28 +30,11 @@
     </div>
     <div style="display: inline-block;">
     <ryc:conditionDisplay privilege="EDIT_BOOK">
-    	<script type="text/javascript">
-			function getfile(){
-			    document.getElementById('hiddenfile').click();
-			}
-			function showfile(){
-			    document.getElementById('selectedfile').value=document.getElementById('hiddenfile').value;
-			}
-		</script>
-		
 		<form method="post" action="book/imagedelete">
 			<input type="hidden" name="id" value="${book.id}" />  <br><input type="submit" value="Supprimer l'image" />
 		</form>
-		<p>
-		<form method="post" action="book/imageadd" enctype="multipart/form-data">
 			Changer l'image 
-			<input type="button" value="" class="uploadBtn" onmouseout="showfile()" onclick="getfile()" />
-			<input type="submit" class ="saveBtn" value="" /><br/>
-			<input type="file" name="file" id="hiddenfile" style="display:none;" />
-			<input type="text"  disabled="disabled"  id="selectedfile" width="100%" />
-			<input type="hidden" name="id" value="${book.id}" />
-		</form>
-		</p>
+        <ryctag:imageupload action="book/imageadd" id="${book.id}"/>
 	  </ryc:conditionDisplay>
 	  </div>
 </body>
