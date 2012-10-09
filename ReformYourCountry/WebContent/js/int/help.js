@@ -11,8 +11,11 @@ $(function(){
         helpMark.css("left", leftPosition);  // clickable "?"
         helpMark.css("top", refrencePositionnedBlock.offset().top);
        
+        ///// position the help text
         helpText.css('left',  (leftPosition - helpText.width() - 40));  // -40 because of css padding
         helpText.css('height', ($(window).height() - helpText.offset().top - $(window).scrollTop() - 60) );//-60 don't know why. Top of the help div, relative to the window.
+        
+        
         
         helpText.hide();//hide after add css otherweise javascript cannot compute height and width of the text div
         
