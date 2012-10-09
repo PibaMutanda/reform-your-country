@@ -38,9 +38,9 @@
 				</ul>	
 		</div>
 		</ryc:conditionDisplay>
-		<div class="article-title">
+		<div class="article-title" style>
 			<ryc:conditionDisplay privilege="EDIT_ARTICLE">
-		    	<span class="tooltip" data-tooltip='identifiant de cet article pour utilisation dans la balise [link article="identifiant"]'>${article.shortName}</span>   <!--  Tooltip avec "identifiant de cet article pour utilisation dans la balise [link article="identifiant"]" -->
+		    	<span class="tooltip" data-tooltip='identifiant de cet article pour utilisation dans la balise [link article="${article.shortName}"]'>${article.shortName}</span>   <!--  Tooltip avec "identifiant de cet article pour utilisation dans la balise [link article="identifiant"]" -->
 			</ryc:conditionDisplay>	
 		    <c:if test="${!article.publicView}">
 				<p>Cet article n'est pas disponible au public.
