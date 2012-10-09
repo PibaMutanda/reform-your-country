@@ -10,12 +10,15 @@
 </head>
 <body>
 <ryctag:pageheadertitle title="Liste des articles"/>
+
+<ryc:conditionDisplay privilege="EDIT_ARTICLE">
 <div class="article-options">
 			    <ul class="list sitemap-list">
-					 <li><a href="article/create">Créer un article</a></li>
+					 <li><a href="/article/create">Créer un article</a></li>
+					 <li><a href="/article/image">Images d'articles</a></li>
 				</ul>	
-		</div>
-
+</div>
+</ryc:conditionDisplay>
 <ryc:articlesTree link="true" />
 </body>
 </html>
