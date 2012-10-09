@@ -1,9 +1,12 @@
 package reformyourcountry.controller;
 
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.social.connect.web.ProviderSignInController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,17 +22,35 @@ import reformyourcountry.model.User;
 import reformyourcountry.service.LoginService;
 import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
 import reformyourcountry.util.DateUtil;
+import reformyourcountry.web.Cookies;
 
 @Controller
 public class LoginController extends BaseController<User> {
 
+    public static final String AUTOLOGIN = "autologin";
+    
     @Autowired LoginService loginService;
     @Autowired UserDisplayController userDisplayController;
-
+    @Autowired ProviderSignInController providerSignIncontroller;
     
     @RequestMapping(value="/login", method=RequestMethod.GET)
-    public String signin() {
-        return "login";
+    public ModelAndView signin(HttpServletRequest request) {
+        ModelAndView mv = new ModelAndView("login");
+        
+        // if the cookie does not exist or if the cheked autologin checkbox is in the session
+        
+        if(Cookies.findCookie(Cookies.LOGINCOOKIE_KEY) != null 
+                || (request.getSession().getAttribute(AUTOLOGIN) != null && !(boolean)request.getSession().getAttribute(AUTOLOGIN) )){
+        
+        boolean autologin  = (boolean) request.getSession().getAttribute(AUTOLOGIN);
+     
+        mv.addObject(AUTOLOGIN,autologin);
+        }
+        else
+            mv.addObject(AUTOLOGIN,false);  
+        
+        return mv;
+        
     }
   
     
@@ -81,6 +102,9 @@ public class LoginController extends BaseController<User> {
             return new ModelAndView("redirect:user/"+user.getUserName());
         }
     }
+    
+    
+   
     
     /**
      * 
@@ -144,8 +168,15 @@ public class LoginController extends BaseController<User> {
     }
 
 */
-    
-    
+    /*
+     * called from login.jsp when the user check the autologin checkbox
+     * next these value will be used in the spring social signin adapter
+     */
+    @RequestMapping(value="ajax/autologin")
+    public ResponseEntity<String> loginSubmitAjax(@RequestParam("autologin") boolean autologin,HttpServletRequest request){
+        request.getSession().setAttribute(AUTOLOGIN, new Boolean(autologin));          
+        return new ResponseEntity<String>(HttpStatus.OK);
+    }
   
     
     
