@@ -40,7 +40,7 @@
 	<div style="float:left; padding-left:50px;">
 				Prénom: <c:choose><c:when test="${user.firstName ne null}">${user.firstName}</c:when><c:otherwise>?</c:otherwise></c:choose> <br/>
 				Nom de famille: <c:choose><c:when test="${user.lastName ne null}">${user.lastName}</c:when><c:otherwise>?</c:otherwise></c:choose> <br/>
-				Pseudo : <c:choose><c:when test="${user.userName ne null}">${user.userName}</c:when><c:otherwise>?</c:otherwise></c:choose><br/>
+				Pseudo : ${user.userName}<br/>
 				Genre : <c:choose><c:when test="${user.gender ne null}">${user.gender}</c:when><c:otherwise>?</c:otherwise></c:choose> <br/>
 				<c:if test="${canEdit}">
 					Né le : <c:choose><c:when test="${user.birthDate ne null}">${user.birthDate}</c:when><c:otherwise>?</c:otherwise></c:choose><br />

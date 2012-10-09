@@ -23,11 +23,11 @@
 
 
     <ryctag:form action="user/editsubmit" modelAttribute="user">
-        <ryctag:input path="lastName" label="Nom" required="required"/>
+        <ryctag:input path="lastName" label="Nom" />
         <ryctag:input path="firstName" label="Prénom"/>
-        <ryctag:input path="userName" label="Pseudonyme"/>
+        <ryctag:input path="userName" label="Pseudonyme" required="required"/>
         
-        <tr>
+        <tr> <%-- We do not use a date picker here, because for old dates, it's not practical --%>
             <td>Date de naissance</td>
             <td>
                 <jsp:useBean id="now" class="java.util.Date" /><%-- Used by the birthday picker, "year" variable --%>
