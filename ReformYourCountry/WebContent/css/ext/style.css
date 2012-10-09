@@ -1299,7 +1299,7 @@ img a, a img {cursor:pointer;}
 .hr_shadow {border: 0;height: 20px;width: 100%;background: url(/images/_global/separator-shadow-small.jpg) top center no-repeat;margin: 15px 0 22px 0;}
 .content_full_width .hr_shadow {background: url(/images/_global/separator-shadow.jpg) top center no-repeat !important;}
 .content_sidebar .hr_shadow {background: url(/images/_global/separator-shadow-xtra-small.jpg) top center no-repeat !important;}
-table{font-size:1.2em;}
+/*table{font-size:1.2em;}*/ /*why make this? --maxime 9/10/2012*/
 table td, table th{padding:6px;}
 .flash-wrap {min-height:400px;}
 
@@ -1814,7 +1814,8 @@ border-radius: 5px;
 /* Added By cedric and Delphine
 /*---------------------------------------------------------------*/
 .realshadow{
-
+   border : solid;
+   border-width: 10px;
    -moz-border-image: url(/images/_global/cadre.png) 8 / 10px  stretch;
    -webkit-border-image: url(/images/_global/cadre.png) 8 / 10px  stretch; 
    -o-border-image: url(/images/_global/cadre.png) 8 / 10px    stretch; 
