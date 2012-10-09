@@ -20,11 +20,11 @@ public class ArticleRepository extends BaseRepository<Article>{
     }
     
     public Article findByShortName(String shortName){
-    	return getSingleOrNullResult(em.createQuery("select a from Article a where a.shortName = :shortname").setParameter("shortname",shortName));
+    	return getSingleOrNullResult(em.createQuery("select a from Article a where lower(a.shortName) = :shortname").setParameter("shortname",shortName.toLowerCase()));
     }
     
     public Article findByTitle(String title){
-        return getSingleOrNullResult(em.createQuery("select a from Article a where a.title = :title").setParameter("title",title));
+        return getSingleOrNullResult(em.createQuery("select a from Article a where lower(a.title) = :title").setParameter("title",title.toLowerCase()));
     }
     
     public List<Article> findByDate(Date publishDate, int maxAmount){

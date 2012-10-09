@@ -19,7 +19,7 @@
 	<ryc:conditionDisplay privilege="EDIT_ARTICLE">
 			<!-- Uploader form -->
 			<div class="">(Attention l'image doit faire moins de 1.5Mo)</div>
-			<form method="post" action="articleimageadd"
+			<form method="post" action="article/imageadd"
 				enctype="multipart/form-data">
 				<input type="file" name="file" value="${totalFiles.size()}" /><br>
 				<input type="submit" value="Ajouter" /><br>
@@ -50,7 +50,7 @@
 				src="gen/article/${image.getName()}" width="200" /> <br>
 				${image.getName()}<br>
 				<ryc:conditionDisplay privilege="EDIT_ARTICLE">
-						<a href="articleimagedel?fileName=${image.getName()}">remove</a>
+						<a href="article/imagedel?fileName=${image.getName()}">remove</a>
 				</ryc:conditionDisplay>
 			</td>
 			<%

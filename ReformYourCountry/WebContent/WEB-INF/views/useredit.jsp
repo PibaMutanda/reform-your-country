@@ -33,11 +33,13 @@
                 <jsp:useBean id="now" class="java.util.Date" /><%-- Used by the birthday picker, "year" variable --%>
                 <fmt:formatDate var="year" value="${now}" pattern="yyyy" /><%-- Used by the birthday picker, "year" variable --%>	
                 <select name="birthDay" id="birthDay" class="input_pulldown">
+                		<option value=null <c:if test="${birthDay==null}">selected="selected"</c:if>>Jour</option>
                         <c:forEach var="i" begin="1" end="31" step="1" varStatus ="status">
                             <option  value="${i}" <c:if test="${birthDay==i}">selected="selected"</c:if>>${i}</option>
                         </c:forEach> 
                 </select>
                 <select name="birthMonth" id="birthMonth" class="input_pulldown" >
+                		<option value="null" <c:if test="${birthMonth==null}">selected="selected"</c:if>>Mois</option>
                         <option value="1" <c:if test="${birthMonth==0}">selected="selected"</c:if>>Janvier</option>
                         <option value="2" <c:if test="${birthMonth==1}">selected="selected"</c:if>>Fevrier</option>
                         <option value="3" <c:if test="${birthMonth==2}">selected="selected"</c:if>>Mars</option>
@@ -49,9 +51,10 @@
                         <option value="9" <c:if test="${birthMonth==8}">selected="selected"</c:if>>Septembre</option>
                         <option value="10" <c:if test="${birthMonth==9}">selected="selected"</c:if>>Octobre</option>
                         <option value="11" <c:if test="${birthMonth==10}">selected="selected"</c:if>>Novembre</option>
-                        <option value="12" <c:if test="${birthMonth==11}">selected="selected"</c:if>>D�cembre</option>
+                        <option value="12" <c:if test="${birthMonth==11}">selected="selected"</c:if>>Décembre</option>
                 </select>
                 <select name="birthYear" id="birthYear" class="input_pulldown">
+                	<option value=null <c:if test="${birthYear==null}">selected="selected"</c:if>>Année</option>
                     <c:forEach var="i" begin="0" end="100" step="1" varStatus ="status">
                         <option value="${year-i}" <c:if test="${birthYear==(year-i)}">selected="selected"</c:if>>${year-i}</option>
                     </c:forEach>

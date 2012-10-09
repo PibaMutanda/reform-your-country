@@ -10,7 +10,11 @@
 </head>
 <body>
 <ryctag:pageheadertitle title="Liste des articles"/>
-
+<div class="article-options">
+			    <ul class="list sitemap-list">
+					 <li><a href="article/create">Créer un article</a></li>
+				</ul>	
+		</div>
 
 <ryc:articlesTree link="true" />
 </body>
