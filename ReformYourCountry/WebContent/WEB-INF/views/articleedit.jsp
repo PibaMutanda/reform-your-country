@@ -16,9 +16,9 @@
 	<ryctag:form modelAttribute="article" action="article/editsubmit">
         <tr>
             <ryctag:input path="title" label="Titre" id="title" required="required" />
-            <ryctag:input path="shortName" label="raccourci" />
+            <ryctag:input path="shortName" label="Raccourci" />
             <tr class="tooltip" data-tooltip="identifiant pour l'article dans les URLs">
-				<td><label for="url">fragment d'URL</label></td>
+				<td><label for="url">Fragment d'URL</label></td>
 				<td><form:input path="url" required="required" id="url" type="input" cssStyle="width:100%;" /></td>
 				<td><input type="submit" value="Générer une url" id="generate" /></td>
 			</tr>

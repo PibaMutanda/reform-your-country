@@ -159,6 +159,7 @@ height: 32px;
 }
 .article-title{
 	float:left;
+	width: 600px;
 }
 .bibref-after-block {
 	color: #AAA;
