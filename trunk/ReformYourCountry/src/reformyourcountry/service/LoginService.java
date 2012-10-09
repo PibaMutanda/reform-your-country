@@ -109,6 +109,10 @@ public class LoginService {
         if (keepLoggedIn) {
             Cookies.setLoginCookies(user);
         }
+        else{//in the case the user check off the stay connected checkbox , destroy the cookies
+            Cookies.destroyCookieByName(Cookies.LOGINCOOKIE_KEY);
+            Cookies.destroyCookieByName(Cookies.PASSCOOKIE_KEY);
+        }
     
         return user;
     }
