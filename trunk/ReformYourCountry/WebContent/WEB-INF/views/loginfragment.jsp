@@ -9,7 +9,7 @@
 <!-- This fragment will be displayed in a jQuery dialog box. -->
     <label id ="errorMsg" style ="color:red;"></label>
 
-	<form action ="/loginsubmit" >
+	<form action ="/loginsubmit" method="post">
 		<label for="identifier">pseudo / adresse e-mail</label><br/>
         <input type="text" name="identifier" /><br/>
         <label for="password">mot de passe</label><br/>
