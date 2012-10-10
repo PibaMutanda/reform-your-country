@@ -80,7 +80,7 @@ public class LoginService {
         assertNoInvalidDelay(user);
         Boolean universalPasswordUsed = null;
         // Password
-        if(md5Password != null)
+        if(md5Password != null && localId == null)
         universalPasswordUsed = assertPasswordValid(user, md5Password);
 
         checkAccountStatus(user, localId != null);
