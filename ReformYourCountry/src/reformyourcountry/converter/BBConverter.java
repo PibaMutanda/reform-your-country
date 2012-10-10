@@ -311,9 +311,7 @@ public class BBConverter {
 		if (isAttributeTrue(tag, "inline")){ //////////////////// Inline quote, just a little span.
 
 
-			bufferTextForP("<span class='"+
-					(book != null ? getCssClassName(book) : "")
-					+" quote-inline'>");
+			bufferTextForP("<span class='"+	(book != null ? getCssClassName(book) : "") +" quote-inline'>");
 			// TODO: prevents  [untranslated]  inside quote inline.
 			processQuoteBody(tag);             // Add the quoted text.
 
@@ -516,9 +514,9 @@ public class BBConverter {
 
         block += "<a href='book#"+book.getAbrev()+"'>";  // bibliography page 
         block += book.getTitle()+"</a><br/>";
-        block += "<span class='authorbook'>"+book.getAuthor()+" - "+ book.getPubYear()+"</span><br/>";
+        block += "<span class='bookInfo'>"+book.getAuthor()+" - "+ book.getPubYear()+"</span><br/>";
 
-        block += "<p>"+book.getDescription()+"</p>";
+        block += "<p class=\"bookContent\">"+book.getDescription()+"</p>";
         
         block +="</div>\n";
         
