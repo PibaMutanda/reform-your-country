@@ -18,12 +18,13 @@
     <br />
     <form:form modelAttribute="article" action="article/contenteditsubmit">
 		<table><tr>
-				<td><input id="save" type="submit" value="Sauver" /><span id="saving" style="font-family: tahoma; font-size: 9px;"></span></td>
+				<td><input class="save" type="submit" value="Sauver" /><span id="saving" style="font-family: tahoma; font-size: 9px;"></span></td>
 				<td><form:errors path="content" cssClass="error" /></td>
 				</tr></table>
 		<!-- do not erase class , cols and rows attribute of the textarea , these values are used by textarea-expander.js -->
 		<form:textarea path="content" class="expand autosaveable" cols="60" rows="3" style="width:100%" />
 		<form:hidden path="id" />
+		<td><input class="save" type="submit" value="Sauver" /><span id="saving" style="font-family: tahoma; font-size: 9px;"></span></td></tr>
 	</form:form>
 </body>
 </html>
