@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+     <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %> 
@@ -38,8 +38,10 @@
    <p>
      <a href="TODO">La partie technique</a> de ce site a été bénévolement développée par ces informaticiens que nous remercions de tout coeur pour leur travail exceptionnel. Cette plate-forme est open-source et disponible sur <a href="http://code.google.com/p/reform-your-country/">Google code</a>.
    </p>
-   
-    
+   <p>
+     Pour information, cette plate-forme a été programmée en Java sur les technologies JPA/Hibernate, Spring, SpringMVC, jQuery, Tomcat et PostgreSQL.
+   </p>
+   <%-- 
    <div style="display: inline-block;"> 
           
 	 <div class="col1">
@@ -143,5 +145,7 @@
         <br/>
      </div>
   </div>    
+   --%>
 </body>
 </html>
+
