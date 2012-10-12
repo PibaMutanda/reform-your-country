@@ -35,8 +35,4 @@ CREATE TABLE userconnection
     ALTER TABLE article ADD UNIQUE (shortName);
 -- 2012-10-03 Cedric
 
-    alter table mail add column emailreplyto varchar(100);
-        
--- 2012-10-12 Thomas
-
-    alter table article add column toclassify text;
+    alter table mail add column emailreplyto varchar(100);      
