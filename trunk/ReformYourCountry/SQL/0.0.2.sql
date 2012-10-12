@@ -37,3 +37,8 @@ CREATE TABLE userconnection
 
     alter table mail 
         add column emailreplyto varchar(100);
+        
+-- 2012-10-12 Thomas
+
+    alter table article 
+        add column toclassify text;
