@@ -21,8 +21,7 @@ sur <a href="http://www.youtube.com/user/enseignement2">youtube</a> en cliquant 
 </li>
 </ul>
 
-
-<img src="/images/Mobile-Commerce2.jpg" class="realshadow center-align"/>
+<div class="center-align"><img src="/images/Mobile-Commerce2.jpg" class="realshadow center-align"/></div>
 
 <p>
 D’autres tâches sont plus lourdes et nécessitent de <a href="/contact">nous contacter</a>. Voici les rôles/tâches typique de contributeurs d’enseignement2.be:
@@ -38,7 +37,7 @@ D’autres tâches sont plus lourdes et nécessitent de <a href="/contact">nous 
 <b>Programmation</b>:<a href="http://www.google.com"> un projet open-source</a> a spécialement été créé pour ce site par <a href="/prog">des bénévoles</a>. Vous pouvez mettre vos compétences de programmation Java/JavaScript ou votre sensibilité artistique html/CSS en valeur pour une bonne cause.
 </li>
 </ul>
-<img src="/images/flower.png" class="realshadow center-align"/>
+<div class="center-align"><img src="/images/flower.png" class="realshadow center-align"/></div>
 
 <p><!-- This  empty paragraph is for the image shadow -->
 </p>
