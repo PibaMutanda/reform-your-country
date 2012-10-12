@@ -5,7 +5,7 @@
 
 <ryctag:pageheadertitle title="Librairie d'images pour les articles"></ryctag:pageheadertitle>
 	<ryc:conditionDisplay privilege="EDIT_ARTICLE">
-        <ryctag:imageupload action="/article/imageadd"/>
+        <ryctag:imageupload action="/article/imageadd" rename="true"/>
 	</ryc:conditionDisplay>
 
 

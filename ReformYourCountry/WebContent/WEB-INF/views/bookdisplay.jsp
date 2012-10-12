@@ -34,7 +34,7 @@
 			<input type="hidden" name="id" value="${book.id}" />  <br><input type="submit" value="Supprimer l'image" />
 		</form>
 			Changer l'image 
-        <ryctag:imageupload action="book/imageadd" id="${book.id}"/>
+        <ryctag:imageupload action="book/imageadd" id="${book.id}" rename="false"/>
 	  </ryc:conditionDisplay>
 	  </div>
 </body>

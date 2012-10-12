@@ -1,5 +1,8 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
+<%@taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
+
 <%@ attribute name="action" required="true"%>
+<%@ attribute name="rename" required="true" type="java.lang.Boolean"%>
 <%@ attribute name="id" type="java.lang.Long" required="false" %>
 <script type="text/javascript">
 	function getfile() {
@@ -24,7 +27,9 @@
     <fieldset>
         <legend>à partir d'un autre site web</legend>
         <label for="fileurl">URL: </label><input type="url" name="fileurl" required="required" /><br /> 
+        <c:if test="${rename}">
         <label for="name">nom de l'image: </label><input type="text" name="name" required="required" /><br /> 
+        </c:if>
         <input type="hidden" name="id" value="${id}" />
         <input type="submit" value="Ajouter" /><br />
     </fieldset>
