@@ -200,6 +200,9 @@ height: 32px;
 
 
 /* div defining the content of a book displayed on the bibliography page and in the tooltip */
+.book{
+    text-align: left; /* to avoid jquery bubblepopup text-align: center*/ 
+}
 .book .bookInfo{
 	font-size:0.8em;
 	font-style: italic;
