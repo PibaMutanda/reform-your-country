@@ -34,7 +34,9 @@
 			</c:otherwise>
 		</c:choose>
 		<br />
+		<c:if test="${canEdit}">
 			<a href= "user/image?id=${user.id}">Ajouter image</a><br/>
+		</c:if>	
 	</div>
 	
 	<div style="float:left; padding-left:50px;">
