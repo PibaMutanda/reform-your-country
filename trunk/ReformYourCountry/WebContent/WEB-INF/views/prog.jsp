@@ -136,7 +136,7 @@
    <div style="display: inline-block;">  
      <div class="col1">
     
-        <div><img alt="Thomas Van Roy" class="realshadow"  src="http://images2.wikia.nocookie.net/__cb20120817160024/creepypasta/images/thumb/2/21/Mad_mario.jpg/180px-Mad_mario.jpg"></div>
+        <div><img alt="Thomas Van Roy" class="realshadow"  src="images/developpers/thomas_van_roy.jpg"></div>
         <div class="developer_name">Thomas Van Roy</div>
         <p class="developer_descr">BBCode parser , SEO , article publishing, form tags, privilege edit, various scripts</p>   
         <br/>
