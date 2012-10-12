@@ -22,7 +22,14 @@
 </div><!-- end first one_fourth_column -->
 
 <div class="one_fourth">
-	<h3>Bibliographie</h3>
+	<h3>Contenu</h3>
+	<div class="footer_post">
+	     <ul class="list sitemap-list">
+	     <li><a href="/article">Articles</a></li>
+	     <li><a href="/action">Actions</a></li>
+	     <li><a href="/book">Bibliographie</a></li>
+	     </ul> 
+	</div>
  </div><!-- end second one_fourth_column -->
 
 <div class="one_fourth">
