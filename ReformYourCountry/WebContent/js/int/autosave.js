@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
 	//disable the save button
-	$(".save").each(function(){
+	$(".save").each(function(){ // .each() used because .attr() only takes the first matched element (so if there are more than one save button, only the first will be disabled).
 		$(this).attr('disabled', 'disabled');
 	});
 	
@@ -17,13 +17,13 @@ $(document).ready(function() {
 	$(".autosaveable").keyup(function(event) {
 		$(".save").removeAttr('disabled');  // Make the save button enabled (the text effectively changed since the last save).
 
-		if(event.ctrlKey == false  &&  event.keyCode != 83) {// get the save timer only when new content not after a CTRL+S pressed
+		if(event.ctrlKey == false  &&  event.keyCode != 83) {// get the save timer only when there is new content and when CTRL+S wasn't pressed
 			setTimeout(function(){performChange();}, 120000);  // We'll save in 120 seconds from now.
 		}
 	});
 
 
-	// Function called when a changed is performed on the article.
+	// Function called when a change is performed on the article.
 	function performChange() {
 		////// We effectively start saving from here
 		$("#saving").text("sauvegarde en cours....");		
