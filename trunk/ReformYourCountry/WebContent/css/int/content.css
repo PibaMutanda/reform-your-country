@@ -95,9 +95,8 @@
 
 /***Display***/
 .icon-32{  /* Because i'm to lazy to go in GIMP and change every icons we have to 32px... */
-width:32px;
-height: 32px;
-
+    width:32px;
+    height: 32px;
 }
 .untranslated,.translated{
 	/*if not inline-block the jquery slideshow will not be visible*/
@@ -210,8 +209,6 @@ height: 32px;
 	margin-top:2px;
 }
 .book .bookContent{
-	text-align: justify;
-	margin-top: 3em;	
 	font-size:1.2em;
 }
 .book > a{

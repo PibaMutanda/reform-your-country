@@ -74,7 +74,7 @@
 	</div>
      
 	<div class="col2">
-		<div><img alt="SEO" class="realshadow"  src="images\features-icons\seo.jpg"></div>
+		<div><img alt="SEO" class="realshadow"  src="images/features-icons/seo.jpg"></div>
 		<div class="feature_name">SEO</div>
 		<p class="feature_descr">Amélioration des pages pour l’interprétation par Google: firendly-urls, meta tags, headings, texte alternatif aux images, etc.</p>   
 		<br />
@@ -82,7 +82,7 @@
 	</div>
      
 	<div class="col3">
-		<div><img alt="Balisage du texte des articles" class="realshadow"  src="images\features-icons\brackets.jpg"></div>
+		<div><img alt="Balisage du texte des articles" class="realshadow"  src="images/features-icons/brackets.jpg"></div>
 		<div class="feature_name">Balisage du texte des articles</div>
 		<p class="feature_descr">DSL (Domain Specific Language) de balises pour délimiter les citations, les références bibliographiques, les traductions, les liens vers d’autres articles, etc. avec texte d’aide en ligne.
 Bulles informatives avec détails des livres dans le texte.
@@ -94,7 +94,7 @@ Délimitation automatique des paragraphes.</p>
 	</div>
 	<div style="display: inline-block;">
 		<div class="col1">
-		<div><img alt="Edition d’articles" class="realshadow"  src="images\features-icons\edition.jpg"></div>
+		<div><img alt="Edition d’articles" class="realshadow"  src="images/features-icons/edition.jpg"></div>
 		<div class="feature_name">Edition d’articles</div>
 		<p class="feature_descr">Sauvegarde automatique, versionning, taille adaptative du champs de saisie.</p>   
 		<br />
@@ -102,7 +102,7 @@ Délimitation automatique des paragraphes.</p>
 	</div>
      
 	<div  class="col2"  >
-		<div><img alt="Gestion d’e-mails" class="realshadow"  src="images\features-icons\email.jpg"></div>
+		<div><img alt="Gestion d’e-mails" class="realshadow"  src="images/features-icons/email.jpg"></div>
 		<div class="feature_name">Gestion d’e-mails</div>
 		<p class="feature_descr">Système d’envoi automatique d’e-mails sur événements (tel que la validation d’un utilisateur ou la publication d’un article), avec sauvegarde en DB avant envoi (résilience), groupement de plusieurs messages dans un mail résumé périodique, unsubscribe, etc.</p>   
 		<br />
@@ -110,7 +110,7 @@ Délimitation automatique des paragraphes.</p>
 	</div>
      
 	<div class="col3">
-		<div><img alt="Publications" class="realshadow"  src="images\features-icons\publishing.jpg"></div>
+		<div><img alt="Publications" class="realshadow"  src="images/features-icons/publishing.jpg"></div>
 		<div class="feature_name">Publications</div>
 		<p class="feature_descr">Système de dissimulation d’articles non publiés, et de publication automatique programmable, avec décompteur interractif.</p>  
 		<br/>
@@ -120,7 +120,7 @@ Délimitation automatique des paragraphes.</p>
 	</div>  
 	<div style="display: inline-block;">  
 		<div class="col1">
-		<div><img alt="PDF" class="realshadow"  src="images\features-icons\pdf.jpg"></div>
+		<div><img alt="PDF" class="realshadow"  src="images/features-icons/pdf.jpg"></div>
 		<div class="feature_name">PDF</div>
 		<p class="feature_descr">Génération de documents PDFs regroupant 1 ou plusieurs articles.(pas encore disponible)</p>   
 		<br/>
@@ -128,7 +128,7 @@ Délimitation automatique des paragraphes.</p>
 	</div>
   
 	<div class="col2">
-	<div><img alt="Hosting" class="realshadow"  src="images\features-icons\hosting.jpg"></div>
+	<div><img alt="Hosting" class="realshadow"  src="images/features-icons/hosting.jpg"></div>
 		<div class="feature_name">Hosting</div>
 		<p class="feature_descr">Setup d’un environnement de hosting dans le cloud. Scripts de déploiement automatisés des nouvelles versions, avec redirection vers une page d’attente. Backups incrémentaux. Arrangement efficient des DNS.</p>   
 		<br />
@@ -136,7 +136,7 @@ Délimitation automatique des paragraphes.</p>
 	</div>
    
 	<div class="col3">
-		<div><img alt="Points d’action" class="realshadow"  src="images\features-icons\action.jpg"></div>
+		<div><img alt="Points d’action" class="realshadow"  src="images/features-icons/action.jpg"></div>
 		<div class="feature_name">Points d’action</div>
 		<p class="feature_descr">Pas encore disponible</p>   
 		<br />

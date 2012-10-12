@@ -28,7 +28,7 @@
         <legend>à partir d'un autre site web</legend>
         <label for="fileurl">URL: </label><input type="url" name="fileurl" required="required" /><br /> 
         <c:if test="${rename}">
-        <label for="name">nom de l'image: </label><input type="text" name="name" required="required" /><br /> 
+            <label for="name">nom de l'image: </label><input type="text" name="name" required="required" /><br /> 
         </c:if>
         <input type="hidden" name="id" value="${id}" />
         <input type="submit" value="Ajouter" /><br />
