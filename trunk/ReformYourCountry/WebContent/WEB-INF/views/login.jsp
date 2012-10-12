@@ -6,7 +6,7 @@
 
 
 <head>
-<LINK href="css/social.css" rel="stylesheet" type="text/css">
+<link href="css/social.css" rel="stylesheet" type="text/css">
 
 <script type="text/javascript">
 $(document).ready(function() {		
@@ -40,7 +40,7 @@ $(document).ready(function() {
 </head>
 
 <body>
-<ryctag:pageheadertitle title="Connexion"/> 
+<ryctag:pageheadertitle title="Connexion"></ryctag:pageheadertitle> 
 Pour participer (voter, argumenter, etc.), vous devez vous connecter avec votre utilisateur.
 <div style="padding-top:20px;">    
 	<!-- SOCIAL SIGNIN - RIGHT COLUMN -->

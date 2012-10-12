@@ -10,7 +10,7 @@
 </head>
 
 <body>
-<ryctag:pageheadertitle title="Connexion"/> 
+<ryctag:pageheadertitle title="Connexion"></ryctag:pageheadertitle> 
 Pour participer (voter, argumenter, etc.), vous devez vous connecter avec votre utilisateur.
 <div style="padding-top:20px;">    
 	<!-- SOCIAL SIGNIN - RIGHT COLUMN -->
