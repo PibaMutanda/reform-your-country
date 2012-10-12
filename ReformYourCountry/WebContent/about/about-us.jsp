@@ -9,7 +9,7 @@
 
 <body>
 
-<ryctag:pageheadertitle title="Qui sommes nous?"/>
+<ryctag:pageheadertitle title="Qui sommes nous?"></ryctag:pageheadertitle>
 
 <p>enseignement2.be est un site indépendant du politique et de l’administration.<br/>
 Le site officiel de l’Etat est “<a href= "http://www.enseignement.be/">enseignement <i>&ndash;tout-court&ndash;</i>.be”</a></p>
@@ -27,9 +27,8 @@ Ainsi, lorsque les fondateurs du site “<a href="http://www.enseignons.be/">ens
 <li>nous ne sommes pas financés par l’Etat.</li>
 <li>s’il fallait nous placer dans une caste, nous dirions que nous avons un background scientifique,</li>
 </ul>
-</p>
 <p>
-Nous ne sommes tenu à défendre aucun intérêt particulier: classe politique, fonctionnaires, écoles, hautes écoles, universités, enseignants, pouvoirs organisateurs, sociétés privées, associations, etc..</br>
+Nous ne sommes tenu à défendre aucun intérêt particulier: classe politique, fonctionnaires, écoles, hautes écoles, universités, enseignants, pouvoirs organisateurs, sociétés privées, associations, etc..<br/>
 Si, dans notre quête, nous pouvons les épargner, tant mieux. Par contre, si l’un d’entre eux empêche l’intérêt général pour se protéger, nous le dénoncerons sans crainte.
 </p>
 <p>

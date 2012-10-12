@@ -908,7 +908,7 @@ a:hover { text-decoration:none;}
 /* 1. GENERAL TYPOGRAPHY
 /*---------------------------------------------------------------*/
 #main .frame h1 {padding-bottom: 15px !important;font-size:24px /*!important*/;float:left;margin:3px 0 0 0 /*!important*/;color: #FFF;}
-#main h1, #main h2, #main h3, #main h4, #main h5, #main h6  {padding-bottom: 10px;font-weight: normal;/*margin:0;*/}
+#main h1, #main h2, #main h3, #main h4, #main h5, #main h6  {/*padding-bottom: 10px;*/font-weight: normal;/*margin:0;*/}
 #main h1 {font-size:2.1em;}
 #main h2 {font-size:1.9em;}
 #main h3 {font-size:1.7em;}
@@ -1814,7 +1814,7 @@ border-radius: 5px;
 /* Added By cedric and Delphine
 /*---------------------------------------------------------------*/
 .realshadow{
-   border : solid 10px; /*needed to draw border*/
+   border : solid 10px; /*needed to draw border (in some browsers)*/
    -moz-border-image: url(/images/_global/cadre.png) 8  stretch;/* for before firefox15*/
    -webkit-border-image: url(/images/_global/cadre.png) 8  stretch; /*for safari ,mobile browser and chrome before 16*/
    -o-border-image: url(/images/_global/cadre.png) 8    stretch; /* for opera*/
