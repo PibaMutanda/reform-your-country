@@ -35,32 +35,33 @@ public class ArticleContentEditController extends BaseController<Article>{
     
     /** Auto save or ctrl + s */
     @RequestMapping(value = "/ajax/article/contenteditsubmit", method = RequestMethod.POST)
-    public ResponseEntity<?> articleContentEditSubmitAjax(@Valid @ModelAttribute Article article, BindingResult result){
-        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
-     
-        if(result.hasErrors()){
-            return new ResponseEntity<BindingResult>(result,HttpStatus.OK);
-        }else if((article.getContent()==null)||(article.getSummary()==null)||(article.getToClassify()==null)){
-        	return new ResponseEntity<String>("ne peut sauvegarder un contenu vide",  // that tiny message will appear next to the save button and a save hour.
-        			HttpStatus.OK);        
-        }else{
-            articleRepository.merge(article);
-            return new ResponseEntity<String>("sauvegarde",  // that tiny message will appear next to the save button and a save hour.
-                    HttpStatus.OK);
-        }
+    public ResponseEntity<?> articleContentEditSubmitAjax(@RequestParam(value="content",required=false)String content,
+    													  @RequestParam(value="summary",required=false)String summary,
+    													  @RequestParam(value="toClassify",required=false)String toClassify,
+    													  @RequestParam(value="id")Long id){
+    	SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
+    	Article article = getRequiredEntity(id);
+    	if ((!content.equals(null))&& !content.equals(article.getContent())) article.setContent(content);
+    	if ((!summary.equals(null))&& !summary.equals(article.getSummary())) article.setSummary(summary);
+    	if ((!toClassify.equals(null))&& !toClassify.equals(article.getToClassify())) article.setToClassify(toClassify);        	
+    	articleRepository.merge(article);
+    	return new ResponseEntity<String>("sauvegarde",  // that tiny message will appear next to the save button and a save hour.
+    			HttpStatus.OK);
     }
     
     /** Press the save button and close the page */
     @RequestMapping("/article/contenteditsubmit")
-    public ModelAndView articleContentEditSubmit(@Valid @ModelAttribute Article article, BindingResult result){
-        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
-        
-        if(result.hasErrors()||(article.getContent()==null)||(article.getSummary()==null)||(article.getToClassify()==null)){
-            return new ModelAndView("articlecontentedit","id",article.getId());
-        }else{
-            articleRepository.merge(article);
-            return new ModelAndView("redirect:"+article.getUrl());
-        }
+    public ModelAndView articleContentEditSubmit(@RequestParam(value="content",required=false)String content,
+    											 @RequestParam(value="summary",required=false)String summary,
+    											 @RequestParam(value="toClassify",required=false)String toClassify,
+    											 @RequestParam(value="id")Long id){
+    	SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
+    	Article article = getRequiredEntity(id);
+    	if (content!=null && (!content.equals(""))&& !content.equals(article.getContent())) article.setContent(content);
+    	if (summary!=null && (!summary.equals(""))&& !summary.equals(article.getSummary())) article.setSummary(summary);
+    	if (summary!=null && (!toClassify.equals(""))&& !toClassify.equals(article.getToClassify())) article.setToClassify(toClassify);        	
+    	articleRepository.merge(article);
+    	return new ModelAndView("redirect:"+article.getUrl());
 
     }
     
