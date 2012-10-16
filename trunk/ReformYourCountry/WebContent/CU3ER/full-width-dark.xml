@@ -119,11 +119,11 @@
   
     
     <slide>
-      <url><![CDATA[fille-faim.jpg]]></url> <!-- first image with text in the black line and a link to the corresponding article.-->
+      <url><![CDATA[2_abs.jpg]]></url> <!-- first image with text in the black line and a link to the corresponding article.-->
       <description> 
-         <heading><![CDATA[Les enfants ont faim d’apprendre ]]></heading>
-         	<paragraph><![CDATA[… mais veulent-ils rester assis à écouter des enseignants toute la journée?]]></paragraph>
-         <link target="_self"><![CDATA[/article/methode_d_enseignement]]></link>   <!-- TODO: Add a link here to the corresponding article. -->
+         <heading><![CDATA[Titre 1 ]]></heading>
+         	<paragraph><![CDATA[… Texte descriptif 1.]]></paragraph>
+         <link target="_self"><![CDATA[/home]]></link>   <!-- TODO: Add a link here to the corresponding article. -->
        </description> 
       <seo>
         <show image="true" heading="true" paragraph="true" caption="true" />
@@ -131,11 +131,11 @@
     </slide>
     <transition rows="3" columns="5"/>
     <slide>
-      <url><![CDATA[stressed_teacher_website1.jpg]]></url> <!-- second image with text in the black line and a link to the corresponding article.-->
+      <url><![CDATA[9_abs.jpg]]></url> <!-- second image with text in the black line and a link to the corresponding article.-->
        <description>  
-         <heading><![CDATA[Enseignant: le plus beau métier du monde ]]></heading>
-         	<paragraph><![CDATA[ … pas pour tous.]]></paragraph>
-         <link target="_self"><![CDATA[/article/penibilite_d_enseigner]]></link>  <!-- TODO: Add a link here to the corresponding article. -->
+         <heading><![CDATA[Titre 2 ]]></heading>
+         	<paragraph><![CDATA[ … Texte descriptif 2.]]></paragraph>
+         <link target="_self"><![CDATA[/about/about-us.jsp]]></link>  <!-- TODO: Add a link here to the corresponding article. -->
        </description> 
       <seo>
         <show image="true" heading="true" paragraph="true" caption="true"/>
