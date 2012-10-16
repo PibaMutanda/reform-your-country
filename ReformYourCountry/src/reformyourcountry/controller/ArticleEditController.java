@@ -58,6 +58,8 @@ public class ArticleEditController extends BaseController<Article>{
         }else{//if the article has no error
             if(article.getId() == null){//if this is a new article
             	article.setContent("Contenu à compléter.");
+            	article.setSummary("Contenu à compléter.");
+            	article.setToClassify("Contenu à compléter.");
                 articleRepository.persist(article);
                 return new ModelAndView("redirect:parentedit","id",article.getId()); // Next step after creation: select the parent.
             }else{

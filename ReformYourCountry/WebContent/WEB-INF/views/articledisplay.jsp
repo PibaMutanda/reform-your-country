@@ -28,8 +28,11 @@
 
    
 
-	<div style="display:inline-block"><!-- DO NOT REMOVE OR TITLE AND MENU ARE UPSIDE DOWN	 -->
+	<div style="display:inline-block"><!-- DO NOT REMOVE OTHERWISE TITLE AND MENU ARE UPSIDE DOWN	 -->
 		<ryc:conditionDisplay privilege="EDIT_ARTICLE">
+		<ul style="float:left">
+					<li><a href="/article/a_classer/${article.url}">Afficher "A classer"</a></li>
+				</ul>
 		<div class="article-options">
 			    <ul class="list sitemap-list">
 					 <li><a href="/article/edit?id=${article.id}">Editer l'article</a></li>
@@ -66,6 +69,8 @@
 		  	  <ryc:conditionDisplay privilege="EDIT_ARTICLE">
 		 		 <hr/>
 			  </ryc:conditionDisplay>  
+			  <div class="article_summary">${articleSummary}</div>
+			   <hr/>
 			  ${articleContent}
 	  	</div>
 	  </c:when>

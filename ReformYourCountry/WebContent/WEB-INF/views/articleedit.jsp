@@ -10,7 +10,7 @@
 </head>
 <body>
 	<c:choose>
-		<c:when test="${article.id != null}"><ryctag:pageheadertitle title="${article.title}"/></c:when>
+		<c:when test="${article.id != null}"><ryctag:pageheadertitle title="${article.title}"><c:forEach items="${parentsPath}" var="subarticle"><c:if test="${article.title != subarticle.title}"><ryctag:breadcrumbelement label="${subarticle.title}" link="/article/${subarticle.url}" /></c:if></c:forEach><ryctag:breadcrumbelement label="${article.title} - Edition" /></ryctag:pageheadertitle></c:when>
 		<c:otherwise><ryctag:pageheadertitle title="Créer un article"/></c:otherwise>
 	</c:choose>
 	<ryctag:form modelAttribute="article" action="article/editsubmit">

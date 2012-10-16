@@ -12,7 +12,14 @@ list-style-type:none;
 
 </head>
 <body>
-<ryctag:pageheadertitle title="Choisir le parent de l'article"/>
+<ryctag:pageheadertitle title="Choisir le parent de l'article">
+<c:forEach items="${parentsPath}" var="subarticle">
+ 		<c:if test="${article.title != subarticle.title}">
+			<ryctag:breadcrumbelement label="${subarticle.title}" link="/article/${subarticle.url}" />
+		</c:if>
+	</c:forEach>
+	<ryctag:breadcrumbelement label="${article.title} - Edition du parent" />
+ </ryctag:pageheadertitle>
 	<ryctag:form action="article/parenteditsubmit" modelAttribute="article">
 		<form:hidden path="id" />
 		${article.title}

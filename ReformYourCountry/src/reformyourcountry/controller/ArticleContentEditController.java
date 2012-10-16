@@ -40,7 +40,7 @@ public class ArticleContentEditController extends BaseController<Article>{
      
         if(result.hasErrors()){
             return new ResponseEntity<BindingResult>(result,HttpStatus.OK);
-        }else if(article.getContent()==null){
+        }else if((article.getContent()==null)||(article.getSummary()==null)||(article.getToClassify()==null)){
         	return new ResponseEntity<String>("ne peut sauvegarder un contenu vide",  // that tiny message will appear next to the save button and a save hour.
         			HttpStatus.OK);        
         }else{
@@ -55,7 +55,7 @@ public class ArticleContentEditController extends BaseController<Article>{
     public ModelAndView articleContentEditSubmit(@Valid @ModelAttribute Article article, BindingResult result){
         SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
         
-        if(result.hasErrors()||article.getContent()==null){
+        if(result.hasErrors()||(article.getContent()==null)||(article.getSummary()==null)||(article.getToClassify()==null)){
             return new ModelAndView("articlecontentedit","id",article.getId());
         }else{
             articleRepository.merge(article);
