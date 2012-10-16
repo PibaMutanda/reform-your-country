@@ -17,5 +17,5 @@
 	</div><!-- end holder -->
 </div><!-- end tools -->
 <!-- ***************** - END Title Bar - ***************** -->
-<c:if test='${message != null}'>${message}<br/></c:if><c:if test='${param.message != null}'>${param.message}<br/></c:if>
+<c:if test='${message != null}'><span class="errorMessage">${message}</span><br/></c:if><c:if test='${param.message != null}'><span class="errorMessage">${param.message}</span><br/></c:if>
 	

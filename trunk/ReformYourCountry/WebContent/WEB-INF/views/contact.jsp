@@ -18,7 +18,7 @@
 		</td>
 		<td >
 			<!-- <input pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" required />  -->
-			<input type="email"  name="sender" value="${sender}"style="width:100%"/>
+			<input type="email"  name="sender" value="${sender}"style="width:100%" />
 		</td>
 	</tr>
 	<tr>
@@ -26,7 +26,7 @@
 			Sujet
 		</td>
 		<td >
-			<input type="text" name="subject" value="${subject}" style="width:100%"/>
+			<input type="text" name="subject" value="${subject}" style="width:100%" />
 		</td>
 	</tr>
 	<tr>
@@ -34,7 +34,7 @@
 			Votre message
 		</td>
 		<td>
-			<textarea name="content" rows="7" value="${content}"  style="width:100%"></textarea>
+			<textarea name="content" rows="7" value="${content}"  style="width:100%" ></textarea>
 		</td>
 	</tr>
 	<tr>
