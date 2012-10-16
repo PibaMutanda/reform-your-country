@@ -26,11 +26,11 @@
 				<img src="images/_global/topline.png" width="1px"height="30px"/>
 			</div>
 			<div class="main-holder">
-				<!-- ***************** - START sub-nav - ***************** -->
+				<!-- ***************** - START Left list of articles - ***************** -->
 				<div id="sub_nav">
 				  <ryc:articlesTree link="true" />
 				</div>
-				<!-- ***************** - END sub-nav - ***************** -->
+				<!-- ***************** - END Left list of articles - ***************** -->
 				<!-- ***************** - START Content - ***************** -->
 				<div id="content">
 				         <decorator:body />

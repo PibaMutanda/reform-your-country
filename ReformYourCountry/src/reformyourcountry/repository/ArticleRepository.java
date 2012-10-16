@@ -16,7 +16,7 @@ public class ArticleRepository extends BaseRepository<Article>{
     }
     
     public List<Article> findAllWithoutParent(){
-        return    em.createQuery("select a from Article a where a.parent is null order by a.publishDate").getResultList();
+        return    em.createQuery("select a from Article a where a.parent is null order by a.title").getResultList();
     }
     
     public Article findByShortName(String shortName){
