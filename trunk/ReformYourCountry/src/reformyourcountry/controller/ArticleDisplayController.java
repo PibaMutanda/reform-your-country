@@ -33,7 +33,7 @@ public class ArticleDisplayController extends BaseController<Article> {
     
 	@RequestMapping(value={"/{articleUrl}"})
 	public ModelAndView displayArticle( @PathVariable("articleUrl") String articleUrl){
-
+		
 	    log.debug("display article i get articleUrl"+articleUrl);
 	    
 		ModelAndView mv = new ModelAndView("articledisplay");
@@ -72,8 +72,32 @@ public class ArticleDisplayController extends BaseController<Article> {
         mv.addObject("showContent", (article.isPublished() || SecurityContext.isUserHasPrivilege(Privilege.EDIT_ARTICLE)));
         BBConverter bbc = new BBConverter(bookRepository, articleRepository);
         mv.addObject("articleContent", bbc.transformBBCodeToHtmlCode(article.getContent()));
+        mv.addObject("articleSummary", bbc.transformBBCodeToHtmlCode(article.getSummary()));
         
         return mv;
 	}
 
+	@RequestMapping(value={"/a_classer/{articleUrl}"})
+	public ModelAndView displayToClassify( @PathVariable("articleUrl") String articleUrl){
+		SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
+		ModelAndView mv = new ModelAndView("articledisplaytoclassify");
+
+		Article article = getRequiredEntityByUrl(articleUrl);
+		mv.addObject("article", article);
+		
+		// For the breadcrumb
+        List<Article> parentArticles = new ArrayList<Article>();
+        Article current =  article;
+        while((current = current.getParent()) != null){
+            if(!current.getChildren().isEmpty())
+            parentArticles.add(current);
+        }
+        Collections.reverse(parentArticles);
+        mv.addObject("parentsPath",parentArticles);
+        
+        mv.addObject("showContent", (article.isPublished() || SecurityContext.isUserHasPrivilege(Privilege.EDIT_ARTICLE)));
+        BBConverter bbc = new BBConverter(bookRepository, articleRepository);
+        mv.addObject("articleToClassify", bbc.transformBBCodeToHtmlCode(article.getToClassify()));
+        return mv;
+	}
 }
