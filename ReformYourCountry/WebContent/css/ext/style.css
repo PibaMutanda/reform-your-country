@@ -1234,8 +1234,7 @@ img a, a img {cursor:pointer;}
 .modern_two_col_large_square{width: 455px;height: 455px;background-position: -725px 0 !important;}
 .modern_three_col_large_square{width: 293px;height: 293px;background-position: -1182px 0 !important;}
 .modern_four_col_large_square{width: 208px;height: 208px;background-position: -1478px 0 !important;}
-
-
+.errorMessage{color: red;}
 
 
 
