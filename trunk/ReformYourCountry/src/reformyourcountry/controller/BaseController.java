@@ -66,8 +66,9 @@ public class BaseController<E extends BaseEntity> {
     }
     
     /** Sets a message string to be displayed by the next JSP in the sitemesh template */
-    public void setMessage(ModelAndView mv, String message){
+    public ModelAndView setMessage(ModelAndView mv, String message){
         mv.addObject("message",message);
+        return mv;  // For chained calls.
     }
 
 }

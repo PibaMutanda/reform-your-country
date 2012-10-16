@@ -26,7 +26,7 @@ import reformyourcountry.util.Logger;
 public class MailService {
     
     @Value("${mail.for.admin.address}")
-	public static String ADMIN_MAIL;  
+	public String ADMIN_MAIL;  
 
 	@Logger Log logger;
 
