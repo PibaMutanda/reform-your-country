@@ -1,5 +1,4 @@
 ﻿    <%@page import="reformyourcountry.web.Current" %>
-<%-- <center>enseignement2.be - v<%= Current.getVersion()%></center> --%>
 
 
 
@@ -70,7 +69,7 @@
 <!-- /***************** - Bottom Footer - *****************  -->
 <div id="footer_bottom">
  <div class="info" >
-   2012 enseignement2.be - ${current.version} 
+   2012 reformyourcountry.be - ${current.version} 
  </div><!-- end info -->
 </div><!-- end footer_bottom -->
 

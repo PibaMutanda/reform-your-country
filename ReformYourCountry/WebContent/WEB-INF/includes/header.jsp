@@ -7,10 +7,10 @@
 				<!-- ***************** - LOGO - ***************** -->
 				<div class="logodiv" >
 					<a href="/">
-						<img src="images/enseignement2-logo-white-small.png"/>
+						<!--<img src="images/logo/logo.png"/>  --><font size="26px" style="font-weight: bold">RYC</font>
 					</a>
 					<div style=" font-size:10px; padding-top:16px;">
-						<a href="/about/about-us.jsp">Analyse indépendante de l'enseignement en Wallonie-Bruxelles.</a>
+						<a href="/about/about-us.jsp">Reform your country</a>
 					</div>
 				</div>
 				<!-- ***************** - END LOGO - ***************** -->	

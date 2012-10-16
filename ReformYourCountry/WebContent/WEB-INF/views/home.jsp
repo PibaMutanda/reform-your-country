@@ -37,7 +37,9 @@
 </center>
 <!-- ***************** - END Homepage 3D Slider - ***************** -->
 <div class="callout-wrap">
-	<span>Enseignement2.be rassemble des pistes sur l'amélioration de l'enseignement en Belgique francophone. Ce site est indépendant du politique et de l’Administration.</span>
+	<p>
+Lorem ipsum dolor sit amet, consectetaur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sitriam.
+</p>
 </div>
 
 <div style="width:450px;"> 
@@ -68,36 +70,5 @@ Articles dernièrement publiés
 </div>
 
 
-
-
-<!-- <a href="">Enseignement2.be</a> rassemble des pistes sur l'amélioration de l'enseignement en Belgique francophone. -->
-
-<!-- <p class="subtitle">D'abord, pourquoi changer?</p> -->
-
-<!-- <p>Ce site n'est pas encore destiné au grand public, sans pour autant se cacher. Il est tout à fait officieux et n'est lié à aucun acteur traditionnel (ni politique, ni syndical, ni association de parents). -->
-<!-- </p> -->
-<!-- <p>Ce site traite de beaucoup de sujets, si bien qu'il n'est pas facile de voir l'essentiel. Pour nous, le plus important à l'heure actuelle, c'est (dans le désordre) de: -->
-<!-- </p> -->
-
-<!-- <ul> -->
-<!-- <li> -->
-<!--     Rendre les écoles plus autonomes, notamment en terme de recrutement/licenciement, et de contrôler les résultats avec plus d'examens centralisés. -->
-<!--     </li> -->
-<!--     <li> -->
-<!--     Décloisonner: polyvalence des enseignants, cours-projets transversaux, flux inter-réseaux. -->
-<!--     </li> -->
-<!--     <li> -->
-<!--     Tirer les forts (inclus ceux parmi les pauvres) vers le haut: classes de niveau, XXXXXX -->
-<!--     </li> -->
-<!--     <li> -->
-<!--     Rendre les élèves autonomes et acteurs (prendre plutôt que subir): stop à la réussite automatique de relégation; pédagogie par projet; moments d'étude individuels avec manuels scolaires auto-didactes; conditionner les activités plaisantes (foot) à la finition des autres (math), participation à la vie de l'école. -->
-<!--     </li> -->
-<!--     <li> -->
-<!--     Faire passer plus de temps en classe(LINK) aux enseignants, à plusieurs, grâce à une réduction des gaspillages, à une baisse du travail hors classe, et à un travail en classe moins pénible. -->
-<!--     </li> -->
-<!--     <li> -->
-<!--     Attirer les meilleurs vers le métier d'enseignant. -->
-<!--     </li> -->
-<!-- </ul> -->
 </body>
 </html>
