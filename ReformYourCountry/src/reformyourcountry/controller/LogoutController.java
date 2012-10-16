@@ -22,7 +22,7 @@ public class LogoutController {
          loginService.logout();
         
          
-        return "home";
+        return "redirect:/";
     }
     @RequestMapping("/ajax/logout")
     public ResponseEntity<String> logoutAjax() {
