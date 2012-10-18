@@ -197,6 +197,9 @@
 	font-size: 1.05em;
 }
 
+.todo{
+	background-color:yellow;
+}
 
 /* Css for the description of article in the article-list page*/
 div.descript {
@@ -204,7 +207,6 @@ div.descript {
 	font-size: 0.85em;
 	margin-bottom: 5px;
 }
-
 
 /* div defining the content of a book displayed on the bibliography page and in the tooltip */
 .book{

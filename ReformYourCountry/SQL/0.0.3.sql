@@ -12,3 +12,7 @@
 --    ALTER TABLE article DROP COLUMN content;
 --    ALTER TABLE article DROP COLUMN toclassify ;
 --    ALTER TABLE article DROP COLUMN summary ;
+-- 2012-10-18 Thomas
+
+    alter table book 
+        add column subtitle varchar(255);

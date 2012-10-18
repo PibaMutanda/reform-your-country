@@ -6,8 +6,7 @@
 <%@ page import="reformyourcountry.util.FileUtil" %>
 <html>
 <body>
-    <ryctag:pageheadertitle title="${book.title}"> <ryctag:breadcrumbelement label="bibliographie" link="/book"/>ce livre </ryctag:pageheadertitle>
-    
+    <ryctag:pageheadertitle title="${book.title} ${book.subtitle}"> <ryctag:breadcrumbelement label="bibliographie" link="/book"/>ce livre </ryctag:pageheadertitle>
     <div class="book" style="display: inline-block; width:100%;">
     <div class="bookInfo" style="font-size:1.2em;">${book.author} - ${book.pubYear}</div>
     <div style="min-height:10px;width:100%">

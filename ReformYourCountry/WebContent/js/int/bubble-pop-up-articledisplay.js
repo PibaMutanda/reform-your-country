@@ -3,7 +3,7 @@ $(document).ready(function(e) {  // do stuff when DOM is ready
 	
     
     // Initialization code on the book refs (the [quote] elements referring books).
-    $('label[class^="bookref"],span[class^="bookref"]').each(function(){
+    $('label[class^="bookref"],span[class^="bookref"],a[class^="bookref"]').each(function(){
 
         ///// 1. We extract the book abbreviation. For example, in the element <label class="bookref-Emile otherClass">, we need to extract "Emile".
  	   var classatrib = $(this).attr("class");  // Now contains "bookref-Emile otherClass"

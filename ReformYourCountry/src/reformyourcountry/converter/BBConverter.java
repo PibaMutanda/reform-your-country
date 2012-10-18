@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -117,10 +118,21 @@ public class BBConverter {
 		case "link":
 			processLink(tag);
 			break;
+		case "todo":
+			processTodo(tag);
+			break;
 		default :
 			addErrorMessage("Unrecognized tag",tag);
 			
 		}
+	}
+
+
+	private void processTodo(BBTag tag) {
+		supportedAttributes(tag);
+		bufferTextForP("<div class='todo'>");   // Div used instead of a span because span does not allow block (divs, block-quotes,...) inside.
+			transformDomToHtml(tag);
+		bufferTextForP("</div>");
 	}
 
 
@@ -166,19 +178,43 @@ public class BBConverter {
 	}
 
 	private void processLink(BBTag tag) {
-		supportedAttributes(tag, "article");
+		supportedAttributes(tag, "article", "bib");
 		
-		String abrev = tag.getAttributeValue("article");//until pretty url system isn't implemented , use of id for abrev
-		String shortName = tag.getAttributeValue("article");
-		String content = getInnerTextContent(tag);
+		String articleShortName = tag.getAttributeValue("article");
+		String bookAbbrev = tag.getAttributeValue("bib");
+		String content = getInnerTextContent(tag);// will be empty if the tag is closed([link/] or [link][/link]) or empty.
 		
-		Article article = articleRepository.findByShortName(shortName);
 
-        if (article == null) {
-            addErrorMessage("Aucun article trouvé pour le raccourci suivant : '"+shortName+"'", tag);
-        }else{
-        	bufferTextForP("<a href=\"article/"+article.getUrl()+"\">"+content+"</a>");
-        }
+		
+		
+		if(articleShortName!=null && bookAbbrev!=null){
+			addErrorMessage("In a [link] tag, you may not specify both a book and an article. Either give a book reference, or an article's.",tag);
+		}
+		
+        if (articleShortName!=null) { // it's a link to an article
+    		Article article = articleRepository.findByShortName(articleShortName);
+			if (article == null) {
+				addErrorMessage(
+						"Aucun article trouvé pour le raccourci suivant : '"
+								+ articleShortName + "'", tag);
+			} else if (!content.isEmpty()) {
+				bufferTextForP("<a href=\"article/" + article.getUrl() + "\">"
+						+ content + "</a>");
+			} else {
+				bufferTextForP("<a href=\"article/" + article.getUrl() + "\">"
+						+ article.getTitle() + "</a>");
+			}
+			
+		} else if (bookAbbrev!=null) { // it's a link to a book
+        	Book book = processBibAttribute(tag);
+        	if (book == null) {
+        		// An error message has already been added to the text by processBibAttribute()
+        		return;
+        	}
+			String linkedText = StringUtils.isBlank(content) ? book.getTitle() : content;
+			
+			bufferTextForP("<a class='"+getCssClassName(book)+" booktitle' href='book#"+book.getAbrev()+"'>" + linkedText + "</a>");
+		}
 	}
 
 	private void processAction(BBTag tag) {
@@ -279,16 +315,7 @@ public class BBConverter {
 		// either bib refers a Book or out refers a link to another site (outlink)
 
 		/// 1. We look for a book reference in the quote tag attribute: [quote bib="emile"]...
-		Book book = null;
-		String bibValueFromAttrib = tag.getAttributeValue("bib");  // Books can only be referred through attribute (not nested tag)
-		if (bibValueFromAttrib != null) {
-			book = bookRepository.findBookByAbrev(bibValueFromAttrib);
-			if (book == null) {
-				addErrorMessage("Book not found in DB for abrev = '"+bibValueFromAttrib+"'", tag);
-				return;
-			}
-			booksRefferedInTheText.add(book);
-		}
+		Book book = processBibAttribute(tag);
 
 		/// 2. We look for an author with eventually an out link.
 		String author = tag.getAttributeValue("author");  
@@ -401,6 +428,25 @@ public class BBConverter {
 
 	}
 
+/**
+ * Used to process references to a book in quote and link tags
+ * @param tag either [link] or [quote]
+ * @return the book associated with the bib reference, or null if there is none
+ */
+	private Book processBibAttribute(BBTag tag) { 
+		Book book = null;
+		String bibValueFromAttrib = tag.getAttributeValue("bib");  // Books can only be referred through attribute (not nested tag)
+		if (bibValueFromAttrib != null) {
+			book = bookRepository.findBookByAbrev(bibValueFromAttrib);
+			if (book == null) {
+				addErrorMessage("Book not found in DB for abrev = '"+bibValueFromAttrib+"'", tag);
+				return book;
+			}
+			booksRefferedInTheText.add(book);
+		}
+		return book;
+	}
+
 
 	private boolean containsSubTag(BBTag tag, String searchedName) {
 		for(BBTag child : tag.getChildrenList()){
@@ -428,7 +474,7 @@ public class BBConverter {
 				switch(child.getName()){
 				///////////// Unquote
 				case "unquote": 
-					bufferTextForP(processUnquote(child));
+					processUnquote(child);
 					break;
 				case "untranslated":
 					/////////// Untranslate TODO add error if tag inside untranslated
@@ -475,13 +521,13 @@ public class BBConverter {
 		return result;
 	}
 
-	private String processUnquote(BBTag tag) {
+	private void processUnquote(BBTag tag) {
 		supportedAttributes(tag);
 		
-		String result="";
-		result ="<span class=\"unquote article_content\">"+getInnerTextContent(tag)+"</span>";//we add article_content in the class to change the style of the unquote to the one of article_content
+		bufferTextForP("<span class=\"unquote article_content\">");
+		processQuoteBody(tag);
+		bufferTextForP("</span>");//we add article_content in the class to change the style of the unquote to the one of article_content
 		
-		return result;
 	}
 
 	private BBTag getChildTagWithName(BBTag tag, String name) {
@@ -512,9 +558,14 @@ public class BBConverter {
         if(book.isHasImage())  // TODO: Change the URL
             block += "<img src='gen" + FileUtil.BOOK_SUB_FOLDER + FileUtil.BOOK_RESIZED_SUB_FOLDER +"/"+book.getId()+".jpg' alt='"+book.getTitle()+"' class='imgbook'>";
 
-        block += "<a href='book#"+book.getAbrev()+"'>";  // bibliography page 
-        block += book.getTitle()+"</a><br/>";
-        block += "<span class='bookInfo'>"+book.getAuthor()+" - "+ book.getPubYear()+"</span><br/>";
+        if (book.getSubtitle()!=null) {
+        	block += "<a href='book#"+book.getAbrev()+"'>";  // bibliography page 
+        	block += book.getTitle()+" "+book.getSubtitle()+"</a><br/>";
+		}else{
+			block += "<a href='book#"+book.getAbrev()+"'>";  // bibliography page 
+        	block += book.getTitle()+"</a><br/>";
+		}
+		block += "<span class='bookInfo'>"+book.getAuthor()+" - "+ book.getPubYear()+"</span><br/>";
 
         block += "<p class=\"bookContent\">"+book.getDescription()+"</p>";
         
