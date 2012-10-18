@@ -7,6 +7,7 @@
 <meta name="description" lang="fr" content="Articles sur l'enseignement, les problèmes et les réformes du système scolaire."/>
 <meta name="robots" content="index, follow"/>	
 <meta name="googlebot" content="noarchive" />
+
 </head>
 <body>
 <ryctag:pageheadertitle title="Liste des articles"></ryctag:pageheadertitle>
@@ -19,6 +20,6 @@
 				</ul>	
 </div>
 </ryc:conditionDisplay>
-<ryc:articlesTree link="true" />
+<ryc:articlesTree link="true" description="true"/>
 </body>
 </html>
