@@ -31,4 +31,4 @@
 	  <%@include file="voteaction.jsp"%>
 	</div>
 </body>
-</html>
+</html> 
