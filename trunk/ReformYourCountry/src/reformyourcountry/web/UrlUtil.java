@@ -8,7 +8,6 @@ import java.net.URL;
 
 public class UrlUtil {
 
-    public final static String TEST_ABSOLUTE_DOMAIN_NAME = "enseignement2.be";
     public final static String PROD_ABSOLUTE_DOMAIN_NAME = "enseignement2.be";
     public final static String DEV_ABSOLUTE_DOMAIN_NAME = "localhost:8080";
 
@@ -28,7 +27,6 @@ public class UrlUtil {
 	public static String getCookieDomainName() {
 		switch(ContextUtil.getEnvironment()) {
 			case DEV  : return ".localhost.local" + ContextUtil.getRealContextPath()+"/"; //Domain name need two dots to be valid so we have to write 127.0.0.1 or .localhost.local (just "localhost" will not work).
-			case TEST : return TEST_ABSOLUTE_DOMAIN_NAME;
 			case PROD : return PROD_ABSOLUTE_DOMAIN_NAME;
 		}
 		throw new RuntimeException("Unknown Environement");

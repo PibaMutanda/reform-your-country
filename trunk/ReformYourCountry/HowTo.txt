@@ -1,0 +1,14 @@
+How To make your own ReformYourCountry descendant Project :
+1. Make a checkout from the ryc project: https://reform-your-country.googlecode.com/svn/trunk
+2. Create your own Dynamic Web Project
+3. Go inside the properties (build path) Add ReformYourCountry to the projects 
+4. In BuildPath/Libraries add libraries (web app libraries) choose ReformYourCountry
+5. In BuildPath/Source Link sources from WORKSPACE_LOC/ReformYourCountry/src and rename the folder (like RYC-src)
+6. Apply the changes
+7. Add a folder in your Project with advanced option "link to alternate location" and the adress must be WORKSPACE_LOC/ReformYourCountry/WebContent (i name it RYC-WebContent)
+6. Go in your project properties again and in "Deployment Assembly", add the folders  RYC-src and  RYC-WebContent if they are not present.
+	The Deploy-Path of RYC-src must be "WEB-INF/classes"
+	The Deploy-Path of RYC-WebContent must be "/"
+	You can change them by double-click on the text-zone
+7. Now your project is ready. Just verify the order and export  from your build path. RYC-src must be after your src
+8. If you want to overwrite a file (like home.jsp) Just create the file with the same path but in your WebContent or in your src folder depending if the overwrited file's path
