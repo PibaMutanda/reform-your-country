@@ -23,6 +23,8 @@ public class ArticleTreeTag extends SimpleTagSupport{
 	private String cssClass;
 	private boolean radio; // inserts a radio button in front on each article. 
 	private boolean link;  // writes articles titles as links
+	private boolean description; //if we are in the article list page, we want a short description under the link
+	
 	private Article articleFromRequest;  // Article concerned, passed by the controller (if any). 
 
 	public String getCssClass() {
@@ -43,7 +45,13 @@ public class ArticleTreeTag extends SimpleTagSupport{
 	public void setLink(boolean link) {
 		this.link = link;
 	}
-	
+		
+	public boolean isDescription() {
+		return description;
+	}
+	public void setDescription(boolean description) {
+		this.description = description;
+	}
 	@Override
 	public void doTag() throws JspException {
 		try {
@@ -121,6 +129,12 @@ public class ArticleTreeTag extends SimpleTagSupport{
 		if (link == true) {
 			result += "</a>";
 		}
+
+
+		if(description == true) {
+			result+="<div class=\"descript\">"+article.getDescription()+"<div/>";
+		}
+		
 		return result;
 	}	
 	
