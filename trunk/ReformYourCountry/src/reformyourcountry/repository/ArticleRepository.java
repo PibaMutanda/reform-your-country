@@ -31,8 +31,11 @@ public class ArticleRepository extends BaseRepository<Article>{
     }
     
     public List<Article> findByDate(Date publishDate, int maxAmount){
-    	return em.createQuery("select a from Article a where a.publishDate != null order by a.publishDate DESC")
+    	return em.createQuery("select a from Article a where a.publicView = true and (a.publishDate is null or a.publishDate < :now)  order by a.publishDate DESC")
+    	        .setParameter("now", new Date())
     			.setMaxResults(maxAmount)
     			.getResultList();
     }
+    
+   
 }
