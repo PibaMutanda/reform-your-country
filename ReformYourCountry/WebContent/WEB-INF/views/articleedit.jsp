@@ -23,6 +23,7 @@
 				<td><input type="submit" value="Générer une url" id="generate" /></td>
 			</tr>
             <ryctag:date path="publishDate" label="Date de publication" />
+            <ryctag:input path="description" label="Description" id="description"/>
             <ryctag:checkbox path="publicView" label="Public ?" />
             <form:hidden path="id" />
             <tr>
