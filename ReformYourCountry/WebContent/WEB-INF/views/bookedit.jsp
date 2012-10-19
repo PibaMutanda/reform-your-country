@@ -11,8 +11,8 @@
 
 <c:choose>
 	<c:when test="${book.id != null}">
-		 <ryctag:pageheadertitle title="Editer un livre">
-			<ryctag:breadcrumbelement label="${book.title}" />
+		 <ryctag:pageheadertitle title="${book.title }">
+			<ryctag:breadcrumbelement label="bibliographie"  link="/book"/><ryctag:breadcrumbelement label="ce livre" link="book/${book.url}" /><ryctag:breadcrumbelement label="edit" />
 		 </ryctag:pageheadertitle>
 	</c:when>
 	<c:otherwise> 
@@ -24,7 +24,6 @@
 	<ryctag:form action="book/editsubmit" modelAttribute="book" width="800px">
 		<ryctag:input path="abrev" label="Abréviation du livre:"/>
 		<ryctag:input path="title" label="Titre du livre:" id="title"/>
-		<ryctag:input path="subtitle" label="Titre du livre, cont. :" id="subtitle"/>
 		<tr class="tooltip" data-tooltip="identifiant pour le livre dans les URLs">
 			<td><label for="url">Fragment d'URL</label></td>
 			<td><form:input path="url" required="required" id="url" type="input" cssStyle="width:100%;" /></td>
