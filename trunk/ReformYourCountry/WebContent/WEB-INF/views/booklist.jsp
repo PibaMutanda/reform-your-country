@@ -5,7 +5,7 @@
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 <html>
 <head>
-<meta name="description" lang="fr" content="Bibliographie, livres cités dans les articles sur l'enseignement. "/>
+<meta name="Description" lang="${p_lang}" content="${p_booklist_description}"/>
 <meta name="robots" content="index, follow"/>	
 <meta name="googlebot" content="noarchive" />
 <style type="text/css">

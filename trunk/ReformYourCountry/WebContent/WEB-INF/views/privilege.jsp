@@ -16,7 +16,7 @@
 
 <h2>Roles :</h2><br>
 
-	<form action="user/roleeditsubmit" method="post">
+	<form action="/user/roleeditsubmit" method="post">
 		<input type="hidden" name="id" value="${user.id}">
 		<input type="radio" name="role" value="ADMIN" <c:if test="${user.role == 'ADMIN'}">checked="checked"</c:if>>Administrateur	<br>
 		<input type="radio" name="role" value="MODERATOR" <c:if test="${user.role == 'MODERATOR'}">checked="checked"</c:if>>Modérateur<br>
@@ -26,7 +26,7 @@
 	<br/>
 	<br/>
 	<br/>
-	<form action="user/privilegeeditsubmit" method="post">
+	<form action="/user/privilegeeditsubmit" method="post">
 		<input type="hidden" name ="id" value="${user.id}">
 		<table border="1">
 		<c:forEach items="${privilegetriplets}" var="triplets">
@@ -39,7 +39,7 @@
 		</tr>
 		</c:forEach>
 		</table><br/>
-		<input type="submit" value="Enregistrer"><a href="user/${user.userName}">  Annuler</a>
+		<input type="submit" value="Enregistrer"><a href="/user/${user.userName}">  Annuler</a>
 	</form>
 
 </body>

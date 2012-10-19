@@ -1,4 +1,4 @@
-ï»¿<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="sf"%>
@@ -16,8 +16,8 @@ Pour participer (voter, argumenter, etc.), vous devez vous connecter avec votre 
 	<!-- SOCIAL SIGNIN - RIGHT COLUMN -->
 	<div style="border-left-style: solid; border-width: 1px; float:right; padding-left:20px; width:300px;">
 
-		<h5>Connexion via un rÃ©seau social</h5>
-		<p>Vous pouvez facilement utiliser votre compte facebook, google ou autre pour vous connecter Ã  enseignement2.be</p>
+		<h5>Connexion via un réseau social</h5>
+		<p>Vous pouvez facilement utiliser votre compte facebook, google ou autre pour vous connecter à ${p_website_name}</p>
 		<!-- FACEBOOK SIGNIN -->
 	
 		<div>
@@ -70,8 +70,8 @@ Pour participer (voter, argumenter, etc.), vous devez vous connecter avec votre 
 	
 	<!-- LOCAL SIGNIN - LEFT COLUMN -->
 	<div style="padding-right: 20px;">
-		<h5>Connexion avec votre compte enseignement2</h5>
-		<p>Si vous n'avez pas de compte facebook, google ou autre <br>(ou ne dÃ©sirez simplement pas les utiliser ici), <br>vous pouvez vous connecter avec un pseudonyme <br>enseignement2.be (qui nÃ©cessite que vous <a href="<c:url value="register"/>">crÃ©iez un utilisateur</a> <br>au prÃ©alable)</p> 
+		<h5>Connexion avec votre compte ${p_website_name}</h5>
+		<p>Si vous n'avez pas de compte facebook, google ou autre <br>(ou ne désirez simplement pas les utiliser ici), <br>vous pouvez vous connecter avec un pseudonyme <br>${p_website_name} (qui nécessite que vous <a href="<c:url value="register"/>">créiez un utilisateur</a> <br>au préalable)</p> 
 		<%@ include file="login.jsp"%>
 	</div>
 	

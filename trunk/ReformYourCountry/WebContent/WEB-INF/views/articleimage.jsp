@@ -1,4 +1,4 @@
-﻿<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 <%@ taglib tagdir="/WEB-INF/tags/ryctag" prefix="ryctag"%>
@@ -32,7 +32,7 @@
                 <img src="/gen/article/${image.getName()}" width="200" /> <br/>
                 ${image.getName()}<br/>
 				<ryc:conditionDisplay privilege="EDIT_ARTICLE">
-						<a href="article/imagedel?fileName=${image.getName()}">remove</a>
+						<a href="/article/imagedel?fileName=${image.getName()}">remove</a>
 				</ryc:conditionDisplay>
 			</td>
 			<%

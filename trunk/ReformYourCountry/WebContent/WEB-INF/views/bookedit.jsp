@@ -21,7 +21,7 @@
 </c:choose>
 
 
-	<ryctag:form action="book/editsubmit" modelAttribute="book" width="800px">
+	<ryctag:form action="/book/editsubmit" modelAttribute="book" width="800px">
 		<ryctag:input path="abrev" label="Abréviation du livre:"/>
 		<ryctag:input path="title" label="Titre du livre:" id="title"/>
 		<tr class="tooltip" data-tooltip="identifiant pour le livre dans les URLs">

@@ -17,7 +17,7 @@
 			<c:otherwise>Créer un groupe</c:otherwise>
 		</c:choose>
 	</h1>
-	<ryctag:form action="groupeditsubmit" modelAttribute="group">
+	<ryctag:form action="/groupeditsubmit" modelAttribute="group">
         <ryctag:input path="name" label="name" required="required"/>
         <ryctag:input path="description" label="Description"/>
         <ryctag:input path="url" label="Url"/>
@@ -26,8 +26,8 @@
             
         <tr><td><input type="submit" value="<c:choose><c:when test="${group.id != null}">Sauver</c:when><c:otherwise>Créer</c:otherwise></c:choose>" /></td>
         <td> <a href="	<c:choose>
-        					<c:when test="${group.id != null}">group?id=${group.id}</c:when>
-        					<c:otherwise>grouplist</c:otherwise>
+        					<c:when test="${group.id != null}">/group?id=${group.id}</c:when>
+        					<c:otherwise>/grouplist</c:otherwise>
         				</c:choose>"     >Annuler</a></td></tr>
     </ryctag:form>
   

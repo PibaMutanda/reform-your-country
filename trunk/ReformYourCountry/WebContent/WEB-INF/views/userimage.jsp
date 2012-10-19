@@ -11,7 +11,7 @@
 
 <!-- <h1>Page pour uploader une image d'un utilisateur</h1> -->
 <ryctag:pageheadertitle title="Ajouter une image">
-	<ryctag:breadcrumbelement label="${user.firstName} ${user.lastName}" link="user/${user.userName}" />
+	<ryctag:breadcrumbelement label="${user.firstName} ${user.lastName}" link="/user/${user.userName}" />
 	<ryctag:breadcrumbelement label="Ajouter une image" />
 </ryctag:pageheadertitle>
 
@@ -23,14 +23,14 @@
 	</c:choose>
 
 	(l'image doit faire moins de 1,5Mo)
-	<form method="post" action="user/imageadd" enctype="multipart/form-data">
+	<form method="post" action="/user/imageadd" enctype="multipart/form-data">
 		<input type="file" name="file" /><br>
 		<input type="hidden" name="id" value="${user.id}" />
 		<input type="submit" value="Ajouter" />
-		<a href="user/${user.userName}">Annuler</a><br>
+		<a href="/user/${user.userName}">Annuler</a><br>
 	</form>
 	
-	<form method="post" action="user/imagedelete">
+	<form method="post" action="/user/imagedelete">
 		<input type="hidden" name="id" value="${user.id}" />
 		<input type="submit" value="Supprimer" />
 	</form>

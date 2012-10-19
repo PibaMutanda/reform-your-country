@@ -10,15 +10,13 @@
 <ryctag:pageheadertitle title="${action.title}"/>
 	<div>
 		<div style="display: inline-block; width: 400px;">
-
-
 			<ryc:conditionDisplay privilege="EDIT_ACTION">
-				<form action="action/edit" modelAttribute="action" method="get">
+				<form action="/action/edit" modelAttribute="action" method="get">
 					<input type="hidden" value="${action.id}" name="id" id="id" />
 					 <input	type="submit" value="Modifier action" />
 				</form>
 			</ryc:conditionDisplay>
-	<form action="action" method="post">
+	<form action="/action" method="post">
 			<input type="submit" value="Liste des actions" />
 	</form>
 			Contenu : ${action.content}<br /> Description brève :
