@@ -2,6 +2,7 @@ package reformyourcountry.tag;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.jsp.JspException;
@@ -11,6 +12,7 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import reformyourcountry.model.Article;
 import reformyourcountry.repository.ArticleRepository;
+import reformyourcountry.util.DateUtil;
 import reformyourcountry.web.ContextUtil;
 import reformyourcountry.web.UrlUtil;
 
@@ -78,9 +80,9 @@ public class ArticleTreeTag extends SimpleTagSupport{
 	}
 	
 	private void displayArticleList(Collection<Article> articles, JspWriter out,boolean isFirstPass) throws JspException, IOException { 
-		if (isFirstPass){
+		if (isFirstPass) {
 		    out.write("<ul id=\"articletree\">");         
-		}else{
+		}else {
             out.write("<ul class=\"subarticle\">");    
 		    
 		}
@@ -93,6 +95,7 @@ public class ArticleTreeTag extends SimpleTagSupport{
 
 	private void displayArticle(Article article, JspWriter out) throws JspException, IOException { 
 	    // class=\"current_page_item\"
+				
 		out.write("<li>"+getArticleString(article));
 		displayArticleList(article.getChildren(), out,false);   
 		out.write("</li>");
@@ -128,13 +131,24 @@ public class ArticleTreeTag extends SimpleTagSupport{
 		result += article.getTitle();
 		if (link == true) {
 			result += "</a>";
+			
+			if(description == true) {
+				if(!article.isPublished()) {
+					if(article.getPublishDate()==null) {
+						result+="<span id=\"datepublication\">non publié</span>";
+					} else {
+						result+="<span id=\"datepublication\">publié dans "+DateUtil.formatDuration(new Date(),article.getPublishDate() )+"</span>";
+					}
+					
+					result+="<div id=\"descriptNotPublish\">"+article.getDescription()+"<div/>";
+				} else {
+					result+="<div id=\"descriptPublish\">"+article.getDescription()+"<div/>";
+				}
+				
+			}
+			
 		}
 
-
-		if(description == true) {
-			result+="<div class=\"descript\">"+article.getDescription()+"<div/>";
-		}
-		
 		return result;
 	}	
 	
