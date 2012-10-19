@@ -14,7 +14,7 @@
 		<c:otherwise><ryctag:pageheadertitle title="Créer un article"/></c:otherwise>
 	</c:choose>
 	<ryctag:form modelAttribute="article" action="article/editsubmit">
-        <tr>
+     <tr>   
             <ryctag:input path="title" label="Titre" id="title" required="required" />
             <ryctag:input path="shortName" label="Raccourci" />
             <tr class="tooltip" data-tooltip="identifiant pour l'article dans les URLs">
@@ -22,8 +22,10 @@
 				<td><form:input path="url" required="required" id="url" type="input" cssStyle="width:100%;" /></td>
 				<td><input type="submit" value="Générer une url" id="generate" /></td>
 			</tr>
+			
             <ryctag:date path="publishDate" label="Date de publication" />
-            <ryctag:input path="description" label="Description" id="description"/>
+           
+			<tr><td></td><td><textarea name="description" cols="60" rows="4">${article.description}</textarea></td></tr>
             <ryctag:checkbox path="publicView" label="Public ?" />
             <form:hidden path="id" />
             <tr>
@@ -32,6 +34,7 @@
             		<span id="saving" style="font-family: tahoma; font-size: 9px;"></span>
             	</td>
             </tr>
+            
     </ryctag:form>
 </body>
 </html>

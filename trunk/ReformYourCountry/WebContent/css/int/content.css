@@ -209,10 +209,29 @@
 }
 
 /* Css for the description of article in the article-list page*/
-div.descript {
-	margin-top: 5px;
+#descriptNotPublish {
+	padding-top: 4px;
+	padding-bottom: 8px;
 	font-size: 0.85em;
-	margin-bottom: 5px;
+	color: #AAA;
+}
+#descriptPublish {
+	padding-top: 4px;
+	padding-bottom: 8px;
+	font-size: 0.85em;
+	color: #444;
+}
+#articletree {
+	list-style: none;
+}
+.subarticle {
+	padding-top: 11px;
+	list-style: none;
+}
+#datepublication {
+	float: right;
+	font-size: 10px;
+	color: #AAA;
 }
 
 /* div defining the content of a book displayed on the bibliography page and in the tooltip */
