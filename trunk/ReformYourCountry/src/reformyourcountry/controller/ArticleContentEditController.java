@@ -16,62 +16,51 @@ import org.springframework.web.servlet.ModelAndView;
 import reformyourcountry.exception.InvalidUrlException;
 import reformyourcountry.model.Article;
 import reformyourcountry.repository.ArticleRepository;
+import reformyourcountry.repository.ArticleVersionRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
+import reformyourcountry.service.ArticleService;
 
 @Controller
 public class ArticleContentEditController extends BaseController<Article>{
     
     @Autowired ArticleRepository articleRepository;
+    @Autowired ArticleVersionRepository articleVersionRepository;
+    @Autowired ArticleService articleService;
     
     @RequestMapping("/article/contentedit")
-    public ModelAndView articleContentEdit(@ModelAttribute Article article)
+    public ModelAndView articleContentEdit(@RequestParam("id")Long id)
     {
         SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
         ModelAndView mv = new ModelAndView("articlecontentedit");
-        mv.addObject("article",article);
+        mv.addObject("article",getRequiredEntity(id));
         return mv;
     }
     
     /** Auto save or ctrl + s */
     @RequestMapping(value = "/ajax/article/contenteditsubmit", method = RequestMethod.POST)
     public ResponseEntity<?> articleContentEditSubmitAjax(@RequestParam(value="content",required=false)String content,
-    													  @RequestParam(value="summary",required=false)String summary,
-    													  @RequestParam(value="toClassify",required=false)String toClassify,
-    													  @RequestParam(value="id")Long id){
-    	SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
-    	Article article = getRequiredEntity(id);
-    	if ((!content.equals(null))&& !content.equals(article.getContent())) article.setContent(content);
-    	if ((!summary.equals(null))&& !summary.equals(article.getSummary())) article.setSummary(summary);
-    	if ((!toClassify.equals(null))&& !toClassify.equals(article.getToClassify())) article.setToClassify(toClassify);        	
-    	articleRepository.merge(article);
-    	return new ResponseEntity<String>("sauvegarde",  // that tiny message will appear next to the save button and a save hour.
-    			HttpStatus.OK);
+                                                          @RequestParam(value="summary",required=false)String summary,
+                                                          @RequestParam(value="toClassify",required=false)String toClassify,
+                                                          @RequestParam(value="id")Long id){
+        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
+     
+        articleService.saveArticle(getRequiredEntity(id), content, summary, toClassify);
+        return new ResponseEntity<String>("sauvegarde",  // that tiny message will appear next to the save button and a save hour.
+                                          HttpStatus.OK);
     }
     
     /** Press the save button and close the page */
     @RequestMapping("/article/contenteditsubmit")
     public ModelAndView articleContentEditSubmit(@RequestParam(value="content",required=false)String content,
-    											 @RequestParam(value="summary",required=false)String summary,
-    											 @RequestParam(value="toClassify",required=false)String toClassify,
-    											 @RequestParam(value="id")Long id){
-    	SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
-    	Article article = getRequiredEntity(id);
-    	if (content!=null && (!content.equals(""))&& !content.equals(article.getContent())) article.setContent(content);
-    	if (summary!=null && (!summary.equals(""))&& !summary.equals(article.getSummary())) article.setSummary(summary);
-    	if (summary!=null && (!toClassify.equals(""))&& !toClassify.equals(article.getToClassify())) article.setToClassify(toClassify);        	
-    	articleRepository.merge(article);
-    	return new ModelAndView("redirect:"+article.getUrl());
+                                                 @RequestParam(value="summary",required=false)String summary,
+                                                 @RequestParam(value="toClassify",required=false)String toClassify,
+                                                 @RequestParam(value="id")Long id){
+        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
+        
+        articleService.saveArticle(getRequiredEntity(id), content, summary, toClassify);            
+        return new ModelAndView("redirect:"+getRequiredEntity(id).getUrl());
 
     }
     
-    @ModelAttribute
-    public Article findArticle(@RequestParam(value="id",required=false)Long id){
-        if(id==null){
-            throw new InvalidUrlException("You can't create an article with this page");
-        } else {
-            return getRequiredDetachedEntity(id);
-        }
-    }
-
 }
