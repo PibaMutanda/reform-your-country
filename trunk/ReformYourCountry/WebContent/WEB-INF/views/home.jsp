@@ -6,7 +6,7 @@
 
 <html>
 <head>
-<meta name="Description" lang="fr" content="${p_home_description}" />
+<meta name="Description" lang="${p_lang}" content="${p_home_description}" />
 <meta name="Keywords" content="${p_home_keywords}" />
 <meta name="robots" content="index, follow"/>	
 <link rel="canonical" href="${p_webSite_Adress}"/>
