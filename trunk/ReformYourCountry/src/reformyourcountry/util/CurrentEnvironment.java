@@ -20,10 +20,6 @@ public class CurrentEnvironment {
 	private String tweeterClientId;
 	@Value("${tweeter.clientSecret}")
 	private String tweeterClientSecret;
-	@Value("${webSite.Name}")
-	private String webSiteName;
-    @Value("${webSite.Adress}")
-    private String webSiteAdress;
 	
 	
 	
@@ -97,16 +93,6 @@ public class CurrentEnvironment {
     public String getFacebookClientSecret() {
         return facebookClientSecret;
     }
-
-    public String getWebSiteAdress() {
-        return webSiteAdress;
-    }
-
-    public String getWebSiteName() {
-        return webSiteName;
-    }
-
-
 	
 	
 	

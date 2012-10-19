@@ -5,7 +5,7 @@
 	<%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
 <html>
 <head>
-<meta name="description" lang="fr" content="Actions à entreprendre pour réformer l'enseignement"/>
+<meta name="description" lang="fr" content=""/>
 <meta name="robots" content="index, follow"/>	
 <meta name="googlebot" content="noarchive" />
 </head>

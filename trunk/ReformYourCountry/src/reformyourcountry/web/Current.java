@@ -1,5 +1,15 @@
 package reformyourcountry.web;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Properties;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.PropertiesFactoryBean;
+import org.springframework.stereotype.Component;
+
 import reformyourcountry.model.User;
 import reformyourcountry.security.SecurityContext;
 
@@ -10,10 +20,12 @@ import reformyourcountry.security.SecurityContext;
  * If the user changes its firstName, for example, that HttpSession User instance would not have been refreshed automatically.
  * => we have this mechanism.
  */
+@Component
 public class Current {
 
     public static final String ATTRIBUTE_KEY = "current";  
-    private static final String VERSION = "0.0.3";
+    private static final String VERSION = "0.0.3"; 
+
     
     public User getUser(){
         return SecurityContext.getUser();
@@ -22,4 +34,5 @@ public class Current {
     public  String getVersion() {
         return VERSION;
     }
+
 }
