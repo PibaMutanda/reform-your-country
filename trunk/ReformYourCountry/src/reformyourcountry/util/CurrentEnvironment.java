@@ -20,6 +20,10 @@ public class CurrentEnvironment {
 	private String tweeterClientId;
 	@Value("${tweeter.clientSecret}")
 	private String tweeterClientSecret;
+	@Value("${webSite.Name}")
+	private String webSiteName;
+    @Value("${webSite.Adress}")
+    private String webSiteAdress;
 	
 	
 	
@@ -49,7 +53,8 @@ public class CurrentEnvironment {
 	public enum Environment {
 
 		// XXX(Domain Name, Mail Deamon Started,Social NW Connected, Paypal Env.)
-		DEV("127.0.0.1", MailBehavior.SENT, true),
+		DEV("127.0.0.1", MailBehavior.NOT_STARTED, true),
+		TEST("logicblackbelt.com", MailBehavior.NOT_STARTED, false),
 		PROD("enseignement2.be", MailBehavior.SENT, true);
 
 		// String containing the domain name of the environment (useful to
@@ -93,6 +98,16 @@ public class CurrentEnvironment {
     public String getFacebookClientSecret() {
         return facebookClientSecret;
     }
+
+    public String getWebSiteAdress() {
+        return webSiteAdress;
+    }
+
+    public String getWebSiteName() {
+        return webSiteName;
+    }
+
+
 	
 	
 	
