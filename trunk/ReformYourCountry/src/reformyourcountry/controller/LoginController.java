@@ -90,7 +90,7 @@ public class LoginController extends BaseController<User> {
         }
         catch(SocialAccountAlreadyExistException e){
             
-            errorMsg="Vous possédez déjà un compte actif sur enseignement2 associé à un compte social(Facebook,Google+,LinkedIn.....) avec ce nom d'utilisateur";
+            errorMsg="Vous possédez déjà un compte actif associé à un compte social(Facebook,Google+,LinkedIn.....) avec ce nom d'utilisateur";
             
         }
 
@@ -146,7 +146,7 @@ public class LoginController extends BaseController<User> {
         }
        catch(SocialAccountAlreadyExistException e){
             
-            errorMsg="Vous possédez déjà un compte actif sur enseignement2 associé à un compte social(Facebook,Google+,LinkedIn.....) avec ce nom d'utilisateur";
+            errorMsg="Vous possédez déjà un compte actif associé à un compte social(Facebook,Google+,LinkedIn.....) avec ce nom d'utilisateur";
             
         }
 

@@ -30,7 +30,7 @@ public class ConfirmAccountController extends BaseController<User>{
     @Autowired LoginService loginService;
     @Autowired UsersConnectionRepository usersConnectionRepository;
     
-	//when a user try to log in, for example with a facebook account, and no RYC account exists, he is invited to confirm the creation of a new account on enseignement2.
+	//when a user try to log in, for example with a facebook account, and no RYC account exists, he is invited to confirm the creation of a new account .
 	@RequestMapping("/confirmaccount")  
 	public ModelAndView confirmAccount(WebRequest request){
 	    Connection<?> connection =  ProviderSignInUtils.getConnection(request);

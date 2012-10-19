@@ -51,7 +51,7 @@
 <!-- 		<li><a href="http://www.twitter.com/truethemes" class="twitter" onclick="window.open(this.href);return false;">Twitter</a></li> -->
 <!-- 		<li><a href="#" class="facebook" onclick="window.open(this.href);return false;">Facebook</a></li> -->
 <!-- 		<li><a href="#" class="flickr" onclick="window.open(this.href);return false;">Flickr</a></li> -->
-		<li><a href="${p_webSite_youtubeAddress}" class="youtube" onclick="window.open(this.href);return false;">YouTube</a></li> 
+		<li><a href="${p_webSite_youtubeaddress}" class="youtube" onclick="window.open(this.href);return false;">YouTube</a></li> 
 <!-- 		<li><a href="#" class="linkedin" onclick="window.open(this.href);return false;">LinkedIn</a></li> -->
 <!-- 		<li><a href="#" class="foursquare" onclick="window.open(this.href);return false;">FourSquare</a></li> -->
 <!-- 		<li><a href="#" class="delicious" onclick="window.open(this.href);return false;">Delicious</a></li> -->

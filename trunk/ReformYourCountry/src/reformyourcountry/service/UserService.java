@@ -14,6 +14,7 @@ import reformyourcountry.mail.MailType;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountStatus;
 import reformyourcountry.repository.UserRepository;
+import reformyourcountry.util.CurrentEnvironment;
 import reformyourcountry.util.DateUtil;
 import reformyourcountry.util.Logger;
 import reformyourcountry.util.SecurityUtils;
@@ -89,7 +90,7 @@ public class UserService {
     public void sendRegistrationValidationMail(User user) {
 
         String validationUrl = UrlUtil.getAbsoluteUrl( "validationsubmit?code=" + user.getValidationCode());
-        String htmlMessage = "Bienvenue sur enseignement2.be, " + user.getUserName() + "." + 
+        String htmlMessage = "Bienvenue sur "+CurrentEnvironment.webSiteName+", " + user.getUserName() + "." + 
                 "<br/>Il reste une dernière étape pour créer votre compte : " +
                 "veuillez s'il vous plait cliquer sur le lien ci-dessous pour valider votre e-mail !" +
                 "<br/><a href='"+ validationUrl + "'>" + validationUrl + "</a>" +
@@ -98,7 +99,7 @@ public class UserService {
                 //TODO add a contact page
                 //UrlUtil.getAbsoluteUrl(####TO IMPLEMENT####) + 
                 "'>nous contacter</a>" + 
-                "<br/><br/>merci de vous être inscrit sur enseignement2.be.";
+                "<br/><br/>merci de vous être inscrit sur "+CurrentEnvironment.webSiteName+".";
         mailService.sendMail(user, "Votre nouveau compte", htmlMessage, MailType.IMMEDIATE, MailCategory.USER);
         
         log.debug("mail sent: " + htmlMessage);  
