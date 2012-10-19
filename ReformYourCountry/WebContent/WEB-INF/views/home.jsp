@@ -2,13 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %> 
+<%@page import="reformyourcountry.web.Current" %>
 
 <html>
 <head>
-<meta name="Description" lang="fr" content="Vers un nouvel enseignement fondamental et secondaire en Fédération Wallonie-Bruxelles. Des réformes du système scolaire pour des professeurs moins stressés dans des écoles plus sereines et pour des élèves plus instruits et plus heureux." />
-<meta name="Keywords" content="enseignement, éducation, élève, professeur, instituteur, institutrice, ressources, études, secondaire, fondamental, technique, professionnel, primaire, cours, pédagogie, classe" />
+<meta name="Description" lang="fr" content="${p_home_description}" />
+<meta name="Keywords" content="${p_home_keywords}" />
 <meta name="robots" content="index, follow"/>	
-<link rel="canonical" href="http://enseignement2.be/"/>
+<link rel="canonical" href="${p_webSite_Adress}"/>
 <meta name="googlebot" content="noarchive" />
 
 <!-- CU3ER content JavaScript part starts here   -->
@@ -20,8 +21,8 @@
 </head>
 <body>
 <!-- ***************** - Homepage 3D Slider - ***************** --><!-- locations where are the pictures -->
-<center>
-<div id="CU3ER-containter" >
+
+<div id="CU3ER-container"class="div-align-center" >
 	<!-- CU3ER content HTML part starts here   -->
 		<div id="CU3ER" >
 		
@@ -34,7 +35,7 @@
 			<p>or try to enable JavaScript and reload the page</p>
 		</div>
 </div>
-</center>
+
 <!-- ***************** - END Homepage 3D Slider - ***************** -->
 <div class="callout-wrap">
 	<p>

@@ -16,6 +16,7 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
              Explanation there: http://stackoverflow.com/questions/7833767/why-dispatcherservlet-creates-another-application-context -->
     </context:component-scan>
     <aop:config proxy-target-class="true" />
+
     
     <!-- for injecting value in application context.xml -->
     <bean id="propertyPlaceholder" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">

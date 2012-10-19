@@ -63,7 +63,7 @@ public class ContextUtil implements Filter, ServletContextListener {
 			return servletContext.getContextPath();
 		} else {
 			// In dev, it should be "http://www.KnowledgeBlackBelt.com/"  (because images are not loaded on developers machines).
-			return "http://www.blackbeltfactory.com";   //   "/";
+			return "http://www.blackbeltfactory.com";   //   "/";  // TODO: change that.
 		}
    }
 

@@ -5,9 +5,12 @@
 	height:70%;
 	padding-top:63px; 
 }
-
+ #CU3ER-container{
+	width:465px;
+}
 .center-align { /* use this class instead of <center>*/
     text-align: center;
+   
 }
 /**upload form**/
 .uploadBtn{
@@ -25,7 +28,11 @@
 
 
 /*********** bordel à classer********/
-
+.div-align-center{
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
 .title{
 	font-size: 26px;
     color:rgb(67, 84, 126);
