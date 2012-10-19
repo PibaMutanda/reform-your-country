@@ -168,7 +168,7 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
      * @see http://stackoverflow.com/questions/9993701/cannot-store-euro-sign-into-lob-string-property-with-hibernate-postgresql
      * @see http://stackoverflow.com/questions/5043992/postgres-utf-8-clobs-with-jdbc
      */
-    @Type(type="org.hibernate.type.TextType")
+    @Type(type="org.hibernate.type.StringClobType")
     private String nameChangeLog; // record the name changes
 
     @Column(nullable = true)

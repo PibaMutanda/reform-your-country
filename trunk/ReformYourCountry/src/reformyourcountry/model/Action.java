@@ -35,7 +35,7 @@ public class Action extends BaseEntity{
      * @see http://stackoverflow.com/questions/9993701/cannot-store-euro-sign-into-lob-string-property-with-hibernate-postgresql
      * @see http://stackoverflow.com/questions/5043992/postgres-utf-8-clobs-with-jdbc
      */
-    @Type(type="org.hibernate.type.TextType")
+    @Type(type="org.hibernate.type.StringClobType")
 	private String content;
 	
 //	private int voteCountPro;

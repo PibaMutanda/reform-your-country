@@ -29,7 +29,7 @@ public class Book extends BaseEntity {
      * @see http://stackoverflow.com/questions/9993701/cannot-store-euro-sign-into-lob-string-property-with-hibernate-postgresql
      * @see http://stackoverflow.com/questions/5043992/postgres-utf-8-clobs-with-jdbc
      */
-    @Type(type="org.hibernate.type.TextType")
+    @Type(type="org.hibernate.type.StringClobType")
     String description;
     
     String author; // could a list of many authors.

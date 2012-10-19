@@ -35,7 +35,7 @@ public class Mail extends BaseEntity {
 	@Column(nullable = false,length = 255)
 	private String subject;
 	
-	@Type(type = "org.hibernate.type.TextType") //https://github.com/Jasig/uPortal/pull/47
+	@Type(type = "org.hibernate.type.StringClobType") //https://github.com/Jasig/uPortal/pull/47
 	@Column(nullable = false)
 	private String content;
 	
