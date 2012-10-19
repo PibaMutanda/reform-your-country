@@ -1,22 +1,28 @@
 package reformyourcountry.service;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import reformyourcountry.exception.InvalidUrlException;
 import reformyourcountry.model.Article;
+import reformyourcountry.model.ArticleVersion;
 import reformyourcountry.repository.ArticleRepository;
+import reformyourcountry.repository.ArticleVersionRepository;
+import reformyourcountry.security.SecurityContext;
 
 @Service
 @Transactional
 public class ArticleService {
 
 	@Autowired	ArticleRepository articleRepository;
+	@Autowired  ArticleVersionRepository articleVersionRepository;
 	
 	/** @param newParentId if null, removes the current parent and makes a root node. */
 	public void changeParent(Article article, Long newParentId) {
-		
+		//FIXME dead code? --maxime 16/10/2012
 		// Verify that the parent is not the article itself or one of its children (it would create a cycle in the tree).
 		Article newParent = newParentId == null ? null : articleRepository.find(newParentId);
 		
@@ -48,5 +54,62 @@ public class ArticleService {
 			 articleRepository.merge(parent);
 			 articleRepository.merge(article);
 		 }
+	 }
+	 /**
+	  * update version of an article or create new if previous version are one hour old or created by different user. 
+	  * In case of a new article and no previous version if parameter null are replaced by a String.
+	  */
+	 public void saveArticle(Article article, String content, String summary, String toClassify){
+         ArticleVersion previousVersion =  null;
+         ArticleVersion newVersion = null;
+         if (article == null) {
+             throw new IllegalArgumentException("article can't be null");
+         }
+
+         //// 1. Do we need a new version (or do we update the current last version) ?
+         ////    Because with the auto-save, we don't want too many versions to be created (unmanageable) 
+	     Boolean needNewVersion = null;  
+	     Long delayBetweenVersions = new Date().getTime() - 3600000;//it's time in millisecond so 1 hour is 1000ms*60s*60m
+	     
+	     if (article.getId() == null) {
+	         needNewVersion = true; //in case of an new article it's necessarily an new articleVersion
+	         
+	     } else {
+	         previousVersion  = article.getLastVersion();
+	         
+	         if(previousVersion.getCreatedBy() != SecurityContext.getUser()) {  // The last save has been done by another user.
+	             needNewVersion = true;
+	         } else if (previousVersion.getCreatedOn().getTime() < delayBetweenVersions ) { //if it is more than one hour old
+                needNewVersion = true;
+	         } else { //if the lastVersion of article has been created by the same user and is less than one hour old . We don't create a new version
+	             needNewVersion = false;
+	         } 
+	     }
+	     
+	     ///// 2.create new article or new version if necessary
+	     if (article.getId() == null) { //in case of new Article we persist it before set the lastVersion
+             articleRepository.persist(article);
+             needNewVersion = true;
+         }
+	     
+	     if (needNewVersion) {
+	         newVersion = new ArticleVersion(); 
+	         newVersion.setArticle(article);
+
+	         articleVersionRepository.persist(newVersion);
+	         
+	         article.setLastVersion(newVersion);
+	     }else{
+	         newVersion = previousVersion;
+	     }
+	     
+	     ///// 3.set content of version 
+         newVersion.setContent(content != null ? content : (previousVersion!=null ? previousVersion.getContent() : "Contenu à compléter") );
+	     newVersion.setSummary(summary != null ? summary : (previousVersion!=null ? previousVersion.getSummary() : "Résumé à compléter") );
+	     newVersion.setToClassify(toClassify != null ? toClassify : (previousVersion!=null ? previousVersion.getToClassify() : "") );
+
+	     ///// 4.merge
+	     articleVersionRepository.merge(newVersion);
+ 	     articleRepository.merge(article);
 	 }
 }

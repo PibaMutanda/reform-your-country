@@ -29,7 +29,7 @@
 			<li><a href="/article/contentedit?id=${article.id}">Editer le contenu de l'article</a></li>
 		</ul>	
 	</div>
-	<div class="article-title" style>
+	<div class="article-title" >
 		<span class="tooltip" data-tooltip='identifiant de cet article pour utilisation dans la balise [link article="${article.shortName}"]'>${article.shortName}</span>   <!--  Tooltip avec "identifiant de cet article pour utilisation dans la balise [link article="identifiant"]" -->
 	</div>
 </div>

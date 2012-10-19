@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.converter.BBConverter;
@@ -41,7 +40,7 @@ public class ArticleDisplayController extends BaseController<Article> {
 		Article article = getRequiredEntityByUrl(articleUrl);
 		
 		log.debug("i found "+article.getTitle());
-		log.debug("his content"+article.getContent());
+		log.debug("his content"+article.getLastVersion().getContent());
 		
         mv.addObject("article", article);
 
@@ -71,8 +70,8 @@ public class ArticleDisplayController extends BaseController<Article> {
         
         mv.addObject("showContent", (article.isPublished() || SecurityContext.isUserHasPrivilege(Privilege.EDIT_ARTICLE)));
         BBConverter bbc = new BBConverter(bookRepository, articleRepository);
-        mv.addObject("articleContent", bbc.transformBBCodeToHtmlCode(article.getContent()));
-        mv.addObject("articleSummary", bbc.transformBBCodeToHtmlCode(article.getSummary()));
+        mv.addObject("articleContent", bbc.transformBBCodeToHtmlCode(article.getLastVersion().getContent()));
+        mv.addObject("articleSummary", bbc.transformBBCodeToHtmlCode(article.getLastVersion().getSummary()));
         
         return mv;
 	}
@@ -97,7 +96,7 @@ public class ArticleDisplayController extends BaseController<Article> {
         
         mv.addObject("showContent", (article.isPublished() || SecurityContext.isUserHasPrivilege(Privilege.EDIT_ARTICLE)));
         BBConverter bbc = new BBConverter(bookRepository, articleRepository);
-        mv.addObject("articleToClassify", bbc.transformBBCodeToHtmlCode(article.getToClassify()));
+        mv.addObject("articleToClassify", bbc.transformBBCodeToHtmlCode(article.getLastVersion().getToClassify()));
         return mv;
 	}
 }
