@@ -12,7 +12,7 @@
     ALTER TABLE article DROP COLUMN summary ;
     
     alter table article 
-        add column lastversion_id int8;s
+        add column lastversion_id int8;
 
     create table articleversion (
         id int8 not null,
