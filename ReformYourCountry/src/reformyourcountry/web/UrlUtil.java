@@ -6,9 +6,11 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+import reformyourcountry.util.CurrentEnvironment;
+
 public class UrlUtil {
 
-    public final static String PROD_ABSOLUTE_DOMAIN_NAME = "enseignement2.be";
+    public final static String PROD_ABSOLUTE_DOMAIN_NAME = CurrentEnvironment.webSiteAdress;
     public final static String DEV_ABSOLUTE_DOMAIN_NAME = "localhost:8080";
 
 
@@ -47,10 +49,10 @@ public class UrlUtil {
             }
         }
         if (resultType == Mode.PROD) {
-            // In dev, it should be "http://enseignement2.be/"  (because images are not loaded on developers machines).
+            // In dev, it should be "http://ryc.be/"  (because images are not loaded on developers machines).
         	
             result = "http://" + PROD_ABSOLUTE_DOMAIN_NAME        + "/"; // The "/" is crucial at the end of the project name. Without it, you loose the session.
-            // i.e.:  http://  + enseignement2.be                 +  /
+            // i.e.:  http://  + ryc.be                 +  /
             
         } else {  // We are in dev and we don't force prod urls.
             result = "http://"
