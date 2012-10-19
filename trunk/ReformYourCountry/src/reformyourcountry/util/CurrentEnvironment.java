@@ -21,9 +21,10 @@ public class CurrentEnvironment {
 	@Value("${tweeter.clientSecret}")
 	private String tweeterClientSecret;
 	@Value("${webSite.Name}")
-    private String webSiteName;
+	private String webSiteName;
     @Value("${webSite.Adress}")
     private String webSiteAdress;
+	
 	
 	
 	public String getTweeterClientId() {
