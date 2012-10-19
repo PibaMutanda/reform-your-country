@@ -13,8 +13,8 @@
 		<c:when test="${article.id != null}"><ryctag:pageheadertitle title="${article.title}"><c:forEach items="${parentsPath}" var="subarticle"><c:if test="${article.title != subarticle.title}"><ryctag:breadcrumbelement label="${subarticle.title}" link="/article/${subarticle.url}" /></c:if></c:forEach><ryctag:breadcrumbelement label="${article.title} - Edition" /></ryctag:pageheadertitle></c:when>
 		<c:otherwise><ryctag:pageheadertitle title="Créer un article"/></c:otherwise>
 	</c:choose>
-	<ryctag:form modelAttribute="article" action="article/editsubmit">
-     <tr>   
+	<ryctag:form modelAttribute="article" action="/article/editsubmit">
+        <tr>
             <ryctag:input path="title" label="Titre" id="title" required="required" />
             <ryctag:input path="shortName" label="Raccourci" />
             <tr class="tooltip" data-tooltip="identifiant pour l'article dans les URLs">

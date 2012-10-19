@@ -6,7 +6,7 @@
 </head>
   <body>
 	
-<p> Vous êtes maintenant enregistré sur enseignement2 avec un compte ${accounttype}</p>
+<p> Vous êtes maintenant enregistré sur ${p_website_name} avec un compte ${accounttype}</p>
 	
 		<c:if test="${email != null}">
 			<p>

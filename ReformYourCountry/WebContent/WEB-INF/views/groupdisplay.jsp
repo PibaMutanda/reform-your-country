@@ -14,25 +14,25 @@ Description : ${group.description} <br/>
 Url : ${group.url} <br/>
 
 <c:if test="${group.hasImage==true}">
-   <img src="gen/group/resized/${group.id}.jpg?random=${random}"  <%-- Random, to force the reload of the image in case it changes (but its name does not change) --%>
+   <img src="/gen/group/resized/${group.id}.jpg?random=${random}"  <%-- Random, to force the reload of the image in case it changes (but its name does not change) --%>
         alt="${group.name}" class="imggroup">
 </c:if>
  
 <ryc:conditionDisplay privilege="EDIT_GROUP">
-		<ryctag:submit entity="${group}" value="Editer" action="groupedit" />
+		<ryctag:submit entity="${group}" value="Editer" action="/groupedit" />
 		
 		<%-- IMAGE --%>
-		<form method="post" action="groupimageadd" enctype="multipart/form-data">
+		<form method="post" action="/groupimageadd" enctype="multipart/form-data">
 			<input type="file" name="file" /> 
 			
 			<input type="hidden" name="id" value="${group.id}" />
 			<input type="submit" value="Uploader une image" />
 		</form>
-		<form method="get" action="groupimagedelete">
+		<form method="get" action="/groupimagedelete">
 			<input type="hidden" name="id" value="${group.id}" /> <br>
 			<input type="submit" value="Supprimer une image" />
 		</form>
-		<form method="get" action="groupremove">
+		<form method="get" action="/groupremove">
 			<input type="hidden" name="id" value="${group.id}" /> <br>
 			<input type="submit" value="Supprimer un group" />
 		</form>
@@ -46,6 +46,6 @@ La liste des membres<br />
 </table>
 	    
 	    
-<br><a href="grouplist">Liste des groupes</a>
+<br><a href="/grouplist">Liste des groupes</a>
 </body>
 </html>

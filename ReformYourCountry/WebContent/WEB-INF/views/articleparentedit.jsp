@@ -20,7 +20,7 @@ list-style-type:none;
 	</c:forEach>
 	<ryctag:breadcrumbelement label="${article.title} - Edition du parent" />
  </ryctag:pageheadertitle>
-	<ryctag:form action="article/parenteditsubmit" modelAttribute="article">
+	<ryctag:form action="/article/parenteditsubmit" modelAttribute="article">
 		<form:hidden path="id" />
 		${article.title}
 		<tr>

@@ -4,7 +4,7 @@
     <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 <html>
 <head>
-<meta name="description" lang="fr" content="Articles sur l'enseignement, les problèmes et les réformes du système scolaire."/>
+<meta name="description" lang="${p_lang}" content="${p_articlelist_description}"/>
 <meta name="robots" content="index, follow"/>	
 <meta name="googlebot" content="noarchive" />
 

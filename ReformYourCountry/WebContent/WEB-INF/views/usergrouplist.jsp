@@ -11,7 +11,7 @@
 <body> 
 
 <ryctag:pageheadertitle title="liste de mes groupes" breadcrumb="true">
-	<ryctag:breadcrumbelement label="${user.firstName} ${user.lastName}" link="user/${user.userName}" />
+	<ryctag:breadcrumbelement label="${user.firstName} ${user.lastName}" link="/user/${user.userName}" />
 	<ryctag:breadcrumbelement label="Mes groupes" />
 </ryctag:pageheadertitle>
 

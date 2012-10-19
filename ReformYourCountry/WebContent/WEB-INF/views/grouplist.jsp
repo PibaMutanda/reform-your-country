@@ -11,7 +11,7 @@
 	<h1>Liste des groupes</h1>
 	
 	<ryc:conditionDisplay privilege="EDIT_GROUP">
-		<form action="groupcreate" method="get" >
+		<form action="/groupcreate" method="get" >
 			<input type="hidden" name="id" value="">
 			<input type="submit"  value="Créer un nouveau groupe" />
 		</form>
@@ -20,7 +20,7 @@
 		<c:forEach items="${groupList}" var="group">
 			<tr>
 				<td>${group.name}</td>
-				<td>: <a href="group?id=${group.id}">Détails</a></td>
+				<td>: <a href="/group?id=${group.id}">Détails</a></td>
 			</tr>
 		</c:forEach>
 	</table>

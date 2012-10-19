@@ -10,11 +10,11 @@
 <title>Editer un utilisateur</title>
 </head>
 <body>
-<script src="js/int/birthday_picker.js" type = "text/javascript"></script> 
+<script src="/js/int/birthday_picker.js" type = "text/javascript"></script> 
 
 
 <ryctag:pageheadertitle title="${user.firstName} ${user.lastName}">
-	<ryctag:breadcrumbelement label="${user.firstName} ${user.lastName}" link="user/${user.userName}" />
+	<ryctag:breadcrumbelement label="${user.firstName} ${user.lastName}" link="/user/${user.userName}" />
 	<ryctag:breadcrumbelement label="Edition" />
 </ryctag:pageheadertitle>
 
@@ -73,7 +73,7 @@
         
 		<input type="hidden" name="id" value="${id}"/> <%-- We do not use form:hidden because user.id is sometimes null (fake user)--%>
 		
-        <tr><td><input type="submit" value="Sauver" /></td><td> <a href="user/${user.userName}">Annuler</a></td></tr>
+        <tr><td><input type="submit" value="Sauver" /></td><td> <a href="/user/${user.userName}">Annuler</a></td></tr>
     </ryctag:form> 
 
 </body>

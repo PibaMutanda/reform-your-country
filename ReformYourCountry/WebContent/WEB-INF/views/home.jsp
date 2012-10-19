@@ -8,7 +8,7 @@
 <head>
 <meta name="Description" lang="${p_lang}" content="${p_home_description}" />
 <meta name="Keywords" content="${p_home_keywords}" />
-<meta name="robots" content="index, follow"/>	
+<meta name="robots" content="index, follow"/>
 <link rel="canonical" href="${p_webSite_Adress}"/>
 <meta name="googlebot" content="noarchive" />
 
@@ -17,7 +17,7 @@
 <script type="text/javascript" src="js/ext/CU3ER.js"></script>
 <script type="text/javascript" src="js/ext/home.js"></script>
 <!-- CU3ER content JavaScript part ends here   -->
-<title>enseignement2.be</title>
+<title>${p_home_title}</title>
 </head>
 <body>
 <!-- ***************** - Homepage 3D Slider - ***************** --><!-- locations where are the pictures -->
@@ -51,7 +51,7 @@ Articles dernièrement publiés
 	<c:forEach items="${articleListByDate}" var="art">
 		<div class ="listarticle" >
 			<div style= "float:left">
-				<a href= "article/${art.article.url}">${art.article.title}</a><br/>
+				<a href= "/article/${art.article.url}">${art.article.title}</a><br/>
 				
 					<c:choose>
 						<c:when test="${art.article.description != null}">

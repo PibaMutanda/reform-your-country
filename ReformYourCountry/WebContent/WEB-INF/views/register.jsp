@@ -12,7 +12,7 @@
    Vous devez choisir un pseudonyme et un mot de passe qui vous permettront de vous reconnecter dans le futur.</p>  
     
     
-   <ryctag:form action="registersubmit" modelAttribute="user">
+   <ryctag:form action="/registersubmit" modelAttribute="user">
     	<ryctag:input path="userName" label="pseudo"/>
     	<ryctag:password path="password" label="mot de passe"/>
      	<tr> 
@@ -33,6 +33,6 @@
      	</tr> 
     </ryctag:form>
     
-    <p>vous pouvez également vous <a href="signin" >connecter</a> sur enseignement2.be en utilisant votre compte Facebook,Twitter,Linked In ou Google.
+    <p>vous pouvez également vous <a href="/signin" >connecter</a> sur ${p_website_name} en utilisant votre compte Facebook,Twitter,Linked In ou Google.
 
 </body>

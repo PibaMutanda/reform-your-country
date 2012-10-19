@@ -6,7 +6,7 @@
 <html>
 
 <head>
-<link rel="canonical" href="http://enseignement2.be/user/${user.userName}"/>
+<link rel="canonical" href="${p_website_address}/user/${user.userName}"/>
 <meta name="description" content="${user.firstName} ${user.lastName}">
 </head>   
 <body>
@@ -23,11 +23,11 @@
 			<c:otherwise>
 				<c:choose>
 					<c:when test="${user.isFemale()}">
-						<img src="images/Femme_anonyme.jpg<c:if test="${random!=null}">?random=${random}</c:if>" <%-- Random, to force the reload of the image in case it changes (but its name does not change) --%>
+						<img src="/images/Femme_anonyme.jpg<c:if test="${random!=null}">?random=${random}</c:if>" <%-- Random, to force the reload of the image in case it changes (but its name does not change) --%>
 							style="float: left" />
 					</c:when>
 					<c:otherwise>
-						<img src="images/Homme_anonyme.jpg<c:if test="${random!=null}">?random=${random}</c:if>" <%-- Random, to force the reload of the image in case it changes (but its name does not change) --%>
+						<img src="/images/Homme_anonyme.jpg<c:if test="${random!=null}">?random=${random}</c:if>" <%-- Random, to force the reload of the image in case it changes (but its name does not change) --%>
 							style="float: left" />
 					</c:otherwise>
 				</c:choose>
@@ -35,7 +35,7 @@
 		</c:choose>
 		<br />
 		<c:if test="${canEdit}">
-			<a href= "user/image?id=${user.id}">Ajouter image</a><br/>
+			<a href= "/user/image?id=${user.id}">Ajouter image</a><br/>
 		</c:if>	
 	</div>
 	

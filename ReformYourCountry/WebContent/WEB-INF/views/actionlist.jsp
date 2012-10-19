@@ -13,7 +13,7 @@
 <ryctag:pageheadertitle title="Liste des actions"/>
 	
 	<ryc:conditionDisplay privilege="EDIT_ACTION">
-		<form action="action/create" method="post" >
+		<form action="/action/create" method="post" >
 			<input type="hidden" name="id" value="">
 			<input type="submit"  value="Créer action" />
 		</form>
@@ -23,7 +23,7 @@
 		<c:forEach items="${actions}" var="action">
 			<tr>
 				<td>${action.title}</td>			
-				<td><a href="action/${action.url}">Détails</a></td>
+				<td><a href="/action/${action.url}">Détails</a></td>
 			</tr>
 			
 
