@@ -15,6 +15,7 @@
 <link rel="stylesheet" type="text/css" href="/css/ext/jquery-ui-1.8.23.custom.css" /> <%-- Customized for the colors. --%>
 <link rel="stylesheet" type="text/css" href="/css/ext/style.css"  /> 
 <link rel="stylesheet" type="text/css" href="/css/ext/karma-royal-blue.css" />
+<link href="/css/social.css" rel="stylesheet" type="text/css">
 <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/css/ext/lt8.css" media="screen"/><![endif]-->
 
 <!-- *****for printing***** -->
