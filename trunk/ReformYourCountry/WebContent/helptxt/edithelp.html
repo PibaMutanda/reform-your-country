@@ -87,11 +87,13 @@
 	   et roues sont dans la même font.</p>
 	   
 	<div class="titre3">[Untranslated]</div>
+	
 	<p class="exemple">[quote]Je suis une citation [untranslated]I’m a quote[/untranslated][/quote]</p>
 	<p>Le tag untranslated peut être mis dans un quote, avant ou après le texte. Celui-ci contient la version originale du texte qui 
 		se trouve dans le reste du tag quote. A l'interieur d'un tag untranslated, on ne peut pas avoir d'autre tags, comme [link].</p>
 		
 	<div class="titre3">Attributs</div>
+	
 	<table>
 		<tr>
 			<th>Nom</th>
@@ -135,7 +137,7 @@
 	<div class="titre2">2.[Link]</div>
 
 	<br />
-	<div class="titre3">Référencer un lien:</div>
+	<div class="titre3">Référencer un article avec un lien:</div>
 
 	<p class="exemple">[Link article="abcd"]un article[/link]</p>
 
@@ -143,7 +145,7 @@
 		enseignement2.be. Dans notre exemple, "abcd" est le nom
 		symbolique-raccourci de l'article.</p>
 
-	<div class="titre3">Référencer un lien dans une citation:</div>
+	<div class="titre3">Référencer un article dans une citation:</div>
 
 	<p class="exemple">[quote]Je suis une citation avec [link
 		article="devoirs"]un hyperlien[/link] vers un autre article
@@ -152,8 +154,28 @@
 	<p>Affichera une citation avec un lien html vers l'article
 		"devoirs" à l'intérieur</p>
 
-
+	<br />
+	<div class="titre3">Réferencer un livre avec le titre comme lien</div>
+		
+		<p class="exemple">La Communauté Française (de Belgique) consacre 6.6 milliards d'euros à son système éducatif (2010 - [Link bib="Indicateurs2011" /]).
+			La Communauté Française (de Belgique) consacre 6.6 milliards d'euros à son système éducatif 
+			(2010 - <span class=”bib-link”>Les indicateurs de l’enseignement 2011</span>).</p>
+			
+		<p>Mettra un lien vers le livre qui doit apparaitre avec en prime un tooltip du livre sur le titre .
+		</p>
+		<p>Un [link bib=”...”/] n’affiche que le titre, pas le sous-titre.</p>
+		
+		<br />
+		<div class="titre3">Un lien dans un [unquote]</div>
+		
+		<p class="exemple">
+				[quote] Je suis une citation avec un [unquote]([link article="auto"]voir page parents[/link]).[/unquote] intégré	[/quote]</p>
+				
+		<p>Mettra un lien dans un [unquote].</p>
+	
+	<br />
 	<div class="titre3">Attributs</div>
+	
 	<table>
 		<tr>
 			<th>Nom</th>
@@ -179,8 +201,18 @@
 			<td>alphabétique</td>
 			<td>abréviation d'un article d'enseignement2.be</td>
 		</tr>
+		<tr>
+			<td class="exemple">bib</td>
+			<td>optionel</td>
+			<td>alphabétique</td>
+			<td>renseigne l'URI d'un livre du site enseignement2.be</td>
+		</tr>
 	</table>
 
+	<br />
+	
+	
+	
 	<br />
 	<div class="titre2">3.[Action]</div>
 	... TODO: texte à écrire.
@@ -192,20 +224,44 @@
 	<br />
 	<div class="titre3">Référencer une image:</div>
 
-	<p class="exemple">class="exemple">[image name="monImage.jpg"
+	<p class="exemple">[image name="monImage.jpg"
 		style="float:right;"/]</p>
-	<p>
-
-		Affichera une image uploadée. L'attribut "name" identifie l'image.<br />
+		
+	<p>	Affichera une image uploadée. L'attribut "name" identifie l'image.<br />
 		Optionnellement, on peut indiquer un attribut style qui sera transcrit
 		tel quel dans l'html. C'est typiquement utilisé pour positionner
-		l'image dans le texte à gauche ou a droite, avec un padding.
+		l'image dans le texte à gauche ou a droite, avec un padding.</p>
+	
+	<br />
 	<div class="titre2">5.[Escape]</div>
-	<div class="titre3">Inclure des brackets</div>
-	<div class="exemple">[escape] Je fais des maths [ comme ceci [ ou
-		cela ]]]]]]]]]]. Point. [/escape]</div>
+	<br />
+	
+	<div class="titre3">Inclure des brackets:</div>
+	
+	<p class="exemple">[escape] Je fais des maths [ comme ceci [ ou
+		cela ]]]]]]]]]]. Point. [/escape]</p>
 
-	<br />Permet d'include des brackets "[" ou "]" dans le texte sans
-	qu'ils ne soient interprétés comme des débuts ou des fins de balises.
+	<br />
+	<p>Permet d'include des brackets "[" ou "]" dans le texte sans
+	qu'ils ne soient interprétés comme des débuts ou des fins de balises.</p>
+	
+	<br />
+	<div class="titre2">6.[TODO]</div>
+	<br />
+	
+	<div class="titre3">Mettre en évidence:</div>
+	
+	<p class="exemple">[todo]Citation à traduire[/todo]
+		<span class=”todo”>Citation à traduire</span></p>
+	<p>ou bien</p>
+	<p class="exemple">[todo]A REVOIR
+						[quote bib=”Emile”]Les enfants sont naturels.[/quote]
+						[/todo]	</p>
+		
+	<p>le tag todo doit permettre de mettre visuellement en évidence un texte sur lequel il faut encore travailler.</p>
+	<br />
+	
+	
+	
 </body>
 </html>
