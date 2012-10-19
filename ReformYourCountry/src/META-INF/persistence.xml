@@ -14,7 +14,7 @@
           <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
           <!-- CONNECTION info (user, password, url) are injected by spring -->
 
-          <property name="hibernate.showsql" value="false" />
+          <property name="hibernate.showsql" value="true" />
           <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
           
           <property name="hibernate.connection.characterEncoding" value="utf8" />

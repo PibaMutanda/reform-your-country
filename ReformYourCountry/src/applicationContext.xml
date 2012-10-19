@@ -16,7 +16,6 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
              Explanation there: http://stackoverflow.com/questions/7833767/why-dispatcherservlet-creates-another-application-context -->
     </context:component-scan>
     <aop:config proxy-target-class="true" />
-
     
     <!-- for injecting value in application context.xml -->
     <bean id="propertyPlaceholder" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -50,8 +49,9 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
             <props>
 <!--                 <prop key="hibernate.connection.url">${DB.url}</prop>
                 <prop key="hibernate.connection.username">${DB.userName}</prop>
-                <prop key="hibernate.connection.password">${DB.password}</prop>
- -->            </props>
+                <prop key="hibernate.connection.password">${DB.password}</prop>-->
+                <prop key="hibernate.showsql">true</prop>
+             </props>
         </property>
 
     </bean>
@@ -63,7 +63,8 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
         <property name="connectionPoolDataSource">
             <bean
                 class="org.apache.commons.dbcp.cpdsadapter.DriverAdapterCPDS">
-               <!-- <property name="driver" value="net.sf.log4jdbc.DriverSpy" /> use this to trace jdbc BOTH JPA AND JdbcTemplate--> 
+                <!-- use this to trace jdbc BOTH JPA AND JdbcTemplate -->
+<!--                 <property name="driver" value="net.sf.log4jdbc.DriverSpy" />  -->
                 <property name="driver" value="org.postgresql.Driver" />
                 <property name="url" value="${DB.url}" />
                 <property name="user" value="${DB.userName}" />
