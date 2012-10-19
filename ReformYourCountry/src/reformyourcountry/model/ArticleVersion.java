@@ -19,7 +19,7 @@ public class ArticleVersion extends BaseEntity{
      * @see http://stackoverflow.com/questions/9993701/cannot-store-euro-sign-into-lob-string-property-with-hibernate-postgresql
      * @see http://stackoverflow.com/questions/5043992/postgres-utf-8-clobs-with-jdbc
      */
-    @Type(type="org.hibernate.type.TextType")
+    @Type(type="org.hibernate.type.StringClobType")
     private String summary;  // Longer than Article.description, probably 1 page long.
     
     @Lob
@@ -29,7 +29,7 @@ public class ArticleVersion extends BaseEntity{
      * @see http://stackoverflow.com/questions/9993701/cannot-store-euro-sign-into-lob-string-property-with-hibernate-postgresql
      * @see http://stackoverflow.com/questions/5043992/postgres-utf-8-clobs-with-jdbc
      */
-    @Type(type="org.hibernate.type.TextType")
+    @Type(type="org.hibernate.type.StringClobType")
     private String toClassify; // Section of text used to store a draft, or quotes that will be added.
     
     @Lob
@@ -39,7 +39,7 @@ public class ArticleVersion extends BaseEntity{
      * @see http://stackoverflow.com/questions/9993701/cannot-store-euro-sign-into-lob-string-property-with-hibernate-postgresql
      * @see http://stackoverflow.com/questions/5043992/postgres-utf-8-clobs-with-jdbc
      */
-    @Type(type="org.hibernate.type.TextType")
+    @Type(type="org.hibernate.type.StringClobType")
     private String content;
     
     
