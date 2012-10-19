@@ -18,11 +18,12 @@ public class CurrentEnvironment {
 	private String facebookClientSecret;
 	@Value("${tweeter.clientId}")
 	private String tweeterClientId;
+	@Value("${tweeter.clientSecret}")
+	private String tweeterClientSecret;
 	@Value("${webSite.Name}")
-	private String webSiteName;
+    private String webSiteName;
     @Value("${webSite.Adress}")
     private String webSiteAdress;
-	
 	
 	
 	public String getTweeterClientId() {
