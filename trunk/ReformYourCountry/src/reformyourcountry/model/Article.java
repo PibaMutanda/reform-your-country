@@ -63,8 +63,11 @@ public class Article extends BaseEntity {
 
 	@OneToMany(mappedBy = "parent")
 	private List<Article> children = new ArrayList <Article>();
-
-
+    
+	@OneToMany(mappedBy="article")
+    private List<Video> videos =new ArrayList<Video>(); 
+	
+	
 	public String getTitle() {
 		return title;
 	}
