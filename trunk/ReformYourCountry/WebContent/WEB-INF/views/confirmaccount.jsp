@@ -2,6 +2,7 @@
 <%@taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
 <html>
 <body>
+<!-- you can set variables starting with "p_" in the file named website_content.properties -->
 	<p>Ce compte ${socialnetworkname} est nouveau sur ${p_website_name}, ce qui est normal si vous vous connectez pour la première fois à ${p_website_name} avec votre compte ${socialnetworkname}.</p>
     <p>Nous allons maintenant vous créer automatiquement un utilisateur sur ${p_website_name}.</p> 
    

@@ -6,8 +6,9 @@
 
 <html>
 <head>
-<meta name="Description" lang="${p_lang}" content="${p_home_description}" />
-<meta name="Keywords" content="${p_home_keywords}" />
+<!-- you can set variables starting with "p_" in the file named website_content.properties -->
+<meta name="description" lang="${p_lang}" content="${p_home_description}" />
+<meta name="keywords" content="${p_home_keywords}" />
 <meta name="robots" content="index, follow"/>
 <link rel="canonical" href="${p_webSite_Adress}"/>
 <meta name="googlebot" content="noarchive" />
@@ -38,8 +39,8 @@
 
 <!-- ***************** - END Homepage 3D Slider - ***************** -->
 <div class="callout-wrap">
-	<p>
-Lorem ipsum dolor sit amet, consectetaur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sitriam.
+	<p>éééééééé
+${p_home_body_text}
 </p>
 </div>
 

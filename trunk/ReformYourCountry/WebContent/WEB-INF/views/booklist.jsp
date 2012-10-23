@@ -5,7 +5,8 @@
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 <html>
 <head>
-<meta name="Description" lang="${p_lang}" content="${p_booklist_description}"/>
+<!-- you can set variables starting with "p_" in the file named website_content.properties -->
+<meta name="description" lang="${p_lang}" content="${p_booklist_description}"/>
 <meta name="robots" content="index, follow"/>	
 <meta name="googlebot" content="noarchive" />
 <style type="text/css">

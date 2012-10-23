@@ -16,6 +16,8 @@ Pour participer (voter, argumenter, etc.), vous devez vous connecter avec votre 
 	<!-- SOCIAL SIGNIN - RIGHT COLUMN -->
 	<div style="border-left-style: solid; border-width: 1px; float:right; padding-left:20px; width:300px;">
 
+<!-- you can set variables starting with "p_" in the file named website_content.properties -->
+
 		<h5>Connexion via un réseau social</h5>
 		<p>Vous pouvez facilement utiliser votre compte facebook, google ou autre pour vous connecter à ${p_website_name}</p>
 		<!-- FACEBOOK SIGNIN -->

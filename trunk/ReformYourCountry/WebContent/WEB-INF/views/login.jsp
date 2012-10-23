@@ -8,7 +8,7 @@
 <script type="text/javascript">
 $(document).ready(function() {		
 	
-	
+	<!-- you can set variables starting with "p_" in the file named website_content.properties -->
 	// ajax request wich will call loginController wich will place a flag autologin in the session
 	// later this value will be used in the spring-social SigninAdapter to determine if we want create a cookie for the user login
 	

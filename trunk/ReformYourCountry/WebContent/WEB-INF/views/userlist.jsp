@@ -5,6 +5,7 @@
 
 <html>
 <head>
+<!-- you can set variables starting with "p_" in the file named website_content.properties -->
 <meta name="description" content="Utilisateurs de ${p_website_name}">
 <meta name="Keywords" content="utilisateur, informations" />
 <meta name="robots" content="index, follow" />
