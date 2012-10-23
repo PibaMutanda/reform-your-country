@@ -10,7 +10,8 @@
     
    <p>Créer un nouvel utilisateur vous permettra de faire certaines actions telles que voter ou argumenter.
    Vous devez choisir un pseudonyme et un mot de passe qui vous permettront de vous reconnecter dans le futur.</p>  
-    
+   
+    <!-- you can set variables starting with "p_" in the file named website_content.properties -->
     
    <ryctag:form action="/registersubmit" modelAttribute="user">
     	<ryctag:input path="userName" label="pseudo"/>

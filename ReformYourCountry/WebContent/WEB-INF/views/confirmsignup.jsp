@@ -5,7 +5,7 @@
   <title>Insert title here</title>
 </head>
   <body>
-	
+	<!-- you can set variables starting with "p_" in the file named website_content.properties -->
 <p> Vous êtes maintenant enregistré sur ${p_website_name} avec un compte ${accounttype}</p>
 	
 		<c:if test="${email != null}">

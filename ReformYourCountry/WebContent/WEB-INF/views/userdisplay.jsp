@@ -6,6 +6,7 @@
 <html>
 
 <head>
+<!-- you can set variables starting with "p_" in the file named website_content.properties -->
 <link rel="canonical" href="${p_website_address}/user/${user.userName}"/>
 <meta name="description" content="${user.firstName} ${user.lastName}">
 </head>   
