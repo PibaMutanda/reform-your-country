@@ -11,7 +11,6 @@ public enum Privilege {
     // Users management
     VIEW_PRIVATE_DATA_OF_USERS("View user's private data", Role.MODERATOR), // Private data includes e-mail and contributions points detail.
     MANAGE_USERS("Manage users (create / edit / delete / rename)", Role.MODERATOR), //ok
-
  
 	// News related privileges
 	MANAGE_NEWS("Manage news", Role.MODERATOR),
@@ -23,12 +22,13 @@ public enum Privilege {
 
     //article related privileges
     EDIT_ARTICLE("Edit article", Role.MODERATOR),
-    EDIT_BOOK("Edit book", Role.MODERATOR),
+    VIEW_CHANGE_LOG("View change log", Role.MODERATOR),
     
+    EDIT_BOOK("Edit book", Role.MODERATOR),
     EDIT_ACTION("Edit action", Role.MODERATOR),
     EDIT_GROUP("Edit group", Role.MODERATOR),
-
     CAN_VOTE("Is Allowed to vote", Role.MODERATOR);
+    
     
 	String name;
 	Role associatedRole;
