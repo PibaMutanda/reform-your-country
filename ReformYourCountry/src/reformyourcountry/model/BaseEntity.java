@@ -35,12 +35,16 @@ public class BaseEntity {
     Date updatedOn;
 
     transient @Transient boolean isBeingPersisted = false;  // true if we are between @PerPersist and @PostPersist calls (= if we are persisting).
+	transient @Transient boolean setUpdateOnWhenCreating;  // true if the updateOn date field should not be null in the DB just after creation (INSERT, persist);
 
     
     @PrePersist
     public void prePersist(){
     	createdBy = SecurityContext.getUser();
     	createdOn = new Date();
+    	if (setUpdateOnWhenCreating) {
+    		updatedOn = createdOn;
+    	}
     	isBeingPersisted = true;
     }
 
@@ -54,6 +58,11 @@ public class BaseEntity {
     	updatedOn=new Date();
     }
 
+	public void updateOnNotNull() {
+		setUpdateOnWhenCreating = true;
+	}
+
+    
     public Long getId() {
     	return id;
     }

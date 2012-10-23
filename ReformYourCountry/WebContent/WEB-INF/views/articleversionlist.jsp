@@ -6,21 +6,31 @@
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag"%>
 
-<ryctag:pageheadertitle title="historique des versions de ${versionList[0].article.title}"></ryctag:pageheadertitle>
+
+<c:choose>
+	<c:when test="${changeLog}">
+		<ryctag:pageheadertitle title="Liste des derniers articles"></ryctag:pageheadertitle>
+	</c:when>
+    <c:otherwise>	
+		<ryctag:pageheadertitle title="historique des versions de ${versionList[0].article.title}"></ryctag:pageheadertitle>    
+    </c:otherwise>
+</c:choose>
 <table>
     <thead>
         <tr>
+            <c:if test="${changeLog}"><th>titre de l'article</th></c:if>
             <th>version</th>
             <th>dernière modification</th>
             <th>modifié par</th>
         </tr>
     </thead>
     <tbody>
-    <% List<ArticleVersion> versionList = (List<ArticleVersion>)request.getAttribute("versionList"); 
-       int number = versionList.size();%>
+<%--     <% List<ArticleVersion> versionList = (List<ArticleVersion>)request.getAttribute("versionList");  --%>
+<%--        int number = versionList.size();%> --%>
         <c:forEach items="${versionList}" var="version" >
             <tr>
-                <td><a href="/article/versioncompare?id=${version.id}">Version <%=number%></a></td>
+                <c:if test="${changeLog}"><td>${version.article.title}</td></c:if>
+                <td><a href="/article/versioncompare?id=${version.id}">${version.versionNumber}</a></td>
                 <td>
                     <c:choose>
                         <c:when test="${empty version.updatedOn}">
@@ -42,7 +52,7 @@
                     </c:choose>
                </td>
             </tr>
-        <% number--; %>
+<%--         <% number--; %> --%>
         </c:forEach>
     </tbody>
 </table>

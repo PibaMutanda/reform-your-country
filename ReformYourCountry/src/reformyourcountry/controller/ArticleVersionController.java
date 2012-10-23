@@ -1,6 +1,5 @@
 package reformyourcountry.controller;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,18 +17,31 @@ import reformyourcountry.security.SecurityContext;
 @Controller
 @RequestMapping(value={"/article/version"})
 public class ArticleVersionController {
-    @Autowired ArticleRepository articleRepository;
+    
+	@Autowired ArticleRepository articleRepository;
     @Autowired ArticleVersionRepository articleVersionRepository;
     
+    // All the version of a given article
     @RequestMapping(value={"/{articleUrl}"})
     public ModelAndView displayArticleVersion(@PathVariable("articleUrl") String articleUrl){
-        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
+        
+    	SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
         ModelAndView mv = new ModelAndView("articleversionlist");
-        
-        List<ArticleVersion> versionList = articleVersionRepository.findAll(articleRepository.findByUrl(articleUrl));
-        
-        Collections.reverse(versionList);//we must begin by the last element of the list
+        List<ArticleVersion> versionList = articleVersionRepository.findAllVersionForAnArticle(articleRepository.findByUrl(articleUrl));
+        //Collections.reverse(versionList);//we must begin by the last element of the list
         mv.addObject("versionList",versionList);
+        return mv;
+    }
+    
+    // The last versions of all articles together;
+    @RequestMapping("/changelog")
+    public ModelAndView displayArticleVersion(){
+          	
+        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
+    	ModelAndView mv = new ModelAndView("articleversionlist");
+        List<ArticleVersion> versionList = articleVersionRepository.findAll(500);
+        mv.addObject("versionList",versionList);
+        mv.addObject("changeLog", true); //to say to the articleversionlist.jsp that we are in changeLog mode
         return mv;
     }
 

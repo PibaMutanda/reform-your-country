@@ -95,11 +95,13 @@ public class ArticleService {
 	     if (needNewVersion) {
 	         newVersion = new ArticleVersion(); 
 	         newVersion.setArticle(article);
+	         newVersion.setVersionNumber(article.getLastVersion() != null ? article.getLastVersion().getVersionNumber()+1 : 1);
+	         newVersion.updateOnNotNull();  // We need to order versions by update date in a query, and having a null date would be a problem there.
 
 	         articleVersionRepository.persist(newVersion);
 	         
 	         article.setLastVersion(newVersion);
-	     }else{
+	     } else {
 	         newVersion = previousVersion;
 	     }
 	     
