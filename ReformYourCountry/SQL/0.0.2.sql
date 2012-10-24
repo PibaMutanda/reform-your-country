@@ -35,4 +35,11 @@ CREATE TABLE userconnection
     ALTER TABLE article ADD UNIQUE (shortName);
 -- 2012-10-03 Cedric
 
+    alter table mail 
+        add column emailreplyto varchar(100);
+        
+-- 2012-10-10 Lionel
+
+    alter table users 
+        add column accountconnectedtype varchar(20);
     alter table mail add column emailreplyto varchar(100);      
