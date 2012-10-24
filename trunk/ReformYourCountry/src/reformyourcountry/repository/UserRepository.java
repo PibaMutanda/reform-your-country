@@ -42,6 +42,15 @@ public class UserRepository extends BaseRepository<User>{
         return results;
     }
     
+    public List<User> getUserWithRoleNotNull(){
+    	List<User> results = (List<User>) em.createQuery("select u from User u where u.role != null").getResultList();
+		return results;
+    }
+    
+    public List<User> getUserWithPrivilegeNotEmpty(){
+    	List<User> results = (List<User>) em.createQuery("select u from User u where size(u.privileges) != 0").getResultList();
+		return results;
+    }
     
     public Long findMaxIdValue(){
         
