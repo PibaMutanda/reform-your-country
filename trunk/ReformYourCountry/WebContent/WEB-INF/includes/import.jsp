@@ -17,7 +17,9 @@
 <link rel="stylesheet" type="text/css" href="/css/ext/karma-royal-blue.css" />
 <link href="/css/social.css" rel="stylesheet" type="text/css">
 <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/css/ext/lt8.css" media="screen"/><![endif]-->
-
+<!-- ******for notification bar -->
+<link rel="stylesheet" type="text/css" href="/css/ext/jquery.pnotify.default.css"  /> 
+<link rel="stylesheet" type="text/css" href="/css/ext/jquery.pnotify.default.icons.css"  /> 
 <!-- *****for printing***** -->
 <link rel="stylesheet" type="text/css" href="/css/print.css" media="print" />
 <!-- ***************************** END CSS **************************** -->    
@@ -33,6 +35,9 @@
 
 	<script src="/js/ext/jquery-ui-1.8.23.custom.min.js"></script><%--Add other libraries but doesn't contains the JQuery core  --%>
 	
+	<!-- *****************************Script for notification Bar *******************************************************-->
+	<script src="/js/ext/jquery.pnotify.js" type="text/javascript"></script>
+	<script src="/js/ext/jquery.pnotify.min.js" type="text/javascript"></script>
 	<!-- ***************************** Script from our dev (that should be on every pages) **************************** -->   
 		<script src="/js/int/datepicker.js" type="text/javascript"></script>
 		<script src="/js/int/redirect.js"></script>
