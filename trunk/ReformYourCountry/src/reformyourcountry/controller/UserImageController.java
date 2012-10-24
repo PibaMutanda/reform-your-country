@@ -19,13 +19,11 @@ import org.springframework.social.twitter.api.Twitter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import reformyourcountry.model.User;
-import reformyourcountry.model.User.AccountConnectedType;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
