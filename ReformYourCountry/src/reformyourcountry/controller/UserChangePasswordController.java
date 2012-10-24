@@ -13,7 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.model.User;
 import reformyourcountry.repository.UserRepository;
-import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.util.SecurityUtils;
 
@@ -37,7 +36,7 @@ public class UserChangePasswordController {
 			@RequestParam("newPassword") String newPassword,
 			@RequestParam("confirmPassword") String confirmPassword) {
 
-		assertCurrentUserMayEditThisUser(user);
+		SecurityContext.assertCurrentUserMayEditThisUser(user);
 		
 		String errorNoOld=null;
 		String errorEmpty=null;
@@ -63,6 +62,7 @@ public class UserChangePasswordController {
 				return mv;
 			}
 			user.setPassword(SecurityUtils.md5Encode(confirmPassword));
+			user.setPasswordKnownByTheUser(true);
 			userRepository.merge(user);
 			return new ModelAndView("redirect:/user/"+user.getUserName());	
 
@@ -76,11 +76,5 @@ public class UserChangePasswordController {
 		return  userRepository.find(id);
 	}
 	
-    private void assertCurrentUserMayEditThisUser(User user) {
-    	if (user.equals(SecurityContext.getUser())) {
-    		return; // Ok, a user may edit himself.
-    	}
-        SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_USERS);
-    }
-
+   
 }

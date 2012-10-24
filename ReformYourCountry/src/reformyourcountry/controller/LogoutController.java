@@ -7,28 +7,30 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.context.request.WebRequest;
 
+import reformyourcountry.model.User;
 import reformyourcountry.service.LoginService;
 
 
 
 @Controller
-public class LogoutController {
+public class LogoutController extends BaseController<User>{
     
     @Autowired LoginService loginService;
     @RequestMapping("/logout")
-    public String logout() {
-        
+    public String logout(WebRequest request) {
+  
          loginService.logout();
-        
+         addNotificationMessage("Vous ête à present deconnecté d'enseignement2.be", request);
          
         return "redirect:/";
     }
     @RequestMapping("/ajax/logout")
     public ResponseEntity<String> logoutAjax() {
-        
+   
          loginService.logout();
-        
+         
          
         return new ResponseEntity<String>("loged out", HttpStatus.OK);
     }
