@@ -11,14 +11,14 @@
 
 	<form action ="/loginsubmit" method="post">
 		<label for="identifier">pseudo / adresse e-mail</label><br/>
-        <input type="text" name="identifier" /><br/>
+        <input type="text" name="identifier" required="required"/><br/>
         <label for="password">mot de passe</label><br/>
 		<c:choose>
 			<c:when test="<%= !ContextUtil.devMode %>">				
-				<input type="password" name="password" />
+				<input type="password" name="password" required="required"/>
 			</c:when>
   		    <c:otherwise>
-			    <input type="password" name="password"  value="secret"/><br/>
+			    <input type="password" name="password"  value="secret" required="required"/><br/>
 			    Your are in dev mode: password is not verified (type any).<br/>
 			</c:otherwise>
 		</c:choose>
