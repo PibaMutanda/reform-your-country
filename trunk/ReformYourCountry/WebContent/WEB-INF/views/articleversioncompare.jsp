@@ -41,7 +41,11 @@
 
 </head>
 <body>
-	<ryctag:pageheadertitle title="${article.title}">
+   	<ryctag:pageheadertitle title="${article.title}">
+		<c:forEach items="${parentsPath}" var="subarticle">
+			<ryctag:breadcrumbelement label="${subarticle.title}" link="/article/${subarticle.url}" />
+		</c:forEach>
+		<ryctag:breadcrumbelement label="comparaison de versions" />
 	</ryctag:pageheadertitle>
 
 	<table>

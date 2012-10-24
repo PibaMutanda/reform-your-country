@@ -44,15 +44,8 @@ public class ArticleDisplayController extends BaseController<Article> {
 		
         mv.addObject("article", article);
 
-        // For the breadcrumb
-        List<Article> parentArticles = new ArrayList<Article>();
-        Article current =  article;
-        while((current = current.getParent()) != null){
-            if(!current.getChildren().isEmpty())
-            parentArticles.add(current);
-        }
-        Collections.reverse(parentArticles);
-        mv.addObject("parentsPath",parentArticles);
+		// For the breadcrumb
+        mv.addObject("parentsPath", article.getParentPath());
 
 
         ///// Get publishDate in an usable int format for the countdown
@@ -76,6 +69,8 @@ public class ArticleDisplayController extends BaseController<Article> {
         return mv;
 	}
 
+
+
 	@RequestMapping(value={"/a_classer/{articleUrl}"})
 	public ModelAndView displayToClassify( @PathVariable("articleUrl") String articleUrl){
 		SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
@@ -85,14 +80,7 @@ public class ArticleDisplayController extends BaseController<Article> {
 		mv.addObject("article", article);
 		
 		// For the breadcrumb
-        List<Article> parentArticles = new ArrayList<Article>();
-        Article current =  article;
-        while((current = current.getParent()) != null){
-            if(!current.getChildren().isEmpty())
-            parentArticles.add(current);
-        }
-        Collections.reverse(parentArticles);
-        mv.addObject("parentsPath",parentArticles);
+        mv.addObject("parentsPath", article.getParentPath());
         
         mv.addObject("showContent", (article.isPublished() || SecurityContext.isUserHasPrivilege(Privilege.EDIT_ARTICLE)));
         BBConverter bbc = new BBConverter(bookRepository, articleRepository);

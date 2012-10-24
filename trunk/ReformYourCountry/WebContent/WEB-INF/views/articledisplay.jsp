@@ -19,9 +19,7 @@
 <body>
  <ryctag:pageheadertitle title="${article.title}">
  	<c:forEach items="${parentsPath}" var="subarticle">
- 		<c:if test="${article.title != subarticle.title}">
-			<ryctag:breadcrumbelement label="${subarticle.title}" link="/article/${subarticle.url}" />
-		</c:if>
+		<ryctag:breadcrumbelement label="${subarticle.title}" link="/article/${subarticle.url}" />
 	</c:forEach>
 	<ryctag:breadcrumbelement label="${article.title}" />
  </ryctag:pageheadertitle>

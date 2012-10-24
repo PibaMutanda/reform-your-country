@@ -29,11 +29,12 @@ public class ArticleContentEditController extends BaseController<Article>{
     @Autowired ArticleService articleService;
     
     @RequestMapping("/article/contentedit")
-    public ModelAndView articleContentEdit(@RequestParam("id")Long id)
-    {
+    public ModelAndView articleContentEdit(@RequestParam("id")Long id) {
         SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
         ModelAndView mv = new ModelAndView("articlecontentedit");
-        mv.addObject("article",getRequiredEntity(id));
+        Article article = getRequiredEntity(id);
+        mv.addObject("article", article);
+        mv.addObject("parentsPath", article.getPath()); // For the breadcrumb
         return mv;
     }
     
@@ -42,7 +43,7 @@ public class ArticleContentEditController extends BaseController<Article>{
     public ResponseEntity<?> articleContentEditSubmitAjax(@RequestParam(value="content",required=false)String content,
                                                           @RequestParam(value="summary",required=false)String summary,
                                                           @RequestParam(value="toClassify",required=false)String toClassify,
-                                                          @RequestParam(value="id")Long id){
+                                                          @RequestParam(value="id") Long id){
         SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
      
         articleService.saveArticle(getRequiredEntity(id), content, summary, toClassify);
@@ -55,12 +56,11 @@ public class ArticleContentEditController extends BaseController<Article>{
     public ModelAndView articleContentEditSubmit(@RequestParam(value="content",required=false)String content,
                                                  @RequestParam(value="summary",required=false)String summary,
                                                  @RequestParam(value="toClassify",required=false)String toClassify,
-                                                 @RequestParam(value="id")Long id){
+                                                 @RequestParam(value="id") Long id){
         SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
         
         articleService.saveArticle(getRequiredEntity(id), content, summary, toClassify);            
         return new ModelAndView("redirect:"+getRequiredEntity(id).getUrl());
-
     }
     
 }
