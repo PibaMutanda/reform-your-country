@@ -121,6 +121,14 @@ public class BaseEntity {
         return this.getId().equals(otherEntity.getId());
     }
     
+    
+    
+    
+    public User getUpdatedOrCreatedBy() {
+		return updatedBy != null ? updatedBy : createdBy;
+	}
+
+    
     public User getCreatedBy() {
         return createdBy;
     }
