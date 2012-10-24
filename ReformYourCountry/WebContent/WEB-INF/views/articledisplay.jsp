@@ -39,7 +39,7 @@
 					 <li><a href="/article/parentedit?id=${article.id}">Editer l'article parent</a></li>
 					 <li><a href="/article/contentedit?id=${article.id}">Editer le contenu de l'article</a></li>
 					 <li><a href="/article/version/${article.url}">Afficher l'historique des versions</a></li>
-					 <li><a href="/article/articlevideomanager/${article.video.id}">Afficher la vidéo</a>
+					 <li><a href="/article/videomanager?id=${article.id}">Vidéo</a></li>
 				</ul>	
 		</div>
 		</ryc:conditionDisplay>
