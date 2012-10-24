@@ -6,6 +6,8 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Type;
 
+import reformyourcountry.util.DateUtil;
+
 @Entity
 public class ArticleVersion extends BaseEntity{
 
@@ -46,9 +48,15 @@ public class ArticleVersion extends BaseEntity{
 
    
     
+    public String getVersionNumberAndDate() {
+    	return "v" + versionNumber + " - " + DateUtil.formatyyyyMMddHHmm(createdOn);
+    }
+    
+    
     public Integer getVersionNumber() {
 		return versionNumber;
 	}
+
 
 	public void setVersionNumber(Integer versionNumber) {
 		this.versionNumber = versionNumber;
@@ -85,5 +93,4 @@ public class ArticleVersion extends BaseEntity{
     public void setContent(String content) {
         this.content = content;
     }
-
 }
