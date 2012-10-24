@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 
 
 
@@ -17,6 +19,7 @@ public class Video extends BaseEntity {
     @JoinColumn
     private Article article;
     
+    @NotBlank(message="Entrer identifiant de la vidéo")
     private String idOnHost;   // Youtube id.
     
     
