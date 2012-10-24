@@ -29,7 +29,7 @@ public class VideoManagerController extends BaseController<Article> {
 										@RequestParam("articleId") Long articleId){
 		
 		videoRepository.remove(videoRepository.find(videoId));
-		return new ModelAndView("redirect:/article/videomanager","id",articleId);
+		return new ModelAndView("redirect:/video/manager","id",articleId);
 	}
 	
 }

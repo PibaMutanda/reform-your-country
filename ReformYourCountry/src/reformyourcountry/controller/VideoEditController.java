@@ -41,11 +41,12 @@ public class VideoEditController extends BaseController<Video> {
           }
           
           if(video.getId()==null){
+              
               videoRepository.persist(video);   
           } else {
               videoRepository.merge(video);
           }
-          return new ModelAndView("redirect:/video/manager","id", video.getId());
+          return new ModelAndView("redirect:/video/manager","id", video.getArticle().getId());
     }
     
     @ModelAttribute
