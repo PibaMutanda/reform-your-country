@@ -1,6 +1,8 @@
 package reformyourcountry.service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -138,5 +140,18 @@ public class UserService {
         userRepository.merge(user);
     }
 
+    public List<User> getUserLstWithRoleAndPrivilege(){
+    	List<User> list1 = userRepository.getUserWithRoleNotNull();
+    	List<User> list2 = userRepository.getUserWithPrivilegeNotEmpty();
+    	
+    	// Add to list1, the users of list2 which are not already in list1.
+    	for(User u : list2){
+    		if(!(list1.contains(u))){
+    			list1.add(u);
+    		}
+    	}
+		return list1;
+    }
+    
 
 }
