@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <html>
 <head>
@@ -23,11 +24,11 @@
 				<td><a href="http://www.youtube.com/watch?v=${video.idOnHost}">${video.idOnHost}</a></td>
 
 				<td>
-					<a href="/video/edit?idVideo=${video.id}">éditer<a>
+					<a href="/video/edit?idVideo=${video.id}">éditer</a>
 				</td>
 
 				<td>
-					<a href="/video/delete?idVideo=${video.id}">supprimer<a>
+					<a href="/video/delete?idVideo=${video.id}">supprimer</a>
 				</td>
 			</tr>
 		</c:forEach>
