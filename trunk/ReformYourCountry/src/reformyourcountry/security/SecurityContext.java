@@ -184,6 +184,11 @@ public  class SecurityContext {
     }
 
 
-    
+    public static  void assertCurrentUserMayEditThisUser(User user) {
+        if (user.equals(SecurityContext.getUser())) {
+            return; // Ok, a user may edit himself.
+        }
+        SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_USERS);
+    }
 
 }
