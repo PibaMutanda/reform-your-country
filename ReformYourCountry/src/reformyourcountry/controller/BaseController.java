@@ -3,10 +3,13 @@ package reformyourcountry.controller;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.exception.InvalidUrlException;
@@ -70,5 +73,17 @@ public class BaseController<E extends BaseEntity> {
         mv.addObject("message",message);
         return mv;  // For chained calls.
     }
-
+    /** Sets a message string to be displayed by the next JSP in the Notification bar */
+    public static void addNotificationMessage(String notification, WebRequest request){
+        
+        String notif = (String)request.getAttribute("notification", RequestAttributes.SCOPE_SESSION);
+        
+        if(!StringUtils.isBlank(notif)){
+          notification = notif + notification; 
+        }
+                    
+        request.setAttribute("notification", notification, RequestAttributes.SCOPE_SESSION);
+       
+        
+    }
 }
