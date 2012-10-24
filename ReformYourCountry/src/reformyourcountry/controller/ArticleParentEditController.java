@@ -27,6 +27,7 @@ public class ArticleParentEditController extends BaseController<Article>{
 	public ModelAndView articleParentEdit(@ModelAttribute Article article){
 		SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
 		ModelAndView mv = new ModelAndView("articleparentedit");
+        mv.addObject("parentsPath", article.getPath()); // For the breadcrumb
 	    return mv.addObject("article", article); 
 	}	
 
@@ -38,7 +39,9 @@ public class ArticleParentEditController extends BaseController<Article>{
 		SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
 	
 		if (result.hasErrors()){
-			return new ModelAndView ("articleparentedit", "article", article);
+			ModelAndView mv = new ModelAndView ("articleparentedit", "article", article);
+	        mv.addObject("parentsPath", article.getPath()); // For the breadcrumb
+			return mv;
 		}else { 
 			//article do not need a merge because the following method do it already
 		    articleService.changeParent(article, parentId);

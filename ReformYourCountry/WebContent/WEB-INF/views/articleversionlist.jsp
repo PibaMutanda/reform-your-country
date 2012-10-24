@@ -8,12 +8,18 @@
 
 
 <c:choose>
-	<c:when test="${changeLog}">
+	<c:when test="${parentsPath == null}">
 		<ryctag:pageheadertitle title="Liste des derniers articles"></ryctag:pageheadertitle>
 	</c:when>
-    <c:otherwise>	
-		<ryctag:pageheadertitle title="historique des versions de ${versionList[0].article.title}"></ryctag:pageheadertitle>    
-    </c:otherwise>
+	<c:otherwise>
+		<ryctag:pageheadertitle title="${versionList[0].article.title}">
+			<c:forEach items="${parentsPath}" var="subarticle">
+				<ryctag:breadcrumbelement label="${subarticle.title}"
+					link="/article/${subarticle.url}" />
+			</c:forEach>
+			<ryctag:breadcrumbelement label="versions" />
+		</ryctag:pageheadertitle>
+	</c:otherwise>
 </c:choose>
 <table>
     <thead>

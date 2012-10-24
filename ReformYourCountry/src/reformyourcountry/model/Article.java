@@ -1,6 +1,7 @@
 package reformyourcountry.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -67,6 +68,25 @@ public class Article extends BaseEntity {
 	@OneToMany(mappedBy="article")
     private List<Video> videos =new ArrayList<Video>();
 	
+	
+	
+	public List<Article> getParentPath() {
+        List<Article> result = new ArrayList<Article>();
+        Article current =  this;
+        while((current = current.getParent()) != null){
+            if(!current.getChildren().isEmpty())
+            result.add(current);
+        }
+        Collections.reverse(result);
+		return result;
+	}
+	
+	
+	public List<Article> getPath() {
+		List<Article> result = getParentPath();
+		result.add(this);
+		return result;
+	}
 	
 	public List<Video> getVideos() {
 		return videos;

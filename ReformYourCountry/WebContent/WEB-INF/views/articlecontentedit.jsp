@@ -17,14 +17,12 @@
 </script>
 </head>
 <body>
-    <ryctag:pageheadertitle title="Éditer le contenu de l'article">
-    <c:forEach items="${parentsPath}" var="subarticle">
- 		<c:if test="${article.title != subarticle.title}">
+   	<ryctag:pageheadertitle title="${article.title}">
+		<c:forEach items="${parentsPath}" var="subarticle">
 			<ryctag:breadcrumbelement label="${subarticle.title}" link="/article/${subarticle.url}" />
-		</c:if>
-	</c:forEach>
-	<ryctag:breadcrumbelement label="${article.title} - Edition" />
- </ryctag:pageheadertitle>
+		</c:forEach>
+		<ryctag:breadcrumbelement label="édition du contenu" />
+	</ryctag:pageheadertitle>
     <%-- Help handle --%>
     <div id="helphandle"><span>?</span><div><%--contains the helptext--%></div></div>
 <%--     <form:form modelAttribute="article" action="article/contenteditsubmit"> --%>

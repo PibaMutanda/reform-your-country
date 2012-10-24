@@ -31,9 +31,10 @@ public class ArticleVersionCompareController extends BaseController<ArticleVersi
 		ArticleVersion av = getRequiredEntity(id);
 		Article article = av.getArticle();
 		
-		mv.addObject("article",article);	
+		mv.addObject("article",article);
+        mv.addObject("parentsPath", article.getPath()); // For the breadcrumb
+
 		List<ArticleVersion> versionList = articleVersionRepository.findAllVersionForAnArticle(articleRepository.findByUrl(article.getUrl()));
-		        
 		Collections.reverse(versionList);
         mv.addObject("versionList",versionList);
         
