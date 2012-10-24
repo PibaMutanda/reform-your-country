@@ -1,20 +1,25 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://www.springframework.org/tags/form"  prefix="form"%>
-<%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>    
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 
 <html>
 <head>
-<title>Insert title here</title>
+
 </head>
 <body>
-      <ryctag:form action="/video/editsubmit" modelAttribute="video">
-      
+	<c:choose>
+		<c:when test="${video.id == null}">
+			<ryctag:pageheadertitle title="Ajouter une vidéo" />
+		</c:when>
+		<c:otherwise>
+			<ryctag:pageheadertitle title="Editer une vidéo" />
+		</c:otherwise>
+	</c:choose>
+    <ryctag:form action="/video/editsubmit" modelAttribute="video">
          <ryctag:input path="idOnHost" label="identifiant video"/>
-             
-		 <input type="hidden" name="id" value="${video.id}"/>
-         <input type="submit" value="edit" />
-      </ryctag:form>
-      
+		 <input type="hidden" name="idVideo" value="${video.id}"/>
+		 <input type="hidden" name="idArticle" value="${video.article.id}"/>
+		 <input type="submit" value="sauver" />
+    </ryctag:form>
 </body>
 </html>
