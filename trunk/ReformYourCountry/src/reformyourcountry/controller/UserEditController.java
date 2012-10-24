@@ -37,7 +37,7 @@ public class UserEditController extends BaseController<User> {
     public ModelAndView userEdit(@RequestParam(value="id", required=true) long userId) {
         
         User user = getRequiredEntity(userId); 
-    	assertCurrentUserMayEditThisUser(user);
+    	SecurityContext.assertCurrentUserMayEditThisUser(user);
                
     	ModelAndView mv=new ModelAndView("useredit");
     	mv.addObject("id", userId); 
@@ -71,7 +71,7 @@ public class UserEditController extends BaseController<User> {
                                         Errors errors) {
     	
         User user = getRequiredEntity(id); 
-    	assertCurrentUserMayEditThisUser(user);
+    	SecurityContext.assertCurrentUserMayEditThisUser(user);
         	  	
        
         //birthDate
@@ -139,10 +139,4 @@ public class UserEditController extends BaseController<User> {
 
    
 
-    private void assertCurrentUserMayEditThisUser(User user) {
-    	if (user.equals(SecurityContext.getUser())) {
-    		return; // Ok, a user may edit himself.
-    	}
-        SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_USERS);
-    }
 }

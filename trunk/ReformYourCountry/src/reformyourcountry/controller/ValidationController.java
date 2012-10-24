@@ -8,13 +8,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.model.User;
+import reformyourcountry.model.User.AccountConnectedType;
+
 import reformyourcountry.model.User.AccountStatus;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.service.LoginService;
+
 import reformyourcountry.util.Logger;
 
 @Controller
-public class ValidationController {
+public class ValidationController extends BaseController<User>{
     @Autowired private UserRepository userRepository;
     @Autowired private LoginService loginService;
     @Logger Log log;
@@ -24,6 +27,8 @@ public class ValidationController {
     
     @RequestMapping("/validationsubmit")
     public ModelAndView validationSubmit(@RequestParam(value = "code" ,required = false)String validationCode) {
+        
+  
         ModelAndView mv = new ModelAndView("validation");
         Result result;
         if(validationCode == null){
@@ -33,20 +38,23 @@ public class ValidationController {
             if(user != null){
                 log.debug("validationSubmit found : "+user.getUserName());
                 
-                if (user.getAccountStatus().equals(User.AccountStatus.ACTIVE)) {
+                if (user.getAccountStatus().equals(User.AccountStatus.ACTIVE)  ) {
                     result = Result.ALREADY_VALIDATED;
                 } else {  // Not validated yet (or locked...)
                     if (user.getAccountStatus().equals(User.AccountStatus.NOTVALIDATED)) {
                         user.setAccountStatus(User.AccountStatus.ACTIVE);
-                    /*}//TODO uncommentelse if (user.getAccountStatus().equals(User.AccountStatus.NOTVALIDATEDSOCIAL)){
-                        user.setAccountStatus(AccountStatus.ACTIVE_SOCIAL);*/
-                    } else {
+                        em.merge(user);  
+                        result = Result.VALID_BUT_NOT_LOGGED;
+                    }
+                  
+                     else {
                         throw new RuntimeException("Unsupported value " + user.getAccountStatus()); // TODO: replace with a nice user message (probably account locked, for example).
                     }
                     
+                    
                     log.debug(user.getMail()+" just validated");
                     try {
-                        loginService.loginEncrypted(user.getMail(), user.getPassword(), true,user.getId());
+                        loginService.loginEncrypted(user.getMail(), user.getPassword(), true,user.getId(),AccountConnectedType.LOCAL);
                         result = Result.VALID_AND_LOGGED;
                     } catch (Exception e) {
                         result = Result.VALID_BUT_NOT_LOGGED;  
@@ -58,6 +66,11 @@ public class ValidationController {
         } 
         
         mv.addObject("result", result);
+        mv.addObject("code",validationCode);
         return mv;
     }
-}
+    
+    
+    
+    
+   }
