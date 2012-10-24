@@ -78,7 +78,7 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     }
     
     public boolean isFemale(){
-    	return this.gender==Gender.FEMALE;
+        return this.gender==Gender.FEMALE;
     }
 
     public enum Role {
@@ -481,13 +481,13 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     }
 
     //TODO maxime uncoment when using facebook integration
-    //	public void setoAuthCredentials(Set<SocialIntegration> oAuthCredentials) {
-    //		this.oAuthCredentials = oAuthCredentials;
-    //	}
+    //  public void setoAuthCredentials(Set<SocialIntegration> oAuthCredentials) {
+    //      this.oAuthCredentials = oAuthCredentials;
+    //  }
     //
-    //	public Set<SocialIntegration> getoAuthCredentials() {
-    //		return oAuthCredentials;
-    //	}
+    //  public Set<SocialIntegration> getoAuthCredentials() {
+    //      return oAuthCredentials;
+    //  }
 
     public int getConsecutiveFailedLogins() {
         return consecutiveFailedLogins;
