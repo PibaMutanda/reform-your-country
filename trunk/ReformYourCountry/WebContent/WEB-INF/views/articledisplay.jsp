@@ -1,5 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form"  prefix="form"%>
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
@@ -10,11 +9,113 @@
 <script src="js/ext/jquery-bubble-popup-v3.min.js" type="text/javascript"></script>
 <script src="js/int/bubble-pop-up-articledisplay.js" type = "text/javascript"></script>
 <link rel="stylesheet" href="css/ext/jquery.countdown.css" type="text/css"/>
+<link href="css/ext/jsCarousel-2.0.0.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="js/ext/jquery.countdown.js"></script>
 <script type="text/javascript" src="js/ext/jquery.countdown-fr.js"></script>
 <script type="text/javascript" src="js/int/untranslate.js"></script>
+<script src="js/ext/jsCarousel-2.0.0.js" type="text/javascript"></script>
 <meta name="robots" content="index, follow"/>
 <meta name="description" content="${article.description}"/>
+<script type="text/javascript">
+        $(document).ready(function() {
+            console.log("i am a carousel");
+            $('#carouselh').jsCarousel({ autoscroll: false, circular: true, masked: false, itemstodisplay: 2, orientation: 'h' });
+
+        });       
+        
+    </script>
+<style type="text/css">
+#demo-wrapper {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    padding: 40px 20px 0px 20px;
+}
+
+#demo-left {
+    width: 15%;
+    float: left;
+}
+
+#demo-right {
+    width: 85%;
+    float: left;
+}
+
+#hWrapperAuto {
+    margin-top: 20px;
+}
+
+#demo-tabs {
+    width: 100%;
+    height: 50px;
+    color: White;
+    margin: 0;
+    padding: 0;
+}
+
+#demo-tabs div.item {
+    height: 35px;
+    float: left;
+    background-color: #2F2F2F;
+    border: solid 1px gray;
+    border-bottom: none;
+    padding: 0;
+    margin: 0;
+    margin-left: 10px;
+    text-align: center;
+    padding: 10px 4px 4px 4px;
+    font-weight: bold;
+}
+
+#contents {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    color: White;
+    font: arial;
+    font-size: 11pt;
+}
+
+#demo-tabs div.item.active-tab {
+    background-color: Black;
+}
+
+#demo-tabs div.item.active-tabc {
+    background-color: Black;
+}
+
+#v1,#v2 {
+    margin: 20px;
+}
+
+.visible {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
+
+#oldWrapper {
+    margin-left: 100px;
+}
+
+#contents a {
+    color: yellow;
+}
+
+#contents a:hover {
+    text-decoration: none;
+    color: Gray;
+}
+
+.heading {
+    font-size: 20pt;
+    font-weight: bold;
+}
+</style>
 </head>
 <body>
  <ryctag:pageheadertitle title="${article.title}">
@@ -62,8 +163,29 @@
 	</div>
 
 <!-- ARTICLE CONTENT -->
-
-<c:choose>
+    <div id="hWrapper">
+        <div id="carouselh">
+            <div>
+                <iframe width="356" height="200" src="https://www.youtube.com/embed/r9kR1Os1h1k?rel=0" frameborder="0" allowfullscreen seamless></iframe>
+            </div>
+            <div>
+                <iframe width="356" height="200" src="https://www.youtube.com/embed/XX6N0K8gcNs?rel=0" frameborder="0" allowfullscreen seamless></iframe>
+            </div>
+            <div>
+                <iframe width="356" height="200" src="https://www.youtube.com/embed/YwOwJ1_JaKE?rel=0" frameborder="0" allowfullscreen seamless></iframe>
+            </div>
+            <div>
+                <iframe width="356" height="200" src="https://www.youtube.com/embed/5MzuGWFIfio?rel=0" frameborder="0" allowfullscreen seamless></iframe>
+            </div>
+            <div>
+                <iframe width="356" height="200" src="https://www.youtube.com/embed/HRp4a_24cp8?rel=0" frameborder="0" allowfullscreen seamless></iframe>
+            </div>
+            <div>
+                <iframe width="356" height="200" src="https://www.youtube.com/embed/VcuQ2Bn5bTA?rel=0" frameborder="0" allowfullscreen seamless></iframe>
+            </div>
+        </div>
+    </div>
+    <c:choose>
   	  <c:when test="${showContent}">
 		<div class="article_content">
 		  	  <ryc:conditionDisplay privilege="EDIT_ARTICLE">
