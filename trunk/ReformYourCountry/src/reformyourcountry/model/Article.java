@@ -67,7 +67,12 @@ public class Article extends BaseEntity {
 	@OneToMany(mappedBy="article")
     private List<Video> videos =new ArrayList<Video>(); 
 	
-	
+		
+	public List<Video> getVideos() {
+		return videos;
+	}
+
+
 	public String getTitle() {
 		return title;
 	}

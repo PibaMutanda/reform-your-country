@@ -22,8 +22,7 @@ public enum Privilege {
 
     //article related privileges
     EDIT_ARTICLE("Edit article", Role.MODERATOR),
-    VIEW_CHANGE_LOG("View change log", Role.MODERATOR),
-    
+     
     EDIT_BOOK("Edit book", Role.MODERATOR),
     EDIT_ACTION("Edit action", Role.MODERATOR),
     EDIT_GROUP("Edit group", Role.MODERATOR),
