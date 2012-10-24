@@ -13,9 +13,9 @@ public class Cookies {
 	public final static String LOGINCOOKIE_KEY = "login";
 
 
+
 	static public void createCookie(String name, String value) {
         Cookie cookie = new Cookie(name, value);
-// TODO: remove this line        cookie.setDomain(domain);
         cookie.setMaxAge(15552000);
         cookie.setPath("/");
         ContextUtil.getHttpServletResponse().addCookie(cookie);
@@ -88,6 +88,7 @@ public class Cookies {
 	public static void setLoginCookies(User user) {
 		createCookie(LOGINCOOKIE_KEY, user.getId().toString());
 		createCookie(PASSCOOKIE_KEY, user.getPassword());  // MD5 encoded!
+		
 	}
 	
 	public static void clearLoginCookies() {
