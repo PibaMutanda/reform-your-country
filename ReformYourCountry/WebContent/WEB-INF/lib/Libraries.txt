@@ -40,3 +40,34 @@ JUnit :
 PD4ML :
 			-pd4ml
 			-fonts   for accentuated characters
+****************************** Spring Social : ******************************
+ 
+commons-dbcp-1.4.jar // In relation with the data source
+commons-pool-1.6.jar // Dependence bdcp
+commons-logging-1.1.1.jar // Login Facebook
+
+Appache-commons(dependence Spring Social) : 
+
+    commons-codec-1.6.jar
+    fluent-hc-4.2.1.jar
+	httpclient-4.2.1.jar
+	httpclient-cache-4.2.1.jar
+	httpcore-4.2.1.jar
+	httpmime-4.2.1.jar
+	
+jackson-all-1.8.10.jar // parser JSON(string)
+javax.inject-1.jar // annotation de spring(@inject)
+
+spring-security-crypto; version= "[3.1.2.RELEASE]" // Spring Social dependence(refers the text encryptor)
+spring-social-core; version= "[1.0.2.RELEASE]"
+spring-social-facebook; version= "[1.0.2.RELEASE]"
+spring-social-facebook-web; version= "[1.0.2.RELEASE]"
+spring-social-test; version= "[1.0.2.RELEASE]"
+spring-social-web; version= "[1.0.2.RELEASE]"
+
+spring-social-twitter; version= "[1.0.2.RELEASE]" //implemetation twitter for spring social
+spring-social-linkedin; version= "[1.0.0.RC1]" //implemetation linkedin for spring social
+spring-social-google-1.0.0.M1.jar
+log4jdbc4-1.2.jar //test jdbc trace with driver spy
+
+************************** End of Spring Social : ****************************
