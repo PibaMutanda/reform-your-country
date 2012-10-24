@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.model.Article;
+import reformyourcountry.model.Video;
 import reformyourcountry.repository.VideoRepository;
 
 @Controller
@@ -16,7 +17,7 @@ public class VideoManagerController extends BaseController<Article> {
 	@Autowired VideoRepository videoRepository;
 	
 	@RequestMapping("/manager")
-	public ModelAndView deleteManager(@RequestParam("id") Long articleId){
+	public ModelAndView manager(@RequestParam("id") Long articleId){
 		
 		ModelAndView mv = new ModelAndView("videomanager");
 		Article article = this.getRequiredEntity(articleId);
@@ -25,11 +26,11 @@ public class VideoManagerController extends BaseController<Article> {
 	}
 		
 	@RequestMapping("/delete")
-	public ModelAndView delete(@RequestParam("videoId") Long videoId,
-										@RequestParam("articleId") Long articleId){
-		
-		videoRepository.remove(videoRepository.find(videoId));
-		return new ModelAndView("redirect:/video/manager","id",articleId);
+	public ModelAndView delete(@RequestParam("videoId") long videoId) {
+		Video video = videoRepository.find(videoId);
+		Article article = video.getArticle();
+		videoRepository.remove(video);
+		return new ModelAndView("redirect:/video/manager","id",article.getId());
 	}
 	
 }

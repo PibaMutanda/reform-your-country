@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 import reformyourcountry.model.Video;
+import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.repository.VideoRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
@@ -23,6 +24,7 @@ public class VideoEditController extends BaseController<Video> {
     
     
    @Autowired VideoRepository videoRepository;
+   @Autowired ArticleRepository articleRepository;
 
 
 
@@ -41,7 +43,6 @@ public class VideoEditController extends BaseController<Video> {
           }
           
           if(video.getId()==null){
-              
               videoRepository.persist(video);   
           } else {
               videoRepository.merge(video);
@@ -50,11 +51,15 @@ public class VideoEditController extends BaseController<Video> {
     }
     
     @ModelAttribute
-    public Video findVideo(@RequestParam(value="id", required=false) Long id){
-        if (id == null){ //create
-            return new Video();
+    public Video findVideo(@RequestParam(value="idVideo", required=false) Long idVideo,
+                           @RequestParam(value="idArticle", required=false) Long idArticle)  // In case of idVideo is null (creation), we need to know for which article; 
+    {
+    	if (idVideo == null){ //create
+    		Video video =  new Video();
+            video.setArticle(articleRepository.find(idArticle));
+            return video;
         } else { //edit
-            return getRequiredDetachedEntity(id);
+            return getRequiredDetachedEntity(idVideo);
         }
     }
 }

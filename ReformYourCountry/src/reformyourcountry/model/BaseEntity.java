@@ -128,7 +128,10 @@ public class BaseEntity {
 		return updatedBy != null ? updatedBy : createdBy;
 	}
 
-    
+    public Date getUpdatedOrCreatedOn() {
+		return updatedOn != null ? updatedOn : createdOn;
+	}
+
     public User getCreatedBy() {
         return createdBy;
     }
