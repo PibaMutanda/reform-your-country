@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import reformyourcountry.model.Action;
+
 import reformyourcountry.model.Video;
 import reformyourcountry.repository.VideoRepository;
 import reformyourcountry.security.Privilege;
@@ -45,7 +45,7 @@ public class VideoEditController extends BaseController<Video> {
           } else {
               videoRepository.merge(video);
           }
-          return new ModelAndView("redirect:/video","id", video.getId());
+          return new ModelAndView("redirect:/video/manager","id", video.getId());
     }
     
     @ModelAttribute
