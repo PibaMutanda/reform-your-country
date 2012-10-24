@@ -1,5 +1,6 @@
 ﻿
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ include file="/WEB-INF/includes/notificationbar.jsp"%>
 <div id="header">
 	<div class="header-holder">
 		<div class="rays">
@@ -22,12 +23,27 @@
 					  	<div class="login-link">
 						      <c:choose>
 						        <c:when test="${current.user!=null}">
-						          <a href="/user/${current.user.userName}">${current.user.userName}</a> &ndash;
+						         Connecté en tant que 
+						          <a href="/user/${current.user.userName}">${current.user.userName}</a> 
+						          <c:choose>
+						          <c:when test="${sessionScope.providersignedin == 'FACEBOOK'}">
+						           avec <img src="images/features-icons/facebook.jpg"/>
+						          </c:when>
+						            <c:when test="${sessionScope.providersignedin == 'TWITTER'}">
+						           avec <img src="images/features-icons/twitter.jpg"/>
+						          </c:when>
+						            <c:when test="${sessionScope.providersignedin == 'GOOGLE'}">
+						           avec <img src="images/features-icons/google.jpg"/>
+						          </c:when>
+						            <c:when test="${sessionScope.providersignedin == 'LINKEDIN'}">
+						           avec <img src="images/features-icons/linkedin.jpg"/>
+						          </c:when>
+						          </c:choose>&nbsp;&nbsp;|&nbsp;&nbsp;   
 						          <a id="logout" href="logout">déconnexion</a>
 						        </c:when>
 						        <c:otherwise>
 						           <!-- <a class="login"  style="cursor:pointer;">connexion</a>&nbsp;-&nbsp;-->
-						            <a href="login">connexion</a> &ndash;
+						            <a href="login">connexion</a>&nbsp;&nbsp;|&nbsp;&nbsp; 
 						            <a href="register">créer un compte</a>
 						         </c:otherwise>
 						     </c:choose>
