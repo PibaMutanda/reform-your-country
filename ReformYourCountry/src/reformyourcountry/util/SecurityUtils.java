@@ -4,6 +4,10 @@ import java.security.MessageDigest;
 
 import org.apache.commons.codec.binary.Hex;
 
+import reformyourcountry.model.User;
+import reformyourcountry.security.Privilege;
+import reformyourcountry.security.SecurityContext;
+
 /**
  * @author Aymeric Levaux
  */
@@ -82,5 +86,8 @@ public class SecurityUtils {
 			throw new RuntimeException("Could not encode credentials", ex);
 		}
 	}
+	
+	 
+
 
 }

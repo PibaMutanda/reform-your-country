@@ -20,6 +20,10 @@ public class CurrentEnvironment {
 	private String tweeterClientId;
 	@Value("${tweeter.clientSecret}")
 	private String tweeterClientSecret;
+	@Value("${google.clientId}")
+	private String googleClientId;
+	@Value("${google.clientSecret}")
+	private String googleClientSecret;
 	@Value("${webSite.Name}")
 	public static String webSiteName;
     @Value("${webSite.Adress}")
@@ -27,7 +31,15 @@ public class CurrentEnvironment {
 	
 	
 	
-	public String getTweeterClientId() {
+	public String getGoogleClientId() {
+        return googleClientId;
+    }
+
+    public String getGoogleClientSecret() {
+        return googleClientSecret;
+    }
+
+    public String getTweeterClientId() {
         return tweeterClientId;
     }
 
