@@ -19,6 +19,9 @@ import org.springframework.social.connect.web.ProviderSignInController;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.api.impl.FacebookTemplate;
 import org.springframework.social.facebook.connect.FacebookConnectionFactory;
+import org.springframework.social.google.api.Google;
+import org.springframework.social.google.api.impl.GoogleTemplate;
+import org.springframework.social.google.connect.GoogleConnectionFactory;
 import org.springframework.social.twitter.api.Twitter;
 import org.springframework.social.twitter.api.impl.TwitterTemplate;
 import org.springframework.social.twitter.connect.TwitterConnectionFactory;
@@ -51,6 +54,9 @@ public class SocialConfig {
                 environment.getTweeterClientSecret()));
         // add here new oauth provider such as twitter,linked in ...
            
+        registry.addConnectionFactory(new GoogleConnectionFactory(
+                environment.getGoogleClientId(),
+                environment.getGoogleClientSecret()));
         return registry;
     }
     
@@ -92,10 +98,18 @@ public class SocialConfig {
         return controller;
     }
 
+
+
     @Bean
     public ConnectController connectController() {
-        return new ConnectController(connectionFactoryLocator(), 
-            connectionRepository());
+        ConnectController controller = new ConnectController(connectionFactoryLocator(), 
+                connectionRepository());
+        String url = UrlUtil.getAbsoluteUrl("",Mode.DEV);
+        String prepareurl = url.substring(0,url.lastIndexOf("/"));
+        controller.setApplicationUrl(prepareurl); 
+       
+        
+        return controller;
     }
     
     @Bean
@@ -110,6 +124,13 @@ public class SocialConfig {
     public Twitter tweeter() {
         Connection<Twitter> twitter = connectionRepository().findPrimaryConnection(Twitter.class);
         return twitter != null ? twitter.getApi() : new TwitterTemplate();
+    }
+    
+    @Bean
+    @Scope(value="request", proxyMode=ScopedProxyMode.INTERFACES)   
+    public Google google() {
+        Connection<Google> google = connectionRepository().findPrimaryConnection(Google.class);
+        return google != null ? google.getApi() : new GoogleTemplate();
     }
     
 }
