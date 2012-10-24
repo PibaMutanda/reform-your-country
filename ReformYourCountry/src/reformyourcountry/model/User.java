@@ -57,10 +57,9 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
      */
     public enum AccountStatus {
         LOCKED("Locked"),
-        NOTVALIDATED("Mail not validated yet"), 
-        NOTVALIDATEDSOCIAL("Mail not validated yet for a social account signup"),
-        ACTIVE( "Active"),
-        ACTIVE_SOCIAL("Registered with a social account");
+        NOTVALIDATED("Mail not validated yet"),     
+        ACTIVE( "Active");
+       
 
         String name;
 
@@ -136,6 +135,43 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
 
     }
     
+    public enum AccountConnectedType{
+        LOCAL("User connected with local account","local"),
+        FACEBOOK("User connected with his Facebook account","facebook"),
+        TWITTER("User connected with his Twitter account","twitter"),
+        LINKEDIN("User connected with his LinkedIn account","linkedIn"),
+        GOOGLE("User connected with his google account","google");
+
+
+        private String detail;
+        private String providerId;  // Used in spring social to identify the provider.
+        private AccountConnectedType(String detail,String providerId){
+            this.detail = detail;
+            this.providerId = providerId;
+        }
+
+        public String getDetail(){
+            return detail;
+        }
+        public String getProviderId(){
+            return providerId;
+        }
+        
+        public static AccountConnectedType getProviderType(String providerId){
+            providerId = providerId.toLowerCase();
+            switch(providerId){
+            case "facebook" : return AccountConnectedType.FACEBOOK;
+            case "twitter"  : return AccountConnectedType.TWITTER;
+            case "google"   : return AccountConnectedType.GOOGLE;
+            case "linkedin" : return AccountConnectedType.LINKEDIN;
+            default : throw new RuntimeException("Provider cannot be identified");
+            }
+        }
+
+    }
+ 
+    @Enumerated(EnumType.STRING)
+    private AccountConnectedType accountConnectedType;
     
     @Column(length = 50)
     @Size(max=50, message="votre prénom ne peut contenir que 50 caractères maximum")
@@ -161,6 +197,8 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     @Size(min = 4, message = "votre mot de passe doit contenir au moins 4 caractères")
     private String password;
 
+    private boolean isPasswordKnownByTheUser;  // true if account created through social network login, and random password not sent to the user.
+    
     @Lob
     /*Forcing type definition to have text type column in postgresql instead of automatic indirect storage of large object (postgresql store lob in a separate table named pg_largeobject and store his id in the "content" column).
      *Without forcing, JDBC driver use write() method of the BlobOutputStream to store Clob into the database;
@@ -239,8 +277,18 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     /////////////////////////////////////////: GETTERS & SETTERS //////////////////////////
     /////////////////////////////////////////: GETTERS & SETTERS //////////////////////////
     /////////////////////////////////////////: GETTERS & SETTERS //////////////////////////
+    
+    
     public Role getRole() {
         return role;
+    }
+
+    public AccountConnectedType getAccountConnectedType() {
+        return accountConnectedType;
+    }
+
+    public void setAccountConnectedType(AccountConnectedType accountConnectedType) {
+        this.accountConnectedType = accountConnectedType;
     }
 
     public void setRole(Role roleParam) {
@@ -302,6 +350,14 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
 
     public void setPassword(String password) {
         this.password = password != null ? password.toLowerCase() : password;
+    }
+
+    public boolean isPasswordKnownByTheUser() {
+        return isPasswordKnownByTheUser;
+    }
+
+    public void setPasswordKnownByTheUser(boolean isPasswordKnownByTheUser) {
+        this.isPasswordKnownByTheUser = isPasswordKnownByTheUser;
     }
 
     public Date getRegistrationDate() {
