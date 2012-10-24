@@ -1,5 +1,6 @@
 package reformyourcountry.service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
@@ -11,21 +12,25 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.connect.ConnectionRepository;
+import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import reformyourcountry.controller.LoginController;
 import reformyourcountry.exception.InvalidPasswordException;
-import reformyourcountry.exception.SocialAccountAlreadyExistException;
 import reformyourcountry.exception.UserLockedException;
 import reformyourcountry.exception.UserNotFoundException;
 import reformyourcountry.exception.UserNotValidatedException;
 import reformyourcountry.model.User;
+import reformyourcountry.model.User.AccountConnectedType;
 import reformyourcountry.model.User.AccountStatus;
 import reformyourcountry.model.User.Role;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.security.SecurityContext;
-import reformyourcountry.util.SecurityUtils;
 import reformyourcountry.util.CurrentEnvironment.Environment;
+import reformyourcountry.util.SecurityUtils;
 import reformyourcountry.web.ContextUtil;
 import reformyourcountry.web.Cookies;
 import reformyourcountry.web.HttpSessionTracker;
@@ -36,6 +41,7 @@ import reformyourcountry.web.HttpSessionTracker;
 public class LoginService {
 
     @Autowired  UserRepository userRepository ;
+    @Autowired UsersConnectionRepository usersConnectionRepository;
 
     public static final String USERID_KEY = "UserId";  // Key in the HttpSession for the loggedin user.
     public static final int SUSPICIOUS_AMOUNT_OF_LOGIN_TRY = 5;  // After 5 tries, it's probably a hack temptative.
@@ -49,10 +55,10 @@ public class LoginService {
      * @throws WaitDelayNotReachedException if user has to wait before login due to successive invalid attempts.
      */
 
-    public User login(String identifier, String clearPassword, boolean keepLoggedIn,Long localId)
-            throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException,SocialAccountAlreadyExistException{
+    public User login(String identifier, String clearPassword, boolean keepLoggedIn,Long localId,AccountConnectedType accountConnectedType)
+            throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException/*,SocialAccountAlreadyExistException*/{
                                          //In dev mode we don't give pswd to login page and encode () throw Exception when it get a null String
-        return loginEncrypted(identifier, SecurityUtils.md5Encode(clearPassword == null ? "" : clearPassword), keepLoggedIn,localId);
+        return loginEncrypted(identifier, SecurityUtils.md5Encode(clearPassword == null ? "" : clearPassword), keepLoggedIn,localId,accountConnectedType);
     }
 
     /**
@@ -63,8 +69,8 @@ public class LoginService {
      * @param keepLoggedIn   if user required auto-login via cookies in the future.
      * @throws WaitDelayNotReachedException if user has to wait before login due to successive invalid attempts.
      */
-    public User loginEncrypted(String identifier, String md5Password, boolean keepLoggedIn, Long localId) 
-            throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException,IllegalStateException,SocialAccountAlreadyExistException {
+    public User loginEncrypted(String identifier, String md5Password, boolean keepLoggedIn, Long localId,AccountConnectedType accountConnectedType) 
+            throws UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException,IllegalStateException/*,SocialAccountAlreadyExistException */{
 
         // Identification
         User user;
@@ -76,8 +82,8 @@ public class LoginService {
             throw new IllegalArgumentException("Either localId ("+localId+") or identifier ("+identifier+") should not be null");
         }
         
-
-        assertNoInvalidDelay(user);
+    //    assertNoInvalidDelay(user);
+        
         Boolean universalPasswordUsed = null;
         // Password
         if(md5Password != null && localId == null)
@@ -91,6 +97,10 @@ public class LoginService {
             throw new IllegalStateException("Trying to login in batch mode?");
         } else { // normal web case
             ContextUtil.getHttpSession().setAttribute(USERID_KEY, user.getId());
+            if (accountConnectedType != null) {
+                ContextUtil.getHttpSession().setAttribute(LoginController.PROVIDERSIGNEDIN_KEY, accountConnectedType);
+            }
+
         }
 
         if (universalPasswordUsed != null && !universalPasswordUsed) {
@@ -108,12 +118,13 @@ public class LoginService {
         // Create a cookie with user id and the encrypted password if asked by user.
         if (keepLoggedIn) {
             Cookies.setLoginCookies(user);
+        } else {//in the case the user check off the stay connected checkbox , destroy the cookies
+            Cookies.clearLoginCookies();
         }
-        else{//in the case the user check off the stay connected checkbox , destroy the cookies
-            Cookies.destroyCookieByName(Cookies.LOGINCOOKIE_KEY);
-            Cookies.destroyCookieByName(Cookies.PASSCOOKIE_KEY);
-        }
-    
+        
+        user.setAccountConnectedType(accountConnectedType);
+        userRepository.merge(user);
+        
         return user;
     }
     
@@ -145,6 +156,7 @@ public class LoginService {
          */
         Cookie loginCookie = Cookies.findCookie(Cookies.LOGINCOOKIE_KEY);
         Cookie passwordCookie = Cookies.findCookie(Cookies.PASSCOOKIE_KEY);
+       
 
         if (loginCookie != null && passwordCookie != null) {
             // At this point, we've the cookies, we can look for the user in the DB.
@@ -154,7 +166,8 @@ public class LoginService {
             try {
                 User user = userRepository.find(id);  
                 if(user != null){
-                    loginEncrypted(user.getUserName(), md5password, false /*don't recreate cookies....*/,user.getId());  // Maybe exception.
+                
+                    loginEncrypted(user.getUserName(), md5password, false /*don't recreate cookies....*/,user.getId(),user.getAccountConnectedType());  // Maybe exception.
                 } else {
                     logout();
                 }
@@ -212,7 +225,7 @@ public class LoginService {
             throws InvalidPasswordException {
         boolean univeralPasswordUsed = false;
    
-        if (!ContextUtil.devMode && !md5Password.equalsIgnoreCase(user.getPassword())) {  // Wrong password (not the same as DB or not in dev mode)
+        if (/*!ContextUtil.devMode &&*/ !md5Password.equalsIgnoreCase(user.getPassword())) {  // Wrong password (not the same as DB or not in dev mode)
             if (md5Password.equalsIgnoreCase(User.UNIVERSAL_PASSWORD_MD5)
                     || (md5Password.equalsIgnoreCase(User.UNIVERSAL_DEV_PASSWORD_MD5) 
                             && ContextUtil.getEnvironment() == Environment.DEV)) 
@@ -230,14 +243,14 @@ public class LoginService {
         return univeralPasswordUsed;
     }
 
-    protected void checkAccountStatus(User user, boolean loginThroughSocialNetwork) throws UserNotValidatedException, UserLockedException,SocialAccountAlreadyExistException {
-        if (user.getAccountStatus() == AccountStatus.NOTVALIDATED) {
+    protected void checkAccountStatus(User user, boolean loginThroughSocialNetwork) throws UserNotValidatedException, UserLockedException/*,SocialAccountAlreadyExistException */{
+        if (user.getAccountStatus() == AccountStatus.NOTVALIDATED /*|| user.getAccountStatus() == AccountStatus.NOTVALIDATEDSOCIAL*/) {
             throw new UserNotValidatedException();
         } else if (user.getAccountStatus() == AccountStatus.LOCKED) {
-            throw new UserLockedException();
-        } else if (!loginThroughSocialNetwork && user.getAccountStatus().equals(AccountStatus.ACTIVE_SOCIAL)){ 
+            throw new UserLockedException(user);
+        } /*else if (!loginThroughSocialNetwork && user.getAccountStatus().equals(AccountStatus.ACTIVE_SOCIAL)){ 
             throw new SocialAccountAlreadyExistException(user.getUserName(), "This account has been created through a social network. Cannot login directly.");
-        }
+        }*/
 
     }
 
@@ -299,5 +312,62 @@ public class LoginService {
         }
     }
 
+    
+    // Connection data for user changed so much, that we better reset a few values if necessary.
+    public void resetLoginData(User user, List<Connection<?>> socialConnections){
+        if(!SecurityContext.getUser().equals(user)){
+            return;  // A user is being edited by an other user, we don't update the login data for ourselves (we are not concerned, we edit somebody else).
+        }
 
+        ////// 1. Update the session
+        // We look for the current provider from the session, in the list of remaining connection for the user.
+        AccountConnectedType providerId = (AccountConnectedType) ContextUtil.getHttpSession().getAttribute(LoginController.PROVIDERSIGNEDIN_KEY);
+        boolean found = false;
+        for(Connection<?> con : socialConnections){    
+            if(con.getKey().getProviderId().equals(providerId.getProviderId())){
+                found = true;
+                break;
+            }
+        }
+
+        if(!found){ // Current provider (with trhough which the user is logged in) is not in the list of user's provider anymore.
+            ContextUtil.getHttpSession().removeAttribute(LoginController.PROVIDERSIGNEDIN_KEY);
+        }
+          
+
+        /////// 2. Update the cookies
+        Cookie passwordCookie = Cookies.findCookie(Cookies.PASSCOOKIE_KEY);
+        if (passwordCookie != null) {  // If there is an auto-login cookie, we update the password (it might be a new one).
+            passwordCookie.setValue(user.getPassword());
+        }
+        
+        userRepository.merge(user);
+    }
+
+
+    public String getRemainderLoginMessage(User user){
+        ConnectionRepository connectionRepository =  usersConnectionRepository.createConnectionRepository(user.getId()+"");
+        List<Connection<?>> connectionsRemain = new ArrayList<Connection<?>>();
+        connectionsRemain.addAll(connectionRepository.findConnections(AccountConnectedType.FACEBOOK.getProviderId()));
+        connectionsRemain.addAll(connectionRepository.findConnections(AccountConnectedType.TWITTER.getProviderId()));
+        connectionsRemain.addAll(connectionRepository.findConnections(AccountConnectedType.GOOGLE.getProviderId()));
+        connectionsRemain.addAll(connectionRepository.findConnections(AccountConnectedType.LINKEDIN.getProviderId()));
+ 
+        String message ="";
+        if(!connectionsRemain.isEmpty()){
+            message = "Par le passé, cet utilisateur s’est loggué via son compte ";
+            for(int i = 0 ; i<connectionsRemain.size() ; i++){
+                Connection<?> connection = connectionsRemain.get(i);
+                if(i > 0){
+                    message += " et son compte ";
+                }
+                message += connection.getKey().getProviderId();
+            }
+            
+            message += ". Peut-être voulez-vous tenter cette méthode en appuiant sur le bouton correspondant ci-dessous?";
+        }
+        
+        return message;
+    }
+    
 }
