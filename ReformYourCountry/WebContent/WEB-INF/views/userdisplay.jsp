@@ -18,18 +18,18 @@
 	<div style="float:left;">
 		<c:choose>
 			<c:when test="${user.picture}">
-				<img src="gen/user/resized/large/${user.id}.jpg<c:if test="${random!=null}">?random=${random}</c:if>" <%-- Random, to force the reload of the image in case it changes (but its name does not change) --%>
-					style="float: left" />
+				<img src="gen/user/resized/large/${user.id}.jpg<c:if test="${random!=null}">?random=${random}</c:if>"  /><%-- Random, to force the reload of the image in case it changes (but its name does not change) --%>
+					
 			</c:when>
 			<c:otherwise>
 				<c:choose>
 					<c:when test="${user.isFemale()}">
-						<img src="/images/Femme_anonyme.jpg<c:if test="${random!=null}">?random=${random}</c:if>" <%-- Random, to force the reload of the image in case it changes (but its name does not change) --%>
-							style="float: left" />
+						<img src="images/Femme_anonyme.jpg<c:if test="${random!=null}">?random=${random}</c:if>"  /><%-- Random, to force the reload of the image in case it changes (but its name does not change) --%>
+							
 					</c:when>
 					<c:otherwise>
-						<img src="/images/Homme_anonyme.jpg<c:if test="${random!=null}">?random=${random}</c:if>" <%-- Random, to force the reload of the image in case it changes (but its name does not change) --%>
-							style="float: left" />
+						<img src="images/Homme_anonyme.jpg<c:if test="${random!=null}">?random=${random}</c:if>"  /><%-- Random, to force the reload of the image in case it changes (but its name does not change) --%>
+						
 					</c:otherwise>
 				</c:choose>
 			</c:otherwise>
@@ -37,7 +37,16 @@
 		<br />
 		<c:if test="${canEdit}">
 			<a href= "/user/image?id=${user.id}">Ajouter image</a><br/>
-		</c:if>	
+			
+			<c:choose>
+			   <c:when test="${sessionScope.providersignedin != 'LOCAL'}">	
+			   <a href ="user/updateusersocialimage?provider=${sessionScope.providersignedin}&id=${user.id}">Mettre à jour mon image depuis ${sessionScope.providersignedin} </a><br/>
+			   </c:when>
+		
+			</c:choose>
+		
+			<a href ="/socialaccountmanage?id=${user.id}">Gerer mes comptes associés</a>
+		    </c:if>
 	</div>
 	
 	<div style="float:left; padding-left:50px;">
