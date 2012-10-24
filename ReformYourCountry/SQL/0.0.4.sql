@@ -1,3 +1,8 @@
+-- 2012-10-10 Lionel
+
+    alter table users 
+        add column accountconnectedtype varchar(20);
+    alter table mail add column emailreplyto varchar(100);   
 -- 2012-10-19 Jamal
     alter table articleversion 
         add column versionnumber int4;
@@ -30,4 +35,7 @@
         add constraint fk4ed245b3967baba 
         foreign key (updatedby_id) 
         references users;
-        
+ -- 2012-10-24 Lionel
+
+    alter table users 
+        add column ispasswordknownbytheuser boolean not null;   
