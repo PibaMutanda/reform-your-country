@@ -20,14 +20,14 @@
 			<tr>
 				<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${video.updatedOrCreatedOn}" /></td>
 
-				<td><a href="${video.idOnHost}">${video.idOnHost}</a></td>
+				<td><a href="http://www.youtube.com/watch?v=${video.idOnHost}">${video.idOnHost}</a></td>
 
 				<td>
-					<a href="/video/edit?id=${video.id}">éditer<a>
+					<a href="/video/edit?idVideo=${video.id}">éditer<a>
 				</td>
 
 				<td>
-					<a href="/video/delete?videoId=${video.id}">supprimer<a>
+					<a href="/video/delete?idVideo=${video.id}">supprimer<a>
 				</td>
 			</tr>
 		</c:forEach>

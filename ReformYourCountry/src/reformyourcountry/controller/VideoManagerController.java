@@ -26,7 +26,7 @@ public class VideoManagerController extends BaseController<Article> {
 	}
 		
 	@RequestMapping("/delete")
-	public ModelAndView delete(@RequestParam("videoId") long videoId) {
+	public ModelAndView delete(@RequestParam("idVideo") long videoId) {
 		Video video = videoRepository.find(videoId);
 		Article article = video.getArticle();
 		videoRepository.remove(video);
