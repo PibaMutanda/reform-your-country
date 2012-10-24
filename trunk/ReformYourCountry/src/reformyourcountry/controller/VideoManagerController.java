@@ -10,13 +10,13 @@ import reformyourcountry.model.Article;
 import reformyourcountry.repository.VideoRepository;
 
 @Controller
-@RequestMapping("/article")
+@RequestMapping("/video")
 public class VideoManagerController extends BaseController<Article> {
 
 	@Autowired VideoRepository videoRepository;
 	
-	@RequestMapping("/videomanager")
-	public ModelAndView videoManager(@RequestParam("id") Long articleId){
+	@RequestMapping("/manager")
+	public ModelAndView deleteManager(@RequestParam("id") Long articleId){
 		
 		ModelAndView mv = new ModelAndView("videomanager");
 		Article article = this.getRequiredEntity(articleId);
@@ -24,8 +24,8 @@ public class VideoManagerController extends BaseController<Article> {
 		return mv;
 	}
 		
-	@RequestMapping("/videodel")
-	public ModelAndView videoDelete(@RequestParam("videoId") Long videoId,
+	@RequestMapping("/delete")
+	public ModelAndView delete(@RequestParam("videoId") Long videoId,
 										@RequestParam("articleId") Long articleId){
 		
 		videoRepository.remove(videoRepository.find(videoId));
