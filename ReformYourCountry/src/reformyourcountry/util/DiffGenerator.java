@@ -70,7 +70,8 @@ public class DiffGenerator {
 			}
 			
 			text = indentationCode(text);
-
+			text = text.replaceAll("(\r\n|\n\r|\r|\n)", "<br/>");
+			
 			if (aDiff.operation == Operation.DELETE
 					&& output != TextType.MODIFIED) {
 				html.append("<DEL STYLE=\"background:#FFE6E6;\" TITLE=\"i=")
