@@ -12,15 +12,15 @@
 
 <style type="text/css">
 
+/* Overrides the page template to enable this specific page to take the whole window width */
 #main .main-area {
-    width:100%;  /* Overrides the page template to enable this specific page to take the whole window width */
+    width:100%;  
 } 
-
 #sub_nav{
-display: none;
+    display: none;
 }      
 #content {
-width: 100%;
+    width: 100%;
 }
 </style>
 
@@ -52,17 +52,17 @@ width: 100%;
 			
 			   <select class="versionarticle" id="versionarticle<%=i%>">
 			        <%-- 1. The selected version --%>
-					<option value="${selectedArticleVersionAndText.articleVersion.id}">${selectedArticleVersionAndText.articleVersion.versionNumberAndDate}</option>
+					<option value="${selectedArticleVersionAndText.articleVersion.id}">${selectedArticleVersionAndText.articleVersion.versionNumberDateAndUser}</option>
 									
 					<%-- 2. All the other versions --%>				
 					<c:forEach items="${versionList}" var="version" >
 					   <  <c:if test="${version.id != selectedArticleVersionAndText.articleVersion.id}">	
-						  <option value="${version.id}">${version.versionNumberAndDate}</option>
+						  <option value="${version.id}">${version.versionNumberDateAndUser}</option>
 						</c:if> 
 					</c:forEach>
 			    </select>
 				<p>
-				${selectedArticleVersionAndText.text}
+				  ${selectedArticleVersionAndText.text}
 				</p>
 			  </td>
 			  <% i++; %>

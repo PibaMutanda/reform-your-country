@@ -103,6 +103,7 @@ public class ArticleTreeTag extends SimpleTagSupport{
 	
 	private String getArticleString(Article article) {
 		String result = "";
+		
 		if (radio == true) {
 			if (articleFromRequest == null) {
 				throw new RuntimeException("Bug: if radio = true, an article should be attached to the request");
@@ -119,6 +120,7 @@ public class ArticleTreeTag extends SimpleTagSupport{
 						(check ? " checked='checked'" : "") + "/>";
 			}
 		}
+		
 		if (link == true) {
             if (ContextUtil.getHttpServletRequest().getRequestURL().toString().endsWith(article.getUrl())) {
 				result += "<a class=\"current_page_item\" href =\"" + UrlUtil.getAbsoluteUrl("article/")
@@ -128,27 +130,28 @@ public class ArticleTreeTag extends SimpleTagSupport{
 						+ article.getUrl() + "\"><span>";
 			}
 		}
+		
 		result += article.getTitle();
+		
 		if (link == true) {
 			result += "</a>";
-			
-			if(description == true) {
-				if(!article.isPublished()) {
-					if(article.getPublishDate()==null) {
-						result+="<span id=\"datepublication\">non publié</span>";
-					} else {
-						result+="<span id=\"datepublication\">publié dans "+DateUtil.formatDuration(new Date(),article.getPublishDate() )+"</span>";
-					}
-					
-					result+="<div id=\"descriptNotPublish\">"+article.getDescription()+"<div/>";
+		}
+		
+		if(description == true) {
+			if(!article.isPublished()) {
+				if(article.getPublishDate()==null) {
+					result+="<span id=\"datepublication\">non publié</span>";
 				} else {
-					result+="<div id=\"descriptPublish\">"+article.getDescription()+"<div/>";
+					result+="<span id=\"datepublication\">publié dans "+DateUtil.formatDuration(new Date(), article.getPublishDate() )+"</span>";
 				}
 				
+				result+="<div id=\"descriptNotPublish\">"+article.getDescription()+"<div/>";
+			} else {
+				result+="<div id=\"descriptPublish\">"+article.getDescription()+"<div/>";
 			}
 			
 		}
-
+		
 		return result;
 	}	
 	

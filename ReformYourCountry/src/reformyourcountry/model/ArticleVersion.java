@@ -48,12 +48,13 @@ public class ArticleVersion extends BaseEntity{
 
    
     
-    public String getVersionNumberAndDate() {
-    	return "v" + versionNumber + " - " + DateUtil.formatyyyyMMddHHmm(createdOn);
+    public String getVersionNumberDateAndUser() {
+    	return "v" + versionNumber + " - " + DateUtil.formatyyyyMMddHHmm(createdOn) + " - " + 
+           (this.getUpdatedOrCreatedBy() != null ? this.getUpdatedOrCreatedBy().getUserName() : "");
     }
-    
-    
-    public Integer getVersionNumber() {
+
+
+	public Integer getVersionNumber() {
 		return versionNumber;
 	}
 
