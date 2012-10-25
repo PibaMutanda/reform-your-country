@@ -13,6 +13,8 @@ import java.awt.image.FilteredImageSource;
 import java.awt.image.ImageProducer;
 import java.awt.image.RenderedImage;
 import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -320,6 +322,21 @@ public class ImageUtil {
 			}
 		}
 		return false;
+	}
+	
+	public static ByteArrayInputStream convertIntoByteArrayInputStream(BufferedImage image){
+	    
+	    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try {
+            ImageIO.write( image, "jpg", baos );
+            baos.flush();
+            baos.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+          return bais;
+	    
 	}
 
 }
