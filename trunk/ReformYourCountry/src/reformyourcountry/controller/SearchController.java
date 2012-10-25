@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import reformyourcountry.service.ArticleService;
 import reformyourcountry.service.IndexManagerService;
 import reformyourcountry.service.SearchService;
 import reformyourcountry.service.SearchService.ArticleSearchResult;
@@ -23,28 +22,33 @@ public class SearchController {
 
 	@Autowired SearchService searchservice;
 	@Autowired IndexManagerService indexmanagerservice;
-	
+
 	@RequestMapping(method=RequestMethod.GET)
 	public ModelAndView search(@RequestParam("searchtext") String searchtext){
-		
+		String errorMsg = null;
 		ModelAndView mv= new ModelAndView("search");
 		mv.addObject("searchtext",searchtext);
 		searchservice.search(searchtext, true, false, false, false, false, null, true);
-		List<ScoreDoc> resultList = searchservice.getResults();
-		List<ArticleSearchResult> articlesResult = new ArrayList<ArticleSearchResult>(); 
-		for(ScoreDoc scoreDoc : resultList){
-		
-			articlesResult.add(searchservice.getResult(scoreDoc));
-			System.out.println(searchservice.getResult(scoreDoc));
+		List<ScoreDoc> scoredocList = searchservice.getResults();
+		List<ArticleSearchResult> resultList = new ArrayList<ArticleSearchResult>(); 
+		for(ScoreDoc scoreDoc : scoredocList){
+
+			resultList.add(searchservice.getResult(scoreDoc));
+
 		}
-		mv.addObject("resultList",articlesResult);
+		if(resultList.isEmpty()) {
+			errorMsg="Il n'existe aucun article ayant "+searchtext+" comme élément.";
+			mv.addObject("errorMsg",errorMsg);
+
+		}
+		mv.addObject("resultList",resultList);
 		return mv;
 	}
 	@RequestMapping("/createIndex")
 	public ModelAndView createIndex(){
 		indexmanagerservice.createIndexes();
 		return new ModelAndView("/home");
-		
+
 	}
 }
 

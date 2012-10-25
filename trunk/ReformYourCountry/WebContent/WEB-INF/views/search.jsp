@@ -28,17 +28,18 @@
 					</c:forEach>
 				</table>
 			</c:if>
-			<c:if test="${actionList != null }">
-				<table>
-					<c:forEach items="${actionList}" var="action">
-						<tr>
-							<td>${action.title}</td>
-							<td>${action.shortDescription}</td>
+			${errorMsg}
+<%-- 			<c:if test="${actionList != null }"> --%>
+<!-- 				<table> -->
+<%-- 					<c:forEach items="${actionList}" var="action"> --%>
+<!-- 						<tr> -->
+<%-- 							<td>${action.title}</td> --%>
+<%-- 							<td>${action.shortDescription}</td> --%>
 				
-						</tr>
-					</c:forEach>
-				</table>
-			</c:if>
+<!-- 						</tr> -->
+<%-- 					</c:forEach> --%>
+<!-- 				</table> -->
+<%-- 			</c:if> --%>
 	</ryctag:form>
 	
 <div>
