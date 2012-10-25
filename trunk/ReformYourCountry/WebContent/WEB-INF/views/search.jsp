@@ -16,35 +16,12 @@
         <p>mot(s) de la recherche: ${searchtext}</p>
         <br/>
         <br/>
-       	   <c:if test="${userList != null}">
-		        <table>
-					<c:forEach items="${userList}" var="user">
-						<tr>
-							<td>${user.userName}</td>
-							<td>${user.firstName}</td>
-							<td>${user.lastName}</td>
-							<td><a href="/user/${user.userName}">Afficher les détails</a></td>
-						</tr>
-					</c:forEach>
-				</table>
-			</c:if>
-			
-			<c:if test="${groupList != null }">
+       	  	<c:if test="${resultList != null }">
 				<table>
-					<c:forEach items="${groupList}" var="group">
+					<c:forEach items="${resultList}" var="ArticleSearchResult">
 						<tr>
-							<td>${group.name}</td>				
-							<td><a href="/group/${group.name}">Afficher les détails</a></td>
-						</tr>
-					</c:forEach>
-				</table>
-			</c:if>
-			<c:if test="${articleList != null }">
-				<table>
-					<c:forEach items="${articleList}" var="article">
-						<tr>
-							<td>${article.title}</td>
-							<td>${article.description}</td>
+							<td>${ArticleSearchResult.title}</td>
+							<td>${ArticleSearchResult.description}</td>
 				
 						</tr>
 					</c:forEach>

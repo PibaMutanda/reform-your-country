@@ -1,5 +1,6 @@
 package reformyourcountry.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.lucene.search.ScoreDoc;
@@ -24,15 +25,17 @@ public class SearchController {
 	@Autowired IndexManagerService indexmanagerservice;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ModelAndView search(@RequestParam("keyword") String keyWord){
+	public ModelAndView search(@RequestParam("searchtext") String searchtext){
 		ModelAndView mv= new ModelAndView("testsearch");
-		searchservice.search(keyWord, true, false, false, false, false, null, true);
+		searchservice.search(searchtext, true, false, false, false, false, null, true);
 		List<ScoreDoc> resultList = searchservice.getResults();
-		List<ArticleSearchResult> 
+		List<ArticleSearchResult> articlesResult = new ArrayList<ArticleSearchResult>(); 
 		for(ScoreDoc scoreDoc : resultList){
 		
+			articlesResult.add(searchservice.getResult(scoreDoc));
 //			System.out.println(searchservice.getResult(scoreDoc));
 		}
+		mv.addObject("resultList",articlesResult);
 		return mv;
 	}
 	@RequestMapping("/createIndex")
