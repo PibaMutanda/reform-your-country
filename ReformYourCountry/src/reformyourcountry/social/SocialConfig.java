@@ -22,6 +22,9 @@ import org.springframework.social.facebook.connect.FacebookConnectionFactory;
 import org.springframework.social.google.api.Google;
 import org.springframework.social.google.api.impl.GoogleTemplate;
 import org.springframework.social.google.connect.GoogleConnectionFactory;
+import org.springframework.social.linkedin.api.LinkedIn;
+import org.springframework.social.linkedin.api.impl.LinkedInTemplate;
+import org.springframework.social.linkedin.connect.LinkedInConnectionFactory;
 import org.springframework.social.twitter.api.Twitter;
 import org.springframework.social.twitter.api.impl.TwitterTemplate;
 import org.springframework.social.twitter.connect.TwitterConnectionFactory;
@@ -57,6 +60,9 @@ public class SocialConfig {
         registry.addConnectionFactory(new GoogleConnectionFactory(
                 environment.getGoogleClientId(),
                 environment.getGoogleClientSecret()));
+        registry.addConnectionFactory(new LinkedInConnectionFactory(
+                environment.getLinkedInClientId(),
+                environment.getLinkedInClientSecret()));
         return registry;
     }
     
@@ -131,6 +137,12 @@ public class SocialConfig {
     public Google google() {
         Connection<Google> google = connectionRepository().findPrimaryConnection(Google.class);
         return google != null ? google.getApi() : new GoogleTemplate();
+    }
+    @Bean
+    @Scope(value="request", proxyMode=ScopedProxyMode.INTERFACES)   
+    public LinkedIn linkedin() {
+        Connection<LinkedIn> linkedin = connectionRepository().findPrimaryConnection(LinkedIn.class);
+        return (LinkedIn) (linkedin != null ? linkedin.getApi() : new LinkedInTemplate( environment.getLinkedInClientId(),environment.getLinkedInClientSecret(),"40604c43-7121-4691-ac42-5efc689a2c7a","347748c5-3730-4fec-b491-e1aad04d1c6b"));
     }
     
 }
