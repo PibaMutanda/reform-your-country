@@ -38,6 +38,7 @@ public abstract class FileUtil {
 	final static public String GROUP_SUB_FOLDER = "/group";
 	final static public String GROUP_ORIGINAL_SUB_FOLDER = "/original";
 	final static public String GROUP_RESIZED_SUB_FOLDER = "/resized";
+	final static public String LUCENE_INDEX_FOLDER = "/indexLucene";
 
     static private Log log = LogFactory.getLog(FileUtil.class);
     // In dev mode, returns somthing like C:\Users\forma308\Documents\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ReformYourCountry\gen 
@@ -351,6 +352,10 @@ public abstract class FileUtil {
             return messageToUser;
         }
     }
+
+	public static String getLuceneIndex() {
+		return getGenFolderPath()+LUCENE_INDEX_FOLDER+"/";
+	}
     
     
 }
