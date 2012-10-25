@@ -2,16 +2,13 @@ package reformyourcountry.service;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
-import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -29,7 +26,6 @@ import org.springframework.social.twitter.api.Twitter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.request.WebRequest;
 
 import reformyourcountry.exception.InvalidPasswordException;
@@ -179,24 +175,64 @@ public class UserService {
         userRepository.merge(user);
     }
 
-    public void addOrUpdateUserImage(User user,byte [] image){
+    public void addOrUpdateUserImage(User user, BufferedImage image){
         try {
-            ImageUtil.saveImageToFileAsJPEG(new ByteArrayInputStream(image),  
-                    
-                FileUtil.getGenFolderPath() + FileUtil.USER_SUB_FOLDER + FileUtil.USER_ORIGINAL_SUB_FOLDER, user.getId() + ".jpg", 0.9f);
-            
-            BufferedImage resizedImage = ImageUtil.scale(new ByteArrayInputStream(image),120 * 200, 200, 200);
-                 
+
+
+            ImageUtil.saveImageToFileAsJPEG(image,  
+                    FileUtil.getGenFolderPath() + FileUtil.USER_SUB_FOLDER + FileUtil.USER_ORIGINAL_SUB_FOLDER, user.getId() + ".jpg", 0.9f);
+
+            BufferedImage resizedImage = ImageUtil.scale(ImageUtil.convertIntoByteArrayInputStream(image),120 * 200, 200, 200);
+
             ImageUtil.saveImageToFileAsJPEG(resizedImage,  
-                 FileUtil.getGenFolderPath() + FileUtil.USER_SUB_FOLDER +FileUtil.USER_RESIZED_SUB_FOLDER+ FileUtil.USER_RESIZED_LARGE_SUB_FOLDER, user.getId() + ".jpg", 0.9f);
-            
-            
+                    FileUtil.getGenFolderPath() + FileUtil.USER_SUB_FOLDER +FileUtil.USER_RESIZED_SUB_FOLDER+ FileUtil.USER_RESIZED_LARGE_SUB_FOLDER, user.getId() + ".jpg", 0.9f);
+
+
             user.setPicture(true);
-         
+
         } catch (IOException e) {
-           throw new RuntimeException(e);
+            throw new RuntimeException(e);
         }
     }
+
+
+    public void addOrUpdateUserImageFromSocialProvider(User user ,Connection<?> connection){
+        AccountConnectedType type = AccountConnectedType.getProviderType(connection.getKey().getProviderId());      
+        byte[] userImage =null;
+        switch(type){     
+        case FACEBOOK :                                       
+            Facebook facebook = (Facebook) connection.getApi();
+            userImage =  facebook.userOperations().getUserProfileImage(ImageType.NORMAL);
+            try {
+                addOrUpdateUserImage(user, ImageIO.read(new ByteArrayInputStream(userImage)));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }       
+            break;
+        case TWITTER:                
+            Twitter twitter = (Twitter) connection.getApi();
+            userImage =  twitter.userOperations().getUserProfileImage(twitter.userOperations().getScreenName(),ImageSize.ORIGINAL);
+            try {
+                addOrUpdateUserImage(user, ImageIO.read(new ByteArrayInputStream(userImage)));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            break;
+
+        case GOOGLE : 
+            Google google = (Google) connection.getApi();
+            String urlProfil = google.userOperations().getUserProfile().getProfilePictureUrl();
+            BufferedImage image = ImageUtil.readImage(urlProfil);
+            addOrUpdateUserImage(user,image);
+            break;
+
+        default : throw new RuntimeException("invalid social provider name submitted");
+        }
+
+    }
+    
+
+       
     
    public void unsocialiseUser(User user, String newPassword){
        // We remove all uer's social connections.
@@ -304,38 +340,7 @@ public class UserService {
 
        ////// Image
        if (!user.isPicture()) {  // No picture yet => try to fetch one from the social provider.
-           if(connection.getApi() instanceof Facebook){
-               Facebook facebook = (Facebook) connection.getApi();
-
-               byte[] userImage =  facebook.userOperations().getUserProfileImage(ImageType.NORMAL);
-               addOrUpdateUserImage(user,userImage);
-
-           } else if(connection.getApi() instanceof Twitter){
-               Twitter twitter = (Twitter) connection.getApi();
-
-               byte[] userImage =  twitter.userOperations().getUserProfileImage(twitter.userOperations().getScreenName(), ImageSize.ORIGINAL);
-               addOrUpdateUserImage(user,userImage);
-           } else if(connection.getApi() instanceof Google){
-               
-               Google google = (Google) connection.getApi();
-               String urlProfil = google.userOperations().getUserProfile().getProfilePictureUrl();
-               ImageUtil.readImage(urlProfil);
-               
-               BufferedImage image = ImageUtil.readImage(urlProfil);
-               ByteArrayOutputStream baos = new ByteArrayOutputStream();
-              try {
-               ImageIO.write( image, "jpg", baos );
-               baos.flush();
-               baos.close();
-             } catch (IOException e) {
-
-               throw new RuntimeException(e);
-            }
-       
-             byte[] userImage = baos.toByteArray();
-             addOrUpdateUserImage(user,userImage);
-               
-           }
+           addOrUpdateUserImageFromSocialProvider(user,connection);
        }       
        
        userRepository.merge(user);
