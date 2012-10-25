@@ -35,7 +35,7 @@ public class SearchController {
 		for(ScoreDoc scoreDoc : resultList){
 		
 			articlesResult.add(searchservice.getResult(scoreDoc));
-//			System.out.println(searchservice.getResult(scoreDoc));
+			System.out.println(searchservice.getResult(scoreDoc));
 		}
 		mv.addObject("resultList",articlesResult);
 		return mv;
