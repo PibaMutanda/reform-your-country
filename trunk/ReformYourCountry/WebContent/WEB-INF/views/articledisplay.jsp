@@ -72,7 +72,7 @@
 <!-- ARTICLE CONTENT -->
         <div id="carouselh">
         <c:forEach items="${videoList}" var="video">
-            <div style="display:inline-block">
+            <div class="inline-block">
                 <iframe width="250" height="141" src="https://www.youtube-nocookie.com/embed/${video.idOnHost}?rel=0&hd=1" frameborder="0" allowfullscreen seamless></iframe>
             </div>        
         </c:forEach>
