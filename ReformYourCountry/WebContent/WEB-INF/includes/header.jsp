@@ -1,6 +1,5 @@
 ﻿
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ include file="/WEB-INF/includes/notificationbar.jsp"%>
 <div id="header">
 	<div class="header-holder">
 		<div class="rays">
@@ -58,12 +57,12 @@
 						</div>
 						
 						<!-- Search -->
-						<div style="float:right;padding-top: 30px; display:none;">
+						<div style="float:right;padding-top: 30px; ">
 						  <form method="get" id="searchform" action="search" class="search-form"> <%-- TODO: implement seach page. --%>
 								<fieldset>
 								<span class="text">
 								 <input type="submit" class="submit" value="search" id="searchsubmit" />
-								 <input type="text" name="s" id="s" value="Rechercher" onfocus="this.value=(this.value=='Rechercher') ? '' : this.value;" onblur="this.value=(this.value=='') ? 'Rechercher' : this.value;" />
+								 <input type="text" name="searchtext" id="s" value="Rechercher" onfocus="this.value=(this.value=='Rechercher') ? '' : this.value;" onblur="this.value=(this.value=='') ? 'Rechercher' : this.value;" />
 								</span>
 								</fieldset>
 						  </form>
