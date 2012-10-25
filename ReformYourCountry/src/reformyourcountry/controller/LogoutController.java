@@ -11,6 +11,7 @@ import org.springframework.web.context.request.WebRequest;
 
 import reformyourcountry.model.User;
 import reformyourcountry.service.LoginService;
+import reformyourcountry.web.ContextUtil;
 
 
 
@@ -22,7 +23,7 @@ public class LogoutController extends BaseController<User>{
     public String logout(WebRequest request) {
   
          loginService.logout();
-         addNotificationMessage("Vous ête à present deconnecté d'enseignement2.be", request);
+         addNotificationMessage("Vous ête à present deconnecté de "+ContextUtil.servletContext.getAttribute("website_name"), request);
          
         return "redirect:/";
     }

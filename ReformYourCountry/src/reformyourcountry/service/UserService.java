@@ -52,6 +52,7 @@ import reformyourcountry.util.FileUtil;
 import reformyourcountry.util.ImageUtil;
 import reformyourcountry.util.Logger;
 import reformyourcountry.util.SecurityUtils;
+import reformyourcountry.web.ContextUtil;
 import reformyourcountry.web.UrlUtil;
 
 @Transactional
@@ -129,7 +130,7 @@ public class UserService {
     public void sendRegistrationValidationMail(User user) {
 
         String validationUrl = UrlUtil.getAbsoluteUrl( "validationsubmit?code=" + user.getValidationCode());
-        String htmlMessage = "Bienvenue sur "+CurrentEnvironment.webSiteName+", " + user.getUserName() + "." + 
+        String htmlMessage = "Bienvenue sur "+ContextUtil.servletContext.getAttribute("website_name")+", " + user.getUserName() + "." + 
                 "<br/>Il reste une dernière étape pour créer votre compte : " +
                 "veuillez s'il vous plait cliquer sur le lien ci-dessous pour valider votre e-mail !" +
                 "<br/><a href='"+ validationUrl + "'>" + validationUrl + "</a>" +
@@ -138,7 +139,7 @@ public class UserService {
                 //TODO add a contact page
                 //UrlUtil.getAbsoluteUrl(####TO IMPLEMENT####) + 
                 "'>nous contacter</a>" + 
-                "<br/><br/>merci de vous être inscrit sur "+CurrentEnvironment.webSiteName+".";
+                "<br/><br/>merci de vous être inscrit sur "+ContextUtil.servletContext.getAttribute("website_name")+".";
         mailService.sendMail(user, "Votre nouveau compte", htmlMessage, MailType.IMMEDIATE, MailCategory.USER);
         
         log.debug("mail sent: " + htmlMessage);  

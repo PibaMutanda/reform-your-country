@@ -10,9 +10,22 @@ import reformyourcountry.util.CurrentEnvironment;
 
 public class UrlUtil {
 
-    public final static String PROD_ABSOLUTE_DOMAIN_NAME = CurrentEnvironment.webSiteAdress;
+    private static String PROD_ABSOLUTE_DOMAIN_NAME = null;
     public final static String DEV_ABSOLUTE_DOMAIN_NAME = "localhost:8080";
+    private static String WebSiteName = null;
 
+    public static String  getProdAbsoluteDomainName(){
+        if(PROD_ABSOLUTE_DOMAIN_NAME==null){
+            PROD_ABSOLUTE_DOMAIN_NAME = "http://enseignement2.be";//ContextUtil.springContext.getEnvironment().getProperty("name");
+        }
+        return PROD_ABSOLUTE_DOMAIN_NAME;
+    }
+    public static String  getWebSiteName(){
+        if(WebSiteName==null){
+            WebSiteName =  "enseignement2";//ContextUtil.springContext.getEnvironment().getProperty("address");
+        }
+        return WebSiteName;
+    }
 
     // Usually for images.
     public static String getAbsoluteUrl(String path){
@@ -30,7 +43,7 @@ public class UrlUtil {
 		switch(ContextUtil.getEnvironment()) {
 			case DEV  : return ".localhost.local" + ContextUtil.getRealContextPath()+"/"; //Domain name need two dots to be valid so we have to write 127.0.0.1 or .localhost.local (just "localhost" will not work).
 		//	case TEST : return TEST_ABSOLUTE_DOMAIN_NAME;
-			case PROD : return PROD_ABSOLUTE_DOMAIN_NAME;
+			case PROD : return getProdAbsoluteDomainName();
 		}
 		throw new RuntimeException("Unknown Environement");
 	}
@@ -52,7 +65,7 @@ public class UrlUtil {
         if (resultType == Mode.PROD) {
             // In dev, it should be "http://ryc.be/"  (because images are not loaded on developers machines).
         	
-            result = "http://" + PROD_ABSOLUTE_DOMAIN_NAME        + "/"; // The "/" is crucial at the end of the project name. Without it, you loose the session.
+            result = "http://" + getProdAbsoluteDomainName()        + "/"; // The "/" is crucial at the end of the project name. Without it, you loose the session.
             // i.e.:  http://  + ryc.be                 +  /
             
         } else {  // We are in dev and we don't force prod urls.

@@ -147,11 +147,9 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-<!-- *** LISTENERS *** -->
 
 
-
-
+	<!-- LISTENERS -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
@@ -159,10 +157,12 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/classes/applicationContext.xml</param-value>
 	</context-param>
+
 	<listener>
 		<listener-class>reformyourcountry.web.ContextUtil</listener-class>
 	</listener>
+
 	<listener>
-		<listener-class>reformyourcountry.web.CurrentUserServletContextListener</listener-class>
+		<listener-class>reformyourcountry.web.PropertyLoaderServletContextListener</listener-class>
 	</listener>
 </web-app>
