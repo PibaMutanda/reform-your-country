@@ -27,6 +27,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.social.facebook.api.Facebook;
+import org.springframework.social.google.api.Google;
+import org.springframework.social.linkedin.api.LinkedIn;
+import org.springframework.social.twitter.api.Twitter;
 
 import reformyourcountry.mail.MailingDelayType;
 import reformyourcountry.security.Privilege;
@@ -136,18 +140,20 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     }
     
     public enum AccountConnectedType{
-        LOCAL("User connected with local account","local"),
-        FACEBOOK("User connected with his Facebook account","facebook"),
-        TWITTER("User connected with his Twitter account","twitter"),
-        LINKEDIN("User connected with his LinkedIn account","linkedIn"),
-        GOOGLE("User connected with his google account","google");
+        LOCAL("User connected with local account","local", null),
+        FACEBOOK("User connected with his Facebook account","facebook", Facebook.class),
+        TWITTER("User connected with his Twitter account","twitter",Twitter.class),
+        LINKEDIN("User connected with his LinkedIn account","linkedIn",LinkedIn.class),
+        GOOGLE("User connected with his google account","google",Google.class);
 
 
         private String detail;
         private String providerId;  // Used in spring social to identify the provider.
-        private AccountConnectedType(String detail,String providerId){
+        private Class<?> providerClass;
+        private AccountConnectedType(String detail,String providerId,Class<?> providerClass){
             this.detail = detail;
             this.providerId = providerId;
+            this.providerClass = providerClass;
         }
 
         public String getDetail(){
@@ -156,7 +162,9 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
         public String getProviderId(){
             return providerId;
         }
-        
+        public Class<?> getProviderClass(){
+            return providerClass;
+        }
         public static AccountConnectedType getProviderType(String providerId){
             providerId = providerId.toLowerCase();
             switch(providerId){
