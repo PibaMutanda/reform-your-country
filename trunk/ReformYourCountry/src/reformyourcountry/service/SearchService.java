@@ -106,6 +106,8 @@ public class SearchService {
                 throw new RuntimeException(e);
             } catch (ParseException e) {
                 throw new RuntimeException(e);
+            } finally{
+            	
             }
         }
 

@@ -131,7 +131,7 @@ public class IndexManagerService {
 												boolean inContent, boolean inShortName, Article article, boolean inAllArticles) {
 
         try {
-            String queryString="(" + keyWord + ")"+ (inAllArticles ? "" : " AND id:"+article.getId());
+            String queryString="(" + keyWord + "~)"+ (inAllArticles ? "" : " AND id:"+article.getId());
 
             SimpleFSDirectory sfsd = new SimpleFSDirectory(new File(FileUtil.getLuceneIndex()));
             IndexReader reader = DirectoryReader.open(sfsd);
