@@ -21,7 +21,8 @@
 					<c:forEach items="${resultList}" var="ArticleSearchResult">
 						<tr>
 							<td>${ArticleSearchResult.title}</td>
-							<td>${ArticleSearchResult.description}</td>
+							<td>${ArticleSearchResult.content}</td>
+							<td>${ArticleSearchResult.score}</td>
 				
 						</tr>
 					</c:forEach>
