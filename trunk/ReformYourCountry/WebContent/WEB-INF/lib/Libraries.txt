@@ -40,6 +40,7 @@ JUnit :
 PD4ML :
 			-pd4ml
 			-fonts   for accentuated characters
+
 			
 Lucene :	
 			-lucene-core-4.0.0
@@ -53,7 +54,7 @@ commons-dbcp-1.4.jar // In relation with the data source
 commons-pool-1.6.jar // Dependence bdcp
 commons-logging-1.1.1.jar // Login Facebook
 
-Appache-commons(dependence Spring Social) : 
+Appache-commons(dependency Spring Social) : 
 
     commons-codec-1.6.jar
     fluent-hc-4.2.1.jar
