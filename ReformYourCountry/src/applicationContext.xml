@@ -64,8 +64,7 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
         <property name="connectionPoolDataSource">
             <bean
                 class="org.apache.commons.dbcp.cpdsadapter.DriverAdapterCPDS">
-                <!-- use this to trace jdbc BOTH JPA AND JdbcTemplate -->
-<!--                 <property name="driver" value="net.sf.log4jdbc.DriverSpy" />  -->
+               <!-- <property name="driver" value="net.sf.log4jdbc.DriverSpy" /> use this to trace jdbc BOTH JPA AND JdbcTemplate--> 
                 <property name="driver" value="org.postgresql.Driver" />
                 <property name="url" value="${DB.url}" />
                 <property name="user" value="${DB.userName}" />
@@ -96,6 +95,11 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
         <property name="maxUploadSize" value="10000000" />
         <property name="maxInMemorySize" value="10000000" />
     </bean>
+    
+    
+    
+    
+    
     <tx:annotation-driven />
 
 </beans>
