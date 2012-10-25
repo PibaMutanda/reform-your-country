@@ -17,7 +17,8 @@ $(document).ready(function(){
         styling: "jqueryui",
         hide: true,
         sticker: true,
-        stack: stack_bar_top
+        stack: stack_bar_top,
+        animation: 'slide'
 	});
   
 });
