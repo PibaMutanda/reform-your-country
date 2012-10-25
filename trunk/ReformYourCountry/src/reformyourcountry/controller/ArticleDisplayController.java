@@ -1,9 +1,6 @@
 package reformyourcountry.controller;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +13,7 @@ import reformyourcountry.converter.BBConverter;
 import reformyourcountry.model.Article;
 import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.repository.BookRepository;
+import reformyourcountry.repository.VideoRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.util.DateUtil;
@@ -29,6 +27,7 @@ public class ArticleDisplayController extends BaseController<Article> {
     
     @Autowired BookRepository bookRepository;
     @Autowired ArticleRepository articleRepository;
+    @Autowired VideoRepository videoRepository;
     
 	@RequestMapping(value={"/{articleUrl}"})
 	public ModelAndView displayArticle( @PathVariable("articleUrl") String articleUrl){
@@ -65,7 +64,7 @@ public class ArticleDisplayController extends BaseController<Article> {
         BBConverter bbc = new BBConverter(bookRepository, articleRepository);
         mv.addObject("articleContent", bbc.transformBBCodeToHtmlCode(article.getLastVersion().getContent()));
         mv.addObject("articleSummary", bbc.transformBBCodeToHtmlCode(article.getLastVersion().getSummary()));
-        
+        mv.addObject("videoList",videoRepository.findAllVideoForAnArticle(article));
         return mv;
 	}
 
