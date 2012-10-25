@@ -18,17 +18,17 @@
 	<div style="float:left;">
 		<c:choose>
 			<c:when test="${user.picture}">
-				<img src="gen/user/resized/large/${user.id}.jpg<c:if test="${random!=null}">?random=${random}</c:if>"  /><%-- Random, to force the reload of the image in case it changes (but its name does not change) --%>
+				<img src="gen/user/resized/large/${user.id}.jpg<c:if test="${random!=null}">?${random}</c:if>"  /><%-- Random, to force the reload of the image in case it changes (but its name does not change) --%>
 					
 			</c:when>
 			<c:otherwise>
 				<c:choose>
 					<c:when test="${user.isFemale()}">
-						<img src="images/Femme_anonyme.jpg<c:if test="${random!=null}">?random=${random}</c:if>"  /><%-- Random, to force the reload of the image in case it changes (but its name does not change) --%>
+						<img src="images/Femme_anonyme.jpg" />
 							
 					</c:when>
 					<c:otherwise>
-						<img src="images/Homme_anonyme.jpg<c:if test="${random!=null}">?random=${random}</c:if>"  /><%-- Random, to force the reload of the image in case it changes (but its name does not change) --%>
+						<img src="images/Homme_anonyme.jpg" />
 						
 					</c:otherwise>
 				</c:choose>
