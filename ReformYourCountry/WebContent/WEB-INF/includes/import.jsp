@@ -1,10 +1,4 @@
-
-
-<!-- Force latest IE rendering engine or ChromeFrame if installed -->
-<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
-
-<!-- Shim to make HTML5 elements usable in older Internet Explorer versions -->
-<!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->    
+    
     
     
     
@@ -31,9 +25,13 @@
 <!-- ***************************** END ICON **************************** -->    
 
 <!-- ***************************** JAVASCRIPT **************************** -->   
-	<script src="/js/ext/jquery-1.8.0.min.js"></script>
+    <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><%--Shim to make HTML5 elements usable in older Internet Explorer versions--%>
+    <![endif]-->
+    
+    <script src="/js/ext/jquery-1.8.0.min.js"></script>
 
-	<script src="/js/ext/jquery-ui-1.8.23.custom.min.js"></script><%--Add other libraries but doesn't contains the JQuery core  --%>
+    <script src="/js/ext/jquery-ui-1.8.23.custom.min.js"></script> <%-- Jquery plugin who add libraries for UI but need JQuery dore --%>
 	
 	<!-- *****************************Script for notification Bar *******************************************************-->
 	<script src="/js/ext/jquery.pnotify.js" type="text/javascript"></script>
