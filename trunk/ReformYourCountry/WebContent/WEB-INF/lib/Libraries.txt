@@ -40,6 +40,13 @@ JUnit :
 PD4ML :
 			-pd4ml
 			-fonts   for accentuated characters
+			
+Lucene :	
+			-lucene-core-4.0.0
+			-lucene-analyzers-common-4.0.0
+			-lucene-queryparser-4.0.0
+			-lucene-highlighter-4.0.0
+			
 ****************************** Spring Social : ******************************
  
 commons-dbcp-1.4.jar // In relation with the data source
