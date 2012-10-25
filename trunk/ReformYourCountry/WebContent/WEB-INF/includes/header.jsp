@@ -1,3 +1,4 @@
+﻿
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="/WEB-INF/includes/notificationbar.jsp"%>
@@ -20,23 +21,31 @@
 				<div style="float:right">
 				    <!-- ***************** - REGISTER - ***************** -->
 					<div style="width:100%; ">
-					  	<div class="login-link">
+					<c:choose>
+					<c:when test="${current.user!=null}">
+					<div class="login-link" title ="Connecté en tant que ${current.user.userName} avec ${sessionScope.providersignedin}">
+					</c:when>
+					<c:otherwise>
+					<div class="login-link">
+					</c:otherwise>
+					</c:choose>
+					  	
 						      <c:choose>
 						        <c:when test="${current.user!=null}">
-						         Connecté en tant que 
+						        
 						          <a href="/user/${current.user.userName}">${current.user.userName}</a> 
 						          <c:choose>
 						          <c:when test="${sessionScope.providersignedin == 'FACEBOOK'}">
-						           avec <img src="images/features-icons/facebook.jpg"/>
+						          <img src="images/features-icons/facebook.png"/>
 						          </c:when>
 						            <c:when test="${sessionScope.providersignedin == 'TWITTER'}">
-						           avec <img src="images/features-icons/twitter.jpg"/>
+						          <img src="images/features-icons/twitter.png" alt="Connecté en tant que ${current.user.userName} avec ${sessionScope.providersignedin}"/>
 						          </c:when>
 						            <c:when test="${sessionScope.providersignedin == 'GOOGLE'}">
-						           avec <img src="images/features-icons/google.jpg"/>
+						           <img src="images/features-icons/google.png" alt="Connecté en tant que ${current.user.userName} avec ${sessionScope.providersignedin}"/>
 						          </c:when>
 						            <c:when test="${sessionScope.providersignedin == 'LINKEDIN'}">
-						           avec <img src="images/features-icons/linkedin.jpg"/>
+						            <img src="images/features-icons/linkedin.png" alt="Connecté en tant que ${current.user.userName} avec ${sessionScope.providersignedin}"/>
 						          </c:when>
 						          </c:choose>&nbsp;&nbsp;|&nbsp;&nbsp;   
 						          <a id="logout" href="logout">déconnexion</a>
