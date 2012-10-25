@@ -31,7 +31,7 @@ public class RycSignInAdapter implements SignInAdapter {
                     
             user = loginService.login(null, null, autologin, Long.parseLong(localId), AccountConnectedType.getProviderType(connection.getKey().getProviderId()));
                      
-            BaseController.addNotificationMessage("Vous êtes a présent connecté sur enseignement2.be avec votre compte "+connection.getKey().getProviderId(),request);                                           
+            BaseController.addNotificationMessage("Vous êtes a présent connecté sur "+ContextUtil.servletContext.getAttribute("website_name")+" avec votre compte "+connection.getKey().getProviderId(),request);                                           
 
         } catch (Exception e) {
             throw new RuntimeException(e);

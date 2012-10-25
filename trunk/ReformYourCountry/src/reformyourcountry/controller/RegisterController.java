@@ -19,6 +19,7 @@ import reformyourcountry.exception.UserAlreadyExistsException.IdentifierType;
 import reformyourcountry.model.User;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.service.UserService;
+import reformyourcountry.web.ContextUtil;
 
 @Controller
 public class RegisterController extends BaseController<User> {
@@ -83,7 +84,7 @@ public class RegisterController extends BaseController<User> {
          
          if(user == null){
              
-             mv.addObject("mailerrormessage", "L'email que vous avez entrée ne correspond à aucun utilisateur enregistré sur enseignement2.be"); 
+             mv.addObject("mailerrormessage", "L'email que vous avez entrée ne correspond à aucun utilisateur enregistré sur "+ContextUtil.servletContext.getAttribute("website_name")); 
              
              return mv;
              

@@ -3,6 +3,9 @@ package reformyourcountry.util;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import reformyourcountry.web.ContextUtil;
+import reformyourcountry.web.UrlUtil;
+
 
 /**
  * Spring Bean that wraps the current environment
@@ -24,10 +27,6 @@ public class CurrentEnvironment {
 	private String googleClientId;
 	@Value("${google.clientSecret}")
 	private String googleClientSecret;
-	@Value("${webSite.Name}")
-	public static String webSiteName;
-    @Value("${webSite.Adress}")
-    public static String webSiteAdress;
 	
 	
 	
@@ -65,12 +64,8 @@ public class CurrentEnvironment {
 	public enum Environment {
 
 		// XXX(Domain Name, Mail Deamon Started,Social NW Connected, Paypal Env.)
-		DEV("127.0.0.1", MailBehavior.NOT_STARTED, true),
-		PROD(webSiteAdress, MailBehavior.SENT, true);
-
-		// String containing the domain name of the environment (useful to
-		// create absolute path to images, ...)
-		private String domainName;
+		DEV(MailBehavior.NOT_STARTED, true),
+		PROD(MailBehavior.SENT, true);
 
 		// Flag that tells wether the mail demon thread must be started
 		private MailBehavior mailBehavior;
@@ -78,18 +73,21 @@ public class CurrentEnvironment {
 		// Flag that tells wether the social things must be posted
 		private boolean socialNetworkToBeConnected;
 
-	
-
-		private Environment(String domainName, MailBehavior mailBehavior,
+		private Environment(MailBehavior mailBehavior,
 				boolean socialNetworkToBeConnected) {
-			this.domainName = domainName;
 			this.mailBehavior = mailBehavior;
 			this.socialNetworkToBeConnected = socialNetworkToBeConnected;
 
 		}
 
-		public String getDomainName() {
-			return domainName;
+		public String getDomainName() {  // Cannot pre-load the value because it's not ready at class loading time.
+		    if (this == PROD) {
+		        return UrlUtil.getProdAbsoluteDomainName();
+		    } else if (this == DEV) {
+		        return "127.0.0.1";
+		    } else {
+		        throw new IllegalStateException("Bug: unexpected enum value");
+		    }
 		}
 
 		public MailBehavior getMailBehavior() {
@@ -99,6 +97,9 @@ public class CurrentEnvironment {
 		public boolean isSocialNetworkToBeConnected() {
 			return socialNetworkToBeConnected;
 		}
+		 public String getWebSiteName() {
+		        return "enseignement2";//(String) ContextUtil.servletContext.getAttribute("website_name");
+		    }
 
 	}
 
@@ -110,13 +111,8 @@ public class CurrentEnvironment {
         return facebookClientSecret;
     }
 
-    public String getWebSiteAdress() {
-        return webSiteAdress;
-    }
-
-    public String getWebSiteName() {
-        return webSiteName;
-    }
+   
+   
 
 
 	

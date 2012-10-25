@@ -26,6 +26,7 @@ import reformyourcountry.repository.UserRepository;
 import reformyourcountry.service.LoginService;
 import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
 import reformyourcountry.util.DateUtil;
+import reformyourcountry.web.ContextUtil;
 import reformyourcountry.web.Cookies;
 
 @Controller
@@ -70,7 +71,7 @@ public class LoginController extends BaseController<User> {
         User user = null;
         try {
             user = loginService.login(userNameOrMail, password, keepLoggedIn,null,AccountConnectedType.LOCAL);
-           addNotificationMessage("Vous ête à present connecté sur enseignement2.be", request);
+           addNotificationMessage("Vous ête à present connecté sur "+ContextUtil.servletContext.getAttribute("website_name"), request);
 
         } catch (UserNotFoundException e) {
             errorMsg="L'utilisateur '"+userNameOrMail+"' n'existe pas";
@@ -157,7 +158,7 @@ public class LoginController extends BaseController<User> {
         }
        catch(SocialAccountAlreadyExistException e){
             
-            errorMsg="Vous possédez déjà un compte actif sur enseignement2 associé à un compte social(Facebook,Google+,LinkedIn.....) avec ce nom d'utilisateur";
+            errorMsg="Vous possédez déjà un compte actif sur "+ContextUtil.servletContext.getAttribute("website_name")+" associé à un compte social(Facebook,Google+,LinkedIn.....) avec ce nom d'utilisateur";
             
         }
 

@@ -13,13 +13,13 @@ import com.opensymphony.module.sitemesh.tapestry.Property;
 
 
 
-public class CurrentUserServletContextListener implements javax.servlet.ServletContextListener {
+public class PropertyLoaderServletContextListener implements javax.servlet.ServletContextListener {
 
 
     public void contextInitialized(ServletContextEvent sce) {
         ServletContext sc= sce.getServletContext();
         Properties props = new Properties();
-        String path = sc.getRealPath("website_content.properties");
+        String path = sc.getRealPath("website_content.properties");  // TODO : load this file through the classloader (via Spring).
         try {
             props.load(new FileInputStream(path));
         } catch (Exception e) {
@@ -31,8 +31,8 @@ public class CurrentUserServletContextListener implements javax.servlet.ServletC
             String key = (String)keys.nextElement();
             sc.setAttribute("p_" + key, props.getProperty(key));
         }
-               
-        
+        sc.setAttribute("p_website_address",UrlUtil.getProdAbsoluteDomainName());  
+        sc.setAttribute("p_website_name",UrlUtil.getWebSiteName());         
     }
 
     @Override
