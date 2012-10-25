@@ -19,7 +19,7 @@
 <script type="text/javascript">
         $(document).ready(function() {
             console.log("i am a carousel");
-            $('#carouselh').jsCarousel({ autoscroll: false, circular: true, masked: false, itemstodisplay: 2, orientation: 'h' });
+            $('#carouselh').jsCarousel({ autoscroll: false, circular: true, masked: false, itemstodisplay: 3, orientation: 'h' });
 
         });       
         
@@ -142,7 +142,7 @@
 				</ul>	
 		</div>
 		</ryc:conditionDisplay>
-		<div class="article-title" style>
+		<div class="article-title" >
 			<ryc:conditionDisplay privilege="EDIT_ARTICLE">
 		    	<span class="tooltip" data-tooltip='identifiant de cet article pour utilisation dans la balise [link article="${article.shortName}"]'>${article.shortName}</span>   <!--  Tooltip avec "identifiant de cet article pour utilisation dans la balise [link article="identifiant"]" -->
 			</ryc:conditionDisplay>	
@@ -166,22 +166,22 @@
     <div id="hWrapper">
         <div id="carouselh">
             <div>
-                <iframe width="356" height="200" src="https://www.youtube.com/embed/r9kR1Os1h1k?rel=0" frameborder="0" allowfullscreen seamless></iframe>
+                <iframe width="250" height="141" src="https://www.youtube.com/embed/r9kR1Os1h1k?rel=0" frameborder="0" allowfullscreen seamless></iframe>
             </div>
             <div>
-                <iframe width="356" height="200" src="https://www.youtube.com/embed/XX6N0K8gcNs?rel=0" frameborder="0" allowfullscreen seamless></iframe>
+                <iframe width="250" height="141" src="https://www.youtube.com/embed/XX6N0K8gcNs?rel=0" frameborder="0" allowfullscreen seamless></iframe>
             </div>
             <div>
-                <iframe width="356" height="200" src="https://www.youtube.com/embed/YwOwJ1_JaKE?rel=0" frameborder="0" allowfullscreen seamless></iframe>
+                <iframe width="250" height="141" src="https://www.youtube.com/embed/YwOwJ1_JaKE?rel=0" frameborder="0" allowfullscreen seamless></iframe>
             </div>
             <div>
-                <iframe width="356" height="200" src="https://www.youtube.com/embed/5MzuGWFIfio?rel=0" frameborder="0" allowfullscreen seamless></iframe>
+                <iframe width="250" height="141" src="https://www.youtube.com/embed/5MzuGWFIfio?rel=0" frameborder="0" allowfullscreen seamless></iframe>
             </div>
             <div>
-                <iframe width="356" height="200" src="https://www.youtube.com/embed/HRp4a_24cp8?rel=0" frameborder="0" allowfullscreen seamless></iframe>
+                <iframe width="250" height="141" src="https://www.youtube.com/embed/HRp4a_24cp8?rel=0" frameborder="0" allowfullscreen seamless></iframe>
             </div>
             <div>
-                <iframe width="356" height="200" src="https://www.youtube.com/embed/VcuQ2Bn5bTA?rel=0" frameborder="0" allowfullscreen seamless></iframe>
+                <iframe width="250" height="141" src="https://www.youtube.com/embed/VcuQ2Bn5bTA?rel=0" frameborder="0" allowfullscreen seamless></iframe>
             </div>
         </div>
     </div>
