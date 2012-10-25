@@ -1,6 +1,6 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://www.springframework.org/tags/form"  prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
 <html>
@@ -16,106 +16,13 @@
 <script src="js/ext/jsCarousel-2.0.0.js" type="text/javascript"></script>
 <meta name="robots" content="index, follow"/>
 <meta name="description" content="${article.description}"/>
-<script type="text/javascript">
+<c:if test="${fn:length(videoList) gt 3}">
+    <script type="application/javascript">
         $(document).ready(function() {
-            console.log("i am a carousel");
             $('#carouselh').jsCarousel({ autoscroll: false, circular: true, masked: false, itemstodisplay: 3, orientation: 'h' });
-
         });       
-        
     </script>
-<style type="text/css">
-#demo-wrapper {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    padding: 40px 20px 0px 20px;
-}
-
-#demo-left {
-    width: 15%;
-    float: left;
-}
-
-#demo-right {
-    width: 85%;
-    float: left;
-}
-
-#hWrapperAuto {
-    margin-top: 20px;
-}
-
-#demo-tabs {
-    width: 100%;
-    height: 50px;
-    color: White;
-    margin: 0;
-    padding: 0;
-}
-
-#demo-tabs div.item {
-    height: 35px;
-    float: left;
-    background-color: #2F2F2F;
-    border: solid 1px gray;
-    border-bottom: none;
-    padding: 0;
-    margin: 0;
-    margin-left: 10px;
-    text-align: center;
-    padding: 10px 4px 4px 4px;
-    font-weight: bold;
-}
-
-#contents {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    color: White;
-    font: arial;
-    font-size: 11pt;
-}
-
-#demo-tabs div.item.active-tab {
-    background-color: Black;
-}
-
-#demo-tabs div.item.active-tabc {
-    background-color: Black;
-}
-
-#v1,#v2 {
-    margin: 20px;
-}
-
-.visible {
-    display: block;
-}
-
-.hidden {
-    display: none;
-}
-
-#oldWrapper {
-    margin-left: 100px;
-}
-
-#contents a {
-    color: yellow;
-}
-
-#contents a:hover {
-    text-decoration: none;
-    color: Gray;
-}
-
-.heading {
-    font-size: 20pt;
-    font-weight: bold;
-}
-</style>
+</c:if>
 </head>
 <body>
  <ryctag:pageheadertitle title="${article.title}">
@@ -163,28 +70,13 @@
 	</div>
 
 <!-- ARTICLE CONTENT -->
-    <div id="hWrapper">
         <div id="carouselh">
-            <div>
-                <iframe width="250" height="141" src="https://www.youtube.com/embed/r9kR1Os1h1k?rel=0" frameborder="0" allowfullscreen seamless></iframe>
-            </div>
-            <div>
-                <iframe width="250" height="141" src="https://www.youtube.com/embed/XX6N0K8gcNs?rel=0" frameborder="0" allowfullscreen seamless></iframe>
-            </div>
-            <div>
-                <iframe width="250" height="141" src="https://www.youtube.com/embed/YwOwJ1_JaKE?rel=0" frameborder="0" allowfullscreen seamless></iframe>
-            </div>
-            <div>
-                <iframe width="250" height="141" src="https://www.youtube.com/embed/5MzuGWFIfio?rel=0" frameborder="0" allowfullscreen seamless></iframe>
-            </div>
-            <div>
-                <iframe width="250" height="141" src="https://www.youtube.com/embed/HRp4a_24cp8?rel=0" frameborder="0" allowfullscreen seamless></iframe>
-            </div>
-            <div>
-                <iframe width="250" height="141" src="https://www.youtube.com/embed/VcuQ2Bn5bTA?rel=0" frameborder="0" allowfullscreen seamless></iframe>
-            </div>
+        <c:forEach items="${videoList}" var="video">
+            <div style="display:inline-block">
+                <iframe width="250" height="141" src="https://www.youtube-nocookie.com/embed/${video.idOnHost}?rel=0&hd=1" frameborder="0" allowfullscreen seamless></iframe>
+            </div>        
+        </c:forEach>
         </div>
-    </div>
     <c:choose>
   	  <c:when test="${showContent}">
 		<div class="article_content">
