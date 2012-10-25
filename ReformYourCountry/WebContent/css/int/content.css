@@ -28,6 +28,11 @@
 
 
 /*********** bordel à classer********/
+.inline-block{
+	display:inline-block;
+	zoom: 1; /*for ie http://haslayout.net/haslayout*/
+    *display: inline; /*ie7 and below star hack http://www.ejeliot.com/blog/63 */
+}
 .div-align-center{
 	margin-left: auto;
 	margin-right: auto;
