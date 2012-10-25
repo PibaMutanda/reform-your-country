@@ -2,7 +2,7 @@
 .jscarousal-horizontal
 {
 	width: 800px;
-	height: 200px;
+	height: 141px;
 	margin: 0;
 	padding: 0;
 	position: relative; /*overflow: hidden;*/
@@ -31,8 +31,8 @@
 }
 .jscarousal-contents-horizontal
 {
-	width: 750px;
-	height: 200px;
+	width: 751px;
+	height: 141px;
 	float: left;
 	position: relative;
 	overflow: hidden;
@@ -46,8 +46,8 @@
 .jscarousal-contents-horizontal > div > div
 {
 	float: left;
-	margin-left: 8px;
-	margin-right: 8px;
+/*	margin-left: 8px;
+	margin-right: 8px;*/
 }
 .jscarousal-contents-horizontal img
 {
