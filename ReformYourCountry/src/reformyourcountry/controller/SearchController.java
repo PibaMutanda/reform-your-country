@@ -26,7 +26,9 @@ public class SearchController {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public ModelAndView search(@RequestParam("searchtext") String searchtext){
-		ModelAndView mv= new ModelAndView("testsearch");
+		
+		ModelAndView mv= new ModelAndView("search");
+		mv.addObject("searchtext",searchtext);
 		searchservice.search(searchtext, true, false, false, false, false, null, true);
 		List<ScoreDoc> resultList = searchservice.getResults();
 		List<ArticleSearchResult> articlesResult = new ArrayList<ArticleSearchResult>(); 
