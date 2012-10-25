@@ -92,7 +92,6 @@ public class BookDisplayController extends BaseController<Book> {
 
         ///// Save original image, scale it and save the resized image.
         try {
-            
             ByteArrayOutputStream outStream= new ByteArrayOutputStream();
             ImageIO.write(image, "jpg", outStream);
             
@@ -103,8 +102,6 @@ public class BookDisplayController extends BaseController<Book> {
 
             book.setHasImage(true);
             bookRepository.merge(book);
-
-
         } catch (IOException e) {
             throw new RuntimeException();
         }

@@ -2,26 +2,19 @@ package reformyourcountry.controller;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.UsersConnectionRepository;
-import org.springframework.social.facebook.api.Facebook;
-import org.springframework.social.facebook.api.ImageType;
-import org.springframework.social.google.api.Google;
-import org.springframework.social.twitter.api.ImageSize;
-import org.springframework.social.twitter.api.Twitter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountConnectedType;
@@ -107,70 +100,5 @@ public class UserImageController extends BaseController<User> {
 	 }
 
 	 
-	 @RequestMapping("/updateusersocialimage")   
-	    public RedirectView updateImage(@RequestParam("provider") String provider, @RequestParam("id") long id){
-
-	        User user = userRepository.find(id); 
-	        AccountConnectedType type =AccountConnectedType.getProviderType(provider);
-	        
-	        
-	        Connection<?> connection ; 
-	        switch(type){
-	        case FACEBOOK : connection = checkValidConnection(user,Facebook.class);
-	        if(connection != null){    
-	            Facebook facebook = (Facebook) connection.getApi();
-	            byte[] userImage =  facebook.userOperations().getUserProfileImage(ImageType.NORMAL);
-	            userService.addOrUpdateUserImage(user,userImage);       
-	        }
-	        break;
-
-	        case TWITTER: connection = checkValidConnection(user,Twitter.class);
-	        if(connection != null){    
-	            Twitter twitter = (Twitter) connection.getApi();
-	            byte[] userImage =  twitter.userOperations().getUserProfileImage(twitter.userOperations().getScreenName(),ImageSize.ORIGINAL);
-	            userService.addOrUpdateUserImage(user,userImage);
-	        }
-	        break;
-	        case GOOGLE : connection = checkValidConnection(user,Google.class);
-	        Google google = (Google) connection.getApi();
-	        String urlProfil = google.userOperations().getUserProfile().getProfilePictureUrl();
-	        ImageUtil.readImage(urlProfil);
-
-	        BufferedImage image = ImageUtil.readImage(urlProfil);
-	        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-	        try {
-	            ImageIO.write( image, "jpg", baos );
-	            baos.flush();
-	            baos.close();
-	        } catch (IOException e) {
-
-	            throw new RuntimeException(e);
-	        }
-
-	        byte[] userImage = baos.toByteArray();
-	        userService.addOrUpdateUserImage(user,userImage);
-	        break;
-	        default : throw new RuntimeException("invalid social porvider name submitted");
-
-
-	        }
-	        
-	       return new RedirectView("/user/"+user.getUserName());
-	        
-	        
-	    }
-	    
-	 
-	 
-	    private Connection<?> checkValidConnection(User user,Class<?> provider){
-	        
-	        ConnectionRepository connectionRepository = usersConnectionRepository.createConnectionRepository(user.getId()+"");
-	        Connection<?> connection = connectionRepository.findPrimaryConnection(provider);
-	        
-	        if(connection != null) return connection;
-	        else
-	            return null;
-	      
-	    }
-	 
+	
 }
