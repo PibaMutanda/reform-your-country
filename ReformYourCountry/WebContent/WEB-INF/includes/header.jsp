@@ -1,5 +1,6 @@
 ﻿
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ include file="/WEB-INF/includes/notificationbar.jsp"%>
 <div id="header">
 	<div class="header-holder">
 		<div class="rays">
@@ -57,7 +58,7 @@
 						</div>
 						
 						<!-- Search -->
-						<div style="float:right;padding-top: 30px; ">
+						<div style="float:right;padding-top: 30px;">
 						  <form method="get" id="searchform" action="search" class="search-form"> <%-- TODO: implement seach page. --%>
 								<fieldset>
 								<span class="text">
