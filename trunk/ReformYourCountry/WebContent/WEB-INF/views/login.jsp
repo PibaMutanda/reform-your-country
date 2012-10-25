@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
@@ -77,16 +77,17 @@ Pour participer (voter, argumenter, etc.), vous devez vous connecter avec votre 
 		</div>
 		<br/>
 		
-		<!-- LINKEDIN SIGNIN -->
+		<!-- LINKEDIN SIGNIN
 		<div>
 		<form name="li_signin" id="li_signin"
 			action="<c:url value="/signin/linkedin"/>" method="POST">
+			<input type ="hidden" name ="scope" value="r_basicprofile+r_emailaddress"/>
 				<div class="container">se connecter avec<br>
 			     	<input style="padding-top:5px;" type="image" alt="logo linkedin" src="images/social_logo/linkedin.jpg" />
 				</div>
 		</form>
 		</div>
-		<br/>
+		<br/> -->
 
 		<!-- GOOGLE SIGNIN -->
 		<div>
