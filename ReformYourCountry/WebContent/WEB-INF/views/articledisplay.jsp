@@ -19,7 +19,7 @@
 <c:if test="${fn:length(videoList) gt 3}">
     <script type="application/javascript">
         $(document).ready(function() {
-            $('#carouselh').jsCarousel({ autoscroll: false, circular: true, masked: false, itemstodisplay: 3, orientation: 'h' });
+            $('#carouselh').jsCarousel({ autoscroll: true, circular: true, masked: false, itemstodisplay: 3, orientation: 'h' });
         });       
     </script>
 </c:if>
@@ -70,20 +70,22 @@
 	</div>
 
 <!-- ARTICLE CONTENT -->
-        <div id="carouselh">
-        <c:forEach items="${videoList}" var="video">
-            <div class="inline-block">
-                <iframe width="250" height="141" src="https://www.youtube-nocookie.com/embed/${video.idOnHost}?rel=0&hd=1" frameborder="0" allowfullscreen seamless></iframe>
-            </div>        
-        </c:forEach>
-        </div>
+
     <c:choose>
   	  <c:when test="${showContent}">
+  	  	
 		<div class="article_content">
 		  	  <ryc:conditionDisplay privilege="EDIT_ARTICLE">
 		 		 <hr/>
-			  </ryc:conditionDisplay>  
-			  <div class="article_summary">${articleSummary}</div>
+			  </ryc:conditionDisplay>
+				<div id="carouselh">
+					<c:forEach items="${videoList}" var="video">
+						<div class="inline-block">
+							<iframe width="250" height="141" src="https://www.youtube-nocookie.com/embed/${video.idOnHost}?rel=0&hd=1" frameborder="0" allowfullscreen seamless></iframe>
+						</div>
+					</c:forEach>
+				</div>
+				<div class="article_summary">${articleSummary}</div>
 			   <hr/>
 			  ${articleContent}
 	  	</div>
