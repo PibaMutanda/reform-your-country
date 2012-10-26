@@ -9,12 +9,19 @@
 <body>
 	<c:choose>
 		<c:when test="${video.id == null}">
-			<ryctag:pageheadertitle title="Ajouter une vidéo" />
+			<ryctag:pageheadertitle title="Ajouter une vidéo" >
+                <ryctag:breadcrumbelement label="${article.title}" link="/article/${article.url}" />
+                <ryctag:breadcrumbelement label="vidéos de ${article.title}" link="/video/manager?id=${article.id}" />
+            </ryctag:pageheadertitle>
 		</c:when>
 		<c:otherwise>
-			<ryctag:pageheadertitle title="Editer une vidéo" />
+			<ryctag:pageheadertitle title="Editer une vidéo" >
+                <ryctag:breadcrumbelement label="${article.title}" link="/article/${article.url}" />
+                <ryctag:breadcrumbelement label="vidéos de ${article.title}" link="/video/manager?id=${article.id}" />
+            </ryctag:pageheadertitle>
 		</c:otherwise>
 	</c:choose>
+        
     <ryctag:form action="/video/editsubmit" modelAttribute="video">
          <ryctag:input path="idOnHost" label="identifiant video"/>
 		 <input type="hidden" name="idVideo" value="${video.id}"/>

@@ -8,7 +8,9 @@
 
 </head>
 <body>
-	<ryctag:pageheadertitle title="${article.title}" />
+	<ryctag:pageheadertitle title="${article.title}" >
+        <ryctag:breadcrumbelement label="${article.title}" link="/article/${article.url}" />
+    </ryctag:pageheadertitle>
 
 	<div class="article-options">
 		<ul class="list sitemap-list">
