@@ -29,8 +29,6 @@ public class ContextUtil implements Filter, ServletContextListener {
     public static ApplicationContext springContext;
     public static boolean devMode;
     public static Environment environment;
-    public static String webSiteName;
-    public static String webSiteAddress;
     
     // Initialized by filter
     private static ThreadLocal<HttpServletRequest> httpServletRequest = new ThreadLocal<HttpServletRequest>();

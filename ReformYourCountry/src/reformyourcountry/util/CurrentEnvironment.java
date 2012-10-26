@@ -3,7 +3,7 @@ package reformyourcountry.util;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-
+import reformyourcountry.web.ContextUtil;
 import reformyourcountry.web.UrlUtil;
 
 
@@ -27,14 +27,14 @@ public class CurrentEnvironment {
 	private String googleClientId;
 	@Value("${google.clientSecret}")
 	private String googleClientSecret;
+    @Value("${site.name}")
+    private String siteName;
+    @Value("${site.address}")
+    private String siteAddress;
 	
 	
 	
-	
-	
-
-
-    public String getGoogleClientId() {
+	public String getGoogleClientId() {
         return googleClientId;
     }
 
@@ -101,9 +101,9 @@ public class CurrentEnvironment {
 		public boolean isSocialNetworkToBeConnected() {
 			return socialNetworkToBeConnected;
 		}
-		 public String getWebSiteName() {
-		        return "enseignement2";//(String) ContextUtil.servletContext.getAttribute("website_name");
-		    }
+//		 public String getWebSiteName() {
+//		        return "enseignement2";//(String) ContextUtil.servletContext.getAttribute("website_name");
+//		    }
 
 	}
 
@@ -114,6 +114,16 @@ public class CurrentEnvironment {
     public String getFacebookClientSecret() {
         return facebookClientSecret;
     }
+
+    public String getSiteName() {
+        return siteName;
+    }
+
+
+    public String getSiteAddress() {
+        return siteAddress;
+    }
+
 
    
    

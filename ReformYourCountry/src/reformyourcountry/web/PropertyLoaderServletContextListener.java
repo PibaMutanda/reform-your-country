@@ -9,6 +9,8 @@ import java.util.Properties;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 
+import reformyourcountry.util.ExposedResourceBundleMessageSource;
+
 import com.opensymphony.module.sitemesh.tapestry.Property;
 
 
