@@ -27,21 +27,12 @@ public class CurrentEnvironment {
 	private String googleClientId;
 	@Value("${google.clientSecret}")
 	private String googleClientSecret;
-	@Value("${linkedin.clientId}")
-	private String linkedInClientId;
-	@Value("${linkedin.clientSecret}")
-	private String linkedInClientSecret;
 	
 	
 	
 	
-	public String getLinkedInClientId() {
-        return linkedInClientId;
-    }
+	
 
-    public String getLinkedInClientSecret() {
-        return linkedInClientSecret;
-    }
 
     public String getGoogleClientId() {
         return googleClientId;
