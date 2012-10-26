@@ -3,9 +3,9 @@
 <html>
 <body>
 	<p>Nous allons maintenant vous renvoyer un mot de passe sur votre
-		adresse email, merci de la renseigner ici.</p>
+		adresse e-mail,vous devez avoir été enregistré au préalable sur notre site avec cette adresse e-mail, merci de la renseigner ci-dessou.</p>
 
-	<form method="post" action="resendpassword">
+	<form method="post" action="resendpasswordsubmit">
 	
 		<input type="email" name="email" />
 		<div style="color: red;">
