@@ -101,9 +101,6 @@ public class CurrentEnvironment {
 		public boolean isSocialNetworkToBeConnected() {
 			return socialNetworkToBeConnected;
 		}
-//		 public String getWebSiteName() {
-//		        return "enseignement2";//(String) ContextUtil.servletContext.getAttribute("website_name");
-//		    }
 
 	}
 
