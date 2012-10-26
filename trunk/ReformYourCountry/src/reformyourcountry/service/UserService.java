@@ -50,6 +50,7 @@ import reformyourcountry.util.Logger;
 import reformyourcountry.util.SecurityUtils;
 import reformyourcountry.web.ContextUtil;
 import reformyourcountry.web.UrlUtil;
+import reformyourcountry.web.UrlUtil.Mode;
 
 @Transactional
 @Service(value="userService")
@@ -149,13 +150,14 @@ public class UserService {
         user.setPasswordKnownByTheUser(true);  // it's a random pwd, but the user knows it.
         userRepository.merge(user);
 
-        mailService.sendMail(user.getMail(), "Password Recovery",  //TODO franciser / adapter.
-                "You requested a new password for your account '"+ user.getUserName()+"' on KnowledgeBlackBelt.com<br/>" + 
-                        "We could not give you back your old password because we do not store it directly, for security and (your own) privacy reason it is encrypted in a non reversible way. <br/><br/>" + 
-                        "Here is your new password : "+ newPassword + 
+        mailService.sendMail(user.getMail(), "Recupération de mot de passe",  
+                "Vous avez demandé un nouveau mot de passe pour votre compte '"+ user.getUserName()+"' sur "+ContextUtil.servletContext.getAttribute("p_website_name")+"<br/>" + 
+                        "Nous ne pouvons pas vous transmettre votre ancien mot de passe parce que nous ne l'enregistrons pas directement, pour des raisons de sécurité et de protection de votre vie privée, il est crypté de mannière irréverssible.<br/><br/>"+
+                      
+                        "Voici votre nouveau mot de passe : "+ newPassword + 
                         "<ol>" +  
-                        "<li>password are case sensitive,</li>" +                  
-                        "<li>This is a temporary password, feel free to change it using <a href='"+/*XXX LINK to user page+*/"'>your profile page</a>.</li>" +
+                        "<li>le mot de passe respecte la casse des caractères,</li>" +                  
+                        "<li>Il s'agit d'un mot de passe auto-généré, libre à vous de le changer sur votre <a href='"+UrlUtil.getAbsoluteUrl("user/"+user.getUserName(),Mode.DEV)+"'>page de profile</a>.</li>" +
                         "</ol>", 
                         MailType.IMMEDIATE, MailCategory.USER);
 
