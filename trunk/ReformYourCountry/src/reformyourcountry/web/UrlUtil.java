@@ -16,13 +16,13 @@ public class UrlUtil {
 
     public static String  getProdAbsoluteDomainName(){
         if(PROD_ABSOLUTE_DOMAIN_NAME==null){
-            PROD_ABSOLUTE_DOMAIN_NAME = "http://enseignement2.be";//ContextUtil.springContext.getEnvironment().getProperty("name");
+            PROD_ABSOLUTE_DOMAIN_NAME = ((CurrentEnvironment)ContextUtil.springContext.getBean(CurrentEnvironment.class)).getSiteAddress();
         }
         return PROD_ABSOLUTE_DOMAIN_NAME;
     }
     public static String  getWebSiteName(){
         if(WebSiteName==null){
-            WebSiteName =  "enseignement2";//ContextUtil.springContext.getEnvironment().getProperty("address");
+            WebSiteName =   ((CurrentEnvironment)ContextUtil.springContext.getBean(CurrentEnvironment.class)).getSiteName();
         }
         return WebSiteName;
     }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+
 import reformyourcountry.exception.InvalidPasswordException;
 import reformyourcountry.exception.UserLockedException;
 import reformyourcountry.exception.UserNotFoundException;
@@ -28,6 +29,7 @@ import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
 import reformyourcountry.util.DateUtil;
 import reformyourcountry.web.ContextUtil;
 import reformyourcountry.web.Cookies;
+import reformyourcountry.web.UrlUtil;
 
 @Controller
 public class LoginController extends BaseController<User> {
@@ -71,7 +73,7 @@ public class LoginController extends BaseController<User> {
         User user = null;
         try {
             user = loginService.login(userNameOrMail, password, keepLoggedIn,null,AccountConnectedType.LOCAL);
-           addNotificationMessage("Vous ête à present connecté sur "+ContextUtil.servletContext.getAttribute("website_name"), request);
+           addNotificationMessage("Vous ête à present connecté sur "+UrlUtil.getWebSiteName(), request);
 
         } catch (UserNotFoundException e) {
             errorMsg="L'utilisateur '"+userNameOrMail+"' n'existe pas";
