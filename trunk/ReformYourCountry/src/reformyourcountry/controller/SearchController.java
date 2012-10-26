@@ -32,7 +32,7 @@ public class SearchController {
 		String errorMsg = null;
 		ModelAndView mv= new ModelAndView("search");
 		mv.addObject("searchtext",searchtext);
-		searchservice.search(searchtext, true, false, false, false, false, null, true);
+		searchservice.search(searchtext, null, true);
 		List<ScoreDoc> scoredocList = searchservice.getResults();
 		List<ArticleSearchResult> resultList = new ArrayList<ArticleSearchResult>();
 		List<ArticleSearchResult> resultListprive = new ArrayList<ArticleSearchResult>();
