@@ -5,6 +5,7 @@ import java.io.StringReader;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
@@ -22,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import reformyourcountry.model.Article;
+import reformyourcountry.repository.ArticleRepository;
 
 @Component
 public class SearchService {
@@ -29,6 +31,7 @@ public class SearchService {
 	private ScoreDoc[] scoreDocs; // Array containing the id and score of each documents ("result") find by Lucene after a search.
     private String keyWord;
     @Autowired private IndexManagerService indexManagerService;
+    @Autowired private ArticleRepository articlerepository;
     
     /**
      * Use this method to get the number of results found
@@ -41,11 +44,10 @@ public class SearchService {
         return Arrays.asList(scoreDocs);
     }
     
-    public void search(String keyWord, boolean inTitle, boolean inSummary, boolean inToClassify, 
-			boolean inContent, boolean inShortName, Article article, boolean inAllArticles) {
+    public void search(String keyWord, Article article, boolean inAllArticles) {
     	
         this.keyWord=keyWord;
-        scoreDocs=indexManagerService.search(keyWord, inTitle, inSummary, inToClassify, inContent, inShortName, article, inAllArticles);
+        scoreDocs=indexManagerService.search(keyWord, article, inAllArticles);
     }
     
     /**
@@ -87,7 +89,8 @@ public class SearchService {
         }
 
         /**
-         * We use Highlight lucene library to highlight the result
+         * We use the lucene highlight library.
+         * @return the highlighted fragment, if there is one, null otherwise
          */
         private String getHighlight(String keyword, String textToHighlight){
 
@@ -98,8 +101,16 @@ public class SearchService {
                 QueryScorer scorer = new QueryScorer(query,"field");
                 Highlighter highlighter = new Highlighter(formatter,scorer);
                 highlighter.setTextFragmenter(new SimpleSpanFragmenter(scorer,45));
-                TokenStream tokens = new StandardAnalyzer(Version.LUCENE_40).tokenStream("field",new StringReader(textToHighlight));
-                return highlighter.getBestFragments(tokens, textToHighlight,4 ,"<BR/>...");
+                Analyzer analyzer =new StandardAnalyzer(Version.LUCENE_40);
+                TokenStream tokens = analyzer.tokenStream("field",new StringReader(textToHighlight));
+                String highlightedFragment = highlighter.getBestFragments(tokens, textToHighlight,4 ,"<BR/>...");
+                tokens.close();
+                analyzer.close();
+                if(highlightedFragment.equals("")){
+                	return null;
+                }else{
+                	return highlightedFragment;
+                }
             } catch (IOException e) {
                 throw new RuntimeException(e);
             } catch (InvalidTokenOffsetsException e) {

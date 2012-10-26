@@ -67,9 +67,37 @@ public class IndexManagerService {
         }
     }
 	
-	private Document createDocument(Article article) {
-        
-        // Add a new Document to the index
+	private Document createDocument(Object entity) {
+        if(entity instanceof Article){
+        	return createArticleDocument((Article)entity);
+//        }else if(entity instanceof Action){ ////no action yet
+//        	return createActionDocument((Action)entity);
+        }else{
+        	throw new RuntimeException("This object is not a searchable entity(Article,Action,Group,User");
+        }
+    }
+
+////WE DON'T SEARCH FOR ACTIONS YET, but we will
+//	private Document createActionDocument(Action action) {
+//		// Add a new Document to the index
+//        Document doc = new Document();
+//
+//        doc.add(new LongField("id",action.getId(),Store.YES));
+//        // This give more importance to title during the search
+//        // The user see the result from the title before the result from the text 
+//        Field titleField=new TextField("title",action.getTitle(),Store.YES);
+//        titleField.setBoost(1.5f);
+//        doc.add(titleField);
+//        
+//        doc.add(new TextField("shortDescription",action.getShortDescription(),Store.YES));
+//        doc.add(new TextField("longDescription",action.getLongDescription(),Store.YES));
+//        doc.add(new TextField("content",action.getContent(),Store.YES));
+//
+//        return doc;
+//	}
+
+	private Document createArticleDocument(Article article) {
+		// Add a new Document to the index
         Document doc = new Document();
 
         doc.add(new LongField("id",article.getId(),Store.YES));
@@ -85,69 +113,60 @@ public class IndexManagerService {
         doc.add(new TextField("content",article.getLastVersion().getContent(),Store.YES));
 
         return doc;
+	}
+	public void updateArticle(Article oldArticle,Article newArticle) {
+        try{
+        	IndexWriter writer = getIndexWriter();
+            writer.updateDocument(new Term("id", String.valueOf(oldArticle.getId())), createDocument(newArticle));
+            writer.commit();
+            closeIndexWriter(writer);
+        } catch (CorruptIndexException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
-//	public void updateArticle(Article oldArticle,Article newArticle) {
-//        try{
-//        	IndexWriter writer = getIndexWriter();
-//            writer.updateDocument(new Term("id", String.valueOf(oldArticle.getId())), createDocument(newArticle));
-//            writer.commit();
-////            closeIndexWriter(writer);
-//        } catch (CorruptIndexException e) {
-//            throw new RuntimeException(e);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-//	public void deleteArticle(Article article) {
-//        try {
-//        	IndexWriter writer = getIndexWriter();
-//            writer.deleteDocuments(new Term("id", String.valueOf(article.getId())));
-//            writer.commit();
-////            closeIndexWriter(writer);
-//        } catch (CorruptIndexException e) {
-//            throw new RuntimeException(e);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-//	public void addArticle(Article article) {
-//        try {
-//            IndexWriter writer = getIndexWriter();
-//            writer.addDocument(createDocument(article));
-//            writer.commit();
-////            closeIndexWriter(writer);
-//        } catch (CorruptIndexException e) {
-//            throw new RuntimeException(e);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+	public void deleteArticle(Article article) {
+        try {
+        	IndexWriter writer = getIndexWriter();
+            writer.deleteDocuments(new Term("id", String.valueOf(article.getId())));
+            writer.commit();
+            closeIndexWriter(writer);
+        } catch (CorruptIndexException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+	public void addArticle(Article article) {
+        try {
+            IndexWriter writer = getIndexWriter();
+            writer.addDocument(createDocument(article));
+            writer.commit();
+            closeIndexWriter(writer);
+        } catch (CorruptIndexException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 	/**
-	 * Used to search the index, using one or more keywords, the booleans are used to select the fields.
+	 * Used to search the index, using one or more keywords
 	 * @param article If searching in an article, the article in question; if searching all articles, null.
 	 * @return
 	 */
-	public ScoreDoc[] search(String keyWord, boolean inTitle, boolean inSummary, boolean inToClassify, 
-												boolean inContent, boolean inShortName, Article article, boolean inAllArticles) {
+	public ScoreDoc[] search(String keyWords, Article article, boolean inAllArticles) {
 
         try {
-            String queryString="(" + keyWord + "~)"+ (inAllArticles ? "" : " AND id:"+article.getId());
+            String queryString="(" + keyWords + "~)"+ (inAllArticles ? "" : " AND id:"+article.getId());
 
             SimpleFSDirectory sfsd = new SimpleFSDirectory(new File(FileUtil.getLuceneIndex()));
             IndexReader reader = DirectoryReader.open(sfsd);
             IndexSearcher searcher = new IndexSearcher(reader);
-            
-            // We select to field(s) to search
-            
-            String[] inField;
-            inField = new String[]{inTitle?"title":null/*,
-            						inSummary?"summary":null,
-            						inToClassify?"toClassify":null,
-            						inContent?"content":null,
-            						inShortName?"shortName":null*/};
-
+            // article fields we search in
+            String[] fields ={"title","summary","toClassify","content","shortname"};
             // Build a Query object
-            MultiFieldQueryParser parser = new MultiFieldQueryParser(Version.LUCENE_40, inField, new StandardAnalyzer(Version.LUCENE_40));
+            MultiFieldQueryParser parser = new MultiFieldQueryParser(Version.LUCENE_40, fields, new StandardAnalyzer(Version.LUCENE_40));
             Query query = parser.parse(queryString);
 
             TopDocs hits=searcher.search(query, MAX_HITS);
@@ -178,38 +197,39 @@ public class IndexManagerService {
         }
     }
 	
-//	public void removeIndexes(){
-//		File file = new File(FileUtil.getLuceneIndex());
-//        try {
-//            SimpleFSDirectory sfsd = new SimpleFSDirectory(file);
-//            String[] listFile=sfsd.listAll();
-//            for(String fileStr : listFile){
-//                sfsd.deleteFile(fileStr);
-//            }
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+	public void removeIndexes(){
+		File file = new File(FileUtil.getLuceneIndex());
+        try {
+            SimpleFSDirectory sfsd = new SimpleFSDirectory(file);
+            String[] listFile=sfsd.listAll();
+            for(String fileStr : listFile){
+                sfsd.deleteFile(fileStr);
+            }
+            sfsd.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 	
 	 /**
      * Return an IndexWriter allows to read and write in the index of lucene 
      */
-//    private IndexWriter getIndexWriter() throws IOException, CorruptIndexException {
-//    	SimpleFSDirectory sfsd = new SimpleFSDirectory(new File(FileUtil.getLuceneIndex()));
-//        IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_40, new StandardAnalyzer(Version.LUCENE_40));
-//        return new IndexWriter(sfsd, iwc);
-//    }
+    private IndexWriter getIndexWriter() throws IOException, CorruptIndexException {
+    	SimpleFSDirectory sfsd = new SimpleFSDirectory(new File(FileUtil.getLuceneIndex()));
+        IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_40, new StandardAnalyzer(Version.LUCENE_40));
+        return new IndexWriter(sfsd, iwc);
+    }
     
     /**
      * Close the writer and these the directory
      */
-//    private void closeIndexWriter(IndexWriter indexWriter){
-//        try {
-//            indexWriter.getDirectory().close();
-//            indexWriter.close();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+    private void closeIndexWriter(IndexWriter indexWriter){
+        try {
+            indexWriter.getDirectory().close();
+            indexWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }
