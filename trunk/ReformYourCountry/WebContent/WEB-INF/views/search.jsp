@@ -16,7 +16,7 @@
         <p>mot(s) de la recherche: ${searchtext}</p>
         <br/>
         <br/>
-        <c:set var="listToSearch" value="${searchResult.publicResults}" scope ="request"/>
+        <c:set var="listToSearch" value="${searchResult.publicResults}" scope ="request" />
         <ryctag:search/>
         <br/>
         <ryc:conditionDisplay privilege="EDIT_ARTICLE"> 

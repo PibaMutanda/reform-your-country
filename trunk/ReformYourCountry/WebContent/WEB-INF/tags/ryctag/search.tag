@@ -6,9 +6,10 @@
 see http://stackoverflow.com/questions/439861/spring-mvc-tag-interaction-with-custom-tag
  --%>
 
- <c:forEach items="${listToSearch}" var="result">
-     <a href="/article/${result.article.url}">${result.articleDocument.title}</a>
-     <br/>
+ <c:forEach items="${listToSearch}" var="result" >
+ <div class=listToSearch>
+     <a  href="/article/${result.article.url}">${result.articleDocument.title}</a>
+ </div>
 	     <c:choose>
 		      <c:when test="${result.articleDocument.content != null}">
 		     		${result.articleDocument.content}
