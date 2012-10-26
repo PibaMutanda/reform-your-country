@@ -2,9 +2,9 @@
 <%@taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
 <html>
 <body>
-<p>Ce compte ${socialnetworkname} est nouveau sur enseignement2.be, ce qui est normal si vous vous connectez pour la première fois à enseignement2.be avec votre compte ${socialnetworkname}.</p>
+<p>Ce compte ${socialnetworkname} est nouveau sur ${p_website_name}, ce qui est normal si vous vous connectez pour la première fois à ${p_website_name} avec votre compte ${socialnetworkname}.</p>
 
- <p>Nous allons maintenant vous créer automatiquement un utilisateur sur enseignement2.be.</p>  
+ <p>Nous allons maintenant vous créer automatiquement un utilisateur sur ${p_website_name}.</p>  
       
    <form method="post" action="confirmaccountsubmit"> 
      <c:choose>
@@ -17,7 +17,7 @@
           <p>Votre email (:${email}) sera utilisée pour l'enregistrement.</p>
       </c:otherwise>
      </c:choose> 
-	 <input type="submit" value="Confirmer et créer un compte sur enseignement2.be" />
+	 <input type="submit" value="Confirmer et créer un compte sur${p_website_name}" />
   </form>
     
   <form method="post" action="home">

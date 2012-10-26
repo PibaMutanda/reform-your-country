@@ -9,10 +9,10 @@
 
 </head>
 <body>
-<ryctag:pageheadertitle title="Creation de votre compte enseignement2"/>
+<ryctag:pageheadertitle title="Creation de votre compte ${p_website_name}"/>
 
-<p>Vous avez choisi de dissocier votre compte ${provider} de votre compte enseignement2.<br/>
-  Et il ne reste plus aucune compte de réseau social (facebook, google, twitter, etc.) lié à votre utilisateur enseignement2.be<p>
+<p>Vous avez choisi de dissocier votre compte ${provider} de votre compte ${p_website_name}.<br/>
+  Et il ne reste plus aucune compte de réseau social (facebook, google, twitter, etc.) lié à votre utilisateur ${p_website_name}<p>
 <p>Donc, la prochaine fois que vous vous connecterez à notre site, vous devrez donner un mot de passe. 
 Nous vous demandons de définir à présent ce mot de passe personnel. Notez-le, nous vous le redemanderons à votre prochaine visite.</p>
 <form action="socialaccountdefinepasswordsubmit" method="post">
