@@ -58,9 +58,6 @@ public class IndexManagerService {
           }
           writer.commit();
           writer.close();
-            
-            // close the writer to finish the built of the index
-//            closeIndexWriter(writer);
         } catch (CorruptIndexException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -73,7 +70,7 @@ public class IndexManagerService {
         	return createArticleDocument((Article)entity);
 //        }else if(entity instanceof Action){ ////no action yet
 //        	return createActionDocument((Action)entity);
-        }else{
+        } else {
         	throw new RuntimeException("This object is not a searchable entity(Article,Action,Group,User");
         }
     }
@@ -115,6 +112,7 @@ public class IndexManagerService {
 
         return doc;
 	}
+	
 	public void updateArticle(Article oldArticle,Article newArticle) {
         try{
         	IndexWriter writer = getIndexWriter();
@@ -127,6 +125,7 @@ public class IndexManagerService {
             throw new RuntimeException(e);
         }
     }
+	
 	public void deleteArticle(Article article) {
         try {
         	IndexWriter writer = getIndexWriter();
@@ -139,6 +138,7 @@ public class IndexManagerService {
             throw new RuntimeException(e);
         }
     }
+	
 	public void addArticle(Article article) {
         try {
             IndexWriter writer = getIndexWriter();
@@ -173,9 +173,7 @@ public class IndexManagerService {
             TopDocs hits=searcher.search(query, MAX_HITS);
             sfsd.close();
             return hits.scoreDocs;
-        } catch (CorruptIndexException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+        } catch (CorruptIndexException || IOException e) {
             throw new RuntimeException(e);
         } catch (ParseException e) {
             throw new RuntimeException(e);

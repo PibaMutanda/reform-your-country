@@ -1,9 +1,5 @@
 package reformyourcountry.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.lucene.search.ScoreDoc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,12 +7,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import reformyourcountry.model.Article;
 import reformyourcountry.repository.ArticleRepository;
+import reformyourcountry.search.ArticleSearchResult;
 import reformyourcountry.service.IndexManagerService;
 import reformyourcountry.service.SearchService;
-import reformyourcountry.search.ArticleDocument;
-import reformyourcountry.search.ArticleSearchResult;
 
 @Controller
 @RequestMapping("/search")
@@ -35,15 +29,17 @@ public class SearchController {
 		mv.addObject("searchtext",searchtext);
 		
 		ArticleSearchResult articleSearchResult = searchService.searchArticle(searchtext, null, true);
+		mv.addObject("searchResult", articleSearchResult);
 			
 		if(articleSearchResult.getPublicResults().isEmpty() && articleSearchResult.getPrivateResults().isEmpty()) {
 			errorMsg="Il n'existe aucun article ayant "+searchtext+" comme élément.";
 			mv.addObject("errorMsg",errorMsg);
-
 		}
-		mv.addObject("searchResult", articleSearchResult);
 		return mv;
 	}
+	
+	
+	/** Used by an administrator to recreate the indexes */
 	@RequestMapping("/createIndex")
 	public ModelAndView createIndex(){
 		indexManagerService.createIndexes();

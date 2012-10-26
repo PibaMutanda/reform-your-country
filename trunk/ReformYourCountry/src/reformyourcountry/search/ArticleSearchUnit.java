@@ -18,5 +18,9 @@ public class ArticleSearchUnit{
 	public Article getArticle() {
 		return article;
 	}
+
+	public ArticleDocument getArticleDocument() {
+		return articleDocument;
+	}
 	   
 }

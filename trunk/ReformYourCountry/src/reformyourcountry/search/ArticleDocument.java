@@ -17,6 +17,8 @@ import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
 import org.apache.lucene.search.highlight.SimpleSpanFragmenter;
 import org.apache.lucene.util.Version;
 
+
+/** One article found by Lucene, inside a ArticleSearchResult */
 public class ArticleDocument {
     private float score;
     private long id;
@@ -46,7 +48,6 @@ public class ArticleDocument {
      * @return the highlighted fragment, if there is one, null otherwise
      */
     private String getHighlight(String keyword, String textToHighlight){
-
         try {
             QueryParser queryParser = new QueryParser(Version.LUCENE_40, "field", new StandardAnalyzer(Version.LUCENE_40));//(new Term("field", keyword));
             Query query = queryParser.parse(keyword);
