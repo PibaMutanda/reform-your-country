@@ -8,12 +8,7 @@
 			<div class="header-area">
 				<!-- ***************** - LOGO - ***************** -->
 				<div class="logodiv" >
-					<a href="/">
-						<!--<img src="images/logo/logo.png"/>  --><font size="26px" style="font-weight: bold">RYC</font>
-					</a>
-					<div style=" font-size:10px; padding-top:16px;">
-						<a href="/about/about-us.jsp">Reform your country</a>
-					</div>
+					${p_website_logo_tag}
 				</div>
 				<!-- ***************** - END LOGO - ***************** -->	
 				
