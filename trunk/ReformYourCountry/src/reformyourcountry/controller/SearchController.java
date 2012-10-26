@@ -15,17 +15,17 @@ import reformyourcountry.model.Article;
 import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.service.IndexManagerService;
 import reformyourcountry.service.SearchService;
-import reformyourcountry.service.SearchService.ArticleSearchResult;
-import reformyourcountry.service.SearchService.SearchResult;
+import reformyourcountry.search.ArticleSearchResult;
+import reformyourcountry.search.SearchResult;
 
 @Controller
 @RequestMapping("/search")
 public class SearchController {
 
 
-	@Autowired SearchService searchservice;
-	@Autowired IndexManagerService indexmanagerservice;
-	@Autowired ArticleRepository articlerepository;
+	@Autowired SearchService searchService;
+	@Autowired IndexManagerService indexManagerService;
+	@Autowired ArticleRepository articleRepository;
 	
 
 	@RequestMapping(method=RequestMethod.GET)
@@ -34,33 +34,19 @@ public class SearchController {
 		ModelAndView mv= new ModelAndView("search");
 		mv.addObject("searchtext",searchtext);
 		
-		SearchResult resultList = searchservice.search(searchtext, null, true);
-		List<ArticleSearchResult> resultListPublic = new ArrayList<ArticleSearchResult>();
-		List<ArticleSearchResult> resultListPrivate = new ArrayList<ArticleSearchResult>();
-		for(ArticleSearchResult articleSearchResult : resultList.getResults()){
-			Article art = articlerepository.find(articleSearchResult.getId());
-			if(art.isPublicView() == true ){
-				resultListPublic.add(articleSearchResult);
-			}
-	
-			else{
-				resultListPrivate.add(articleSearchResult);
-			}
-		}
-	
-		if(resultListPublic.isEmpty() && resultListPrivate.isEmpty()) {
+		SearchResult searchResult = searchService.search(searchtext, null, true);
+			
+		if(searchResult.getPublicResults().isEmpty() && searchResult.getPrivateResults().isEmpty()) {
 			errorMsg="Il n'existe aucun article ayant "+searchtext+" comme élément.";
 			mv.addObject("errorMsg",errorMsg);
 
 		}
-		mv.addObject("resultListPublic",resultListPublic);
-		mv.addObject("resultListPrivate",resultListPrivate);
-	
+		mv.addObject("searchResult", searchResult);
 		return mv;
 	}
 	@RequestMapping("/createIndex")
 	public ModelAndView createIndex(){
-		indexmanagerservice.createIndexes();
+		indexManagerService.createIndexes();
 		return new ModelAndView("/home");
 
 	}
