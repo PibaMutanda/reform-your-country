@@ -9,6 +9,8 @@ import org.springframework.web.servlet.ModelAndView;
 import reformyourcountry.model.Article;
 import reformyourcountry.model.Video;
 import reformyourcountry.repository.VideoRepository;
+import reformyourcountry.security.Privilege;
+import reformyourcountry.security.SecurityContext;
 
 @Controller
 @RequestMapping("/video")
@@ -18,7 +20,7 @@ public class VideoManagerController extends BaseController<Article> {
 	
 	@RequestMapping("/manager")
 	public ModelAndView manager(@RequestParam("id") Long articleId){
-		
+	    SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
 		ModelAndView mv = new ModelAndView("videomanager");
 		Article article = this.getRequiredEntity(articleId);
 		mv.addObject("article", article);

@@ -31,7 +31,10 @@ public class VideoEditController extends BaseController<Video> {
    @RequestMapping(value={"/edit","/create"})
    public ModelAndView videoCreate(@ModelAttribute Video video){
        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
-       return new ModelAndView("videoedit", "video", video);
+       ModelAndView mv = new ModelAndView("videoedit");
+       mv.addObject("video",video);
+       mv.addObject("article",video.getArticle());
+       return mv;
    }
 
     
