@@ -16,9 +16,9 @@
         <p>mot(s) de la recherche: ${searchtext}</p>
         <br/>
         <br/>
-	       	  	<c:if test="${resultList != null }">
+	       	  	<c:if test="${resultListPublic != null }">
 					<table>
-						<c:forEach items="${resultList}" var="ArticleSearchResult">
+						<c:forEach items="${resultListPublic}" var="ArticleSearchResult">
 							<tr>
 								<td>${ArticleSearchResult.title}</td>
 								<td>${ArticleSearchResult.content}</td>
@@ -27,9 +27,9 @@
 					</table>
 				</c:if>
 		<ryc:conditionDisplay privilege="EDIT_ARTICLE">
-	       	  	<c:if test="${resultList != null }">
+	       	  	<c:if test="${resultListPrivate != null }">
 					<table>
-						<c:forEach items="${resultListprive}" var="ArticleSearchResult">
+						<c:forEach items="${resultListPrivate}" var="ArticleSearchResult">
 							<tr>
 								<td>${ArticleSearchResult.title}</td>
 								<td>${ArticleSearchResult.content}</td>

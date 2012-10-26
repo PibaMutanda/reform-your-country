@@ -55,6 +55,7 @@ public class IndexManagerService {
           List<Article> articles = articleRepository.findAll();
           for (Article article : articles) {
               writer.addDocument(createDocument(article));
+              writer.commit();
           }
           writer.close();
             

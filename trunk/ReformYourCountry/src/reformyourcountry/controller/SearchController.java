@@ -16,6 +16,7 @@ import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.service.IndexManagerService;
 import reformyourcountry.service.SearchService;
 import reformyourcountry.service.SearchService.ArticleSearchResult;
+import reformyourcountry.service.SearchService.SearchResult;
 
 @Controller
 @RequestMapping("/search")
@@ -32,29 +33,28 @@ public class SearchController {
 		String errorMsg = null;
 		ModelAndView mv= new ModelAndView("search");
 		mv.addObject("searchtext",searchtext);
-		searchservice.search(searchtext, null, true);
-		List<ScoreDoc> scoredocList = searchservice.getResults();
-		List<ArticleSearchResult> resultList = new ArrayList<ArticleSearchResult>();
-		List<ArticleSearchResult> resultListprive = new ArrayList<ArticleSearchResult>();
-		for(ScoreDoc scoreDoc : scoredocList){
-			ArticleSearchResult asr = searchservice.getResult(scoreDoc);
-			Article art = articlerepository.find(asr.getId());
+		
+		SearchResult resultList = searchservice.search(searchtext, null, true);
+		List<ArticleSearchResult> resultListPublic = new ArrayList<ArticleSearchResult>();
+		List<ArticleSearchResult> resultListPrivate = new ArrayList<ArticleSearchResult>();
+		for(ArticleSearchResult articleSearchResult : resultList.getResults()){
+			Article art = articlerepository.find(articleSearchResult.getId());
 			if(art.isPublicView() == true ){
-				resultList.add(searchservice.getResult(scoreDoc));
+				resultListPublic.add(articleSearchResult);
 			}
 	
 			else{
-				resultListprive.add(searchservice.getResult(scoreDoc));
+				resultListPrivate.add(articleSearchResult);
 			}
 		}
 	
-		if(resultList.isEmpty() && resultListprive.isEmpty()) {
+		if(resultListPublic.isEmpty() && resultListPrivate.isEmpty()) {
 			errorMsg="Il n'existe aucun article ayant "+searchtext+" comme élément.";
 			mv.addObject("errorMsg",errorMsg);
 
 		}
-		mv.addObject("resultList",resultList);
-		mv.addObject("resultListprive",resultListprive);
+		mv.addObject("resultListPublic",resultListPublic);
+		mv.addObject("resultListPrivate",resultListPrivate);
 	
 		return mv;
 	}
