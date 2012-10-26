@@ -1,4 +1,4 @@
-This wiki will explain you how to create a new web project heriting from RYC project
+#summary This wiki will explain you how to create a new web project heriting from RYC project
 
 = Introduction =
 
