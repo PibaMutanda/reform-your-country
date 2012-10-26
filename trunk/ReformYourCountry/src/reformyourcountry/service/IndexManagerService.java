@@ -173,7 +173,9 @@ public class IndexManagerService {
             TopDocs hits=searcher.search(query, MAX_HITS);
             sfsd.close();
             return hits.scoreDocs;
-        } catch (CorruptIndexException || IOException e) {
+        } catch (CorruptIndexException e) {
+            throw new RuntimeException(e);
+        }catch ( IOException e) {
             throw new RuntimeException(e);
         } catch (ParseException e) {
             throw new RuntimeException(e);
