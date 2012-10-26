@@ -15,8 +15,8 @@ import reformyourcountry.model.Article;
 import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.service.IndexManagerService;
 import reformyourcountry.service.SearchService;
+import reformyourcountry.search.ArticleDocument;
 import reformyourcountry.search.ArticleSearchResult;
-import reformyourcountry.search.SearchResult;
 
 @Controller
 @RequestMapping("/search")
@@ -34,14 +34,14 @@ public class SearchController {
 		ModelAndView mv= new ModelAndView("search");
 		mv.addObject("searchtext",searchtext);
 		
-		SearchResult searchResult = searchService.search(searchtext, null, true);
+		ArticleSearchResult articleSearchResult = searchService.searchArticle(searchtext, null, true);
 			
-		if(searchResult.getPublicResults().isEmpty() && searchResult.getPrivateResults().isEmpty()) {
+		if(articleSearchResult.getPublicResults().isEmpty() && articleSearchResult.getPrivateResults().isEmpty()) {
 			errorMsg="Il n'existe aucun article ayant "+searchtext+" comme élément.";
 			mv.addObject("errorMsg",errorMsg);
 
 		}
-		mv.addObject("searchResult", searchResult);
+		mv.addObject("searchResult", articleSearchResult);
 		return mv;
 	}
 	@RequestMapping("/createIndex")

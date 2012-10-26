@@ -1,110 +1,52 @@
 package reformyourcountry.search;
 
-import java.io.IOException;
-import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.TokenStream;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
-import org.apache.lucene.document.Document;
-import org.apache.lucene.queryparser.classic.ParseException;
-import org.apache.lucene.queryparser.classic.QueryParser;
-import org.apache.lucene.search.Query;
-import org.apache.lucene.search.highlight.Highlighter;
-import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
-import org.apache.lucene.search.highlight.QueryScorer;
-import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
-import org.apache.lucene.search.highlight.SimpleSpanFragmenter;
-import org.apache.lucene.util.Version;
+import org.apache.lucene.search.ScoreDoc;
+import org.springframework.beans.factory.annotation.Autowired;
 
-public class ArticleSearchResult {
-    private float score;
-    private long id;
-    private String title;
-    private String content;
-    private String shortName;
-    private String summary;
-    private String toClassify;
+import reformyourcountry.model.Article;
+import reformyourcountry.repository.ArticleRepository;
+import reformyourcountry.service.IndexManagerService;
 
-    public ArticleSearchResult(float score, String keyWord, Document doc){
-    	this.score=score;
-    	this.id=Long.valueOf(doc.get("id"));
-    	//Highlights
-    	////add <b> </b> around the searched word in the relevant field
-    	title=getHighlight(keyWord, doc.get("title"));
-    	if (title==null || title.isEmpty()){
-    		title=doc.get("title");
+public class ArticleSearchResult{
+	
+	@Autowired ArticleRepository articleRepository;
+	private ScoreDoc[] scoreDocs; // Array containing the id and score of each documents ("result") find by Lucene after a search.
+	public List<ArticleSearchUnit> publicResults= new ArrayList<ArticleSearchUnit>();
+	public List<ArticleSearchUnit> privateResults= new ArrayList<ArticleSearchUnit>();
+	
+	public ArticleSearchResult(ScoreDoc[] scoreDocs, String keyWord, IndexManagerService indexManagerService){
+		this.scoreDocs = scoreDocs;
+		for(ScoreDoc scoreDoc : scoreDocs){
+			ArticleDocument articleDocument = 
+							new ArticleDocument(scoreDoc.score, keyWord, indexManagerService.findDocument(scoreDoc));
+			Article article = articleRepository.find(articleDocument.getId());
+			if(article.isPublicView() == true ){
+				this.publicResults.add(new ArticleSearchUnit(articleDocument, article));
+			}
+	
+			else{
+				this.privateResults.add(new ArticleSearchUnit(articleDocument, article));
+			}
     	}
-    	content=getHighlight(keyWord, doc.get("content"));
-    	shortName=getHighlight(keyWord, doc.get("shortName"));
-    	summary=getHighlight(keyWord, doc.get("summary"));
-    	toClassify=getHighlight(keyWord, doc.get("toClassify"));
-    }
-
-    /**
-     * We use the lucene highlight library.
-     * @return the highlighted fragment, if there is one, null otherwise
+	}
+	/**
+     * Use this method to get the number of results found
      */
-    private String getHighlight(String keyword, String textToHighlight){
-
-        try {
-            QueryParser queryParser = new QueryParser(Version.LUCENE_40, "field", new StandardAnalyzer(Version.LUCENE_40));//(new Term("field", keyword));
-            Query query = queryParser.parse(keyword);
-            SimpleHTMLFormatter formatter = new SimpleHTMLFormatter("<b>","</b>");
-            QueryScorer scorer = new QueryScorer(query,"field");
-            Highlighter highlighter = new Highlighter(formatter,scorer);
-            highlighter.setTextFragmenter(new SimpleSpanFragmenter(scorer,45));
-            Analyzer analyzer =new StandardAnalyzer(Version.LUCENE_40);
-            TokenStream tokens = analyzer.tokenStream("field",new StringReader(textToHighlight));
-            String highlightedFragment = highlighter.getBestFragments(tokens, textToHighlight,4 ,"<BR/>...");
-            tokens.close();
-            analyzer.close();
-            if(highlightedFragment.equals("")){
-            	return null;
-            }else{
-            	return highlightedFragment;
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InvalidTokenOffsetsException e) {
-            throw new RuntimeException(e);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        } finally{
-        	
-        }
-    }
-
-    public float getScore() {
-        return score;
-    }
-
-    public String getTitle() {
-        return title;
+    public int getTotalHits(){
+        return scoreDocs.length;
     }
     
-    public long getId() {
-		return id;
+	public ScoreDoc[] getScoreDocs() {
+		return scoreDocs;
 	}
-
-	public String getContent() {
-		return content;
+	public List<ArticleSearchUnit> getPublicResults() {
+		return publicResults;
 	}
-
-	public String getShortName() {
-		return shortName;
+	public List<ArticleSearchUnit> getPrivateResults() {
+		return privateResults;
 	}
-
-	public String getSummary() {
-		return summary;
-	}
-
-	public String getToClassify() {
-		return toClassify;
-	}
-
-	@Override
-    public String toString() {
-        return "Score: " + score + " // title: " + title+ " // shortName: " + shortName+ " // summary: " + summary+ " // toClassify: " + toClassify+ " // content: " + content;
-    }
+	
 }

@@ -2,16 +2,16 @@ package reformyourcountry.search;
 
 import reformyourcountry.model.Article;
 
-public class SearchUnit{
-	   private ArticleSearchResult articleSearchResult;
+public class ArticleSearchUnit{
+	   private ArticleDocument articleSearchResult;
 	   private Article article;
 	   
-	   public SearchUnit(ArticleSearchResult articleSearchResult, Article article){
+	   public ArticleSearchUnit(ArticleDocument articleSearchResult, Article article){
 		   this.articleSearchResult = articleSearchResult;
 		   this.article = article;
 	   }
 
-	public ArticleSearchResult getArticleSearchResult() {
+	public ArticleDocument getArticleSearchResult() {
 		return articleSearchResult;
 	}
 
