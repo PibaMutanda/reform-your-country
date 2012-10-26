@@ -1,17 +1,14 @@
 package reformyourcountry.web;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.Enumeration;
 import java.util.Properties;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 
-import reformyourcountry.util.ExposedResourceBundleMessageSource;
 
-import com.opensymphony.module.sitemesh.tapestry.Property;
 
 
 
@@ -21,9 +18,11 @@ public class PropertyLoaderServletContextListener implements javax.servlet.Servl
     public void contextInitialized(ServletContextEvent sce) {
         ServletContext sc= sce.getServletContext();
         Properties props = new Properties();
-        String path = sc.getRealPath("website_content.properties");  // TODO : load this file through the classloader (via Spring).
+        URL resource = getClass().getClassLoader().getResource("website_content.properties");    
+        //String path = sc.getRealPath("website_content.properties");  // TODO : load this file through the classloader (via Spring).
         try {
-            props.load(new FileInputStream(path));
+            props.load(new InputStreamReader(resource.openStream(), "UTF8"));
+            //props.load(new FileInputStream(path));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
