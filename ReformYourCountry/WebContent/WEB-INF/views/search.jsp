@@ -16,41 +16,38 @@
         <p>mot(s) de la recherche: ${searchtext}</p>
         <br/>
         <br/>
-	       	  	<c:if test="${resultListPublic != null }">
-					<table>
-						<c:forEach items="${resultListPublic}" var="ArticleSearchResult">
-							<tr>
-								<td>${ArticleSearchResult.title}</td>
-								<td>${ArticleSearchResult.content}</td>
-							</tr>
-						</c:forEach>
-					</table>
-				</c:if>
-		<ryc:conditionDisplay privilege="EDIT_ARTICLE">
-	       	  	<c:if test="${resultListPrivate != null }">
-					<table>
-						<c:forEach items="${resultListPrivate}" var="ArticleSearchResult">
-							<tr>
-								<td>${ArticleSearchResult.title}</td>
-								<td>${ArticleSearchResult.content}</td>
-							</tr>
-						</c:forEach>
-					</table>
-				</c:if>
-					
-<%-- 			<c:if test="${actionList != null }"> --%>
-<!-- 				<table> -->
-<%-- 					<c:forEach items="${actionList}" var="action"> --%>
-<!-- 						<tr> -->
-<%-- 							<td>${action.title}</td> --%>
-<%-- 							<td>${action.shortDescription}</td> --%>
-				
-<!-- 						</tr> -->
-<%-- 					</c:forEach> --%>
-<!-- 				</table> -->
-<%-- 			</c:if> --%>
-				</ryc:conditionDisplay>
-				${errorMsg}
+        <c:forEach items="${searchResult.publicResults}" var="result">
+	        <a href="/article/${result.article.url}">${result.articleDocument.title}</a>
+	        <br/>
+	        <c:choose>
+		        <c:when test="${result.articleDocument.content != null}">
+		       		 ${result.articleDocument.content}
+		        </c:when>
+		        <c:otherwise>
+		        	 ${result.article.description}
+		        </c:otherwise>
+	        </c:choose>
+	        <br/>
+        </c:forEach> 
+        <br/>
+        <ryc:conditionDisplay privilege="EDIT_ARTICLE"> 
+        	<c:forEach items="${searchResult.privateResults}" var="result">
+	        <a href="/article/${result.article.url}">${result.articleDocument.title}</a>
+	        <br/>
+	        <c:choose>
+		        <c:when test="${result.articleDocument.content != null}">
+		       		 ${result.articleDocument.content}
+		        </c:when>
+		        <c:otherwise>
+		        	 ${result.article.description}
+		        </c:otherwise>
+	        </c:choose>
+	        <br/>
+	        <br/>
+        </c:forEach>
+        <br/>
+        </ryc:conditionDisplay>
+		${errorMsg}
 	</ryctag:form>
 	
 

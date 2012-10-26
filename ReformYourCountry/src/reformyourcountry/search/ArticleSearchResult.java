@@ -12,7 +12,7 @@ import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.service.IndexManagerService;
 
 @Component
-public class ArticleSearchResult{
+public class ArticleSearchResult {
 	
 	private ArticleRepository articleRepository;
 	private ScoreDoc[] scoreDocs; // Array containing the id and score of each documents ("result") find by Lucene after a search.
@@ -27,11 +27,9 @@ public class ArticleSearchResult{
 			ArticleDocument articleDocument = 
 							new ArticleDocument(scoreDoc.score, keyWord, indexManagerService.findDocument(scoreDoc));
 			Article article = this.articleRepository.find(articleDocument.getId());
-			if(article.isPublicView() == true ){
+			if (article.isPublicView() == true ) {
 				this.publicResults.add(new ArticleSearchUnit(articleDocument, article));
-			}
-	
-			else{
+			} else {
 				this.privateResults.add(new ArticleSearchUnit(articleDocument, article));
 			}
     	}
