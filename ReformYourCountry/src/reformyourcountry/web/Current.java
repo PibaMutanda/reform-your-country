@@ -24,15 +24,11 @@ import reformyourcountry.security.SecurityContext;
 public class Current {
 
     public static final String ATTRIBUTE_KEY = "current";  
-    private static final String VERSION = "0.0.3"; 
 
     
     public User getUser(){
         return SecurityContext.getUser();
     }
-                            
-    public  String getVersion() {
-        return VERSION;
-    }
+         
 
 }

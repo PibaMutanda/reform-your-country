@@ -31,6 +31,8 @@ public class CurrentEnvironment {
     private String siteName;
     @Value("${site.address}")
     private String siteAddress;
+    @Value("${version}")
+    private String version;
 	
 	
 	
@@ -120,7 +122,9 @@ public class CurrentEnvironment {
     public String getSiteAddress() {
         return siteAddress;
     }
-
+    public String getVersion() {
+        return version;
+    }
 
    
    
