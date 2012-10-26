@@ -42,7 +42,13 @@ public class SearchController {
 	/** Used by an administrator to recreate the indexes */
 	@RequestMapping("/createIndex")
 	public ModelAndView createIndex(){
-		indexManagerService.createIndexes();
+		try {
+			indexManagerService.removeIndexes();
+		} catch(Exception e){
+		}finally {
+			indexManagerService.createIndexes();
+		}
+		
 		return new ModelAndView("/home");
 
 	}
