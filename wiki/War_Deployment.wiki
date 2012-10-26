@@ -1,0 +1,12 @@
+#summary How to deploy your project in a .war file with the good config.
+
+= Introduction =
+
+Add your content here.
+
+
+= Details =
+
+It's really easy. You just have to overwrite (create a file with the same name in your src/ folder) the config.properties and secret.properties files. You put the values you need there.
+
+Then you launch the buildTwoProjects.xml with ant.
