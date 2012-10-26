@@ -4,16 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import reformyourcountry.model.Article;
-import reformyourcountry.search.SearchResult;
+import reformyourcountry.search.ArticleSearchResult;
 
 @Component
 public class SearchService {
 	
     @Autowired private IndexManagerService indexManagerService;
     
-    public SearchResult search(String keyWord, Article article, boolean inAllArticles) {
+    public ArticleSearchResult searchArticle(String keyWord, Article article, boolean inAllArticles) {
     	
-        return new SearchResult(indexManagerService.search(keyWord, article, inAllArticles), keyWord, indexManagerService);
+        return new ArticleSearchResult(indexManagerService.search(keyWord, article, inAllArticles), keyWord, indexManagerService);
     }
     
     
