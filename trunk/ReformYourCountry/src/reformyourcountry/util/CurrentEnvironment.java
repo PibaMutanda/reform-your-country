@@ -3,7 +3,7 @@ package reformyourcountry.util;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import reformyourcountry.web.ContextUtil;
+
 import reformyourcountry.web.UrlUtil;
 
 
@@ -68,7 +68,7 @@ public class CurrentEnvironment {
 	public enum Environment {
 
 		// XXX(Domain Name, Mail Deamon Started,Social NW Connected, Paypal Env.)
-		DEV(MailBehavior.NOT_STARTED, true),
+		DEV(MailBehavior.SENT, true),
 		PROD(MailBehavior.SENT, true);
 
 		// Flag that tells wether the mail demon thread must be started
