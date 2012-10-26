@@ -60,9 +60,7 @@ public class SocialConfig {
         registry.addConnectionFactory(new GoogleConnectionFactory(
                 environment.getGoogleClientId(),
                 environment.getGoogleClientSecret()));
-        registry.addConnectionFactory(new LinkedInConnectionFactory(
-                environment.getLinkedInClientId(),
-                environment.getLinkedInClientSecret()));
+       
         return registry;
     }
     
@@ -138,11 +136,6 @@ public class SocialConfig {
         Connection<Google> google = connectionRepository().findPrimaryConnection(Google.class);
         return google != null ? google.getApi() : new GoogleTemplate();
     }
-    @Bean
-    @Scope(value="request", proxyMode=ScopedProxyMode.INTERFACES)   
-    public LinkedIn linkedin() {
-        Connection<LinkedIn> linkedin = connectionRepository().findPrimaryConnection(LinkedIn.class);
-        return (LinkedIn) (linkedin != null ? linkedin.getApi() : new LinkedInTemplate( environment.getLinkedInClientId(),environment.getLinkedInClientSecret(),"40604c43-7121-4691-ac42-5efc689a2c7a","347748c5-3730-4fec-b491-e1aad04d1c6b"));
-    }
+   
     
 }
