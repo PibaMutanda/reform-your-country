@@ -12,7 +12,15 @@ public class UrlUtil {
 
     private static String PROD_ABSOLUTE_DOMAIN_NAME = null;
     public final static String DEV_ABSOLUTE_DOMAIN_NAME = "localhost:8080";
-    private static String WebSiteName = null;
+    private static String WebSiteName = null;;
+    private static String version = null;
+    
+    public static String getVersion(){
+        if (version==null){
+            version= ((CurrentEnvironment)ContextUtil.springContext.getBean(CurrentEnvironment.class)).getVersion();
+        }
+        return version;
+    }
 
     public static String  getProdAbsoluteDomainName(){
         if(PROD_ABSOLUTE_DOMAIN_NAME==null){

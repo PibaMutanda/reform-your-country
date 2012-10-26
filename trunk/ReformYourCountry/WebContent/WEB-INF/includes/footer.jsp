@@ -68,7 +68,7 @@
 <!-- /***************** - Bottom Footer - *****************  -->
 <div id="footer_bottom">
  <div class="info" >
-   2012 reformyourcountry.be - ${current.version} 
+   2012 ${p_website_name} - ${p_version} 
  </div><!-- end info -->
 </div><!-- end footer_bottom -->
 

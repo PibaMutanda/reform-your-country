@@ -34,6 +34,7 @@ public class PropertyLoaderServletContextListener implements javax.servlet.Servl
         }
         sc.setAttribute("p_website_address",UrlUtil.getProdAbsoluteDomainName());  
         sc.setAttribute("p_website_name",UrlUtil.getWebSiteName());         
+        sc.setAttribute("p_version",UrlUtil.getVersion());  
     }
 
     @Override
