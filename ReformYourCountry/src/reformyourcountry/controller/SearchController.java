@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import reformyourcountry.model.Article;
+import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.service.IndexManagerService;
 import reformyourcountry.service.SearchService;
 import reformyourcountry.service.SearchService.ArticleSearchResult;
@@ -22,6 +24,8 @@ public class SearchController {
 
 	@Autowired SearchService searchservice;
 	@Autowired IndexManagerService indexmanagerservice;
+	@Autowired ArticleRepository articlerepository;
+	
 
 	@RequestMapping(method=RequestMethod.GET)
 	public ModelAndView search(@RequestParam("searchtext") String searchtext){
@@ -30,18 +34,28 @@ public class SearchController {
 		mv.addObject("searchtext",searchtext);
 		searchservice.search(searchtext, true, false, false, false, false, null, true);
 		List<ScoreDoc> scoredocList = searchservice.getResults();
-		List<ArticleSearchResult> resultList = new ArrayList<ArticleSearchResult>(); 
+		List<ArticleSearchResult> resultList = new ArrayList<ArticleSearchResult>();
+		List<ArticleSearchResult> resultListprive = new ArrayList<ArticleSearchResult>();
 		for(ScoreDoc scoreDoc : scoredocList){
-
-			resultList.add(searchservice.getResult(scoreDoc));
-
+			ArticleSearchResult asr = searchservice.getResult(scoreDoc);
+			Article art = articlerepository.find(asr.getId());
+			if(art.isPublicView() == true ){
+				resultList.add(searchservice.getResult(scoreDoc));
+			}
+	
+			else{
+				resultListprive.add(searchservice.getResult(scoreDoc));
+			}
 		}
-		if(resultList.isEmpty()) {
+	
+		if(resultList.isEmpty() && resultListprive.isEmpty()) {
 			errorMsg="Il n'existe aucun article ayant "+searchtext+" comme élément.";
 			mv.addObject("errorMsg",errorMsg);
 
 		}
 		mv.addObject("resultList",resultList);
+		mv.addObject("resultListprive",resultListprive);
+	
 		return mv;
 	}
 	@RequestMapping("/createIndex")
