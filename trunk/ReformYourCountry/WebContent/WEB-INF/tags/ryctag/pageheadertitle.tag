@@ -1,11 +1,11 @@
 ﻿<%@ tag body-content="scriptless" isELIgnored="false" %>
-<%@taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
+<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
 <%@ attribute name="title" required="true" type="java.lang.String"%>
 
 <head>
 	<title>${title}</title>
 </head>
-  <!-- ***************** START Title Bar ***************** -->
+  <%-- ***************** START Title Bar ***************** --%>
 <div class="tools">
 	<div class="holder">
 		<div class="frame">
@@ -16,6 +16,12 @@
 		</div><!-- end frame -->
 	</div><!-- end holder -->
 </div><!-- end tools -->
-<!-- ***************** - END Title Bar - ***************** -->
-<c:if test='${message != null}'><span class="errorMessage">${message}</span><br/></c:if><c:if test='${param.message != null}'><span class="errorMessage">${param.message}</span><br/></c:if>
-	
+<%-- ***************** - END Title Bar - ***************** --%>
+<c:if test="${not empty message}">
+    <span class="errorMessage">${message}</span>
+    <br />
+</c:if>
+<c:if test="${not empty param.message}">
+    <span class="errorMessage">${param.message}</span>
+    <br />
+</c:if>
