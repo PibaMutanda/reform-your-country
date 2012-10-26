@@ -16,19 +16,30 @@
         <p>mot(s) de la recherche: ${searchtext}</p>
         <br/>
         <br/>
-       	  	<c:if test="${resultList != null }">
-				<table>
-					<c:forEach items="${resultList}" var="ArticleSearchResult">
-						<tr>
-							<td>${ArticleSearchResult.title}</td>
-							<td>${ArticleSearchResult.content}</td>
-							<td>${ArticleSearchResult.score}</td>
-				
-						</tr>
-					</c:forEach>
-				</table>
-			</c:if>
-			${errorMsg}
+	       	  	<c:if test="${resultList != null }">
+					<table>
+						<c:forEach items="${resultList}" var="ArticleSearchResult">
+							<tr>
+								<td>${ArticleSearchResult.title}</td>
+								<td>${ArticleSearchResult.content}</td>
+							</tr>
+						</c:forEach>
+					</table>
+				</c:if>
+		<ryc:conditionDisplay privilege="EDIT_ARTICLE">
+	       	  	<c:if test="${resultList != null }">
+					<table>
+						<c:forEach items="${resultListprive}" var="ArticleSearchResult">
+							<tr>
+								<td>${ArticleSearchResult.title}</td>
+								<td>${ArticleSearchResult.content}</td>
+	<%-- 							<td>${ArticleSearchResult.score}</td> --%>
+					
+							</tr>
+						</c:forEach>
+					</table>
+				</c:if>
+					${errorMsg}
 <%-- 			<c:if test="${actionList != null }"> --%>
 <!-- 				<table> -->
 <%-- 					<c:forEach items="${actionList}" var="action"> --%>
@@ -40,16 +51,9 @@
 <%-- 					</c:forEach> --%>
 <!-- 				</table> -->
 <%-- 			</c:if> --%>
+				</ryc:conditionDisplay>
 	</ryctag:form>
 	
-<div>
-	<c:choose>
-		<c:when test= "">
-		</c:when>
-		<c:otherwise>
-		</c:otherwise>
-	</c:choose>
-	
-</div>
+
 </body>
 </html>

@@ -38,4 +38,4 @@
  -- 2012-10-24 Lionel
 
     alter table users 
-        add column ispasswordknownbytheuser boolean not null;   
+        add column ispasswordknownbytheuser boolean not null default true;   
