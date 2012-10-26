@@ -65,10 +65,7 @@ public class RegisterController extends BaseController<User> {
         }
     }
     
-    @RequestMapping("/resendpassword")
-    public String resendPassword(){
-        return "resendpassword";
-    }
+ 
     
   
 }
