@@ -10,12 +10,12 @@ This wiki will explain you how to create a new web project heriting from RYC pro
   #  Make a checkout from the ryc project: *http://reform-your-country.googlecode.com/svn/trunk*
   #  Create your own Dynamic Web Project
   #  In *BuildPath/Libraries* add libraries (web app libraries) choose ReformYourCountry
-#  In *BuildPath/Source* Link sources from *WORKSPACE_LOC/ReformYourCountry/src* and rename the folder (like RYC-src)
-#  Apply the changes
-#  Add a folder in your Project with advanced option "link to alternate location" and the adress must be *WORKSPACE_LOC/ReformYourCountry/WebContent* (i name it RYC-WebContent)
-#  Go in your project properties again and in "Deployment Assembly", add the folders  RYC-src and  RYC-WebContent if they are not present.
+  #  In *BuildPath/Source* Link sources from *WORKSPACE_LOC/ReformYourCountry/src* and rename the folder (like RYC-src)
+  #  Apply the changes
+  #  Add a folder in your Project with advanced option "link to alternate location" and the adress must be *WORKSPACE_LOC/ReformYourCountry/WebContent* (i name it RYC-WebContent)
+  #  Go in your project properties again and in "Deployment Assembly", add the folders  RYC-src and  RYC-WebContent if they are not present.
 	The Deploy-Path of RYC-src must be "WEB-INF/classes"
 	The Deploy-Path of RYC-WebContent must be "/"
 	You can change them by double-click on the text-zone
-#  Now your project is ready. Just verify the order and export  from your build path. RYC-src must be after your src
-#  If you want to overwrite a file (like home.jsp) Just create the file with the same path but in your WebContent or in your src folder depending of the overwrited file's path.
+  #  Now your project is ready. Just verify the order and export  from your build path. RYC-src must be after your src
+  #  If you want to overwrite a file (like home.jsp) Just create the file with the same path but in your WebContent or in your src folder depending of the overwrited file's path.
