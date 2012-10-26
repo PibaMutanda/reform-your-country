@@ -2,9 +2,11 @@ package reformyourcountry.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.List;
 
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
@@ -19,10 +21,16 @@ import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
 import org.apache.lucene.queryparser.classic.ParseException;
+import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
+import org.apache.lucene.search.highlight.Highlighter;
+import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
+import org.apache.lucene.search.highlight.QueryScorer;
+import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
+import org.apache.lucene.search.highlight.SimpleSpanFragmenter;
 import org.apache.lucene.store.SimpleFSDirectory;
 import org.apache.lucene.util.Version;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -169,19 +177,51 @@ public class IndexManagerService {
             // Build a Query object
             MultiFieldQueryParser parser = new MultiFieldQueryParser(Version.LUCENE_40, fields, new StandardAnalyzer(Version.LUCENE_40));
             Query query = parser.parse(queryString);
+            
+            query.rewrite(reader);
 
             TopDocs hits=searcher.search(query, MAX_HITS);
             sfsd.close();
             return hits.scoreDocs;
-        } catch (CorruptIndexException e) {
-            throw new RuntimeException(e);
-        }catch ( IOException e) {
-            throw new RuntimeException(e);
-        } catch (ParseException e) {
+        } catch (IOException | ParseException e) {
             throw new RuntimeException(e);
         }
     }
-	
+	  /**
+     * We use the lucene highlight library.
+     * @return the highlighted fragment, if there is one, null otherwise
+     */
+    public String getHighlight(String keyword, String textToHighlight){
+        try {
+        	
+        	SimpleFSDirectory sfsd = new SimpleFSDirectory(new File(FileUtil.getLuceneIndex()));
+            IndexReader reader = DirectoryReader.open(sfsd);
+            
+        	String queryString="(" + keyword + "~)";
+            QueryParser queryParser = new QueryParser(Version.LUCENE_40, "field", new StandardAnalyzer(Version.LUCENE_40));//(new Term("field", keyword));
+            Query query = queryParser.parse(queryString);
+            query.rewrite(reader);
+            reader.close();
+            sfsd.close();
+            
+            SimpleHTMLFormatter formatter = new SimpleHTMLFormatter("<b>","</b>");
+            QueryScorer scorer = new QueryScorer(query,"field");
+            Highlighter highlighter = new Highlighter(formatter,scorer);
+            highlighter.setTextFragmenter(new SimpleSpanFragmenter(scorer,45));
+            Analyzer analyzer =new StandardAnalyzer(Version.LUCENE_40);
+            TokenStream tokens = analyzer.tokenStream("field",new StringReader(textToHighlight));
+            String highlightedFragment = highlighter.getBestFragments(tokens, textToHighlight,4 ,"<BR/>...");
+            tokens.close();
+            analyzer.close();
+            if(highlightedFragment.equals("")){
+            	return null;
+            }else{
+            	return highlightedFragment;
+            }
+        } catch (IOException | InvalidTokenOffsetsException | ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
 	public Document findDocument(ScoreDoc scoreDoc){
         try {
             File file = new File(FileUtil.getLuceneIndex());

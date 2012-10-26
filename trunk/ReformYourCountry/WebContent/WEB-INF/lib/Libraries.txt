@@ -46,6 +46,7 @@ Lucene :
 			-lucene-analyzers-common-4.0.0
 			-lucene-queryparser-4.0.0
 			-lucene-highlighter-4.0.0
+			-lucene-memory-4.0.0
 			
 ****************************** Spring Social : ******************************
  
