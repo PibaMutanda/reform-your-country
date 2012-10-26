@@ -79,7 +79,7 @@ public class SearchService {
         	//Highlights
         	////add <b> </b> around the searched word in the relevant field
         	title=getHighlight(keyWord, doc.get("title"));
-        	if (title.isEmpty()){
+        	if (title==null || title.isEmpty()){
         		title=doc.get("title");
         	}
         	content=getHighlight(keyWord, doc.get("content"));
