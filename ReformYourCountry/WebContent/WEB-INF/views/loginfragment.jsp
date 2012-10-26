@@ -22,7 +22,7 @@
 			    Your are in dev mode: password is not verified (type any).<br/>
 			</c:otherwise>
 		</c:choose>
-        J'ai <a href="">oublié mon mot de passe</a><br />
+        J'ai <a href="resendpassword">oublié mon mot de passe</a><br />
 		<br />
 		
 		 
