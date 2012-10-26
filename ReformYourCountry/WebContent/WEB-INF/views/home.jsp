@@ -38,7 +38,7 @@
 
 <!-- ***************** - END Homepage 3D Slider - ***************** -->
 <div class="callout-wrap">
-	<p>éééééééé
+	<p>
 ${p_home_body_text}
 </p>
 </div>
