@@ -33,13 +33,11 @@
 							<tr>
 								<td>${ArticleSearchResult.title}</td>
 								<td>${ArticleSearchResult.content}</td>
-	<%-- 							<td>${ArticleSearchResult.score}</td> --%>
-					
 							</tr>
 						</c:forEach>
 					</table>
 				</c:if>
-					${errorMsg}
+					
 <%-- 			<c:if test="${actionList != null }"> --%>
 <!-- 				<table> -->
 <%-- 					<c:forEach items="${actionList}" var="action"> --%>
@@ -52,6 +50,7 @@
 <!-- 				</table> -->
 <%-- 			</c:if> --%>
 				</ryc:conditionDisplay>
+				${errorMsg}
 	</ryctag:form>
 	
 
