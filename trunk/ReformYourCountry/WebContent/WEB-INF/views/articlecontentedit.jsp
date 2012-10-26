@@ -25,7 +25,6 @@
 	</ryctag:pageheadertitle>
     <%-- Help handle --%>
     <div id="helphandle"><span>?</span><div><%--contains the helptext--%></div></div>
-<%--     <form:form modelAttribute="article" action="article/contenteditsubmit"> --%>
 		
 		<div id="tabs">
 		<ul>
@@ -34,7 +33,7 @@
         	<li><a href="#tabs-3">A classer</a></li>
     	</ul>
     	<div id="tabs-1">
-    		<form action="/article/contenteditsubmit">
+    		<form action="/article/contenteditsubmit" method="post">
     			<input class="save" type="submit" value="Sauver" /><span id="saving" style="font-family: tahoma; font-size: 9px;"></span>
     		<!-- do not erase class , cols and rows attribute of the textarea , these values are used by textarea-expander.js -->
 				<textarea name="content" class="expand autosaveable" cols="60" rows="3" style="width:100%" >${article.lastVersion.content}</textarea>
@@ -43,7 +42,7 @@
 			</form>
 		</div>
 		<div id="tabs-2">
-			<form action="/article/contenteditsubmit">
+			<form action="/article/contenteditsubmit" method="post">
     			<input class="save" type="submit" value="Sauver" /><span id="saving" style="font-family: tahoma; font-size: 9px;"></span>
     		<!-- do not erase class , cols and rows attribute of the textarea , these values are used by textarea-expander.js -->
 				<textarea name="summary" class="expand autosaveable" cols="60" rows="3" style="width:100%">${article.lastVersion.summary}</textarea>
@@ -52,7 +51,7 @@
 			</form>
 		</div>
 		<div id="tabs-3">
-			<form action="/article/contenteditsubmit">
+			<form action="/article/contenteditsubmit" method="post">
     			<input class="save" type="submit" value="Sauver" /><span id="saving" style="font-family: tahoma; font-size: 9px;"></span>
     		<!-- do not erase class , cols and rows attribute of the textarea , these values are used by textarea-expander.js -->
 				<textarea name="toClassify" class="expand autosaveable" cols="60" rows="3" style="width:100%">${article.lastVersion.toClassify}</textarea>
