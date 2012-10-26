@@ -2,7 +2,7 @@ package reformyourcountry.service;
 
 import java.io.IOException;
 import java.io.StringReader;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.lucene.analysis.Analyzer;
@@ -28,41 +28,15 @@ import reformyourcountry.repository.ArticleRepository;
 @Component
 public class SearchService {
 	
-	private ScoreDoc[] scoreDocs; // Array containing the id and score of each documents ("result") find by Lucene after a search.
-    private String keyWord;
     @Autowired private IndexManagerService indexManagerService;
     @Autowired private ArticleRepository articlerepository;
     
-    /**
-     * Use this method to get the number of results found
-     */
-    public int getTotalHits(){
-        return scoreDocs.length;
-    }
-    
-    public List<ScoreDoc> getResults(){
-        return Arrays.asList(scoreDocs);
-    }
-    
-    public void search(String keyWord, Article article, boolean inAllArticles) {
+    public SearchResult search(String keyWord, Article article, boolean inAllArticles) {
     	
-        this.keyWord=keyWord;
-        scoreDocs=indexManagerService.search(keyWord, article, inAllArticles);
+        return new SearchResult(indexManagerService.search(keyWord, article, inAllArticles), keyWord);
     }
     
-    /**
-     * Get a displayable result by this Id.
-     * Typically used to display a result.
-     * 
-     * I want the 125th result --> getResult(125);
-     */
-    public ArticleSearchResult getResult(int index){
-    	return getResult(scoreDocs[index]);
-    }
-    public ArticleSearchResult getResult(ScoreDoc scoreDoc){
-        Document doc=indexManagerService.findDocument(scoreDoc);
-        return new ArticleSearchResult(scoreDoc.score, keyWord, doc);
-    }
+    
     
     public static class ArticleSearchResult {
         private float score;
@@ -154,6 +128,34 @@ public class SearchService {
         public String toString() {
             return "Score: " + score + " // title: " + title+ " // shortName: " + shortName+ " // summary: " + summary+ " // toClassify: " + toClassify+ " // content: " + content;
         }
+    }
+    public class SearchResult{
+    	private ScoreDoc[] scoreDocs; // Array containing the id and score of each documents ("result") find by Lucene after a search.
+		private String keyWord;
+    	
+    	public SearchResult(ScoreDoc[] scoreDoc, String keyWord){
+    		this.scoreDocs = scoreDoc;
+    		this.keyWord = keyWord;
+    	}
+    	/**
+         * Use this method to get the number of results found
+         */
+        public int getTotalHits(){
+            return scoreDocs.length;
+        }
+        
+        public List<ArticleSearchResult> getResults(){
+        	List<ArticleSearchResult> resultList = new ArrayList<ArticleSearchResult>();
+        	for(ScoreDoc scoreDoc : scoreDocs){
+        		Document doc=indexManagerService.findDocument(scoreDoc);
+                resultList.add(new ArticleSearchResult(scoreDoc.score, keyWord, doc));
+        	}
+            return resultList;
+        }
+		public ScoreDoc[] getScoreDocs() {
+			return scoreDocs;
+		}
+       
     }
 
 }
