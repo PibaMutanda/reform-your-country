@@ -94,12 +94,14 @@ public class SocialConfig {
     public ProviderSignInController providerSignInController() {
         ProviderSignInController controller = new ProviderSignInController(connectionFactoryLocator(), 
             usersConnectionRepository(), new RycSignInAdapter());
-        String url = UrlUtil.getAbsoluteUrl("",Mode.DEV);
-        String prepareurl = url.substring(0,url.lastIndexOf("/"));
-        controller.setApplicationUrl(prepareurl);  // 1st part of the URL, where "/signing/facebook" will be appended by Spring Social. Then the full URL is given to facebook who will redirect there when facebook login done.
+        
+     
+               
         controller.setSignUpUrl("/confirmaccount");  // Used by Spring Social to enable the user to confirm it's RYC user creation.
         controller.setSignInUrl("/login");
         return controller;
+        
+        // !!!!!!!!!!!!! Initialization is finalized in SpringSocialInitFinalizerServletContextListener
     }
 
 
