@@ -15,21 +15,22 @@ public class UrlUtil {
     private static String WebSiteName = null;;
     private static String version = null;
     
+    
+    //Send the Software Version (Value is in the config.properties)
     public static String getVersion(){
         if (version==null){
             version= ((CurrentEnvironment)ContextUtil.springContext.getBean(CurrentEnvironment.class)).getVersion();
         }
         return version;
     }
-
+    //Send the Domain Name (x.y.com) (Value is in the config.properties)
     public static String  getProdAbsoluteDomainName(){
         if(PROD_ABSOLUTE_DOMAIN_NAME==null){
             PROD_ABSOLUTE_DOMAIN_NAME = ((CurrentEnvironment)ContextUtil.springContext.getBean(CurrentEnvironment.class)).getSiteAddress();
         }
         return PROD_ABSOLUTE_DOMAIN_NAME;
     }
-    
-    
+    //Send the Project Name (Value is in the config.properties)
     public static String  getWebSiteName(){
         if(WebSiteName==null){
             WebSiteName =   ((CurrentEnvironment)ContextUtil.springContext.getBean(CurrentEnvironment.class)).getSiteName();
