@@ -1,30 +1,8 @@
 package reformyourcountry.search;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.StringReader;
-
-import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.TokenStream;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
-import org.apache.lucene.index.DirectoryReader;
-import org.apache.lucene.index.IndexReader;
-import org.apache.lucene.queryparser.classic.ParseException;
-import org.apache.lucene.queryparser.classic.QueryParser;
-import org.apache.lucene.search.Query;
-import org.apache.lucene.search.highlight.Highlighter;
-import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
-import org.apache.lucene.search.highlight.QueryScorer;
-import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
-import org.apache.lucene.search.highlight.SimpleSpanFragmenter;
-import org.apache.lucene.store.SimpleFSDirectory;
-import org.apache.lucene.util.Version;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import reformyourcountry.service.IndexManagerService;
-import reformyourcountry.util.FileUtil;
 
 /** One article found by Lucene, inside a ArticleSearchResult */
 public class ArticleDocument {
