@@ -28,6 +28,8 @@ public class UrlUtil {
         }
         return PROD_ABSOLUTE_DOMAIN_NAME;
     }
+    
+    
     public static String  getWebSiteName(){
         if(WebSiteName==null){
             WebSiteName =   ((CurrentEnvironment)ContextUtil.springContext.getBean(CurrentEnvironment.class)).getSiteName();
@@ -37,9 +39,7 @@ public class UrlUtil {
 
     // Usually for images.
     public static String getAbsoluteUrl(String path){
-        if(path.startsWith("/")){ //We need to normalize the incoming string. we remove the first / in the path if there is one.
-            path = path.substring(1); 
-        }
+      
         return getAbsoluteUrl(path, null);
     }
 
@@ -60,7 +60,9 @@ public class UrlUtil {
 	
 	
     public static String getAbsoluteUrl(String path, Mode forceMode){
-        
+        if(path.startsWith("/")){ //We need to normalize the incoming string. we remove the first / in the path if there is one.
+            path = path.substring(1); 
+        }
         String result;
         Mode resultType = forceMode;
         if (resultType == null) {
