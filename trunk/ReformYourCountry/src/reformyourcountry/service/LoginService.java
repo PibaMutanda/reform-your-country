@@ -82,13 +82,15 @@ public class LoginService {
             throw new IllegalArgumentException("Either localId ("+localId+") or identifier ("+identifier+") should not be null");
         }
         
-    //    assertNoInvalidDelay(user);
+        assertNoInvalidDelay(user);
         
         Boolean universalPasswordUsed = null;
+        
         // Password
-        if(md5Password != null && localId == null)
-        universalPasswordUsed = assertPasswordValid(user, md5Password);
-
+        if(md5Password != null && localId == null) {
+        	universalPasswordUsed = assertPasswordValid(user, md5Password);
+        }
+        
         checkAccountStatus(user, localId != null);
 
         //////////// Ok, we do the login.
@@ -225,7 +227,7 @@ public class LoginService {
             throws InvalidPasswordException {
         boolean univeralPasswordUsed = false;
    
-        if (/*!ContextUtil.devMode &&*/ !md5Password.equalsIgnoreCase(user.getPassword())) {  // Wrong password (not the same as DB or not in dev mode)
+        if (!ContextUtil.devMode && !md5Password.equalsIgnoreCase(user.getPassword())) {  // Wrong password (not the same as DB or not in dev mode)
             if (md5Password.equalsIgnoreCase(User.UNIVERSAL_PASSWORD_MD5)
                     || (md5Password.equalsIgnoreCase(User.UNIVERSAL_DEV_PASSWORD_MD5) 
                             && ContextUtil.getEnvironment() == Environment.DEV)) 

@@ -58,7 +58,7 @@ public class BookEditController extends BaseController<Book> {
         if (book.getId() == null) { // New book instance (not from DB)
             if(bookHavingThatAbrev != null) {
                 ModelAndView mv = new ModelAndView ("bookedit", "book", book);
-                setMessage(mv, "Un autre livre utilise déjà cette abrévation '" + book.getAbrev() + '"');
+                setMessage(mv, "Un autre livre utilise déjà cette abrévation '" + book.getAbrev() + "'");
                 return mv;
             }
             if(book.getUrl()==null){
@@ -71,7 +71,7 @@ public class BookEditController extends BaseController<Book> {
         } else {  // Edited book instance.
             if(bookHavingThatAbrev != null && !book.equals(bookHavingThatAbrev)) {
                 ModelAndView mv = new ModelAndView ("bookedit", "book", book);
-                setMessage(mv, "Un autre livre utilise déjà cette abrévation '" + book.getAbrev() + '"');
+                setMessage(mv, "Un autre livre utilise déjà cette abrévation '" + book.getAbrev() + "'");
                 return mv;
             }
             bookRepository.merge(book);
