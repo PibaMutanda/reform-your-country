@@ -21,18 +21,28 @@
 
 
 	<ryctag:form action="/book/editsubmit" modelAttribute="book" width="800px">
-		<ryctag:input path="abrev" label="Abréviation du livre:"/>
-		<ryctag:input path="title" label="Titre du livre:" id="title"/>
+		<tr>
+		    <td>Abréviation du livre</td><td><form:input path="abrev" /> </td>
+		 </tr>
+		<ryctag:input path="title" label="Titre du livre:" id="title" />
+		<tr></tr>
 		<tr class="tooltip" data-tooltip="identifiant pour le livre dans les URLs">
 			<td><label for="url">Fragment d'URL</label></td>
-			<td><form:input path="url" required="required" id="url" type="input" cssStyle="width:100%;" /></td>
+			<td><form:input path="url" required="required" id="url" type="input" cssStyle="width:400px;"  /></td>
 			<td><input type="submit" value="Générer une url" id="generate" /></td>
 		</tr>
-		
-		<ryctag:textarea path="description" label="Description du livre:"/>
-		<ryctag:input path="author" label="Auteur(s) du livre:"/>
-		<ryctag:input path="pubYear" label="Année de publication:"/>
-		<ryctag:input path="externalUrl" label="Lien de référence:"/>
+		 <tr>
+		   <td>Description du livre</td><td><form:textarea path="description" cssStyle="width:500px;" rows="6"/></td>
+		 </tr>
+		 <tr>
+		    <td>Auteur(s) du livre</td><td><form:input path="author" cssStyle="width:500px;"/> </td>
+		 </tr>
+		 <tr>
+		     <td>Année de publication</td><td><form:input path="pubYear" /></td>
+		 </tr>
+		<tr>
+		     <td>Lien de référence</td>    <td><form:input path="externalUrl" cssStyle="width:500px;"/>  </td>
+		</tr>
 		<tr>
 			<td>Top book?</td>
 			<td><form:radiobutton path="top" value="true" />Top
