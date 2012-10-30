@@ -32,7 +32,7 @@
 			
             <ryctag:date path="publishDate" label="Date de publication" />
            
-			<tr><td></td><td><textarea name="description" cols="60" rows="4">${article.description}</textarea></td></tr>
+			<tr><td>Description</td><td><textarea name="description" cols="60" rows="4">${article.description}</textarea></td></tr>
             <ryctag:checkbox path="publicView" label="Public ?" />
             <form:hidden path="id" />
             <tr>

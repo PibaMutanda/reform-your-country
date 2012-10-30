@@ -9,7 +9,7 @@
 </head>
 <body>
 	<ryctag:pageheadertitle title="${article.title}" >
-        <ryctag:breadcrumbelement label="${article.title}" link="/article/${article.url}" />
+        <ryctag:breadcrumbelement label="${article.title}" link="/article/${article.url}" /><ryctag:breadcrumbelement label="vidéos" />
     </ryctag:pageheadertitle>
 
 	<div class="article-options">

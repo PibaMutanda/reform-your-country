@@ -35,7 +35,7 @@
           
    <ryctag:pageheadertitle title="Fonctionnalités du site"/>
    <p>
-     Ce site comporte diverses fonctionnalités, plus ou moins visibles au grand public. 
+     Ce site comporte diverses fonctionnalités, plus ou moins visibles du grand public. 
 	<div style="display: inline-block;">      
 	<div class="col1">
 		<div><img alt="Styling" class="realshadow"  src="/images/features-icons/design.jpg"></div>
