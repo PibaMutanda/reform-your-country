@@ -24,16 +24,14 @@ public class SearchController {
 
 	@RequestMapping(method=RequestMethod.GET)
 	public ModelAndView search(@RequestParam("searchtext") String searchtext){
-		String errorMsg = null;
 		ModelAndView mv= new ModelAndView("search");
 		mv.addObject("searchtext",searchtext);
 		
 		ArticleSearchResult articleSearchResult = searchService.searchArticle(searchtext, null, true);
 		mv.addObject("searchResult", articleSearchResult);
 			
-		if(articleSearchResult.getPublicResults().isEmpty() && articleSearchResult.getPrivateResults().isEmpty()) {
-			errorMsg="Il n'existe aucun article ayant "+searchtext+" comme élément.";
-			mv.addObject("errorMsg",errorMsg);
+		if (articleSearchResult.getResults().isEmpty() ) {
+			mv.addObject("noResult", true);
 		}
 		return mv;
 	}

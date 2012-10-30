@@ -214,13 +214,13 @@
 }
 
 /* Css for the description of article in the article-list page*/
-#descriptNotPublish {
+.descriptNotPublish {
 	padding-top: 4px;
 	padding-bottom: 8px;
 	font-size: 0.85em;
 	color: #AAA;
 }
-#descriptPublish {
+.descriptPublish {
 	padding-top: 4px;
 	padding-bottom: 8px;
 	font-size: 0.85em;
@@ -233,7 +233,7 @@
 	padding-top: 11px;
 	list-style: none;
 }
-#datepublication {
+.datepublication {
 	float: right;
 	font-size: 10px;
 	color: #AAA;
