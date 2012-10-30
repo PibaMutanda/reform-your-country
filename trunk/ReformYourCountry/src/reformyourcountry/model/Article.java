@@ -187,11 +187,11 @@ public class Article extends BaseEntity {
 	
 	public boolean isPublished(){
 		boolean published=false;
-		if(publishDate!=null){
+//		if(publishDate!=null){
 			published =(publicView && (!publishDate.after(new Date())));
-		}else{
-			published = publicView;
-		}
+//		}else{
+//			published = publicView;
+//		}
 
 		return published;
 	}

@@ -140,14 +140,14 @@ public class ArticleTreeTag extends SimpleTagSupport{
 		if(description == true) {
 			if(!article.isPublished()) {
 				if(article.getPublishDate()==null) {
-					result+="<span id=\"datepublication\">non publié</span>";
+					result+="<span class=\"datepublication\">non publié</span>";
 				} else {
-					result+="<span id=\"datepublication\">publié dans "+DateUtil.formatDuration(new Date(), article.getPublishDate() )+"</span>";
+					result+="<span class=\"datepublication\">publié dans "+DateUtil.formatDuration(new Date(), article.getPublishDate() )+"</span>";
 				}
 				
-				result+="<div id=\"descriptNotPublish\">"+article.getDescription()+"<div/>";
+				result+="<div class=\"descriptNotPublish\">"+article.getDescription()+"<div/>";
 			} else {
-				result+="<div id=\"descriptPublish\">"+article.getDescription()+"<div/>";
+				result+="<div class=\"descriptPublish\">"+article.getDescription()+"<div/>";
 			}
 			
 		}

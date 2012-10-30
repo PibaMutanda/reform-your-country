@@ -8,56 +8,38 @@
 <head>
 </head>
 <body>
-
-	<ryctag:pageheadertitle title="Résultats de la recherche">
+	<ryctag:pageheadertitle title="Résultats de la recherche pour '${searchtext}'">
 	</ryctag:pageheadertitle>
-	
-<%-- 	<ryctag:form action="search" modelAttribute="search" > --%>
-        <p>mot(s) de la recherche: ${searchtext}</p>
-        <br/>
-        <br/>
-        <c:set var="listToSearch" value="${searchResult.publicResults}" scope ="request" />
-        <ryctag:search/>
-        <br/>
-        <ryc:conditionDisplay privilege="EDIT_ARTICLE"> 
-        <c:set var="listToSearch" value="${searchResult.privateResults}" scope ="request"/>
-        <ryctag:search />
-        </ryc:conditionDisplay>
-        ${errorMsg}
-<%--   		<c:forEach items="${searchResult.publicResults}" var="result"> --%>
-<%-- 			        <a href="/article/${result.article.url}">${result.articleDocument.title}</a> --%>
-<!-- 			        <br/> -->
-<%-- 			        <c:choose> --%>
-<%-- 				        <c:when test="${result.articleDocument.content != null}"> --%>
-<%-- 				       		 ${result.articleDocument.content} --%>
-<%-- 				        </c:when> --%>
-<%-- 				        <c:otherwise> --%>
-<%-- 				        	 ${result.article.description} --%>
-<%-- 				        </c:otherwise> --%>
-<%-- 			        </c:choose> --%>
-<!-- 			        <br/> -->
-<%-- 		        </c:forEach>  --%>
-<!-- 		        <br/> -->
-<%-- 		        <ryc:conditionDisplay privilege="EDIT_ARTICLE">  --%>
-<%-- 		        	<c:forEach items="${searchResult.privateResults}" var="result"> --%>
-<%-- 			        <a href="/article/${result.article.url}">${result.articleDocument.title}</a> --%>
-<!-- 			        <br/> -->
-<%-- 			        <c:choose> --%>
-<%-- 				        <c:when test="${result.articleDocument.content != null}"> --%>
-<%-- 				       		 ${result.articleDocument.content} --%>
-<%-- 				        </c:when> --%>
-<%-- 				        <c:otherwise> --%>
-<%-- 				        	 ${result.article.description} --%>
-<%-- 				        </c:otherwise> --%>
-<%-- 			        </c:choose> --%>
-<!-- 			        <br/> -->
-<!-- 			        <br/> -->
-<%-- 		        </c:forEach> --%>
-<!-- 		        <br/> -->
-<%-- 		        </ryc:conditionDisplay> --%>
-<%-- 				${errorMsg} --%>
-<%--      </ryctag:form>   --%>
-        
 
+	<c:if test="${noResult == true}">
+		Aucun résultat trouvé. 
+	</c:if>
+	<c:forEach items="${searchResult.results}" var="articleSearchUnit" >
+		<c:choose>
+			<c:when test="${articleSearchUnit.article.isPublished()}">
+			    <c:set var="result" value="${articleSearchUnit}" scope="request"/>
+	        	<ryctag:search />
+	        	
+	        </c:when>
+	        <c:otherwise>
+		        <ryc:conditionDisplay privilege="EDIT_ARTICLE">
+		        	<c:set var="result" value="${articleSearchUnit}" scope="request"/>
+		            <ryctag:search />
+		            <ryc:articlesTree  />
+		        </ryc:conditionDisplay>
+	        </c:otherwise>
+        </c:choose>
+    </c:forEach>
+       
 </body>
 </html>
+<!-- if(article.getPublishDate()==null) { -->
+<!-- 					result+="<span class=\"datepublication\">non publié</span>"; -->
+<!-- 				} else { -->
+<!-- 					result+="<span class=\"datepublication\">publié dans "+DateUtil.formatDuration(new Date(), article.getPublishDate() )+"</span>"; -->
+<!-- 				} -->
+				
+<!-- 				result+="<div class=\"descriptNotPublish\">"+article.getDescription()+"<div/>"; -->
+<!-- 			} else { -->
+<!-- 				result+="<div class=\"descriptPublish\">"+article.getDescription()+"<div/>"; -->
+<!-- 			} -->
