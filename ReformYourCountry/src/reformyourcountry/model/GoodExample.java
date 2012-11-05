@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.Pattern;
@@ -11,7 +12,8 @@ import javax.validation.constraints.Pattern;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotBlank;
 
-public class GoodExample {
+@Entity
+public class GoodExample extends BaseEntity {
 
 	@NotBlank
 	@Column(length = 100, unique = true, nullable = false)// need nullable= false for schemaupdate
