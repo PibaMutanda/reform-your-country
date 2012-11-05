@@ -25,6 +25,7 @@
 		    <td>Abréviation du livre</td><td><form:input path="abrev" /> </td>
 		 </tr>
 		<ryctag:input path="title" label="Titre du livre:" id="title" />
+		<ryctag:input path="subtitle" label="Titre du livre, cont. :" id="subtitle"/>
 		<tr></tr>
 		<tr class="tooltip" data-tooltip="identifiant pour le livre dans les URLs">
 			<td><label for="url">Fragment d'URL</label></td>
