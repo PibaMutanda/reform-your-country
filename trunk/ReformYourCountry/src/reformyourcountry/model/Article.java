@@ -58,6 +58,10 @@ public class Article extends BaseEntity {
 	@JoinTable(name = "ARTICLE_ACTION", joinColumns = @JoinColumn(name = "ARTICLE_ID"), inverseJoinColumns = @JoinColumn(name="ACTION_ID"))
 	private List<Action> actions = new ArrayList<Action>();
 
+	@ManyToMany
+	@JoinTable(name = "ARTICLE_GOODEXAMPLE", joinColumns = @JoinColumn(name = "ARTICLE_ID"), inverseJoinColumns = @JoinColumn(name="GOODEXAMPLE_ID"))
+	private List<GoodExample> goodExamples = new ArrayList<GoodExample>();
+	
 	@ManyToOne
 	@JoinColumn
 	private Article parent;
@@ -179,6 +183,11 @@ public class Article extends BaseEntity {
 
 		actions.add(action);
 	}
+	
+	public List<GoodExample> getGoodExamples() {
+		return goodExamples;
+	}
+
 
 	@Override
 	public String toString() {
