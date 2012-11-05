@@ -14,6 +14,6 @@ Then you create a build.xml in your project at the root folder of the project an
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE project>
 <project basedir=".">
-	<import file="../ReformYourCountry/src/buildTwoProjects.xml"/>
+	<import file="../ReformYourCountry/buildTwoProjects.xml"/>
 </project>
 }}}
