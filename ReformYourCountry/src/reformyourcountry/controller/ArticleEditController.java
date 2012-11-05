@@ -16,6 +16,7 @@ import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.ArticleService;
+import reformyourcountry.service.IndexManagerService;
 
 
 @Controller
@@ -25,6 +26,7 @@ public class ArticleEditController extends BaseController<Article>{
 	@Autowired ArticleRepository articleRepository;
 	@Autowired ArticleDisplayController displayArticleController;
 	@Autowired ArticleService articleService;
+	@Autowired IndexManagerService indexManagerService;
 
 
 	@RequestMapping(value={"/edit","/create"})
@@ -60,6 +62,7 @@ public class ArticleEditController extends BaseController<Article>{
         } else {//if the article has no error
             if (article.getId() == null) {//if this is a new article
                 articleService.saveArticle(article,null,null,null);
+                indexManagerService.addArticle(article);
                 return new ModelAndView("redirect:parentedit","id",article.getId()); // Next step after creation: select the parent.
             } else {
                 articleRepository.merge(article);
