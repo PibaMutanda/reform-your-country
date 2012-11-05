@@ -25,7 +25,6 @@
 		        <ryc:conditionDisplay privilege="EDIT_ARTICLE">
 		        	<c:set var="result" value="${articleSearchUnit}" scope="request"/>
 		            <ryctag:search />
-		            <ryc:articlesTree  />
 		        </ryc:conditionDisplay>
 	        </c:otherwise>
         </c:choose>
