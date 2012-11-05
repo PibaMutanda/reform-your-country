@@ -27,8 +27,8 @@ import reformyourcountry.repository.UserRepository;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.LoginService;
 import reformyourcountry.service.UserService;
+import reformyourcountry.util.CurrentEnvironment;
 import reformyourcountry.web.UrlUtil;
-import reformyourcountry.web.UrlUtil.Mode;
 
 @Controller
 public class SocialAccountManageController extends BaseController<User>{
@@ -38,7 +38,6 @@ public class SocialAccountManageController extends BaseController<User>{
     @Autowired UserRepository userRepository;
     @Autowired LoginService loginService;
     @Autowired UserService userService;
-    
     @Autowired ConnectionFactoryLocator connectionFactoryLocator;
     @Autowired UsersConnectionRepository usersConnectionRepository;
 
@@ -206,10 +205,19 @@ public class SocialAccountManageController extends BaseController<User>{
         User user = SecurityContext.getUser();
                
         
+       List<String> idsUsers =  usersConnectionRepository.findUserIdsWithConnection(connection);
+        
+        if(idsUsers.isEmpty()){
         // This will persist the connection (query for it, not find it, then persist it).
-     usersConnectionRepository.createConnectionRepository(user.getId()+"").addConnection(connection);
+           usersConnectionRepository.createConnectionRepository(user.getId()+"").addConnection(connection);
+           addNotificationMessage("Connection "+connection.getKey().getProviderId()+" ajoutée avec succès. Vous pouvez maintenant utiliser le bouton "+connection.getKey().getProviderId()+" pour vous connecter sur "+UrlUtil.getWebSiteName()+".",request);
+        }else{
+           User userfound =  userRepository.find(Long.parseLong(idsUsers.get(0)));
+            addNotificationMessage("Un utilisateur( "+userfound.getUserName()+" ) à déjà utilisé ce compte "+ connection.getKey().getProviderId()+" pour s'enregeistrer sur "+UrlUtil.getWebSiteName() +".Merci d'utiliser ce compte.", request);
+            
+        }
+     
        
-        // TODO: notification message that the connection has well been added.
         return new ModelAndView("redirect:/socialaccountmanage","id",user.getId());
     }
 
