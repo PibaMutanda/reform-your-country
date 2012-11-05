@@ -565,9 +565,15 @@ public class BBConverter {
 			block += "<a href='book#"+book.getAbrev()+"'>";  // bibliography page 
         	block += book.getTitle()+"</a><br/>";
 		}
-		block += "<span class='bookInfo'>"+book.getAuthor()+" - "+ book.getPubYear()+"</span><br/>";
-
-        block += "<p class=\"bookContent\">"+book.getDescription()+"</p>";
+        
+        if(book.getAuthor()!=null && book.getPubYear()!=null){
+        	block += "<span class='bookInfo'>"+book.getAuthor()+" - "+ book.getPubYear()+"</span><br/>";
+        }
+		
+        if(book.getDescription()!=null){
+        	block += "<p class=\"bookContent\">"+book.getDescription()+"</p>";
+        }
+        
         
         block +="</div>\n";
         
