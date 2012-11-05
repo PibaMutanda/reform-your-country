@@ -17,3 +17,4 @@ Then you create a build.xml in your project at the root folder of the project an
 	<import file="../ReformYourCountry/buildTwoProjects.xml"/>
 </project>
 }}}
+You also have to create your own build.properties file at the root
