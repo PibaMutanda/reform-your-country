@@ -30,10 +30,6 @@ public class VoteAction extends BaseEntity{
 		this.user = user;
 		
 	}
-	
-	public Long getId() {
-		return id;
-	}
 
 	public int getValue() {
 		return value;
