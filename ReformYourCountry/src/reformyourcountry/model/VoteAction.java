@@ -17,30 +17,23 @@ public class VoteAction extends BaseEntity{
 	@ManyToOne
     @JoinColumn(nullable = false)
 	private User user;  // or group. Can be null if the vote is made by a group.
-	@ManyToOne
-    @JoinColumn(nullable = true)
-	private Group group; // or user. Can be null if the vote is made by a user.
-	
+		
 	
 	public VoteAction() {
 	}
 		
-	public VoteAction(int value, Action action, User user, Group group) {
+	public VoteAction(int value, Action action, User user) {
 		
 
 		this.value = value;
 		this.action = action;
 		this.user = user;
-		this.group = group;
+		
 	}
-
-	
 	
 	public Long getId() {
 		return id;
 	}
-
-
 
 	public int getValue() {
 		return value;
@@ -63,19 +56,12 @@ public class VoteAction extends BaseEntity{
 	public void setUser(User user) {
 		this.user = user;
 	}
-	public Group getGroup() {
-		return group;
-	}
-	public void setGroup(Group group) {
-		this.group = group;
-	}
-
-
+	
 	@Override
 	public String toString() 
 	{
-		if(user == null && group == null){
-			throw new NullPointerException("Bug: an action should either have a user or a group. This action has none. id = "+ id);	
+		if(user == null ){
+			throw new NullPointerException("Bug: an action should either have a user. This action has none. id = "+ id);	
 		}
 		return "VoteAction.value:" + value;
 			

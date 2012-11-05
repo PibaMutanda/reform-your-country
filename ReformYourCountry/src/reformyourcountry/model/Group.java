@@ -14,8 +14,6 @@ public class Group extends BaseEntity{
     @NotBlank(message="entrer le nom de votre groupe svp")
 	private String name; // a group has a lot of users
 	
-	@OneToMany(mappedBy ="group")
-	private List <VoteAction> voteActions = new ArrayList <VoteAction>();
 
 	@ManyToOne
 	@JoinColumn
@@ -47,9 +45,7 @@ public class Group extends BaseEntity{
 		return groupRegs;
 	}*/
 	
-	public List<VoteAction> getVoteActions() {
-		return voteActions;
-	}
+	
 	public List<Group> getChildren(){
 		return children;
 	}
@@ -86,10 +82,6 @@ public class Group extends BaseEntity{
         this.hasImage = hasImage;
     }
 
-    public void addVoteAction(VoteAction voteAction){
-        voteActions.add(voteAction);
-        
-    }
     
     public void addChild(Group group){
         
