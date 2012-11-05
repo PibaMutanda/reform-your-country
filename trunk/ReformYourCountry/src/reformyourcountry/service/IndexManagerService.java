@@ -121,10 +121,10 @@ public class IndexManagerService {
         return doc;
 	}
 	
-	public void updateArticle(Article oldArticle,Article newArticle) {
+	public void updateArticle(long id,Article newArticle) {
         try{
         	IndexWriter writer = getIndexWriter();
-            writer.updateDocument(new Term("id", String.valueOf(oldArticle.getId())), createDocument(newArticle));
+            writer.updateDocument(new Term("id", String.valueOf(id)), createDocument(newArticle));
             writer.commit();
             closeIndexWriter(writer);
         } catch (CorruptIndexException e) {
