@@ -16,6 +16,7 @@ import reformyourcountry.exception.UserLockedException;
 import reformyourcountry.exception.UserNotFoundException;
 import reformyourcountry.exception.UserNotValidatedException;
 import reformyourcountry.model.User;
+import reformyourcountry.model.User.AccountConnectedType;
 import reformyourcountry.model.User.AccountStatus;
 import reformyourcountry.model.User.Gender;
 import reformyourcountry.repository.UserRepository;
@@ -28,8 +29,10 @@ import reformyourcountry.service.UserService;
 public class JUnitTestRegisterAndLoginUser {
     @Autowired
     private UserRepository userDao;
-//    private static UserService userService = UserService.getInstance();
-//    private static LoginService loginService = LoginService.getInstance();
+    @Autowired
+    private static UserService userService;
+    @Autowired
+    private static LoginService loginService;
     private static String firstname = "test";
     private static String lastname = "test";
     private static Gender gender = Gender.MALE;
@@ -46,7 +49,7 @@ public class JUnitTestRegisterAndLoginUser {
     @Before
     public void testRegisterUser() {
         try {
-            testUser = userService.registerUser(true, firstname, lastname, gender, username, passwordInClear, mail);
+            testUser = userService.registerUser(true, username, passwordInClear, mail, false);
         } catch (UserAlreadyExistsException e) {
             fail("user alreadyexist");
         }
@@ -58,12 +61,12 @@ public class JUnitTestRegisterAndLoginUser {
     @After
     public void removeUser() {
         
-//        try {
+        try {
             userDao.remove(testUser);
-//        } catch (UserNotFoundException e) {
-//            e.printStackTrace();
-//            fail("can't remove usertest");
-//        }
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            fail("can't remove usertest");
+        }
     }
     
     @Test
@@ -75,7 +78,7 @@ public class JUnitTestRegisterAndLoginUser {
     @Test
     public void testUserAlreadyExistsException()  {
         try {
-            userService.registerUser(true, firstname, lastname, gender, username, passwordInClear, mail);
+            userService.registerUser(true, username, passwordInClear, mail, false);
         } catch (UserAlreadyExistsException e) {
             exception = true;
         }
@@ -85,12 +88,12 @@ public class JUnitTestRegisterAndLoginUser {
     @Test
     public void testLogin() throws UserAlreadyExistsException  {
         try{
-            assertNotNull("login with mail identifier", loginService.login(mail, passwordInClear, false));
+            assertNotNull("login with mail identifier", loginService.login(mail, passwordInClear, false, null, AccountConnectedType.LOCAL));
         } catch (UserNotFoundException | InvalidPasswordException| UserNotValidatedException | UserLockedException| WaitDelayNotReachedException e) {
             fail("login exception");
         }     
         try {
-            assertNotNull("login with username identifier",loginService.login(username, passwordInClear, false));
+            assertNotNull("login with username identifier",loginService.login(username, passwordInClear, false, null, AccountConnectedType.LOCAL));
         } catch (UserNotFoundException | InvalidPasswordException| UserNotValidatedException | UserLockedException| WaitDelayNotReachedException e) {
             fail("login exception");
         }  
@@ -107,12 +110,12 @@ public class JUnitTestRegisterAndLoginUser {
 //    	}
     	//create a user without directvalidation
     	try {
-    		userService.registerUser(false, firstname, lastname, gender, username, passwordInClear, mail);
+    		userService.registerUser(true, username, passwordInClear, mail, false);
     	} catch (UserAlreadyExistsException e) {
     		fail("user alreadyexist");
     	}
     	try{
-    		assertNotNull("login with mail identifier",loginService.login(mail, passwordInClear, false));
+    		assertNotNull("login with mail identifier",loginService.login(username, passwordInClear, false, null, AccountConnectedType.LOCAL));
     	} catch (InvalidPasswordException| UserNotFoundException | UserLockedException| WaitDelayNotReachedException e) {
     		e.printStackTrace();
     		fail("login exception");
@@ -125,7 +128,7 @@ public class JUnitTestRegisterAndLoginUser {
     public void testUserNotFoundException()
     {
     	try{
-    		assertNotNull("login with mail identifier",loginService.login("badIdentifier", passwordInClear, false));
+    		assertNotNull("login with mail identifier",loginService.login("badIdentifier", passwordInClear, false,null, AccountConnectedType.LOCAL));
     	} catch (InvalidPasswordException| UserNotValidatedException | UserLockedException| WaitDelayNotReachedException e) {
     		e.printStackTrace();
     		fail("login exception");
@@ -138,7 +141,7 @@ public class JUnitTestRegisterAndLoginUser {
     public void testInvalidPasswordException()
     {
     	try{
-    		assertNotNull("login with mail identifier",loginService.login(mail, "badPassword", false));
+    		assertNotNull("login with mail identifier",loginService.login(mail, "badPassword", false, null, AccountConnectedType.LOCAL));
     	} catch (UserNotValidatedException| UserNotFoundException | UserLockedException| WaitDelayNotReachedException e) {
     		e.printStackTrace();
     		fail("login exception");
@@ -152,9 +155,9 @@ public class JUnitTestRegisterAndLoginUser {
     public void testPrivilege() throws UserAlreadyExistsException, UserNotFoundException, InvalidPasswordException, UserNotValidatedException, UserLockedException, WaitDelayNotReachedException {
         String userName = "piba";
         String password = "secret";
-        User user = userService.registerUser(false, "Piba", "M.", Gender.MALE, userName, "secret", "piba@mail.com");
+        User user = userService.registerUser(true, username, passwordInClear, mail, false);
 		user.setAccountStatus(AccountStatus.ACTIVE);
-    	user = loginService.login(userName, password, false);
+    	user = loginService.login(userName, password, false, null, AccountConnectedType.LOCAL);
 
     	// Set privileges
     	
