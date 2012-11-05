@@ -33,7 +33,7 @@ import reformyourcountry.web.UrlUtil.Mode;
 @Controller
 public class SocialAccountManageController extends BaseController<User>{
 
-    private final ConnectSupport webSupport = new ConnectSupport();
+    private ConnectSupport webSupport;
 
     @Autowired UserRepository userRepository;
     @Autowired LoginService loginService;
@@ -42,27 +42,32 @@ public class SocialAccountManageController extends BaseController<User>{
     @Autowired ConnectionFactoryLocator connectionFactoryLocator;
     @Autowired UsersConnectionRepository usersConnectionRepository;
 
-    public SocialAccountManageController() {
-        String url = UrlUtil.getAbsoluteUrl("",Mode.DEV);
-        String prepareurl = url.substring(0,url.lastIndexOf("/"));
-        this.setApplicationUrl(prepareurl);  // 1st part of the URL, where "/addconnection/facebook" will be appended by Spring Social. Then the full URL is given to facebook who will redirect there when facebook login done.
-        this.webSupport.setUseAuthenticateUrl(true);
+ 
+    /** Getter to lazy init the webSupport var and call UrlUtil as late as possible (else it's called before tomcat initialization, and our ServletcontextListeners initialize needed values). */
+    private synchronized ConnectSupport getWebSupport() {
+        if (webSupport == null) {
+            this.webSupport = new ConnectSupport();
+            
+            /**
+             * Configures the base secure URL for the application this controller is being used in e.g. <code>https://myapp.com</code>. Defaults to null.
+             * If specified, will be used to generate OAuth callback URLs.
+             * If not specified, OAuth callback URLs are generated from web request info.
+             * You may wish to set this property if requests into your application flow through a proxy to your application server.
+             * In this case, the request URI may contain a scheme, host, and/or port value that points to an internal server not appropriate for an external callback URL.
+             * If you have this problem, you can set this property to the base external URL for your application and it will be used to construct the callback URL instead.
+             * @param applicationUrl the application URL value
+             */
+            String url = UrlUtil.getAbsoluteUrl("");
+            String prepareurl = url.substring(0,url.lastIndexOf("/"));
+            // 1st part of the URL, where "/addconnection/facebook" will be appended by Spring Social. Then the full URL is given to facebook who will redirect there when facebook login done.
+            webSupport.setApplicationUrl(prepareurl);
+
+            this.webSupport.setUseAuthenticateUrl(true);
+        }
+        return webSupport;
     }
+    
 
-
-
-    /**
-     * Configures the base secure URL for the application this controller is being used in e.g. <code>https://myapp.com</code>. Defaults to null.
-     * If specified, will be used to generate OAuth callback URLs.
-     * If not specified, OAuth callback URLs are generated from web request info.
-     * You may wish to set this property if requests into your application flow through a proxy to your application server.
-     * In this case, the request URI may contain a scheme, host, and/or port value that points to an internal server not appropriate for an external callback URL.
-     * If you have this problem, you can set this property to the base external URL for your application and it will be used to construct the callback URL instead.
-     * @param applicationUrl the application URL value
-     */
-    public void setApplicationUrl(String applicationUrl) {
-        webSupport.setApplicationUrl(applicationUrl);
-    }
 
     @RequestMapping("/socialaccountmanage")
     public ModelAndView socialAccountManage(@RequestParam(value="id", required=true) long userId) {
@@ -181,7 +186,7 @@ public class SocialAccountManageController extends BaseController<User>{
         
         // unfortunately we cannot set the call back url manually to another path "/addconnection" than the method we are in.
         // Will put the token in the HttpSession.
-        return new RedirectView(webSupport.buildOAuthUrl(connectionFactory, request));
+        return new RedirectView(getWebSupport().buildOAuthUrl(connectionFactory, request));
     }
     
 
@@ -192,10 +197,10 @@ public class SocialAccountManageController extends BaseController<User>{
         if(code==null){
             OAuth1ConnectionFactory<?> connectionFactory = (OAuth1ConnectionFactory<?>) connectionFactoryLocator.getConnectionFactory(providerId);
             // Will look for the token put in the session during the addconnection() method.
-            connection = webSupport.completeConnection(connectionFactory, request);
+            connection = getWebSupport().completeConnection(connectionFactory, request);
         }else{
             OAuth2ConnectionFactory<?> connectionFactory = (OAuth2ConnectionFactory<?>) connectionFactoryLocator.getConnectionFactory(providerId);
-            connection = webSupport.completeConnection(connectionFactory, request);
+            connection = getWebSupport().completeConnection(connectionFactory, request);
         }
         
         User user = SecurityContext.getUser();
