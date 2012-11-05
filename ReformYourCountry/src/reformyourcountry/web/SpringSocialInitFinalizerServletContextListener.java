@@ -10,7 +10,7 @@ import org.springframework.social.connect.web.ProviderSignInController;
  * Application Lifecycle Listener implementation class SpringSocialInitFinalizerServletContextListener
  *
  */
-@WebListener
+
 public class SpringSocialInitFinalizerServletContextListener implements ServletContextListener {
 
     /**
@@ -26,7 +26,7 @@ public class SpringSocialInitFinalizerServletContextListener implements ServletC
     public void contextInitialized(ServletContextEvent arg0) {
         
         ProviderSignInController controller =   ContextUtil.getSpringBean(ProviderSignInController.class);
-        /** In SocialConfig execution, Spring has not been initalized yet (it's initializing).
+        /** In SocialConfig execution, Spring has not been initialized yet (it's initializing).
          * But calling UrlUtil.getAbsoluteUrl() needs Spring and then ContextUtil to have been initalized.
          * => we need to finish this part here, in this ServleContextListener that is executed after Spring's ContextLoaderListener and RYC's ContextUtil. */
         String url = UrlUtil.getAbsoluteUrl("");
