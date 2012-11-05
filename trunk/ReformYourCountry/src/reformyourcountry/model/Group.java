@@ -14,13 +14,6 @@ public class Group extends BaseEntity{
     @NotBlank(message="entrer le nom de votre groupe svp")
 	private String name; // a group has a lot of users
 	
-
-	@ManyToOne
-	@JoinColumn
-	private Group parent;
-
-	@OneToMany(mappedBy ="parent")
-	private List <Group> children = new ArrayList <Group>();
 	
     @Column(unique = true)
 	private String url;
@@ -44,20 +37,8 @@ public class Group extends BaseEntity{
 	/*public List<GroupReg> getGroupRegs() {
 		return groupRegs;
 	}*/
+		
 	
-	
-	public List<Group> getChildren(){
-		return children;
-	}
-	
-	public void setParent(Group parent){
-		this.parent = parent;
-	}
-  
-    public Group getParent(){
-        
-        return parent;
-    }
 	public String getUrl() {
         return url;
     }
@@ -80,12 +61,6 @@ public class Group extends BaseEntity{
 
     public void setHasImage(boolean hasImage) {
         this.hasImage = hasImage;
-    }
-
-    
-    public void addChild(Group group){
-        
-        children.add(group);
     }
 
     @Override
