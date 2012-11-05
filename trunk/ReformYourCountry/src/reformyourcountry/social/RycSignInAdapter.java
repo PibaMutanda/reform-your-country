@@ -1,13 +1,12 @@
 package reformyourcountry.social;
 
 
-import org.apache.commons.lang3.StringUtils;
+
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.web.SignInAdapter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.WebRequest;
 
 import reformyourcountry.controller.BaseController;
 import reformyourcountry.controller.LoginController;
@@ -15,6 +14,7 @@ import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountConnectedType;
 import reformyourcountry.service.LoginService;
 import reformyourcountry.web.ContextUtil;
+import reformyourcountry.web.UrlUtil;
 @Component
 public class RycSignInAdapter implements SignInAdapter {
 
@@ -31,7 +31,7 @@ public class RycSignInAdapter implements SignInAdapter {
                     
             user = loginService.login(null, null, autologin, Long.parseLong(localId), AccountConnectedType.getProviderType(connection.getKey().getProviderId()));
                      
-            BaseController.addNotificationMessage("Vous êtes a présent connecté sur "+ContextUtil.servletContext.getAttribute("website_name")+" avec votre compte "+connection.getKey().getProviderId(),request);                                           
+            BaseController.addNotificationMessage("Vous êtes a présent connecté sur "+UrlUtil.getWebSiteName()+" avec votre compte "+connection.getKey().getProviderId(),request);                                           
 
         } catch (Exception e) {
             throw new RuntimeException(e);
