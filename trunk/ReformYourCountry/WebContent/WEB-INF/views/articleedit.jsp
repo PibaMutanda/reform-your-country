@@ -37,8 +37,7 @@
             <form:hidden path="id" />
             <tr>
             	<td colspan="2" align="center" style="text-align: center;">
-            		<input type="submit" value="<c:choose><c:when test="${article.id != null}">Sauver</c:when><c:otherwise>Créer</c:otherwise></c:choose>" />
-            		<span id="saving" style="font-family: tahoma; font-size: 9px;"></span>
+            		<input type="submit" value="<c:choose><c:when test="${article.id != null}">Sauver</c:when><c:otherwise>Créer</c:otherwise></c:choose>" />            		
             	</td>
             </tr>
             

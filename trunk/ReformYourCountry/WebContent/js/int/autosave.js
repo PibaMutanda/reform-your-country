@@ -26,7 +26,7 @@ $(document).ready(function() {
 	// Function called when a change is performed on the article.
 	function performChange() {
 		////// We effectively start saving from here
-		$("#saving").text("sauvegarde en cours....");		
+		$(".saving").text("sauvegarde en cours....");		
 		//get the action value from the form and add ajax/ before because this is a project convention for ajax request
 		$.post("ajax/"+$(".autosaveable").closest("form").attr("action"), 
 				$(".autosaveable").closest("form").serialize())//closest get the closest ancestor or itself . 
@@ -36,7 +36,7 @@ $(document).ready(function() {
 			$(".save").each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
-			$("#saving").text("sauvé à "+getDate());	
+			$(".saving").text("sauvé à "+getDate());	
 		});
 	}
 
