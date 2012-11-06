@@ -1,6 +1,7 @@
 package reformyourcountry.controller;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import org.apache.commons.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,7 @@ public class ArticleDisplayController extends BaseController<Article> {
 
 
         ///// Get publishDate in an usable int format for the countdown
-        if (article.getPublishDate() != null) {
+        if (article.getPublishDate() != null && article.getPublishDate().after(new Date())){
             Calendar publishCalendar = Calendar.getInstance();
             publishCalendar.setTime(article.getPublishDate());
             int year = publishCalendar.get(Calendar.YEAR);

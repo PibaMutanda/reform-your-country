@@ -35,19 +35,19 @@
    
 
 	<div style="display:inline-block"><!-- DO NOT REMOVE OTHERWISE TITLE AND MENU ARE UPSIDE DOWN	 -->
-		<ryc:conditionDisplay privilege="EDIT_ARTICLE">
-		<ul style="float:left">
-					<li><a href="/article/a_classer/${article.url}">Afficher "A classer"</a></li>
-				</ul>
-		<div class="article-options">
-			    <ul class="list sitemap-list">
-					 <li><a href="/article/edit?id=${article.id}">Editer l'article</a></li>
-					 <li><a href="/article/parentedit?id=${article.id}">Editer l'article parent</a></li>
-					 <li><a href="/article/contentedit?id=${article.id}">Editer le contenu de l'article</a></li>
-					 <li><a href="/article/version/${article.url}">Afficher l'historique des versions</a></li>
-					 <li><a href="/video/manager?id=${article.id}">Vidéo</a></li>
-				</ul>	
-		</div>
+	    <ryc:conditionDisplay privilege="EDIT_ARTICLE">
+			<ul style="float:left">
+						<li><a href="/article/a_classer/${article.url}">Afficher "A classer"</a></li>
+					</ul>
+			<div class="article-options">
+				    <ul class="list sitemap-list">
+						 <li><a href="/article/edit?id=${article.id}">Editer l'article</a></li>
+						 <li><a href="/article/parentedit?id=${article.id}">Editer l'article parent</a></li>
+						 <li><a href="/article/contentedit?id=${article.id}">Editer le contenu de l'article</a></li>
+						 <li><a href="/article/version/${article.url}">Afficher l'historique des versions</a></li>
+						 <li><a href="/video/manager?id=${article.id}">Vidéo</a></li>
+					</ul>	
+			</div>
 		</ryc:conditionDisplay>
 		<div class="article-title" >
 			<ryc:conditionDisplay privilege="EDIT_ARTICLE">
@@ -56,9 +56,9 @@
 		    <c:if test="${!article.publicView}">
 				<p>Cet article n'est pas disponible au public.
 		     	<c:choose>
-		  	       <c:when test="${displayDate != null}">
-		  	          Il sera publié le ${displayDate}.
-				   </c:when>
+		  	       <c:when test="${displayDate != null}"> 
+	  	         	 Il sera publié le ${displayDate}.  
+				   </c:when> 
 				   <c:otherwise>
 				      Sa date de publication est indéterminée.
 				   </c:otherwise>
