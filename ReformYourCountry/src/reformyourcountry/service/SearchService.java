@@ -13,9 +13,9 @@ public class SearchService {
     @Autowired private IndexManagerService indexManagerService;
     @Autowired private ArticleRepository articleRepository;
     
-    public ArticleSearchResult searchArticle(String keyWord, Article article, boolean inAllArticles) {
+    public ArticleSearchResult searchArticle(String keyWord, Article article, boolean isEditor, boolean inAllArticles) {
     	
-        return new ArticleSearchResult(indexManagerService.search(keyWord, article, inAllArticles), keyWord, indexManagerService, articleRepository);
+        return new ArticleSearchResult(indexManagerService.search(keyWord, article, isEditor,inAllArticles), keyWord, indexManagerService, articleRepository);
     }
     
     

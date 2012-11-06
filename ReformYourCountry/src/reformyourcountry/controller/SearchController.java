@@ -9,6 +9,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.search.ArticleSearchResult;
+import reformyourcountry.security.Privilege;
+import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.IndexManagerService;
 import reformyourcountry.service.SearchService;
 
@@ -26,8 +28,13 @@ public class SearchController {
 	public ModelAndView search(@RequestParam("searchtext") String searchtext){
 		ModelAndView mv= new ModelAndView("search");
 		mv.addObject("searchtext",searchtext);
+		ArticleSearchResult articleSearchResult;
+		if(SecurityContext.isUserHasPrivilege(Privilege.EDIT_ARTICLE)){
+			articleSearchResult = searchService.searchArticle(searchtext, null, true, true);
+		}else{
+			articleSearchResult = searchService.searchArticle(searchtext, null, false, true);
+		}
 		
-		ArticleSearchResult articleSearchResult = searchService.searchArticle(searchtext, null, true);
 		mv.addObject("searchResult", articleSearchResult);
 			
 		if (articleSearchResult.getResults().isEmpty() ) {

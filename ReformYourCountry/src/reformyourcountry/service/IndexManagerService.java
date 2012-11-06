@@ -3,6 +3,8 @@ package reformyourcountry.service;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.lucene.analysis.Analyzer;
@@ -106,7 +108,7 @@ public class IndexManagerService {
 		// Add a new Document to the index
         Document doc = new Document();
 
-        doc.add(new LongField("id",article.getId(),Store.YES));
+        doc.add(new TextField("id",String.valueOf(article.getId()),Store.YES));//This is a TextField instead of a LongField because updateDocument has problems finding LongFields
         // This give more importance to title during the search
         // The user see the result from the title before the result from the text 
         Field titleField=new TextField("title",article.getTitle(),Store.YES);
@@ -121,15 +123,13 @@ public class IndexManagerService {
         return doc;
 	}
 	
-	public void updateArticle(long id,Article newArticle) {
+	public void updateArticle(Article newArticle) {
         try{
         	IndexWriter writer = getIndexWriter();
-            writer.updateDocument(new Term("id", String.valueOf(id)), createDocument(newArticle));
+            writer.updateDocument(new Term("id", String.valueOf(newArticle.getId())), createDocument(newArticle));
             writer.commit();
             closeIndexWriter(writer);
-        } catch (CorruptIndexException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+        } catch ( IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -164,18 +164,27 @@ public class IndexManagerService {
 	 * @param article If searching in an article, the article in question; if searching all articles, null.
 	 * @return
 	 */
-	public ScoreDoc[] search(String keyWords, Article article, boolean inAllArticles) {
+	public ScoreDoc[] search(String keyWords, Article article, boolean isEditor, boolean inAllArticles) {
 
         try {
-            String queryString="(" + keyWords + "~)"+ (inAllArticles ? "" : " AND id:"+article.getId());
+        	// We  build a query using the parameters;
+            String queryString="(" + keyWords + "~)"//the "~" enable fuzzy search
+            		+ (inAllArticles || article==null ? "" : " AND id:"+article.getId());//search in one article only
 
             SimpleFSDirectory sfsd = new SimpleFSDirectory(new File(FileUtil.getLuceneIndex()));
             IndexReader reader = DirectoryReader.open(sfsd);
             IndexSearcher searcher = new IndexSearcher(reader);
-            // article fields we search in
-            String[] fields ={"title","summary","toClassify","content","shortname"};
+            
+            // Create the search criteria as an array with article fields we search in
+            List<String> fields=new ArrayList<String>(Arrays.asList("title","summary","content","shortname"));
+			if (isEditor) {
+				fields.add("toClassify");
+			}
+			String[] fieldList = new String[fields.size()];
+			fields.toArray(fieldList);
+			
             // Build a Query object
-            MultiFieldQueryParser parser = new MultiFieldQueryParser(Version.LUCENE_40, fields, new StandardAnalyzer(Version.LUCENE_40));
+            MultiFieldQueryParser parser = new MultiFieldQueryParser(Version.LUCENE_40, fieldList, new StandardAnalyzer(Version.LUCENE_40));
             Query query = parser.parse(queryString);
             
             query.rewrite(reader);
@@ -187,6 +196,8 @@ public class IndexManagerService {
             throw new RuntimeException(e);
         }
     }
+	
+	
 	  /**
      * We use the lucene highlight library.
      * @return the highlighted fragment, if there is one, null otherwise
@@ -266,7 +277,7 @@ public class IndexManagerService {
      */
     private void closeIndexWriter(IndexWriter indexWriter){
         try {
-            indexWriter.getDirectory().close();
+//            indexWriter.getDirectory().close();
             indexWriter.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
