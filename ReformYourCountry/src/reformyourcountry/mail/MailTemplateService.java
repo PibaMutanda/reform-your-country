@@ -11,6 +11,7 @@ import reformyourcountry.model.Mail;
 import reformyourcountry.model.User;
 import reformyourcountry.repository.MailRepository;
 import reformyourcountry.service.UserService;
+import reformyourcountry.web.UrlUtil;
 
 /**
  * @author Julien Van Assche
@@ -44,24 +45,22 @@ public final class MailTemplateService {
     }
     
     /**
-     * Determine the footer for a given mail. If the mail is for a blackbelt user, we insert a link to this account
+     * Determine the footer for a given mail. If the mail is for a user, we insert a link to this account
      * and if the mail's type is groupable, the footer will have options for the user. 
-     * For any other mails the footer will simply contain a url link of blackbletfactory website. 
+     * For any other mails the footer will simply contain a url link of the website. 
      * @param user
      * @param isGrouped
      * @return the footer string with the user option if there is one or just the web site url.
      */
     private String templateFooter(User user, boolean isGrouped, boolean isNewsletter) {
-        //TODO : code review
+        
         String footer="";
         if (user !=null){
-            footer = "<br><hr><br><div align=\"justify\">your account : ";//+ userNameWithAbsoluteLink(user);
+            footer = "<br><hr><br><div align=\"justify\">your account : <a href='"+UrlUtil.getAbsoluteUrl("user/" + user.getUserName())+"'>"+user.getUserName()+"</a>";
             footer = "";
-            //TO DO
-            //String userSecurityString = userService.getUserSecurityString(user);
+
             
             if (isGrouped) {
-                
                 MailingDelayType mailDelayOption;
                 MailingDelayType secondDelayOption;
                 MailingDelayType thirdDelayOption;
@@ -88,17 +87,13 @@ public final class MailTemplateService {
                     + "thirdDelayOption"
                     + thirdDelayOption;
             }
-            if(isNewsletter){
-            	
-            	footer += "If you wish to unsubscribe from the KnowledgeBlackBelt newsletter, please follow ";
+            if (isNewsletter) {
+            	footer += "If you wish to unsubscribe from the "+UrlUtil.getProdAbsoluteDomainName()+" newsletter, please follow "
+            			+ "TODO: FEATURE TO IMPLEMENT http://..../unsubscribenewsletter/" + user.getUserName() + "/" +  String userSecurityString = userService.getUserSecurityString(user);
             }
         } else {
-            footer = "<br><hr><br><div align=\"justify\">"+ /*ComponentFactory.pageLinkHtml("KnowledgeBlackBelt.com", new PageResource(HomePage.class))*/"</div>";
+            footer = "<br><hr><br><div align=\"justify\"><a href='"+UrlUtil.getAbsoluteUrl("")+"'>"+UrlUtil.getProdAbsoluteDomainName()+"</a></div>";
         }
-        footer += "<br><br><div align=\"center\">" + /*ComponentFactory.pictureAndLinkHtml(
-                
-        		//new PictureResource(PicturePath.EXAM_LOGO, "KnowledgeBlackBelt-logo-100x36.png"),
-                new PageResource(HomePage.class), FloatStyle.NONE, false)+*/"</div>";
       
         return footer;
     }

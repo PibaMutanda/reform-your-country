@@ -88,3 +88,7 @@
         
     alter table goodexample 
         add column votecount int4 not null;
+        
+-- 2010-11-08 John
+    alter table users drop column registrationdate;  
+    

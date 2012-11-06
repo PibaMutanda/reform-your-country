@@ -7,15 +7,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpSession;
-
 import org.apache.commons.lang3.time.DateUtils;
+import org.apache.http.cookie.Cookie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.UsersConnectionRepository;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import reformyourcountry.controller.LoginController;
@@ -36,7 +34,7 @@ import reformyourcountry.web.Cookies;
 import reformyourcountry.web.HttpSessionTracker;
 
 
-@Component//FIXME why @component
+@Service
 @Transactional
 public class LoginService {
 

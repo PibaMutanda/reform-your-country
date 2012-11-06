@@ -25,7 +25,7 @@ public class UrlUtil {
     }
     //Send the Domain Name (x.y.com) (Value is in the config.properties)
     public static String  getProdAbsoluteDomainName(){
-        if(PROD_ABSOLUTE_DOMAIN_NAME==null){
+        if (PROD_ABSOLUTE_DOMAIN_NAME==null) {
             PROD_ABSOLUTE_DOMAIN_NAME = ((CurrentEnvironment)ContextUtil.springContext.getBean(CurrentEnvironment.class)).getSiteAddress();
         }
         return PROD_ABSOLUTE_DOMAIN_NAME;
