@@ -47,3 +47,42 @@
         add constraint fk2944f1cd3967baba 
         foreign key (updatedby_id) 
         references users;
+        
+-- 2012-11-05 maxime
+
+    create table votegoodexample (
+        id int8 not null,
+        createdon timestamp,
+        updatedon timestamp,
+        value int4 not null,
+        createdby_id int8,
+        updatedby_id int8,
+        goodexample_id int8 not null,
+        user_id int8 not null,
+        primary key (id)
+    );
+
+    alter table votegoodexample 
+        add constraint fk649a4083ccfcf0ad 
+        foreign key (createdby_id) 
+        references users;
+
+    alter table votegoodexample 
+        add constraint fk649a408314093d3 
+        foreign key (goodexample_id) 
+        references goodexample;
+
+    alter table votegoodexample 
+        add constraint fk649a40834ca5daa1 
+        foreign key (user_id) 
+        references users;
+
+    alter table votegoodexample 
+        add constraint fk649a40833967baba 
+        foreign key (updatedby_id) 
+        references users;
+        
+-- 2012-11-06 maxime
+
+    alter table goodexample 
+        add column votecount int4 not null;
