@@ -47,4 +47,6 @@ public class UserGroupListController extends BaseController<GroupReg> {
 		return mv;
 	}
 	
+	
+	
 }
