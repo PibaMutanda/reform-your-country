@@ -34,13 +34,3 @@
        
 </body>
 </html>
-<!-- if(article.getPublishDate()==null) { -->
-<!-- 					result+="<span class=\"datepublication\">non publié</span>"; -->
-<!-- 				} else { -->
-<!-- 					result+="<span class=\"datepublication\">publié dans "+DateUtil.formatDuration(new Date(), article.getPublishDate() )+"</span>"; -->
-<!-- 				} -->
-				
-<!-- 				result+="<div class=\"descriptNotPublish\">"+article.getDescription()+"<div/>"; -->
-<!-- 			} else { -->
-<!-- 				result+="<div class=\"descriptPublish\">"+article.getDescription()+"<div/>"; -->
-<!-- 			} -->

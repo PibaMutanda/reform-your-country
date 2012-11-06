@@ -141,4 +141,8 @@
   <listener>
     <listener-class>reformyourcountry.web.SpringSocialInitFinalizerServletContextListener</listener-class>
   </listener>
+  <listener>
+    <listener-class>reformyourcountry.web.LuceneIndexContextListener</listener-class>
+  </listener>
+  
 </web-app>
