@@ -379,7 +379,7 @@ public class BBConverter {
 
 				if (book != null) { // book title to be added
 					lineBelowQuote += "<span class ='"+getCssClassName(book)+" booktitle'>";
-					lineBelowQuote += book.getTitle();
+					lineBelowQuote += book.getTitle() + " - " + book.getSubtitle();
 					if (book.getAuthor()!= null && !book.getAuthor().isEmpty()){
 						lineBelowQuote += " &ndash; "+book.getAuthor();
 					}
@@ -560,7 +560,7 @@ public class BBConverter {
 
         if (book.getSubtitle()!=null) {
         	block += "<a href='book#"+book.getAbrev()+"'>";  // bibliography page 
-        	block += book.getTitle()+" "+book.getSubtitle()+"</a><br/>";
+        	block += book.getTitle()+"<br/><span class='bookSubTitle'>"+book.getSubtitle()+"</span></a><br/>";
 		}else{
 			block += "<a href='book#"+book.getAbrev()+"'>";  // bibliography page 
         	block += book.getTitle()+"</a><br/>";
