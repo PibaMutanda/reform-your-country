@@ -51,6 +51,23 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     public static final String UNIVERSAL_DEV_PASSWORD_MD5 = "e77989ed21758e78331b20e477fc5582";  // "dev" in clear. -> any developer can use "dev" to impersonate anybody when developing. Does not work in production. 
 
 
+    public enum SpecialType {
+        POLITIC("Politic"),
+        UNION("Union"),
+        ASSOCIATION("Association"),
+        PRIVATE("Private");
+        
+        String name;
+        
+        SpecialType(String name){
+            this.name=name;
+        }
+        
+        public String getName(){
+            return name;
+        }
+    }
+    
     /**
      * Status for an account :<br />
      * LOCKED: Account manually locked by an admin, normally a lock reason
@@ -63,14 +80,12 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
         LOCKED("Locked"),
         NOTVALIDATED("Mail not validated yet"),     
         ACTIVE( "Active");
-       
 
         String name;
 
         AccountStatus(String aName) {
             this.name = aName;
         }
-
         public String getName() {
             return name;
         }
@@ -178,6 +193,9 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
 
     }
  
+    @Enumerated(EnumType.STRING)
+    private SpecialType specialType;
+    
     @Enumerated(EnumType.STRING)
     private AccountConnectedType accountConnectedType;
     
@@ -289,6 +307,14 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     
     public Role getRole() {
         return role;
+    }
+
+    public SpecialType getSpecialType() {
+        return specialType;
+    }
+
+    public void setSpecialType(SpecialType specialType) {
+        this.specialType = specialType;
     }
 
     public AccountConnectedType getAccountConnectedType() {
