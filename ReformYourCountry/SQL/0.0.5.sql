@@ -84,5 +84,7 @@
         
 -- 2012-11-06 maxime
 
+    alter table votegoodexample DROP COLUMN value ;   
+        
     alter table goodexample 
         add column votecount int4 not null;
