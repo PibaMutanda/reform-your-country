@@ -353,7 +353,7 @@ public abstract class FileUtil {
         }
     }
 
-	public static String getLuceneIndex() {
+	public static String getLuceneIndexDirectory() {
 		return getGenFolderPath()+LUCENE_INDEX_FOLDER+"/";
 	}
     

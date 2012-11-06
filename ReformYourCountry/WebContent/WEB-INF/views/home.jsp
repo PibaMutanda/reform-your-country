@@ -43,9 +43,6 @@ ${p_home_body_text}
 </p>
 </div>
 
-<form action="/search/createIndex" method="post">
-<input type="submit" value="Générer un index"/>
-</form>
 
 <div style="width:450px;"> 
 <div class="h7">

@@ -191,4 +191,10 @@ public  class SecurityContext {
         SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_USERS);
     }
 
+	public static void assertUserHasRole(Role role) {
+		 if (!isUserHasRole(role)) {
+	            throw new UnauthorizedAccessException("You need the following role: " + role);
+	        }
+	}
+
 }

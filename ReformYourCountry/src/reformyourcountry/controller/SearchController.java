@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import reformyourcountry.model.BaseEntity;
 import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.search.ArticleSearchResult;
 import reformyourcountry.security.Privilege;
@@ -16,7 +17,7 @@ import reformyourcountry.service.SearchService;
 
 @Controller
 @RequestMapping("/search")
-public class SearchController {
+public class SearchController{
 
 
 	@Autowired SearchService searchService;
@@ -43,19 +44,8 @@ public class SearchController {
 		return mv;
 	}
 	
-	
-	/** Used by an administrator to recreate the indexes */
-	@RequestMapping("/createIndex")
-	public ModelAndView createIndex(){
-		try {
-			indexManagerService.removeIndexes();
-		} catch(Exception e){
-		}finally {
-			indexManagerService.createIndexes();
-		}
-		
-		return new ModelAndView("/home");
 
-	}
+	
+	
 }
 

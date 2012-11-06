@@ -56,7 +56,7 @@ public class IndexManagerService {
 	
 	public void createIndexes() {
         try{
-            SimpleFSDirectory sfsd = new SimpleFSDirectory(new File(FileUtil.getLuceneIndex()));
+            SimpleFSDirectory sfsd = new SimpleFSDirectory(new File(FileUtil.getLuceneIndexDirectory()));
             Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_40);
             IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_40, analyzer);
             // Make an writer to create the index
@@ -171,7 +171,7 @@ public class IndexManagerService {
             String queryString="(" + keyWords + "~)"//the "~" enable fuzzy search
             		+ (inAllArticles || article==null ? "" : " AND id:"+article.getId());//search in one article only
 
-            SimpleFSDirectory sfsd = new SimpleFSDirectory(new File(FileUtil.getLuceneIndex()));
+            SimpleFSDirectory sfsd = new SimpleFSDirectory(new File(FileUtil.getLuceneIndexDirectory()));
             IndexReader reader = DirectoryReader.open(sfsd);
             IndexSearcher searcher = new IndexSearcher(reader);
             
@@ -205,7 +205,7 @@ public class IndexManagerService {
     public String getHighlight(String keyword, String textToHighlight){
         try {
         	
-        	SimpleFSDirectory sfsd = new SimpleFSDirectory(new File(FileUtil.getLuceneIndex()));
+        	SimpleFSDirectory sfsd = new SimpleFSDirectory(new File(FileUtil.getLuceneIndexDirectory()));
             IndexReader reader = DirectoryReader.open(sfsd);
             
         	String queryString="(" + keyword + "~)";
@@ -235,7 +235,7 @@ public class IndexManagerService {
     }
 	public Document findDocument(ScoreDoc scoreDoc){
         try {
-            File file = new File(FileUtil.getLuceneIndex());
+            File file = new File(FileUtil.getLuceneIndexDirectory());
             SimpleFSDirectory sfsd = new SimpleFSDirectory(file);
             IndexReader reader = DirectoryReader.open(sfsd);
             IndexSearcher searcher = new IndexSearcher(reader);        
@@ -250,7 +250,7 @@ public class IndexManagerService {
     }
 	
 	public void removeIndexes(){
-		File file = new File(FileUtil.getLuceneIndex());
+		File file = new File(FileUtil.getLuceneIndexDirectory());
         try {
             SimpleFSDirectory sfsd = new SimpleFSDirectory(file);
             String[] listFile=sfsd.listAll();
@@ -267,7 +267,7 @@ public class IndexManagerService {
      * Return an IndexWriter allows to read and write in the index of lucene 
      */
     private IndexWriter getIndexWriter() throws IOException, CorruptIndexException {
-    	SimpleFSDirectory sfsd = new SimpleFSDirectory(new File(FileUtil.getLuceneIndex()));
+    	SimpleFSDirectory sfsd = new SimpleFSDirectory(new File(FileUtil.getLuceneIndexDirectory()));
         IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_40, new StandardAnalyzer(Version.LUCENE_40));
         return new IndexWriter(sfsd, iwc);
     }
