@@ -53,28 +53,25 @@ public class IndexManagerService {
 	public static final int MAX_HITS = 1000;
 	@Autowired ArticleRepository articleRepository;
 	
-	
+
 	public void createIndexes() {
-        try{
-            SimpleFSDirectory sfsd = new SimpleFSDirectory(new File(FileUtil.getLuceneIndexDirectory()));
-            Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_40);
-            IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_40, analyzer);
-            // Make an writer to create the index
-            IndexWriter writer = new IndexWriter(sfsd, iwc);
-            //Index all Accommodation entries       
-          List<Article> articles = articleRepository.findAll();
-          for (Article article : articles) {
-              writer.addDocument(createDocument(article));
-          }
-          writer.commit();
-          writer.close();
-        } catch (CorruptIndexException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-	
+		try(SimpleFSDirectory sfsd = new SimpleFSDirectory(new File(FileUtil.getLuceneIndexDirectory()))){
+
+			Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_40);
+			IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_40, analyzer);
+
+			try(IndexWriter writer = new IndexWriter(sfsd, iwc)){// Make an writer to create the index (with try-with-resources block)
+				//Index all Accommodation entries 
+				List<Article> articles = articleRepository.findAll();
+				for (Article article : articles) {
+					writer.addDocument(createDocument(article));
+				}
+				writer.commit();
+			}               
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}	
 	private Document createDocument(Object entity) {
         if(entity instanceof Article){
         	return createArticleDocument((Article)entity);
@@ -251,13 +248,11 @@ public class IndexManagerService {
 	
 	public void removeIndexes(){
 		File file = new File(FileUtil.getLuceneIndexDirectory());
-        try {
-            SimpleFSDirectory sfsd = new SimpleFSDirectory(file);
+        try(SimpleFSDirectory sfsd = new SimpleFSDirectory(file)) {
             String[] listFile=sfsd.listAll();
             for(String fileStr : listFile){
                 sfsd.deleteFile(fileStr);
             }
-            sfsd.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

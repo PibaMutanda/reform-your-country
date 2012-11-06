@@ -19,14 +19,11 @@
 			<c:when test="${articleSearchUnit.article.isPublished()}">
 			    <c:set var="result" value="${articleSearchUnit}" scope="request"/>
 	        	<ryctag:search />
-	        	
-	        	
 	        </c:when>
 	        <c:otherwise>
 		        <ryc:conditionDisplay privilege="EDIT_ARTICLE">
 		        	<c:set var="result" value="${articleSearchUnit}" scope="request"/>
 		            <ryctag:search />
-		            ${articleSearchUnit.articleDocument.id}
 		        </ryc:conditionDisplay>
 	        </c:otherwise>
         </c:choose>
