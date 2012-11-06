@@ -38,9 +38,12 @@ import org.apache.lucene.util.Version;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import reformyourcountry.converter.BBConverter;
 import reformyourcountry.model.Article;
 import reformyourcountry.repository.ArticleRepository;
+import reformyourcountry.repository.BookRepository;
 import reformyourcountry.util.FileUtil;
+import reformyourcountry.util.HTMLUtil;
 
 @Component
 /**
@@ -52,11 +55,11 @@ public class IndexManagerService {
 	
 	public static final int MAX_HITS = 1000;
 	@Autowired ArticleRepository articleRepository;
-	
+	@Autowired BookRepository bookRepository;
 
 	public void createIndexes() {
 		try(SimpleFSDirectory sfsd = new SimpleFSDirectory(new File(FileUtil.getLuceneIndexDirectory()))){
-
+			
 			Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_40);
 			IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_40, analyzer);
 
@@ -104,7 +107,12 @@ public class IndexManagerService {
 	private Document createArticleDocument(Article article) {
 		// Add a new Document to the index
         Document doc = new Document();
-
+        //Remove bbcode and html
+        BBConverter bbc = new BBConverter(bookRepository, articleRepository);
+		String summary = HTMLUtil.removeHmlTags(bbc.transformBBCodeToHtmlCode(article.getLastVersion().getSummary()));
+		String toClassify = HTMLUtil.removeHmlTags(bbc.transformBBCodeToHtmlCode(article.getLastVersion().getToClassify()));
+		String content = HTMLUtil.removeHmlTags(bbc.transformBBCodeToHtmlCode(article.getLastVersion().getContent()));
+		
         doc.add(new TextField("id",String.valueOf(article.getId()),Store.YES));//This is a TextField instead of a LongField because updateDocument has problems finding LongFields
         // This give more importance to title during the search
         // The user see the result from the title before the result from the text 
@@ -113,9 +121,9 @@ public class IndexManagerService {
         doc.add(titleField);
         
         doc.add(new TextField("shortName",article.getShortName(),Store.YES));
-        doc.add(new TextField("summary",article.getLastVersion().getSummary(),Store.YES));
-        doc.add(new TextField("toClassify",article.getLastVersion().getToClassify(),Store.YES));
-        doc.add(new TextField("content",article.getLastVersion().getContent(),Store.YES));
+        doc.add(new TextField("summary",summary,Store.YES));
+        doc.add(new TextField("toClassify",toClassify,Store.YES));
+        doc.add(new TextField("content",content,Store.YES));
 
         return doc;
 	}
