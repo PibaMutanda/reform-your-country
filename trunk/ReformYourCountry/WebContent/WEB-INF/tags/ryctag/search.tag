@@ -7,15 +7,12 @@
 <%-- Used by search.jsp to prevent copy/pasting code. --%>
 <div class=listToSearchTitle>
      <a  href="/article/${result.article.url}">${result.articleDocument.title}</a>
- 	  
 </div>
 <span class="datepublication"> <ryc:publishDate id="${result.article.id}"/> </span>
-<br/>
 <div class=listToSearch>
     <c:choose>
       <c:when test="${result.articleDocument.content != null}">
      		${result.articleDocument.content}
-     		
       </c:when>
       <c:otherwise>
       	 	${result.article.description}

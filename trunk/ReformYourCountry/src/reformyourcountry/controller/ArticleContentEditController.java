@@ -28,7 +28,6 @@ public class ArticleContentEditController extends BaseController<Article>{
     @Autowired ArticleRepository articleRepository;
     @Autowired ArticleVersionRepository articleVersionRepository;
     @Autowired ArticleService articleService;
-    @Autowired IndexManagerService indexManagerService;
     
     @RequestMapping("/article/contentedit")
     public ModelAndView articleContentEdit(@RequestParam("id")Long id) {
@@ -49,7 +48,6 @@ public class ArticleContentEditController extends BaseController<Article>{
         SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
      
         articleService.saveArticle(getRequiredEntity(id), content, summary, toClassify);
-        indexManagerService.updateArticle(getRequiredEntity(id));
         return new ResponseEntity<String>("sauvegarde",  // that tiny message will appear next to the save button and a save hour.
                                           HttpStatus.OK);
     }
@@ -63,7 +61,6 @@ public class ArticleContentEditController extends BaseController<Article>{
         SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
         
         articleService.saveArticle(getRequiredEntity(id), content, summary, toClassify);
-        indexManagerService.updateArticle(getRequiredEntity(id));
         return new ModelAndView("redirect:"+getRequiredEntity(id).getUrl());
     }
     

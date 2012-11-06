@@ -19,6 +19,7 @@ public class ArticleService {
 
 	@Autowired	ArticleRepository articleRepository;
 	@Autowired  ArticleVersionRepository articleVersionRepository;
+	@Autowired  IndexManagerService indexManagerService;
 	
 	/** @param newParentId if null, removes the current parent and makes a root node. */
 	public void changeParent(Article article, Long newParentId) {
@@ -62,6 +63,7 @@ public class ArticleService {
 	 public void saveArticle(Article article, String content, String summary, String toClassify){
          ArticleVersion previousVersion =  null;
          ArticleVersion newVersion = null;
+         boolean isNewArticle = false;
          if (article == null) {
              throw new IllegalArgumentException("article can't be null");
          }
@@ -73,6 +75,7 @@ public class ArticleService {
 	     
 	     if (article.getId() == null) {
 	         needNewVersion = true; //in case of an new article it's necessarily an new articleVersion
+	         isNewArticle = true;
 	         
 	     } else {
 	         previousVersion  = article.getLastVersion();
@@ -113,5 +116,14 @@ public class ArticleService {
 	     ///// 4.merge
 	     articleVersionRepository.merge(newVersion);
  	     articleRepository.merge(article);
+ 	     
+ 	     /////5. update index
+ 	     if(isNewArticle){
+ 	    	indexManagerService.addArticle(article);
+ 	     }else{
+ 	    	indexManagerService.updateArticle(article);
+ 	     }
+ 	     
+ 	     
 	 }
 }

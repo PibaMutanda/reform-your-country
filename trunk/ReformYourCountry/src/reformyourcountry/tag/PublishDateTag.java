@@ -30,11 +30,11 @@ public class PublishDateTag extends SimpleTagSupport{
 		articleRepository =  ContextUtil.getSpringBean(ArticleRepository.class);
 		JspWriter out = this.getJspContext().getOut();
 		Article article = articleRepository.find(Long.parseLong(id));
-//		if(article.getPublishDate()==null) {
-//			String result="<span class=\"datepublication\">non publié</span>";
-//		} else {
-			String result="<span class=\"datepublication\">publié dans "+DateUtil.formatDuration(new Date(), article.getPublishDate() )+"</span>";
-//		}
+		String result="";
+		if (article.getPublishDate() != null && article.getPublishDate().after(new Date())){
+			result+="<span class=\"datepublication\">publié dans "+DateUtil.formatDuration(new Date(), article.getPublishDate() )+"</span>";
+		}
+		
 		try {
 			out.println(result);
 		} catch (IOException e) {
