@@ -10,21 +10,33 @@ $(document).ready(function() {
 		//it save when we type CTRL+S
 		if(event.ctrlKey  && event.keyCode == 83) { // touche s = 83
 			event.preventDefault();
-			performChange();
+			performSave();
 		}
 	});
 
 	$(".autosaveable").keyup(function(event) {
 		$(".save").removeAttr('disabled');  // Make the save button enabled (the text effectively changed since the last save).
+		contentHasNotBeenSaved = true;
 
 		if(event.ctrlKey == false  &&  event.keyCode != 83) {// get the save timer only when there is new content and when CTRL+S wasn't pressed
-			setTimeout(function(){performChange();}, 120000);  // We'll save in 120 seconds from now.
+			setTimeout(function(){performSave();}, 120000);  // We'll save in 120 seconds from now.
 		}
 	});
 
 
+	// Ask to save when exiting without saving
+    window.onbeforeunload = function(evt){
+        if (contentHasNotBeenSaved) {
+        	return "Vous n'avez pas sauvé votre texte.";
+        } else {
+        	return;
+        }
+        
+    }
+
+
 	// Function called when a change is performed on the article.
-	function performChange() {
+	function performSave() {
 		////// We effectively start saving from here
 		$(".saving").text("sauvegarde en cours....");		
 		//get the action value from the form and add ajax/ before because this is a project convention for ajax request
@@ -35,6 +47,7 @@ $(document).ready(function() {
 		.done(function(){
 			$(".save").each(function(){
 				$(this).attr('disabled', 'disabled');
+				contentHasNotBeenSaved = false;
 			});
 			$(".saving").text("sauvé à "+getDate());	
 		});
