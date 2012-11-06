@@ -12,25 +12,26 @@
 		document.getElementById('selectedfile').value = document.getElementById('hiddenfile').value;
 	}
 </script>
-<p>(Attention l'image doit faire moins de 1.5Mo)</p>
-<form method="post" action="${action}" enctype="multipart/form-data" style="width: 45%; display: inline-block; vertical-align:top;">
+<p>(Attention l'image doit faire moins de 1.5 Mo)</p>
+<form method="post" action="${action}" enctype="multipart/form-data" style="width:500px;">
     <fieldset>
         <legend>à partir de votre ordinateur</legend>
-        <input type="button" value="" class="uploadBtn" onmouseout="showfile()" onclick="getfile()" />
-        <input type="submit" class="saveBtn" value="" /><br/>
+        <input type="submit" class="saveBtn" value="" style="float:right;"/>
+        <input type="button" value="" class="uploadBtn" onmouseout="showfile()" onclick="getfile()" style="float:right;" />
         <input type="file" name="file" id="hiddenfile" style="display:none;" required="required"/>
-        <input type="text"  disabled="disabled"  id="selectedfile" width="100%" />
+        <input type="text"  disabled="disabled"  id="selectedfile" style="width:495px;" />
         <input type="hidden" name="id" value="${id}" />
     </fieldset>
 </form>
-<form method="post" action="${action}fromurl" style="width: 45%; display: inline-block;">
+<br/>
+<form method="post" action="${action}fromurl" style="width:500px;">
     <fieldset>
         <legend>à partir d'un autre site web</legend>
-        <label for="fileurl">URL: </label><input type="url" name="fileurl" required="required" /><br /> 
+        <label for="fileurl">URL: </label><input type="url" name="fileurl" required="required" style="width:495px;" /><br /> 
         <c:if test="${rename}">
-            <label for="name">nom de l'image: </label><input type="text" name="name" required="required" /><br /> 
+            <label for="name">nom de l'image: </label>
+            <input type="text" name="name" required="required" style="width:495px;" /><br /> 
         </c:if>
-        <input type="hidden" name="id" value="${id}" />
-        <input type="submit" value="Ajouter" /><br />
+        <input type="hidden" name="id" value="${id}" /><input type="submit" value="Ajouter" style="float:right;" /><br />
     </fieldset>
 </form>
