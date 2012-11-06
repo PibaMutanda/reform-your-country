@@ -33,7 +33,12 @@ public class PublishDateTag extends SimpleTagSupport{
 		String result="";
 		if (article.getPublishDate() != null && article.getPublishDate().after(new Date())){
 			result+="<span class=\"datepublication\">publié dans "+DateUtil.formatDuration(new Date(), article.getPublishDate() )+"</span>";
+		} else {
+			result+="<span class=\"datepublication\">non publié</span>";
 		}
+//		if (article.getPublishDate() != null && article.getPublishDate().before(new Date())){
+//			result+="<span class=\"datepublication\">publié il y a "+DateUtil.formatDuration(new Date(), article.getPublishDate() )+"</span>";
+//		} 
 		
 		try {
 			out.println(result);
