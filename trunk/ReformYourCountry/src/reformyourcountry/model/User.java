@@ -256,7 +256,7 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
 
     private Date lastAccess;
 
-    private Date registrationDate;
+        
     @Column(length = 40)
     private String lastLoginIp;
 
@@ -394,13 +394,7 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
         this.isPasswordKnownByTheUser = isPasswordKnownByTheUser;
     }
 
-    public Date getRegistrationDate() {
-        return registrationDate;
-    }
 
-    public void setRegistrationDate(Date now) {
-        this.registrationDate = now;
-    }
 
     public Date getLastAccess() {
         return lastAccess;

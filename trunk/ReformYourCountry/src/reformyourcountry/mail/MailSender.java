@@ -176,21 +176,7 @@ public class MailSender extends Thread {
             log.info(e);
         }
     }
-    //FIXME what this and it is commented? -maxime 10/09/2012
-   // 	private void sendToFile(MailTemplateService.MailSubjectAndContent mp) {
-   // 	BufferedWriter writer;
-    	//	try {
-    //			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("C:\\testing\\Mails\\" + mp.subject + ".html")));
-    //			writer.write(mp.content);
-    //			writer.close();
-    //		} catch (FileNotFoundException e) {
-    //			// Temporary code.
-    //			e.printStackTrace();
-    //		} catch (IOException e) {
-    //			// Temporary code.
-    //			e.printStackTrace();
-    //		}
-    //	}
+
 
     public void sendMailIndividually(Mail mail) {
     	   

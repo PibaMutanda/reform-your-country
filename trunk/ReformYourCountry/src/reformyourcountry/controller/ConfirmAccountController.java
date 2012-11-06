@@ -21,6 +21,7 @@ import reformyourcountry.model.User.AccountStatus;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.service.LoginService;
 import reformyourcountry.service.UserService;
+import reformyourcountry.util.CurrentEnvironment;
 import reformyourcountry.web.ContextUtil;
 
 
@@ -32,7 +33,8 @@ public class ConfirmAccountController extends BaseController<User>{
     @Autowired UserService userService;
     @Autowired LoginService loginService;
     @Autowired UsersConnectionRepository usersConnectionRepository;
-    
+    @Autowired CurrentEnvironment currentEnvironment;
+   
     //when a user try to log in, for example with a facebook account, and no RYC account exists, he is invited to confirm the creation of a new account.
     @RequestMapping("/confirmaccount")  
     public ModelAndView confirmAccount(WebRequest request){
@@ -61,9 +63,6 @@ public class ConfirmAccountController extends BaseController<User>{
             }
             return mv;
         }
-
-
-
     }
 
 	// the user just confirmed the RYC account creation (to be bound with its social network account).
@@ -94,7 +93,7 @@ public class ConfirmAccountController extends BaseController<User>{
 	    User user =null;
 	    try {
 	        user = userService.registerSocialUser(request, email, mailIsValid);
-	        addNotificationMessage("Félicitation, vous venez de  creer un compte sur "+ContextUtil.servletContext.getAttribute("website_name")+" associé à votre compte "+connection.getKey().getProviderId()+"."+
+	        addNotificationMessage("Félicitation, vous venez de  creer un compte sur "+ currentEnvironment.getSiteName() +" associé à votre compte "+connection.getKey().getProviderId()+"."+
 	                "<br>A l'avenir vous pourrez vous connecter en cliquant sur l'icone de connection "+connection.getKey().getProviderId(),request);
 	        // TODO notification qu'ils vont recevoir un mail et doivent cliquer sur le lien.
 	    } catch (UserAlreadyExistsException e) {

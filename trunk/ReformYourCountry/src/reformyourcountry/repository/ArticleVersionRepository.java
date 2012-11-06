@@ -10,12 +10,6 @@ import reformyourcountry.model.ArticleVersion;
 @SuppressWarnings("unchecked")
 public class ArticleVersionRepository extends BaseRepository<ArticleVersion>{
 
-    //FIXME useless method ? --maxime 16/10/2012
-    public ArticleVersion findLast(Article article){
-        return (ArticleVersion) em.createQuery("select av from ArticleVersion av order by av.createdOn where av.article = :article")
-                .setParameter("article", article)
-                .setMaxResults(1).getResultList().get(0);
-    }
     
     public List<ArticleVersion> findAllVersionForAnArticle (Article article){
         return findAllByArticle(article.getId());

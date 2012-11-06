@@ -67,17 +67,11 @@ public class UserService {
 
     @Logger Log log;
     
-    @Autowired 
-    private UserRepository userRepository;
-    
-    @Autowired 
-    private MailService mailService;
-    
-    @Autowired 
-    LoginService loginService;
-
-    @Autowired
-    private UsersConnectionRepository usersConnectionRepository;
+    @Autowired   private UserRepository userRepository;
+    @Autowired   private MailService mailService;
+    @Autowired   private LoginService loginService;
+    @Autowired   private UsersConnectionRepository usersConnectionRepository;
+    @Autowired   private CurrentEnvironment currentEnvironment;
     /**
      * Register a user and sends a validation mail.
      * 
@@ -127,16 +121,13 @@ public class UserService {
     public void sendRegistrationValidationMail(User user) {
 
         String validationUrl = UrlUtil.getAbsoluteUrl( "validationsubmit?code=" + user.getValidationCode());
-        String htmlMessage = "Bienvenue sur "+ContextUtil.servletContext.getAttribute("website_name")+", " + user.getUserName() + "." + 
+        String htmlMessage = "Bienvenue sur "+ currentEnvironment.getSiteName()+", " + user.getUserName() + "." + 
                 "<br/>Il reste une dernière étape pour créer votre compte : " +
                 "veuillez s'il vous plait cliquer sur le lien ci-dessous pour valider votre e-mail !" +
                 "<br/><a href='"+ validationUrl + "'>" + validationUrl + "</a>" +
                 "<br/><br/>Si vous rencontrez un problème, essayez de copier/coller l'URL dans votre navigateur (au lieu de cliquer sur le lien), ou en dernier recours " +
-                "<a href='" + 
-                //TODO add a contact page
-                //UrlUtil.getAbsoluteUrl(####TO IMPLEMENT####) + 
-                "'>nous contacter</a>" + 
-                "<br/><br/>merci de vous être inscrit sur "+ContextUtil.servletContext.getAttribute("website_name")+".";
+                "<a href='" + UrlUtil.getAbsoluteUrl("contact") + "'>nous contacter</a>" + 
+                "<br/><br/>merci de vous être inscrit sur "+currentEnvironment.getSiteName()+".";
         mailService.sendMail(user, "Votre nouveau compte", htmlMessage, MailType.IMMEDIATE, MailCategory.USER);
         
         log.debug("mail sent: " + htmlMessage);  
@@ -410,5 +401,10 @@ public class UserService {
 		return list1;
     }
     
-
+	/** Encoding user's nickname and registration date to have a parameter sent to a page.
+	 * Used in urls (from mails, for example), to directly authentify a user. */
+    public String getUserSecurityString(User user){
+		return SecurityUtils.md5Encode(user.getUserName()+user.getCreatedOn().toString()).substring(0, 6);
+    }
+	
 }
