@@ -82,6 +82,11 @@
         foreign key (updatedby_id) 
         references users;
         
+-- 2012-11-05 Cédric
+
+    alter table argument 
+        add column positivearg boolean not null  default false;
+
 -- 2012-11-06 maxime
 
     alter table votegoodexample DROP COLUMN value ;   
