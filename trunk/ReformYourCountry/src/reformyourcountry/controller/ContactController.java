@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
-
 
 import reformyourcountry.mail.MailCategory;
 import reformyourcountry.mail.MailType;
@@ -22,10 +22,10 @@ public class ContactController extends BaseController<User> {
     @RequestMapping("/contact")
     public ModelAndView contactDisplay(){
         ModelAndView mv = new ModelAndView("contact");
-     //   if (SecurityContext.getUser()!=null){
-      //      mv.addObject("mailsender",SecurityContext.getUser().getMail());
+        if (SecurityContext.getUser()!=null){
+            mv.addObject("sender",SecurityContext.getUser().getMail());
             
-      //  }
+        }
         return mv;
     }
 
@@ -34,25 +34,25 @@ public class ContactController extends BaseController<User> {
         ModelAndView mv = new ModelAndView("contact");
         
         if (StringUtils.isBlank(content)) {
-            return prepareModelAndView(sender, subject, content,"Indiquez un contenu au message.");
+            return prepareModelAndView(sender, subject, content,"Indiquez un contenu au message.", request);
         }
         
         if (StringUtils.isBlank(subject)) {
-            return prepareModelAndView(sender, subject, content, "Indiquez le sujet de votre message.");
+            return prepareModelAndView(sender, subject, content, "Indiquez le sujet de votre message.", request);
         }
         
         if (StringUtils.isBlank(sender)) {
-            return prepareModelAndView(sender, subject, content, "Indiquez une adresse e-mail où l'on puisse vous répondre." );   
+            return prepareModelAndView(sender, subject, content, "Indiquez une adresse e-mail où l'on puisse vous répondre.", request);   
         }
         
         mailService.sendMail(mailService.ADMIN_MAIL, sender, subject,content, MailType.IMMEDIATE, MailCategory.CONTACT);
-        return new ModelAndView("redirect:/");  // Go to home page.
-        
         addNotificationMessage("Votre message est bien envoyé", request);
+
+        return new ModelAndView("redirect:/");  // Go to home page.
     }
     
     
-    private ModelAndView prepareModelAndView(String sender,String subject,String content,String message, request) {
+    private ModelAndView prepareModelAndView(String sender,String subject,String content,String message, WebRequest request) {
     	addNotificationMessage(message, request);
         ModelAndView mv = new ModelAndView("contact");
         
