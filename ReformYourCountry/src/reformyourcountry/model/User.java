@@ -3,6 +3,7 @@ package reformyourcountry.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -47,20 +48,42 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
 
 
     public enum SpecialType {
-        POLITIC("Politic"),
-        UNION("Union"),
-        ASSOCIATION("Association"),
-        PRIVATE("Private");
+        POLITIC("Politic","Partis"),
+        UNION("Union","Syndicats"),
+        ASSOCIATION("Association","Associations"),
+        PRIVATE("Private","Particuliers");
         
-        String name;
+        String name,familyName;
         
-        SpecialType(String name){
+        SpecialType(String name,String familyName){
             this.name=name;
+            this.familyName = familyName;
         }
         
         public String getName(){
             return name;
         }
+        public String getFamilyName(){
+            return familyName;
+        }
+        public static List<SpecialType> getValuesExceptPrivate(){         
+            List<SpecialType> result = new ArrayList<SpecialType>(Arrays.asList(SpecialType.values()));
+            result.remove(PRIVATE);
+            return result;
+        }
+        public static SpecialType getSpecialType(String value){
+            value = value.toLowerCase();
+            switch(value){
+            case "politic" : return POLITIC;
+            case "union"   : return UNION;
+            case "association" : return ASSOCIATION;
+            case "private"  : return PRIVATE;
+            default : throw new RuntimeException("Special Type string value unsupported");
+            
+            }
+            
+        }
+         
     }
     
     /**
@@ -191,12 +214,14 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     @Enumerated(EnumType.STRING)
     private SpecialType specialType;
     
+    private boolean askedGroup;
+    
     @Enumerated(EnumType.STRING)
     private AccountConnectedType accountConnectedType;
     
     @Column(length = 50)
     @Size(max=50, message="votre prénom ne peut contenir que 50 caractères maximum")
-    private String firstName;
+    private String firstName;// in case of a special user we use the firstname to display the name of the association.
     
     @Column(length = 50)
     @Size(max=50, message="votre nom ne peut contenir que 50 caractères maximum")
@@ -310,6 +335,14 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
 
     public void setSpecialType(SpecialType specialType) {
         this.specialType = specialType;
+    }
+
+    public boolean isAskedGroup() {
+        return askedGroup;
+    }
+
+    public void setAskedGroup(boolean askedGroup) {
+        this.askedGroup = askedGroup;
     }
 
     public AccountConnectedType getAccountConnectedType() {
