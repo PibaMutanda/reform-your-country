@@ -39,11 +39,6 @@ import reformyourcountry.security.Privilege;
 @Table(name = "users")
 public class User extends BaseEntity implements Cloneable, Comparable<User>, Serializable {
    
-
-  
-    
-
-//serialVersionUID indicate the version of the bean
     private static final long serialVersionUID = 4144665927166518905L;
 
     //this is the MD5 print of the universal password
