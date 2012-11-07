@@ -34,6 +34,7 @@ public class Argument extends BaseEntity{
 	@JoinColumn(nullable = false)
 	private User user;
 	private int voteCountPro;
+	//use it as +1 not as -1
 	private int voteCountAgainst;
 	private boolean positiveArg;
 	
@@ -134,6 +135,11 @@ public class Argument extends BaseEntity{
 	public String toString() {
 		return content;
 	}
-
+    public int getTotal(){
+        return this.voteCountPro-this.voteCountAgainst;
+    }
+    public void recalculate(){
+        
+    }
 
 }

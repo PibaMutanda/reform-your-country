@@ -11,13 +11,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.model.Action;
 import reformyourcountry.model.Argument;
-import reformyourcountry.model.VoteAction;
+import reformyourcountry.model.User;
 import reformyourcountry.repository.ActionRepository;
 import reformyourcountry.repository.ArgumentRepository;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.repository.VoteActionRepository;
+import reformyourcountry.repository.VoteArgumentRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
+import reformyourcountry.service.ArgumentService;
 
 @Controller
 public class ArgumentController extends BaseController<Action>{
@@ -26,6 +28,9 @@ public class ArgumentController extends BaseController<Action>{
     @Autowired ActionRepository actionRepository;
     @Autowired UserRepository userRepository;
     @Autowired VoteActionRepository voteActionRepository;
+    @Autowired VoteArgumentRepository voteArgumentRepository;
+    @Autowired ArgumentService argumentService;
+    
     
     @RequestMapping("ajax/argumentAdd")
     public ModelAndView argumentAdd(@RequestParam("action")Long idAction, @RequestParam("content")String content, @RequestParam("title")String title,@RequestParam("ispos")boolean isPos) throws Exception{
@@ -41,29 +46,22 @@ public class ArgumentController extends BaseController<Action>{
         }else{
             
         }
-        //Divide all the arguments in 2 lists: positive ones and negative ones.
-        List<Argument> listArgs = argumentRepository.findAll(action.getId());
-        List<Argument> listPosArgs = new ArrayList<Argument>();
-        List<Argument> listNegArgs = new ArrayList<Argument>();
-        for(Argument arg :listArgs){
-            if (arg.isPositiveArg()){
-                listPosArgs.add(arg);
-            }else
-            {
-                listNegArgs.add(arg);
-            }
-        }
-        ModelAndView mv = new ModelAndView("argument"); 
-        mv.addObject("action", action);
-        VoteAction va = voteActionRepository.findVoteActionForUser(SecurityContext.getUser(), action.getId());
-        if (va != null){ 
-            mv.addObject("resultVote", voteActionRepository.getTotalVoteValue(action.getId()));
-            mv.addObject("vote",va);
-            
-        }
-        mv.addObject("listPosArgs",listPosArgs);
-        mv.addObject("listNegArgs",listNegArgs);
-        return mv;
+        return  argumentService.getActionModelAndView(action);
     }   
-
+    
+    
+    
+    @RequestMapping("ajax/argumentVote")
+    public ModelAndView argumentVote(@RequestParam("idArg")Long idArg,@RequestParam("value")int value){
+        SecurityContext.assertUserHasPrivilege(Privilege.CAN_VOTE);
+        User user = SecurityContext.getUser();
+        Argument arg = argumentRepository.find(idArg);
+        argumentService.updateVoteArgument(idArg, value, user, arg);
+        Action action =  arg.getAction();
+      
+       return  argumentService.getActionModelAndView(action);
+    }
+   
+   
+  
 }

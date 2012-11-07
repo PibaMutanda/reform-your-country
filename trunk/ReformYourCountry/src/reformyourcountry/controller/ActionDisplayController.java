@@ -15,6 +15,7 @@ import reformyourcountry.model.VoteAction;
 import reformyourcountry.repository.ArgumentRepository;
 import reformyourcountry.repository.VoteActionRepository;
 import reformyourcountry.security.SecurityContext;
+import reformyourcountry.service.ArgumentService;
 
 @Controller
 @RequestMapping("/action")
@@ -23,33 +24,12 @@ public class ActionDisplayController extends BaseController<Action> {
     
     @Autowired VoteActionRepository voteActionRepository;
     @Autowired ArgumentRepository argumentRepository;
+    @Autowired ArgumentService argumentService;
 
     @RequestMapping("/{actionUrl}")
     public ModelAndView displayAction(@PathVariable("actionUrl") String actionUrl) {
         Action action = getRequiredEntityByUrl(actionUrl);
-        List<Argument> listArgs = argumentRepository.findAll(action.getId());
-        List<Argument> listPosArgs = new ArrayList<Argument>();
-        List<Argument> listNegArgs = new ArrayList<Argument>();
-        for(Argument arg :listArgs){
-            if (arg.isPositiveArg()){
-                listPosArgs.add(arg);
-            }else
-            {
-                listNegArgs.add(arg);
-            }
-        }
-        ModelAndView mv = new ModelAndView("actiondisplay"); 
-        mv.addObject("action", action);
-        VoteAction va = voteActionRepository.findVoteActionForUser(SecurityContext.getUser(), action.getId());
-        if (va != null){ 
-            mv.addObject("resultVote", voteActionRepository.getTotalVoteValue(action.getId()));
-            mv.addObject("vote",va);
-            
-        }
-        mv.addObject("listPosArgs",listPosArgs);
-        mv.addObject("listNegArgs",listNegArgs);
-        
-        return mv;
+        return  argumentService.getActionModelAndView(action);
     }
 
 }
