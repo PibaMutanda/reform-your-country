@@ -47,13 +47,13 @@ public class RegisterController extends BaseController<User> {
                 ModelAndView mv = new ModelAndView("register");
                 
                 if (uaee.getType() == IdentifierType.MAIL) {
-                   addNotificationMessage("Un autre utilisateur a déjà choisi cet e-mail. Cela veut soit dire que vous avez déjà un compte chez nous" + //TODO put link
-                    		" (si vous ne vous souvenez plus du mot de passe, vous pouvez vous en LINXXXXX faire envoyer un nouveau  XXXXXXXXXXXXXXLINK), " +
+                   addNotificationMessage("Un autre utilisateur a déjà choisi cet e-mail. Cela veut soit dire que vous avez déjà un compte chez nous" + 
+                    		" (si vous ne vous souvenez plus du mot de passe, vous pouvez vous en <a href='/resendpassword'>faire envoyer un nouveau</a>), " +
                     		"ou bien cela peut vouloir dire que l'e-mail que vous avez introduit n'est pas correct.",request);
                     
                 } else if (uaee.getType() == IdentifierType.USERNAME) {
                    addNotificationMessage("Un autre utilisateur a déjà choisi ce pseudonyme. Merci d'en spécifier un autre. " +
-                    		"A moins que cela veuille dire que vous avez déjà un compte chez nous (si vous ne vous souvenez plus du mot de passe, vous pouvez vous en LINXXXXX faire envoyer un nouveau  XXXXXXXXXXXXXXLINK).",request); //TODO put link
+                    		"A moins que cela veuille dire que vous avez déjà un compte chez nous (si vous ne vous souvenez plus du mot de passe, vous pouvez vous en <a href='/resendpassword'>faire envoyer un nouveau</a>.",request); 
                 } else {  // defensive coding
                     throw new RuntimeException("Bug - Unsupported type: " + uaee.getType());
                 }

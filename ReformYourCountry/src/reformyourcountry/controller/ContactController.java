@@ -30,7 +30,7 @@ public class ContactController extends BaseController<User> {
     }
 
     @RequestMapping("/sendmail")
-    public ModelAndView sendMail(@RequestParam String sender, @RequestParam String subject, @RequestParam String content){
+    public ModelAndView sendMail(@RequestParam String sender, @RequestParam String subject, @RequestParam String content, WebRequest request){
         ModelAndView mv = new ModelAndView("contact");
         
         if (StringUtils.isBlank(content)) {
@@ -48,14 +48,17 @@ public class ContactController extends BaseController<User> {
         mailService.sendMail(mailService.ADMIN_MAIL, sender, subject,content, MailType.IMMEDIATE, MailCategory.CONTACT);
         return new ModelAndView("redirect:/");  // Go to home page.
         
-        // TODO: add a message (JavaScript nicely - see John) : "Votre message est bien envoyé".
+        addNotificationMessage("Votre message est bien envoyé", request);
     }
     
     
-    private ModelAndView prepareModelAndView(String sender,String subject,String content,String message) {
-        ModelAndView mv = setMessage(new ModelAndView("contact"), message);
+    private ModelAndView prepareModelAndView(String sender,String subject,String content,String message, request) {
+    	addNotificationMessage(message, request);
+        ModelAndView mv = new ModelAndView("contact");
+        
+        // Refill fields to prevent to user to retype them.
         mv.addObject("sender", sender);
-        mv.addObject("subject",subject);
+        mv.addObject("subject", subject);
         mv.addObject("content", content);
         return mv;
     }
