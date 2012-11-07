@@ -29,7 +29,7 @@ public class ActionDisplayController extends BaseController<Action> {
     @RequestMapping("/{actionUrl}")
     public ModelAndView displayAction(@PathVariable("actionUrl") String actionUrl) {
         Action action = getRequiredEntityByUrl(actionUrl);
-        return  argumentService.getActionModelAndView(action);
+        return  argumentService.getActionModelAndView(action,"actiondisplay");
     }
 
 }

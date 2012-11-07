@@ -46,20 +46,21 @@ public class ArgumentController extends BaseController<Action>{
         }else{
             
         }
-        return  argumentService.getActionModelAndView(action);
+        return  argumentService.getActionModelAndView(action,"argument");
     }   
     
     
     
-    @RequestMapping("ajax/argumentVote")
+    @RequestMapping("ajax/argumentvote")
     public ModelAndView argumentVote(@RequestParam("idArg")Long idArg,@RequestParam("value")int value){
+        //TODO: Delete CanVOTE From privilege and verify user is logged
         SecurityContext.assertUserHasPrivilege(Privilege.CAN_VOTE);
         User user = SecurityContext.getUser();
         Argument arg = argumentRepository.find(idArg);
         argumentService.updateVoteArgument(idArg, value, user, arg);
         Action action =  arg.getAction();
       
-       return  argumentService.getActionModelAndView(action);
+       return  argumentService.getActionModelAndView(action,"argument");
     }
    
    

@@ -2,11 +2,20 @@
 <%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag"%>
+
+
+
+<!-- All the needed attributes from the Argument are given as string (We had problems with Objects in the past) -->
+
+
 <%@ attribute name="content" required="true" type="java.lang.String"%>
 <%@ attribute name="author" required="true" type="java.lang.String"%>
 <%@ attribute name="title" required="true" type="java.lang.String"%>
 <%@ attribute name="color" required="true" type="java.lang.String"%>
 <%@ attribute name="id" required="true" type="java.lang.String"%>
+<%@ attribute name="totalvote" required="true" type="java.lang.String"%>
+
+
 <div>
 	<div class="argument" style="width:300px;border-radius: 10px;border:3px solid ${color}; margin:5px;float:left;">
 		<p align="center" style="text-align:center;font-weight:bold; font-style: italic;padding:5px;">
@@ -24,7 +33,7 @@
 		<ryc:conditionDisplay privilege="CAN_VOTE">	
  			<img class="div-align-center" align="middle" src="\images\_global\up.png" onclick="voteOnArgument(this,${id},1);"/>
  		</ryc:conditionDisplay>
-		<div style="padding-top:5px; margin-bottom:-8px;">1025</div>
+		<div style="padding-top:5px; margin-bottom:-8px;">${totalvote}</div>
 		<ryc:conditionDisplay privilege="CAN_VOTE">	
  			<img class="div-align-center" align="middle" src="\images\_global\down.png" onclick="voteOnArgument(this,${id},-1);"/> 
  		</ryc:conditionDisplay>

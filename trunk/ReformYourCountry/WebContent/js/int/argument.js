@@ -1,4 +1,5 @@
 function sendNewComment(item,content,action,title,ispos){
+	if(title!="" && content!=""){
 	var requestArg = $.ajax({
 		url: "/ajax/argumentAdd",
 		type: "POST",
@@ -12,12 +13,15 @@ function sendNewComment(item,content,action,title,ispos){
 	requestArg.fail(function(jqXHR, textStatus) {
 		$("#errorArg").text("Erreur lors de l'envoi d'un argument : "+textStatus);
 	});
+	}else{
+		$("#errorArg").text("Erreur lors de l'envoi d'un argument : Veuillez remplir tout les champs !");
+	}
 }
 function voteOnArgument(item,idArg,value){
 	var requestArg = $.ajax({
-		url: "/ajax/argumentVote",
+		url: "/ajax/argumentvote",
 		type: "POST",
-		data: "idArg="+ idArg+"value="+ value,
+		data: "idArg="+ idArg+"&value="+ value,
 		dataType: "html"
 	}).done(function(data) {
 		//Send the new data to the div containing the lists
@@ -25,6 +29,6 @@ function voteOnArgument(item,idArg,value){
 	});
 
 	requestArg.fail(function(jqXHR, textStatus) {
-		$("#argContainer").text("Erreur lors de l'envoi d'una rgument : "+textStatus);
+		$("#errorArg").text("Erreur lors de l'envoi d'un argument : "+textStatus);
 	});
 }

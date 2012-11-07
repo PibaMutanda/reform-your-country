@@ -54,7 +54,9 @@ public class Argument extends BaseEntity{
 	
 	
 	public Argument(String title,String content, Action action, User user ) {
-		
+
+        this.voteCountAgainst=0;
+        this.voteCountPro =0;
 	    this.title = title;
 		this.content = content;
 		this.action = action;
@@ -129,7 +131,7 @@ public class Argument extends BaseEntity{
     public void addVoteArgument(VoteArgument voteArgument){
         
         voteArguments.add(voteArgument);
-        
+        this.recalculate();
     }
     @Override
 	public String toString() {
@@ -139,7 +141,15 @@ public class Argument extends BaseEntity{
         return this.voteCountPro-this.voteCountAgainst;
     }
     public void recalculate(){
-        
+        this.voteCountAgainst=0;
+        this.voteCountPro =0;
+        for(VoteArgument vote:voteArguments){
+            if (vote.getValue()>0){
+                this.incrementVoteCountPro();
+            }else{
+                this.incrementVoteCountAgainst();
+            }
+        }
     }
 
 }
