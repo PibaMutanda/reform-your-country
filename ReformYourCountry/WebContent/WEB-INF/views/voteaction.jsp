@@ -12,7 +12,7 @@
 
 <div id="voteContent" style=" width: 400px; margin-left: 150px;">
 		<c:forTokens  items="-2,-1,0,1,2" delims="," var="i">
-			<div value="${i}" onmouseout="unfocused(this);" onmouseover="focused(this);"
+			<div id="${i}" onmouseout="unfocused(this);" onmouseover="focused(this);"
 			onclick="clicked(this);"
 					class="vote <c:if test="${vote.value eq i}">selected
 				                </c:if> v${i}">
