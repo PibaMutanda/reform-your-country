@@ -8,7 +8,7 @@
 
 <div  style="width:400px;float:left;">
 	<c:forEach items="${listToShow}" var="arg">
-		<ryctag:argument color="${color}" title="${arg.title}" author="${arg.user.firstName} ${arg.user.lastName}" content="${arg.content}"/>
+		<ryctag:argument id="${arg.id}" color="${color}" title="${arg.title}" author="${arg.user.firstName} ${arg.user.lastName}" content="${arg.content}"/>
 	</c:forEach>
 			
 	

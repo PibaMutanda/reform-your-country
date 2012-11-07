@@ -6,6 +6,7 @@
 <%@ attribute name="author" required="true" type="java.lang.String"%>
 <%@ attribute name="title" required="true" type="java.lang.String"%>
 <%@ attribute name="color" required="true" type="java.lang.String"%>
+<%@ attribute name="id" required="true" type="java.lang.String"%>
 <div>
 	<div class="argument" style="width:300px;border-radius: 10px;border:3px solid ${color}; margin:5px;float:left;">
 		<p align="center" style="text-align:center;font-weight:bold; font-style: italic;padding:5px;">
@@ -21,11 +22,11 @@
 
 	<div style="float:right; margin:5px;width: 75px;text-align:center;font-weight: bold;font-size: 25px;">
 		<ryc:conditionDisplay privilege="CAN_VOTE">	
- 			<img class="div-align-center" align="middle" src="\images\_global\up.png"/>
+ 			<img class="div-align-center" align="middle" src="\images\_global\up.png" onclick="voteOnArgument(this,${id},1);"/>
  		</ryc:conditionDisplay>
 		<div style="padding-top:5px; margin-bottom:-8px;">1025</div>
 		<ryc:conditionDisplay privilege="CAN_VOTE">	
- 			<img class="div-align-center" align="middle" src="\images\_global\down.png"/> 
+ 			<img class="div-align-center" align="middle" src="\images\_global\down.png" onclick="voteOnArgument(this,${id},-1);"/> 
  		</ryc:conditionDisplay>
 	</div>
 </div>

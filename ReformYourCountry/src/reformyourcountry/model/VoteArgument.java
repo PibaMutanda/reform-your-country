@@ -24,7 +24,6 @@ public class VoteArgument extends BaseEntity{
 		this.value = value;
 		this.argument = argument;
 		this.user = user;
-		
 	}
 
 	
