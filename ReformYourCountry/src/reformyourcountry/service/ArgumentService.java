@@ -31,39 +31,45 @@ public class ArgumentService {
     @Autowired VoteArgumentRepository voteArgumentRepository;
     public void updateVoteArgument(Long idArg, int value, User user,
             Argument arg) {
-        VoteArgument vote = voteArgumentRepository.findVoteArgumentForUser(user, idArg);
-        if (vote!=null) {  // User is changing his mind.
-            vote.setValue(value);
-            voteArgumentRepository.merge(vote);
-            
-        } else {  // A new vote entity
+        
+        VoteArgument vote = null;
+        for (VoteArgument vt :arg.getVoteArguments()){
+            if(vt.getUser()==SecurityContext.getUser()){
+                vt.setValue(value);
+                voteArgumentRepository.merge(vt);
+                arg.recalculate();
+                argumentRepository.merge(arg);
+                vote =vt;
+                break;
+            }
+        }
+        if (vote==null) {  // A new vote entity
             vote = new VoteArgument(value, arg, user);
             vote.setArgument(arg);
             voteArgumentRepository.persist(vote);
-            arg.getVoteArguments().add(vote);
+            arg.addVoteArgument(vote);
             argumentRepository.merge(arg);
         }
     }   
-    
+
     public void putArgumentListInModelAndView(ModelAndView mv, Action action) {
         //Divide all the arguments in 2 lists: positive ones and negative ones.
-           List<Argument> listArgs = argumentRepository.findAll(action.getId());
-           List<Argument> listPosArgs = new ArrayList<Argument>();
-           List<Argument> listNegArgs = new ArrayList<Argument>();
-           for(Argument args :listArgs){
-               if (args.isPositiveArg()){
-                   listPosArgs.add(args);
-               }else
-               {
-                   listNegArgs.add(args);
-               }
-           }
-            mv.addObject("listPosArgs",listPosArgs);
-            mv.addObject("listNegArgs",listNegArgs);
+        List<Argument> listArgs = action.getArguments();
+        List<Argument> listPosArgs = new ArrayList<Argument>();
+        List<Argument> listNegArgs = new ArrayList<Argument>();
+        for(Argument args :listArgs){
+            if (args.isPositiveArg()) {
+                listPosArgs.add(args);
+            } else {
+                listNegArgs.add(args);
+            }
+        }
+        mv.addObject("listPosArgs",listPosArgs);
+        mv.addObject("listNegArgs",listNegArgs);
     }
-    
-    public ModelAndView getActionModelAndView(Action action) {
-        ModelAndView mv = new ModelAndView("actiondisplay"); 
+
+    public ModelAndView getActionModelAndView(Action action,String jsp) {
+        ModelAndView mv = new ModelAndView(jsp); 
         mv.addObject("action",action);
         VoteAction va = voteActionRepository.findVoteActionForUser(SecurityContext.getUser(), action.getId());
         if (va != null){ 

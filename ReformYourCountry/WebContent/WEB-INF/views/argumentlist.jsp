@@ -6,9 +6,9 @@
 
 
 
-<div  style="width:400px;float:left;">
+<div  style="width:400px;<c:if test='${ispos}'>float:left;</c:if>">
 	<c:forEach items="${listToShow}" var="arg">
-		<ryctag:argument id="${arg.id}" color="${color}" title="${arg.title}" author="${arg.user.firstName} ${arg.user.lastName}" content="${arg.content}"/>
+		<ryctag:argument id="${arg.id}" color="${color}" title="${arg.title}" author="${arg.user.firstName} ${arg.user.lastName}" content="${arg.content}" totalvote="${arg.getTotal()}"/>
 	</c:forEach>
 			
 	
