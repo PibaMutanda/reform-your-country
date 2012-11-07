@@ -52,6 +52,12 @@ public class UserRepository extends BaseRepository<User>{
 		return results;
     }
     
+    public List<User> getUsersWithSpecialType(){
+        List<User> results = (List<User>) em.createQuery("select u from User u where u.specialType != 'PRIVATE' order by u.specialType").getResultList();
+        return results;
+        
+    }
+    
     public Long findMaxIdValue(){
         
       return (Long)em.createQuery("select max(u.id) from User u").getSingleResult();
