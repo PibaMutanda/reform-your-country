@@ -1,4 +1,5 @@
 function sendNewComment(item,content,action,title,ispos){
+	alert(title);
 	var requestArg = $.ajax({
 		url: "/ajax/argumentAdd",
 		type: "POST",

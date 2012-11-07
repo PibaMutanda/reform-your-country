@@ -27,7 +27,7 @@ public class VoteManagmentController extends BaseController<Action>{
         
         VoteAction va = voteActionRepository.findVoteActionForUser(SecurityContext.getUser(), idAction);
         if (va==null){
-            va = new VoteAction(vote, actionRepository.find(idAction), SecurityContext.getUser(), null);
+            va = new VoteAction(vote, actionRepository.find(idAction), SecurityContext.getUser());
             voteActionRepository.persist(va);
         }else{
             va.setValue(vote);

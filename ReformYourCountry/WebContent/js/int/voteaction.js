@@ -7,11 +7,10 @@ function unfocused(item) {
 	$(item).css('height', '20px');
 }
 function clicked(item) {
-
 	if(idUser.length>0){
 
-		$("#voted").text($(item).attr('value'));
-		var voteValue =$(item).attr('value');
+		$("#voted").text($(item).text());
+		var voteValue =$(item).text();
 		var request = $.ajax({
 			url: "/ajax/vote",
 			type: "POST",

@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.http.cookie.Cookie;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -154,8 +156,8 @@ public class LoginService {
          * user automaticaly. The value of "login" cookie is the user id.
          * The value of "password" cookie is the enrypted password.
          */
-        Cookie loginCookie = Cookies.findCookie(Cookies.LOGINCOOKIE_KEY);
-        Cookie passwordCookie = Cookies.findCookie(Cookies.PASSCOOKIE_KEY);
+        Cookie loginCookie = (Cookie) Cookies.findCookie(Cookies.LOGINCOOKIE_KEY);
+        Cookie passwordCookie = (Cookie) Cookies.findCookie(Cookies.PASSCOOKIE_KEY);
        
 
         if (loginCookie != null && passwordCookie != null) {
@@ -336,9 +338,9 @@ public class LoginService {
           
 
         /////// 2. Update the cookies
-        Cookie passwordCookie = Cookies.findCookie(Cookies.PASSCOOKIE_KEY);
+        Cookie passwordCookie = (Cookie) Cookies.findCookie(Cookies.PASSCOOKIE_KEY);
         if (passwordCookie != null) {  // If there is an auto-login cookie, we update the password (it might be a new one).
-            passwordCookie.setValue(user.getPassword());
+            ((javax.servlet.http.Cookie) passwordCookie).setValue(user.getPassword());
         }
         
         userRepository.merge(user);

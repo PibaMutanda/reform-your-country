@@ -11,12 +11,14 @@
 		<ryctag:argument color="${color}" title="${arg.title}" author="${arg.user.firstName} ${arg.user.lastName}" content="${arg.content}"/>
 	</c:forEach>
 			
-			
-	<form class="argumentNegForm" action="" method="post" >
-		<input type="hidden" id="ispos" value="${ispos}"/>
-		<input type="text" id="title" />
-		<input type="hidden" id="action" value="${action.id}" />
-		<textarea id="comment"rows="5" cols="15" ></textarea><br/>
-		<input type="button"   value="Commenter" onclick="sendNewComment(this,comment.value,action.value,title.value,ispos.value);">
-	</form>
-</div>	
+	
+	<ryc:conditionDisplay privilege="CAN_VOTE">		
+		<form class="argumentNegForm" action="" method="post" >
+			<input type="hidden" id="ispos${ispos}" value="${ispos}"/>
+			<input type="hidden" id="action${ispos}" value="${action.id}" />
+			<textarea id="title${ispos}" rows="1" cols="15"></textarea><br/>
+			<textarea id="comment${ispos}"rows="5" cols="15" ></textarea><br/>
+			<input type="button"   value="Commenter" onclick="sendNewComment(this,comment${ispos}.value,action${ispos}.value,title${ispos}.value,ispos${ispos}.value);">
+		</form>
+	</ryc:conditionDisplay>
+</div>	                     
