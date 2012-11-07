@@ -67,7 +67,7 @@ public class IndexManagerService {
 				//Index all Accommodation entries 
 				List<Article> articles = articleRepository.findAll();
 				for (Article article : articles) {
-					writer.addDocument(createDocument(article));
+					writer.addDocument(createArticleDocument(article));
 				}
 				writer.commit();
 			}               
@@ -75,15 +75,6 @@ public class IndexManagerService {
 			throw new RuntimeException(e);
 		}
 	}	
-	private Document createDocument(Object entity) {
-        if(entity instanceof Article){
-        	return createArticleDocument((Article)entity);
-//        }else if(entity instanceof Action){ ////no action yet
-//        	return createActionDocument((Action)entity);
-        } else {
-        	throw new RuntimeException("This object is not a searchable entity(Article,Action,Group,User");
-        }
-    }
 
 ////WE DON'T SEARCH FOR ACTIONS YET, but we will
 //	private Document createActionDocument(Action action) {
@@ -108,12 +99,11 @@ public class IndexManagerService {
 		// Add a new Document to the index
         Document doc = new Document();
         //Remove bbcode and html
-        BBConverter bbc = new BBConverter(bookRepository, articleRepository);
-		String summary = HTMLUtil.removeHmlTags(bbc.transformBBCodeToHtmlCode(article.getLastVersion().getSummary()));
-		String toClassify = HTMLUtil.removeHmlTags(bbc.transformBBCodeToHtmlCode(article.getLastVersion().getToClassify()));
-		String content = HTMLUtil.removeHmlTags(bbc.transformBBCodeToHtmlCode(article.getLastVersion().getContent()));
+		String summary = cleanAndTransform(article.getLastVersion().getSummary());
+		String toClassify = cleanAndTransform(article.getLastVersion().getToClassify());
+		String content = cleanAndTransform(article.getLastVersion().getContent());
 		
-        doc.add(new TextField("id",String.valueOf(article.getId()),Store.YES));//This is a TextField instead of a LongField because updateDocument has problems finding LongFields
+        doc.add(new TextField("id",String.valueOf(article.getId()),Store.YES));//This is a TextField instead of a LongField because updateDocument has problems finding LongFields(no idea why)
         // This give more importance to title during the search
         // The user see the result from the title before the result from the text 
         Field titleField=new TextField("title",article.getTitle(),Store.YES);
@@ -127,46 +117,42 @@ public class IndexManagerService {
 
         return doc;
 	}
+
+	private String cleanAndTransform(String textToTransform) {
+		String result = HTMLUtil.removeHmlTags(new BBConverter(bookRepository, articleRepository).transformBBCodeToHtmlCode(textToTransform));
+		return result;
+	}
 	
 	public void updateArticle(Article newArticle) {
-        try{
-        	IndexWriter writer = getIndexWriter();
-            writer.updateDocument(new Term("id", String.valueOf(newArticle.getId())), createDocument(newArticle));
+        try(IndexWriter writer = getIndexWriter()){
+        	
+            writer.updateDocument(new Term("id", String.valueOf(newArticle.getId())), createArticleDocument(newArticle));
             writer.commit();
-            closeIndexWriter(writer);
         } catch ( IOException e) {
             throw new RuntimeException(e);
         }
     }
 	
 	public void deleteArticle(Article article) {
-        try {
-        	IndexWriter writer = getIndexWriter();
+		 try(IndexWriter writer = getIndexWriter()){
             writer.deleteDocuments(new Term("id", String.valueOf(article.getId())));
             writer.commit();
-            closeIndexWriter(writer);
-        } catch (CorruptIndexException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 	
 	public void addArticle(Article article) {
-        try {
-            IndexWriter writer = getIndexWriter();
-            writer.addDocument(createDocument(article));
+		 try(IndexWriter writer = getIndexWriter()){
+            writer.addDocument(createArticleDocument(article));
             writer.commit();
-            closeIndexWriter(writer);
-        } catch (CorruptIndexException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 	/**
 	 * Used to search the index, using one or more keywords
-	 * @param article If searching in an article, the article in question; if searching all articles, null.
+	 * @param article If searching in an article, the article in question; if searching all articles, should be null.
 	 * @return
 	 */
 	public ScoreDoc[] search(String keyWords, Article article, boolean isEditor, boolean inAllArticles) {
@@ -208,47 +194,42 @@ public class IndexManagerService {
      * @return the highlighted fragment, if there is one, null otherwise
      */
     public String getHighlight(String keyword, String textToHighlight){
-        try {
+        try (SimpleFSDirectory sfsd = new SimpleFSDirectory(new File(FileUtil.getLuceneIndexDirectory()))){
         	
-        	SimpleFSDirectory sfsd = new SimpleFSDirectory(new File(FileUtil.getLuceneIndexDirectory()));
-            IndexReader reader = DirectoryReader.open(sfsd);
-            
-        	String queryString="(" + keyword + "~)";
-            QueryParser queryParser = new QueryParser(Version.LUCENE_40, "field", new StandardAnalyzer(Version.LUCENE_40));//(new Term("field", keyword));
-            Query query = queryParser.parse(queryString);
-            query.rewrite(reader);
-            reader.close();
-            sfsd.close();
-            
-            SimpleHTMLFormatter formatter = new SimpleHTMLFormatter("<b>","</b>");
-            QueryScorer scorer = new QueryScorer(query,"field");
-            Highlighter highlighter = new Highlighter(formatter,scorer);
-            highlighter.setTextFragmenter(new SimpleSpanFragmenter(scorer,45));
-            Analyzer analyzer =new StandardAnalyzer(Version.LUCENE_40);
-            TokenStream tokens = analyzer.tokenStream("field",new StringReader(textToHighlight));
-            String highlightedFragment = highlighter.getBestFragments(tokens, textToHighlight,4 ,"<BR/>...");
-            tokens.close();
-            analyzer.close();
-            if(highlightedFragment.equals("")){
-            	return null;
-            }else{
-            	return highlightedFragment;
+        	
+            try (IndexReader reader = DirectoryReader.open(sfsd)){
+	        	String queryString="(" + keyword + "~)";
+	            QueryParser queryParser = new QueryParser(Version.LUCENE_40, "field", new StandardAnalyzer(Version.LUCENE_40));//(new Term("field", keyword));
+	            Query query = queryParser.parse(queryString);
+	            query.rewrite(reader);
+	            
+	            SimpleHTMLFormatter formatter = new SimpleHTMLFormatter("<b>","</b>");
+	            QueryScorer scorer = new QueryScorer(query,"field");
+	            Highlighter highlighter = new Highlighter(formatter,scorer);
+	            highlighter.setTextFragmenter(new SimpleSpanFragmenter(scorer,45));
+	            try (Analyzer analyzer =new StandardAnalyzer(Version.LUCENE_40)){
+		            try(TokenStream tokens = analyzer.tokenStream("field",new StringReader(textToHighlight))){
+		            	String highlightedFragment = highlighter.getBestFragments(tokens, textToHighlight,4 ,"<BR/>...");
+		            	if(highlightedFragment.equals("")){
+		                	return null;
+		                }else{
+		                	return highlightedFragment;
+		                }
+		            }
+	            }
             }
         } catch (IOException | InvalidTokenOffsetsException | ParseException e) {
             throw new RuntimeException(e);
         }
     }
 	public Document findDocument(ScoreDoc scoreDoc){
-        try {
-            File file = new File(FileUtil.getLuceneIndexDirectory());
-            SimpleFSDirectory sfsd = new SimpleFSDirectory(file);
-            IndexReader reader = DirectoryReader.open(sfsd);
-            IndexSearcher searcher = new IndexSearcher(reader);        
-            Document doc = searcher.doc(scoreDoc.doc);
-            sfsd.close();
-            return doc;
-        } catch (CorruptIndexException e) {
-            throw new RuntimeException(e);
+		File file = new File(FileUtil.getLuceneIndexDirectory());
+        try (SimpleFSDirectory sfsd = new SimpleFSDirectory(file)){
+            try (IndexReader reader = DirectoryReader.open(sfsd)){
+	            IndexSearcher searcher = new IndexSearcher(reader);        
+	            Document doc = searcher.doc(scoreDoc.doc);
+	            return doc;
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -275,16 +256,4 @@ public class IndexManagerService {
         return new IndexWriter(sfsd, iwc);
     }
     
-    /**
-     * Close the writer and these the directory
-     */
-    private void closeIndexWriter(IndexWriter indexWriter){
-        try {
-//            indexWriter.getDirectory().close();
-            indexWriter.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
 }

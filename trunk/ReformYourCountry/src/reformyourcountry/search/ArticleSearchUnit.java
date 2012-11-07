@@ -1,6 +1,8 @@
 package reformyourcountry.search;
 
 import reformyourcountry.model.Article;
+import reformyourcountry.security.Privilege;
+import reformyourcountry.security.SecurityContext;
 
 public class ArticleSearchUnit{
 	   private ArticleDocument articleDocument;
@@ -22,5 +24,8 @@ public class ArticleSearchUnit{
 	public ArticleDocument getArticleDocument() {
 		return articleDocument;
 	}
-	   
+	 
+	public boolean isVisible(){
+		return (article.isPublished() || SecurityContext.isUserHasPrivilege(Privilege.EDIT_ARTICLE));
+	}
 }
