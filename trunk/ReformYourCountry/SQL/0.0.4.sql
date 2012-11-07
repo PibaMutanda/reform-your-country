@@ -39,5 +39,8 @@
 
     alter table users 
         add column ispasswordknownbytheuser boolean not null default true;   
-   
- 
+        
+-- 2012-11-05 Cédric
+
+    alter table argument 
+        add column positivearg boolean not null  default false;

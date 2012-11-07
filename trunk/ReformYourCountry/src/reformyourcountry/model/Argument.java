@@ -35,8 +35,19 @@ public class Argument extends BaseEntity{
 	private User user;
 	private int voteCountPro;
 	private int voteCountAgainst;
+	private boolean positiveArg;
 	
-	public Argument (){
+	public boolean isPositiveArg() {
+        return positiveArg;
+    }
+
+
+    public void setPositiveArg(boolean positiveArg) {
+        this.positiveArg = positiveArg;
+    }
+
+
+    public Argument (){
 		
 	}
 	

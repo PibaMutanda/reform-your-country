@@ -13,7 +13,7 @@ function clicked(item) {
 		$("#voted").text($(item).attr('value'));
 		var voteValue =$(item).attr('value');
 		var request = $.ajax({
-			url: "ajax/vote",
+			url: "/ajax/vote",
 			type: "POST",
 			data: "vote="+ voteValue+"&action="+$("#id").attr('value')+"&idVote="+idVote,
 			dataType: "html"
