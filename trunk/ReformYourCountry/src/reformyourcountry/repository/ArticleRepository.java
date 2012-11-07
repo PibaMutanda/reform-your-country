@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import reformyourcountry.model.Article;
+import reformyourcountry.model.ArticleVersion;
+import reformyourcountry.model.Book;
 
 
 @Repository
@@ -35,6 +37,10 @@ public class ArticleRepository extends BaseRepository<Article>{
     	        .setParameter("now", new Date())
     			.setMaxResults(maxAmount)
     			.getResultList();
+    }
+    
+    public Article findArticleBySummary(String summary){
+        return getSingleOrNullResult( em.createQuery("select a from Article a where lower(a.arcticleVersion.summary) = :summary").setParameter("summary",summary.toLowerCase()) );
     }
     
    

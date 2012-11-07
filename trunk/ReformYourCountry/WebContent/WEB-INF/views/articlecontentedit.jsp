@@ -26,14 +26,14 @@
     <%-- Help handle --%>
     <div id="helphandle"><span>?</span><div><%--contains the helptext--%></div></div>
 		
-		<div id="tabs">
+	<div id="tabs">
 		<ul>
         	<li><a href="#tabs-1">Contenu</a></li>
         	<li><a href="#tabs-2">Résumé</a></li>
         	<li><a href="#tabs-3">A classer</a></li>
     	</ul>
     	<div id="tabs-1">
-    		<form action="/article/contenteditsubmit" method="post">
+    		<form action="/article/editsubmitcontent" method="post">
     			<input class="save" type="submit" value="Sauver" /><span class="saving" style="font-family: tahoma; font-size: 9px;"></span>
     		<!-- do not erase class , cols and rows attribute of the textarea , these values are used by textarea-expander.js -->
 				<textarea name="content" class="expand autosaveable" cols="60" rows="3" style="width:100%" >${article.lastVersion.content}</textarea>
@@ -42,7 +42,7 @@
 			</form>
 		</div>
 		<div id="tabs-2">
-			<form action="/article/contenteditsubmit" method="post">
+			<form action="/article/editsubmitsummary" method="post">
     			<input class="save" type="submit" value="Sauver" /><span class="saving" style="font-family: tahoma; font-size: 9px;"></span>
     		<!-- do not erase class , cols and rows attribute of the textarea , these values are used by textarea-expander.js -->
 				<textarea name="summary" class="expand autosaveable" cols="60" rows="3" style="width:100%">${article.lastVersion.summary}</textarea>
@@ -51,7 +51,7 @@
 			</form>
 		</div>
 		<div id="tabs-3">
-			<form action="/article/contenteditsubmit" method="post">
+			<form action="/article/editsubmittoclassify" method="post">
     			<input class="save" type="submit" value="Sauver" /><span class="saving" style="font-family: tahoma; font-size: 9px;"></span>
     		<!-- do not erase class , cols and rows attribute of the textarea , these values are used by textarea-expander.js -->
 				<textarea name="toClassify" class="expand autosaveable" cols="60" rows="3" style="width:100%">${article.lastVersion.toClassify}</textarea>
@@ -59,6 +59,6 @@
 				<input class="save" type="submit" value="Sauver" /><span class="saving" style="font-family: tahoma; font-size: 9px;"></span>
 			</form>
 		</div>
-		</div>
+	</div>
 </body>
 </html>
