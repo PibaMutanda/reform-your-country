@@ -57,7 +57,7 @@
 				<c:if test="${canEdit}">
 					Né le : <c:choose><c:when test="${user.birthDate ne null}">${user.birthDate}</c:when><c:otherwise>?</c:otherwise></c:choose><br />
 					mail : ${user.mail}<br />
-					Date d'enregistrement : ${user.registrationDate} <br />
+					Date d'enregistrement : ${user.createdOn} <br />
 					Rôle : ${user.role}<br/>
 					Dernier accès : ${user.lastAccess} <br/>
 					Depuis l'adresse ${user.lastLoginIp}<br/>
