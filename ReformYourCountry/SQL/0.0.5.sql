@@ -82,10 +82,7 @@
         foreign key (updatedby_id) 
         references users;
         
--- 2012-11-05 Cédric
 
-    alter table argument 
-        add column positivearg boolean not null  default false;
 
 -- 2012-11-06 maxime
 
@@ -96,4 +93,9 @@
         
 -- 2010-11-08 John
     alter table users drop column registrationdate;  
+
+-- 2012-11-05 Cédric
+
+    alter table argument 
+        add column positivearg boolean not null  default false;
     

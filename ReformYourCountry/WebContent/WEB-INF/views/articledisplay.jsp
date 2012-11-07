@@ -23,8 +23,20 @@
         });       
     </script>
 </c:if>
+ <script type="text/javascript">
+ var addthis_config = {"data_track_clickback":true};
+ </script> <script type="text/javascript"
+ src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-509a829c59a66215"></script>
 </head>
 <body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
  <ryctag:pageheadertitle title="${article.title}">
  	<c:forEach items="${parentsPath}" var="subarticle">
 		<ryctag:breadcrumbelement label="${subarticle.title}" link="/article/${subarticle.url}" />
@@ -73,11 +85,20 @@
 
     <c:choose>
   	  <c:when test="${showContent}">
+  
   	  	
 		<div class="article_content">
 		  	  <ryc:conditionDisplay privilege="EDIT_ARTICLE">
 		 		 <hr/>
 			  </ryc:conditionDisplay>
+			  <!-- AddThis Button BEGIN -->
+				<div class="addthis_toolbox addthis_default_style ">
+				<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+				<a class="addthis_button_tweet"></a>
+				<a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+				<a class="addthis_counter addthis_pill_style"></a>
+				</div>
+			  <!-- AddThis Button END -->
 				<div id="carouselh">
 					<c:forEach items="${videoList}" var="video">
 						<div class="inline-block">
