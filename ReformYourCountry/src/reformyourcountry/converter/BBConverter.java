@@ -42,6 +42,7 @@ public class BBConverter {
 	ArticleRepository articleRepository;
 	private Set<Book> booksRefferedInTheText = new HashSet<Book>();  // To collect the books seen in the [quote bib="..."] and [link bib="..."].
 		
+	private boolean hasBeenUsed = false;
 	
 	//////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////// PUBLIC ///////////////////////////////////////
@@ -59,6 +60,7 @@ public class BBConverter {
 	 * @return htmlCode
 	 */
     public String transformBBCodeToHtmlCode(String bbCode){
+    	if(hasBeenUsed) throw new IllegalStateException("This class is not reusable, please reinstanciate");
     	 html="";
     	
 		 BBDomParser dp = new BBDomParser();
@@ -67,6 +69,7 @@ public class BBConverter {
 		 BBTag root = dp.parse(bbCode);
 		 
 		 transformDomToHtml(root);
+		 hasBeenUsed = true;
 		 return html;
 	 }
 

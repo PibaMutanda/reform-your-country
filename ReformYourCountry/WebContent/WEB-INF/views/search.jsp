@@ -14,20 +14,25 @@
 	<c:if test="${noResult == true}">
 		Aucun résultat trouvé. 
 	</c:if>
-	<c:forEach items="${searchResult.results}" var="articleSearchUnit" >
-		<c:choose>
-			<c:when test="${articleSearchUnit.article.isPublished()}">
-			    <c:set var="result" value="${articleSearchUnit}" scope="request"/>
-	        	<ryctag:search />
-	        </c:when>
-	        <c:otherwise>
-		        <ryc:conditionDisplay privilege="EDIT_ARTICLE">
-		        	<c:set var="result" value="${articleSearchUnit}" scope="request"/>
-		            <ryctag:search />
-		        </ryc:conditionDisplay>
-	        </c:otherwise>
-        </c:choose>
-    </c:forEach>
-       
+	<c:forEach items="${searchResult.results}" var="articleSearchUnit">
+		<c:if test="${articleSearchUnit.visible}">
+			<div class=listToSearchTitle>
+			     <a  href="/article/${articleSearchUnit.article.url}">${articleSearchUnit.articleDocument.title}</a>
+			</div>
+			<span class="datepublication"> <ryc:publishDate id="${articleSearchUnit.article.id}"/> </span>
+			<div class=listToSearch>
+			    <c:choose>
+			      <c:when test="${articleSearchUnit.articleDocument.content != null}">
+			     		${articleSearchUnit.articleDocument.content}
+			      </c:when>
+			      <c:otherwise>
+			      	 	${articleSearchUnit.article.description}
+			      </c:otherwise>
+			    </c:choose>
+			    <br/> <br/>
+			</div>
+		</c:if>
+	</c:forEach>
+
 </body>
 </html>
