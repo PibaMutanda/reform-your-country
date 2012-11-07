@@ -28,9 +28,12 @@ public class ArgumentController extends BaseController<Action>{
     @Autowired VoteActionRepository voteActionRepository;
     
     @RequestMapping("ajax/argumentAdd")
-    public ModelAndView argumentAdd(@RequestParam("action")Long idAction, @RequestParam("content")String content, @RequestParam("title")String title,@RequestParam("ispos")boolean isPos){
+    public ModelAndView argumentAdd(@RequestParam("action")Long idAction, @RequestParam("content")String content, @RequestParam("title")String title,@RequestParam("ispos")boolean isPos) throws Exception{
         SecurityContext.assertUserHasPrivilege(Privilege.CAN_VOTE);
         Action action = actionRepository.find(idAction);
+        if(title == null || content == null){
+        	throw new Exception("Le titre et le contenu des argument ne peuvent être vide");
+        }
         if (action!=null){
             Argument arg = new Argument(title, content, action, SecurityContext.getUser());
             arg.setPositiveArg(isPos);
