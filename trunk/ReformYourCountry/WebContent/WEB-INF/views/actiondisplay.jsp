@@ -28,7 +28,7 @@
 	<div id="voteContainer"> <%-- Will be re-filled through Ajax too --%>
 	  <%@include file="voteaction.jsp"%>
 	</div>
-	
+	<div class="errorMessage" id="errorArg"></div>
 	<div id="argContainer"> <%-- Will be re-filled through Ajax --%>
 		<%@include file="argument.jsp" %>
 	</div>
