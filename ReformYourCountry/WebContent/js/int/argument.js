@@ -1,5 +1,4 @@
 function sendNewComment(item,content,action,title,ispos){
-	alert(title);
 	var requestArg = $.ajax({
 		url: "/ajax/argumentAdd",
 		type: "POST",
@@ -11,6 +10,6 @@ function sendNewComment(item,content,action,title,ispos){
 	});
 
 	requestArg.fail(function(jqXHR, textStatus) {
-		$("#argContainer").text("Erreur lors de l'envoi d'una rgument : "+textStatus);
+		$("#errorArg").text("Erreur lors de l'envoi d'un argument : "+textStatus);
 	});
 }
