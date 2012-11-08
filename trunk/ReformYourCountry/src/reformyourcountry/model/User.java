@@ -307,6 +307,10 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     @Column(nullable = false)
     private List<GroupReg> groupRegs = new ArrayList<GroupReg>();
     
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+    @Column(nullable = false)
+    private Set<Badge> badges = new HashSet<Badge>();
+    
     @Enumerated(EnumType.STRING)
     private MailingDelayType mailingDelayType = MailingDelayType.IMMEDIATELY; 
     public MailingDelayType getMailingDelayType() {
