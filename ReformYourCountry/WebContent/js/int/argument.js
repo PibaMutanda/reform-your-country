@@ -1,4 +1,4 @@
-function sendNewComment(item,content,action,title,ispos){
+function sendNewArgument(item,content,action,title,ispos){
 	if(title!="" && content!=""){
 	var requestArg = $.ajax({
 		url: "/ajax/argumentAdd",
@@ -44,3 +44,22 @@ function voteOnArgument(item,idArg,value){
 	       }); 	 
 	}
 }
+function sendNewComment(item, comment, arg){
+	if(comment!=""){
+		var requestArg = $.ajax({
+			url: "/ajax/commentAdd",
+			type: "POST",
+			data: "comment="+ comment+"&arg="+arg,
+			dataType: "html"
+		}).done(function(data){
+			//Send the new data to the div containing the lists
+			$("#comment"+arg).html(data);
+		});
+
+		requestArg.fail(function(jqXHR, textStatus) {
+			$("#errorArg").text("Erreur lors de l'envoi d'un commentaire : "+textStatus);
+		});
+		}else{
+			$("#errorArg").text("Erreur lors de l'envoi d'un commentaire : Veuillez remplir tout les champs !");
+		}
+	}

@@ -9,9 +9,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.model.Action;
 import reformyourcountry.model.Argument;
+import reformyourcountry.model.Comment;
 import reformyourcountry.model.User;
 import reformyourcountry.repository.ActionRepository;
 import reformyourcountry.repository.ArgumentRepository;
+import reformyourcountry.repository.CommentRepository;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.repository.VoteActionRepository;
 import reformyourcountry.repository.VoteArgumentRepository;
@@ -23,6 +25,7 @@ public class ArgumentController extends BaseController<Action>{
 
     @Autowired ArgumentRepository argumentRepository;
     @Autowired ActionRepository actionRepository;
+    @Autowired CommentRepository commentRepository;
     @Autowired UserRepository userRepository;
     @Autowired VoteActionRepository voteActionRepository;
     @Autowired VoteArgumentRepository voteArgumentRepository;
@@ -69,6 +72,20 @@ public class ArgumentController extends BaseController<Action>{
         }
     }
    
-   
+    @RequestMapping("ajax/commentAdd")
+	public ModelAndView commentAdd(@RequestParam("arg")Long idArg, @RequestParam("comment")String com) throws Exception{
+		User user = SecurityContext.getUser();
+		if (user !=null){
+			Argument arg = argumentRepository.find(idArg);
+			Comment comment = new Comment(com, arg, user);
+			arg.addComment(comment);
+			commentRepository.persist(comment);
+			argumentRepository.merge(arg);       
+			Action action =  arg.getAction();
+			return argumentService.getActionModelAndView(action,"argument");
+		}else {
+			throw new Exception("no user logged");
+		}
+	}
   
 }

@@ -61,7 +61,6 @@ public class ArgumentService {
     
     public void putArgumentListInModelAndView(ModelAndView mv, Action action) {
         //Divide all the arguments in 2 lists: positive ones and negative ones.
-
         List<Argument> listArgs = action.getArguments();
         List<Argument> listPosArgs = new ArrayList<Argument>();
         List<Argument> listNegArgs = new ArrayList<Argument>();
