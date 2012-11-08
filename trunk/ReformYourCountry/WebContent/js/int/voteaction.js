@@ -60,8 +60,7 @@ function clicked(item) {
 	           tail: {align:'center', hidden: false},
 	           selectable :true,				    	
 	           innerHtml: 'Pour voter veuillez vous logger : '
-	        	   +'<script src="js/int/login.js"></script>'
-	        	   +'<a class="login" style="cursor:pointer;">Connexion</a>'
+	        	   +'<a class="login" style="cursor:pointer;" href="/login">Connexion</a>'
 	       }); 	 
 
 	}
