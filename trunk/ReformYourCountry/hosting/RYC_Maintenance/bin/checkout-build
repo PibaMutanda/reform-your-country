@@ -3,21 +3,50 @@
 . config
 . common_function
 
-DIR_NAME=$APP_NAME
-SVN_PATH=trunk/$APP_NAME
+APP_DIR_NAME=$APP_NAME
+APP_SVN_PATH=trunk/$APP_NAME
+
+FRAMEWORK_DIR_NAME=$FRAMEWORK_NAME
+FRAMEWORK_SVN_PATH=trunk/$FRAMEWORK_NAME
 
 ensureFolderExists $BUILD_FOLDER
-ensureFolderExists $BACKUP_DIR/oldwars
+ensureFolderExists $BACKUP_FOLDER/oldwars
+
 cd $BUILD_FOLDER
 
-if [ -d "./$DIR_NAME" ]
+function backupOldWar(){
+  cp -i $WEBAPPS_FOLDER/ROOT.war $BACKUP_FOLDER/oldwars/$OLD_WAR_COPY_NAME
+}
+function checkout(){
+  mkdir $1
+  cd $1
+  svn checkout $2 .
+}
+function update(){
+  cd $1
+  svn revert -R . && svn update
+}
+function buildWar(){
+  backupOldWar
+  ant -Dtype=$1 war
+}
+
+#first we checkout or update the RYC framework sourcecode
+if [ -d "./$FRAMEWORK_DIR_NAME" ]
 then
-	cp -i $WEBAPPS_FOLDER/ROOT.war $BACKUP_DIR/oldwars/$OLD_WAR_COPY_NAME
-	cd "$DIR_NAME"
-	svn revert -R . && svn update && ant -Dtype=$APP_ENV war
+  update $FRAMEWORK_DIR_NAME
 else 
-	mkdir $DIR_NAME
-	cd "$DIR_NAME"
-	svn checkout $SVN_ADRESS/$SVN_PATH . && ant -Dtype=$APP_ENV war
+  checkout $FRAMEWORK_DIR_NAME $FRAMEWORK_SVN_ADRESS/$FRAMEWORK_SVN_PATH
+fi
+cd $BUILD_FOLDER
+
+#second we do the same with the app
+if [ -d "./$APP_DIR_NAME" ]
+then
+  update $APP_DIR_NAME
+else 
+  checkout $APP_DIR_NAME $APP_SVN_ADRESS/$APP_SVN_PATH
 fi
 
+#first we build the app
+buildWar $APP_ENV

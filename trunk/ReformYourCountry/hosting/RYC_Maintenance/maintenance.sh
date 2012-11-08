@@ -42,8 +42,9 @@ case $1 in
                 cd $BACKUP_FOLDER/DB
                 su -c 'pg_dump '$DB_NAME' | xz -e9c > last.xz' postgres 
                 cp -a last.xz $NOW.xz
-                #will exit with the status of the last command (0 if there isn't problem)
-                exit $?
+
+                rotateBackup DB
+                exit 0
                 ;;
         "backupGen")
                 echo " backup gen dir..."
@@ -71,6 +72,8 @@ case $1 in
                         echo "nothing to do, gen directory is empty "
                         exit 0
                 fi
+                rotateBackup gen
+                exit 0
                 ;;
         "rotateBackup")
                 case $2 in
@@ -89,10 +92,10 @@ case $1 in
         "restoreGen")
                 if [ ! -n $2 ]
                 then
-                        echo "unimplemented now"
+                        echo "specify backup not implemented yet"
                         exit 5
                 else
-                        echo "restoring last gen backupi..."
+                        echo "restoring last gen backup..."
                         assertFolderExists $BACKUP_FOLDER/gen
 
                         ensureFolderExists $WEBAPPS_FOLDER/ROOT/gen
@@ -125,16 +128,14 @@ case $1 in
                                 ./maintenance.sh backupGen
                                 cd $BIN_DIR
                                 ./do_deployment
-                                #the precedent script change his working and we do not want to hardcode the emplacement of the config file
-                                cd $BASE_FOLDER
-
-                                #the precedent script change his working and we do not want to hardcode the emplacement of the config file
-                                cd $BIN_DIR
-                                ./switch_httpd prod
 
                                 #the precedent script change his working and we do not want to hardcode the emplacement of the config file
                                 cd $BIN_DIR
                                 ./start_server
+
+                                #the precedent script change his working and we do not want to hardcode the emplacement of the config file
+                                cd $BIN_DIR
+                                ./switch_httpd prod
                         ;;
                 esac
                 ;;
