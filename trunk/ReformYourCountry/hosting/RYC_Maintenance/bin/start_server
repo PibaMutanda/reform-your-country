@@ -1,0 +1,5 @@
+#!/bin/sh
+
+. config
+
+service tomcat7 start && tail -f $TOMCAT_LOG_FILE

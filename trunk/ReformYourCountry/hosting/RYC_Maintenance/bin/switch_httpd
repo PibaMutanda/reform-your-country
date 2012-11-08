@@ -1,0 +1,18 @@
+#!/bin/bash
+#This script switches tomcat config to 'prod' mode (app running) or to 'dep' mode (app being redeployed)
+
+. config
+
+if [ "$1" == "dep" ]; then
+        cp -v $APACHE_HOME/conf/conf.d/$APP_NAME.conf.dep $APACHE_HOME/conf/conf.d/$APP_NAME.conf
+	exit 0
+elif [ "$1" == "prod" ]; then
+        cp -v $APACHE_HOME/conf/conf.d/$APP_NAME.conf.prod $APACHE_HOME/conf/conf.d/$APP_NAME.conf
+	exit 0
+else 
+	echo "Use argument value 'prod' or 'dep'."
+        exit 3
+fi
+        service httpd restart
+
+exit 1

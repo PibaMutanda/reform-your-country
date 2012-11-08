@@ -1,0 +1,26 @@
+BASE_FOLDER=/opt/RYC_Maintenance
+BUILD_FOLDER=$BASE_FOLDER/build
+BIN_FOLDER=$BASE_FOLDER/bin
+BACKUP_FOLDER=$BASE_FOLDER/backup
+
+NOW=$(date '+%F_%T')
+
+APP_ENV=PROD
+APP_NAME=enseignement2.be
+
+BACKUPS_TO_KEEP=5 
+OLD_WAR_COPY_NAME=ROOT_$NOW.war
+
+APACHE_HOME=/etc/httpd
+WWW_FOLDER=/var/www/hagakure/data/www
+
+TOMCAT_HOME=/opt/tomcat7
+WEBAPPS_FOLDER=$TOMCAT_HOME/webapps
+GEN_DIR=$WEBAPPS_FOLDER/ROOT/gen
+TOMCAT_LOG_FILE=/var/log/tomcat7/catalina.out
+
+DB_NAME=E2
+
+PROD_IP=68.169.61.167
+
+SVN_ADRESS=https://reform-your-country.googlecode.com/svn/
