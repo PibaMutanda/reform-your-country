@@ -18,7 +18,6 @@ function sendNewComment(item,content,action,title,ispos){
 	}
 }
 function voteOnArgument(item,idArg,value){
-	alert(idUser.length);
 	if (idUser.length>0){
 		var requestArg = $.ajax({
 			url: "/ajax/argumentvote",
@@ -34,7 +33,6 @@ function voteOnArgument(item,idArg,value){
 			$("#errorArg").text("Erreur lors de l'envoi d'un argument : "+textStatus);
 		});
 	}else{
-		alert('');
 		$(item).CreateBubblePopup({ 
 	           innerHtmlStyle: {  // give css property to the inner div of the popup	    	   
 	               'opacity':0.9

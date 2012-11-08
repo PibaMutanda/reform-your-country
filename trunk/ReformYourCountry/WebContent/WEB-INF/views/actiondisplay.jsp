@@ -8,7 +8,7 @@
 <meta name="robots" content="index, follow"/>
 </head>
 <body>
-<ryctag:pageheadertitle title="${action.title}"/>
+<%-- <ryctag:pageheadertitle title="${action.title}"/> --%>
 	<div>
 		<div style="display: inline-block; width: 400px;">
 			<ryc:conditionDisplay privilege="EDIT_ACTION">

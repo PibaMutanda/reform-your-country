@@ -29,29 +29,36 @@ public class ArgumentService {
     @Autowired UserRepository userRepository;
     @Autowired VoteActionRepository voteActionRepository;
     @Autowired VoteArgumentRepository voteArgumentRepository;
-    public void updateVoteArgument(Long idArg, int value, User user,
-            Argument arg) {
+    
+    // A user is voting
+    public void updateVoteArgument(Long idArg, int value, User user, Argument arg) {
+        VoteArgument vote = getVoteArgument(user, arg);
         
-        VoteArgument vote = null;
-        for (VoteArgument vt :arg.getVoteArguments()){
-            if(vt.getUser()==SecurityContext.getUser()){
-                vt.setValue(value);
-                voteArgumentRepository.merge(vt);
-                arg.recalculate();
-                argumentRepository.merge(arg);
-                vote =vt;
-                break;
-            }
-        }
         if (vote==null) {  // A new vote entity
             vote = new VoteArgument(value, arg, user);
             vote.setArgument(arg);
             voteArgumentRepository.persist(vote);
             arg.addVoteArgument(vote);
             argumentRepository.merge(arg);
+        } else {
+            vote.setValue(value);
+            voteArgumentRepository.merge(vote);
+            arg.recalculate();
+            argumentRepository.merge(arg);
         }
     }   
 
+    // Finds the voteArguemnt for the given user on the given argument.
+    public VoteArgument getVoteArgument(User user, Argument arg) {
+        for (VoteArgument vt :arg.getVoteArguments()){
+            if(vt.getUser().equals(user)){
+                return vt;
+            }
+        }
+        return null;  // Not found
+    }
+    
+    
     public void putArgumentListInModelAndView(ModelAndView mv, Action action) {
         //Divide all the arguments in 2 lists: positive ones and negative ones.
 
