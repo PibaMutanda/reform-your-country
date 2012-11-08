@@ -73,15 +73,20 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
         }
         public static SpecialType getSpecialType(String value){
             value = value.toLowerCase();
-            switch(value){
-            case "politic" : return POLITIC;
-            case "union"   : return UNION;
-            case "association" : return ASSOCIATION;
-            case "private"  : return PRIVATE;
-            default : throw new RuntimeException("Special Type string value unsupported");
-            
+            boolean found = false;
+            SpecialType result = null;
+            for (SpecialType specialType : SpecialType.values()) {
+               String name =  specialType.name.toLowerCase();
+                if (name.equals(value)){
+                    found = true;
+                    result = specialType;
+                }
             }
-            
+            if(!found){
+                throw new RuntimeException("Special Type string value unsupported");
+            }else{
+                return result;     
+            }
         }
          
     }
