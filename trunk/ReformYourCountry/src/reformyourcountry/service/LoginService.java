@@ -27,6 +27,7 @@ import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountConnectedType;
 import reformyourcountry.model.User.AccountStatus;
 import reformyourcountry.model.User.Role;
+import reformyourcountry.model.User.SpecialType;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.util.CurrentEnvironment.Environment;
@@ -370,6 +371,16 @@ public class LoginService {
         }
         
         return message;
+    }
+    
+    public String getPageAfterLogin(User user){
+        
+        if(user.getSpecialType() != SpecialType.PRIVATE && !user.isAskedGroup()){
+            
+            return "/manageGroup?id="+user.getId();
+        }
+        
+        return null;
     }
     
 }
