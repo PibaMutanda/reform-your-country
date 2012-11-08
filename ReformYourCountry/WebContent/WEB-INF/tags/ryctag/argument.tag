@@ -16,7 +16,7 @@
 <%@ attribute name="totalvote" required="true" type="java.lang.String"%>
 <%@ attribute name="voteselected" required="true" type="java.lang.String"%>
 
-<div>
+
 	<div class="argument" style="width:300px;border-radius: 10px;border:3px solid ${color}; margin:5px;float:left;">
 		<p align="center" style="text-align:center;font-weight:bold; font-style: italic;padding:5px;">
 			${title}
@@ -30,7 +30,6 @@
 	</div>
 
 	<div style="float:right; margin:5px;width: 75px;text-align:center;font-weight: bold;font-size: 25px;">
-		<c:if test="${current.user.id != null }">	
 			<c:choose>
 				<c:when test="${voteselected>0}">
 					<img class="div-align-center" align="middle" src="\images\_global\up_selected.png"/>		
@@ -39,10 +38,9 @@
 					<img class="div-align-center" align="middle" src="\images\_global\up.png" onclick="voteOnArgument(this,${id},1);"/>
 				</c:otherwise>
 			</c:choose>
- 		</c:if>
+
 		<div style="padding-top:5px; margin-bottom:-8px;">${totalvote}</div>
-		<c:if test="${current.user.id != null }">	
-				
+
 			<c:choose>
 				<c:when test="${voteselected<0}">
 					<img class="div-align-center" align="middle" src="\images\_global\down_selected.png"/>		
@@ -51,6 +49,4 @@
 					<img class="div-align-center" align="middle" src="\images\_global\down.png" onclick="voteOnArgument(this,${id},-1);"/>
 				</c:otherwise>
 			</c:choose>
- 		</c:if>
 	</div>
-</div>
