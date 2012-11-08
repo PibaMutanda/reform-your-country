@@ -15,7 +15,7 @@
 	<ryctag:breadcrumbelement label="groupes"/>
 </ryctag:pageheadertitle>
 
-
+<p>Pour un usage statistique (les enseignants ont voté que..., les élèves votent plutôt que...), pouvez-vous indiquer à quelle(s) catégorie(s) vous appartenez?</p>
 	<form action="usergrouplistsubmit" method="post">
 		<table style="width:100%">
 			<c:forEach items="${allGroups}" var="currentGroup">
