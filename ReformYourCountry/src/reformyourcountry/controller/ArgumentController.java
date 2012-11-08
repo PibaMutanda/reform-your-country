@@ -66,7 +66,7 @@ public class ArgumentController extends BaseController<Action>{
             ModelAndView mv = new ModelAndView("argumentdetail");  // Redisplay that argument (with new vote values)
             mv.addObject("arg",arg);
             return mv;
-        
+           
         } else {
             throw new Exception("no user logged");  // Catched by the JavaScript (should not happen because we don't send the ajax reqeust with non logged in user)
         }
@@ -78,11 +78,12 @@ public class ArgumentController extends BaseController<Action>{
 		if (user !=null){
 			Argument arg = argumentRepository.find(idArg);
 			Comment comment = new Comment(com, arg, user);
+            commentRepository.persist(comment);
 			arg.addComment(comment);
-			commentRepository.persist(comment);
 			argumentRepository.merge(arg);       
-			Action action =  arg.getAction();
-			return argumentService.getActionModelAndView(action,"argument");
+			ModelAndView mv = new ModelAndView("argumentcomment");
+            mv.addObject("arg",arg);
+			return mv;
 		}else {
 			throw new Exception("no user logged");
 		}

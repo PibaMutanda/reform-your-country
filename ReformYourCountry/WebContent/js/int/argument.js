@@ -1,4 +1,4 @@
-function sendNewArgument(item,content,action,title,ispos){
+function sendNewArg(item,content,action,title,ispos){
 	if(title!="" && content!=""){
 	var requestArg = $.ajax({
 		url: "/ajax/argumentAdd",
@@ -17,6 +17,18 @@ function sendNewArgument(item,content,action,title,ispos){
 		$("#errorArg").text("Erreur lors de l'envoi d'un argument : Veuillez remplir tout les champs !");
 	}
 }
+function editArg(item,idArg,title,comment){
+	if (idUser.length>0){
+		$("#arg"+idArg).html(
+		"<form class=\"argumentNegForm\" action=\"\" method=\"post\" >"
+			+"<input type=\"hidden\" id=\"idArg\" value=\""+idArg+"\" />"
+			+"<textarea id=\"title\" rows=\"1\" cols=\"15\">"+title+"</textarea><br/>"
+			+"<textarea id=\"comment\"rows=\"5\" cols=\"15\" >"+comment+"</textarea><br/>"
+			+"<input type=\"button\"   value=\"Sauver\" onclick=\"sendNewComment(this,comment${ispos}.value,action${ispos}.value,title${ispos}.value,ispos${ispos}.value);\"></form>"	
+		);
+	}
+}
+
 function voteOnArgument(item,idArg,value){
 	if (idUser.length>0){
 		var requestArg = $.ajax({
@@ -45,21 +57,33 @@ function voteOnArgument(item,idArg,value){
 	}
 }
 function sendNewComment(item, comment, arg){
-	if(comment!=""){
-		var requestArg = $.ajax({
-			url: "/ajax/commentAdd",
-			type: "POST",
-			data: "comment="+ comment+"&arg="+arg,
-			dataType: "html"
-		}).done(function(data){
-			//Send the new data to the div containing the lists
-			$("#comment"+arg).html(data);
-		});
-
-		requestArg.fail(function(jqXHR, textStatus) {
-			$("#errorArg").text("Erreur lors de l'envoi d'un commentaire : "+textStatus);
-		});
+	if (idUser.length>0){
+		if(comment!=""){
+			var requestArg = $.ajax({
+				url: "/ajax/commentAdd",
+				type: "POST",
+				data: "comment="+ comment+"&arg="+arg,
+				dataType: "html"
+			}).done(function(data){
+				//Send the new data to the div containing the lists	
+				$("#comment"+arg).html(data);
+			});
+	
+			requestArg.fail(function(jqXHR, textStatus) {
+				$("#errorArg").text("Erreur lors de l'envoi d'un commentaire : "+textStatus);
+			});
 		}else{
 			$("#errorArg").text("Erreur lors de l'envoi d'un commentaire : Veuillez remplir tout les champs !");
 		}
+	}else{
+		$(item).CreateBubblePopup({ 
+	           innerHtmlStyle: {  // give css property to the inner div of the popup	    	   
+	               'opacity':0.9
+	           },
+	           tail: {align:'center', hidden: false},
+	           selectable :true,				    	
+	           innerHtml: 'Pour voter veuillez vous logger : '
+	        	   +'<a class="login" style="cursor:pointer;" href="/login">Connexion</a>'
+	       }); 	 
+	}
 	}

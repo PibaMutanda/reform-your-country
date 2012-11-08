@@ -4,10 +4,15 @@
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<div  id="comment${arg.id}">
+
 	<c:forEach items="${arg.commentList}" var="lst">
 		<div>
 			${lst.content}<br />
 		</div>
 	</c:forEach>
-</div>
+	<form action="" method="post">
+				<input type="hidden" id="idArg" value="${arg.id}" />
+				<textarea id="comm" rows="1" cols="20"></textarea>
+				<input type="button" value="commenter"
+					onclick="sendNewComment(this, comm.value,${arg.id});">
+   </form>
