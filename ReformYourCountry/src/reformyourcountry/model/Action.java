@@ -46,9 +46,6 @@ public class Action extends BaseEntity{
 	private List<Article> articles = new ArrayList <Article>();
 	
 	@OneToMany(mappedBy = "action")
-	private List<Comment> comments = new ArrayList <Comment>();
-	
-	@OneToMany(mappedBy = "action")
 	private List<VoteAction> voteActions = new ArrayList <VoteAction>();
 	
 	@OneToMany(mappedBy = "action")
@@ -133,9 +130,6 @@ public class Action extends BaseEntity{
 		return articles;
 	}
 
-	public List<Comment> getComments() {
-		return comments;
-	}
 
 	public List<VoteAction> getVoteActions() {
 		return voteActions;
@@ -151,10 +145,7 @@ public class Action extends BaseEntity{
 	}
 	
 	
-	public void addComment(Comment comment){
-	    comments.add(comment);
-	}
-	
+
 	public void addArticle(Article article){
 	    articles.add(article);
 	}
