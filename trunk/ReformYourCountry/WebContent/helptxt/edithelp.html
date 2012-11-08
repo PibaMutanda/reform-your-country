@@ -36,12 +36,12 @@
 
 	<div class="titre3">Référencer un livre:</div>
 
-	<p class="exemple">[quote bib="abreviation"]ma citation[/quote]
-	<p>Affichera le texte "ma citation" ,sur lequel le deplacement de
+	<p class="exemple">[quote bib="abreviation"]ma citation[/quote]</p>
+	<p>Affichera le texte "ma citation", sur lequel le déplacement de
 		la souris créera une pop up qui référencera les details du livre
 		renseigné par l'attribut "bib", bib étant l'abréviation du livre. Le
 		titre du livre, le nom de l'auteur et l'année de publication seront
-		affichés sous le texte "ma citation".<p>
+		affichés sous le texte "ma citation".</p>
 		
 	<div class="titre3">Reférencer un livre dans le texte:</div>
 
@@ -54,6 +54,15 @@
 		avec la valeur "true", permet de voir "ma citation" au coeur du texte
 		autours ("L'auteur dit:" dans notre exemple) et sans la ligne avec les
 		détails sur le livre.</p>
+		
+	<div class="titre3">Référencer la citation d'un auteur utilisée dans le livre</div>
+
+	<p class="exemple">[quote bib="abreviation" add="citant Gandi"]ma citation[/quote]</p>
+	<p>Affichera le texte "ma citation", suivie du titre du livre sur une ligne plus petite.
+	L'attribut 'add' va ajouter sur cette ligne, ", citant Gandi".<br/>
+	  Donc, on aura par exemple,<br/>
+	    Biographie officielle de Gandi - Jan Smet - 2012, citant Gandi
+	  </p>
 
 	<div class="titre3">Réferencer un auteur:</div>
 
@@ -113,6 +122,14 @@
 			<td>optionel</td>
 			<td>"true" or "false"</td>
 			<td>si true , la citation sera affichée tel quel</td>
+		</tr>
+		<tr>
+			<td class="exemple">add</td>
+			<td>optionel si "bib" est utilisé</td>
+			<td>alphabétique</td>
+			<td>affiche le nom de l'auteur cité par l'auteur. <br/>
+			Ne peut pas être utilisé conjointement avec l'attribut "inline".
+			Nécessite la présence de l'attribut "bib"</td>
 		</tr>
 		<tr>
 			<td class="exemple">author</td>

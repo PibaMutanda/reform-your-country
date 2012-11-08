@@ -312,7 +312,7 @@ public class BBConverter {
 
 	 */
 	private void processQuote(BBTag tag) {
-		supportedAttributes(tag, "bib", "author", "out", "inline");
+		supportedAttributes(tag, "bib", "author", "out", "inline", "add");
 		// bib  either [quote bib="book-ref"]I say it! [/quote]
 		//   or either [quote author="anonymous" out="http://myblog/article/happy"] I say it! [/quote]
 		// either bib refers a Book or out refers a link to another site (outlink)
@@ -336,10 +336,18 @@ public class BBConverter {
 			}
 		}
 
+		// 3. We look for the add attribute.
+		String add = tag.getAttributeValue("add");
+		if (add != null && book == null) { 
+			addErrorMessage("When you specify the 'add' attribute, you must specify a 'bib' attribute, because the purpose of 'add' is to add some text to a book reference, typically when you quote a book already quoting some original author and you wnat to specify the original author.", tag);
+		}
+
 
 		/// 0. We look for the type of tag (span or div)
 		if (isAttributeTrue(tag, "inline")){ //////////////////// Inline quote, just a little span.
-
+			if (add != null) {
+				addErrorMessage("You may not specify an 'add' attribute when the quote is inline.", tag);
+			}
 
 			bufferTextForP("<span class='"+	(book != null ? getCssClassName(book) : "") +" quote-inline'>");
 			// TODO: prevents  [untranslated]  inside quote inline.
@@ -382,12 +390,19 @@ public class BBConverter {
 
 				if (book != null) { // book title to be added
 					lineBelowQuote += "<span class ='"+getCssClassName(book)+" booktitle'>";
-					lineBelowQuote += book.getTitle() + " - " + book.getSubtitle();
+					lineBelowQuote += book.getTitle();
+					if (book.getSubtitle() != null) {
+						lineBelowQuote += " - " + book.getSubtitle();
+					}
 					if (book.getAuthor()!= null && !book.getAuthor().isEmpty()){
 						lineBelowQuote += " &ndash; "+book.getAuthor();
 					}
 					if(book.getPubYear() != null && !book.getPubYear().isEmpty()){
 						lineBelowQuote += " &ndash; " + book.getPubYear();
+					}
+					
+					if (add !=null){
+						lineBelowQuote += ", " + add;
 					}
 					lineBelowQuote +="</span>\n";
 					
