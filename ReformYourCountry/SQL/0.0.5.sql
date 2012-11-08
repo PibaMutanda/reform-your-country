@@ -98,4 +98,7 @@
 
     alter table argument 
         add column positivearg boolean not null  default false;
+ --2012-11-08 Lionel
+    alter table users
+        add column askedgroup boolean not null default false;
     
