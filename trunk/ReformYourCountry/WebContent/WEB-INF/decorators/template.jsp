@@ -9,9 +9,9 @@
 <head>
 	<base href="<%= UrlUtil.getAbsoluteUrl("") %>"/>
 	<meta charset="UTF-8" />
-    <!--[if IE]>
+	
     <meta http-equiv="X-UA-Compatible" content="IE=edge" /><%-- force IE to doesn't use is compataibility mode--%>
-    <![endif]-->
+    
 	<meta name="viewport" content="width=device-width"/><%--Define the base-width as the screen width --%>
 	<%@ include file="/WEB-INF/includes/import.jsp"%>
 	<decorator:head />
