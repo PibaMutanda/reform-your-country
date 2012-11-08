@@ -7,6 +7,7 @@
 			<li><a href="grouplist"><span>Groupes</span></a></li>
 			<c:if test="${current.user!=null}"><li><a href="user/${current.user.userName}"><span>Mon profil</span></a></li></c:if>
 			<li><a href="user"><span>Autres utilisateurs</span></a></li>
+			<li><a href="/specialuserslist"><span>Partis politiques et Associations</span></a></li>
 		</ul>
 	</li>
 	
