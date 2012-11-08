@@ -98,7 +98,42 @@
 
     alter table argument 
         add column positivearg boolean not null  default false;
+        
  --2012-11-08 Lionel
     alter table users
         add column askedgroup boolean not null default false;
-    
+        
+ -- 2012-11-08 Julien
+
+    drop table comment;
+    create table comment (
+        id int8 not null,
+        createdon timestamp,
+        updatedon timestamp,
+        content text,
+        createdby_id int8,
+        updatedby_id int8,
+        argument_id int8 not null,
+        user_id int8 not null,
+        primary key (id)
+    );
+
+    alter table comment 
+        add constraint fk9bde863fccfcf0ad 
+        foreign key (createdby_id) 
+        references users;
+
+    alter table comment 
+        add constraint fk9bde863f4ca5daa1 
+        foreign key (user_id) 
+        references users;
+
+    alter table comment 
+        add constraint fk9bde863fd4dae1e1 
+        foreign key (argument_id) 
+        references argument;
+
+    alter table comment 
+        add constraint fk9bde863f3967baba 
+        foreign key (updatedby_id) 
+        references users;
