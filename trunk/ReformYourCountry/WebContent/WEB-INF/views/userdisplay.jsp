@@ -57,14 +57,21 @@
 				<c:if test="${canEdit}">
 					Né le : <c:choose><c:when test="${user.birthDate ne null}">${user.birthDate}</c:when><c:otherwise>?</c:otherwise></c:choose><br />
 					mail : ${user.mail}<br />
+					
 					Date d'enregistrement : ${user.createdOn} <br />
 					Rôle : ${user.role}<br/>
+					
+					<c:if test="${user.specialType!='PRIVATE'}">
+					  Type : ${user.specialType.name}<br/>
+					</c:if>
+					
 					Dernier accès : ${user.lastAccess} <br/>
 					Depuis l'adresse ${user.lastLoginIp}<br/>
 					Status du compte : ${user.accountStatus}<br/>
 					<c:if test="${user.lockReason}!= ACTIVE ">
 						Raison blocage compte : ${user.lockReason}<br /> <br/>
-					</c:if>					
+					</c:if>
+										
 				</c:if>
 	</div>
 	
@@ -72,6 +79,7 @@
 		<ul class="list sitemap-list">
 			<ryc:conditionDisplay privilege="MANAGE_USERS">
 				 <li><a href="user/privilegeedit?id=${user.id}">Privilèges</a></li>
+				 <li><a href="user/usertypeedit?id=${user.id}">Editer le type d'un user</a></li>
 			</ryc:conditionDisplay>
 			
 			 <c:if test="${canEdit}">
