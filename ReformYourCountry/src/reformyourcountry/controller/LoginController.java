@@ -73,7 +73,7 @@ public class LoginController extends BaseController<User> {
         User user = null;
         try {
             user = loginService.login(userNameOrMail, password, keepLoggedIn,null,AccountConnectedType.LOCAL);
-           addNotificationMessage("Vous ête à present connecté sur "+UrlUtil.getWebSiteName(), request);
+           addNotificationMessage("Vous êtes à present connecté sur "+UrlUtil.getWebSiteName(), request);
 
         } catch (UserNotFoundException e) {
             errorMsg="L'utilisateur '"+userNameOrMail+"' n'existe pas";
@@ -105,15 +105,23 @@ public class LoginController extends BaseController<User> {
                     " Actuellement, il reste "+ DateUtil.formatIntervalFromToNow(e.getNextPossibleTry()) +" à attendre.";
         }
 
-
+     
+        
+        
         if (errorMsg != null) {
             ModelAndView mv = new ModelAndView("redirect:login");
           
-               addNotificationMessage( errorMsg,request);
+               addNotificationMessage(errorMsg,request);
                              
             return mv;
         } else {
+            String nextPage = loginService.getPageAfterLogin(user);
+            if(nextPage != null){
+                return new ModelAndView("redirect:"+nextPage);
+                
+            }else{
             return new ModelAndView("redirect:user/"+user.getUserName());
+            }
         }
     }
     
