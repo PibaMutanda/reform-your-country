@@ -39,6 +39,7 @@ import reformyourcountry.mail.MailType;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountConnectedType;
 import reformyourcountry.model.User.AccountStatus;
+import reformyourcountry.model.User.SpecialType;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
@@ -93,6 +94,7 @@ public class UserService {
         newUser.setUserName(username);
         newUser.setPassword(SecurityUtils.md5Encode(passwordInClear));
         newUser.setMail(mail);
+        newUser.setSpecialType(SpecialType.PRIVATE);
         
         //// Validation mail.
         String base = newUser.getMail() + newUser.getPassword() + Math.random();  // Could be pure random.
