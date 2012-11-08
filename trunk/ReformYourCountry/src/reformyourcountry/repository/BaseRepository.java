@@ -42,7 +42,11 @@ public abstract class BaseRepository<E extends BaseEntity> {
         em.persist(entity);
     
     }
-
+     public void refresh(E entity) {
+         
+         em.refresh(entity);
+     
+     }
     public E merge(E entity) {
         return em.merge( entity );
     }
