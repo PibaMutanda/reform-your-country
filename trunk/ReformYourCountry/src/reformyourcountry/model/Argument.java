@@ -30,6 +30,16 @@ public class Argument extends BaseEntity{
 	private Action action;
 	@OneToMany(mappedBy = "argument")
 	private List<VoteArgument> voteArguments = new ArrayList<VoteArgument>();
+	@OneToMany(mappedBy = "argument")
+	private List<Comment> commentList = new ArrayList<Comment>();
+	public List<Comment> getCommentList() {
+		return commentList;
+	}
+
+
+	public void setCommentList(List<Comment> commentList) {
+		this.commentList = commentList;
+	}
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private User user;
@@ -133,6 +143,11 @@ public class Argument extends BaseEntity{
         voteArguments.add(voteArgument);
         this.recalculate();
     }
+    
+    public void addComment(Comment comment){
+    	this.commentList.add(comment);
+    }
+    
     @Override
 	public String toString() {
 		return content;

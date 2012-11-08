@@ -23,9 +23,9 @@ public class Comment extends BaseEntity{
 	public Comment() {
 	}	
 	
-	public Comment(String descript, Argument argument, User user)
+	public Comment(String content, Argument argument, User user)
 	{
-		this.content = descript;
+		this.content = content;
 		this.argument = argument;
 		this.user = user;
 	}
@@ -66,6 +66,5 @@ public class Comment extends BaseEntity{
 	public String toString() {
 		return content;
 	}
-	
 
 }
