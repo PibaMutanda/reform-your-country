@@ -95,6 +95,7 @@ public class UserService {
         newUser.setPassword(SecurityUtils.md5Encode(passwordInClear));
         newUser.setMail(mail);
         newUser.setSpecialType(SpecialType.PRIVATE);
+        newUser.setAskedGroup(false);
         
         //// Validation mail.
         String base = newUser.getMail() + newUser.getPassword() + Math.random();  // Could be pure random.

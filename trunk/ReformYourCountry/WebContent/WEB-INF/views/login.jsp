@@ -5,15 +5,17 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="sf"%>
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag"%>
 
-
+<!-- you can set variables starting with "p_" in the file named website_content.properties -->
+<head>
 <script type="text/javascript">
 $(document).ready(function() {		
 	
-	<!-- you can set variables starting with "p_" in the file named website_content.properties -->
+	
 	// ajax request wich will call loginController wich will place a flag autologin in the session
 	// later this value will be used in the spring-social SigninAdapter to determine if we want create a cookie for the user login
 	
 	$('input[name="keepLoggedIn"]').click(function(){
+		console.log("clic");
 		var checkbox = $(this).is(':checked');
 		
 		var request = $.ajax({
@@ -24,7 +26,7 @@ $(document).ready(function() {
 		});
 		// if success
 		request.done(function(data) {
-			// console.log(data);
+			console.log(data);
 			//location.reload(); Maybe will make the server throw an UnauthorizedException if anonymous users cannot see that page. 
 		});
 								
@@ -110,7 +112,7 @@ Pour participer (voter, argumenter, etc.), vous devez vous connecter avec votre 
 	</div>
 	
 </div>	
-
+<!-- this checkbox is not in a form tag because we pass its value by an ajax request -->
 <c:choose>
 <c:when test='${autologin}'>    
 <input type="checkbox" name="keepLoggedIn" checked="checked" />

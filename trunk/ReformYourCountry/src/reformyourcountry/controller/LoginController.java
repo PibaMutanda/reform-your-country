@@ -66,13 +66,14 @@ public class LoginController extends BaseController<User> {
     @RequestMapping("/loginsubmit")
     public ModelAndView loginSubmit(@RequestParam("identifier") String userNameOrMail,
             @RequestParam(value="password",required=false) String password,
-            @RequestParam(value="keepLoggedIn",required=false) boolean keepLoggedIn,WebRequest request) {
+            WebRequest request) {
 
         
         String errorMsg = null;
         User user = null;
         try {
-            user = loginService.login(userNameOrMail, password, keepLoggedIn,null,AccountConnectedType.LOCAL);
+            Boolean autologin = loginService.readAutoLogin(request);          
+            user = loginService.login(userNameOrMail, password, autologin,null,AccountConnectedType.LOCAL);
            addNotificationMessage("Vous êtes à present connecté sur "+UrlUtil.getWebSiteName(), request);
 
         } catch (UserNotFoundException e) {
@@ -118,13 +119,12 @@ public class LoginController extends BaseController<User> {
             String nextPage = loginService.getPageAfterLogin(user);
             if(nextPage != null){
                 return new ModelAndView("redirect:"+nextPage);
-                
             }else{
-            return new ModelAndView("redirect:user/"+user.getUserName());
+                return new ModelAndView("redirect:user/"+user.getUserName());
             }
         }
     }
-    
+
     
    
     

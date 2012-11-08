@@ -7,16 +7,18 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.time.DateUtils;
-import org.apache.http.cookie.Cookie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.WebRequest;
 
 import reformyourcountry.controller.LoginController;
 import reformyourcountry.exception.InvalidPasswordException;
@@ -157,7 +159,7 @@ public class LoginService {
          * user automaticaly. The value of "login" cookie is the user id.
          * The value of "password" cookie is the enrypted password.
          */
-        Cookie loginCookie = (Cookie) Cookies.findCookie(Cookies.LOGINCOOKIE_KEY);
+        Cookie loginCookie =  (Cookie) Cookies.findCookie(Cookies.LOGINCOOKIE_KEY);
         Cookie passwordCookie = (Cookie) Cookies.findCookie(Cookies.PASSCOOKIE_KEY);
        
 
@@ -376,11 +378,24 @@ public class LoginService {
     public String getPageAfterLogin(User user){
         
         if(user.getSpecialType() != SpecialType.PRIVATE && !user.isAskedGroup()){
-            
+            user.setAskedGroup(true);
+            userRepository.merge(user);
             return "/manageGroup?id="+user.getId();
         }
         
         return null;
+    }
+    
+    /**
+     * This method will be call both in the LoginController("/loginsubmit") and in the RycSignInAdapater (social login)
+     * @param request
+     * @return
+     */
+    public Boolean readAutoLogin(WebRequest request){
+        Boolean autologin =  (Boolean) request.getAttribute(LoginController.AUTOLOGIN_KEY,RequestAttributes.SCOPE_SESSION);
+        autologin = autologin == null ? false : autologin;
+        request.removeAttribute(LoginController.AUTOLOGIN_KEY, RequestAttributes.SCOPE_SESSION);
+        return autologin;
     }
     
 }

@@ -24,10 +24,7 @@ public class RycSignInAdapter implements SignInAdapter {
         try {
             LoginService loginService = ContextUtil.getSpringBean(LoginService.class);
             // this value is setup in logincontroller (/ajax/autologin)
-            Boolean autologin =  (Boolean) request.getAttribute(LoginController.AUTOLOGIN_KEY,RequestAttributes.SCOPE_SESSION);
-            autologin = autologin == null ? false : autologin;
-            request.removeAttribute(LoginController.AUTOLOGIN_KEY, RequestAttributes.SCOPE_SESSION);
-                    
+            Boolean autologin = loginService.readAutoLogin(request);                          
             user = loginService.login(null, null, autologin, Long.parseLong(localId), AccountConnectedType.getProviderType(connection.getKey().getProviderId()));
                      
             BaseController.addNotificationMessage("Vous êtes a présent connecté sur "+UrlUtil.getWebSiteName()+" avec votre compte "+connection.getKey().getProviderId(),request);                                           
