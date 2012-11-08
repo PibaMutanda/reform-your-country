@@ -6,13 +6,13 @@
 
 
 
-<div  style="width:400px;<c:if test='${ispos}'>float:left;</c:if>">
+<div  style="width:400px;<c:if test='${ispos}'>float:right;</c:if><c:if test='${!ispos}'>float:left;</c:if>">
 	<c:forEach items="${listToShow}" var="arg">
-		<ryctag:argument id="${arg.id}" color="${color}" title="${arg.title}" author="${arg.user.firstName} ${arg.user.lastName}" content="${arg.content}" totalvote="${arg.getTotal()}"/>
+		<%@include file="argumentdetail.jsp"%>
 	</c:forEach>
 			
 	
-	<ryc:conditionDisplay privilege="CAN_VOTE">		
+	<c:if test="${current.user.id != null }">		
 		<form class="argumentNegForm" action="" method="post" >
 			<input type="hidden" id="ispos${ispos}" value="${ispos}"/>
 			<input type="hidden" id="action${ispos}" value="${action.id}" />
@@ -20,5 +20,5 @@
 			<textarea id="comment${ispos}"rows="5" cols="15" ></textarea><br/>
 			<input type="button"   value="Commenter" onclick="sendNewComment(this,comment${ispos}.value,action${ispos}.value,title${ispos}.value,ispos${ispos}.value);">
 		</form>
-	</ryc:conditionDisplay>
+	</c:if>
 </div>	                     

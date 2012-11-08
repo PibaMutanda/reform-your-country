@@ -25,7 +25,7 @@ function voteOnArgument(item,idArg,value){
 		dataType: "html"
 	}).done(function(data) {
 		//Send the new data to the div containing the lists
-		$("#argContainer").html(data);
+		$("#arg"+idArg).html(data);
 	});
 
 	requestArg.fail(function(jqXHR, textStatus) {

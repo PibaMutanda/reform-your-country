@@ -1,7 +1,5 @@
 package reformyourcountry.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +15,6 @@ import reformyourcountry.repository.ArgumentRepository;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.repository.VoteActionRepository;
 import reformyourcountry.repository.VoteArgumentRepository;
-import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.ArgumentService;
 
@@ -34,33 +31,42 @@ public class ArgumentController extends BaseController<Action>{
     
     @RequestMapping("ajax/argumentAdd")
     public ModelAndView argumentAdd(@RequestParam("action")Long idAction, @RequestParam("content")String content, @RequestParam("title")String title,@RequestParam("ispos")boolean isPos) throws Exception{
-        SecurityContext.assertUserHasPrivilege(Privilege.CAN_VOTE);
-        Action action = actionRepository.find(idAction);
-        if(title == null || content == null){
-        	throw new Exception("Le titre et le contenu des argument ne peuvent être vide");
-        }
-        if (action!=null){
-            Argument arg = new Argument(title, content, action, SecurityContext.getUser());
-            arg.setPositiveArg(isPos);
-            argumentRepository.persist(arg);
+        User user = SecurityContext.getUser();
+        if (user !=null){
+            Action action = actionRepository.find(idAction);
+            if(title == null || content == null){
+            	throw new Exception("Le titre et le contenu des argument ne peuvent être vide");
+            }
+            if (action!=null){
+                Argument arg = new Argument(title, content, action, SecurityContext.getUser());
+                arg.setPositiveArg(isPos);
+                argumentRepository.persist(arg);
+                action.addArgument(arg);
+                actionRepository.merge(action);
+            }else{
+                throw new Exception("no action selected");  
+            }
+            return  argumentService.getActionModelAndView(action,"argument");
         }else{
-            
+            throw new Exception("no user logged");
         }
-        return  argumentService.getActionModelAndView(action,"argument");
     }   
     
     
     
     @RequestMapping("ajax/argumentvote")
-    public ModelAndView argumentVote(@RequestParam("idArg")Long idArg,@RequestParam("value")int value){
-        //TODO: Delete CanVOTE From privilege and verify user is logged
-        SecurityContext.assertUserHasPrivilege(Privilege.CAN_VOTE);
+    public ModelAndView argumentVote(@RequestParam("idArg")Long idArg,@RequestParam("value")int value)throws Exception{
         User user = SecurityContext.getUser();
-        Argument arg = argumentRepository.find(idArg);
-        argumentService.updateVoteArgument(idArg, value, user, arg);
-        Action action =  arg.getAction();
-      
-       return  argumentService.getActionModelAndView(action,"argument");
+        if (user !=null){
+            Argument arg = argumentRepository.find(idArg);
+            argumentService.updateVoteArgument(idArg, value, user, arg);
+            ModelAndView mv =new ModelAndView("argumentdetail");
+            mv.addObject("arg",arg);
+            return mv;
+        }
+        else {
+            throw new Exception("no user logged");
+        }
     }
    
    

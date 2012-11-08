@@ -1,6 +1,31 @@
 function focused(item) {
 	$(item).css('width', '25px');
 	$(item).css('height', '25px');
+	var inner="";
+	if($(item).text()==-2){
+		inner= 'Totalement contre';
+	}
+	if($(item).text()==-1){
+		inner= 'Plutôt contre';
+	}
+	if($(item).text()==0){
+		inner= 'Pas d\'avis';
+	}
+	if($(item).text()==1){
+		inner= 'Plutôt pour';
+	}
+	if($(item).text()==2){
+		inner= 'Totalement pour';
+	}
+	$(item).CreateBubblePopup({ 
+		width:100,
+        innerHtmlStyle: {  // give css property to the inner div of the popup	    	   
+            'opacity':0.9
+        },
+        tail: {align:'center', hidden: false},
+        selectable :false,	
+        innerHtml:inner
+    }); 	 
 }
 function unfocused(item) {
 	$(item).css('width', '20px');

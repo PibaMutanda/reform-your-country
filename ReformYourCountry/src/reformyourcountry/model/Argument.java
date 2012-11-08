@@ -151,5 +151,12 @@ public class Argument extends BaseEntity{
             }
         }
     }
-
+    public int getVoteValueByUser(User user){
+        for(VoteArgument vote:voteArguments){
+            if (vote.getUser()==user){
+               return vote.getValue();
+            }
+        }
+        return 0;
+    }
 }
