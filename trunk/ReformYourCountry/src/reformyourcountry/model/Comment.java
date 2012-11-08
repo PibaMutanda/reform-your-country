@@ -4,16 +4,17 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.Type;
+
 @Entity
 public class Comment extends BaseEntity{
-	
-    private String title;
    
+    @Type(type="org.hibernate.type.StringClobType")
 	private String content;
 	
 	@ManyToOne
 	@JoinColumn(nullable = false)
-	private Action action;
+	private Argument argument;
 	
 	@ManyToOne
 	@JoinColumn(nullable = false)
@@ -22,12 +23,11 @@ public class Comment extends BaseEntity{
 	public Comment() {
 	}	
 	
-	public Comment(String title,String descript, Action action, User user)
+	public Comment(String descript, Argument argument, User user)
 	{
 		this.content = descript;
-		this.action = action;
+		this.argument = argument;
 		this.user = user;
-		this.title = title;
 	}
 
 	public String getContentComment() {
@@ -37,15 +37,23 @@ public class Comment extends BaseEntity{
 	public void setContentComment(String contentComment) {
 		this.content = contentComment;
 	}
-
-	public Action getAction() {
-		return action;
-	}
-
-	public void setAction(Action action) {
-		this.action = action;
-	}
 		
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public Argument getArgument() {
+		return argument;
+	}
+
+	public void setArgument(Argument argument) {
+		this.argument = argument;
+	}
+
 	public User getUser() {
 		return user;
 	}
@@ -53,16 +61,6 @@ public class Comment extends BaseEntity{
 	public void setUser(User user) {
 		this.user = user;
 	}
-
-	public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
- 
 
     @Override
 	public String toString() {
