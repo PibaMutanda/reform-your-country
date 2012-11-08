@@ -85,7 +85,7 @@ public class ConfirmAccountController extends BaseController<User>{
 	    ///// 2. Do we have a valid mail?
 	    if(email == null || StringUtils.isBlank(email)){
 	        ModelAndView mv = new ModelAndView("redirect:confirmaccount");  // Redirect in order to go through the controller.
-	        mv.addObject("mailerrormessage", "Veuillez entrer un adresse email valide.");  // TODO: rename attribute "mailerrormessage"
+	        mv.addObject("mailerrormessage", "Veuillez entrer un adresse email valide.");  
 	        return mv;
 	    }
 
@@ -94,15 +94,18 @@ public class ConfirmAccountController extends BaseController<User>{
 	    try {
 	        user = userService.registerSocialUser(request, email, mailIsValid);
 	        addNotificationMessage("Félicitation, vous venez de  creer un compte sur "+ currentEnvironment.getSiteName() +" associé à votre compte "+connection.getKey().getProviderId()+"."+
-	                "<br>A l'avenir vous pourrez vous connecter en cliquant sur l'icone de connection "+connection.getKey().getProviderId(),request);
-	        // TODO notification qu'ils vont recevoir un mail et doivent cliquer sur le lien.
+	                "<br>A l'avenir vous pourrez vous connecter en cliquant sur l'icone de connection "+connection.getKey().getProviderId()+".",request);
+	        
+	        if(!mailIsValid){//in case of a register with a twitter account,the user need to veriry his email address by clicking the link in the confirm email.
+	            addNotificationMessage("<br>Nous venons de vous envoyer un e-mail sur votre adresse: "+user.getMail()+ ". Merci de cliquer sur le lien de confirmation de votre enregistrement avec votre compte "+connection.getKey().getProviderId(),request);
+	        } 
 	    } catch (UserAlreadyExistsException e) {
 	        // The only case to arrive here should be: the social account provider (such as Twitter) did not give the e-mail,
 	        // so we just asked it to the user and we got it through emailParam.
 	        // But this is the mail of an existing RYC user and for security reasons, we'll not login the visitor automatically to that user.
 	        // We explain the situation and we ask the user to first login.
 	        user = userRepository.getUserByEmail(email);
-
+ 
 	        ModelAndView mvlogin = new ModelAndView("redirect:login");
 
 	        addNotificationMessage("Notre site comporte déjà un utilisateur avec cette adress e-mail : " + user.getMail()+" ("+user.getFullName()+" "+ user.getUserName()+")." +
