@@ -7,7 +7,6 @@ import org.springframework.social.connect.web.SignInAdapter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.context.request.RequestAttributes;
-
 import reformyourcountry.controller.BaseController;
 import reformyourcountry.controller.LoginController;
 import reformyourcountry.model.User;
@@ -20,10 +19,10 @@ public class RycSignInAdapter implements SignInAdapter {
 
     @Override
     public String signIn(String localId, Connection<?> connection, NativeWebRequest request) {
+        User user = null;
         
         try {
             LoginService loginService = ContextUtil.getSpringBean(LoginService.class);
-            User user = null;
             // this value is setup in logincontroller (/ajax/autologin)
             Boolean autologin =  (Boolean) request.getAttribute(LoginController.AUTOLOGIN_KEY,RequestAttributes.SCOPE_SESSION);
             autologin = autologin == null ? false : autologin;
@@ -32,11 +31,14 @@ public class RycSignInAdapter implements SignInAdapter {
             user = loginService.login(null, null, autologin, Long.parseLong(localId), AccountConnectedType.getProviderType(connection.getKey().getProviderId()));
                      
             BaseController.addNotificationMessage("Vous êtes a présent connecté sur "+UrlUtil.getWebSiteName()+" avec votre compte "+connection.getKey().getProviderId(),request);                                           
-
+            if(user != null)
+            return loginService.getPageAfterLogin(user);
+            
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-             
+          
+     
         return null;
     }
     
