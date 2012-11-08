@@ -1,0 +1,23 @@
+#!/bin/bash
+
+. config
+. common_function
+
+DIR_NAME=$APP_NAME
+SVN_PATH=trunk/$APP_NAME
+
+ensureFolderExists $BUILD_FOLDER
+ensureFolderExists $BACKUP_DIR/oldwars
+cd $BUILD_FOLDER
+
+if [ -d "./$DIR_NAME" ]
+then
+	cp -i $WEBAPPS_FOLDER/ROOT.war $BACKUP_DIR/oldwars/$OLD_WAR_COPY_NAME
+	cd "$DIR_NAME"
+	svn revert -R . && svn update && ant -Dtype=$APP_ENV war
+else 
+	mkdir $DIR_NAME
+	cd "$DIR_NAME"
+	svn checkout $SVN_ADRESS/$SVN_PATH . && ant -Dtype=$APP_ENV war
+fi
+

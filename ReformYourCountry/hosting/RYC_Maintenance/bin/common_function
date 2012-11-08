@@ -1,0 +1,11 @@
+function assertFolderExists(){
+  if [ ! -d "$1" ]; then	
+    echo $1" directory is empty "
+    exit 4
+  fi
+}
+function ensureFolderExists(){
+  if [ ! -d "$1" ]; then	
+    mkdir $1
+  fi
+}
