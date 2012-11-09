@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import reformyourcountry.converter.BBConverter;
 import reformyourcountry.exception.InvalidUrlException;
 import reformyourcountry.model.Article;
 import reformyourcountry.model.ArticleVersion;
 import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.repository.ArticleVersionRepository;
+import reformyourcountry.repository.BookRepository;
 import reformyourcountry.security.SecurityContext;
 
 @Service
@@ -19,6 +21,7 @@ public class ArticleService {
 
 	@Autowired	ArticleRepository articleRepository;
 	@Autowired  ArticleVersionRepository articleVersionRepository;
+	@Autowired  BookRepository bookRepository;
 	@Autowired  IndexManagerService indexManagerService;
 	
 	/** @param newParentId if null, removes the current parent and makes a root node. */
@@ -113,11 +116,16 @@ public class ArticleService {
 	     newVersion.setSummary(summary != null ? summary : (previousVersion!=null ? previousVersion.getSummary() : "Résumé à compléter") );
 	     newVersion.setToClassify(toClassify != null ? toClassify : (previousVersion!=null ? previousVersion.getToClassify() : "") );
 
-	     ///// 4.merge
+	     ///// 4.store the rendered version of the content and summary, for performance optimization
+	     article.setLastVersionRenderedContent(new BBConverter(bookRepository, articleRepository).transformBBCodeToHtmlCode(newVersion.getContent()));
+	     article.setLastVersionRenderdSummary(new BBConverter(bookRepository, articleRepository).transformBBCodeToHtmlCode(newVersion.getSummary()));
+	     
+	     
+	     ///// 5.merge
 	     articleVersionRepository.merge(newVersion);
  	     articleRepository.merge(article);
  	     
- 	     /////5. update index
+ 	     /////6. update index
  	     if(isNewArticle){
  	    	indexManagerService.addArticle(article);
  	     }else{

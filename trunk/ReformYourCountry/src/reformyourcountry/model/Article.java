@@ -49,6 +49,26 @@ public class Article extends BaseEntity {
     @Type(type="org.hibernate.type.StringClobType")
     private String description; // Used by meta tag for search engines.
 	
+   
+    @Lob
+    /*Forcing type definition to have text type column in postgresql instead of automatic indirect storage of large object (postgresql store lob in a separate table named pg_largeobject and store his id in the "content" column).
+     *Without forcing, JDBC driver use write() method of the BlobOutputStream to store Clob into the database;
+     * this method take an int as parameter an convert it into a byte causing lose of 3 byte information so character are render as ASCII instead of UTF-8 expected .
+     * @see http://stackoverflow.com/questions/9993701/cannot-store-euro-sign-into-lob-string-property-with-hibernate-postgresql
+     * @see http://stackoverflow.com/questions/5043992/postgres-utf-8-clobs-with-jdbc   */
+    @Type(type="org.hibernate.type.StringClobType")
+    private String lastVersionRenderedContent;  // Caching of the rendered html, for performance optimization.
+
+    @Lob
+    /*Forcing type definition to have text type column in postgresql instead of automatic indirect storage of large object (postgresql store lob in a separate table named pg_largeobject and store his id in the "content" column).
+     *Without forcing, JDBC driver use write() method of the BlobOutputStream to store Clob into the database;
+     * this method take an int as parameter an convert it into a byte causing lose of 3 byte information so character are render as ASCII instead of UTF-8 expected .
+     * @see http://stackoverflow.com/questions/9993701/cannot-store-euro-sign-into-lob-string-property-with-hibernate-postgresql
+     * @see http://stackoverflow.com/questions/5043992/postgres-utf-8-clobs-with-jdbc  */
+    @Type(type="org.hibernate.type.StringClobType")
+    private String lastVersionRenderdSummary; // Caching of the rendered html, for performance optimization.
+    
+	
 	private Date publishDate;
 	
 	@NotNull
@@ -148,6 +168,24 @@ public class Article extends BaseEntity {
         this.description = description;
     }
 
+    public String getLastVersionRenderedContent() {
+		return lastVersionRenderedContent;
+	}
+
+
+	public void setLastVersionRenderedContent(String lastVersionRenderedContent) {
+		this.lastVersionRenderedContent = lastVersionRenderedContent;
+	}
+
+	public String getLastVersionRenderdSummary() {
+		return lastVersionRenderdSummary;
+	}
+
+
+	public void setLastVersionRenderdSummary(String lastVersionRenderdSummary) {
+		this.lastVersionRenderdSummary = lastVersionRenderdSummary;
+	}
+	
 	public Date getPublishDate() {
 		return publishDate;
 	}
@@ -215,6 +253,8 @@ public class Article extends BaseEntity {
 		return false;
 	}
 
+
+	
 
 	
 }
