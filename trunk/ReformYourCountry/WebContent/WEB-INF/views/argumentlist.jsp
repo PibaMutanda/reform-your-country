@@ -15,9 +15,9 @@
 		<div id="comment${arg.id}">
 			<%@include file="argumentcomment.jsp"%>
 		</div>
-
+	<hr/>
 	</c:forEach>
-  
+   
 	<c:if test="${current.user.id != null }">
 		<div style="text-align: center;">
 		<form class="argumentNegForm" action="" method="post">
