@@ -114,30 +114,26 @@ case $1 in
                 #read TEMP
                 case TEMP in
                         *)
-                                BIN_DIR=$BASE_FOLDER/bin
 
-                                #we need to execute scripts from their folder otherweise config file can't be found
-                                cd $BIN_DIR
-                                ./switch_httpd dep
+                                . $BIN_DIR/switch_httpd 
+                                switch_httpd() dep
 
-                                #the precedent script change his working and we do not want to hardcode the emplacement of the config file
-                                cd $BIN_DIR
-                                ./checkout-build
-
+                                . $BIN_DIR/checkout-build
+                                checkout-build()
+                                
                                 #the precedent script change his working and we do not want to hardcode the emplacement of the config file
                                 cd $BASE_FOLDER
                                 #backup gen folder in case of...
                                 ./maintenance.sh backupGen
-                                cd $BIN_DIR
-                                ./do_deployment
+                                
+                                . $BIN_DIR/do_deployment
+                                do_deployment()
 
-                                #the precedent script change his working and we do not want to hardcode the emplacement of the config file
-                                cd $BIN_DIR
-                                ./start_server
+                                . $BIN_DIR/start_server
+                                start_server()
 
-                                #the precedent script change his working and we do not want to hardcode the emplacement of the config file
-                                cd $BIN_DIR
-                                ./switch_httpd prod
+                                . $BIN_DIR/switch_httpd
+                                switch_httpd() prod
                         ;;
                 esac
                 ;;
