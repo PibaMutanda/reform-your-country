@@ -94,33 +94,6 @@
 -- 2010-11-08 John
     alter table users drop column registrationdate;
     
--- 2012-11-08 Jamal, Piba & Johnny (Gang Of Three - to be 3)
-
-    create table badge (
-        id int8 not null,
-        createdon timestamp,
-        updatedon timestamp,
-        badgetype varchar(255),
-        createdby_id int8,
-        updatedby_id int8,
-        user_id int8 not null,
-        primary key (id)
-    );
-
-    alter table badge 
-        add constraint fk3cfab83ccfcf0ad 
-        foreign key (createdby_id) 
-        references users;
-
-    alter table badge 
-        add constraint fk3cfab834ca5daa1 
-        foreign key (user_id) 
-        references users;
-
-    alter table badge 
-        add constraint fk3cfab833967baba 
-        foreign key (updatedby_id) 
-        references users;
 
 -- 2012-11-05 Cédric
 
@@ -163,5 +136,33 @@
 
     alter table comment 
         add constraint fk9bde863f3967baba 
+        foreign key (updatedby_id) 
+        references users;
+        
+-- 2012-11-08 Jamal, Piba & Johnny (Gang Of Three - to be 3)
+
+    create table badge (
+        id int8 not null,
+        createdon timestamp,
+        updatedon timestamp,
+        badgetype varchar(255),
+        createdby_id int8,
+        updatedby_id int8,
+        user_id int8 not null,
+        primary key (id)
+    );
+
+    alter table badge 
+        add constraint fk3cfab83ccfcf0ad 
+        foreign key (createdby_id) 
+        references users;
+
+    alter table badge 
+        add constraint fk3cfab834ca5daa1 
+        foreign key (user_id) 
+        references users;
+
+    alter table badge 
+        add constraint fk3cfab833967baba 
         foreign key (updatedby_id) 
         references users;
