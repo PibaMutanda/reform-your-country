@@ -27,6 +27,7 @@
         updatedby_id int8,
         primary key (id)
     );
+
     alter table article_goodexample 
         add constraint fk92ca6c04cd43bd3 
         foreign key (article_id) 
@@ -165,6 +166,15 @@
         add constraint fk3cfab833967baba 
         foreign key (updatedby_id) 
         references users;
+
 -- 2012-11-08 Thomas
 
     ALTER TABLE action DROP COLUMN longdescription;
+        
+-- 2012-11-09 Jérome
+
+    alter table article 
+        add column lastversionrenderdsummary text;
+
+    alter table article 
+        add column lastversionrenderedcontent text;       
