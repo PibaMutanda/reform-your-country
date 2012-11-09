@@ -32,6 +32,7 @@ function buildWar(){
 }
 
 #first we checkout or update the RYC framework sourcecode
+echo "update "$FRAMWORK_NAME"..."
 if [ -d "./$FRAMEWORK_DIR_NAME" ]
 then
   update $FRAMEWORK_DIR_NAME
@@ -41,6 +42,7 @@ fi
 cd $BUILD_FOLDER
 
 #second we do the same with the app
+echo "update "$APP_NAME"..."
 if [ -d "./$APP_DIR_NAME" ]
 then
   update $APP_DIR_NAME
