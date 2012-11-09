@@ -60,21 +60,21 @@
 	color:rgb(67, 84, 126);
 }
 .v-2{
-	 background-color: #ff0000;
+	 background-color: #005fb1;
 }
 .v-1{
-	 background-color: #ff8800;
+	 background-color: #c9e2ff;
 }
 .v0{
-	 background-color: #ffff00;
+	 background-color: #ffffff;
 }
 
 .v1{
-	 background-color: #88ff00;
+	 background-color: #ff9999;
 }
 
 .v2{
-	 background-color: #00ff00;
+	 background-color: #bb1100;
 }
 .vote{
 	display: inline-block; width: 20px; height: 20px; text-align: center;
