@@ -6,20 +6,18 @@
 
 
 
-<div style="width:400px;<c:if test='${ispos}'>float:right;</c:if><c:if test='${!ispos}'>float:left;</c:if>">
+<div style="width:400px;<c:if test='${ispos}'>float:right;</c:if><c:if test='${!ispos}'>float:left;border-right:3px solid grey;</c:if>">
 	<c:forEach items="${listToShow}" var="arg">
 		
-		<div id="arg${arg.id}">
+		<div id="arg${arg.id}" style="width:100%; display: inline-block;">
 			<%@include file="argumentdetail.jsp"%>
 		</div>
-		<div id="comment${arg.id}">
-			<%@include file="argumentcomment.jsp"%>
-		</div>
-	<hr/>
+
 	</c:forEach>
    
 	<c:if test="${current.user.id != null }">
 		<div style="text-align: center;">
+		<hr/>
 		<form class="argumentNegForm" action="" method="post">
 			<input type="hidden" id="ispos${ispos}" value="${ispos}" /> 
 			<input type="hidden" id="action${ispos}" value="${action.id}" />
