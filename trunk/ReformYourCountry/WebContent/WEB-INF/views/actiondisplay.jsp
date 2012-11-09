@@ -6,6 +6,7 @@
 <head>
 <meta name="description" lang="fr" content="${action.shortDescription}"/>
 <meta name="robots" content="index, follow"/>
+<link rel="stylesheet" type="text/css" href=".css">
 </head>
 <body>
 <%-- <ryctag:pageheadertitle title="${action.title}"/> --%>
@@ -25,12 +26,17 @@
 			${action.longDescription}<br />
 		</div>
 	</div>
+	
+	
 	<div id="voteContainer"> <%-- Will be re-filled through Ajax too --%>
 	  <%@include file="voteaction.jsp"%>
 	</div>
+	
 	<div class="errorMessage" id="errorArg"></div>
+	
 	<div id="argContainer"> <%-- Will be re-filled through Ajax --%>
 		<%@include file="argument.jsp" %>
 	</div>
+	
 </body>
 </html> 

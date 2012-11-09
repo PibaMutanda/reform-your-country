@@ -6,8 +6,8 @@
 
 
 	
-	<div class="argument" style="width:300px;border-radius: 10px;border:3px solid ${color}; margin:5px;float:left;">
-		<c:if test="${arg.user eq current.user}">
+	<div class="argument" style="width:300px;border-radius: 10px;border:3px solid ${color}; margin:5px;float:right;">
+		<c:if test="${arg.isEditable()}">
 			<div ><img class="div-align-center" align="middle" src="\images\_global\edit.png" width="16px" onfocus="handle();" onclick="editArg(this,${arg.id},'${arg.title}','${arg.content}');"></div>
 		</c:if>
 		<p id="title" align="center" style="text-align:center;font-weight:bold; font-style: italic;padding:5px;">
@@ -15,7 +15,6 @@
 			${arg.title}
 		</p>
 		<p id="content" style="padding:5px;">
-		
 			${arg.content}
 		</p>
 		<p align="right" style="text-align: right; font-style: italic;padding:5px;">
@@ -23,7 +22,7 @@
 		</p>
 	</div>
 
-	<div style="float:right; margin:5px;width: 75px;text-align:center;font-weight: bold;font-size: 25px;">
+	<div style=" margin:5px;width: 75px;text-align:center;font-weight: bold;font-size: 25px;">
 			<c:choose>
 				<c:when test="${arg.getVoteValueByUser(current.user)>0}">
 					<img class="div-align-center" align="middle" src="\images\_global\up_selected.png"/>		
@@ -44,3 +43,4 @@
 				</c:otherwise>
 			</c:choose>
 	</div>
+	
