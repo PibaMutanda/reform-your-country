@@ -16,6 +16,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.proxy.HibernateProxyHelper;
 
 import reformyourcountry.security.SecurityContext;
+import reformyourcountry.util.DateUtil;
 
 @MappedSuperclass
 public class BaseEntity {
@@ -140,13 +141,24 @@ public class BaseEntity {
     public Date getCreatedOn() {
         return createdOn;
     }
-
+    public String getFormatedCreatedOn(){
+        if (createdOn != null){
+            return DateUtil.formatyyyyMMddHHmm(createdOn);
+        }
+            return "pas de date communiquée";
+    }
     public User getUpdatedBy() {
         return updatedBy;
     }
 
     public Date getUpdatedOn() {
         return updatedOn;
+    }
+    public String getFormatedUpdatedOn(){
+        if (updatedOn != null){
+            return DateUtil.formatyyyyMMddHHmm(updatedOn);
+        }
+            return "pas de date communiquée";
     }
   
    
