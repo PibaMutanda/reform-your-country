@@ -292,3 +292,12 @@
 	color:#182947;
 	cursor: pointer;
 }
+
+
+
+/***********************Badge*******************************/
+
+.badge:hover{
+	background-color: #555;
+	text-decoration: none;
+}
