@@ -21,8 +21,5 @@ public enum BadgeTypeLevel {
 		this.name = name;
 	}
 	
-
-	
-	
 	
 }
