@@ -212,7 +212,7 @@ public  class SecurityContext {
         throw new UnauthorizedAccessException(" cannot edit that Argument: "+arg.getTitle());
     }
     public static boolean canCurrentUserEditArgument(Argument arg) { 
-        return SecurityContext.getUser().equals(arg.getUser()) // If the user is editing himself
+        return arg.getUser().equals(getUser()) // If the user is editing himself
                 || isUserHasPrivilege(Privilege.EDIT_ACTION);     // or If this user has the privilege to edit other users
 
     }
