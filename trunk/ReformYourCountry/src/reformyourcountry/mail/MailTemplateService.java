@@ -88,8 +88,8 @@ public final class MailTemplateService {
                     + thirdDelayOption;
             }
             if (isNewsletter) {
-            	footer += "If you wish to unsubscribe from the "+UrlUtil.getProdAbsoluteDomainName()+" newsletter, please follow "
-            			+ "TODO: FEATURE TO IMPLEMENT http://..../unsubscribenewsletter/" + user.getUserName() + "/" +  String userSecurityString = userService.getUserSecurityString(user);
+            	footer += "If you wish to unsubscribe from the "+UrlUtil.getProdAbsoluteDomainName()+" newsletter, please follow ";
+            		// TODO: FEATURE TO IMPLEMENT http://..../unsubscribenewsletter/" + user.getUserName() + "/" +  String userSecurityString = userService.getUserSecurityString(user);
             }
         } else {
             footer = "<br><hr><br><div align=\"justify\"><a href='"+UrlUtil.getAbsoluteUrl("")+"'>"+UrlUtil.getProdAbsoluteDomainName()+"</a></div>";
