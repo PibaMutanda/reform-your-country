@@ -106,9 +106,9 @@
 						</div>
 					</c:forEach>
 				</div>
-				<div class="article_summary">${articleSummary}</div>
+				<div class="article_summary">${article.lastVersionRenderdSummary}</div>
 			   <hr/>
-			  ${articleContent}
+			  ${article.lastVersionRenderedContent}
 	  	</div>
 	  </c:when>
 	
