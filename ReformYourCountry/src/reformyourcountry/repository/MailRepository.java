@@ -15,7 +15,7 @@ import reformyourcountry.model.Mail;
 import reformyourcountry.model.User;
 
 @Repository
-public class MailRepository  extends BaseRepository<User>{
+public class MailRepository  extends BaseRepository<Mail>{
     /**
      * returns a user containing immediate mails
      * @return a user
@@ -139,17 +139,5 @@ public class MailRepository  extends BaseRepository<User>{
         }
     }
 
-    // TODO: remove at integration (use inherited)
-    /**
-     * saves a mail in the database
-     * @param mail
-     * @param idUser
-     */
-    public void save(Mail mail, Long idUser) {
-        if(idUser !=null){
-            User user = (User) em.find(User.class, idUser);
-            mail.setUser(user);
-        }
-        em.persist(mail);
-    }
+
 }
