@@ -115,25 +115,25 @@ case $1 in
                 case TEMP in
                         *)
 
-                                . $BIN_DIR/switch_httpd 
-                                switch_httpd() dep
+                                . $BIN_FOLDER/switch_httpd 
+                                switch_httpd dep
 
-                                . $BIN_DIR/checkout-build
-                                checkout-build()
+                                . $BIN_FOLDER/checkout-build
+                                checkout-build
                                 
                                 #the precedent script change his working and we do not want to hardcode the emplacement of the config file
                                 cd $BASE_FOLDER
                                 #backup gen folder in case of...
                                 ./maintenance.sh backupGen
                                 
-                                . $BIN_DIR/do_deployment
-                                do_deployment()
+                                . $BIN_FOLDER/do_deployment
+                                do_deployment
 
-                                . $BIN_DIR/start_server
-                                start_server()
+                                . $BIN_FOLDER/start_server
+                                start_server
 
-                                . $BIN_DIR/switch_httpd
-                                switch_httpd() prod
+                                . $BIN_FOLDER/switch_httpd
+                                switch_httpd prod
                         ;;
                 esac
                 ;;
