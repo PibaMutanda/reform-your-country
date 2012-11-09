@@ -90,7 +90,7 @@ function sendNewComment(item, comment, arg){
 				$("#errorArg").text("Erreur lors de l'envoi d'un commentaire : "+textStatus);
 			});
 		}else{
-			$("#errorArg").text("Erreur lors de l'envoi d'un commentaire : Veuillez remplir tout les champs !");
+			$("#errorArg").text("Veuillez écrire un texte avant d'envoyer votre commentaire.");
 		}
 	}else{
 		$(item).CreateBubblePopup({ 
@@ -99,8 +99,8 @@ function sendNewComment(item, comment, arg){
 	           },
 	           tail: {align:'center', hidden: false},
 	           selectable :true,				    	
-	           innerHtml: 'Pour voter veuillez vous logger : '
+	           innerHtml: 'Pour commenter veuillez vous logger: '
 	        	   +'<a class="login" style="cursor:pointer;" href="/login">Connexion</a>'
 	       }); 	 
+	    }
 	}
-}
