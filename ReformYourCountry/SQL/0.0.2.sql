@@ -37,5 +37,3 @@ CREATE TABLE userconnection
 
     alter table mail 
         add column emailreplyto varchar(100);
-        
--
