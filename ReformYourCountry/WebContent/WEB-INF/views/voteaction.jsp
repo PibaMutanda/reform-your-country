@@ -10,9 +10,9 @@
    var idUser = "${current.user.id}";
 </script>
 
-<div id="voteGraph" style=" width: 400px; margin-left: 150px;">
+<div id="voteGraph" style=" width: 500px; margin-left: 150px;">
 </div>
-<div id="voteContent" style=" width: 400px; margin-left: 150px;">
+<div id="voteContent" style=" width: 500px; margin-left: 150px;">
 		
 		<c:forTokens  items="-2,-1,0,1,2" delims="," var="i">
 			<div id="${i}" onmouseout="unfocused(this);" onmouseover="focused(this);"
@@ -24,7 +24,7 @@
 		</c:forTokens>
 </div>
 	
-<div id="voted"	style="text-align: center; width: 400px; height: 20px;">
+<div id="voted"	style="text-align: center; width: 500px; height: 20px;">
 		<c:if test="${ vote != null}"> <%-- User has voted => can see the result. --%>
 			<div id ="total">Total:${resultVote}</div>
 		</c:if>
@@ -33,7 +33,7 @@
 		</div>
 </div>
 <script type="text/javascript">
-	var chart = d3.select("#voteGraph").append("svg").attr("width", "400").attr("height", "100");
+	var chart = d3.select("#voteGraph").append("svg").attr("width", "500").attr("height", "100");
 	var data = new Array();
 	data[0] = ${resultNumbers.get(0)};
 	data[1] = ${resultNumbers.get(1)};
@@ -44,23 +44,23 @@
 	for (i=0;i<=4;i++){
 		total += data[i];
 	}
-	console.log(total);
 	var percentData =[(data[0]*100)/total,(data[1]*100)/total,(data[2]*100)/total,(data[3]*100)/total,(data[4]*100)/total];
-	console.log(percentData);
+	var colors =["#005fb1","#c9e2ff","#ffffff","#ff9999","#bb1100"];
 	var rects = chart.selectAll('rect').data(data)
 				    .enter().append('rect')
-				    .attr("stroke", "none").attr("fill", "rgb(7, 130, 180)")
-				    .attr("x", function(d, i) { return 25 * i; })
+				    .attr("stroke", "black")
+				    .attr("fill", function(d, i){return colors[i]})
+				    .attr("x", function(d, i) { return 95 * i; })
 				    .attr("y", function(d, i){ return 100 - percentData[i];})
-				    .attr("width",  "20")
+				    .attr("width",  "90")
 				    .attr("height", function(d, i){ return percentData[i];});
-	chart.selectAll('text').data(data)
-		.enter().append('text')
-		.attr("x", function(d, i) { return (25 * i)+10; })
-		.attr("y", function(d, i){ return (100 - percentData[i])+15;})
-		.attr("dx", ".25em")
-		.attr("dy",5)
-		.attr("text-anchor","end")
-		.text(String);
+// 	chart.selectAll('text').data(data)
+// 		.enter().append('text')
+// 		.attr("x", function(d, i) { return (25 * i)+10; })
+// 		.attr("y", function(d, i){ return (100 - percentData[i])+15;})
+// 		.attr("dx", ".25em")
+// 		.attr("dy",5)
+// 		.attr("text-anchor","end")
+// 		.text(String);
 		
 </script>

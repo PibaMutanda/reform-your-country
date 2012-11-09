@@ -1,6 +1,4 @@
 function focused(item) {
-	$(item).css('width', '25px');
-	$(item).css('height', '25px');
 	var inner="";
 	if($(item).text()==-2){
 		inner= 'Totalement contre';
@@ -28,7 +26,7 @@ function focused(item) {
     }); 	 
 }
 function unfocused(item) {
-	$(item).css('width', '20px');
+	$(item).css('width', '90px');
 	$(item).css('height', '20px');
 }
 function clicked(item) {
