@@ -86,13 +86,6 @@ public class Action extends BaseEntity{
 		this.shortDescription=shortDescription;
 	}
 	
-	public String getLongDescription(){
-		return longDescription;
-	}
-	
-	public void setLongDescription(String longDescription){
-		this.longDescription=longDescription;
-	}
 
 	public String getContent() {
 		return content;
