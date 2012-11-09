@@ -9,7 +9,7 @@ fi
 
 BASE_FOLDER=/opt/RYC_Maintenance
 #in case of executing the script in a différent folder, we are we access ressource as relative path
-cp $BASE_FOLDER
+cd $BASE_FOLDER
 
 . bin/config
 . bin/common_function
