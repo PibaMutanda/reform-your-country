@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Type;
+
+import reformyourcountry.security.SecurityContext;
 @Entity
 public class Argument extends BaseEntity{
     
@@ -173,5 +175,8 @@ public class Argument extends BaseEntity{
             }
         }
         return 0;
+    }
+    public boolean isEditable(){
+        return SecurityContext.canCurrentUserEditArgument(this);
     }
 }

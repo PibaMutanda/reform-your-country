@@ -4,6 +4,7 @@ import java.util.EnumSet;
 import java.util.Set;
 
 import reformyourcountry.exception.UnauthorizedAccessException;
+import reformyourcountry.model.Argument;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.Role;
 import reformyourcountry.repository.UserRepository;
@@ -164,6 +165,27 @@ public  class SecurityContext {
     }
  
 
+    public static boolean isUserHasRole(Role role) {
+        User user = getUser();
+        if(user == null || user.getRole() == null){
+            return false;
+        } 
+        return user.getRole() == role;
+    }
+
+    public static void assertUserHasRole(Role role) {
+        if (!isUserHasRole(role)) {
+               throw new UnauthorizedAccessException("You need the following role: " + role);
+           }
+   }
+
+    
+    //////////////////////////////////////////////////// Specific rights /////////////////////////////////////
+    //////////////////////////////////////////////////// Specific rights /////////////////////////////////////
+    //////////////////////////////////////////////////// Specific rights /////////////////////////////////////
+    //////////////////////////////////////////////////// Specific rights /////////////////////////////////////
+    //////////////////////////////////////////////////// Specific rights /////////////////////////////////////
+
     public static boolean canCurrentUserViewPrivateData(User user2) {
         return canCurrentUserChangeUser(user2) || isUserHasPrivilege(Privilege.VIEW_PRIVATE_DATA_OF_USERS); 
     }
@@ -174,27 +196,24 @@ public  class SecurityContext {
 
     }
 
-
-    public static boolean isUserHasRole(Role role) {
-        User user = getUser();
-        if(user == null || user.getRole() == null){
-            return false;
-        } 
-        return user.getRole() == role;
-    }
-
-
     public static  void assertCurrentUserMayEditThisUser(User user) {
-        if (user.equals(SecurityContext.getUser())) {
-            return; // Ok, a user may edit himself.
+        if (! canCurrentUserChangeUser(user)) {
+            throw new UnauthorizedAccessException(" cannot edit that user: " + user.getUserName());
         }
-        SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_USERS);
     }
+    
+    public static void assertCurrentUserCanEditArgument(Argument arg){
+        User user = SecurityContext.getUser();
+        if (user != null){
+            if((arg.getUser()==user)||isUserHasPrivilege(Privilege.EDIT_ACTION)){
+                return;
+            }
+        }
+        throw new UnauthorizedAccessException(" cannot edit that Argument: "+arg.getTitle());
+    }
+    public static boolean canCurrentUserEditArgument(Argument arg) { 
+        return SecurityContext.getUser().equals(arg.getUser()) // If the user is editing himself
+                || isUserHasPrivilege(Privilege.EDIT_ACTION);     // or If this user has the privilege to edit other users
 
-	public static void assertUserHasRole(Role role) {
-		 if (!isUserHasRole(role)) {
-	            throw new UnauthorizedAccessException("You need the following role: " + role);
-	        }
-	}
-
+    }
 }

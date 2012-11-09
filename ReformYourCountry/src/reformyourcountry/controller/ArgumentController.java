@@ -56,6 +56,17 @@ public class ArgumentController extends BaseController<Action>{
     }   
     
     
+    @RequestMapping("ajax/argumentedit")
+    public ModelAndView argumentEdit(@RequestParam("idArg")Long idArg, @RequestParam("content")String content, @RequestParam("title")String title) throws Exception{
+        Argument arg = argumentRepository.find(idArg);
+        SecurityContext.assertCurrentUserCanEditArgument(arg);
+        arg.setTitle(title);
+        arg.setContent(content);
+        argumentRepository.merge(arg);
+        ModelAndView mv = new ModelAndView("argumentdetail");  // Redisplay that argument (with new vote values)
+        mv.addObject("arg",arg);
+        return mv;
+    }
     
     @RequestMapping("ajax/argumentvote")
     public ModelAndView argumentVote(@RequestParam("idArg")Long idArg,@RequestParam("value")int value)throws Exception{
