@@ -78,6 +78,13 @@ public class ArgumentService {
     public ModelAndView getActionModelAndView(Action action,String jsp) {
         ModelAndView mv = new ModelAndView(jsp); 
         mv.addObject("action",action);
+        //number of votes for each values, for the graph
+        List<Long> resultNumbers = new ArrayList<Long>();
+        for(int i=-2;i<=2;i++){
+        	resultNumbers.add(voteActionRepository.getNumberOfVotesByValue(action.getId(), i));
+        }
+        mv.addObject("resultNumbers", resultNumbers);
+        
         VoteAction va = voteActionRepository.findVoteActionForUser(SecurityContext.getUser(), action.getId());
         if (va != null){ 
             mv.addObject("resultVote", voteActionRepository.getTotalVoteValue(action.getId()));

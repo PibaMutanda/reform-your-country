@@ -33,13 +33,12 @@ function unfocused(item) {
 }
 function clicked(item) {
 	if(idUser.length>0){
-
 		$("#voted").text($(item).text());
 		var voteValue =$(item).text();
 		var request = $.ajax({
 			url: "/ajax/vote",
 			type: "POST",
-			data: "vote="+ voteValue+"&action="+$("#id").attr('value')+"&idVote="+idVote,
+			data: "vote="+ voteValue+"&action="+$("#idAction").attr('value')+"&idVote="+idVote,
 			dataType: "html"
 		});
 

@@ -12,12 +12,14 @@
 <%-- <ryctag:pageheadertitle title="${action.title}"/> --%>
 	<div>
 		<div style="display: inline-block; width: 400px;">
-			<ryc:conditionDisplay privilege="EDIT_ACTION">
 				<ryctag:form action="/action/edit" modelAttribute="action" method="get">
-					<input type="hidden" value="${action.id}" name="id" id="id" />
+					<input type="hidden" value="${action.id}" name="id" id="idAction" />
+					
+			<ryc:conditionDisplay privilege="EDIT_ACTION">
 					 <input	type="submit" value="Modifier action" />
-				</ryctag:form>
+					 
 			</ryc:conditionDisplay>
+				</ryctag:form>
 	<form action="/action" method="post">
 			<input type="submit" value="Liste des actions" />
 	</form>
@@ -31,9 +33,7 @@
 	<div id="voteContainer"> <%-- Will be re-filled through Ajax too --%>
 	  <%@include file="voteaction.jsp"%>
 	</div>
-	
 	<div class="errorMessage" id="errorArg"></div>
-	
 	<div id="argContainer"> <%-- Will be re-filled through Ajax --%>
 		<%@include file="argument.jsp" %>
 	</div>

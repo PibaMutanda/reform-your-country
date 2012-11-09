@@ -23,8 +23,7 @@ public class VoteManagmentController extends BaseController<Action>{
     
     @RequestMapping("ajax/vote")
     public ModelAndView vote(@RequestParam("action")Long idAction, @RequestParam("vote")int vote, @RequestParam(value="idVote", required=false)Long idVote){
-        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ACTION);
-        
+        assert SecurityContext.getUser()!=null;
         VoteAction va = voteActionRepository.findVoteActionForUser(SecurityContext.getUser(), idAction);
         if (va==null){
             va = new VoteAction(vote, actionRepository.find(idAction), SecurityContext.getUser());
