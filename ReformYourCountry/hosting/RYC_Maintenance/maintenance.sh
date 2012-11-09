@@ -131,7 +131,7 @@ case $1 in
 
                                 . $BIN_FOLDER/start_server
                                 start_server
-
+                                
                                 . $BIN_FOLDER/switch_httpd
                                 switch_httpd prod
                         ;;
