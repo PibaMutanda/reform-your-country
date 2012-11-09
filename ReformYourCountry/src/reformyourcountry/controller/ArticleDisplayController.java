@@ -62,8 +62,10 @@ public class ArticleDisplayController extends BaseController<Article> {
         }
         
         mv.addObject("showContent", (article.isPublished() || SecurityContext.isUserHasPrivilege(Privilege.EDIT_ARTICLE)));
-        mv.addObject("articleContent", new BBConverter(bookRepository, articleRepository).transformBBCodeToHtmlCode(article.getLastVersion().getContent()));
-        mv.addObject("articleSummary", new BBConverter(bookRepository, articleRepository).transformBBCodeToHtmlCode(article.getLastVersion().getSummary()));
+          
+        mv.addObject("articleContent",article.getLastVersionRenderedContent());
+        mv.addObject("articleSummary",article.getLastVersionRenderdSummary());
+        
         mv.addObject("videoList",videoRepository.findAllVideoForAnArticle(article));
         return mv;
 	}
