@@ -2,11 +2,9 @@
 
     alter table users 
         add column accountconnectedtype varchar(20);
-    alter table mail add column emailreplyto varchar(100);   
 -- 2012-10-19 Jamal
     alter table articleversion 
         add column versionnumber int4;
-        
         
 -- 2012-10-23  Piba
 
