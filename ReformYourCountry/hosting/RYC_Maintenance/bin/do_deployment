@@ -1,8 +1,7 @@
-#!/bin/sh
+#!bin/bash
 
-. config
-
-$BASE_FOLDER/bin/switch_httpd dep && $TOMCAT_HOME/bin/shutdown.sh
-#remove all in ROOT dir except gen folder
-rm -rvf $(ls $WEBAPPS_FOLDER/ROOT/* | grep -v gen)
-cp -v $BUILD_FOLDER/$APP_NAME/ROOT.war $WEBAPPS_FOLDER
+function do_deployment(){
+  #remove all in ROOT dir except gen folder
+  rm -rvf $(ls $WEBAPPS_FOLDER/ROOT/* | grep -v gen)
+  cp -v $BUILD_FOLDER/$APP_NAME/ROOT.war $WEBAPPS_FOLDER
+}

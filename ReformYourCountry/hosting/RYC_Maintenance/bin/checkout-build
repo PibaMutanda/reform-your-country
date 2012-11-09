@@ -1,8 +1,5 @@
 #!/bin/bash
 
-. config
-. common_function
-
 APP_DIR_NAME=$APP_NAME
 APP_SVN_PATH=trunk/$APP_NAME
 
@@ -30,25 +27,24 @@ function buildWar(){
   backupOldWar
   ant -Dtype=$1 war
 }
+function checkout-build(){
+  #first we checkout or update the RYC framework sourcecode
+  echo "update "$FRAMEWORK_NAME"..."
+  if [ -d "./$FRAMEWORK_DIR_NAME" ] then
+    update $FRAMEWORK_DIR_NAME
+  else 
+    checkout $FRAMEWORK_DIR_NAME $FRAMEWORK_SVN_ADRESS/$FRAMEWORK_SVN_PATH
+  fi
+  cd $BUILD_FOLDER
 
-#first we checkout or update the RYC framework sourcecode
-echo "update "$FRAMWORK_NAME"..."
-if [ -d "./$FRAMEWORK_DIR_NAME" ]
-then
-  update $FRAMEWORK_DIR_NAME
-else 
-  checkout $FRAMEWORK_DIR_NAME $FRAMEWORK_SVN_ADRESS/$FRAMEWORK_SVN_PATH
-fi
-cd $BUILD_FOLDER
+  #second we do the same with the app
+  echo "update "$APP_NAME"..."
+  if [ -d "./$APP_DIR_NAME" ] then
+    update $APP_DIR_NAME
+  else 
+    checkout $APP_DIR_NAME $APP_SVN_ADRESS/$APP_SVN_PATH
+  fi
 
-#second we do the same with the app
-echo "update "$APP_NAME"..."
-if [ -d "./$APP_DIR_NAME" ]
-then
-  update $APP_DIR_NAME
-else 
-  checkout $APP_DIR_NAME $APP_SVN_ADRESS/$APP_SVN_PATH
-fi
-
-#first we build the app
-buildWar $APP_ENV
+  #third we build the app
+  buildWar $APP_ENV
+}

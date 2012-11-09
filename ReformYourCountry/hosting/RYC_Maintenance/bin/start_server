@@ -1,5 +1,6 @@
 #!/bin/sh
 
-. config
-
-service tomcat7 start && tail -f $TOMCAT_LOG_FILE
+function start_server(){
+service tomcat7 start
+tail -f $TOMCAT_LOG_FILE
+}

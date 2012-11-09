@@ -1,8 +1,7 @@
 #!/bin/bash
 #This script switches tomcat config to 'prod' mode (app running) or to 'dep' mode (app being redeployed)
 
-. config
-
+function switch_httpd(){
 if [ "$1" == "dep" ]; then
         cp -v $APACHE_HOME/conf.d/$APP_NAME.conf.dep $APACHE_HOME/conf.d/$APP_NAME.conf
 	exit 0
@@ -14,5 +13,4 @@ else
         exit 3
 fi
         service httpd restart
-
-exit 1
+}
