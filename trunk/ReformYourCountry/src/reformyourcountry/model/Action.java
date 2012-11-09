@@ -26,7 +26,6 @@ public class Action extends BaseEntity{
 	@Column(length = 100)
 	private String shortDescription;
 	
-	private String longDescription;
 	
 	@Lob
     /*Forcing type definition to have text type column in postgresql instead of automatic indirect storage of large object (postgresql store lob in a separate table named pg_largeobject and store his id in the "content" column).

@@ -13,9 +13,8 @@
         <ryctag:input path="title" label="Titre" id="title"/>        
         <ryctag:input path="url" label="Nom de la page de l'action" id="url"/>
         <td><input type="submit" value="Générer une url" id="generate" /></td>
-        <ryctag:input path="content" label="Contenu"/>
         <ryctag:input path="shortDescription" label="Description brève"/>
-        <ryctag:textarea path="longDescription" label="Description étendue"/>
+        <ryctag:textarea path="content" label="Description étendue"/>
        
 		<input type="hidden" name="id" value="${action.id}"/> 
             

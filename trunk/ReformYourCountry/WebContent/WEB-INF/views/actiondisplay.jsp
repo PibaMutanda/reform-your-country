@@ -21,9 +21,9 @@
 	<form action="/action" method="post">
 			<input type="submit" value="Liste des actions" />
 	</form>
-			Contenu : ${action.content}<br /> Description brève :
-			${action.shortDescription}<br /> Description étendue :
-			${action.longDescription}<br />
+			Description brève :
+			${action.shortDescription}<br /> Contenu :
+			${action.content}<br />
 		</div>
 	</div>
 	
