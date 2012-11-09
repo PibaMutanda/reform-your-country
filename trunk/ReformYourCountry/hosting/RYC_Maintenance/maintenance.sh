@@ -119,7 +119,7 @@ case $1 in
                                 switch_httpd dep
 
                                 . $BIN_FOLDER/checkout-build
-                                checkout-build
+                                checkout_build
                                 
                                 #the precedent script change his working and we do not want to hardcode the emplacement of the config file
                                 cd $BASE_FOLDER
