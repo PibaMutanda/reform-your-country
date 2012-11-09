@@ -8,13 +8,14 @@
 	
 	<div class="argument" style="width:300px;border-radius: 10px;border:3px solid ${color}; margin:5px;float:left;">
 		<c:if test="${arg.user eq current.user}">
-			<div  onclick="editArg(this,${arg.id},${arg.title},${arg.content})">Editer</div>
+			<div ><img class="div-align-center" align="middle" src="\images\_global\edit.png" width="16px" onfocus="handle();" onclick="editArg(this,${arg.id},'${arg.title}','${arg.content}');"></div>
 		</c:if>
 		<p id="title" align="center" style="text-align:center;font-weight:bold; font-style: italic;padding:5px;">
 
 			${arg.title}
 		</p>
 		<p id="content" style="padding:5px;">
+		
 			${arg.content}
 		</p>
 		<p align="right" style="text-align: right; font-style: italic;padding:5px;">

@@ -17,14 +17,31 @@ function sendNewArg(item,content,action,title,ispos){
 		$("#errorArg").text("Erreur lors de l'envoi d'un argument : Veuillez remplir tout les champs !");
 	}
 }
-function editArg(item,idArg,title,comment){
+function sendArgAfterEdit(item,idArg,title,content){
+	if(content.length>0 && title.length>0){
+		var requestArg = $.ajax({
+			url: "/ajax/argumentedit",
+			type: "POST",
+			data: "content="+ content+"&idArg="+idArg+"&title="+title,
+			dataType: "html"
+		}).done(function(data){
+			//Send the new data to the div containing the lists	
+			$("#arg"+idArg).html(data);
+		});
+
+		requestArg.fail(function(jqXHR, textStatus) {
+			$("#errorArg").text("Erreur lors de l'envoi d'un commentaire : "+textStatus);
+		});
+	}
+}
+function editArg(item,newid,newtitle,newcontent){
 	if (idUser.length>0){
-		$("#arg"+idArg).html(
+		$("#arg"+newid).html(
 		"<form class=\"argumentNegForm\" action=\"\" method=\"post\" >"
-			+"<input type=\"hidden\" id=\"idArg\" value=\""+idArg+"\" />"
-			+"<textarea id=\"title\" rows=\"1\" cols=\"15\">"+title+"</textarea><br/>"
-			+"<textarea id=\"comment\"rows=\"5\" cols=\"15\" >"+comment+"</textarea><br/>"
-			+"<input type=\"button\"   value=\"Sauver\" onclick=\"sendNewComment(this,comment${ispos}.value,action${ispos}.value,title${ispos}.value,ispos${ispos}.value);\"></form>"	
+			+"<input type=\"hidden\" id=\"idArg\" value=\""+newid+"\" />"
+			+"<textarea id=\"titleEdit\" rows=\"1\" cols=\"15\">"+newtitle+"</textarea><br/>"
+			+"<textarea id=\"contentEdit\"rows=\"5\" cols=\"15\" >"+newcontent+"</textarea><br/>"
+			+"<input type=\"button\"   value=\"Sauver\" onclick=\"sendArgAfterEdit(this,"+newid+",titleEdit.value,contentEdit.value);\"></form>"	
 		);
 	}
 }
@@ -86,4 +103,4 @@ function sendNewComment(item, comment, arg){
 	        	   +'<a class="login" style="cursor:pointer;" href="/login">Connexion</a>'
 	       }); 	 
 	}
-	}
+}

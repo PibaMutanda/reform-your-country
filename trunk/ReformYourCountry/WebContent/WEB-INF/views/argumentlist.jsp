@@ -18,7 +18,7 @@
 	</c:forEach>
 			
 	
-	<c:if test="${current.user.id != null }">		
+	<c:if test="${arg.isEditable()}">		
 		<form class="argumentNegForm" action="" method="post" >
 			<input type="hidden" id="ispos${ispos}" value="${ispos}"/>
 			<input type="hidden" id="action${ispos}" value="${action.id}" />
