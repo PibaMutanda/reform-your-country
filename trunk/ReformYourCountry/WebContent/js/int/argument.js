@@ -104,3 +104,13 @@ function sendNewComment(item, comment, arg){
 	       }); 	 
 	    }
 	}
+
+
+function showText(item, addcom){
+	$("#addcom"+addcom).hide();
+	$("#addcom"+addcom).click(function(){
+		$("#addcom"+addcom).hide();
+		$("#commentArea"+addcom).show();
+	});
+}
+
