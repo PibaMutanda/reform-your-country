@@ -30,22 +30,17 @@ public class MailService {
 
 	@Logger Log logger;
 
-    @Autowired	
-    public MailRepository mailDao;
-    @Autowired	
-    public MailSender mailSender;
+    @Autowired	public MailRepository mailRepository;
+    @Autowired	public MailSender mailSender;
 
     
     
     public void setMailDao(MailRepository dao){
-    	mailDao = dao;
-    	
+    	mailRepository = dao;
     }
     
     public void setMailSender(MailSender sender){
-    	
     	mailSender = sender;
-    	
     }
  
     /**
@@ -120,13 +115,7 @@ public class MailService {
      * 
      */
     public void sendMail(Mail mail){
-     
-
-        if (mail.getUser()==null){
-            mailDao.save(mail, null); 
-        }else{
-            mailDao.save(mail, mail.getUser().getId());
-        }
+        mailRepository.persist(mail);
 
         // wake up the thread each time we send a mail to database because if there isn't any mail to send the thread goes to sleep for a certain time.
         synchronized(mailSender) {
