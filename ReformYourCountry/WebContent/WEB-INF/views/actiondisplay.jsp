@@ -16,7 +16,7 @@
 			<h5>${action.title}</h5>
 			<p>${action.content}</p>
 		</div>
-		<div style="display: inline-block;">
+		<div >
 			<div style="width:500px;float:right;">
 				Créé le : ${action.getFormatedCreatedOn()} - Modifié le: ${action.getFormatedUpdatedOn()} 
 			</div>
@@ -27,7 +27,7 @@
 				</div>
 				<div style="width:50px;">
 					<ryctag:form action="/action/edit" modelAttribute="action" method="get" width="50px;">
-						<input type="hidden" value="${action.id}" name="id" id="id" />
+						<input type="hidden" value="${action.id}" name="id" id="idAction" />
 						<ryc:conditionDisplay privilege="EDIT_ACTION">
 							<a href="/action/edit?id=${action.id}">Edit</a>
 						</ryc:conditionDisplay>
@@ -40,9 +40,11 @@
 		
 	</div>
 	<hr/>
+	
 	<div id="voteContainer"> <%-- Will be re-filled through Ajax too --%>
 	  <%@include file="voteaction.jsp"%>
 	</div>
+	<hr/>
 	<div class="errorMessage" id="errorArg"></div>
 	<div id="argContainer"> <%-- Will be re-filled through Ajax --%>
 		<%@include file="argument.jsp" %>
