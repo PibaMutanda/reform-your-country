@@ -77,7 +77,7 @@
 	 background-color: #bb1100;
 }
 .vote{
-	display: inline-block; width: 20px; height: 20px; text-align: center;
+	display: inline-block; width: 90px; height: 20px; text-align: center;
 }
 .selected{
 	border: .2em solid #000;
