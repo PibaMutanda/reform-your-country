@@ -3,13 +3,12 @@
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-
-
-<div style="float: right;">
+<div style="width:100%;">
 	<c:forEach items="${arg.commentList}" var="lst">
+	<p style="margin:0px; width:100%;">
 			${lst.content} - <a id="underlineUser" href="/user/${lst.user.userName}">${lst.user.userName}</a> - 
 			${lst.getFormatedCreatedOn()}
-	<br />
+	</p>
 	</c:forEach>
 	<form action="" method="post">
 		<input type="hidden" id="idArg" value="${arg.id}" />
