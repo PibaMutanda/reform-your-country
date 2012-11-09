@@ -30,7 +30,7 @@ function buildWar(){
 function checkout_build(){
   #first we checkout or update the RYC framework sourcecode
   echo "update "$FRAMEWORK_NAME"..."
-  if [ -d "./$FRAMEWORK_DIR_NAME" ]; then
+  if [ -d "./$FRAMEWORK_DIR_NAME" ] ; then
     update $FRAMEWORK_DIR_NAME
   else 
     checkout $FRAMEWORK_DIR_NAME $FRAMEWORK_SVN_ADRESS/$FRAMEWORK_SVN_PATH
@@ -39,7 +39,7 @@ function checkout_build(){
 
   #second we do the same with the app
   echo "update "$APP_NAME"..."
-  if [ -d "./$APP_DIR_NAME" ]; then
+  if [ -d "./$APP_DIR_NAME" ] ; then
     update $APP_DIR_NAME
   else 
     checkout $APP_DIR_NAME $APP_SVN_ADRESS/$APP_SVN_PATH
