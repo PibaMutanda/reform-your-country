@@ -33,34 +33,34 @@
 		</div>
 </div>
 <script type="text/javascript">
-	var chart = d3.select("#voteGraph").append("svg").attr("width", "500").attr("height", "100");
-	var data = new Array();
-	data[0] = ${resultNumbers.get(0)};
-	data[1] = ${resultNumbers.get(1)};
-	data[2] = ${resultNumbers.get(2)};
-	data[3] = ${resultNumbers.get(3)};
-	data[4] = ${resultNumbers.get(4)};
-	var total = 0;
-	for (i=0;i<=4;i++){
-		total += data[i];
-	}
-	var percentData =[(data[0]*100)/total,(data[1]*100)/total,(data[2]*100)/total,(data[3]*100)/total,(data[4]*100)/total];
-	var colors =["#005fb1","#c9e2ff","#ffffff","#ff9999","#bb1100"];
-	var rects = chart.selectAll('rect').data(data)
-				    .enter().append('rect')
-				    .attr("stroke", "black")
-				    .attr("fill", function(d, i){return colors[i]})
-				    .attr("x", function(d, i) { return 95 * i; })
-				    .attr("y", function(d, i){ return 100 - percentData[i];})
-				    .attr("width",  "90")
-				    .attr("height", function(d, i){ return percentData[i];});
-// 	chart.selectAll('text').data(data)
-// 		.enter().append('text')
-// 		.attr("x", function(d, i) { return (25 * i)+10; })
-// 		.attr("y", function(d, i){ return (100 - percentData[i])+15;})
-// 		.attr("dx", ".25em")
-// 		.attr("dy",5)
-// 		.attr("text-anchor","end")
-// 		.text(String);
+var chart = d3.select("#voteGraph").append("svg").attr("width", "500").attr("height", "100");
+var data = new Array();
+data[0] = ${resultNumbers.get(0)};
+data[1] = ${resultNumbers.get(1)};
+data[2] = ${resultNumbers.get(2)};
+data[3] = ${resultNumbers.get(3)};
+data[4] = ${resultNumbers.get(4)};
+var total = 0;
+for (i=0;i<=4;i++){
+	total += data[i];
+}
+var percentData =[(data[0]*100)/total,(data[1]*100)/total,(data[2]*100)/total,(data[3]*100)/total,(data[4]*100)/total];
+var colors =["#005fb1","#c9e2ff","#ffffff","#ff9999","#bb1100"];
+var rects = chart.selectAll('rect').data(data)
+			    .enter().append('rect')
+			    .attr("stroke", "black")
+			    .attr("fill", function(d, i){return colors[i]})
+			    .attr("x", function(d, i) { return 95 * i; })
+			    .attr("y", function(d, i){ return 100 - percentData[i];})
+			    .attr("width",  "90")
+			    .attr("height", function(d, i){ return percentData[i];});
+	chart.selectAll('text').data(data)
+		.enter().append('text')
+		.attr("x", function(d, i) { return (95 * i)+47; })
+		.attr("y", function(d, i){ return (100 - percentData[i])+15;})
+		.attr("dx", ".25em")
+		.attr("dy",5)
+		.attr("text-anchor","end")
+		.text(String);
 		
 </script>
