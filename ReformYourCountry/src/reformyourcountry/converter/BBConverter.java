@@ -158,10 +158,12 @@ public class BBConverter {
 
 			String imgHtml = "<img src=\"gen/article/"+name+"\"";
 
-			if(tag.getAttributeValue("style") != null)
+			if(tag.getAttributeValue("style") != null){
 				imgHtml +=" style=\""+tag.getAttributeValue("style")+"\"";
-
-			imgHtml += "/>";
+			}else{
+				imgHtml +=" style=\"display: block; margin-left: auto; margin-right: auto;\""; // if no styling, center the image
+			}
+			imgHtml += " class=\"realshadow\"/>";//add the frame
 			bufferTextForP(imgHtml);
 		}
 		else{

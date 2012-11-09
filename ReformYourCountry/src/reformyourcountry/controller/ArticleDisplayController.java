@@ -31,7 +31,7 @@ public class ArticleDisplayController extends BaseController<Article> {
     @Autowired VideoRepository videoRepository;
     
 	@RequestMapping(value={"/{articleUrl}"})
-	public ModelAndView displayArticle( @PathVariable("articleUrl") String articleUrl){
+	public ModelAndView articleDisplay( @PathVariable("articleUrl") String articleUrl){
 		
 	    log.debug("display article i get articleUrl"+articleUrl);
 	    
@@ -71,7 +71,7 @@ public class ArticleDisplayController extends BaseController<Article> {
 
 
 	@RequestMapping(value={"/a_classer/{articleUrl}"})
-	public ModelAndView displayToClassify( @PathVariable("articleUrl") String articleUrl){
+	public ModelAndView toClassifyDisplay( @PathVariable("articleUrl") String articleUrl){
 		SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
 		ModelAndView mv = new ModelAndView("articledisplaytoclassify");
 
