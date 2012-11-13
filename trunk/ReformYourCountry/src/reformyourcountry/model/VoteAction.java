@@ -35,6 +35,7 @@ public class VoteAction extends BaseEntity{
 		return value;
 	}
 	public void setValue(int valueParam) {
+	    //FIXME it isn't better to make the verif in the controller? -- maxime 6/10/2012
 		if (valueParam > 2 || valueParam < -2) {
 			throw new IllegalArgumentException("Bug: vote out of range (value = " + valueParam +").");
 		}
@@ -56,9 +57,6 @@ public class VoteAction extends BaseEntity{
 	@Override
 	public String toString() 
 	{
-		if(user == null ){
-			throw new NullPointerException("Bug: an action should either have a user. This action has none. id = "+ id);	
-		}
 		return "VoteAction.value:" + value;
 			
 	}
