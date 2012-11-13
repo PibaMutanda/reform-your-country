@@ -75,7 +75,6 @@ public class Article extends BaseEntity {
 	private boolean publicView = false;
 	
 	@ManyToMany
-	@JoinTable(name = "ARTICLE_ACTION", joinColumns = @JoinColumn(name = "ARTICLE_ID"), inverseJoinColumns = @JoinColumn(name="ACTION_ID"))
 	private List<Action> actions = new ArrayList<Action>();
 
 	@ManyToMany
