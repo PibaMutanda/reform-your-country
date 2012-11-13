@@ -2,9 +2,9 @@ package reformyourcountry.badge;
 
 public enum BadgeType {
 	
-	AUTOBIOGRAPHER		("autobiographe", "a compléter tous les champs de son profile", BadgeTypeLevel.BRONZE),
-	FILMMAKER			("cinéaste", "a produit une vidéo", BadgeTypeLevel.GOLD),
-	CITIZEN				("citoyen", "a voté sur toutes les actions", BadgeTypeLevel.SILVER);
+	AUTOBIOGRAPHER		("Autobiographe", "a complété tous les champs de son profil", BadgeTypeLevel.BRONZE),
+	FILMMAKER			("Cinéaste", "a produit une vidéo", BadgeTypeLevel.GOLD),
+	CITIZEN				("Citoyen", "a voté sur toutes les actions", BadgeTypeLevel.SILVER);
 	
 	
 	
