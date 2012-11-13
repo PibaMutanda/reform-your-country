@@ -11,7 +11,10 @@
     float: left;
 }
 #sub_nav{
-    margin-right: 10px;
+    margin-right: 0px;
+}
+#content > div{
+    margin-left: 10px;
 }
 
 .menu-template{

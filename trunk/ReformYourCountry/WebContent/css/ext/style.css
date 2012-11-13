@@ -136,7 +136,7 @@ padding-top: 1px;}
 /*---------------------------------------------------------------*/
 /* 2. CONTENT AREA
 /*---------------------------------------------------------------*/
-#content {width:800px;/*float:right; //use of inline-block now --maxime 2/10/2012*/}
+#content {width:810px;/*float:right; //use of inline-block now --maxime 2/10/2012*/}
 .content_left_sidebar {float: right !important;}
 .content_right_sidebar {width: 510px !important;}
 .content_full_width {width: 800px !important;padding: 0 20px 0 20px;float:left;margin-left: 0 !important;}

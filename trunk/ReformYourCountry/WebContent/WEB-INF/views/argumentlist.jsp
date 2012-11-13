@@ -6,7 +6,7 @@
 
 
 
-<div style="width:400px;<c:if test='${ispos}'>float:right;</c:if><c:if test='${!ispos}'>float:left;border-right:3px solid grey;</c:if>">
+<div style="<c:if test='${ispos}'> width:390px; float:right;</c:if><c:if test='${!ispos}'>width:390px; float:left;border-right:3px solid grey; padding-right:8px;</c:if>">
 	<c:forEach items="${listToShow}" var="arg">
 		
 		<div id="arg${arg.id}" style="width:100%; display: inline-block;">

@@ -5,7 +5,7 @@
 
 <div style="width:100%;">
 	<c:forEach items="${arg.commentList}" var="lst">
-	<p style="margin:0px; width:100%;">
+	<p style="margin:0px; width:100%; font-size:12px;	">
 			${lst.content} - <a id="underlineUser" href="/user/${lst.user.userName}">${lst.user.userName}</a> - 
 			${lst.getFormatedCreatedOn()}
 	</p>
