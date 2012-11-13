@@ -8,6 +8,7 @@
 <script type="text/javascript" src="js/int/argument.js">
 </script>
 
+	<div class="errorMessage" id="errorArg"></div>
 <!-- First we had the column with the negatives args -->
 <c:set var="color" value="#8B0000" scope="request"/>
 <c:set var="listToShow" value="${listNegArgs }" scope="request"/>

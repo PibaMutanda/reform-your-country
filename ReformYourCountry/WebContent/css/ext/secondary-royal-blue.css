@@ -35,7 +35,7 @@
 /* LAYOUT
 /*---------------------------------------------------------------*/
 .home-bnr-jquery {background:#44628C url(/images/secondary-royal-blue/bg-jquery-bnr.jpg) 0 0 no-repeat;color: #FFF;}
-#main .tools {background:url(/images/secondary-royal-blue/bg-tools-c.jpg) repeat-y;color:#fff;margin-bottom: 25px;}
+#main .tools {background:url(/images/secondary-royal-blue/bg-tools-c.jpg) repeat-y;color:#fff;margin-bottom: 25px;margin-left:10px; padding-left:0px;}
 #main .tools .holder {background:url(/images/secondary-royal-blue/bg-tools-t.jpg) no-repeat;}
 #main .tools .frame {background:url(/images/secondary-royal-blue/bg-tools-b.jpg) 0 100% no-repeat;height:1%;overflow:hidden;padding:18px 22px 0 20px;}
 /* jQuery2 */
