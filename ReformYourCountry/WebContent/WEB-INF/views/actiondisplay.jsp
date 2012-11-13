@@ -6,6 +6,7 @@
 <head>
 <meta name="description" lang="fr" content="${action.shortDescription}"/>
 <meta name="robots" content="index, follow"/>
+<script src="http://d3js.org/d3.v2.js"></script>
 </head>
 <body>
     <ryctag:pageheadertitle title="${action.title}"/>
@@ -38,12 +39,18 @@
 		</div>
 		
 
-	
-	<div id="voteContainer" style="background:url(/images/_global/separator3.gif) 0 0 repeat-x ;padding-top:10px;"> <%-- Will be re-filled through Ajax too --%>
+	<div id="voteGraph" style=" width: 500px; margin-left: 150px;background:url(/images/_global/separator3.gif) 0 0 repeat-x ;padding-top:10px;">
+	</div>
+	<div id="voteContainer" > <%-- Will be re-filled through Ajax too --%>
+		
 	  <%@include file="voteaction.jsp"%>
 	</div>
 	<div id="argContainer"  style="background:url(/images/_global/separator3.gif) 0 0 repeat-x ;padding-top:10px;"> <%-- Will be re-filled through Ajax --%>
 		<%@include file="argument.jsp" %>
 	</div>
+<script type="text/javascript">
+var chart = d3.select("#voteGraph").append("svg").attr("width", "500").attr("height", "130");
+
+</script>
 </body>
 </html> 

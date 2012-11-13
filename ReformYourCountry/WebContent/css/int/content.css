@@ -61,23 +61,32 @@
 }
 .v-2{
 	 background-color: #005fb1;
+	 color:#ffffff;
+	 font-size:.85em;
 }
 .v-1{
 	 background-color: #c9e2ff;
+	 color:#333;
+	 font-size:.85em;
 }
 .v0{
 	 background-color: #ffffff;
+	 font-size:.85em;
 }
 
 .v1{
 	 background-color: #ff9999;
+	 color:#333;
+	 font-size:.85em;
 }
 
 .v2{
 	 background-color: #bb1100;
+	 color:#ffffff;
+	 font-size:.85em;
 }
 .vote{
-	display: inline-block; width: 90px; height: 20px; text-align: center;
+	display: inline-block; width: 90px; height: 40px; text-align: center; border:1px solid black;
 }
 .selected{
 	border: .2em solid #000;
