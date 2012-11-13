@@ -61,11 +61,16 @@ public class ArticleEditController extends BaseController<Article>{
         } else {//if the article has no error
             if (article.getId() == null) {//if this is a new article
                 articleService.saveArticle(article,null,null,null);
+                articleService.invalidateNavBarCache();
                 return new ModelAndView("redirect:parentedit","id",article.getId()); // Next step after creation: select the parent.
             } else {
                 articleRepository.merge(article);
+                articleService.invalidateNavBarCache();
                 return new ModelAndView("redirect:"+article.getUrl());
             }
+            
+          
+            
         }
 	}
 	

@@ -18,14 +18,16 @@ list-style-type:none;
 		</c:forEach>
 		<ryctag:breadcrumbelement label="Edition du parent" />
 	</ryctag:pageheadertitle>
+	Parent:
 	<ryctag:form action="/article/parenteditsubmit" modelAttribute="article">
-		<form:hidden path="id" />
-		${article.title}
 		<tr>
-			<td>Parent:</td>
+		<form:hidden path="id"/>
+		
 			<td><ryc:articlesTree radio="true" /></td>
-			<td><input type="submit" value="Sauver" /></td>
+			
 		</tr>
-	</ryctag:form>
+		<tr><td><input type="submit" value="Sauver" /></td></tr>	
+		</ryctag:form>
+	
 </body>
 </html>

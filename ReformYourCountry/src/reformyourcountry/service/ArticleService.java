@@ -14,6 +14,7 @@ import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.repository.ArticleVersionRepository;
 import reformyourcountry.repository.BookRepository;
 import reformyourcountry.security.SecurityContext;
+import reformyourcountry.web.ContextUtil;
 
 @Service
 @Transactional
@@ -133,5 +134,16 @@ public class ArticleService {
  	     }
  	     
  	     
+	 }
+	 
+	 public void setLeftNavBarCache(String htmlTreeMenu){
+		 ContextUtil.getServletContext().setAttribute("htmlTreeMenu", htmlTreeMenu);
+	 }
+	 
+	 public String getLeftNavBarCache(){
+		 return	 (String) ContextUtil.getServletContext().getAttribute("htmlTreeMenu");
+	 }
+	 public void invalidateNavBarCache(){
+		 setLeftNavBarCache(null);
 	 }
 }
