@@ -14,6 +14,7 @@ import reformyourcountry.model.Article;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.ArticleService;
+import reformyourcountry.tag.ArticleTreeTag;
 
 // Edition of the parents
 @Controller
@@ -44,8 +45,8 @@ public class ArticleParentEditController extends BaseController<Article>{
 			return mv;
 		} else { 
 			//article do not need a merge because the following method do it already
-			articleService.invalidateNavBarCache();
 		    articleService.changeParent(article, parentId);
+		    ArticleTreeTag.invalidateNavBarCache();
 		}
 	    return new ModelAndView ("redirect:/article/"+article.getUrl());
 	}
