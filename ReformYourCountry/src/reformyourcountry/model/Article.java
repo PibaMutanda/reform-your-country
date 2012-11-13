@@ -75,11 +75,9 @@ public class Article extends BaseEntity {
 	private boolean publicView = false;
 	
 	@ManyToMany
-	@JoinTable(name = "ARTICLE_ACTION", joinColumns = @JoinColumn(name = "ARTICLE_ID"), inverseJoinColumns = @JoinColumn(name="ACTION_ID"))
 	private List<Action> actions = new ArrayList<Action>();
 
 	@ManyToMany
-	@JoinTable(name = "ARTICLE_GOODEXAMPLE", joinColumns = @JoinColumn(name = "ARTICLE_ID"), inverseJoinColumns = @JoinColumn(name="GOODEXAMPLE_ID"))
 	private List<GoodExample> goodExamples = new ArrayList<GoodExample>();
 	
 	@ManyToOne
@@ -252,9 +250,4 @@ public class Article extends BaseEntity {
 		}
 		return false;
 	}
-
-
-	
-
-	
 }
