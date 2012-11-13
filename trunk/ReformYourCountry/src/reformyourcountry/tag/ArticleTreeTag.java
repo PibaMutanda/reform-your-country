@@ -12,6 +12,7 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import reformyourcountry.model.Article;
 import reformyourcountry.repository.ArticleRepository;
+import reformyourcountry.service.ArticleService;
 import reformyourcountry.util.DateUtil;
 import reformyourcountry.web.ContextUtil;
 import reformyourcountry.web.UrlUtil;
@@ -21,11 +22,13 @@ public class ArticleTreeTag extends SimpleTagSupport{
 
 	
 	ArticleRepository articleRepository;
+	ArticleService articleService;
 
 	private String cssClass;
 	private boolean radio; // inserts a radio button in front on each article. 
 	private boolean link;  // writes articles titles as links
 	private boolean description; //if we are in the article list page, we want a short description under the link
+	private boolean isInvalided;
 	
 	private Article articleFromRequest;  // Article concerned, passed by the controller (if any). 
 
@@ -47,7 +50,7 @@ public class ArticleTreeTag extends SimpleTagSupport{
 	public void setLink(boolean link) {
 		this.link = link;
 	}
-		
+
 	public boolean isDescription() {
 		return description;
 	}
@@ -61,44 +64,65 @@ public class ArticleTreeTag extends SimpleTagSupport{
 
 			JspWriter out = this.getJspContext().getOut();
 			articleRepository =  ContextUtil.getSpringBean(ArticleRepository.class);  // No Spring injection from this class (managed by Tomcat).
-			List<Article> articles = articleRepository.findAllWithoutParent();
+			articleService =  ContextUtil.getSpringBean(ArticleService.class); 
+			List<Article> articles = null;
 
 			// If we show radio buttons to select a parent, we display an extra radio button on the top to select a (virtual) root (= no parent).
 
 			if (radio) {
 				out.println("<input type='radio' name='parentid' value=''" +
 						((articleFromRequest == null || articleFromRequest.getParent() == null) ? " checked='checked'" : "") + 
-						 "'/>" +
-						 " pas d'article parent");
+						"'/>" +
+						" pas d'article parent");
 			}
+			String htmlResult="";
+			if (!radio && link) { // For the left nav bar
+				htmlResult = articleService.getLeftNavBarCache();
 
-			displayArticleList(articles, out,true);
+				if (htmlResult == null) { // Empty cache (1st time since web app started, or been invalidated by article add or change)
+					htmlResult = displayArticleList(articles, true);
+					articleService.setLeftNavBarCache(htmlResult);
+				} 
+			} else {
+				htmlResult = displayArticleList(articles, true);
+			}
 			
+			
+			out.write(htmlResult);
+
 		} catch(IOException e) {
 			throw new RuntimeException(e);
 		}
 	}
 	
-	private void displayArticleList(Collection<Article> articles, JspWriter out,boolean isFirstPass) throws JspException, IOException { 
+	private String displayArticleList(Collection<Article> articles, boolean isFirstPass) throws JspException, IOException { 
+		
+		String result = "";
+		
 		if (isFirstPass) {
-		    out.write("<ul id=\"articletree\">");         
-		}else {
-            out.write("<ul class=\"subarticle\">");    
-		    
+			articles=articleRepository.findAllWithoutParent();
+		    result+="<ul id=\"articletree\">";         
+		} else {
+            result+="<ul class=\"subarticle\">";    
 		}
+		
 		for (Article child: articles) {
-			displayArticle(child, out); 
+			result+=displayArticle(child); 
 		}
-		out.write("</ul>");          
+		
+		result+="</ul>";   
+		
+		return result;
 	}
 
 
-	private void displayArticle(Article article, JspWriter out) throws JspException, IOException { 
+	private String displayArticle(Article article) throws JspException, IOException { 
 	    // class=\"current_page_item\"
-				
-		out.write("<li>"+getArticleString(article));
-		displayArticleList(article.getChildren(), out,false);   
-		out.write("</li>");
+		String result="";		
+		result += "<li>" + getArticleString(article);
+		result += displayArticleList(article.getChildren(), false);
+		result += "</li>";
+		return result;
 	}
 	
 	private String getArticleString(Article article) {

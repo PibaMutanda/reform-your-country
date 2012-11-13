@@ -44,6 +44,7 @@ public class ArticleParentEditController extends BaseController<Article>{
 			return mv;
 		} else { 
 			//article do not need a merge because the following method do it already
+			articleService.invalidateNavBarCache();
 		    articleService.changeParent(article, parentId);
 		}
 	    return new ModelAndView ("redirect:/article/"+article.getUrl());
