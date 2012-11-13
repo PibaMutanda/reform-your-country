@@ -3,6 +3,7 @@
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+<div style="width: 100%;">
 <div style="width:100%; font-size:0.7em;">
 	<c:forEach items="${arg.commentList}" var="lst">
 		<div style="margin:0px; width:100%;">
@@ -17,11 +18,13 @@
 				<input type="button" value="ajout de com" onclick="showText(this,${arg.id})"/>
 			</div>
 			<div id="commentArea${arg.id}" style="display: none;">
-				<textarea id="comm" rows="1" cols="20"></textarea>
-				Il vous reste <span id="carac_reste_textarea_1"></span> caractères.
-        			<script type="text/javascript">
-                        maxlength_textarea('comm','carac_reste_textarea_1',50);
-        			</script>
+				<textarea id="comm${arg.id}" rows="1" cols="20"></textarea>
+				<div id="nbrCaract${arg.id}" onkeydown="maxlength_textarea('comm${arg.id}', 'nbrCaract${arg.id}', '50', '10');"></div>...
+<!-- 				<script type="text/javascript"> -->
+<%-- 						  var comId = "comm"+${arg.id}; --%>
+<%-- 						  var carRest = "carac_reste_textarea_1"+${arg.id}; --%>
+<!--                        	  maxlength_textarea(comId, carRest, 50, 10);  -->
+<!--                	</script>  -->
 				<input type="button" value="commenter" onclick="sendNewComment(this, comm.value,${arg.id});">
 			</div>
 		</div>

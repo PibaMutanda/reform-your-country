@@ -1,18 +1,18 @@
 function sendNewArg(item,content,action,title,ispos){
 	if(title!="" && content!=""){
-	var requestArg = $.ajax({
-		url: "/ajax/argumentAdd",
-		type: "POST",
-		data: "content="+ content+"&action="+action+"&title="+title+"&ispos="+ispos,
-		dataType: "html"
-	}).done(function(data) {
-		//Send the new data to the div containing the lists
-		$("#argContainer").html(data);
-	});
+		var requestArg = $.ajax({
+			url: "/ajax/argumentAdd",
+			type: "POST",
+			data: "content="+ content+"&action="+action+"&title="+title+"&ispos="+ispos,
+			dataType: "html"
+		}).done(function(data) {
+			//Send the new data to the div containing the lists
+			$("#argContainer").html(data);
+		});
 
-	requestArg.fail(function(jqXHR, textStatus) {
-		$("#errorArg").text("Erreur lors de l'envoi d'un argument : "+textStatus);
-	});
+		requestArg.fail(function(jqXHR, textStatus) {
+			$("#errorArg").text("Erreur lors de l'envoi d'un argument : "+textStatus);
+		});
 	}else{
 		$("#errorArg").text("Erreur lors de l'envoi d'un argument : Veuillez remplir tout les champs !");
 	}
@@ -37,11 +37,11 @@ function sendArgAfterEdit(item,idArg,title,content){
 function editArg(item,newid,newtitle,newcontent){
 	if (idUser.length>0){
 		$("#arg"+newid).html(
-		"<form class=\"argumentNegForm\" action=\"\" method=\"post\" >"
-			+"<input type=\"hidden\" id=\"idArg\" value=\""+newid+"\" />"
-			+"<textarea id=\"titleEdit\" rows=\"1\" cols=\"15\">"+newtitle+"</textarea><br/>"
-			+"<textarea id=\"contentEdit\"rows=\"5\" cols=\"15\" >"+newcontent+"</textarea><br/>"
-			+"<input type=\"button\"   value=\"Sauver\" onclick=\"sendArgAfterEdit(this,"+newid+",titleEdit.value,contentEdit.value);\"></form>"	
+				"<form class=\"argumentNegForm\" action=\"\" method=\"post\" >"
+				+"<input type=\"hidden\" id=\"idArg\" value=\""+newid+"\" />"
+				+"<textarea id=\"titleEdit\" rows=\"1\" cols=\"15\">"+newtitle+"</textarea><br/>"
+				+"<textarea id=\"contentEdit\"rows=\"5\" cols=\"15\" >"+newcontent+"</textarea><br/>"
+				+"<input type=\"button\"   value=\"Sauver\" onclick=\"sendArgAfterEdit(this,"+newid+",titleEdit.value,contentEdit.value);\"></form>"	
 		);
 	}
 }
@@ -57,20 +57,20 @@ function voteOnArgument(item,idArg,value){
 			//Send the new data to the div containing the lists
 			$("#arg"+idArg).html(data);
 		});
-	
+
 		requestArg.fail(function(jqXHR, textStatus) {
 			$("#errorArg").text("Erreur lors de l'envoi d'un argument : "+textStatus);
 		});
 	}else{
 		$(item).CreateBubblePopup({ 
-	           innerHtmlStyle: {  // give css property to the inner div of the popup	    	   
-	               'opacity':0.9
-	           },
-	           tail: {align:'center', hidden: false},
-	           selectable :true,				    	
-	           innerHtml: 'Pour voter veuillez vous logger : '
-	        	   +'<a class="login" style="cursor:pointer;" href="/login">Connexion</a>'
-	       }); 	 
+			innerHtmlStyle: {  // give css property to the inner div of the popup	    	   
+				'opacity':0.9
+			},
+			tail: {align:'center', hidden: false},
+			selectable :true,				    	
+			innerHtml: 'Pour voter veuillez vous logger : '
+				+'<a class="login" style="cursor:pointer;" href="/login">Connexion</a>'
+		}); 	 
 	}
 }
 function sendNewComment(item, comment, arg){
@@ -85,7 +85,7 @@ function sendNewComment(item, comment, arg){
 				//Send the new data to the div containing the lists	
 				$("#comment"+arg).html(data);
 			});
-	
+
 			requestArg.fail(function(jqXHR, textStatus) {
 				$("#errorArg").text("Erreur lors de l'envoi d'un commentaire : "+textStatus);
 			});
@@ -94,16 +94,16 @@ function sendNewComment(item, comment, arg){
 		}
 	}else{
 		$(item).CreateBubblePopup({ 
-	           innerHtmlStyle: {  // give css property to the inner div of the popup	    	   
-	               'opacity':0.9
-	           },
-	           tail: {align:'center', hidden: false},
-	           selectable :true,				    	
-	           innerHtml: 'Pour commenter veuillez vous logger: '
-	        	   +'<a class="login" style="cursor:pointer;" href="/login">Connexion</a>'
-	       }); 	 
-	    }
+			innerHtmlStyle: {  // give css property to the inner div of the popup	    	   
+				'opacity':0.9
+			},
+			tail: {align:'center', hidden: false},
+			selectable :true,				    	
+			innerHtml: 'Pour commenter veuillez vous logger: '
+				+'<a class="login" style="cursor:pointer;" href="/login">Connexion</a>'
+		}); 	 
 	}
+}
 
 
 function showText(item, addcom){
@@ -115,24 +115,83 @@ function showText(item, addcom){
 }
 
 
-function maxlength_textarea(id, crid, max)
+function maxlength_textarea(/*item, */id, crid, max, min)
 {
-        var txtarea = document.getElementById(id);
-        document.getElementById(crid).innerHTML=max-txtarea.value.length;
-        txtarea.onkeypress=function(){eval('v_maxlength("'+id+'","'+crid+'",'+max+');')};
-        txtarea.onblur=function(){eval('v_maxlength("'+id+'","'+crid+'",'+max+');')};
-        txtarea.onkeyup=function(){eval('v_maxlength("'+id+'","'+crid+'",'+max+');')};
-        txtarea.onkeydown=function(){eval('v_maxlength("'+id+'","'+crid+'",'+max+');')};
+	var txtarea = document.getElementById(id);
+	var crreste = document.getElementById(crid);
+	var length = txtarea.value.length;
+	alert(length);
+	if(length < 10){
+		var len = txtarea.value.length;
+		var mini = min-len;
+		crreste.innerHTML="Vous devez encore taper" +mini+ "caractères";
+	}
+	else{
+		maximum = max-length;
+		var len = txtarea.value.length;
+		if(len>max)
+		{
+			txtarea.value=txtarea.value.substr(0,max);
+		}
+		len = txtarea.value.length;
+		var maxi = max-len;
+		crreste.innerHTML="Il vous reste " +maxi+ "caractères";
+	}
 }
-function v_maxlength(id, crid, max)
-{
-        var txtarea = document.getElementById(id);
-        var crreste = document.getElementById(crid);
-        var len = txtarea.value.length;
-        if(len>max)
-        {
-                txtarea.value=txtarea.value.substr(0,max);
-        }
-        len = txtarea.value.length;
-        crreste.innerHTML=max-len;
-}
+//function maxlength_textarea(id, crid, max, min)
+//{
+//	var txtarea = document.getElementById(id);
+//	var length = txtarea.value.length;
+//	var minimum = min - length;
+//	alert(length + "min: " + min);
+//	if(length < 10){
+//		document.getElementById(crid).innerHTML="Vous devez encore taper " + minimum + " caractèreeees";
+//		txtarea.onkeypress=function(){eval('v_minlength("'+id+'","'+crid+'",'+min+');')};
+//		txtarea.onblur=function(){eval('v_minlength("'+id+'","'+crid+'",'+min+');')};
+//		txtarea.onkeyup=function(){eval('v_minlength("'+id+'","'+crid+'",'+min+');')};
+//		txtarea.onkeydown=function(){eval('v_minlength("'+id+'","'+crid+'",'+min+');')};
+//	}
+//	else{
+//		maximum = max-length;
+//		alert(maximum + "       " + length);
+//		document.getElementById(crid).innerHTML="Il vous reste " + maximum + " caractèresMax";
+//		txtarea.onkeypress=function(){eval('v_maxlength("'+id+'","'+crid+'",'+max+');')};
+//		txtarea.onblur=function(){eval('v_maxlength("'+id+'","'+crid+'",'+max+');')};
+//		txtarea.onkeyup=function(){eval('v_maxlength("'+id+'","'+crid+'",'+max+');')};
+//		txtarea.onkeydown=function(){eval('v_maxlength("'+id+'","'+crid+'",'+max+');')};
+//	}
+//
+//function v_minlength(id, crid, min){
+//	var txtarea = document.getElementById(id);
+//	var crreste = document.getElementById(crid);
+//	var len = txtarea.value.length;
+//	var mini = min-len;
+//	crreste.innerHTML="Vous devez encore taper" +mini+ "caractères";
+//}
+//
+//function v_maxlength(id, crid, max)
+//{
+//	var txtarea = document.getElementById(id);
+//	var crreste = document.getElementById(crid);
+//	var len = txtarea.value.length;
+//	if(len>max)
+//	{
+//		txtarea.value=txtarea.value.substr(0,max);
+//	}
+//	len = txtarea.value.length;
+//	var maxi = max-len;
+//	crreste.innerHTML="Il vous reste " +maxi+ "caractères";
+//}
+
+//$(document).ready(function() {
+//$('comm').ppTextarea({
+//min:10,
+//max:50,
+//idMeter:'compteur',
+//textMeter:' / 50',
+//idCheck:'check',
+//imgYes:'images/yes.png',
+//imgNo:'images/no.png',
+//stop:false
+//});
+//});
