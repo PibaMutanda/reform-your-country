@@ -68,7 +68,7 @@ public class Article extends BaseEntity {
     @Type(type="org.hibernate.type.StringClobType")
     private String lastVersionRenderdSummary; // Caching of the rendered html, for performance optimization.
     
-	
+
 	private Date publishDate;
 	
 	@NotNull
@@ -234,9 +234,9 @@ public class Article extends BaseEntity {
 	
 	public boolean isPublished(){
 		boolean published=false;
-		if(publishDate!=null){
-			published =(publicView && (!publishDate.after(new Date())));
-		}else{
+		if (publishDate!=null) {
+			published = (publicView && (!publishDate.after(new Date())));
+		} else {
 			published = publicView;
 		}
 
