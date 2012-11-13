@@ -5,6 +5,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 
+<script type="text/javascript">
+   var idUser = "${current.user.id}";
+</script>
 	<div class="argument" style="width:340px; margin-bottom:5px;float:right;">
 	
 		<div style="width:100%;background:url(/images/_global/separator3.gif) 0 100% repeat-x ;">

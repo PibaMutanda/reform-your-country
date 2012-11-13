@@ -62,15 +62,8 @@ function voteOnArgument(item,idArg,value){
 			$("#errorArg").text("Erreur lors de l'envoi d'un argument : "+textStatus);
 		});
 	}else{
-		$(item).CreateBubblePopup({ 
-			innerHtmlStyle: {  // give css property to the inner div of the popup	    	   
-				'opacity':0.9
-			},
-			tail: {align:'center', hidden: false},
-			selectable :true,				    	
-			innerHtml: 'Pour voter veuillez vous logger : '
-				+'<a class="login" style="cursor:pointer;" href="/login">Connexion</a>'
-		}); 	 
+
+		notLoggedMessage(item);	 
 	}
 }
 function sendNewComment(item, comment, arg){
@@ -93,38 +86,48 @@ function sendNewComment(item, comment, arg){
 			$("#errorArg").text("Veuillez écrire un texte avant d'envoyer votre commentaire.");
 		}
 	}else{
-		$(item).CreateBubblePopup({ 
-			innerHtmlStyle: {  // give css property to the inner div of the popup	    	   
-				'opacity':0.9
-			},
-			tail: {align:'center', hidden: false},
-			selectable :true,				    	
-			innerHtml: 'Pour commenter veuillez vous logger: '
-				+'<a class="login" style="cursor:pointer;" href="/login">Connexion</a>'
-		}); 	 
+
+		notLoggedMessage(item);	 
 	}
 }
 
 
 function showText(item, addcom){
+	if (idUser.length>0){
 	$("#addcom"+addcom).hide();
 	$("#addcom"+addcom).click(function(){
 		$("#addcom"+addcom).hide();
 		$("#commentArea"+addcom).show();
-	});
+	});	
+	}else{
+		notLoggedMessage(item);
+		} 
+	
 }
 
-
-function maxlength_textarea(/*item, */id, crid, max, min)
+function notLoggedMessage(item){
+	alert("T'es pas loggé coco!");
+	$(item).CreateBubblePopup({ 
+		innerHtmlStyle: {  // give css property to the inner div of the popup	    	   
+			'opacity':0.9
+		},
+		tail: {align:'center', hidden: false},
+		selectable :true,				    	
+		innerHtml: 'Pour commenter veuillez vous logger: '
+			+'<a class="login" style="cursor:pointer;" href="/login">Connexion</a>'
+});
+}
+function maxlength_textarea(item,id, max, min)
 {
-	var txtarea = document.getElementById(id);
-	var crreste = document.getElementById(crid);
+	var txtarea = document.getElementById('comm'+id);
+	var button = document.getElementById('sendArgComm'+id);
+	var crreste = document.getElementById('nbrCaract'+id);
 	var length = txtarea.value.length;
-	alert(length);
 	if(length < 10){
 		var len = txtarea.value.length;
 		var mini = min-len;
 		crreste.innerHTML="Vous devez encore taper" +mini+ "caractères";
+		button.setAttribute("disabled", "disabled");
 	}
 	else{
 		maximum = max-length;
@@ -135,63 +138,8 @@ function maxlength_textarea(/*item, */id, crid, max, min)
 		}
 		len = txtarea.value.length;
 		var maxi = max-len;
-		crreste.innerHTML="Il vous reste " +maxi+ "caractères";
+		crreste.innerHTML="Il vous reste " +maxi+ "caractères";	
+		button.removeAttribute("disabled");
 	}
 }
-//function maxlength_textarea(id, crid, max, min)
-//{
-//	var txtarea = document.getElementById(id);
-//	var length = txtarea.value.length;
-//	var minimum = min - length;
-//	alert(length + "min: " + min);
-//	if(length < 10){
-//		document.getElementById(crid).innerHTML="Vous devez encore taper " + minimum + " caractèreeees";
-//		txtarea.onkeypress=function(){eval('v_minlength("'+id+'","'+crid+'",'+min+');')};
-//		txtarea.onblur=function(){eval('v_minlength("'+id+'","'+crid+'",'+min+');')};
-//		txtarea.onkeyup=function(){eval('v_minlength("'+id+'","'+crid+'",'+min+');')};
-//		txtarea.onkeydown=function(){eval('v_minlength("'+id+'","'+crid+'",'+min+');')};
-//	}
-//	else{
-//		maximum = max-length;
-//		alert(maximum + "       " + length);
-//		document.getElementById(crid).innerHTML="Il vous reste " + maximum + " caractèresMax";
-//		txtarea.onkeypress=function(){eval('v_maxlength("'+id+'","'+crid+'",'+max+');')};
-//		txtarea.onblur=function(){eval('v_maxlength("'+id+'","'+crid+'",'+max+');')};
-//		txtarea.onkeyup=function(){eval('v_maxlength("'+id+'","'+crid+'",'+max+');')};
-//		txtarea.onkeydown=function(){eval('v_maxlength("'+id+'","'+crid+'",'+max+');')};
-//	}
-//
-//function v_minlength(id, crid, min){
-//	var txtarea = document.getElementById(id);
-//	var crreste = document.getElementById(crid);
-//	var len = txtarea.value.length;
-//	var mini = min-len;
-//	crreste.innerHTML="Vous devez encore taper" +mini+ "caractères";
-//}
-//
-//function v_maxlength(id, crid, max)
-//{
-//	var txtarea = document.getElementById(id);
-//	var crreste = document.getElementById(crid);
-//	var len = txtarea.value.length;
-//	if(len>max)
-//	{
-//		txtarea.value=txtarea.value.substr(0,max);
-//	}
-//	len = txtarea.value.length;
-//	var maxi = max-len;
-//	crreste.innerHTML="Il vous reste " +maxi+ "caractères";
-//}
 
-//$(document).ready(function() {
-//$('comm').ppTextarea({
-//min:10,
-//max:50,
-//idMeter:'compteur',
-//textMeter:' / 50',
-//idCheck:'check',
-//imgYes:'images/yes.png',
-//imgNo:'images/no.png',
-//stop:false
-//});
-//});
