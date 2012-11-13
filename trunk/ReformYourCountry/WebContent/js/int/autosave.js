@@ -23,6 +23,11 @@ $(document).ready(function() {
 		}
 	});
 
+	
+	$("input.save").onclick(function(event) {  // The save buttons
+		contentHasNotBeenSaved = false;
+	});
+	
 
 	// Ask to save when exiting without saving
     window.onbeforeunload = function(evt){
@@ -40,7 +45,7 @@ $(document).ready(function() {
 		////// We effectively start saving from here
 		$(".saving").text("sauvegarde en cours....");		
 		//get the action value from the form and add ajax/ before because this is a project convention for ajax request
-		$.post("ajax/"+$(".autosaveable").closest("form").attr("action"), 
+		$.post("ajax"+$(".autosaveable").closest("form").attr("action"), 
 				$(".autosaveable").closest("form").serialize())//closest get the closest ancestor or itself . 
 																						//For example if the tag with autosaveable  is contain in a form(with id #exmaple1) and this form is contain in an other form(with id #exmaple2) 
 																						//only #exmaple1 is selected and submit via .serialize().
