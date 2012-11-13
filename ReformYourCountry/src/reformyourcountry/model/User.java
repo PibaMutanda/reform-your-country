@@ -545,15 +545,6 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
         return groupRegs;
     }
 
-    //TODO maxime uncoment when using facebook integration
-    //  public void setoAuthCredentials(Set<SocialIntegration> oAuthCredentials) {
-    //      this.oAuthCredentials = oAuthCredentials;
-    //  }
-    //
-    //  public Set<SocialIntegration> getoAuthCredentials() {
-    //      return oAuthCredentials;
-    //  }
-
     public int getConsecutiveFailedLogins() {
         return consecutiveFailedLogins;
     }
