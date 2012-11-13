@@ -136,14 +136,5 @@ public class ArticleService {
  	     
 	 }
 	 
-	 public void setLeftNavBarCache(String htmlTreeMenu){
-		 ContextUtil.getServletContext().setAttribute("htmlTreeMenu", htmlTreeMenu);
-	 }
-	 
-	 public String getLeftNavBarCache(){
-		 return	 (String) ContextUtil.getServletContext().getAttribute("htmlTreeMenu");
-	 }
-	 public void invalidateNavBarCache(){
-		 setLeftNavBarCache(null);
-	 }
+	
 }

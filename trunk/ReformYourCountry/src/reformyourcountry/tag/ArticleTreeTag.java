@@ -28,8 +28,9 @@ public class ArticleTreeTag extends SimpleTagSupport{
 	private boolean radio; // inserts a radio button in front on each article. 
 	private boolean link;  // writes articles titles as links
 	private boolean description; //if we are in the article list page, we want a short description under the link
-	private boolean isInvalided;
 	
+	final String LEFTNAV_CACHE = getLeftNavBarCache();
+		
 	private Article articleFromRequest;  // Article concerned, passed by the controller (if any). 
 
 	public String getCssClass() {
@@ -57,6 +58,8 @@ public class ArticleTreeTag extends SimpleTagSupport{
 	public void setDescription(boolean description) {
 		this.description = description;
 	}
+	
+	
 	@Override
 	public void doTag() throws JspException {
 		try {
@@ -75,15 +78,16 @@ public class ArticleTreeTag extends SimpleTagSupport{
 						"'/>" +
 						" pas d'article parent");
 			}
+			
 			String htmlResult="";
-			if (!radio && link) { // For the left nav bar
-				htmlResult = articleService.getLeftNavBarCache();
+			if (!radio && link) { // For the left nav bar, we cache the results.
+				htmlResult = getLeftNavBarCache();
 
 				if (htmlResult == null) { // Empty cache (1st time since web app started, or been invalidated by article add or change)
 					htmlResult = displayArticleList(articles, true);
-					articleService.setLeftNavBarCache(htmlResult);
+					setLeftNavBarCache(htmlResult);
 				} 
-			} else {
+			} else {  // Not the left nav bar => no cache.
 				htmlResult = displayArticleList(articles, true);
 			}
 			
@@ -178,7 +182,17 @@ public class ArticleTreeTag extends SimpleTagSupport{
 		
 		return result;
 	}	
+	public static void setLeftNavBarCache(String htmlTreeMenu){
+		ContextUtil.getServletContext().setAttribute("LeftNavBarCache", htmlTreeMenu);
+    }
+	 
+	public static String getLeftNavBarCache(){
+		 return	 (String) ContextUtil.getServletContext().getAttribute("LeftNavBarCache");
+	}
 	
+	public static void invalidateNavBarCache(){
+		 setLeftNavBarCache(null);
+	}
 }
 
 
