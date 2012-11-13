@@ -6,7 +6,8 @@
 	<title>${title}</title>
 </head>
   <%-- ***************** START Title Bar ***************** --%>
-<div class="tools">
+<!-- <div id="titleContainer">
+ --><div class="tools">
 	<div class="holder">
 		<div class="frame">
 			<h1>${title}</h1>
@@ -25,3 +26,6 @@
     <span class="errorMessage">${param.message}</span>
     <br />
 </c:if>
+
+<!-- </div>
+ -->

@@ -6,13 +6,13 @@
 
 
 	<hr/>
-	<div class="argument" style="width:300px; margin-bottom:5px;float:right;">
+	<div class="argument" style="width:345px; margin-bottom:5px;float:right;">
 	
 		<div style="width:100%;">
 			
 				
 			
-			<div style="font-weight:bold; font-size:18px;padding:5px;">
+			<div style="font-weight:bold; font-size:18px;">
 				${arg.title}
 			</div>
 			<p  style="padding:5px;">
@@ -37,7 +37,7 @@
 		</div>
 	</div>
 
-	<div style=" margin-bottom:5px;width: 75px;text-align:center;font-weight: bold;font-size: 25px;">
+	<div style=" margin-bottom:5px;width: 45px;text-align:center;font-weight: bold;font-size: 25px;">
 			<c:choose>
 				<c:when test="${arg.getVoteValueByUser(current.user)>0}">
 					<img class="div-align-center" align="middle" src="\images\_global\up_selected.png"/>		
