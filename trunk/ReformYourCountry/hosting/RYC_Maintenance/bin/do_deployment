@@ -3,6 +3,6 @@
 function do_deployment(){
   #remove all in ROOT dir except gen folder
   service tomcat7 stop
-  rm -rvf $(ls $WEBAPPS_FOLDER/ROOT/* | grep -v gen)
-  cp -v $BUILD_FOLDER/$APP_NAME/dist/ROOT.war $WEBAPPS_FOLDER
+  rm -rvf $WEBAPPS_FOLDER/ROOT*  
+  cp -vf $BUILD_FOLDER/$APP_NAME/dist/ROOT.war $WEBAPPS_FOLDER
 }

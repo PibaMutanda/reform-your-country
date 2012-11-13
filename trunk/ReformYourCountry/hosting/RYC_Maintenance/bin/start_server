@@ -3,5 +3,5 @@
 function start_server(){
 service tomcat7 start
 echo "show log tomcat for 30second ..."
-timeout 30s tail -f $TOMCAT_LOG_FILE
+timeout $TIME_TOMCAT_TO_START tail -f $TOMCAT_LOG_FILE
 }
