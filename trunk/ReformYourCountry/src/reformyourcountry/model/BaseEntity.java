@@ -2,6 +2,7 @@ package reformyourcountry.model;
 
 import java.util.Date;
 
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,10 +29,10 @@ public class BaseEntity {
     
     @Id   @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
-    @OneToOne
+    @OneToOne(fetch=FetchType.LAZY)
     User createdBy;
     Date createdOn;
-    @OneToOne
+    @OneToOne(fetch=FetchType.LAZY)
     User updatedBy;
     Date updatedOn;
 
