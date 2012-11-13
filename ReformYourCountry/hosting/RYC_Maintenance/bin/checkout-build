@@ -13,6 +13,7 @@ cd $BUILD_FOLDER
 
 function backupOldWar(){
   cp -i $WEBAPPS_FOLDER/ROOT.war $BACKUP_FOLDER/oldwars/$OLD_WAR_COPY_NAME
+  rotateBackup oldwars
 }
 function checkout(){
   mkdir $1
@@ -25,6 +26,7 @@ function update(){
 }
 function buildWar(){
   backupOldWar
+  cd $BUILD_FOLDER/$1
   ant -Dant.project.name=$1 -Dtype=$2 war
 }
 function checkout_build(){

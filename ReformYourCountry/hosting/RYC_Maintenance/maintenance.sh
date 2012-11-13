@@ -14,34 +14,16 @@ cd $BASE_FOLDER
 . bin/config
 . bin/common_function
 
-#Smart file remove.
-function rotateBackup(){
-
-        assertFolderExists $BACKUP_FOLDER/$1
-
-        cd $BACKUP_FOLDER/$1
-        #because the expression is eval when the variable is declared
-        BACKUPS_TO_KEEP=$(ls | wc -l) #Amount of files already in that dir.
-
-        # if there are too many old backups, we delete some files
-        if [ $BACKUPS_TO_KEEP -gt $BACKUP_COUNT ]; then
-                fileToRemoveNumber=$(($BACKUPS_TO_KEEP-$BACKUP_COUNT))
-                rm -f $(ls -tr | head -n $fileToRemoveNumber) #list file by mod time oldest first and remove X file
-                exit $?
-        else
-                echo "no $1 backup to remove"
-		exit 5
-        fi
-}
-
 case $1 in
         "backupDB")
                 echo " backup DB..."
 
                 ensureFolderExists $BACKUP_FOLDER
                 ensureFolderExists $BACKUP_FOLDER/DB
+                #because postgres must write in
+                chmod 0777 $BACKUP_FOLDER/DB
                 
-                cd $BACKUP_FOLDER/DB
+                cd $BACKUP_FOLDER/DB 
                 su -c 'pg_dump '$DB_NAME' | xz -e9c > last.xz' postgres 
                 cp -a last.xz $NOW.xz
 
@@ -80,10 +62,10 @@ case $1 in
         "rotateBackup")
                 case $2 in
                         "DB")
-                                rotateBackup DB
+                                rotateBackup DB $BACKUPS_TO_KEEP
                         ;;
                         "gen")
-                                rotateBackup gen
+                                rotateBackup gen $BACKUPS_TO_KEEP
                         ;;
                         *)
                         echo "bad second argument : $2 . Use DB or gen ."
@@ -99,15 +81,36 @@ case $1 in
                 else
                         echo "restoring last gen backup..."
                         assertFolderExists $BACKUP_FOLDER/gen
-
+                        assertFolderExists $WEBAPPS_FOLDER/ROOT
                         ensureFolderExists $WEBAPPS_FOLDER/ROOT/gen
                         chown tomcat:tomcat $WEBAPPS_FOLDER/ROOT/gen
                         
                         tar -Jxvf $BACKUP_FOLDER/gen/last.tar.xz -C $WEBAPPS_FOLDER/ROOT/gen
                 fi
                 ;;
+        "restoreDB")
+                if [ ! -n $2 ]
+                then
+                        echo "specify backup not implemented yet"
+                        exit 5
+                else
+                        echo "restoring last DB backup..."
+                        assertFolderExists $BACKUP_FOLDER/DB
+                        #restart to force disconnection of user
+                        service postgresql restart
+                        #wait until server start inscrease if necessary
+                        sleep 15
+                        cd $BACKUP_FOLDER/DB
+                        su -c 'dropdb '$DB_NAME'' postgres
+                        su -c 'createdb -O '$DB_USER' '$DB_NAME' ' postgres
+                        xz -d last.xz 
+                        psql -d $DB_NAME -U $DB_USER -f last
+                        xz -e9 last
+                fi
+                ;; 
         "deploy")
                 echo "deploying application ..."
+                ensureFolderExists $BACKUP_FOLDER
                 #TODO make special command like force checkout , dev , verbose , debug , etc... 
                 #echo "write a special command or leave blank for a normal deploy"
                 #TEMP=
@@ -134,6 +137,8 @@ case $1 in
                                 
                                 . $BIN_FOLDER/switch_httpd
                                 switch_httpd prod
+
+                                ./maintenance.sh restoreGen
                         ;;
                 esac
                 ;;
