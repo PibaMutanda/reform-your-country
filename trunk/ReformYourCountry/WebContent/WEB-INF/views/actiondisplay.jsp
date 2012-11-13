@@ -9,9 +9,8 @@
 </head>
 <body>
     <ryctag:pageheadertitle title="${action.title}"/>
-	<hr/>
-	<div>
-		<div style="display: inline-block; width: 800px;">
+
+		<div style="background:url(/images/_global/separator3.gif) 0 0 repeat-x ;display: inline-block; width: 800px;">
 		<div>
 			<h5>${action.title}</h5>
 			<p>${action.content}</p>
@@ -38,14 +37,12 @@
 			</div>
 		</div>
 		
-	</div>
-	<hr/>
+
 	
-	<div id="voteContainer"> <%-- Will be re-filled through Ajax too --%>
+	<div id="voteContainer" style="background:url(/images/_global/separator3.gif) 0 0 repeat-x ;padding-top:10px;"> <%-- Will be re-filled through Ajax too --%>
 	  <%@include file="voteaction.jsp"%>
 	</div>
-	<div class="errorMessage" id="errorArg"></div>
-	<div id="argContainer"> <%-- Will be re-filled through Ajax --%>
+	<div id="argContainer"  style="background:url(/images/_global/separator3.gif) 0 0 repeat-x ;padding-top:10px;"> <%-- Will be re-filled through Ajax --%>
 		<%@include file="argument.jsp" %>
 	</div>
 </body>

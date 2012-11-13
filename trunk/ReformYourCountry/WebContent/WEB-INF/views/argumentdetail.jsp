@@ -5,20 +5,19 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 
-	<hr/>
-	<div class="argument" style="width:345px; margin-bottom:5px;float:right;">
+	<div class="argument" style="width:340px; margin-bottom:5px;float:right;">
 	
-		<div style="width:100%;">
+		<div style="width:100%;background:url(/images/_global/separator3.gif) 0 100% repeat-x ;">
 			
 				
 			
 			<div style="font-weight:bold; font-size:18px;">
 				${arg.title}
 			</div>
-			<p  style="padding:5px;">
+			<p  style="padding:5px;font-size:0.9em;">
 				${arg.content}
 			</p>
-			<div style="display:inline-block;">
+			<div style="display:inline-block;font-size:0.9em;">
 				<div>
 					<font style="font-style: italic;">${arg.user.lastName} - ${arg.getFormatedCreatedOn()}</font>
 				</div>
@@ -31,7 +30,6 @@
 			
 			</div>
 		</div>
-		<hr/>
 		<div id="comment${arg.id}" style="width:100%;">
 			<%@include file="argumentcomment.jsp"%>
 		</div>

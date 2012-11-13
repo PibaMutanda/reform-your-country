@@ -6,18 +6,20 @@
 
 
 
-<div style="<c:if test='${ispos}'> width:390px; float:right;</c:if><c:if test='${!ispos}'>width:390px; float:left;border-right:3px solid grey; padding-right:8px;</c:if>">
+<div style="
+        <c:if test='${ispos}'> width:390px; float:right;</c:if>  <%-- Right column --%>
+        <c:if test='${!ispos}'>width:385px; float:left;background: url(images/_global/bg-sidebar.gif) 100% 0 repeat-y; padding-right:15px;</c:if> <%-- Left column + vertical separator line --%>
+        ">
 	<c:forEach items="${listToShow}" var="arg">
 		
-		<div id="arg${arg.id}" style="width:100%; display: inline-block;">
+		<div id="arg${arg.id}" style="width:100%; display: inline-block;background:url(/images/_global/separator3.gif) 0 0 repeat-x ;">
 			<%@include file="argumentdetail.jsp"%>
 		</div>
 
 	</c:forEach>
    
 	<c:if test="${current.user.id != null }">
-		<div style="text-align: center;">
-		<hr/>
+		<div style="text-align: center; background:url(/images/_global/separator3.gif) 0 0 repeat-x ;">
 		<form class="argumentNegForm" action="" method="post">
 			<input type="hidden" id="ispos${ispos}" value="${ispos}" /> 
 			<input type="hidden" id="action${ispos}" value="${action.id}" />

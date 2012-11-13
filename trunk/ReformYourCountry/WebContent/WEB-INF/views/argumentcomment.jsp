@@ -3,18 +3,18 @@
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<div style="width:100%;">
+<div style="width:100%; font-size:0.7em;">
 	<c:forEach items="${arg.commentList}" var="lst">
-	<p style="margin:0px; width:100%; font-size:12px;	">
-			${lst.content} - <a id="underlineUser" href="/user/${lst.user.userName}">${lst.user.userName}</a> - 
-			${lst.getFormatedCreatedOn()}
-	</p>
+		<div style="margin:0px; width:100%;">
+				${lst.content} - <a id="underlineUser" href="/user/${lst.user.userName}">${lst.user.userName}</a> - 
+				${lst.getFormatedCreatedOn()}
+		</div>
 	</c:forEach>
 	<form action="" method="post">
 		<input type="hidden" id="idArg" value="${arg.id}" />
 		<div>
 			<div id="addcom${arg.id}">
-				<input type="button" value="ajout de com" onclick="showText(this,${arg.id})">
+				<input type="button" value="ajout de com" onclick="showText(this,${arg.id})"/>
 			</div>
 			<div id="commentArea${arg.id}" style="display: none;">
 				<textarea id="comm" rows="1" cols="20"></textarea>
