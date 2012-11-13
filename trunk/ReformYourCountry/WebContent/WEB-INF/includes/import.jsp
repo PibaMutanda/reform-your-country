@@ -27,7 +27,8 @@
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><%--Shim to make HTML5 elements usable in older Internet Explorer versions--%>
     <![endif]-->
     
-    <script src="/js/ext/jquery-1.8.0.min.js"></script>
+<!--     <script src="/js/ext/jquery-1.8.0.min.js"></script> -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.js"></script>
 
     <script src="/js/ext/jquery-ui-1.8.23.custom.min.js"></script> <%-- Jquery plugin who add libraries for UI but need JQuery dore --%>
 	

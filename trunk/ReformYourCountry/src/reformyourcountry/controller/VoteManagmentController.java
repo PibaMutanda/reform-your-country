@@ -1,5 +1,8 @@
 package reformyourcountry.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +35,15 @@ public class VoteManagmentController extends BaseController<Action>{
             va.setValue(vote);
             voteActionRepository.merge(va);
         }
+        
         ModelAndView mv = new ModelAndView("voteaction");
+        
+      //number of votes for each values, for the graph
+        List<Long> resultNumbers = new ArrayList<Long>();
+        for(int i=-2;i<=2;i++){
+        	resultNumbers.add(voteActionRepository.getNumberOfVotesByValue(idAction, i));
+        }
+        mv.addObject("resultNumbers", resultNumbers);
         Action action = getRequiredEntity(idAction);
         mv.addObject("action", action);
         mv.addObject("resultVote", voteActionRepository.getTotalVoteValue(idAction));
