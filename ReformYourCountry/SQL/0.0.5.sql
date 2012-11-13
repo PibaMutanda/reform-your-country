@@ -12,8 +12,8 @@
 -- 2012-11-05  Jamal
 
     create table article_goodexample (
-        article_id bigint not null,
-        goodexample_id bigint not null
+        article_id int8 not null,
+        goodexample_id int8 not null
     );
 
     create table goodexample (
