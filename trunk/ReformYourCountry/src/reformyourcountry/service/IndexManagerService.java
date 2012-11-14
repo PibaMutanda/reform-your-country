@@ -40,6 +40,7 @@ import org.springframework.stereotype.Component;
 
 import reformyourcountry.converter.BBConverter;
 import reformyourcountry.model.Article;
+import reformyourcountry.repository.ActionRepository;
 import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.repository.BookRepository;
 import reformyourcountry.util.FileUtil;
@@ -56,6 +57,7 @@ public class IndexManagerService {
 	public static final int MAX_HITS = 1000;
 	@Autowired ArticleRepository articleRepository;
 	@Autowired BookRepository bookRepository;
+    @Autowired ActionRepository actionRepository;
 
 	public void createIndexes() {
 		try(SimpleFSDirectory sfsd = new SimpleFSDirectory(new File(FileUtil.getLuceneIndexDirectory()))){
@@ -119,7 +121,7 @@ public class IndexManagerService {
 	}
 
 	private String cleanAndTransform(String textToTransform) {
-		String result = HTMLUtil.removeHmlTags(new BBConverter(bookRepository, articleRepository).transformBBCodeToHtmlCode(textToTransform));
+		String result = HTMLUtil.removeHmlTags(new BBConverter(bookRepository, articleRepository,actionRepository).transformBBCodeToHtmlCode(textToTransform));
 		return result;
 	}
 	

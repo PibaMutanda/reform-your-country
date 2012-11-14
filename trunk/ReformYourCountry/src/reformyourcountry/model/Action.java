@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.annotations.Type;
@@ -26,6 +27,10 @@ public class Action extends BaseEntity{
 	@Column(length = 100)
 	private String shortDescription;
 	
+	
+	@NotBlank
+    @Column(length=20)
+    private String shortName;
 	
 	@Lob
     /*Forcing type definition to have text type column in postgresql instead of automatic indirect storage of large object (postgresql store lob in a separate table named pg_largeobject and store his id in the "content" column).
@@ -146,6 +151,14 @@ public class Action extends BaseEntity{
 	    
 	    arguments.add(argument);
 	}
+
+    public String getShortName() {
+        return shortName;
+    }
+
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
+    }
 }
 	
 	

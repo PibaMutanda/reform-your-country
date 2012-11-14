@@ -10,7 +10,8 @@
 <body>
 <c:choose><c:when test="${action.id != null}"><ryctag:pageheadertitle title="Modifier une action"/></c:when><c:otherwise><ryctag:pageheadertitle title="Créer une action"/></c:otherwise></c:choose>
 	<ryctag:form action="/action/editsubmit" modelAttribute="action">
-        <ryctag:input path="title" label="Titre" id="title"/>        
+        <ryctag:input path="title" label="Titre" id="title"/>  
+        <ryctag:input path="shortName" label="identifiant de l'action" id="shortName"/>      
         <ryctag:input path="url" label="Nom de la page de l'action" id="url"/>
         <td><input type="submit" value="Générer une url" id="generate" /></td>
         <ryctag:input path="shortDescription" label="Description brève"/>
