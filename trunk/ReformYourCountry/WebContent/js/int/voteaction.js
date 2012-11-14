@@ -1,12 +1,13 @@
-//$("div#voteContainer > div").click(function(){
+// Voting on an action.
 function clicked(item){
-	if(idUser.length>0){
+	
+	if(idUser.length>0) {  // A user is logged in
 		$("#voted").text($(item).text());
 		var voteValue =$(item).attr('id');
 		var request = $.ajax({
 			url: "/ajax/vote",
 			type: "POST",
-			data: "vote="+ voteValue+"&action="+$("#idAction").attr('value')+"&idVote="+idVote,
+			data: "vote="+ voteValue+"&actionId="+$("#idAction").attr('value'),
 			dataType: "html"
 		});
 
@@ -18,38 +19,30 @@ function clicked(item){
 		request.fail(function(jqXHR, textStatus) {
 			$("#voted").text("Erreur lors du vote : "+textStatus);
 		});
-	}else{
 		
-	     
+	} else { //Anonymous visitor
 		$(item).CreateBubblePopup({ 
 	           innerHtmlStyle: {  // give css property to the inner div of the popup	    	   
 	               'opacity':0.9
 	           },
 	           tail: {align:'center', hidden: false},
 	           selectable :true,				    	
-	           innerHtml: 'Pour voter veuillez vous logger : '
-	        	   +'<a class="login" style="cursor:pointer;" href="/login">Connexion</a>'
+	           innerHtml: 'Pour voter, veuillez '
+	        	   +'<a class="login" style="cursor:pointer;" href="/login">vous connecter</a>'
 	       }); 	 
-
 	}
-//});
 }
-///////Graph code
+
+
+
+//////////////////////////////////// Graph code ///////////////////////////////
+
+
 function displayGraph() {
-	
-	var data = new Array();
-	data[0] = $("#result-2").text();
-	data[1] = $("#result-1").text();
-	data[2] = $("#result0").text();
-	data[3] = $("#result1").text();
-	data[4] = $("#result2").text();
-	var total = 0;
-	for (var i=0;i<=4;i++){
-		total += parseInt(data[i]);
-	}
-	
-	var percentData =[(data[0]*100)/total,(data[1]*100)/total,(data[2]*100)/total,(data[3]*100)/total,(data[4]*100)/total];
-	var colors =["#005fb1","#c9e2ff","#ffffff","#ff9999","#bb1100"];
+	var data = getData();
+	var percentData = getPercentData(data);
+	var colors =["#005fb1","#c9e2ff","#ffffff","#ff9999","#bb1100"];  // Blue ... Red
+	// Call the D3.JS code to create the chart
 	var rects = chart.selectAll('rect').data(data)
 				    .enter().append('rect')
 				    .attr("stroke", "black")
@@ -58,10 +51,12 @@ function displayGraph() {
 				    .attr("y", function(d, i){ return 130;})
 				    .attr("width",  "90.5")
 				    .attr("height", function(d, i){ return 0;});
+	// Progressive bar rise
 	rects.transition()
 		.attr("y", function(d, i){ return 130 - percentData[i];})
 		.attr("height", function(d, i){ return percentData[i];})
 		.duration(1000);
+	// Numbers on top of bars.
 	var texts = chart.selectAll('text').data(data)
 		.enter().append('text')
 		.attr("x", function(d, i) { return (96 * i)+63; })
@@ -70,44 +65,41 @@ function displayGraph() {
 		.attr("dy",-20)
 		.attr("text-anchor","end")
 		.text(String);
-		
+    // Numbers raise up together with the bars.
 	texts.transition()
 		.attr("y", function(d, i){ return (130 - percentData[i])+15;})
 		.duration(1000);
 }
+
+// Some data changed (the user just votes) and we update the graph with new data. It will move from it's current position.
 function updateGraph(){
-	var data = new Array();
-	data[0] = $("#result-2").text();
-	data[1] = $("#result-1").text();
-	data[2] = $("#result0").text();
-	data[3] = $("#result1").text();
-	data[4] = $("#result2").text();
-	var total = 0;
-	for (var i=0;i<=4;i++){
-		total += parseInt(data[i]);
-	}
-	var percentData =[(data[0]*100)/total,(data[1]*100)/total,(data[2]*100)/total,(data[3]*100)/total,(data[4]*100)/total];
+	var data = getData();
+	var percentData = getPercentData(data);
 	var rects = chart.selectAll('rect').data(data);
 	rects.transition()
 		.attr("y", function(d, i){ return 130 - percentData[i];})
 		.attr("height", function(d, i){ return percentData[i];})
 		.duration(1000);
 	var texts = chart.selectAll('text').data(data)
-	.attr("text-anchor","end")
-	.text(String);
-	
-texts.transition()
-	.attr("y", function(d, i){ return (130 - percentData[i])+15;})
-	.duration(1000);
+	    .attr("text-anchor","end")
+	    .text(String);
+    texts.transition()
+	    .attr("y", function(d, i){ return (130 - percentData[i])+15;})
+	    .duration(1000);
 }
+
+// Transforms absolute vote numbers into % (percentage of the max height of the chart).
 function getPercentData(data){
 	var total = 0;
 	for (var i=0;i<=4;i++){
 		total += parseInt(data[i]);
 	}
 	var percentData =[(data[0]*100)/total,(data[1]*100)/total,(data[2]*100)/total,(data[3]*100)/total,(data[4]*100)/total];
+	return percentData;
 }
-function getData(){
+
+function getData() {
+	//// The date is put by the JSP into hidden divs
 	var data = new Array();
 	data[0] = $("#result-2").text();
 	data[1] = $("#result-1").text();
@@ -116,4 +108,9 @@ function getData(){
 	data[4] = $("#result2").text();
 	return data;
 }
-$(document).ready(displayGraph);
+var chart;
+$(document).ready(function(){
+	chart = d3.select("#voteGraph").append("svg").attr("width", "500").attr("height", "130");
+	displayGraph();
+});
+

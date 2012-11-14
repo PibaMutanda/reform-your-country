@@ -3,9 +3,7 @@
 <link href="css/jquery-bubble-popup-v3.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="js/ext/jquery-ui-1.8.23.custom.min.js"></script>
 <script src="js/ext/jquery-bubble-popup-v3.min.js" type="text/javascript"></script>
-<script type="text/javascript" src="js/int/voteaction.js"></script>
 <script type="text/javascript">
-   var idVote = "${vote.id}";
    var idUser = "${current.user.id}";
 </script>
 
@@ -48,7 +46,7 @@
 							totalement contre
 				</div>
 			</div>
-			<div style="width: 50%; height: 20px; text-align: left; float: left;">pour ${positiveWeightedPercentage}% (${positiveAbsolutePercentage}% des votants)      
+			<div class="tooltip" data-tooltip="Tooltip: Si un vote 'complètement pour' compte deux fois plus qu'un vote 'plutôt pour', alors ${positiveWeightedPercentage}% des votes sont pour. Si on compte le nombre de votants sans pondération, alors ${positiveAbsolutePercentage}% des votants sont pour."><div style="width: 50%; height: 20px; text-align: left; float: left;">pour ${positiveWeightedPercentage}% (${positiveAbsolutePercentage}% des votants)      
 </div><div style="width: 50%; height: 20px; float:right ; text-align: right;">(${negativeAbsolutePercentage}% des votants) ${negativeWeightedPercentage}% contre</div>
-</div>
+</div></div>
 	
