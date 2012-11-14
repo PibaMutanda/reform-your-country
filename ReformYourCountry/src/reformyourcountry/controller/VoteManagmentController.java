@@ -26,6 +26,7 @@ public class VoteManagmentController extends BaseController<Action>{
     @Autowired UserRepository userRepository;
     @Autowired VoteActionRepository voteActionRepository;
     @Autowired ActionService actionService;
+   
     
     @RequestMapping("ajax/vote")
     public ModelAndView vote(@RequestParam("action")Long idAction, @RequestParam("vote")int vote, @RequestParam(value="idVote", required=false)Long idVote){
@@ -41,19 +42,13 @@ public class VoteManagmentController extends BaseController<Action>{
         
         ModelAndView mv = new ModelAndView("voteaction");
         
-      //number of votes for each values, for the graph
-        List<Long> resultNumbers = new ArrayList<Long>();
-        for(int i=-2;i<=2;i++){
-        	resultNumbers.add(voteActionRepository.getNumberOfVotesByValue(idAction, i));
-        }
-        mv.addObject("resultNumbers", resultNumbers);
-        mv.addObject("positiveWeightedPercentage",actionService.getWeightedPercentage(resultNumbers, true));
-        mv.addObject("positiveAbsolutePercentage",actionService.getAbsolutePercentage(resultNumbers, true));
-        mv.addObject("negativeAbsolutePercentage",actionService.getAbsolutePercentage(resultNumbers, false));
-        mv.addObject("negativeWeightedPercentage",actionService.getWeightedPercentage(resultNumbers, false));
-        
-        
         Action action = getRequiredEntity(idAction);
+        
+        
+        actionService.putGraphNumbersInModelAndView(mv,action);
+        
+        
+        
         mv.addObject("action", action);
         mv.addObject("resultVote", voteActionRepository.getTotalVoteValue(idAction));
         if (va != null){ 

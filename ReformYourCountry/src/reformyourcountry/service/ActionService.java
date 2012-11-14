@@ -16,6 +16,15 @@ import reformyourcountry.security.SecurityContext;
 @Service
 public class ActionService {
 	@Autowired VoteActionRepository voteActionRepository;
+	 
+	public void putGraphNumbersInModelAndView(ModelAndView mv, Action action){
+		List<Long> resultNumbers = getResultNumbersForAction(action);
+        mv.addObject("resultNumbers", resultNumbers);
+        mv.addObject("positiveWeightedPercentage",getWeightedPercentage(resultNumbers, true));
+        mv.addObject("positiveAbsolutePercentage",getAbsolutePercentage(resultNumbers, true));
+        mv.addObject("negativeAbsolutePercentage",getAbsolutePercentage(resultNumbers, false));
+        mv.addObject("negativeWeightedPercentage",getWeightedPercentage(resultNumbers, false));
+	}
 	public ModelAndView getActionModelAndView(Action action,String jsp) {
         ModelAndView mv = new ModelAndView(jsp); 
         mv.addObject("action",action);

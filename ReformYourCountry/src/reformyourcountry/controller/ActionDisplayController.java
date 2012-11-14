@@ -31,17 +31,8 @@ public class ActionDisplayController extends BaseController<Action> {
         ModelAndView mv = actionService.getActionModelAndView(action,"actiondisplay");
         
         
-      //number of votes for each values, for the graph
-        List<Long> resultNumbers = new ArrayList<Long>();
-        for(int i=-2;i<=2;i++){
-        	resultNumbers.add(voteActionRepository.getNumberOfVotesByValue(action.getId(), i));
-        }
-        //graph numbers
-        mv.addObject("resultNumbers", resultNumbers);
-        mv.addObject("positiveWeightedPercentage",actionService.getWeightedPercentage(resultNumbers, true));
-        mv.addObject("positiveAbsolutePercentage",actionService.getAbsolutePercentage(resultNumbers, true));
-        mv.addObject("negativeAbsolutePercentage",actionService.getAbsolutePercentage(resultNumbers, false));
-        mv.addObject("negativeWeightedPercentage",actionService.getWeightedPercentage(resultNumbers, false));
+        actionService.putGraphNumbersInModelAndView(mv,action);
+        
         return  mv;
     }
 }
