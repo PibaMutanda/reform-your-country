@@ -15,7 +15,6 @@ import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.repository.ArticleVersionRepository;
 import reformyourcountry.repository.BookRepository;
 import reformyourcountry.security.SecurityContext;
-import reformyourcountry.web.ContextUtil;
 
 @Service
 @Transactional

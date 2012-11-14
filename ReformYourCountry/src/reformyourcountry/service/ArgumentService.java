@@ -29,7 +29,7 @@ public class ArgumentService {
     @Autowired UserRepository userRepository;
     @Autowired VoteActionRepository voteActionRepository;
     @Autowired VoteArgumentRepository voteArgumentRepository;
-    @Autowired VoteActionService voteActionService;
+
     
     // A user is voting
     public void updateVoteArgument(Long idArg, int value, User user, Argument arg) {
