@@ -15,43 +15,37 @@
 			<div id="result0">${resultNumbers.get(2)}</div>
 			<div id="result1">${resultNumbers.get(3)}</div>
 			<div id="result2">${resultNumbers.get(4)}</div>
-			<div id="totalVoters">${resultNumbers.get(0)+resultNumbers.get(1)+resultNumbers.get(2)+resultNumbers.get(3)+resultNumbers.get(4)}</div>
-			<div id="totalForWeighted">${(resultNumbers.get(0)*2)+resultNumbers.get(1)}</div>
-			<div id="totalForAbsolute">${resultNumbers.get(0)+resultNumbers.get(1)}</div>
 		</div>
 <div id="voteContent" style=" width: 500px; margin-left: 150px;">
-			<div id="-2" onmouseout="unfocused(this);" onmouseover="focused(this);"
-			onclick="clicked(this);"
+			<div id="-2" onclick="clicked(this);"
 					class="vote <c:if test="${vote.value eq -2}">selected
 				                </c:if> v-2">
 						totalement pour
 			</div>
-			<div id="-1" onmouseout="unfocused(this);" onmouseover="focused(this);"
-			onclick="clicked(this);"
+			<div id="-1" onclick="clicked(this);"
 					class="vote <c:if test="${vote.value eq -1}">selected
 				                </c:if> v-1">
 						partiellement pour
 			</div>
-			<div id="0" onmouseout="unfocused(this);" onmouseover="focused(this);"
-			onclick="clicked(this);"
+			<div id="0" onclick="clicked(this);"
 					class="vote <c:if test="${vote.value eq 0}">selected
 				                </c:if> v0">
-						ni pour ni contre
+						<br/>indécis 
 						
 			</div>
-			<div id="1" onmouseout="unfocused(this);" onmouseover="focused(this);"
-			onclick="clicked(this);"
+			<div id="1" onclick="clicked(this);"
 					class="vote <c:if test="${vote.value eq 1}">selected
 				                </c:if> v1">
 						partiellement contre
 			</div>
-			<div id="2" onmouseout="unfocused(this);" onmouseover="focused(this);"
-			onclick="clicked(this);"
+			<div id="2" onclick="clicked(this);"
 					class="vote <c:if test="${vote.value eq 2}">selected
 				                </c:if> v2">
 						totalement contre
 			</div>
 </div>
 	
-<div id="voted"	style="width: 500px; height: 20px; margin-left: 150px;">
+<div style="margin-left:150px; margin-right:150px; font-size:.85em;">
+<div style="width: 250px; height: 20px; text-align: left; float: left;">pour ${positiveWeightedPercentage}% (${positiveAbsolutePercentage}% des votants)      
+</div><div style="width: 250px; height: 20px; float:right ; text-align: right;">(${negativeAbsolutePercentage}% des votants) ${negativeWeightedPercentage}% contre</div>
 </div>

@@ -45,7 +45,6 @@
 	</div>
 <script type="text/javascript">
 var chart = d3.select("#voteGraph").append("svg").attr("width", "500").attr("height", "130");
-
 </script>
 </body>
 </html> 

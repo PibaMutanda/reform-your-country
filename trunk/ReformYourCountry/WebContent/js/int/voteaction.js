@@ -1,34 +1,3 @@
-function focused(item) {
-	var inner="";
-	if($(item).text()==-2){
-		inner= 'Totalement contre';
-	}
-	if($(item).text()==-1){
-		inner= 'Plutôt contre';
-	}
-	if($(item).text()==0){
-		inner= 'Pas d\'avis';
-	}
-	if($(item).text()==1){
-		inner= 'Plutôt pour';
-	}
-	if($(item).text()==2){
-		inner= 'Totalement pour';
-	}
-	$(item).CreateBubblePopup({ 
-		width:100,
-        innerHtmlStyle: {  // give css property to the inner div of the popup	    	   
-            'opacity':0.9
-        },
-        tail: {align:'center', hidden: false},
-        selectable :false,	
-        innerHtml:inner
-    }); 	 
-}
-function unfocused(item) {
-	$(item).css('width', '90px');
-	$(item).css('height', '40px');
-}
 //$("div#voteContainer > div").click(function(){
 function clicked(item){
 	if(idUser.length>0){
@@ -66,7 +35,6 @@ function clicked(item){
 //});
 }
 ///////Graph code
-
 function displayGraph() {
 	
 	var data = new Array();
@@ -79,7 +47,7 @@ function displayGraph() {
 	for (var i=0;i<=4;i++){
 		total += parseInt(data[i]);
 	}
-	var voteText = "pour 80% (53% des votants)      |     (47% des votants) 20% contre"
+	
 	var percentData =[(data[0]*100)/total,(data[1]*100)/total,(data[2]*100)/total,(data[3]*100)/total,(data[4]*100)/total];
 	var colors =["#005fb1","#c9e2ff","#ffffff","#ff9999","#bb1100"];
 	var rects = chart.selectAll('rect').data(data)
@@ -106,7 +74,6 @@ function displayGraph() {
 	texts.transition()
 		.attr("y", function(d, i){ return (130 - percentData[i])+15;})
 		.duration(1000);
-
 }
 function updateGraph(){
 	var data = new Array();

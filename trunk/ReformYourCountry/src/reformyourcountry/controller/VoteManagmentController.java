@@ -16,6 +16,7 @@ import reformyourcountry.repository.UserRepository;
 import reformyourcountry.repository.VoteActionRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
+import reformyourcountry.service.ArgumentService;
 
 @Controller
 public class VoteManagmentController extends BaseController<Action>{
@@ -23,6 +24,7 @@ public class VoteManagmentController extends BaseController<Action>{
     @Autowired ActionRepository actionRepository;
     @Autowired UserRepository userRepository;
     @Autowired VoteActionRepository voteActionRepository;
+    @Autowired ArgumentService argumentService;
     
     @RequestMapping("ajax/vote")
     public ModelAndView vote(@RequestParam("action")Long idAction, @RequestParam("vote")int vote, @RequestParam(value="idVote", required=false)Long idVote){
@@ -44,6 +46,12 @@ public class VoteManagmentController extends BaseController<Action>{
         	resultNumbers.add(voteActionRepository.getNumberOfVotesByValue(idAction, i));
         }
         mv.addObject("resultNumbers", resultNumbers);
+        mv.addObject("positiveWeightedPercentage",argumentService.getWeightedPercentage(resultNumbers, true));
+        mv.addObject("positiveAbsolutePercentage",argumentService.getAbsolutePercentage(resultNumbers, true));
+        mv.addObject("negativeAbsolutePercentage",argumentService.getAbsolutePercentage(resultNumbers, false));
+        mv.addObject("negativeWeightedPercentage",argumentService.getWeightedPercentage(resultNumbers, false));
+        
+        
         Action action = getRequiredEntity(idAction);
         mv.addObject("action", action);
         mv.addObject("resultVote", voteActionRepository.getTotalVoteValue(idAction));

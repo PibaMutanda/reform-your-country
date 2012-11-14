@@ -25,4 +25,5 @@ public class VoteActionRepository extends BaseRepository<VoteAction> {
     			.setParameter("idAction", idAction).setParameter("voteValue", voteValue).getSingleResult();
     	return result!=null ? result : 0l;
     }
+
 }
