@@ -329,3 +329,33 @@
 	background-color: grey;
 	color: white;
 }
+
+/**********************User Tag***************************/
+
+.avatar{
+	width: 60px;
+	float: left;
+}
+
+.a-name{
+	margin-bottom: 0;
+	line-height: 20px;
+	overflow: hidden;
+	display:block;
+	font-size: 14px;
+}
+
+.lien{
+	float: left;
+	margin-bottom: 3px;
+}
+
+.usertitle{
+	color: #BBB;
+	text-decoration: none;
+	clear:left;
+	padding-bottom: 5px;
+	font-size: 11px;
+	line-height: 15px;
+}
+
