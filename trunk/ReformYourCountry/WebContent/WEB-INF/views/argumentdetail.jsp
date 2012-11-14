@@ -3,6 +3,8 @@
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="reformyourcountry.model.User"%>
+<%@ page import="java.util.*"%>
 
 
 <script type="text/javascript">
@@ -20,9 +22,11 @@
 			<p  style="margin-top:5px;font-size:0.9em;">
 				${arg.content}
 			</p>
+			<ryctag:user user="${arg.user}"/>
 			<div style="display:inline-block;font-size:0.9em;">
 				<div>
-					<font style="font-style: italic;">${arg.user.lastName} - ${arg.getFormatedCreatedOn()}</font>
+					<font style="font-style: italic;">crée le ${arg.getFormatedCreatedOn()}</font> 
+<%-- 					${arg.user.lastName} -  --%>
 				</div>
 				<div>
 					<c:if test="${arg.isEditable()}">

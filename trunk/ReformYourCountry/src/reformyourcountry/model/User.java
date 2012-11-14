@@ -243,6 +243,10 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     @Email(message ="adresse mail pas valide", regexp="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$")
     private String mail;
     
+    private String title;
+    
+    private Date certificationDate;
+    
     @Column(length = 100)
     //@NotBlank(message="entrer votre mot de passe")
     @Size(min = 4, message = "votre mot de passe doit contenir au moins 4 caractères")
@@ -333,12 +337,29 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     /////////////////////////////////////////: GETTERS & SETTERS //////////////////////////
     /////////////////////////////////////////: GETTERS & SETTERS //////////////////////////
     
+    public Date getCertificationDate() {
+		return certificationDate;
+	}
+
+	public void setCertificationDate(Date certificationDate) {
+		this.certificationDate = certificationDate;
+	}
+
+    
+    
+    public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
     
     public Role getRole() {
         return role;
     }
 
-    public SpecialType getSpecialType() {
+	public SpecialType getSpecialType() {
         return specialType;
     }
 

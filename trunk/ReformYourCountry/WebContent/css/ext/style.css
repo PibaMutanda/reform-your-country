@@ -1881,3 +1881,12 @@ background: url("/images/_global/bg-buttons-sprite.png") no-repeat scroll 100% -
 .listToSearch{
 	font-size:90%;
 }
+.avatar{
+	width: 60px;
+	float: left;
+}
+
+.lien{
+	float: left;
+}
+

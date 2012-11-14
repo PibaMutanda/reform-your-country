@@ -25,7 +25,11 @@
         <ryctag:input path="lastName" label="Nom" />
         <ryctag:input path="firstName" label="Prénom"/>
         <ryctag:input path="userName" label="Pseudonyme" required="required"/>
-        
+        <tr class="tooltip" data-tooltip="Indiquez en peu de mots la nature de votre fonction en rapport avec l'objet de ce site. Votre titre sera affiché sous votre nom. Exemples de titres: 'Directeur d'une PME.', ou 'Ministre de la Bière', ou 'Président du comité des gilles de Binche', ou 'Ouvrier dans l'industrie sidérurgique'.">
+        	 <td><label for="title">Titre</label></td>
+        	 <td><form:input path="title" id="title" type="input" cssStyle="width:400px;"  /></td>
+        </tr>
+       
         <tr> <%-- We do not use a date picker here, because for old dates, it's not practical --%>
             <td>Date de naissance</td>
             <td>

@@ -66,6 +66,8 @@ public class UserEditController extends BaseController<User> {
                                         @RequestParam(value="birthMonth") String month,
                                         @RequestParam(value="birthYear") String year,
                                         @RequestParam(value="nlSubscriber",required=false) boolean newNlSubscriber,
+                                        @RequestParam(value="title") String title,
+                                        @RequestParam(value="certificationDate") Date certificationDate,
                                         @RequestParam("id") long id,
                                         @Valid @ModelAttribute User doNotUseThisUserInstance,  // To enable the use of errors param.
                                         Errors errors) {
@@ -111,6 +113,11 @@ public class UserEditController extends BaseController<User> {
             }
         }
         
+        //certification
+        if(certificationDate != null){
+        	SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_USERS);
+        }
+        
         if (errors.hasErrors()) {
             ModelAndView mv = new ModelAndView("useredit");
             if (doNotUseThisUserInstance.getUserName()==""|| hasUserAlreadyExist==true ) {
@@ -129,6 +136,7 @@ public class UserEditController extends BaseController<User> {
         user.setMail(newMail);
         user.setGender(newGender);
         user.setNlSubscriber(newNlSubscriber);
+        user.setTitle(title);
         
         user = userRepository.merge(user);
     
