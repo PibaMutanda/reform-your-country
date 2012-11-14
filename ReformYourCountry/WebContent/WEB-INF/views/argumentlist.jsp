@@ -43,15 +43,15 @@
 		<div style="border:3px inset; background-color: white;">
 		<div id="hideArgArea${ispos}" onclick="showArea('${ispos}');"style="color: #CCCCCC">Cliquer ici pour composer un nouvel argument.<br/><br/><br/><br/></div>
 		<div id="showArgArea${ispos}" style="display:none;">
-		<form class="argumentNegForm" action="" method="post">
-			<input type="hidden" id="ispos${ispos}" value="${ispos}" /> 
-			<input type="hidden" id="action${ispos}" value="${action.id}" />
+		<form id="form${ispos}" class="argumentNegForm" action="" method="post">
+			<input type="hidden" id="ispos" name="ispos" value="${ispos}" /> 
+			<input type="hidden" id="action" name="action"value="${action.id}" />
 			<div style="padding-left:5px;">
-				Titre: 	<textarea id="title${ispos}" rows="1" cols="15"></textarea>
+				Titre: 	<textarea id="titleArg${ispos}"name="title" rows="1" cols="15"></textarea>
 			</div>
 						
-        	<div id="comment${ispos}">${goodExample.description}</div>
-			<div style="padding-left:5px;" onclick="sendNewArg(this,comment${ispos}.value,action${ispos}.value,title${ispos}.value,ispos${ispos}.value);">
+        	<textarea id="contentArg${ispos}"  name="content" ></textarea>
+			<div style="padding-left:5px;" onclick="sendNewArg(this,'${ispos }');">
 				Ajout de l'argument
 			</div>
 		</form>

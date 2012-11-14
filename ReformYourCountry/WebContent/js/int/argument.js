@@ -1,14 +1,20 @@
-function sendNewArg(item,content,action,title,ispos){
-	if(title!="" && content!=""){
-		var requestArg = $.ajax({
-			url: "/ajax/argumentAdd",
-			type: "POST",
-			data: "content="+ content+"&action="+action+"&title="+title+"&ispos="+ispos,
-			dataType: "html"
-		}).done(function(data) {
-			//Send the new data to the div containing the lists
-			$("#argContainer").html(data);
-		});
+function sendNewArg(item,ispos){
+	if( $("#contentArg"+ispos).val()!="" && $("#titleArg"+ispos).val()!=""){
+		
+		var requestArg = $.post("/ajax/argumentAdd",$("#form"+ispos).serialize()).done(function(data) {
+	                	$("#argContainer").html(data);
+            		});
+	        			//Send the new data to the div containing the lists
+	        			
+//		var requestArg = $.ajax({
+//			url: "/ajax/argumentAdd",
+//			type: "POST",
+//			data: "content="+ $("#comment"+ispos).val()+"&action="+$("#action"+ispos).val()+"&title="+$("#title"+ispos).val()+"&ispos="+ispos,
+//			dataType: "html"
+//		}).done(function(data) {
+//			//Send the new data to the div containing the lists
+//			$("#argContainer").html(data);
+//		});
 
 		requestArg.fail(function(jqXHR, textStatus) {
 			$("#errorArg").text("Erreur lors de l'envoi d'un argument : "+textStatus);
@@ -40,9 +46,9 @@ function editArg(item,newid,newtitle,newcontent){
 				+"<form class=\"argumentNegForm\" action=\"\" method=\"post\" >"
 				+"<div style='border:3px inset; background-color: #e2e2e2;'>"
 				+" Titre :<input type=\"hidden\" id=\"idArg\" value=\""+newid+"\" />"
-				+"<textarea id=\"titleEdit\" rows=\"1\" cols=\"15\">"+newtitle+"</textarea><br/>"
-				+"<textarea id=\"contentEdit\"rows=\"5\" cols=\"15\" >"+newcontent+"</textarea><br/>"
-				+"<div  onclick=\"sendArgAfterEdit(this,"+newid+",titleEdit.value,contentEdit.value);\">Sauver</div></div></form>"	
+				+"<textarea id=\"titleEdit"+newid+"\" rows=\"1\" cols=\"15\">"+newtitle+"</textarea><br/>"
+				+"<textarea id=\"contentEdit"+newid+"\"rows=\"5\" cols=\"15\" >"+newcontent+"</textarea><br/>"
+				+"<div  onclick=\"sendArgAfterEdit(this,"+newid+");\">Sauver</div></div></form>"	
 		);
 
 		$('#contentEdit').ckeditor();
@@ -75,7 +81,6 @@ function voteOnArgument(item,idArg,value){
 }
 function sendNewComment(item, arg){
 	var comment=$('#comm'+arg).val();
-	console.log(comment);
 	if (idUser.length>0){
 		if(comment!=""){
 			var requestArg = $.ajax({
@@ -161,7 +166,7 @@ function showArea(id){
 	$('#help'+id).show("slide", {direction: 'down'},"slow");
 	$('#hideArgArea'+id).hide();
 	$('#showArgArea'+id).show();
-	$('#comment'+id).ckeditor();
+	$('#contentArg'+id).ckeditor();
 	$('#showArgArea'+id).parent().css('background-color','#e2e2e2');
 }
 
