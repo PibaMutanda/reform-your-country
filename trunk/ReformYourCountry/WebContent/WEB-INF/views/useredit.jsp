@@ -4,6 +4,7 @@
 <%@taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c' %> 
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 <html>
 <head>
 <title>Editer un utilisateur</title>
@@ -17,19 +18,35 @@
 	<ryctag:breadcrumbelement label="Edition" />
 </ryctag:pageheadertitle>
 
-
-
-
-
-    <ryctag:form action="user/editsubmit" modelAttribute="user">
-        <ryctag:input path="lastName" label="Nom" />
-        <ryctag:input path="firstName" label="Prénom"/>
-        <ryctag:input path="userName" label="Pseudonyme" required="required"/>
-        <tr class="tooltip" data-tooltip="Indiquez en peu de mots la nature de votre fonction en rapport avec l'objet de ce site. Votre titre sera affiché sous votre nom. Exemples de titres: 'Directeur d'une PME.', ou 'Ministre de la Bière', ou 'Président du comité des gilles de Binche', ou 'Ouvrier dans l'industrie sidérurgique'.">
-        	 <td><label for="title">Titre</label></td>
-        	 <td><form:input path="title" id="title" type="input" cssStyle="width:400px;"  /></td>
-        </tr>
-       
+<div style="float:left; padding-left:30px; width: 810px;">
+    <ryctag:form action="user/editsubmit" modelAttribute="user" >
+    
+    <c:choose>
+    	<c:when test="${canChangeUserName}"><%-- Only an admin can modify name of a certified user --%>
+    		<ryctag:input path="lastName" label="Nom" />
+	        <ryctag:input path="firstName" label="Prénom"/>
+	        <tr class="tooltip" data-tooltip="Indiquez en peu de mots la nature de votre fonction en rapport avec l'objet de ce site. Votre titre sera affiché sous votre nom. Exemples de titres: 'Directeur d'une PME.', ou 'Ministre de la Bière', ou 'Président du comité des gilles de Binche', ou 'Ouvrier dans l'industrie sidérurgique'.">
+	        	 <td><label for="title">Titre</label></td>
+	        	 <td><form:input path="title" id="title" type="input" cssStyle="width:400px;"  /></td>
+	        </tr>
+    	</c:when>
+    	<c:otherwise>
+			<tr>
+    			Prénom: <c:choose><c:when test="${user.firstName ne null}">${user.firstName}</c:when><c:otherwise>?</c:otherwise></c:choose> <br/> 
+				Nom de famille: <c:choose><c:when test="${user.lastName ne null}">${user.lastName}</c:when><c:otherwise>?</c:otherwise></c:choose> <br/> 
+				Titre: <c:choose><c:when test="${user.title ne null}">${user.title}</c:when><c:otherwise>?</c:otherwise></c:choose> <br/>  
+				<br/>
+				Vous ne pouvez plus directement éditer votre nom, votre prénom et votre titre depuis que votre identité a été certifiée. <a href= "/contact">Contactez-nous</a> si vous devez corriger ces champs.
+			</tr>
+    	</c:otherwise>
+     </c:choose>
+     
+     	<ryc:conditionDisplay privilege="MANAGE_USERS">
+     	    <input type="checkbox" name="certified" value="true" checked="${certificationDate != null}" /> Certifié
+        </ryc:conditionDisplay>
+    	 
+		
+     	  <ryctag:input path="userName" label="Pseudonyme" required="required"/>
         <tr> <%-- We do not use a date picker here, because for old dates, it's not practical --%>
             <td>Date de naissance</td>
             <td>
@@ -78,6 +95,7 @@
 		
         <tr><td><input type="submit" value="Sauver" /></td><td> <a href="/user/${user.userName}">Annuler</a></td></tr>
     </ryctag:form> 
+  </div>
 
 </body>
 </html>

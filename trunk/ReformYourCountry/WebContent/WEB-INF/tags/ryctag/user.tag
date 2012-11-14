@@ -1,6 +1,7 @@
 <%@ tag body-content="scriptless" isELIgnored="false" %>
 <%@taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
 <%@taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
+<%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
 
 
 <%@ attribute name="user" type="reformyourcountry.model.User"%>
@@ -16,6 +17,10 @@
 	<a href="/user/${user.userName}" class="a-name">
       <div class="lien">
 		<span>${user.firstName} ${user.lastName}</span>
+		<c:if test="${user.certificationDate != null }">
+			<img src="images/green-check.png" />
+			
+		</c:if>
 <!-- 		certification -->
       </div>
       <div class="usertitle"> ${user.title}</div>

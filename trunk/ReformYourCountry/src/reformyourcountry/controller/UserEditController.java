@@ -52,7 +52,7 @@ public class UserEditController extends BaseController<User> {
 	    	mv.addObject("birthYear", birthCalendar.get(Calendar.YEAR));
 		}
 		
-
+    	mv.addObject("canChangeUserName", (SecurityContext.canCurrentUserChangeUser(user) && user.getCertificationDate() == null) || SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS));
     	return mv;
     }
   
@@ -65,9 +65,9 @@ public class UserEditController extends BaseController<User> {
                                         @RequestParam(value="birthDay") String day,
                                         @RequestParam(value="birthMonth") String month,
                                         @RequestParam(value="birthYear") String year,
-                                        @RequestParam(value="nlSubscriber",required=false) boolean newNlSubscriber,
+                                        @RequestParam(value="nlSubscriber", required=false) Boolean newNlSubscriber,
                                         @RequestParam(value="title") String title,
-                                        @RequestParam(value="certificationDate") Date certificationDate,
+                                        @RequestParam(value="certified", required = false) Boolean certified,
                                         @RequestParam("id") long id,
                                         @Valid @ModelAttribute User doNotUseThisUserInstance,  // To enable the use of errors param.
                                         Errors errors) {
@@ -113,10 +113,7 @@ public class UserEditController extends BaseController<User> {
             }
         }
         
-        //certification
-        if(certificationDate != null){
-        	SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_USERS);
-        }
+        
         
         if (errors.hasErrors()) {
             ModelAndView mv = new ModelAndView("useredit");
@@ -129,14 +126,21 @@ public class UserEditController extends BaseController<User> {
         }
         
         // We start modifiying user (that may then be automatically saved by hibernate due to dirty checking.
-        if (!ObjectUtils.equals(newFirstName, user.getFirstName()) || !ObjectUtils.equals(newLastName, user.getLastName()) || !ObjectUtils.equals(newUserName, user.getUserName())){
+        if ((certified ==  false || SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS)) &&
+        	( !ObjectUtils.equals(newFirstName, user.getFirstName()) || !ObjectUtils.equals(newLastName, user.getLastName()) || !ObjectUtils.equals(newUserName, user.getUserName()))){
            userService.changeUserName(user, newUserName, newFirstName, newLastName); 
         }
         user.setBirthDate(dateNaiss);
         user.setMail(newMail);
         user.setGender(newGender);
-        user.setNlSubscriber(newNlSubscriber);
+        user.setNlSubscriber(newNlSubscriber != null ? newNlSubscriber : false);
         user.setTitle(title);
+        
+        if (certified ==  false && SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS)) {  // Check box shown to the user (privilege) but not in the request (=> unchecked)
+        	user.setCertificationDate(null);
+        } else {
+        	user.setCertificationDate(new Date());
+        }
         
         user = userRepository.merge(user);
     
