@@ -92,5 +92,15 @@ public class ActionService {
         mv.addObject("listPosArgs",listPosArgs);
         mv.addObject("listNegArgs",listNegArgs);
     }
+	 public List<Long> getResultNumbersForAction( Action action){
+	        
+	        
+	        List<Long> resultNumbers = new ArrayList<Long>();
+	        for(int i=-2;i<=2;i++){
+	            resultNumbers.add(voteActionRepository.getNumberOfVotesByValue(action.getId(), i));
+	        }
+	        
+	        return resultNumbers;
+	    }
 
 }
