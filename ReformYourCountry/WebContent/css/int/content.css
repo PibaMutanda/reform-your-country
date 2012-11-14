@@ -86,7 +86,10 @@
 	 font-size:.85em;
 }
 .vote{
-	display: inline-block; width: 90px; height: 40px; text-align: center; border:1px solid black;
+	display: inline-block; width: 90px; height: 40px; text-align: center; border:1px solid black; cursor: hand; cursor: pointer;
+}
+.vote:hover{
+	font-weight : bold;
 }
 .selected{
 	border: .2em solid #000;

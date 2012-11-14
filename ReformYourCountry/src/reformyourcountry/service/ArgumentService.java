@@ -83,7 +83,12 @@ public class ArgumentService {
         for(int i=-2;i<=2;i++){
         	resultNumbers.add(voteActionRepository.getNumberOfVotesByValue(action.getId(), i));
         }
+        //graph numbers
         mv.addObject("resultNumbers", resultNumbers);
+        mv.addObject("positiveWeightedPercentage",getWeightedPercentage(resultNumbers, true));
+        mv.addObject("positiveAbsolutePercentage",getAbsolutePercentage(resultNumbers, true));
+        mv.addObject("negativeAbsolutePercentage",getAbsolutePercentage(resultNumbers, false));
+        mv.addObject("negativeWeightedPercentage",getWeightedPercentage(resultNumbers, false));
         
         VoteAction va = voteActionRepository.findVoteActionForUser(SecurityContext.getUser(), action.getId());
         if (va != null){ 
@@ -92,5 +97,44 @@ public class ArgumentService {
         }
         this.putArgumentListInModelAndView(mv, action);
         return mv;
+    }
+    
+    public float getAbsolutePercentage(List<Long> resultNumbers,boolean positive){
+		long total=0;
+		for(Long nbr : resultNumbers){
+			total+=nbr;
+		}
+		float result;
+		if (positive) {
+			result = (float) ((resultNumbers.get(0) * 100 / total) + (resultNumbers
+					.get(1) * 100 / total));
+		}else{
+			result = (float) ((resultNumbers.get(3) * 100 / total) + (resultNumbers
+					.get(4) * 100 / total));
+		}
+    	return result;
+    }
+    
+    public float getWeightedPercentage(List<Long> resultNumbers, boolean positive){
+    	List<Long> weightedNumbers = new ArrayList<Long>();
+    	long weightedTotal = 0;
+    	for(int i=0; i<5;i++){
+    		if(i<1 || i>3){// first and last of the list
+    			weightedTotal+=resultNumbers.get(i)*2;
+    			weightedNumbers.add(resultNumbers.get(i)*2);
+    		}else{
+    			weightedTotal+=resultNumbers.get(i);
+    			weightedNumbers.add(resultNumbers.get(i));
+    		}
+    	}
+        float result;
+		if (positive) {
+			result = (float) ((weightedNumbers.get(0) * 100 / weightedTotal) + (weightedNumbers
+					.get(1) * 100 / weightedTotal));
+		}else{
+			result = (float) ((weightedNumbers.get(3) * 100 / weightedTotal) + (weightedNumbers
+					.get(4) * 100 / weightedTotal));
+		}
+    	return result;
     }
 }
