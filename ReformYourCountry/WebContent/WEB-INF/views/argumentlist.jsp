@@ -4,7 +4,8 @@
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-
+<script type="text/javascript" src="js/int/argument.js">
+</script>
 
 <div style="
         <c:if test='${ispos}'> width:390px; float:right;</c:if>  <%-- Right column --%>
@@ -20,6 +21,8 @@
    
 	<c:if test="${current.user.id != null }">
 		<div style="text-align: center; background:url(/images/_global/separator3.gif) 0 0 repeat-x ;">
+		<textarea id="hideArgArea">Cliquer ici pour composer un nouvel argument</textarea>
+		<div id="showArgArea" style="display:none;">
 		<form class="argumentNegForm" action="" method="post">
 			<input type="hidden" id="ispos${ispos}" value="${ispos}" /> 
 			<input type="hidden" id="action${ispos}" value="${action.id}" />
@@ -29,6 +32,7 @@
 			<br /> 
 			<input type="button" value="Ajout argument" onclick="sendNewArg(this,comment${ispos}.value,action${ispos}.value,title${ispos}.value,ispos${ispos}.value);">
 		</form>
+		</div>
 		</div>
 	</c:if>
 </div>

@@ -312,3 +312,14 @@
 	background-color: #555;
 	text-decoration: none;
 }
+
+#commentLink{
+	width:55px;
+}
+
+#commentLink:hover{
+	cursor: pointer;
+	cursor: hand;
+	background-color: grey;
+	color: white;
+}

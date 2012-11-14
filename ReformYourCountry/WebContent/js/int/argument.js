@@ -66,7 +66,9 @@ function voteOnArgument(item,idArg,value){
 		notLoggedMessage(item);	 
 	}
 }
-function sendNewComment(item, comment, arg){
+function sendNewComment(item, arg){
+	var comment=$('#comm'+arg).val();
+	console.log(comment);
 	if (idUser.length>0){
 		if(comment!=""){
 			var requestArg = $.ajax({
@@ -126,7 +128,7 @@ function maxlength_textarea(item,id, max, min)
 	if(length < 10){
 		var len = txtarea.value.length;
 		var mini = min-len;
-		crreste.innerHTML="Vous devez encore taper" +mini+ "caractères";
+		crreste.innerHTML="Vous devez encore entrer " +mini+ " caractères";
 		button.setAttribute("disabled", "disabled");
 	}
 	else{
@@ -138,8 +140,14 @@ function maxlength_textarea(item,id, max, min)
 		}
 		len = txtarea.value.length;
 		var maxi = max-len;
-		crreste.innerHTML="Il vous reste " +maxi+ "caractères";	
+		crreste.innerHTML = maxi+ " caractères restant";	
 		button.removeAttribute("disabled");
 	}
 }
 
+$(function(){
+	$('#hideArgArea').click(function(){
+		$('#hideArgArea').hide();
+		$('#showArgArea').show();
+	});
+});
