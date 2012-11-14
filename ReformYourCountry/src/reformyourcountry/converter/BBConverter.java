@@ -10,11 +10,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import reformyourcountry.model.Action;
 import reformyourcountry.model.Article;
 import reformyourcountry.model.Book;
 import reformyourcountry.parser.BBAttribute;
 import reformyourcountry.parser.BBDomParser;
 import reformyourcountry.parser.BBTag;
+import reformyourcountry.repository.ActionRepository;
 import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.repository.BookRepository;
 import reformyourcountry.util.FileUtil;
@@ -38,6 +40,7 @@ public class BBConverter {
 	String untranslatedText ="";  //Will contain the text in the tag untranslated (we need it as global variable to use it between different methods)
 	String textBuffer=""; // We accumulate Strings fragments that are within the same line (but from consecutive nodes), to place <p> around all the fragments alltogether.
 	
+	ActionRepository actionRepository;
 	BookRepository bookRepository;  // No @Autowired because we are not in a Spring bean.
 	ArticleRepository articleRepository;
 	private Set<Book> booksRefferedInTheText = new HashSet<Book>();  // To collect the books seen in the [quote bib="..."] and [link bib="..."].
@@ -48,9 +51,10 @@ public class BBConverter {
 	/////////////////////////////////// PUBLIC ///////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////
 	
-	public BBConverter(BookRepository bRep, ArticleRepository aRep) {
+	public BBConverter(BookRepository bRep, ArticleRepository aRep,ActionRepository actionRep) {
 	    bookRepository = bRep;
 	    articleRepository = aRep;
+	    actionRepository = actionRep;
 	}
 	
 	
@@ -239,7 +243,45 @@ public class BBConverter {
 			addErrorMessage("id should be numeric", tag);
 			return;
 		}
-		
+		Action action = actionRepository.find(id);
+		if (action == null) {
+	             addErrorMessage("invalid id "+id+" (corresponding action not found)", tag);
+	             return;
+	    }
+		bufferTextForP("<span class='action quote-inline'>"+action.getShortDescription());
+        // TODO: prevents  [untranslated]  inside quote inline.
+                   // Add the quoted text.
+
+        String quoteHtml ="</span>";
+        // Outside div which will not be taken inside the tooltip.
+        quoteHtml +="<div style='display:none;'>";    // We don't display the author within the text (=> display: none).   
+
+        // Inner div, taken within the tooltip.
+        quoteHtml +="<div class='actionToolTip'>";  // div and class to style the tooltip through CSS.
+        quoteHtml += "<a href='/action/"+action.getUrl()+"' target = '_blank'>"+action.getTitle()+"</a>";
+        quoteHtml +="</div>";
+        quoteHtml +="</div>";
+//        if (author != null) { // Normally, here book == null
+//            // We need to display, in a bubble tooltip, the author (and maybe with an out link to an URL).
+//            // We create a div with that content.
+//
+//            // Outside div which will not be taken inside the tooltip.
+//            quoteHtml +="<div style='display:none;'>";    // We don't display the author within the text (=> display: none).   
+//
+//            // Inner div, taken within the tooltip.
+//            quoteHtml +="<div class='authorToolTip'>";  // div and class to style the tooltip through CSS.
+//
+//            if (outUrl != null) {
+//                quoteHtml += "<a href='"+outUrl+"' target = '_blank'>"+author+"</a>";
+//            } else {
+//                quoteHtml += author;
+//            }
+//
+//            quoteHtml +="</div>";
+//            quoteHtml +="</div>";
+//        }
+//        
+        bufferTextForP(quoteHtml);
 		///// Get the action from the DB.
 		// TODO: Action action = actionDao.find(id);
 		// if (action == null) {
@@ -247,7 +289,7 @@ public class BBConverter {
 		//     return;
 		// }
 		
-		html += "<div class=\"action-title\">" + "Coca gratuit" + "</div><div class=\"action-body\">"+"Il faut que le coca-cola soit gratuit chez TechnofuturTic"+"</div>"; 
+		html += "<span class=\"action-title\">" + "Coca gratuit" + "</div><div class=\"action-body\">"+"Il faut que le coca-cola soit gratuit chez TechnofuturTic"+"</div>"; 
 	}
 	
 	private String getInnerTextContent(BBTag tag) {

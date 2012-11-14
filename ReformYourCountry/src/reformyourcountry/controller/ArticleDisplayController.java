@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.converter.BBConverter;
 import reformyourcountry.model.Article;
+import reformyourcountry.repository.ActionRepository;
 import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.repository.BookRepository;
 import reformyourcountry.repository.VideoRepository;
@@ -25,7 +26,7 @@ import reformyourcountry.util.Logger;
 public class ArticleDisplayController extends BaseController<Article> {
     
     @Logger Log log;
-    
+    @Autowired ActionRepository actionRepository;
     @Autowired BookRepository bookRepository;
     @Autowired ArticleRepository articleRepository;
     @Autowired VideoRepository videoRepository;
@@ -84,7 +85,7 @@ public class ArticleDisplayController extends BaseController<Article> {
         mv.addObject("parentsPath", article.getParentPath());
         
         mv.addObject("showContent", (article.isPublished() || SecurityContext.isUserHasPrivilege(Privilege.EDIT_ARTICLE)));
-        BBConverter bbc = new BBConverter(bookRepository, articleRepository);
+        BBConverter bbc = new BBConverter(bookRepository, articleRepository,actionRepository);
         mv.addObject("articleToClassify", bbc.transformBBCodeToHtmlCode(article.getLastVersion().getToClassify()));
         return mv;
 	}

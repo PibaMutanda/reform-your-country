@@ -10,6 +10,7 @@ import reformyourcountry.converter.BBConverter;
 import reformyourcountry.exception.InvalidUrlException;
 import reformyourcountry.model.Article;
 import reformyourcountry.model.ArticleVersion;
+import reformyourcountry.repository.ActionRepository;
 import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.repository.ArticleVersionRepository;
 import reformyourcountry.repository.BookRepository;
@@ -20,6 +21,7 @@ import reformyourcountry.web.ContextUtil;
 @Transactional
 public class ArticleService {
 
+    @Autowired ActionRepository actionRepository;
 	@Autowired	ArticleRepository articleRepository;
 	@Autowired  ArticleVersionRepository articleVersionRepository;
 	@Autowired  BookRepository bookRepository;
@@ -118,8 +120,8 @@ public class ArticleService {
 	     newVersion.setToClassify(toClassify != null ? toClassify : (previousVersion!=null ? previousVersion.getToClassify() : "") );
 
 	     ///// 4.store the rendered version of the content and summary, for performance optimization
-	     article.setLastVersionRenderedContent(new BBConverter(bookRepository, articleRepository).transformBBCodeToHtmlCode(newVersion.getContent()));
-	     article.setLastVersionRenderdSummary(new BBConverter(bookRepository, articleRepository).transformBBCodeToHtmlCode(newVersion.getSummary()));
+	     article.setLastVersionRenderedContent(new BBConverter(bookRepository, articleRepository,actionRepository).transformBBCodeToHtmlCode(newVersion.getContent()));
+	     article.setLastVersionRenderdSummary(new BBConverter(bookRepository, articleRepository,actionRepository).transformBBCodeToHtmlCode(newVersion.getSummary()));
 	     
 	     
 	     ///// 5.merge

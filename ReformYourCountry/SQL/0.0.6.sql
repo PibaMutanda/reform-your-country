@@ -30,6 +30,7 @@
         add constraint fk351605df33d25d2c 
         foreign key (articles_id) 
         references article;
+ 
     
 -- 2012-11-14 Delphine
 
@@ -40,3 +41,7 @@
 
     alter table users 
         add column certificationdate timestamp;
+ -- 2012-11-14 CEDRIC
+
+    alter table action 
+        add column shortname varchar(20) unique;
