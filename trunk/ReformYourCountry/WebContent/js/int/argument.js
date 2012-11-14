@@ -47,6 +47,9 @@ function editArg(item,newid,newtitle,newcontent){
 
 		$('#contentEdit').ckeditor();
 		//$('#showArgArea'+id).parent().css('background-color','#e2e2e2');
+	}else{
+
+		notLoggedMessage(item);	 
 	}
 }
 
@@ -148,7 +151,14 @@ function maxlength_textarea(item,id, max, min)
 		button.removeAttribute("disabled");
 	}
 }
+function hideHelp(item){
+	$(item).hide("slow");
+}
 function showArea(id){
+    var pos = $('#hideArgArea'+id).position();
+	$('#help'+id).css({"position": "absolute","top": pos.top-$('#help'+id).outerHeight(true)-5 + "px", "z-index": 1,});
+
+	$('#help'+id).show("slide", {direction: 'down'},"slow");
 	$('#hideArgArea'+id).hide();
 	$('#showArgArea'+id).show();
 	$('#comment'+id).ckeditor();
