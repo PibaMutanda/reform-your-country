@@ -23,7 +23,23 @@
    
 
    
-	<c:if test="${current.user.id != null }">
+		<div id="help${ispos}" style="display:none;background-color:#FFFFCC; padding:10px; font-size:0.8em;	">
+		<div style="width:100%; text-align: right;">
+		<div style="font-weight: bold;" onclick="hideHelp(help${ispos});">
+			X
+		</div>
+		</div>
+			Merci de participer en argumentant.<br/>
+			Les meilleurs arguments:<br/>
+			<ul>
+			<li>sont concis, murement réfléchis et clairement énoncés,</li>
+			<li>concernent directement la proposition d'action posée,</li>
+			<li>son isolés (si vous avez plusieurs arguments, ajoutez-les séparément),</li>
+			<li>évitent de répéter des arguments donnés précédemment,</li>
+			<li>factuels (plutôt qu'émotionnels).</li>
+			</ul><br/>
+			Soyez poli et amusez-vous.
+		</div>
 		<div style="border:3px inset; background-color: white;">
 		<div id="hideArgArea${ispos}" onclick="showArea('${ispos}');"style="color: #CCCCCC">Cliquer ici pour composer un nouvel argument.<br/><br/><br/><br/></div>
 		<div id="showArgArea${ispos}" style="display:none;">
@@ -41,5 +57,4 @@
 		</form>
 		</div>
 		</div>
-	</c:if>
 </div>

@@ -17,7 +17,7 @@
 <!-- Then we had the column with the positives args -->
 
 <c:set var="color" value="#008B00" scope="request"/>
-<c:set var="listToShow" value="${listPosArgs }" scope="request"/>
+<c:set var="listToShow" value="${listPosArgs}" scope="request"/>
 <c:set var="ispos" value="true" scope="request"/>
 <%@include file="argumentlist.jsp"%>
 
