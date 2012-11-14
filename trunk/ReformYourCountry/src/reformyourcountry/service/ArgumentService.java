@@ -29,6 +29,7 @@ public class ArgumentService {
     @Autowired UserRepository userRepository;
     @Autowired VoteActionRepository voteActionRepository;
     @Autowired VoteArgumentRepository voteArgumentRepository;
+    @Autowired VoteActionService voteActionService;
     
     // A user is voting
     public void updateVoteArgument(Long idArg, int value, User user, Argument arg) {
@@ -79,10 +80,7 @@ public class ArgumentService {
         ModelAndView mv = new ModelAndView(jsp); 
         mv.addObject("action",action);
         //number of votes for each values, for the graph
-        List<Long> resultNumbers = new ArrayList<Long>();
-        for(int i=-2;i<=2;i++){
-        	resultNumbers.add(voteActionRepository.getNumberOfVotesByValue(action.getId(), i));
-        }
+        List<Long> resultNumbers = voteActionService.getResultNumbersForAction(action);
         //graph numbers
         mv.addObject("resultNumbers", resultNumbers);
         mv.addObject("positiveWeightedPercentage",getWeightedPercentage(resultNumbers, true));
@@ -98,6 +96,8 @@ public class ArgumentService {
         this.putArgumentListInModelAndView(mv, action);
         return mv;
     }
+    
+   
     
     public float getAbsolutePercentage(List<Long> resultNumbers,boolean positive){
 		long total=0;
