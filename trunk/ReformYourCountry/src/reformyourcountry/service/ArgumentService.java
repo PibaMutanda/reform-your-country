@@ -1,24 +1,17 @@
 package reformyourcountry.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.servlet.ModelAndView;
 
-import reformyourcountry.model.Action;
 import reformyourcountry.model.Argument;
 import reformyourcountry.model.User;
-import reformyourcountry.model.VoteAction;
 import reformyourcountry.model.VoteArgument;
 import reformyourcountry.repository.ActionRepository;
 import reformyourcountry.repository.ArgumentRepository;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.repository.VoteActionRepository;
 import reformyourcountry.repository.VoteArgumentRepository;
-import reformyourcountry.security.SecurityContext;
 
 @Service
 @Transactional
@@ -29,7 +22,6 @@ public class ArgumentService {
     @Autowired UserRepository userRepository;
     @Autowired VoteActionRepository voteActionRepository;
     @Autowired VoteArgumentRepository voteArgumentRepository;
-
     
     // A user is voting
     public void updateVoteArgument(Long idArg, int value, User user, Argument arg) {
