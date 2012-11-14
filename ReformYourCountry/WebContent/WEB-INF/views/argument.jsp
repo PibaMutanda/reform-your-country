@@ -8,7 +8,6 @@
 <script type="text/javascript" src="js/int/argument.js">
 </script>
 
-	<div class="errorMessage" id="errorArg"></div>
 <!-- First we had the column with the negatives args -->
 <c:set var="color" value="#8B0000" scope="request"/>
 <c:set var="listToShow" value="${listNegArgs }" scope="request"/>
@@ -21,3 +20,5 @@
 <c:set var="listToShow" value="${listPosArgs }" scope="request"/>
 <c:set var="ispos" value="true" scope="request"/>
 <%@include file="argumentlist.jsp"%>
+
+	<div class="errorMessage" id="errorArg"></div>

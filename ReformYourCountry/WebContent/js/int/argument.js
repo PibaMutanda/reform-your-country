@@ -37,12 +37,16 @@ function sendArgAfterEdit(item,idArg,title,content){
 function editArg(item,newid,newtitle,newcontent){
 	if (idUser.length>0){
 		$("#arg"+newid).html(
-				"<form class=\"argumentNegForm\" action=\"\" method=\"post\" >"
-				+"<input type=\"hidden\" id=\"idArg\" value=\""+newid+"\" />"
+				+"<form class=\"argumentNegForm\" action=\"\" method=\"post\" >"
+				+"<div style='border:3px inset; background-color: #e2e2e2;'>"
+				+" Titre :<input type=\"hidden\" id=\"idArg\" value=\""+newid+"\" />"
 				+"<textarea id=\"titleEdit\" rows=\"1\" cols=\"15\">"+newtitle+"</textarea><br/>"
 				+"<textarea id=\"contentEdit\"rows=\"5\" cols=\"15\" >"+newcontent+"</textarea><br/>"
-				+"<input type=\"button\"   value=\"Sauver\" onclick=\"sendArgAfterEdit(this,"+newid+",titleEdit.value,contentEdit.value);\"></form>"	
+				+"<div  onclick=\"sendArgAfterEdit(this,"+newid+",titleEdit.value,contentEdit.value);\">Sauver</div></div></form>"	
 		);
+
+		$('#contentEdit').ckeditor();
+		//$('#showArgArea'+id).parent().css('background-color','#e2e2e2');
 	}
 }
 
@@ -144,10 +148,10 @@ function maxlength_textarea(item,id, max, min)
 		button.removeAttribute("disabled");
 	}
 }
+function showArea(id){
+	$('#hideArgArea'+id).hide();
+	$('#showArgArea'+id).show();
+	$('#comment'+id).ckeditor();
+	$('#showArgArea'+id).parent().css('background-color','#e2e2e2');
+}
 
-$(function(){
-	$('#hideArgArea').click(function(){
-		$('#hideArgArea').hide();
-		$('#showArgArea').show();
-	});
-});

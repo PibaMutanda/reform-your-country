@@ -37,9 +37,9 @@ Insert breadcrumb elements here
         <input type="hidden" name="goodExampleId" value="${goodExample.id}">
     </form>
     <script type="text/javascript">
-    CKEDITOR.replace('${goodExample.id}', {
-        customConfig : '/js/ext/ckeditor_config.js',
-        toolbar : 'goodExample'
+    	CKEDITOR.replace('${goodExample.id}', {
+       		customConfig : '/js/ext/ckeditor_config.js',
+        	toolbar : 'goodExample'
             });
 	</script>
 </c:forEach>
