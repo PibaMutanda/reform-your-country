@@ -24,9 +24,9 @@
 								- <a href="/action/edit?id=${action.id}" style="font-size:0.8em;">éditer</a>
 							</ryc:conditionDisplay>
 						
-<%-- 						<ryctag:form action="/action/edit" modelAttribute="action" method="get" width="50px;"> --%>
-<%-- 							<input type="hidden" value="${action.id}" name="id" id="idAction" /> --%>
-<%-- 						</ryctag:form> --%>
+ 						<ryctag:form action="/action/edit" modelAttribute="action" method="get" width="50px;"> 
+ 							<input type="hidden" value="${action.id}" name="id" id="idAction" /> 
+						</ryctag:form> 
 					</div>
 					
 				</div>
