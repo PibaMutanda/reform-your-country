@@ -106,7 +106,7 @@
 						</div>
 					</c:forEach>
 				</div>
-				<div class="article_summary">${article.lastVersionRenderdSummary}</div>
+				<div class="article_summary"><div style="font-size:.85em;margin-bottom:10px;">RESUME</div>${article.lastVersionRenderdSummary}</div>
 			   <hr/>
 			  ${article.lastVersionRenderedContent}
 	  	</div>
