@@ -34,6 +34,10 @@ public class ActionService {
 			total+=nbr;
 		}
 		float result;
+        //No division by 0 please ;)
+		if (total==0){
+		    return 0;
+		}
 		if (positive) {
 			result = (float) ((resultNumbers.get(0) * 100 / total) + (resultNumbers
 					.get(1) * 100 / total));
@@ -56,6 +60,10 @@ public class ActionService {
     			weightedNumbers.add(resultNumbers.get(i));
     		}
     	}
+    	//No division by 0 please ;)
+        if (weightedTotal==0){
+            return 0;
+        }
         float result;
 		if (positive) {
 			result = (float) ((weightedNumbers.get(0) * 100 / weightedTotal) + (weightedNumbers
