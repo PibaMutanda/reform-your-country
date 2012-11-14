@@ -55,13 +55,17 @@ public class GoodExampleController extends BaseController<GoodExample>{
     }
     
     @RequestMapping(value="/edit")
-    public String editGoodExample(@Valid @ModelAttribute GoodExample goodExample, @RequestParam("articleId") Long articleId){
-        
-        if(goodExample.getId() != null){
-            goodExampleRepository.merge(goodExample);  
-        } else {
-            throw new InvalidUrlException("ne peut éditer un goodExample qui n'a pas déjà été créé");
+    public String editGoodExample(@RequestParam("goodExampleId") Long goodExampleId,@RequestParam(value="description",required=false)String description, @RequestParam("articleId") Long articleId){
+        GoodExample goodExample = getRequiredEntity(goodExampleId);
+        log.debug("editGoodExample i'm call");
+        if(description != null) {
+            log.debug("i will edit description"+description);
+            goodExample.setDescription(description);
         }
+        //TODO title edit
+        //TODO url edit?
+        
+        goodExampleRepository.merge(goodExample);
         
         return "redirect:/goodexample/"+getRequiredArticle(articleId).getUrl();
     }
@@ -151,13 +155,5 @@ public class GoodExampleController extends BaseController<GoodExample>{
         
         //so they are linked
         return true;
-    }
-    @ModelAttribute
-    private GoodExample findGoodExample(@RequestParam(value="goodExampleId",required=false) Long goodExampleId){
-        if(goodExampleId != null){
-            return getRequiredEntity(goodExampleId);
-        } else {
-            return new GoodExample();
-        }
     }
 }
