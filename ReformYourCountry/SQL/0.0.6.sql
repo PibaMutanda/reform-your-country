@@ -31,3 +31,12 @@
         foreign key (articles_id) 
         references article;
     
+-- 2012-11-14 Delphine
+
+    alter table users 
+        add column title varchar(250);
+
+-- 2012-11-14 Delphine
+
+    alter table users 
+        add column certificationdate timestamp;
