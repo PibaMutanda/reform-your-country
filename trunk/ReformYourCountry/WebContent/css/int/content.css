@@ -86,17 +86,14 @@
 	 font-size:.85em;
 }
 .vote{
-	display: inline-block; width: 90px; height: 40px; text-align: center; border:1px solid black; cursor: hand; cursor: pointer;
+	display: inline-block; width: 90px; height: 30px; text-align: center; border:1px solid black; cursor: hand; cursor: pointer;
 }
 .vote:hover{
 	font-weight : bold;
 }
 .selected{
-	border: .2em solid #000;
+	border: 3px solid #000;
 }
-
-
-
 .login-link{
 	/* padding-right:65px;*/
  	text-align: right; 

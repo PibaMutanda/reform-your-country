@@ -18,6 +18,7 @@ import reformyourcountry.repository.UserRepository;
 import reformyourcountry.repository.VoteActionRepository;
 import reformyourcountry.repository.VoteArgumentRepository;
 import reformyourcountry.security.SecurityContext;
+import reformyourcountry.service.ActionService;
 import reformyourcountry.service.ArgumentService;
 
 @Controller
@@ -30,6 +31,7 @@ public class ArgumentController extends BaseController<Action>{
     @Autowired VoteActionRepository voteActionRepository;
     @Autowired VoteArgumentRepository voteArgumentRepository;
     @Autowired ArgumentService argumentService;
+    @Autowired ActionService actionService;
     
     
     @RequestMapping("ajax/argumentAdd")
@@ -49,7 +51,7 @@ public class ArgumentController extends BaseController<Action>{
             }else{
                 throw new Exception("no action selected");  
             }
-            return  argumentService.getActionModelAndView(action,"argument");
+            return  actionService.getActionModelAndView(action,"argument");
         }else{
             throw new Exception("no user logged");
         }

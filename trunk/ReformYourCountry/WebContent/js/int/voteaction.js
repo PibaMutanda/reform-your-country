@@ -54,7 +54,7 @@ function displayGraph() {
 				    .enter().append('rect')
 				    .attr("stroke", "black")
 				    .attr("fill", function(d, i){return colors[i];})
-				    .attr("x", function(d, i) { return 97 * i; })
+				    .attr("x", function(d, i) { return 16+(97 * i); })
 				    .attr("y", function(d, i){ return 130;})
 				    .attr("width",  "90.5")
 				    .attr("height", function(d, i){ return 0;});
@@ -64,7 +64,7 @@ function displayGraph() {
 		.duration(1000);
 	var texts = chart.selectAll('text').data(data)
 		.enter().append('text')
-		.attr("x", function(d, i) { return (95 * i)+47; })
+		.attr("x", function(d, i) { return (96 * i)+63; })
 		.attr("y", function(d, i){ return 130;})
 		.attr("dx", ".25em")
 		.attr("dy",-20)
@@ -88,16 +88,10 @@ function updateGraph(){
 	}
 	var percentData =[(data[0]*100)/total,(data[1]*100)/total,(data[2]*100)/total,(data[3]*100)/total,(data[4]*100)/total];
 	var rects = chart.selectAll('rect').data(data);
-//				    .attr("y", function(d, i){ return 130;})
-//				    .attr("height", function(d, i){ return 0;});
 	rects.transition()
 		.attr("y", function(d, i){ return 130 - percentData[i];})
 		.attr("height", function(d, i){ return percentData[i];})
 		.duration(1000);
-//	var texts = chart.selectAll('text').data(data)
-//					.transition()
-//					.attr("y", function(d, i){ return (130 - percentData[i])+15;})
-//					.duration(1000);
 	var texts = chart.selectAll('text').data(data)
 	.attr("text-anchor","end")
 	.text(String);
@@ -106,6 +100,20 @@ texts.transition()
 	.attr("y", function(d, i){ return (130 - percentData[i])+15;})
 	.duration(1000);
 }
+function getPercentData(data){
+	var total = 0;
+	for (var i=0;i<=4;i++){
+		total += parseInt(data[i]);
+	}
+	var percentData =[(data[0]*100)/total,(data[1]*100)/total,(data[2]*100)/total,(data[3]*100)/total,(data[4]*100)/total];
+}
+function getData(){
+	var data = new Array();
+	data[0] = $("#result-2").text();
+	data[1] = $("#result-1").text();
+	data[2] = $("#result0").text();
+	data[3] = $("#result1").text();
+	data[4] = $("#result2").text();
+	return data;
+}
 $(document).ready(displayGraph);
-//$("div#voteContainer > div").click(function(){updateGraph();});
-//$("div#voteContainer > div").click(function(){console.log("click !");});
