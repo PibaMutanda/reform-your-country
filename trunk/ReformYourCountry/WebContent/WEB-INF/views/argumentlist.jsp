@@ -4,6 +4,8 @@
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="/ckeditor/adapters/jquery.js"></script>
 <script type="text/javascript" src="js/int/argument.js">
 </script>
 
@@ -19,18 +21,23 @@
 
 	</c:forEach>
    
+
+   
 	<c:if test="${current.user.id != null }">
-		<div style="text-align: center; background:url(/images/_global/separator3.gif) 0 0 repeat-x ;">
-		<textarea id="hideArgArea">Cliquer ici pour composer un nouvel argument</textarea>
-		<div id="showArgArea" style="display:none;">
+		<div style="border:3px inset; background-color: white;">
+		<div id="hideArgArea${ispos}" onclick="showArea('${ispos}');"style="color: #CCCCCC">Cliquer ici pour composer un nouvel argument.<br/><br/><br/><br/></div>
+		<div id="showArgArea${ispos}" style="display:none;">
 		<form class="argumentNegForm" action="" method="post">
 			<input type="hidden" id="ispos${ispos}" value="${ispos}" /> 
 			<input type="hidden" id="action${ispos}" value="${action.id}" />
-			<textarea id="title${ispos}" rows="1" cols="15"></textarea>
-			<br />
-			<textarea id="comment${ispos}" rows="5" cols="15"></textarea>
-			<br /> 
-			<input type="button" value="Ajout argument" onclick="sendNewArg(this,comment${ispos}.value,action${ispos}.value,title${ispos}.value,ispos${ispos}.value);">
+			<div style="padding-left:5px;">
+				Titre: 	<textarea id="title${ispos}" rows="1" cols="15"></textarea>
+			</div>
+						
+        	<div id="comment${ispos}">${goodExample.description}</div>
+			<div style="padding-left:5px;" onclick="sendNewArg(this,comment${ispos}.value,action${ispos}.value,title${ispos}.value,ispos${ispos}.value);">
+				Ajout de l'argument
+			</div>
 		</form>
 		</div>
 		</div>
