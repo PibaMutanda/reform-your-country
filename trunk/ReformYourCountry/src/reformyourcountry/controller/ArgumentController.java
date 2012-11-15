@@ -48,10 +48,12 @@ public class ArgumentController extends BaseController<Action>{
                 argumentRepository.persist(arg);
                 action.addArgument(arg);
                 actionRepository.merge(action);
+                ModelAndView mv = new ModelAndView("argumentdetail");  // Redisplay that argument (with new vote values)
+                mv.addObject("arg",arg);
+                return  mv;
             }else{
                 throw new Exception("no action selected");  
             }
-            return  actionService.getActionModelAndView(action,"argument");
         }else{
             throw new Exception("no user logged");
         }

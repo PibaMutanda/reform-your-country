@@ -10,16 +10,17 @@
 <script type="text/javascript">
    var idUser = "${current.user.id}";
 </script>
+<div id="arg${arg.id}" style="width:100%; display: inline-block;background:url(/images/_global/separator3.gif) 0 0 repeat-x ;">
 	<div class="argument" style="width:340px; margin-bottom:5px;float:right;">
 	
 		<div style="width:100%;background:url(/images/_global/separator3.gif) 0 100% repeat-x ;padding-top:10px;">
 
-			<div style="font-weight:bold; font-size:18px;">
+			<div id="argTitle${arg.id}" style="font-weight:bold; font-size:18px;">
 				${arg.title}
 			</div>
-			<p  style="margin-top:5px;font-size:0.9em;">
+			<div  id="argContent${arg.id}" style="margin-top:5px;font-size:0.9em;">
 				${arg.content}
-			</p>
+			</div>
 			<ryctag:user user="${arg.user}"/>
 			<div style="display:inline-block;font-size:0.9em;">
 				<div>
@@ -28,7 +29,7 @@
 				</div>
 				<div>
 					<c:if test="${arg.isEditable()}">
-						<a  onclick="editArg(this,${arg.id},'${arg.title}','${arg.content}');">Editer</a>
+						<a  onclick="editArg(this,${arg.id});">Editer</a>
 						<!--<img src="\images\_global\edit.png" width="16px" onfocus="handle();" onclick="editArg(this,${arg.id},'${arg.title}','${arg.content}');">-->
 					</c:if>
 				</div>
@@ -61,4 +62,4 @@
 				</c:otherwise>
 			</c:choose>
 	</div>
-	
+</div>
