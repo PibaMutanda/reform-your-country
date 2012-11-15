@@ -29,6 +29,7 @@ function sendArgAfterEdit(item,idArg){
 		requestArg.fail(function(jqXHR, textStatus) {
 			$("#errorArg").text("Erreur lors de l'envoi d'un commentaire : "+textStatus);
 		});
+		$('#helptrue').hide();
 	}
 }
 //Change the Argument in a form
@@ -49,6 +50,13 @@ function editArg(item,newid){
 		$('#contentEdit'+newid).ckeditor(function() { /* callback code */ }, { 
 	        customConfig : '/js/ext/ckeditor_config.js',
 	        toolbar : 'goodExample'});
+
+	    var pos = $('#arg'+newid).position();
+		$('#helptrue').css({"position": "absolute"
+							,"left":pos.left
+							,"top": pos.top-$('#helpfalse').outerHeight(true)-5 + "px"
+							, "z-index": 1});
+		$('#helptrue').show("slide", {direction: 'down'},"slow");
 		//$('#showArgArea'+id).parent().css('background-color','#e2e2e2');
 	}else{
 
@@ -158,8 +166,7 @@ function hideHelp(item){
 }
 function showArea(id){
     var pos = $('#hideArgArea'+id).position();
-	$('#help'+id).css({"position": "absolute","top": pos.top-$('#help'+id).outerHeight(true)-5 + "px", "z-index": 1,});
-
+	$('#help'+id).css({"position": "absolute","left":pos.left,"top": pos.top-$('#help'+id).outerHeight(true)-5 + "px", "z-index": 1});
 	$('#help'+id).show("slide", {direction: 'down'},"slow");
 	$('#hideArgArea'+id).hide();
 	$('#showArgArea'+id).show();
