@@ -218,8 +218,10 @@ public class UserService {
         case GOOGLE : 
             Google google = (Google) connection.getApi();
             String urlProfil = google.userOperations().getUserProfile().getProfilePictureUrl();
-            BufferedImage image = ImageUtil.readImage(urlProfil);
-            addOrUpdateUserImage(user,image);
+            if (urlProfil != null) { // Null if Google has no image.
+                BufferedImage image = ImageUtil.readImage(urlProfil);
+                addOrUpdateUserImage(user,image);
+            }
             break;
 
         default : throw new RuntimeException("invalid social provider name submitted");
