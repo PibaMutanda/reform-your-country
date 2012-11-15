@@ -9,14 +9,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.model.Action;
 import reformyourcountry.model.Argument;
+import reformyourcountry.model.User;
 import reformyourcountry.model.VoteAction;
+import reformyourcountry.repository.ActionRepository;
 import reformyourcountry.repository.VoteActionRepository;
 import reformyourcountry.security.SecurityContext;
 
 @Service
 public class ActionService {
 	@Autowired VoteActionRepository voteActionRepository;
-	 
+	@Autowired ActionRepository actionRepository;
 	public void putGraphNumbersInModelAndView(ModelAndView mv, Action action){
 		List<Long> resultNumbers = getResultNumbersForAction(action);
         mv.addObject("resultNumbers", resultNumbers);
@@ -111,5 +113,32 @@ public class ActionService {
 	        
 	        return resultNumbers;
 	    }
+	 
+	   public List<Long> getResultNumbersForAction( Long Idaction){
+           
+           
+           List<Long> resultNumbers = new ArrayList<Long>();
+           for(int i=-2;i<=2;i++){
+               resultNumbers.add(voteActionRepository.getNumberOfVotesByValue(Idaction, i));
+           }
+           
+           return resultNumbers;
+       }
+	   
+	   public VoteAction userVoteForAction(User user,Long idAction,int vote){
+	        
+	        VoteAction va = voteActionRepository.findVoteActionForUser(SecurityContext.getUser(), idAction);
+	        if (va==null){
+	            va = new VoteAction(vote, actionRepository.find(idAction), SecurityContext.getUser());
+	            voteActionRepository.persist(va);
+	        }else{
+	            va.setValue(vote);
+	            voteActionRepository.merge(va);
+	        }
+	        
+	        return va;
+	        
+	    }
+
 
 }
