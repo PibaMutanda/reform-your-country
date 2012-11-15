@@ -42,7 +42,7 @@ public class RegisterController extends BaseController<User> {
         } else {
             try {
                 user = userService.registerUser(false, user.getUserName(), user.getPassword(), user.getMail(),false);
-                NotificationUtil.addNotificationMessage("Un message de confirmation de votre inscription vous a été envoyé sur votre email :"+user.getMail()+". Merci d'activer votre compte (en cliquant sur le lien de confirmation)afin de pouvoir l'utiliser.", request);
+                NotificationUtil.addNotificationMessage("Un message de confirmation de votre inscription vous a été envoyé sur votre email :"+user.getMail()+". Merci d'activer votre compte (en cliquant sur le lien de confirmation)afin de pouvoir l'utiliser.");
                 
             } catch (UserAlreadyExistsException uaee) {
                 ModelAndView mv = new ModelAndView("register");
@@ -50,11 +50,11 @@ public class RegisterController extends BaseController<User> {
                 if (uaee.getType() == IdentifierType.MAIL) {
                 	NotificationUtil.addNotificationMessage("Un autre utilisateur a déjà choisi cet e-mail. Cela veut soit dire que vous avez déjà un compte chez nous" + 
                     		" (si vous ne vous souvenez plus du mot de passe, vous pouvez vous en <a href='/resendpassword'>faire envoyer un nouveau</a>), " +
-                    		"ou bien cela peut vouloir dire que l'e-mail que vous avez introduit n'est pas correct.",request);
+                    		"ou bien cela peut vouloir dire que l'e-mail que vous avez introduit n'est pas correct.");
                     
                 } else if (uaee.getType() == IdentifierType.USERNAME) {
                 	NotificationUtil.addNotificationMessage("Un autre utilisateur a déjà choisi ce pseudonyme. Merci d'en spécifier un autre. " +
-                    		"A moins que cela veuille dire que vous avez déjà un compte chez nous (si vous ne vous souvenez plus du mot de passe, vous pouvez vous en <a href='/resendpassword'>faire envoyer un nouveau</a>.",request); 
+                    		"A moins que cela veuille dire que vous avez déjà un compte chez nous (si vous ne vous souvenez plus du mot de passe, vous pouvez vous en <a href='/resendpassword'>faire envoyer un nouveau</a>."); 
                 } else {  // defensive coding
                     throw new RuntimeException("Bug - Unsupported type: " + uaee.getType());
                 }

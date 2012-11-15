@@ -49,6 +49,7 @@ import reformyourcountry.util.DateUtil;
 import reformyourcountry.util.FileUtil;
 import reformyourcountry.util.ImageUtil;
 import reformyourcountry.util.Logger;
+import reformyourcountry.util.NotificationUtil;
 import reformyourcountry.util.SecurityUtils;
 import reformyourcountry.web.ContextUtil;
 import reformyourcountry.web.UrlUtil;
@@ -201,19 +202,26 @@ public class UserService {
         case FACEBOOK :                                       
             Facebook facebook = (Facebook) connection.getApi();
             userImage =  facebook.userOperations().getUserProfileImage(ImageType.NORMAL);
+            if(userImage != null){
             try {
                 addOrUpdateUserImage(user, ImageIO.read(new ByteArrayInputStream(userImage)));
             } catch (IOException e) {
                 throw new RuntimeException(e);
-            }       
+            }}else{
+                NotificationUtil.addNotificationMessage("Aucune image n'est disponnible depuis votre compte "+connection.getKey().getProviderId());
+            }
             break;
         case TWITTER:                
             Twitter twitter = (Twitter) connection.getApi();
             userImage =  twitter.userOperations().getUserProfileImage(twitter.userOperations().getScreenName(),ImageSize.ORIGINAL);
+            if(userImage != null){
             try {
                 addOrUpdateUserImage(user, ImageIO.read(new ByteArrayInputStream(userImage)));
             } catch (IOException e) {
                 throw new RuntimeException(e);
+            }
+            }else{
+                NotificationUtil.addNotificationMessage("Aucune image n'est disponnible depuis votre compte "+connection.getKey().getProviderId());
             }
             break;
 
@@ -223,6 +231,8 @@ public class UserService {
             if (urlProfil != null) { // Null if Google has no image.
                 BufferedImage image = ImageUtil.readImage(urlProfil);
                 addOrUpdateUserImage(user,image);
+            }else{
+                NotificationUtil.addNotificationMessage("Aucune image n'est disponnible depuis votre compte "+connection.getKey().getProviderId());
             }
             break;
 

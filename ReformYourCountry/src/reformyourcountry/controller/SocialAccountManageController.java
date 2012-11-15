@@ -169,7 +169,7 @@ public class SocialAccountManageController extends BaseController<User>{
             // Normally there is only one or no connection left, but ... who knows. Let's remove them all.
             userService.unsocialiseUser(user,confirmPassword);
 
-            NotificationUtil.addNotificationMessage("Votre mot de passe a été définis avec succès,vous pouvez dorénavant l'utiliser pour vous connecter au site.",request);
+            NotificationUtil.addNotificationMessage("Votre mot de passe a été définis avec succès,vous pouvez dorénavant l'utiliser pour vous connecter au site.");
             
             return new ModelAndView("redirect:login");
         }
@@ -211,10 +211,10 @@ public class SocialAccountManageController extends BaseController<User>{
         if(idsUsers.isEmpty()){
         // This will persist the connection (query for it, not find it, then persist it).
            usersConnectionRepository.createConnectionRepository(user.getId()+"").addConnection(connection);
-           NotificationUtil.addNotificationMessage("Connection "+connection.getKey().getProviderId()+" ajoutée avec succès. Vous pouvez maintenant utiliser le bouton "+connection.getKey().getProviderId()+" pour vous connecter sur "+UrlUtil.getWebSiteName()+".",request);
+           NotificationUtil.addNotificationMessage("Connection "+connection.getKey().getProviderId()+" ajoutée avec succès. Vous pouvez maintenant utiliser le bouton "+connection.getKey().getProviderId()+" pour vous connecter sur "+UrlUtil.getWebSiteName()+".");
         }else{
            User userfound =  userRepository.find(Long.parseLong(idsUsers.get(0)));
-           NotificationUtil.addNotificationMessage("Un utilisateur( "+userfound.getUserName()+" ) à déjà utilisé ce compte "+ connection.getKey().getProviderId()+" pour s'enregeistrer sur "+UrlUtil.getWebSiteName() +".Merci d'utiliser ce compte.", request);
+           NotificationUtil.addNotificationMessage("Un utilisateur( "+userfound.getUserName()+" ) à déjà utilisé ce compte "+ connection.getKey().getProviderId()+" pour s'enregeistrer sur "+UrlUtil.getWebSiteName() +".Merci d'utiliser ce compte.");
             
         }
      

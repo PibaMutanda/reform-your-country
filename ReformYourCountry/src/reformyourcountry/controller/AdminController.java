@@ -39,7 +39,7 @@ public class AdminController  extends BaseController<BaseEntity> {//used for set
 		} finally {
 			indexManagerService.createIndexes();
 		}
-		NotificationUtil.addNotificationMessage("L'index est construit.", request);
+		NotificationUtil.addNotificationMessage("L'index est construit.");
 		
 		return new ModelAndView("redirect:/admin");
 	}

@@ -46,12 +46,12 @@ public class ConfirmAccountController extends BaseController<User>{
         try {
             userCreatedSuccesfully = userService.tryToAttachSocialLoginToAnExistingUser(connection);
         } catch (UserLockedException e) {
-            NotificationUtil.addNotificationMessage("Votre un compte existait déjà chez nous pour vous. Nous sommes désolé, mais ce compte est locké. Vous pouvez  (<a href='contact'>contacter</a>) un administrateur pour tirer cela au clair. Merci de préciser votre nom d'utilisateur ("+e.getUser().getUserName()+")",request);
+            NotificationUtil.addNotificationMessage("Votre un compte existait déjà chez nous pour vous. Nous sommes désolé, mais ce compte est locké. Vous pouvez  (<a href='contact'>contacter</a>) un administrateur pour tirer cela au clair. Merci de préciser votre nom d'utilisateur ("+e.getUser().getUserName()+")");
             return new ModelAndView("redirect:home");
         }
         if (userCreatedSuccesfully != null) { // Everything is done: social credentials attached to an existing user.
             ProviderSignInUtils.handlePostSignUp(userCreatedSuccesfully.getId()+"", request);
-            NotificationUtil.addNotificationMessage("Félicitation vous venez de reassocier votre compte "+connection.getKey().getProviderId()+" à votre compte "+ContextUtil.servletContext.getAttribute("website_name"), request);
+            NotificationUtil.addNotificationMessage("Félicitation vous venez de reassocier votre compte "+connection.getKey().getProviderId()+" à votre compte "+ContextUtil.servletContext.getAttribute("website_name"));
             ModelAndView mv = new ModelAndView("redirect:socialaccountmanage","id",userCreatedSuccesfully.getId());    
             return mv;
 
@@ -95,10 +95,10 @@ public class ConfirmAccountController extends BaseController<User>{
 	    try {
 	        user = userService.registerSocialUser(request, email, mailIsValid);
 	        NotificationUtil.addNotificationMessage("Félicitation, vous venez de  creer un compte sur "+ currentEnvironment.getSiteName() +" associé à votre compte "+connection.getKey().getProviderId()+"."+
-	                "<br>A l'avenir vous pourrez vous connecter en cliquant sur l'icone de connection "+connection.getKey().getProviderId()+".",request);
+	                "<br>A l'avenir vous pourrez vous connecter en cliquant sur l'icone de connection "+connection.getKey().getProviderId()+".");
 	        
 	        if(!mailIsValid){//in case of a register with a twitter account,the user need to veriry his email address by clicking the link in the confirm email.
-	        	NotificationUtil.addNotificationMessage("<br>Nous venons de vous envoyer un e-mail sur votre adresse: "+user.getMail()+ ". Merci de cliquer sur le lien de confirmation de votre enregistrement avec votre compte "+connection.getKey().getProviderId(),request);
+	        	NotificationUtil.addNotificationMessage("<br>Nous venons de vous envoyer un e-mail sur votre adresse: "+user.getMail()+ ". Merci de cliquer sur le lien de confirmation de votre enregistrement avec votre compte "+connection.getKey().getProviderId());
 	        } 
 	    } catch (UserAlreadyExistsException e) {
 	        // The only case to arrive here should be: the social account provider (such as Twitter) did not give the e-mail,
@@ -111,7 +111,7 @@ public class ConfirmAccountController extends BaseController<User>{
 
 	        NotificationUtil.addNotificationMessage("Notre site comporte déjà un utilisateur avec cette adress e-mail : " + user.getMail()+" ("+user.getFullName()+" "+ user.getUserName()+")." +
 	                " Peut-être est-ce vous qui l'avez créé. Pour des raisons de sécurité, nous ne vous connectons pas automatiquement.<br>"+
-	                "Vous devez d'abord vous connecter avec cet utilisateur "+  user.getUserName() + ", puis vous pourrez le lier à votre compte "+connection.getKey().getProviderId() + loginService.getRemainderLoginMessage(user),request);
+	                "Vous devez d'abord vous connecter avec cet utilisateur "+  user.getUserName() + ", puis vous pourrez le lier à votre compte "+connection.getKey().getProviderId() + loginService.getRemainderLoginMessage(user));
 	        return mvlogin;
 	    }
 
@@ -123,7 +123,7 @@ public class ConfirmAccountController extends BaseController<User>{
 	    } catch (Exception e) {  // No exception is supposed to happen during register or login. 
 	        // throw new RuntimeException("Problem while registering "+mail+" account through "+ connection.getKey().getProviderId(), e);
 	    	NotificationUtil.addNotificationMessage("Nous n'arrivons plus à contacter "+ connection.getKey().getProviderId() +"." +
-	        		" L'ajout de vos informations utilisateur depuis "+ connection.getKey().getProviderId()+" a échoué.",request);
+	        		" L'ajout de vos informations utilisateur depuis "+ connection.getKey().getProviderId()+" a échoué.");
 	    }
 
 	    ////// 5. Automatic login
@@ -132,7 +132,7 @@ public class ConfirmAccountController extends BaseController<User>{
 	            loginService.login(null,null,false,user.getId(),connection != null ? AccountConnectedType.getProviderType(connection.getKey().getProviderId()) : AccountConnectedType.LOCAL);
 	        }
 	    } catch (Exception e) {
-	    	NotificationUtil.addNotificationMessage("Nous n'avons pas pu vous connecter automatiquement après la création (réussie) de votre compte. Pour avoir plus d'information, merci de vous connecter via la page de connexion. ", request);
+	    	NotificationUtil.addNotificationMessage("Nous n'avons pas pu vous connecter automatiquement après la création (réussie) de votre compte. Pour avoir plus d'information, merci de vous connecter via la page de connexion. ");
 	    }
 
 	    return mv;
