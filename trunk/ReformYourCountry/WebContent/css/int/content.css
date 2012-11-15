@@ -88,6 +88,14 @@
 .vote{
 	display: inline-block; width: 90px; height: 30px; text-align: center; border:1px solid black; cursor: hand; cursor: pointer;
 }
+.smallvote{
+	display: inline-block;width: 30px; height: 20px;text-align: center; border:1px solid black; cursor: hand; cursor: pointer;
+	
+}
+.smallvote:hover{
+	font-weight : bold;
+	
+}
 .vote:hover{
 	font-weight : bold;
 }
