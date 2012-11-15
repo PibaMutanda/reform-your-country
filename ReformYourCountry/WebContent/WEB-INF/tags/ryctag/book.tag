@@ -6,7 +6,8 @@
 <%@tag import="reformyourcountry.util.FileUtil" %>
 
 <div class="book" id="${book.abrev}">
-    <h3>${book.title} ${book.subtitle}</h3>
+    <div class="bookTitle">${book.title}</div>
+     ${book.subtitle}<br/>
     <p class="bookInfo">${book.author} - ${book.pubYear}</p>
     <c:if test="${book.hasImage}">
        <img src="gen<%=FileUtil.BOOK_SUB_FOLDER%><%=FileUtil.BOOK_RESIZED_SUB_FOLDER%>/${book.id}.jpg" title="${book.title}" alt="${book.title}" class="realshadow" />

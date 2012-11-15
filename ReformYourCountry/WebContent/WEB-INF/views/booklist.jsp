@@ -35,11 +35,11 @@ width:50%;
 
 		</ryc:conditionDisplay>
 	</div>
-	
+	<p>
 		Nos articles référencient abondamment les ouvrages listés ici. Certains nous ont particulièrement marqués et nous les listons en premier, dans la liste "favoris".
 		Les autres peuvent être très bons aussi et sont listés juste après.
 		D'autres ouvrages qui nous ont parus moins significatifs ne sont pas repris sur cette page.
-	
+	</p>
 </div>
 
 <div style="width:100%;background: url(/images/_global/separator3.gif) 0 0 repeat-x; min-height: 10px;"></div>
