@@ -47,7 +47,7 @@ public class ResendPasswordController extends BaseController<User>{
         }
     
             userService.generateNewPasswordForUserAndSendEmail(user);
-            NotificationUtil.addNotificationMessage("Votre nouveau mot de passe viens de vous être envoyé sur votre adresse e-mail à "+user.getMail(),request);
+            NotificationUtil.addNotificationMessage("Votre nouveau mot de passe viens de vous être envoyé sur votre adresse e-mail à "+user.getMail());
             return new ModelAndView("redirect:home");
         
 

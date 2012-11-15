@@ -47,14 +47,14 @@ public class ContactController extends BaseController<User> {
         }
         
         mailService.sendMail(mailService.ADMIN_MAIL, sender, subject,content, MailType.IMMEDIATE, MailCategory.CONTACT);
-        NotificationUtil.addNotificationMessage("Votre message est bien envoyé", request);
+        NotificationUtil.addNotificationMessage("Votre message est bien envoyé");
 
         return new ModelAndView("redirect:/");  // Go to home page.
     }
     
     
     private ModelAndView prepareModelAndView(String sender,String subject,String content,String message, WebRequest request) {
-    	NotificationUtil.addNotificationMessage(message, request);
+    	NotificationUtil.addNotificationMessage(message);
         ModelAndView mv = new ModelAndView("contact");
         
         // Refill fields to prevent to user to retype them.

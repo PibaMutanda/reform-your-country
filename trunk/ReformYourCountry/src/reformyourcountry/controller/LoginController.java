@@ -75,7 +75,7 @@ public class LoginController extends BaseController<User> {
         try {
             Boolean autologin = loginService.readAutoLogin(request);          
             user = loginService.login(userNameOrMail, password, autologin,null,AccountConnectedType.LOCAL);
-            NotificationUtil.addNotificationMessage("Vous êtes à present connecté sur "+UrlUtil.getWebSiteName(), request);
+            NotificationUtil.addNotificationMessage("Vous êtes à present connecté sur "+UrlUtil.getWebSiteName());
 
         } catch (UserNotFoundException e) {
             errorMsg="L'utilisateur '"+userNameOrMail+"' n'existe pas";
@@ -113,7 +113,7 @@ public class LoginController extends BaseController<User> {
         if (errorMsg != null) {
             ModelAndView mv = new ModelAndView("redirect:login");
           
-               NotificationUtil.addNotificationMessage(errorMsg,request);
+               NotificationUtil.addNotificationMessage(errorMsg);
                              
             return mv;
         } else {
