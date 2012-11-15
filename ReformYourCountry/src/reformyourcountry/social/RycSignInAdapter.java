@@ -28,7 +28,7 @@ public class RycSignInAdapter implements SignInAdapter {
             Boolean autologin = loginService.readAutoLogin(request);                          
             user = loginService.login(null, null, autologin, Long.parseLong(localId), AccountConnectedType.getProviderType(connection.getKey().getProviderId()));
                      
-            NotificationUtil.addNotificationMessage("Vous êtes a présent connecté sur "+UrlUtil.getWebSiteName()+" avec votre compte "+connection.getKey().getProviderId(),request);                                           
+            NotificationUtil.addNotificationMessage("Vous êtes a présent connecté sur "+UrlUtil.getWebSiteName()+" avec votre compte "+connection.getKey().getProviderId());                                           
             if(user != null)
             return loginService.getPageAfterLogin(user);
             
