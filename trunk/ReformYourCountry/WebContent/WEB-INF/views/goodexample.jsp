@@ -5,7 +5,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <head>
 <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
-<script type="text/javascript" src="/ckeditor/adapters/jquery.js"></script>
 </head>
 <ryctag:pageheadertitle title="goodexamplelist" >
 Insert breadcrumb elements here
@@ -29,9 +28,7 @@ Insert breadcrumb elements here
 </form>
 <script type="application/javascript"> 
 $('#create').submit(function() {
-    console.log("ajax form");
     $.post( $('#create').attr('action'), $('#create').serialize(), function(data) {
-        console.log(data);
         $('#list').append(data);
     });
     
