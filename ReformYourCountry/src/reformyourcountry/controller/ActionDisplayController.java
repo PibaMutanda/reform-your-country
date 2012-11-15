@@ -1,6 +1,8 @@
 package reformyourcountry.controller;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +34,7 @@ public class ActionDisplayController extends BaseController<Action> {
         Action action = getRequiredEntityByUrl(actionUrl);
         ModelAndView mv = actionService.getActionModelAndView(action,"actiondisplay");
         
+      
         actionService.putGraphNumbersInModelAndView(mv,action);
         
         return  mv;
