@@ -45,7 +45,7 @@ public class ConfirmAccountController extends BaseController<User>{
         try {
             userCreatedSuccesfully = userService.tryToAttachSocialLoginToAnExistingUser(connection);
         } catch (UserLockedException e) {
-           addNotificationMessage("Votre un compte existait déjà chez nous pour vous. Nous sommes désolé, mais ce compte est locké. Vous pouvez  (<a href='contact'>contacter</a>) un administrateur pour tirer cela au clair. Merci de préciser votre nom d'utilisateur ("+e.getUser().getUserName()+")",request);
+            addNotificationMessage("Votre un compte existait déjà chez nous pour vous. Nous sommes désolé, mais ce compte est locké. Vous pouvez  (<a href='contact'>contacter</a>) un administrateur pour tirer cela au clair. Merci de préciser votre nom d'utilisateur ("+e.getUser().getUserName()+")",request);
             return new ModelAndView("redirect:home");
         }
         if (userCreatedSuccesfully != null) { // Everything is done: social credentials attached to an existing user.
@@ -118,7 +118,7 @@ public class ConfirmAccountController extends BaseController<User>{
 	    ///// 4. Fetch additional info from facebook and others, to complete our user profile.
 	    ModelAndView mv = new ModelAndView("redirect:/user/"+user.getUserName());
 	    try {
-	        userService.completUserFromSocialProviderData(connection,user);
+	        userService.completUserFromSocialProviderData(connection, user);
 	    } catch (Exception e) {  // No exception is supposed to happen during register or login. 
 	        // throw new RuntimeException("Problem while registering "+mail+" account through "+ connection.getKey().getProviderId(), e);
 	        addNotificationMessage("Nous n'arrivons plus à contacter "+ connection.getKey().getProviderId() +"." +
