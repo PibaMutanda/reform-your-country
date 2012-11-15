@@ -111,4 +111,17 @@ public class ArticleContentEditController extends BaseController<Article>{
         return new ModelAndView("redirect:"+getRequiredEntity(id).getUrl());
     }
 	
+	@RequestMapping("/ajax/article/editsubmittoclassify")
+    public ResponseEntity<?> articleToClassifyEditSubmitAjax(@RequestParam(value="value")String toClassify,
+                                                        @RequestParam(value="id") Long id){
+        
+        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
+        toClassify = toClassify == null ? "" : toClassify;
+        
+                
+        articleService.saveArticle(getRequiredEntity(id), null, null, toClassify);
+        return new ResponseEntity<String>("sauvegarde",  // that tiny message will appear next to the save button and a save hour.
+                HttpStatus.OK);
+    }
+	
 }
