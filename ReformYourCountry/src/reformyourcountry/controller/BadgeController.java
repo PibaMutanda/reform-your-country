@@ -13,14 +13,14 @@ import org.springframework.web.servlet.ModelAndView;
 import reformyourcountry.badge.BadgeType;
 import reformyourcountry.model.Badge;
 //import reformyourcountry.repository.BadgeRepositorty;
-import reformyourcountry.repository.BadgeRepositorty;
+import reformyourcountry.repository.BadgeRepository;
 
 
 @Controller
 @RequestMapping("/badge")
 public class BadgeController extends BaseController<Badge> {
 
-	@Autowired BadgeRepositorty badgeRepository;
+	@Autowired BadgeRepository badgeRepository;
 
 	@RequestMapping("/")
 	public ModelAndView badgeDisplayAll() {
