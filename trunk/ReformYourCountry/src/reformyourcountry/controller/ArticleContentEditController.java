@@ -30,7 +30,7 @@ public class ArticleContentEditController extends BaseController<Article>{
         Article article = getRequiredEntity(id);
         mv.addObject("article", article);
         mv.addObject("pageName", "édition du contenu");
-        mv.addObject("pageUrl", "editsubmitcontent");
+        mv.addObject("submitUrl", "editsubmitcontent");
         mv.addObject("thingToEdit", article.getLastVersion().getContent());
         mv.addObject("parentsPath", article.getPath()); // For the breadcrumb
         return mv;
@@ -43,7 +43,7 @@ public class ArticleContentEditController extends BaseController<Article>{
         Article article = getRequiredEntity(id);
         mv.addObject("article", article);
         mv.addObject("pageName", "édition du résumé");
-        mv.addObject("pageUrl", "editsubmitsummary");
+        mv.addObject("submitUrl", "editsubmitsummary");
         mv.addObject("thingToEdit", article.getLastVersion().getSummary());
         mv.addObject("parentsPath", article.getPath()); // For the breadcrumb
         return mv;
@@ -56,9 +56,8 @@ public class ArticleContentEditController extends BaseController<Article>{
         Article article = getRequiredEntity(id);
         mv.addObject("article", article);
         mv.addObject("pageName", "édition du contenu à classer");
-        mv.addObject("pageUrl", "editsubmittoclassify");
+        mv.addObject("submitUrl", "editsubmittoclassify");
         mv.addObject("thingToEdit", article.getLastVersion().getToClassify());
-        mv.addObject("parentsPath", article.getPath()); // For the breadcrumb
         return mv;
     }
     
@@ -78,7 +77,7 @@ public class ArticleContentEditController extends BaseController<Article>{
     /** Press the save button and close the page */
 
 	@RequestMapping("/article/editsubmitcontent")
-    public ModelAndView articleContentEditSubmit(@RequestParam(value="content")String content,
+    public ModelAndView articleContentEditSubmit(@RequestParam(value="value")String content,
                                                  @RequestParam(value="id") Long id){
         
     	SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
@@ -90,7 +89,7 @@ public class ArticleContentEditController extends BaseController<Article>{
     }
     
 	@RequestMapping("/article/editsubmitsummary")
-    public ModelAndView articleSummaryEditSubmit(@RequestParam(value="summary")String summary,
+    public ModelAndView articleSummaryEditSubmit(@RequestParam(value="value")String summary,
                                                  @RequestParam(value="id") Long id){
         
     	SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
@@ -101,7 +100,7 @@ public class ArticleContentEditController extends BaseController<Article>{
     }
 	
 	@RequestMapping("/article/editsubmittoclassify")
-    public ModelAndView articleToClassifyEditSubmit(@RequestParam(value="toClassify")String toClassify,
+    public ModelAndView articleToClassifyEditSubmit(@RequestParam(value="value")String toClassify,
                                                  	@RequestParam(value="id") Long id){
         
     	SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
