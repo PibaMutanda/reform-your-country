@@ -1,20 +1,25 @@
 package reformyourcountry.util;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.WebRequest;
+
+import reformyourcountry.web.ContextUtil;
 
 public class NotificationUtil {
 
 	/** Sets a message string to be displayed by the next JSP in the Notification bar */
-	public static void addNotificationMessage(String notification, WebRequest request){
+	public static void addNotificationMessage(String notification){
+	    
+	    HttpSession httpSession = ContextUtil.getHttpSession();
 
-		String notif = (String)request.getAttribute("notification", RequestAttributes.SCOPE_SESSION);
+		String existingNotif = (String)httpSession.getAttribute("notification");
 
-		if(!StringUtils.isBlank(notif)){
-			notification = notif + notification; 
+		if(!StringUtils.isBlank(existingNotif)){
+			notification = existingNotif + "<br/>"+ notification; 
 		}
 
-		request.setAttribute("notification", notification, RequestAttributes.SCOPE_SESSION);
+		httpSession.setAttribute("notification", notification);
 	}
 }
