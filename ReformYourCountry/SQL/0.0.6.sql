@@ -45,3 +45,6 @@
 
     alter table action 
         add column shortname varchar(20) unique;
+        
+ -- 2012-11-15 Lionel
+     alter table action alter column shortdescription type varchar(250);
