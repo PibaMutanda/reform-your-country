@@ -2,15 +2,13 @@ package reformyourcountry.controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.apache.commons.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.exception.InvalidUrlException;
@@ -21,7 +19,6 @@ import reformyourcountry.repository.GoodExampleRepository;
 import reformyourcountry.util.Logger;
 
 @Controller
-@RequestMapping("/goodexample")
 public class GoodExampleController extends BaseController<GoodExample>{
     @Logger Log log;
     @Autowired
@@ -33,7 +30,7 @@ public class GoodExampleController extends BaseController<GoodExample>{
      * display goodExampleList for an article or call displayGoodExample if the pathvariable isn't an article url
      * @param articleUrl or the goodexample if can't find an article for this url
      */
-    @RequestMapping(value={"/{articleUrl}"})
+    @RequestMapping(value={"/goodexample/{articleUrl}"})
     public ModelAndView displayGoodExampleListForAnArticle(@PathVariable String articleUrl){
         log.debug("displayGoodExampleListForAnArticle i'm call");
         ////check if this is an article url and throw exception otherwise
@@ -54,8 +51,11 @@ public class GoodExampleController extends BaseController<GoodExample>{
         return mv;
     }
     
-    @RequestMapping(value="/edit")
-    public String editGoodExample(@RequestParam("goodExampleId") Long goodExampleId,@RequestParam(value="description",required=false)String description, @RequestParam("articleId") Long articleId){
+    @RequestMapping(value="/ajax/goodexample/edit")
+    public ModelAndView editGoodExample(@RequestParam("goodExampleId") Long goodExampleId,@RequestParam(value="description",required=false)String description, @RequestParam("articleId") Long articleId){
+        ModelAndView mv = new ModelAndView("goodexampledisplay");
+
+        
         GoodExample goodExample = getRequiredEntity(goodExampleId);
         log.debug("editGoodExample i'm call");
         if(description != null) {
@@ -67,22 +67,40 @@ public class GoodExampleController extends BaseController<GoodExample>{
         
         goodExampleRepository.merge(goodExample);
         
-        return "redirect:/goodexample/"+getRequiredArticle(articleId).getUrl();
+        mv.addObject("goodExample",goodExample);
+        mv.addObject("article",getRequiredArticle(articleId));
+        
+        return mv;
     }
     
-    @RequestMapping(value="/create")
-    public String createGoodExample(@Valid @ModelAttribute GoodExample goodExample, @RequestParam("articleId") Long articleId){
+    @RequestMapping(value="/ajax/goodexample/create")
+    public ModelAndView createGoodExample(@RequestParam("description")String description,
+                                           @RequestParam("title")String title, 
+                                           @RequestParam("articleId") Long articleId){
+        ModelAndView mv = new ModelAndView("goodexampledisplay");
         
-        if(goodExample.getId() == null){
-            goodExampleRepository.persist(goodExample);  
-        } else {
-            throw new InvalidUrlException("le goodExample ayant l'id "+goodExample.getId()+" a déjà été créé");
-        }
+        GoodExample goodExample = new GoodExample();
+        //FIXME make exception fot unvalid infos --maxime 14/11/12
+        goodExample.setDescription(description);
+        goodExample.setTitle(title);
+        //FIXME make real url system --maxime 14/11/12
+        goodExample.setUrl(title);
         
-        return "redirect:/goodexample/"+getRequiredArticle(articleId).getUrl();
+        Article article = getRequiredArticle(articleId);
+        
+        goodExample.getArticles().add(article);
+        goodExampleRepository.persist(goodExample);
+        
+        article.getGoodExamples().add(goodExample);
+        articleRepository.merge(article);
+        
+        mv.addObject("goodExample",goodExample);
+        mv.addObject("article",article);
+        
+        return mv;
     }
 
-    @RequestMapping(value="/edit/addarticle")
+    @RequestMapping(value="/ajax/goodexample/edit/addarticle")
     public String addArticle(@RequestParam("goodExampleId") Long goodExampleId, @RequestParam("articleUrl") String articleUrl){
         Article article = getRequiredArticle(articleUrl);
         GoodExample goodExample = getRequiredEntity(goodExampleId);
@@ -100,7 +118,7 @@ public class GoodExampleController extends BaseController<GoodExample>{
         return "redirect:/goodexample/"+article.getUrl();
     }
     
-    @RequestMapping(value="/edit/deletearticle")
+    @RequestMapping(value="ajax/goodexample//edit/deletearticle")
     public String deleteArticle(@RequestParam("goodExampleId") Long goodExampleId, @RequestParam("articleId") Long articleId){
         Article article = getRequiredArticle(articleId);
         GoodExample goodExample = getRequiredEntity(goodExampleId);
