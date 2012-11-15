@@ -12,6 +12,7 @@ import reformyourcountry.controller.LoginController;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountConnectedType;
 import reformyourcountry.service.LoginService;
+import reformyourcountry.util.NotificationUtil;
 import reformyourcountry.web.ContextUtil;
 import reformyourcountry.web.UrlUtil;
 @Component
@@ -27,7 +28,7 @@ public class RycSignInAdapter implements SignInAdapter {
             Boolean autologin = loginService.readAutoLogin(request);                          
             user = loginService.login(null, null, autologin, Long.parseLong(localId), AccountConnectedType.getProviderType(connection.getKey().getProviderId()));
                      
-            BaseController.addNotificationMessage("Vous êtes a présent connecté sur "+UrlUtil.getWebSiteName()+" avec votre compte "+connection.getKey().getProviderId(),request);                                           
+            NotificationUtil.addNotificationMessage("Vous êtes a présent connecté sur "+UrlUtil.getWebSiteName()+" avec votre compte "+connection.getKey().getProviderId(),request);                                           
             if(user != null)
             return loginService.getPageAfterLogin(user);
             

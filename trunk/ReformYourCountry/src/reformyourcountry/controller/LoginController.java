@@ -27,6 +27,7 @@ import reformyourcountry.repository.UserRepository;
 import reformyourcountry.service.LoginService;
 import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
 import reformyourcountry.util.DateUtil;
+import reformyourcountry.util.NotificationUtil;
 import reformyourcountry.web.ContextUtil;
 import reformyourcountry.web.Cookies;
 import reformyourcountry.web.UrlUtil;
@@ -74,7 +75,7 @@ public class LoginController extends BaseController<User> {
         try {
             Boolean autologin = loginService.readAutoLogin(request);          
             user = loginService.login(userNameOrMail, password, autologin,null,AccountConnectedType.LOCAL);
-           addNotificationMessage("Vous êtes à present connecté sur "+UrlUtil.getWebSiteName(), request);
+            NotificationUtil.addNotificationMessage("Vous êtes à present connecté sur "+UrlUtil.getWebSiteName(), request);
 
         } catch (UserNotFoundException e) {
             errorMsg="L'utilisateur '"+userNameOrMail+"' n'existe pas";
@@ -112,7 +113,7 @@ public class LoginController extends BaseController<User> {
         if (errorMsg != null) {
             ModelAndView mv = new ModelAndView("redirect:login");
           
-               addNotificationMessage(errorMsg,request);
+               NotificationUtil.addNotificationMessage(errorMsg,request);
                              
             return mv;
         } else {

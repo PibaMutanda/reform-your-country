@@ -13,6 +13,7 @@ import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.IndexManagerService;
 import reformyourcountry.service.SearchService;
+import reformyourcountry.util.NotificationUtil;
 
 @Controller
 @RequestMapping("/admin")
@@ -38,7 +39,7 @@ public class AdminController  extends BaseController<BaseEntity> {//used for set
 		} finally {
 			indexManagerService.createIndexes();
 		}
-		addNotificationMessage("L'index est construit.", request);
+		NotificationUtil.addNotificationMessage("L'index est construit.", request);
 		
 		return new ModelAndView("redirect:/admin");
 	}
