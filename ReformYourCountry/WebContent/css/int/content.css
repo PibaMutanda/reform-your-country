@@ -515,6 +515,8 @@ width: 220px;
 }
 .module {
 color: #444;
+line-height: 1.4;
+font-size: 130%;
 padding: 0 8px 2px 8px;
 padding-top: 0px;
 padding-right: 8px;
@@ -522,7 +524,7 @@ padding-bottom: 2px;
 padding-left: 8px;
 margin-bottom: 10px;
 }
-.module .h4 {
+.h4 {
 line-height: 1.4;
 font-size: 130%;
 padding-bottom: 7px;
@@ -541,11 +543,6 @@ padding-bottom: 7px;
    border-radius:6px;
 }
    
-.badge:hover,.badge-tag:hover{
-	border:1px solid   #555;
-	background-color:#555;
-	text-decoration:none;
-}
 
 .badge1 {
 background-position: -40px -1034px;
@@ -577,25 +574,8 @@ background-repeat-x: no-repeat;
 background-repeat-y: no-repeat;
 }
 
-
-
-.badge1, .badge2, .badge3 {
-display: inline-block;
-width: 6px;
-height: 11px;
-overflow: hidden;
-overflow-x: hidden;
-overflow-y: hidden;
-line-height: inherit;
-vertical-align: text-bottom;
-margin: 0 1px 1px 3px;
-margin-top: 0px;
-margin-right: 1px;
-margin-bottom: 1px;
-margin-left: 3px;
-}
-
-.badge:hover{
+.badge:hover, .badge-tag:hover{
+	
 	border: 1px solid #555;
     border-top-color: #555;
     border-top-style: solid;
@@ -611,25 +591,9 @@ margin-left: 3px;
     border-left-width: 1px;
 	background-color: #555;
 	text-decoration: none;
+	
 }
-.badge:hover, .badge-tag:hover {
-border: 1px solid #555;
-border-top-color: #555;
-border-top-style: solid;
-border-top-width: 1px;
-border-right-color: #555;
-border-right-style: solid;
-border-right-width: 1px;
-border-bottom-color: #555;
-border-bottom-style: solid;
-border-bottom-width: 1px;
-border-left-color: #555;
-border-left-style: solid;
-border-left-width: 1px;
-background-color: #555;
-text-decoration: none;
 
-}
 .badges-page .badge-cell {
 height: 32px;
 width: 215px;
