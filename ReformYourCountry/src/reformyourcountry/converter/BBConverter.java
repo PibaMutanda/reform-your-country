@@ -248,7 +248,7 @@ public class BBConverter {
 	             addErrorMessage("invalid id "+id+" (corresponding action not found)", tag);
 	             return;
 	    }
-		bufferTextForP("<span class='action quote-inline'>"+action.getShortDescription());
+		bufferTextForP("<span class='action quote'>"+action.getShortDescription());
         // TODO: prevents  [untranslated]  inside quote inline.
                    // Add the quoted text.
 
@@ -393,7 +393,7 @@ public class BBConverter {
 				addErrorMessage("You may not specify an 'add' attribute when the quote is inline.", tag);
 			}
 
-			bufferTextForP("<span class='"+	(book != null ? getCssClassName(book) : "") +" quote-inline'>");
+			bufferTextForP("<span class='"+	(book != null ? getCssClassName(book) : "") +" quote'>");
 			// TODO: prevents  [untranslated]  inside quote inline.
 			processQuoteBody(tag);             // Add the quoted text.
 
@@ -467,7 +467,7 @@ public class BBConverter {
 			}
 			
 			//// 1. Add the quoted text.
-			processTextHtmlAfterHavingClosedPendingP("<blockquote class=\"quote-block\" "+cite+">\n");
+			processTextHtmlAfterHavingClosedPendingP("<blockquote class='quote-block quote' "+cite+">\n");
 			
 			// For text that has a translation, we add div arounds.
 			boolean hasUntranslated = containsSubTag(tag, "untranslated");
