@@ -490,17 +490,14 @@ color: #444;
 }
 
 /***********************Badge*******************************/
-
-.badges-page .mb {
-margin-bottom: 15px;
-overflow: auto;
-height: 32px;
-width: 215px;
-}
 .badges-page #badge-legend .mb {
 overflow: visible;
 overflow-x: visible;
 overflow-y: visible;
+margin-bottom: 15px;
+overflow: auto;
+height: 32px;
+width: 215px;
 }
 #mainbar, .mainbar {
 float: left;
