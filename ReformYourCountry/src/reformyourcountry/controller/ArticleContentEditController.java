@@ -30,7 +30,7 @@ public class ArticleContentEditController extends BaseController<Article>{
         Article article = getRequiredEntity(id);
         mv.addObject("article", article);
         mv.addObject("pageName", "édition du contenu");
-        mv.addObject("submitUrl", "editsubmitcontent");
+        mv.addObject("submitUrl", "contenteditsubmit");
         mv.addObject("thingToEdit", article.getLastVersion().getContent());
         mv.addObject("parentsPath", article.getPath()); // For the breadcrumb
         return mv;
@@ -76,7 +76,7 @@ public class ArticleContentEditController extends BaseController<Article>{
     
     /** Press the save button and close the page */
 
-	@RequestMapping("/article/editsubmitcontent")
+	@RequestMapping("/article/contenteditsubmit")
     public ModelAndView articleContentEditSubmit(@RequestParam(value="value")String content,
                                                  @RequestParam(value="id") Long id){
         
