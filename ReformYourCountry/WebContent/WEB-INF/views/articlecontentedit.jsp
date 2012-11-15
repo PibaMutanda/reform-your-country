@@ -12,7 +12,7 @@
 </head>
 <body>
    	<ryctag:pageheadertitle title="${article.title}">
-		<c:forEach items="${parentsPath}" var="subarticle">
+		<c:forEach items="${article.path}" var="subarticle">
 			<ryctag:breadcrumbelement label="${subarticle.title}" link="/article/${subarticle.url}" />
 		</c:forEach>
 		<ryctag:breadcrumbelement label="${pageName}" />
@@ -22,7 +22,7 @@
 		
 	<div>
 		<div>
-			<form action="/article/${pageUrl}" method="post">
+			<form action="/article/${submitUrl}" method="post">
     			<input class="save" type="submit" value="Sauver" /><span class="saving" style="font-family: tahoma; font-size: 9px;"></span>
     		<!-- do not erase class , cols and rows attribute of the textarea , these values are used by textarea-expander.js -->
 				<textarea name="value" class="expand autosaveable" cols="60" rows="3" style="width:100%">${thingToEdit}</textarea>
