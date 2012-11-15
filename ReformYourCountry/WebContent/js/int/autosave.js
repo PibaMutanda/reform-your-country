@@ -19,8 +19,27 @@ var pending = false;
 
 	$(".autosaveable").keyup(function(event) {
 		
-		$(".save").removeAttr('disabled');  // Make the save button enabled (the text effectively changed since the last save).
-		contentHasNotBeenSaved = true;
+		
+		if (   event.keyCode!=17   	// ctrl 
+			&& event.keyCode!=18   	// alt 
+			&& event.keyCode!=19	// pause/break   
+			&& event.keyCode!=33   	// page up 
+			&& event.keyCode!=34	// page down
+			&& event.keyCode!=35   	// end 
+			&& event.keyCode!=37	// left arrow
+			&& event.keyCode!=38	// up arrow
+			&& event.keyCode!=39   	// right arrow 
+			&& event.keyCode!=40	// down arrow
+			&& event.keyCode!=45   	// insert 
+			&& event.keyCode!=91	// left Windows key
+			&& event.keyCode!=92	// right Windows key
+			&& event.keyCode!=39   	// right arrow 
+			&& event.keyCode!=145   // scroll lock
+			
+		) {
+			$(".save").removeAttr('disabled');  // Make the save button enabled (the text effectively changed since the last save).
+			contentHasNotBeenSaved = true;
+		}
 
 		if(event.ctrlKey == false  &&  event.keyCode != 83) {// get the save timer only when there is new content and when CTRL+S wasn't pressed
 			if(timer == 'undefined')
@@ -32,7 +51,7 @@ var pending = false;
 	});
 
 	
-	$("input.save").onclick(function(event) {  // The save buttons
+	$("input.save").click(function(event) {  // The save buttons
 		contentHasNotBeenSaved = false;
 	});
 	
@@ -45,7 +64,7 @@ var pending = false;
         	return;
         }
         
-    }
+    };
 
 
 	// Function called when a change is performed on the article.
