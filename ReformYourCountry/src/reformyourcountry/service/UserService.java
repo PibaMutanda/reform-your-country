@@ -40,6 +40,7 @@ import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountConnectedType;
 import reformyourcountry.model.User.AccountStatus;
 import reformyourcountry.model.User.SpecialType;
+import reformyourcountry.repository.BadgeRepository;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
@@ -57,7 +58,7 @@ import reformyourcountry.web.UrlUtil.Mode;
 @Service(value="userService")
 @Scope("singleton")
 public class UserService {
-    
+
     // Constant values used in the automatic calculation of the influence factor
     public static final int INFLUENCE_PERCENTAGE_OF_RELEASED_QUESTIONS_WITH_NO_CONCERNS = 90;
     public static final int INFLUENCE_AMOUNT_OF_RELEASED_QUESTIONS_WITH_NO_CONCERNS = 20;
@@ -73,6 +74,7 @@ public class UserService {
     @Autowired   private LoginService loginService;
     @Autowired   private UsersConnectionRepository usersConnectionRepository;
     @Autowired   private CurrentEnvironment currentEnvironment;
+	@Autowired   private BadgeRepository badgeRepository;
     /**
      * Register a user and sends a validation mail.
      * 
@@ -411,5 +413,22 @@ public class UserService {
     public String getUserSecurityString(User user){
 		return SecurityUtils.md5Encode(user.getUserName()+user.getCreatedOn().toString()).substring(0, 6);
     }
+    
+    public void grantIfUserIsComplete (User user){
+//    	if (	user.getBirthDate() != null
+//    			&& user.getFirstName() != null
+//    			&& user.getGender() != null
+//    			&& user.getLastName() != null
+//    			&& user.getMail() != null
+//    			&& user.isPicture() != true
+//    			&& user.getTitle() != null){
+//    		
+//    		Badge badge = new Badge();
+//    		badge.setBadgeType(BadgeType.AUTOBIOGRAPHER);
+//    		badge.setUser(user);
+//    		badgeRepository.persist(badge);
+//    	}
+    }
+    
 	
 }
