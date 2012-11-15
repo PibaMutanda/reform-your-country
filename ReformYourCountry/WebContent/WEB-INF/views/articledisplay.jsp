@@ -61,9 +61,6 @@
 	</c:forEach>
 	<ryctag:breadcrumbelement label="${article.title}" />
  </ryctag:pageheadertitle>
-
-   
-
 	<div style="display:inline-block"><!-- DO NOT REMOVE OTHERWISE TITLE AND MENU ARE UPSIDE DOWN	 -->
 		<div class="article-options">
 	    <ryc:conditionDisplay privilege="EDIT_ARTICLE" >
@@ -97,15 +94,10 @@
 				 </p>
 		   </c:if>
 		</div>
-		
 	</div>
-
 <!-- ARTICLE CONTENT -->
-
     <c:choose>
   	  <c:when test="${showContent}">
-  
-  	  	
 		<div class="article_content">
 		  	  <ryc:conditionDisplay privilege="EDIT_ARTICLE">
 		 		 <hr/>
@@ -117,6 +109,7 @@
 				<a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
 				<a class="addthis_counter addthis_pill_style"></a>
 				</div>
+				<br/>
 			  <!-- AddThis Button END -->
 				<div id="carouselh">
 					<c:forEach items="${videoList}" var="video">
@@ -126,7 +119,8 @@
 					</c:forEach>
 				</div>
 				<div class="article_summary"><div style="font-size:.85em;margin-bottom:10px;">RESUME</div>${article.lastVersionRenderdSummary}</div>
-			   <hr/>
+			   <br/>
+			   <div style="font-size:.85em;margin-bottom:10px;">ARTICLE</div>
 			  ${article.lastVersionRenderedContent}
 	  	</div>
 	  </c:when>
