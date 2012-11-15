@@ -125,14 +125,13 @@ function showText(item, addcom){
 }
 
 function notLoggedMessage(item){
-	alert("T'es pas loggé coco!");
 	$(item).CreateBubblePopup({ 
 		innerHtmlStyle: {  // give css property to the inner div of the popup	    	   
 			'opacity':0.9
 		},
 		tail: {align:'center', hidden: false},
 		selectable :true,				    	
-		innerHtml: 'Pour commenter veuillez vous logger: '
+		innerHtml: ' '
 			+'<a class="login" style="cursor:pointer;" href="/login">Connexion</a>'
 });
 }

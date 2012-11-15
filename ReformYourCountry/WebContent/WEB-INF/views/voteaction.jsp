@@ -18,7 +18,7 @@
 		
 <%-- vote buttons and % --%>		
 <div id="voteContent" style=" width: 480px; margin-left: 165px; margin-right:165px; font-size:.85em;">
-			<div id="voteButtons">
+			<div id="voteButtons" >
 				<div id="-2" onclick="clicked(this);"
 						class="vote <c:if test="${vote.value eq -2}">selected
 					                </c:if> v-2">
