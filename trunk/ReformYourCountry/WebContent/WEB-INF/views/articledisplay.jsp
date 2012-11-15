@@ -109,9 +109,9 @@
 			  </ryc:conditionDisplay>
 			  
 			  <div class="addthis_toolbox addthis_default_style "> 
-				<a href="http://www.addthis.com/bookmark.php?v=250&pubid=ra-509a829c59a66215" _cke_saved_href="http://www.addthis.com/bookmark.php?v=250&pubid=ra-509a829c59a66215" class="addthis_button_compact">Share</a> 
-				<span class="addthis_separator">|</span>
-				  <a class="addthis_button_facebook" fb:like:layout="button_count"
+<!-- 				<a href="http://www.addthis.com/bookmark.php?v=250&pubid=ra-509a829c59a66215" _cke_saved_href="http://www.addthis.com/bookmark.php?v=250&pubid=ra-509a829c59a66215" class="addthis_button_compact">Share</a>  -->
+<!-- 				<span class="addthis_separator">|</span> -->
+				  <a class="addthis_button_facebook_like" fb:like:layout="button_count"
 				        addthis:url="http://www.enseignement2.be"
 				        addthis:title="${article.title}"
 				        addthis:description="${article.description}"></a>
