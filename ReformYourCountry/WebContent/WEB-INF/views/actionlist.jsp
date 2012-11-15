@@ -19,27 +19,26 @@
 		</form>
 	</ryc:conditionDisplay>
 
-	<table>
+	<div class="actionList">
 		<c:forEach items="${actionItems}" var="actionItem">
-			<tr>
+			<div class="actionRow">
 			 
-				<td>${actionItem.action.title}</td>
-				<td>${actionItem.action.shortDescription}</td>		
-				<td><div id="voteContainer" >
+				<div class="actionTitle"><a href="/action/${actionItem.action.url}">${actionItem.action.title}</a></div>
+						
+				<div id="voteContainer">
 				    <c:set var="vote" value="${actionItem.voteAction}" scope="request"/>
 				    <c:set var="resultNumbers" value="${actionItem.resultNumbers}" scope="request" />
 				    <c:set var="id" value="${actionItem.action.id}" scope="request" />
 		            <%@include file="voteactionwidget.jsp"%>
 		           
-	                </div>
-	                
-	                </td>
-				<td><a href="/action/${actionItem.action.url}">Détails</a></td>
-			</tr>
+	            </div>
+	            <div class="actionShortDescription">${actionItem.action.shortDescription}</div>    
+				
+			</div>
 			
 
 		</c:forEach>
-	</table>
+	</div>
 	
 </body>
 </html>

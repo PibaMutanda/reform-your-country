@@ -5,7 +5,7 @@
    var idUser = "${current.user.id}";
 </script>
 	
-<div id="voteContent" style="width:300px;text-align:right;vertical-align:text-bottom;">
+<div id="voteContent" style="float:right;vertical-align:text-bottom;">
 			<div id="-2" onclick="clicked(this);"
 					class="smallvote <c:if test="${vote.value eq -2}">selected
 				                </c:if> v-2" title="totalement pour">${resultNumbers.get(0)}
