@@ -386,9 +386,12 @@ color: #444;
 	
 }
 
-.quote-block{
-	color:#777;
+.quote{
+    color:#777;
 	font-family: "Times New Roman", Times, "Liberation Serif", FreeSerif, serif;
+}
+
+.quote-block{
 	margin: 0;
 	margin-left: 40px;
 }
