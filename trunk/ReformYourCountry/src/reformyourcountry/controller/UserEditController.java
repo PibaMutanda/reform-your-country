@@ -126,7 +126,7 @@ public class UserEditController extends BaseController<User> {
         }
         
         // We start modifiying user (that may then be automatically saved by hibernate due to dirty checking.
-        if ((certified ==  false || SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS)) &&
+        if ((certified == null || certified ==  false || SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS)) &&
         	( !ObjectUtils.equals(newFirstName, user.getFirstName()) || !ObjectUtils.equals(newLastName, user.getLastName()) || !ObjectUtils.equals(newUserName, user.getUserName()))){
            userService.changeUserName(user, newUserName, newFirstName, newLastName); 
         }
@@ -136,13 +136,14 @@ public class UserEditController extends BaseController<User> {
         user.setNlSubscriber(newNlSubscriber != null ? newNlSubscriber : false);
         user.setTitle(title);
         
-        if (certified ==  false && SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS)) {  // Check box shown to the user (privilege) but not in the request (=> unchecked)
+        if (certified == null || certified ==  false && SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS)) {  // Check box shown to the user (privilege) but not in the request (=> unchecked)
         	user.setCertificationDate(null);
         } else {
         	user.setCertificationDate(new Date());
         }
         
         user = userRepository.merge(user);
+        userService.grantIfUserIsComplete(user);
     
         return new ModelAndView("redirect:/user/"+user.getUserName());
     }

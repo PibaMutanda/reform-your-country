@@ -9,7 +9,7 @@ import reformyourcountry.badge.BadgeType;
 import reformyourcountry.model.Badge;
 
 @Repository
-public class BadgeRepositorty extends BaseRepository<Badge> {
+public class BadgeRepository extends BaseRepository<Badge> {
 
 	@SuppressWarnings("unchecked")
 	public List<Badge> findAllBadges(){
