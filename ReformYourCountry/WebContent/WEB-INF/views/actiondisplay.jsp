@@ -43,7 +43,7 @@
 	</div>
 	
 	<%-- Arguments --%>
-	<div id="argContainer"  style="background:url(/images/_global/separator3.gif) 0 0 repeat-x ;padding-top:10px;"> <%-- Will be re-filled through Ajax --%>
+	<div id="argContainer"> <%-- Will be re-filled through Ajax --%>
 		<%@include file="argument.jsp" %>
 	</div>
 	
