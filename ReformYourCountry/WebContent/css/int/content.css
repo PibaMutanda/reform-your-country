@@ -494,6 +494,8 @@ color: #444;
 .badges-page .mb {
 margin-bottom: 15px;
 overflow: auto;
+height: 32px;
+width: 215px;
 }
 .badges-page #badge-legend .mb {
 overflow: visible;
@@ -513,7 +515,7 @@ float: right;
 margin-bottom: 60px;
 width: 220px;
 }
-.module {
+#module {
 color: #444;
 line-height: 1.4;
 font-size: 130%;
@@ -529,21 +531,7 @@ line-height: 1.4;
 font-size: 130%;
 padding-bottom: 7px;
 }
-.badge,.badge-tag{
-   color:#fff !important;
-   background-color:#333;
-   font-size: 14px;
-   border:1px solid #333;
-   margin:0 3px 3px 0;
-   padding:0px 6px 0px 3px;
-   display:inline-block;
-   text-decoration:none;
-   white-space:nowrap;
-   line-height:24px;
-   border-radius:6px;
-}
-   
-
+  
 .badge1 {
 background-position: -40px -1034px;
 background-position-x: -40px;
@@ -594,7 +582,7 @@ background-repeat-y: no-repeat;
 	
 }
 
-.badges-page .badge-cell {
+.badge-cell {
 height: 32px;
 width: 215px;
 }
