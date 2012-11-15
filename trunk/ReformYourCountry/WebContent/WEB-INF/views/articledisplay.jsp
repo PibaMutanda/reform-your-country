@@ -7,7 +7,7 @@
 <!-- code used for "i like facebook" -->
 <html xmlns="http://www.w3.org/1999/xhtml" 
       xmlns:og="http://ogp.me/ns#" 
-       xmlns:fb="http://www.facebook.com/2008/fbml"> 
+       xmlns:fb="http://www.facebook.com/2012/fbml"> 
 
 <head>
 <link rel="stylesheet" href="css/ext/jquery-bubble-popup-v3.css"  type="text/css" />
@@ -34,16 +34,19 @@
  src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-509a829c59a66215"></script>
  
  	<!-- code used for "i like facebook" -->
-	 <meta property="og:title" content="${article.title}"/> 
-     <meta property="og:type" content="article"/> 
-     <meta property="og:url" content="http://www.enseignement2.be/article/${article.title}"/> 
-     <meta property="og:image" content=""/> 
-     <meta property="og:site_name" content="www.enseignement2.be"/> 
-     <meta property="fb:admins" content="${user.id}"/> 
-     <meta property="og:description"  content="${article.description}"/> 
+<%-- 	 <meta property="og:title" content="${article.title}"/>  --%>
+<!--      <meta property="og:type" content="article"/>  -->
+<%--      <meta property="og:url" content="http://www.enseignement2.be/article/${article.title}"/>  --%>
+<!--      <meta property="og:image" content=""/>  -->
+<!--      <meta property="og:site_name" content="www.enseignement2.be"/>  -->
+<%--      <meta property="fb:admins" content="${user.id}"/>  --%>
+<%--      <meta property="og:description"  content="${article.description}"/>  --%>
+		<meta name="description" content="${article.description}" /> 
+     
  
 </head>
 <body>
+
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -61,6 +64,8 @@
 	</c:forEach>
 	<ryctag:breadcrumbelement label="${article.title}" />
  </ryctag:pageheadertitle>
+
+
 	<div style="display:inline-block"><!-- DO NOT REMOVE OTHERWISE TITLE AND MENU ARE UPSIDE DOWN	 -->
 		<div class="article-options">
 	    <ryc:conditionDisplay privilege="EDIT_ARTICLE" >
@@ -102,13 +107,25 @@
 		  	  <ryc:conditionDisplay privilege="EDIT_ARTICLE">
 		 		 <hr/>
 			  </ryc:conditionDisplay>
+			  
+			  <div class="addthis_toolbox addthis_default_style "> 
+				<a href="http://www.addthis.com/bookmark.php?v=250&pubid=ra-509a829c59a66215" _cke_saved_href="http://www.addthis.com/bookmark.php?v=250&pubid=ra-509a829c59a66215" class="addthis_button_compact">Share</a> 
+				<span class="addthis_separator">|</span>
+				  <a class="addthis_button_facebook" fb:like:layout="button_count"
+				        addthis:url="http://www.enseignement2.be"
+				        addthis:title="${article.title}"
+				        addthis:description="${article.description}"></a>
+				  <a class="addthis_button_tweet"></a>
+				  <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+				  <a class="addthis_counter addthis_pill_style"></a>
+				</div> 
 			  <!-- AddThis Button BEGIN -->
-				<div class="addthis_toolbox addthis_default_style ">
-				<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-				<a class="addthis_button_tweet"></a>
-				<a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
-				<a class="addthis_counter addthis_pill_style"></a>
-				</div>
+<!-- 				<div class="addthis_toolbox addthis_default_style "> -->
+<!-- 				<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a> -->
+<!-- 				<a class="addthis_button_tweet"></a> -->
+<!-- 				<a class="addthis_button_google_plusone" g:plusone:size="medium"></a> -->
+<!-- 				<a class="addthis_counter addthis_pill_style"></a> -->
+<!-- 				</div> -->
 				<br/>
 			  <!-- AddThis Button END -->
 				<div id="carouselh">
