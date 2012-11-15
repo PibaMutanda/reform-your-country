@@ -1,57 +1,54 @@
+//Will Send the value of the new Argument form to the controller 
 function sendNewArg(item,ispos){
 	if( $("#contentArg"+ispos).val()!="" && $("#titleArg"+ispos).val()!=""){
 		
 		var requestArg = $.post("/ajax/argumentAdd",$("#form"+ispos).serialize()).done(function(data) {
-	                	$("#argContainer").html(data);
+						//If Ok, update the list
+						$(data).insertBefore("#help"+ispos);
+	                	//$("#argContainer").html(data);
+						hideArea(ispos);
             		});
-	        			//Send the new data to the div containing the lists
-	        			
-//		var requestArg = $.ajax({
-//			url: "/ajax/argumentAdd",
-//			type: "POST",
-//			data: "content="+ $("#comment"+ispos).val()+"&action="+$("#action"+ispos).val()+"&title="+$("#title"+ispos).val()+"&ispos="+ispos,
-//			dataType: "html"
-//		}).done(function(data) {
-//			//Send the new data to the div containing the lists
-//			$("#argContainer").html(data);
-//		});
 
 		requestArg.fail(function(jqXHR, textStatus) {
+			//If error show it in the error div
 			$("#errorArg").text("Erreur lors de l'envoi d'un argument : "+textStatus);
 		});
 	}else{
 		$("#errorArg").text("Erreur lors de l'envoi d'un argument : Veuillez remplir tout les champs !");
 	}
 }
-function sendArgAfterEdit(item,idArg,title,content){
-	if(content.length>0 && title.length>0){
-		var requestArg = $.ajax({
-			url: "/ajax/argumentedit",
-			type: "POST",
-			data: "content="+ content+"&idArg="+idArg+"&title="+title,
-			dataType: "html"
-		}).done(function(data){
-			//Send the new data to the div containing the lists	
-			$("#arg"+idArg).html(data);
-		});
+//Send the value of the form
+function sendArgAfterEdit(item,idArg){
+	if( $("#contentEdit"+idArg).val()!="" && $("#titleEdit"+idArg).val()!=""){
+		var requestArg = $.post("/ajax/argumentedit",$("#editForm"+idArg).serialize()).done(function(data) {
 
+						destroyEditor('contentEdit'+idArg);
+	                	$("#arg"+idArg).replaceWith(data);
+            		});
+		
 		requestArg.fail(function(jqXHR, textStatus) {
 			$("#errorArg").text("Erreur lors de l'envoi d'un commentaire : "+textStatus);
 		});
 	}
 }
-function editArg(item,newid,newtitle,newcontent){
+//Change the Argument in a form
+function editArg(item,newid){
+	var title = $("#argTitle"+newid).text();
+	var content = $("#argContent"+newid).html();
 	if (idUser.length>0){
 		$("#arg"+newid).html(
-				+"<form class=\"argumentNegForm\" action=\"\" method=\"post\" >"
-				+"<div style='border:3px inset; background-color: #e2e2e2;'>"
-				+" Titre :<input type=\"hidden\" id=\"idArg\" value=\""+newid+"\" />"
-				+"<textarea id=\"titleEdit"+newid+"\" rows=\"1\" cols=\"15\">"+newtitle+"</textarea><br/>"
-				+"<textarea id=\"contentEdit"+newid+"\"rows=\"5\" cols=\"15\" >"+newcontent+"</textarea><br/>"
-				+"<div  onclick=\"sendArgAfterEdit(this,"+newid+");\">Sauver</div></div></form>"	
+				"<form id=\"editForm"+newid+"\" class=\"argumentNegForm\" action=\"\" method=\"post\" >"
+				//+"<div style='border:3px inset; background-color: #e2e2e2;'>"
+				+" Titre :<input type=\"hidden\" name=\"idArg\" id=\"idArg\" value=\""+newid+"\" />"
+				+"<textarea id=\"titleEdit"+newid+"\" name=\"title\" rows=\"1\" cols=\"15\">"+ $.trim(title)+"</textarea><br/>"
+				+"<textarea id=\"contentEdit"+newid+"\" name=\"content\" rows=\"5\" cols=\"15\" >"+ $.trim(content)+"</textarea><br/>"
+				//+"<div  onclick=\"sendArgAfterEdit(this,"+newid+");\">Sauver</div></div></form>"	
+				+"<div  onclick=\"sendArgAfterEdit(this,"+newid+");\">Sauver</div></form>"	
 		);
 
-		$('#contentEdit').ckeditor();
+		$('#contentEdit'+newid).ckeditor(function() { /* callback code */ }, { 
+	        customConfig : '/js/ext/ckeditor_config.js',
+	        toolbar : 'goodExample'});
 		//$('#showArgArea'+id).parent().css('background-color','#e2e2e2');
 	}else{
 
@@ -68,7 +65,7 @@ function voteOnArgument(item,idArg,value){
 			dataType: "html"
 		}).done(function(data) {
 			//Send the new data to the div containing the lists
-			$("#arg"+idArg).html(data);
+			$("#arg"+idArg).replaceWith(data);
 		});
 
 		requestArg.fail(function(jqXHR, textStatus) {
@@ -166,7 +163,23 @@ function showArea(id){
 	$('#help'+id).show("slide", {direction: 'down'},"slow");
 	$('#hideArgArea'+id).hide();
 	$('#showArgArea'+id).show();
-	$('#contentArg'+id).ckeditor();
+	$('#contentArg'+id).ckeditor(function() { /* callback code */ }, { 
+        customConfig : '/js/ext/ckeditor_config.js',
+        toolbar : 'goodExample'
+    });
 	$('#showArgArea'+id).parent().css('background-color','#e2e2e2');
 }
-
+function hideArea(id){
+	$('#help'+id).hide();
+	$('#showArgArea'+id).parent().css('background-color','#ffffff');
+	$('#showArgArea'+id).hide();
+	destroyEditor('contentArg'+id);
+	$('#hideArgArea'+id).show();
+}
+function destroyEditor(name){
+	 var editor = CKEDITOR.instances[name];
+	 
+	    if (editor) { editor.destroy(true);
+	    delete CKEDITOR.instances[name];
+	    }
+}

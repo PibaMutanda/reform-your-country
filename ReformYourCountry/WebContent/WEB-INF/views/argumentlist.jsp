@@ -15,14 +15,12 @@
         ">
 	<c:forEach items="${listToShow}" var="arg">
 		
-		<div id="arg${arg.id}" style="width:100%; display: inline-block;background:url(/images/_global/separator3.gif) 0 0 repeat-x ;">
+ 		
 			<%@include file="argumentdetail.jsp"%>
-		</div>
-
+ 		
 	</c:forEach>
    
 
-   
 		<div id="help${ispos}" style="display:none;background-color:#FFFFCC; padding:10px; font-size:0.8em;	">
 		<div style="width:100%; text-align: right;">
 		<div style="font-weight: bold;" onclick="hideHelp(help${ispos});">
@@ -57,4 +55,5 @@
 		</form>
 		</div>
 		</div>
-</div>
+		</div>
+
