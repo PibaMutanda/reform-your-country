@@ -27,36 +27,33 @@ public class ActionListController {
     
     @RequestMapping(value="/action",method=RequestMethod.GET)
     public ModelAndView actionListDisplay(){
-        List<Action> actionList = actionRepository.findAll();
-        
-       List<ActionItem> actionItems = new ArrayList<ActionItem>();
-      
-       for(Action action : actionList){
-           VoteAction va = voteActionRepository.findVoteActionForUser(SecurityContext.getUser(), action.getId());
-           ActionItem actionItem = new ActionItem(action,actionService.getResultNumbersForAction(action),va);
-           actionItems.add(actionItem);           
-       }
-                     
-       ModelAndView mv = new ModelAndView("actionlist");
-       mv.addObject("actionItems",actionItems);
-      
-        
+        ////////// Builds a list of action with connex data
+        List<ActionItem> actionItems = new ArrayList<ActionItem>();
+
+        for (Action action : actionRepository.findAll()){
+            VoteAction va = voteActionRepository.findVoteActionForUser(SecurityContext.getUser(), action.getId());
+            ActionItem actionItem = new ActionItem(action, actionService.getResultNumbersForAction(action), va);
+            actionItems.add(actionItem);           
+        }
+
+        ModelAndView mv = new ModelAndView("actionlist");
+        mv.addObject("actionItems",actionItems);
         return mv;
     }
-    
-    @RequestMapping(value="/ajax/voteactionlist",method=RequestMethod.POST)
+
+    @RequestMapping(value="/ajax/voteactionlist")
     public ModelAndView voteFromList(@RequestParam("idAction")Long idAction, @RequestParam("vote")int vote){
         SecurityContext.assertUserIsLoggedIn();       
-        actionService.userVoteForAction(SecurityContext.getUser(),idAction,vote);
+       VoteAction va = actionService.userVoteForAction(SecurityContext.getUser(),idAction,vote);
         List<Long> resultNumbers = actionService.getResultNumbersForAction(idAction);
         ModelAndView mv = new ModelAndView("voteactionwidget");
+        mv.addObject("vote",va);
         mv.addObject("resultNumbers", resultNumbers);
-        mv.addObject("id",idAction);
+        mv.addObject("id", idAction);
         return mv;
-        
     }
     
-    public class ActionItem{
+    public static class ActionItem{
         Action action;
         List<Long> resultNumbers;
         VoteAction voteAction;
@@ -64,7 +61,6 @@ public class ActionListController {
             this.action = action;
             this.resultNumbers = resultNumbers;
             this.voteAction = voteAction;
-          
         }
         public Action getAction() {
             return action;
@@ -75,9 +71,6 @@ public class ActionListController {
         public VoteAction getVoteAction() {
             return voteAction;
         }
-        
-        
-        
     }
     
 }
