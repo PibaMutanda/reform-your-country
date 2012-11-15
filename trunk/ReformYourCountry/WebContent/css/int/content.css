@@ -271,8 +271,12 @@
 	text-align: right;
 	margin-top:2px;
 }
+
+.bookTitle{
+	font-size:1.1em;
+}
 .bookSubTitle{
-	font-size: 0.8em;
+	font-size: 0.78em;
 }
 .book .bookContent{
 	font-size:1.2em;
