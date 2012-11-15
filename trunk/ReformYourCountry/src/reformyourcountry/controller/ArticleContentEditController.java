@@ -1,29 +1,20 @@
 package reformyourcountry.controller;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import reformyourcountry.exception.InvalidUrlException;
 import reformyourcountry.model.Article;
-import reformyourcountry.model.ArticleVersion;
-import reformyourcountry.model.Book;
 import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.repository.ArticleVersionRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.ArticleService;
-import reformyourcountry.service.IndexManagerService;
 
 @Controller
 public class ArticleContentEditController extends BaseController<Article>{
@@ -32,12 +23,41 @@ public class ArticleContentEditController extends BaseController<Article>{
     @Autowired ArticleVersionRepository articleVersionRepository;
     @Autowired ArticleService articleService;
     
-    @RequestMapping("/article/contentedit")
+    @RequestMapping(value={"/article/contentedit"})
     public ModelAndView articleContentEdit(@RequestParam("id")Long id) {
         SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
         ModelAndView mv = new ModelAndView("articlecontentedit");
         Article article = getRequiredEntity(id);
         mv.addObject("article", article);
+        mv.addObject("pageName", "édition du contenu");
+        mv.addObject("pageUrl", "editsubmitcontent");
+        mv.addObject("thingToEdit", article.getLastVersion().getContent());
+        mv.addObject("parentsPath", article.getPath()); // For the breadcrumb
+        return mv;
+    }
+    
+    @RequestMapping(value={"/article/summaryedit"})
+    public ModelAndView articleSummaryEdit(@RequestParam("id")Long id) {
+        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
+        ModelAndView mv = new ModelAndView("articlecontentedit");
+        Article article = getRequiredEntity(id);
+        mv.addObject("article", article);
+        mv.addObject("pageName", "édition du résumé");
+        mv.addObject("pageUrl", "editsubmitsummary");
+        mv.addObject("thingToEdit", article.getLastVersion().getSummary());
+        mv.addObject("parentsPath", article.getPath()); // For the breadcrumb
+        return mv;
+    }
+    
+    @RequestMapping(value={"/article/toclassifyedit"})
+    public ModelAndView articleToClassifyEdit(@RequestParam("id")Long id) {
+        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
+        ModelAndView mv = new ModelAndView("articlecontentedit");
+        Article article = getRequiredEntity(id);
+        mv.addObject("article", article);
+        mv.addObject("pageName", "édition du contenu à classer");
+        mv.addObject("pageUrl", "editsubmittoclassify");
+        mv.addObject("thingToEdit", article.getLastVersion().getToClassify());
         mv.addObject("parentsPath", article.getPath()); // For the breadcrumb
         return mv;
     }

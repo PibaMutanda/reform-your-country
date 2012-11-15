@@ -56,6 +56,8 @@
 						 <li><a href="/article/edit?id=${article.id}">Editer l'article</a></li>
 						 <li><a href="/article/parentedit?id=${article.id}">Editer l'article parent</a></li>
 						 <li><a href="/article/contentedit?id=${article.id}">Editer le contenu de l'article</a></li>
+						 <li><a href="/article/summaryedit?id=${article.id}">Editer le résumé de l'article</a></li>
+						 <li><a href="/article/toclassifyedit?id=${article.id}">Editer le contenu à classer de l'article</a></li>
 						 <li><a href="/article/version/${article.url}">Afficher l'historique des versions</a></li>
 						 <li><a href="/video/manager?id=${article.id}">Vidéo</a></li>
 					</ul>	
