@@ -16,7 +16,7 @@ function clicked(item){
 		request.done(function(data) {
 			
 			
-			$("#voteContainer").html(data);
+			$(item).parent().parent().html(data);
 			
 		});
 
