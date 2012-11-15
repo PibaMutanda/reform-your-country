@@ -1,5 +1,6 @@
 $(document).ready(function() {
-
+var timer ='undefined';
+var pending = false;
 	//disable the save button
 	$(".save").each(function(){ // .each() used because .attr() only takes the first matched element (so if there are more than one save button, only the first will be disabled).
 		$(this).attr('disabled', 'disabled');
@@ -10,16 +11,23 @@ $(document).ready(function() {
 		//it save when we type CTRL+S
 		if(event.ctrlKey  && event.keyCode == 83) { // touche s = 83
 			event.preventDefault();
+			if(!pending){
 			performSave();
+			}
 		}
 	});
 
 	$(".autosaveable").keyup(function(event) {
+		
 		$(".save").removeAttr('disabled');  // Make the save button enabled (the text effectively changed since the last save).
 		contentHasNotBeenSaved = true;
 
 		if(event.ctrlKey == false  &&  event.keyCode != 83) {// get the save timer only when there is new content and when CTRL+S wasn't pressed
-			setTimeout(function(){performSave();}, 120000);  // We'll save in 120 seconds from now.
+			if(timer == 'undefined')
+			timer = setTimeout(function(){
+				if(!pending){
+				  performSave();
+				}}, 120000);  // We'll save in 120 seconds from now.
 		}
 	});
 
@@ -42,6 +50,7 @@ $(document).ready(function() {
 
 	// Function called when a change is performed on the article.
 	function performSave() {
+		pending = true;
 		////// We effectively start saving from here
 		$(".saving").text("sauvegarde en cours....");		
 		//get the action value from the form and add ajax/ before because this is a project convention for ajax request
@@ -54,7 +63,9 @@ $(document).ready(function() {
 				$(this).attr('disabled', 'disabled');
 				contentHasNotBeenSaved = false;
 			});
-			$(".saving").text("sauvé à "+getDate());	
+			$(".saving").text("sauvé à "+getDate());
+			pending = false;
+			timer='undefined';
 		});
 	}
 
