@@ -3,7 +3,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
-<html>
+
+<!-- code used for "i like facebook" -->
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:og="http://ogp.me/ns#" 
+       xmlns:fb="http://www.facebook.com/2008/fbml"> 
+
 <head>
 <link rel="stylesheet" href="css/ext/jquery-bubble-popup-v3.css"  type="text/css" />
 <script src="js/ext/jquery-bubble-popup-v3.min.js" type="text/javascript"></script>
@@ -27,7 +32,16 @@
  var addthis_config = {"data_track_clickback":true};
  </script> <script type="text/javascript"
  src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-509a829c59a66215"></script>
-
+ 
+ 	<!-- code used for "i like facebook" -->
+	 <meta property="og:title" content="${article.title}"/> 
+     <meta property="og:type" content="article"/> 
+     <meta property="og:url" content="http://www.enseignement2.be/article/${article.title}"/> 
+     <meta property="og:image" content=""/> 
+     <meta property="og:site_name" content="www.enseignement2.be"/> 
+     <meta property="fb:admins" content="${user.id}"/> 
+     <meta property="og:description"  content="${article.description}"/> 
+ 
 </head>
 <body>
 <div id="fb-root"></div>
@@ -38,6 +52,9 @@
   js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
+
+
+
  <ryctag:pageheadertitle title="${article.title}">
  	<c:forEach items="${parentsPath}" var="subarticle">
 		<ryctag:breadcrumbelement label="${subarticle.title}" link="/article/${subarticle.url}" />
@@ -48,26 +65,25 @@
    
 
 	<div style="display:inline-block"><!-- DO NOT REMOVE OTHERWISE TITLE AND MENU ARE UPSIDE DOWN	 -->
-	    <ryc:conditionDisplay privilege="EDIT_ARTICLE">
-			<ul style="float:left">
-						<li><a href="/article/a_classer/${article.url}">Afficher "A classer"</a></li>
-					</ul>
-			<div class="article-options">
-				    <ul class="list sitemap-list">
-						 <li><a href="/article/edit?id=${article.id}">Editer l'article</a></li>
-						 <li><a href="/article/parentedit?id=${article.id}">Editer l'article parent</a></li>
-						 <li><a href="/article/contentedit?id=${article.id}">Editer le contenu de l'article</a></li>
-						 <li><a href="/article/summaryedit?id=${article.id}">Editer le résumé de l'article</a></li>
-						 <li><a href="/article/toclassifyedit?id=${article.id}">Editer le contenu à classer de l'article</a></li>
-						 <li><a href="/article/version/${article.url}">Afficher l'historique des versions</a></li>
-						 <li><a href="/video/manager?id=${article.id}">Vidéo</a></li>
-					</ul>	
-			</div>
+		<div class="article-options">
+	    <ryc:conditionDisplay privilege="EDIT_ARTICLE" >
+			 <a href="/article/contentedit?id=${article.id}" >éditer contenu</a>
+			 - <a href="/article/summaryedit?id=${article.id}" >éditer résumé</a>
+			 - <a href="/article/toclassifyedit?id=${article.id}" >éditer à classer</a>
+			 - <a href="/article/edit?id=${article.id}" >éditer champs</a>
+			 - <a href="/article/parentedit?id=${article.id}" >changer parent</a>
+			 - <a href="/article/a_classer/${article.url}" >afficher à classer</a>
+			 - <a href="/article/version/${article.url}" >historique des versions</a>
+			 - <a href="/video/manager?id=${article.id}" >vidéo</a>
 		</ryc:conditionDisplay>
+		</div>
+		<br/>
 		<div class="article-title" >
+		  <div class="article-shortname" >
 			<ryc:conditionDisplay privilege="EDIT_ARTICLE">
 		    	<span class="tooltip" data-tooltip='identifiant de cet article pour utilisation dans la balise [link article="${article.shortName}"]'>${article.shortName}</span>   <!--  Tooltip avec "identifiant de cet article pour utilisation dans la balise [link article="identifiant"]" -->
 			</ryc:conditionDisplay>	
+		   </div>
 		    <c:if test="${!article.publicView}">
 				<p>Cet article n'est pas disponible au public.
 		     	<c:choose>

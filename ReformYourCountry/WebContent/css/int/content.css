@@ -202,11 +202,16 @@
 }
 
 .article-options{
-	float:right;
+	font-size:0.8em;
+	
 }
 .article-title{
 	float:left;
-	width: 600px;
+	width: 770px;
+}
+.article-shortname{
+	text-align:right;
+	
 }
 .bibref-after-block {
 	color: #AAA;
