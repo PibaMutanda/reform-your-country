@@ -1,8 +1,8 @@
 ﻿<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<link href="css/jquery-bubble-popup-v3.css" rel="stylesheet" type="text/css" />
+
 <script type="text/javascript" src="js/ext/jquery-ui-1.8.23.custom.min.js"></script>
-<script src="js/ext/jquery-bubble-popup-v3.min.js" type="text/javascript"></script>
+
 <script type="text/javascript">
    var idUser = "${current.user.id}";
 </script>

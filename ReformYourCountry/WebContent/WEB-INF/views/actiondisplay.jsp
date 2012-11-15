@@ -8,6 +8,8 @@
 <meta name="robots" content="index, follow"/>
 <script type="text/javascript" src="js/int/voteaction.js"></script>
 <script type="text/javascript" src="js/ext/d3.v2.min.js"></script>
+<script src="js/ext/jquery-bubble-popup-v3.min.js" type="text/javascript"></script>
+<link href="css/ext/jquery-bubble-popup-v3.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <ryctag:pageheadertitle title="${action.title}"/>
@@ -38,14 +40,14 @@
    <%-- Chart --%>
 	<div id="voteGraph" style=" width: 500px; margin-left: 150px;background:url(/images/_global/separator3.gif) 0 0 repeat-x ;padding-top:10px;">
 	</div>
-	<div id="voteContainer" > <%-- Will be re-filled through Ajax too --%>
+	<div id="voteContainer" > <%-- Will be re-filled through Ajax too--%>
 	    <%@include file="voteaction.jsp"%>
 	</div>
 	
 	<%-- Arguments --%>
-	<div id="argContainer"> <%-- Will be re-filled through Ajax --%>
+	<div id="argContainer"><%-- Will be re-filled through Ajax--%>
 		<%@include file="argument.jsp" %>
 	</div>
-	
+<%-- <%@include file="argumentcomment.jsp"%> --%>
 </body>
 </html> 

@@ -123,7 +123,6 @@ function showText(item, addcom){
 		} 
 	
 }
-
 function notLoggedMessage(item){
 	$(item).CreateBubblePopup({ 
 		innerHtmlStyle: {  // give css property to the inner div of the popup	    	   
@@ -131,8 +130,7 @@ function notLoggedMessage(item){
 		},
 		tail: {align:'center', hidden: false},
 		selectable :true,				    	
-		innerHtml: ' '
-			+'<a class="login" style="cursor:pointer;" href="/login">Connexion</a>'
+		innerHtml: '<div> <a class="login" style="cursor:pointer;" href="/login">Connexion</a></div>'
 });
 }
 function maxlength_textarea(item,id, max, min)
