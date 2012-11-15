@@ -75,17 +75,5 @@ public class BaseController<E extends BaseEntity> {
         mv.addObject("message",message);
         return mv;  // For chained calls.
     }
-    /** Sets a message string to be displayed by the next JSP in the Notification bar */
-    public static void addNotificationMessage(String notification, WebRequest request){
-        
-        String notif = (String)request.getAttribute("notification", RequestAttributes.SCOPE_SESSION);
-        
-        if(!StringUtils.isBlank(notif)){
-          notification = notif + notification; 
-        }
-                    
-        request.setAttribute("notification", notification, RequestAttributes.SCOPE_SESSION);
-       
-        
-    }
+   
 }

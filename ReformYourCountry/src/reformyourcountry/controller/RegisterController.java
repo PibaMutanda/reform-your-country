@@ -19,6 +19,7 @@ import reformyourcountry.exception.UserAlreadyExistsException.IdentifierType;
 import reformyourcountry.model.User;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.service.UserService;
+import reformyourcountry.util.NotificationUtil;
 import reformyourcountry.web.ContextUtil;
 
 @Controller
@@ -41,18 +42,18 @@ public class RegisterController extends BaseController<User> {
         } else {
             try {
                 user = userService.registerUser(false, user.getUserName(), user.getPassword(), user.getMail(),false);
-                addNotificationMessage("Un message de confirmation de votre inscription vous a été envoyé sur votre email :"+user.getMail()+". Merci d'activer votre compte (en cliquant sur le lien de confirmation)afin de pouvoir l'utiliser.", request);
+                NotificationUtil.addNotificationMessage("Un message de confirmation de votre inscription vous a été envoyé sur votre email :"+user.getMail()+". Merci d'activer votre compte (en cliquant sur le lien de confirmation)afin de pouvoir l'utiliser.", request);
                 
             } catch (UserAlreadyExistsException uaee) {
                 ModelAndView mv = new ModelAndView("register");
                 
                 if (uaee.getType() == IdentifierType.MAIL) {
-                   addNotificationMessage("Un autre utilisateur a déjà choisi cet e-mail. Cela veut soit dire que vous avez déjà un compte chez nous" + 
+                	NotificationUtil.addNotificationMessage("Un autre utilisateur a déjà choisi cet e-mail. Cela veut soit dire que vous avez déjà un compte chez nous" + 
                     		" (si vous ne vous souvenez plus du mot de passe, vous pouvez vous en <a href='/resendpassword'>faire envoyer un nouveau</a>), " +
                     		"ou bien cela peut vouloir dire que l'e-mail que vous avez introduit n'est pas correct.",request);
                     
                 } else if (uaee.getType() == IdentifierType.USERNAME) {
-                   addNotificationMessage("Un autre utilisateur a déjà choisi ce pseudonyme. Merci d'en spécifier un autre. " +
+                	NotificationUtil.addNotificationMessage("Un autre utilisateur a déjà choisi ce pseudonyme. Merci d'en spécifier un autre. " +
                     		"A moins que cela veuille dire que vous avez déjà un compte chez nous (si vous ne vous souvenez plus du mot de passe, vous pouvez vous en <a href='/resendpassword'>faire envoyer un nouveau</a>.",request); 
                 } else {  // defensive coding
                     throw new RuntimeException("Bug - Unsupported type: " + uaee.getType());

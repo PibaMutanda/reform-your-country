@@ -13,6 +13,7 @@ import reformyourcountry.mail.MailType;
 import reformyourcountry.model.User;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.MailService;
+import reformyourcountry.util.NotificationUtil;
 
 @Controller
 public class ContactController extends BaseController<User> {
@@ -46,14 +47,14 @@ public class ContactController extends BaseController<User> {
         }
         
         mailService.sendMail(mailService.ADMIN_MAIL, sender, subject,content, MailType.IMMEDIATE, MailCategory.CONTACT);
-        addNotificationMessage("Votre message est bien envoyé", request);
+        NotificationUtil.addNotificationMessage("Votre message est bien envoyé", request);
 
         return new ModelAndView("redirect:/");  // Go to home page.
     }
     
     
     private ModelAndView prepareModelAndView(String sender,String subject,String content,String message, WebRequest request) {
-    	addNotificationMessage(message, request);
+    	NotificationUtil.addNotificationMessage(message, request);
         ModelAndView mv = new ModelAndView("contact");
         
         // Refill fields to prevent to user to retype them.

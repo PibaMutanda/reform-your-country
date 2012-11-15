@@ -13,6 +13,7 @@ import reformyourcountry.model.User;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.service.LoginService;
 import reformyourcountry.service.UserService;
+import reformyourcountry.util.NotificationUtil;
 import reformyourcountry.web.UrlUtil;
 
 @Controller
@@ -46,7 +47,7 @@ public class ResendPasswordController extends BaseController<User>{
         }
     
             userService.generateNewPasswordForUserAndSendEmail(user);
-            addNotificationMessage("Votre nouveau mot de passe viens de vous être envoyé sur votre adresse e-mail à "+user.getMail(),request);
+            NotificationUtil.addNotificationMessage("Votre nouveau mot de passe viens de vous être envoyé sur votre adresse e-mail à "+user.getMail(),request);
             return new ModelAndView("redirect:home");
         
 
