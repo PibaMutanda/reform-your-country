@@ -39,7 +39,7 @@ public class ActionService {
         return mv;
     }
 	
-	public float getAbsolutePercentage(List<Long> resultNumbers,boolean positive){
+	public int getAbsolutePercentage(List<Long> resultNumbers,boolean positive){
 		long total=0;
 		for(Long nbr : resultNumbers){
 			total+=nbr;
@@ -56,10 +56,10 @@ public class ActionService {
 			result = (float) ((resultNumbers.get(3) * 100 / total) + (resultNumbers
 					.get(4) * 100 / total));
 		}
-    	return result;
+    	return Math.round(result);
     }
     
-	public float getWeightedPercentage(List<Long> resultNumbers, boolean positive){
+	public int getWeightedPercentage(List<Long> resultNumbers, boolean positive){
     	List<Long> weightedNumbers = new ArrayList<Long>();
     	long weightedTotal = 0;
     	for(int i=0; i<5;i++){
@@ -83,7 +83,7 @@ public class ActionService {
 			result = (float) ((weightedNumbers.get(3) * 100 / weightedTotal) + (weightedNumbers
 					.get(4) * 100 / weightedTotal));
 		}
-    	return result;
+		return Math.round(result);
     }
 	
 	public void putArgumentListInModelAndView(ModelAndView mv, Action action) {
