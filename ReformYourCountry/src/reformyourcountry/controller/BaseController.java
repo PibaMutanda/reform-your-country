@@ -36,12 +36,17 @@ public class BaseController<E extends BaseEntity> {
     }
     
     @SuppressWarnings("unchecked")
-    protected E getRequiredEntity(long id) {
-        Object obj =  em.find( entityClass, id );
+    protected Object getRequiredEntity(long id, Class<?> clazz) {
+        Object obj =  em.find(clazz, id );
         if (obj == null) {
-            throw new InvalidUrlException(entityClass.getName() + " ayant l'id '"+id+"' est introuvable.");
+            throw new InvalidUrlException(clazz.getName() + " ayant l'id '"+id+"' est introuvable.");
         }
-        return ( E )obj;
+        return obj;
+    }    
+    
+    @SuppressWarnings("unchecked")
+    protected E getRequiredEntity(long id) {
+        return ( E )getRequiredEntity(id, entityClass);
     }
     
     @SuppressWarnings("unchecked")

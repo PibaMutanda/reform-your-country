@@ -1,8 +1,6 @@
 package reformyourcountry.controller;
 
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.model.Action;
+import reformyourcountry.model.Argument;
 import reformyourcountry.model.VoteAction;
 import reformyourcountry.repository.ActionRepository;
 import reformyourcountry.repository.ArgumentRepository;
@@ -64,4 +63,5 @@ public class ActionDisplayController extends BaseController<Action> {
         }
         return mv;
     }   
+
 }

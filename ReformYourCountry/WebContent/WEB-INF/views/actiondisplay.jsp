@@ -12,6 +12,10 @@
 <link href="css/ext/jquery-bubble-popup-v3.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
+
+<script type="text/javascript">
+   var idUser = "${current.user.id}";
+</script>
     <ryctag:pageheadertitle title="${action.title}"/>
 
     <%-- Action text --%>

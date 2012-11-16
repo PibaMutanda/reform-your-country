@@ -22,7 +22,7 @@ import reformyourcountry.service.ActionService;
 import reformyourcountry.service.ArgumentService;
 
 @Controller
-public class ArgumentController extends BaseController<Action>{
+public class ArgumentController extends BaseController<Argument>{
 
     @Autowired ArgumentRepository argumentRepository;
     @Autowired ActionRepository actionRepository;
@@ -34,43 +34,56 @@ public class ArgumentController extends BaseController<Action>{
     @Autowired ActionService actionService;
     
     
-    @RequestMapping("ajax/argumentAdd")
-    public ModelAndView argumentAdd(@RequestParam("action")Long idAction, @RequestParam("content")String content, @RequestParam("title")String title,@RequestParam("ispos")boolean isPos) throws Exception{
-        User user = SecurityContext.getUser();
-        if (user !=null){
-            Action action = actionRepository.find(idAction);
-            if(title == null || content == null){
-            	throw new Exception("Le titre et le contenu des argument ne peuvent être vide");
-            }
-            if (action!=null){
-                Argument arg = new Argument(title, content, action, SecurityContext.getUser());
-                arg.setPositiveArg(isPos);
-                argumentRepository.persist(arg);
-                action.addArgument(arg);
-                actionRepository.merge(action);
-                ModelAndView mv = new ModelAndView("argumentdetail");  // Redisplay that argument (with new vote values)
-                mv.addObject("arg",arg);
-                return  mv;
-            }else{
-                throw new Exception("no action selected");  
-            }
-        }else{
-            throw new Exception("no user logged");
-        }
-    }   
-    
-    
     @RequestMapping("ajax/argumentedit")
-    public ModelAndView argumentEdit(@RequestParam("idArg")Long idArg, @RequestParam("content")String content, @RequestParam("title")String title) throws Exception{
-        Argument arg = argumentRepository.find(idArg);
-        SecurityContext.assertCurrentUserCanEditArgument(arg);
-        arg.setTitle(title);
-        arg.setContent(content);
-        argumentRepository.merge(arg);
-        ModelAndView mv = new ModelAndView("argumentdetail");  // Redisplay that argument (with new vote values)
-        mv.addObject("arg",arg);
+    public ModelAndView argumentEdit(@RequestParam(value="argumentId",required=false) Long argumentId,   // For editing existing arguments.
+            @RequestParam(value="idAction",required=false)Long actionId,@RequestParam(value="isPos",required=false)Boolean positiveArg      // For creating a new argument.
+            ){
+        ModelAndView mv = new ModelAndView("argumenteditform");
+        
+        if(argumentId != null) {
+            Argument argument =  (Argument)getRequiredEntity(argumentId, Argument.class);
+            mv.addObject("argument",argument);
+            
+            // We should not get both argumentId and other parameters at the same time.
+            actionId = argument.getAction().getId();
+            positiveArg = argument.isPositiveArg();
+        } 
+        mv.addObject("positiveArg",positiveArg);
+        mv.addObject("actionId",actionId);
         return mv;
     }
+  
+    
+    @RequestMapping("/ajax/argumenteditsubmit")
+    public ModelAndView argumentEditSubmit(
+            @RequestParam(value="actionId", required=false)Long actionId, @RequestParam("ispos")Boolean isPos,  // In case of create
+            @RequestParam(value="argumentId", required=false)Long argumentId,  // In case of edit
+            @RequestParam("content")String content, @RequestParam("title")String title) throws Exception{
+        SecurityContext.assertUserIsLoggedIn();
+        
+        Argument argument;
+        if (argumentId != null) {  // It's an edit (vs a create)
+            argument = getRequiredEntity(argumentId);
+            SecurityContext.assertCurrentUserCanEditArgument(argument);
+            argument.setTitle(title);
+            argument.setContent(content);
+            argumentRepository.merge(argument);
+          
+        } else {  // It's a create
+            Action action = (Action)getRequiredEntity(actionId, Action.class);
+            argument = new Argument(title, content, action, SecurityContext.getUser());
+            argument.setPositiveArg(isPos);
+            argumentRepository.persist(argument);
+            action.addArgument(argument);
+            actionRepository.merge(action);
+        }
+        
+        ModelAndView mv = new ModelAndView("argumentdetail");  // Redisplay that argument (with new values)
+        mv.addObject("argument",argument);
+        return mv;
+    }        
+        
+    
     
     @RequestMapping("ajax/argumentvote")
     public ModelAndView argumentVote(@RequestParam("idArg")Long idArg,@RequestParam("value")int value)throws Exception{
@@ -91,17 +104,17 @@ public class ArgumentController extends BaseController<Action>{
 	public ModelAndView commentAdd(@RequestParam("arg")Long idArg, @RequestParam("comment")String com) throws Exception{
 		User user = SecurityContext.getUser();
 		if (user !=null){
-			Argument arg = argumentRepository.find(idArg);
-			Comment comment = new Comment(com, arg, user);
+			Argument argument = argumentRepository.find(idArg);
+			Comment comment = new Comment(com, argument, user);
             commentRepository.persist(comment);
-			arg.addComment(comment);
-			argumentRepository.merge(arg);       
-			ModelAndView mv = new ModelAndView("argumentcomment");
-            mv.addObject("arg",arg);
+            argument.addComment(comment);
+			argumentRepository.merge(argument);       
+			ModelAndView mv = new ModelAndView("argumentdetail");
+            mv.addObject("argument",argument);
 			return mv;
 		}else {
 			throw new Exception("no user logged");
 		}
 	}
-  
+
 }
