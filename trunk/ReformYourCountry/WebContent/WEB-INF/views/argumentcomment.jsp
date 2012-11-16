@@ -5,23 +5,21 @@
 
 
 <div style="width:100%; font-size:0.7em;">
-	<c:forEach items="${arg.commentList}" var="lst">
+	<c:forEach items="${argument.commentList}" var="comment">
 		<div style="margin:0px; width:100%;">
-				${lst.content} - <a id="underlineUser" href="/user/${lst.user.userName}">${lst.user.userName}</a> - 
-				${lst.getFormatedCreatedOn()}
+				${comment.content} - <a id="underlineUser" href="/user/${comment.user.userName}">${comment.user.userName}</a> - 
+				${comment.formatedCreatedOn}
 		</div>
 	</c:forEach>
-		<form action="" method="post">
-			<input type="hidden" id="idArg" value="${arg.id}" />
-			<div>
-				<div id="addcom${arg.id}">
-					<br><div id="commentLink" onclick="showText(this,${arg.id})">commenter</div>
-				</div>
-				<br><div id="commentArea${arg.id}" style="display: none;">
-					<textarea id="comm${arg.id}" style="width:250px; height: 60px;"  rows="1" cols="20"  onkeyup="maxlength_textarea(this,${arg.id},50,10);"></textarea>
-					<input style="float:right;" id = "sendArgComm${arg.id}" type="button" disabled="disabled" value="Commenter" onclick="sendNewComment(this, ${arg.id});return false;">
-					<div style="float:left;" id="nbrCaract${arg.id}"></div>				
-				</div>
-			</div>
-		</form>
+	
+	<div id="addcom${argument.id}">
+		<br>
+		<div id="commentLink" onclick="commentEditStart(this,${argument.id})">commenter</div>
+	</div>
+	<br>
+	<div id="commentArea${argument.id}" style="display: none;">
+		<textarea id="comm${argument.id}" style="width: 250px; height: 60px;" onkeyup="maxlength_textarea(this,${argument.id},50,10);"></textarea>
+		<input style="float: right;" id="sendArgComm${argument.id}"	type="button" disabled="disabled" value="Commenter"	onclick="return sendNewComment(this, ${argument.id});">
+		<div style="float: left;" id="nbrCaract${argument.id}"></div>
+	</div>
 </div>

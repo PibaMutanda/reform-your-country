@@ -35,7 +35,7 @@
     <script type="text/javascript">
     //global var for editor because we want only one editor per page
     $.ckeditorNameSpace = { 
-    		editor : null, 
+    		editor : null 
     };
     
     $('#${goodExample.id}_edit').click(function() {
@@ -63,8 +63,7 @@
         $.post( $('#${goodExample.id}_description').closest('form').attr('action'), 
         		{ description : $.ckeditorNameSpace.editor.getData(),
                   goodExampleId : ${goodExample.id},
-                  articleId : ${article.id} 
-                  },
+                  articleId : ${article.id} },
                 function(data) {
         	
             // remove editor from the page
