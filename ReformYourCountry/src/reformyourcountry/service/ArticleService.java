@@ -20,7 +20,7 @@ import reformyourcountry.security.SecurityContext;
 @Transactional
 public class ArticleService {
 
-    @Autowired ActionRepository actionRepository;
+    @Autowired 	ActionRepository actionRepository;
 	@Autowired	ArticleRepository articleRepository;
 	@Autowired  ArticleVersionRepository articleVersionRepository;
 	@Autowired  BookRepository bookRepository;
@@ -119,10 +119,8 @@ public class ArticleService {
 	     newVersion.setToClassify(toClassify != null ? toClassify : (previousVersion!=null ? previousVersion.getToClassify() : "") );
 
 	     ///// 4.store the rendered version of the content and summary, for performance optimization
-	     article.setLastVersionRenderedContent(new BBConverter(bookRepository, articleRepository,actionRepository).transformBBCodeToHtmlCode(newVersion.getContent()));
-	     article.setLastVersionRenderdSummary(new BBConverter(bookRepository, articleRepository,actionRepository).transformBBCodeToHtmlCode(newVersion.getSummary()));
 	     
-	     
+	     updateRendreredContentAndSummary(article);
 	     ///// 5.merge
 	     articleVersionRepository.merge(newVersion);
  	     articleRepository.merge(article);
@@ -133,9 +131,10 @@ public class ArticleService {
  	     }else{
  	    	indexManagerService.updateArticle(article);
  	     }
- 	     
- 	     
 	 }
-	 
+	 public void updateRendreredContentAndSummary(Article article){
+		 article.setLastVersionRenderedContent(new BBConverter(bookRepository, articleRepository,actionRepository).transformBBCodeToHtmlCode(article.getLastVersionRenderedContent()));
+	     article.setLastVersionRenderdSummary(new BBConverter(bookRepository, articleRepository,actionRepository).transformBBCodeToHtmlCode(article.getLastVersionRenderdSummary()));
+	 }
 	
 }

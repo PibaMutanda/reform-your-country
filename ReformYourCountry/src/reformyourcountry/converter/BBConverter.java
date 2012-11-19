@@ -63,19 +63,23 @@ public class BBConverter {
 	 * @param BBCode
 	 * @return htmlCode
 	 */
-    public String transformBBCodeToHtmlCode(String bbCode){
-    	if(hasBeenUsed) throw new IllegalStateException("This class is not reusable, please reinstanciate");
-    	 html="";
-    	
-		 BBDomParser dp = new BBDomParser();
-		 dp.setEscapeAsText(true);
-		 dp.addIgnoredTag("[...]");
-		 BBTag root = dp.parse(bbCode);
-		 
-		 transformDomToHtml(root);
-		 hasBeenUsed = true;
-		 return html;
-	 }
+	public String transformBBCodeToHtmlCode(String bbCode){
+		if(hasBeenUsed) throw new IllegalStateException("This class is not reusable, please reinstanciate");
+		html="";
+
+		//BBdomParser doesn't like if a string is null
+		if (bbCode != null) { 
+			BBDomParser dp = new BBDomParser();
+			dp.setEscapeAsText(true);
+			dp.addIgnoredTag("[...]");
+			BBTag root = dp.parse(bbCode);
+
+			transformDomToHtml(root);
+		}
+
+		hasBeenUsed = true;
+		return html;
+	}
 
 	//////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////// Private //////////////////////////////////////
