@@ -114,19 +114,17 @@ function hideHelp(item){
 
 
 function voteOnArgument(item,idArg,value){
-	if (showMessageIfNotLogged($('#argumentAddDivFakeEditor'+isPos))) {
+	if (showMessageIfNotLogged(item)) {
 		return;
 	}
-	
-	var requestArg = $.ajax({
-		url: "/ajax/argumentvote",
-		type: "POST",
-		data: "idArg="+ idArg+"&value="+ value,
-		dataType: "html"
-	}).done(function(data) {
-		//Send the new data to the div containing the lists
-		$("#arg"+idArg).replaceWith(data);
-	});
+	var requestArg = $.post("/ajax/argumentvote",
+			{value : value,
+			idArg : idArg},
+		function(data){
+			//Send the new data to the div containing the argument
+			$("#arg"+idArg).html(data);
+			return false;
+		});
 
 	requestArg.fail(function(jqXHR, textStatus) {
 		alert("Erreur de communication lors d'un vote"+textStatus);
