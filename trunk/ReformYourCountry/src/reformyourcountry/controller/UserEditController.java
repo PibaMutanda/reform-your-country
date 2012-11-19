@@ -1,14 +1,11 @@
 package reformyourcountry.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
@@ -143,8 +140,9 @@ public class UserEditController extends BaseController<User> {
         }
         
         user = userRepository.merge(user);
+        
         userService.grantIfUserIsComplete(user);
-    
+        
         return new ModelAndView("redirect:/user/"+user.getUserName());
     }
     

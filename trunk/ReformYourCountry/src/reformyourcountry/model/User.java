@@ -337,8 +337,15 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     /////////////////////////////////////////: GETTERS & SETTERS //////////////////////////
     /////////////////////////////////////////: GETTERS & SETTERS //////////////////////////
     
+    
+    
+    
     public Date getCertificationDate() {
 		return certificationDate;
+	}
+
+	public Set<Badge> getBadges() {
+		return badges;
 	}
 
 	public void setCertificationDate(Date certificationDate) {
