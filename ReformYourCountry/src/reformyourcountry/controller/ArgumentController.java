@@ -92,7 +92,7 @@ public class ArgumentController extends BaseController<Argument>{
             Argument arg = argumentRepository.find(idArg);
             argumentService.updateVoteArgument(idArg, value, user, arg);
             ModelAndView mv = new ModelAndView("argumentdetail");  // Redisplay that argument (with new vote values)
-            mv.addObject("arg",arg);
+            mv.addObject("argument",arg);
             return mv;
            
         } else {
