@@ -15,5 +15,9 @@
 <input type="submit" value="Générer un index"/>
 </form>
 
+<form action="/admin/majArticle" method="post">
+<input type="submit" value="génération de l'html de tous les articles"/>
+</form>
+
 </body>
 </html>
