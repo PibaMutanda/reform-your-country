@@ -1,0 +1,30 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<div id="help" style="display:none;background-color:#FFFFCC; padding:10px; font-size:0.8em; ">
+            <div style="width:100%; text-align: right;">
+                <div style="font-weight: bold;" onclick="hideHelp();">
+                    X
+                </div>
+            </div>
+            ${helpContent}
+</div>
+
+
+<form id='ckEditForm' action='${urlAction}'>
+    <div id="errors" style="color:red;"><%--Error messages inserted by JavaScript --%></div>
+    <c:if test="${positiveArg not empty}">
+        <input type='hidden' name='ispos' value='${positiveArg}'/>
+    </c:if>
+    <input type='hidden' name='idParent' value='${idParent}'/>
+    <input type="hidden" name="idItem" value="${idItem}" />
+    
+    <label for='titleItem' style="padding: 0px 5px 0 0;">Titre</label><input type='text' id='titleItem' name='title' style='width:330px;' value="${titleItem}"/>
+    
+    <textarea id='contentItem'  name='content' >${contentItem}</textarea>
+    <input type='submit' id='CkEditFormSubmit' value='<c:choose>
+                                    <c:when test="${idItem== null}">Ajouter</c:when>
+                                    <c:otherwise>Sauver</c:otherwise>
+                                </c:choose>' style='margin:5px;'/>
+</form>
+

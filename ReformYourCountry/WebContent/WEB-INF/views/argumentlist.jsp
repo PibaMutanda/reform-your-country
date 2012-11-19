@@ -19,8 +19,7 @@
 
 		
     <div style="border:1px solid black;" >
-		<div style="background-color: white; padding:5px; color: #BBB; font-size:0.8em;" id="argumentAddDivFakeEditor${ispos}" 
-		      onclick="argumentCreateStart('${ispos}',${action.id});">
+		<div style="background-color: white; padding:5px; color: #BBB; font-size:0.8em;" id="argumentAddDivFakeEditor${ispos}" onclick="argumentCreateStart('${ispos}',${action.id});">
 		    Cliquez ici pour composer un nouvel argument.<br/><br/><br/><br/>
 		</div>
 		<div id="argumentAddDivRealEditor${ispos}" style="display:none; background-color: #e2e2e2; padding:5px;">
