@@ -59,7 +59,8 @@ public class UserRepository extends BaseRepository<User>{
     }
     
     public Long findMaxIdValue(){
-        
-      return (Long)em.createQuery("select max(u.id) from User u").getSingleResult();
+    	return (Long)em.createQuery("select max(u.id) from User u").getSingleResult();
     }
+    
+    
 }

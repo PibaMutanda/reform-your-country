@@ -15,11 +15,11 @@
    <div id="legend-size">
    
       <div class="mb" ><span class="badge"><span class="badge1"></span>&nbsp;Gommette d'or</span></div>
-           <p style="font-size: 12px;">Gommettes d'or sont rares. Vous aurez à travailler activemment pour ça. Ils sont en quelque sorte un exploit!</p>
+           <p style="font-size: 12px;">Les gommettes d'or sont rares. Vous aurez à travailler activemment pour ça. Ils sont en quelque sorte un exploit!</p>
       <div class="mb"><span class="badge"><span class="badge2"></span>&nbsp;Gommette d'argent</span></span></div>
-           <p style="font-size: 12px;">Gommettes d'argent sont attribuées pour des objectifs à plus long terme. Gomettes d'argent sont rares, mais certainement réalisables si vous êtes intéressé</p> 
+           <p style="font-size: 12px;">Les gommettes d'argent sont attribuées pour des objectifs à plus long terme. Gomettes d'argent sont rares, mais certainement réalisables si vous êtes intéressé</p> 
       <div class="mb"><span class="badge"><span class="badge3"></span>&nbsp;Gommette de bronze</span></span></div>
-           <p style="font-size: 12px;">Gommettes de bronze sont décernées pour une utilisation basique. Ils sont faciles à gagner.</p>    
+           <p style="font-size: 12px;">Les gommettes de bronze sont décernées pour une utilisation basique. Ils sont faciles à gagner.</p>    
    </div>
  </div>
 </div>

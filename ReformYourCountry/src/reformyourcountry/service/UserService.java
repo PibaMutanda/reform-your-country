@@ -28,6 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.request.WebRequest;
 
+import reformyourcountry.badge.BadgeType;
 import reformyourcountry.exception.InvalidPasswordException;
 import reformyourcountry.exception.UserAlreadyExistsException;
 import reformyourcountry.exception.UserAlreadyExistsException.IdentifierType;
@@ -36,6 +37,7 @@ import reformyourcountry.exception.UserNotFoundException;
 import reformyourcountry.exception.UserNotValidatedException;
 import reformyourcountry.mail.MailCategory;
 import reformyourcountry.mail.MailType;
+import reformyourcountry.model.Badge;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountConnectedType;
 import reformyourcountry.model.User.AccountStatus;
@@ -424,20 +426,46 @@ public class UserService {
 		return SecurityUtils.md5Encode(user.getUserName()+user.getCreatedOn().toString()).substring(0, 6);
     }
     
+    
+    /**verify if the user has already the BadgeType passed in parameter*/
+    public boolean hasAlreadyBadgeAffected(BadgeType badgeType, User user){
+    	
+    	for (Badge badge : user.getBadges()){
+    		if (badge.getBadgeType().equals(badgeType)){
+    			return true;
+    		}
+    	}
+    	return false;
+    }
+    
+    
+    /**give an AUTOBIOGRAPHER badge only if the user has fully completed his profile*/
     public void grantIfUserIsComplete (User user){
-//    	if (	user.getBirthDate() != null
-//    			&& user.getFirstName() != null
-//    			&& user.getGender() != null
-//    			&& user.getLastName() != null
-//    			&& user.getMail() != null
-//    			&& user.isPicture() != true
-//    			&& user.getTitle() != null){
-//    		
-//    		Badge badge = new Badge();
-//    		badge.setBadgeType(BadgeType.AUTOBIOGRAPHER);
-//    		badge.setUser(user);
-//    		badgeRepository.persist(badge);
-//    	}
+    	
+    	if (!hasAlreadyBadgeAffected(BadgeType.AUTOBIOGRAPHER, user)){
+    		//test if the user has completed his profile
+    		if (	user.getBirthDate() != null
+    				&& user.getFirstName() != null
+    				&& user.getGender() != null
+    				&& user.getLastName() != null
+    				&& user.getMail() != null
+    				&& user.isPicture() != true
+    				&& user.getTitle() != null
+    				&& user.getUserName() != null   ) {
+    		saveBadgeTypeForUser(BadgeType.AUTOBIOGRAPHER, user);
+    		}
+    	
+    	}
+    }
+    
+    public void saveBadgeTypeForUser (BadgeType badgeType, User user){
+		Badge badge = new Badge();
+		badge.setBadgeType(badgeType);
+		badge.setUser(user);
+		badgeRepository.persist(badge);
+		NotificationUtil.addNotificationMessage(
+				"Félicitations vous avez obtenu le badge " + BadgeType.AUTOBIOGRAPHER.getName() +  
+				" de niveau " + BadgeType.AUTOBIOGRAPHER.getBadgeTypeLevel().getName() );
     }
     
 	
