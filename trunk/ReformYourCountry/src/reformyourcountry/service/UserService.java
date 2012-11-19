@@ -42,7 +42,6 @@ import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountConnectedType;
 import reformyourcountry.model.User.AccountStatus;
 import reformyourcountry.model.User.SpecialType;
-import reformyourcountry.repository.BadgeRepository;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
@@ -77,7 +76,7 @@ public class UserService {
     @Autowired   private LoginService loginService;
     @Autowired   private UsersConnectionRepository usersConnectionRepository;
     @Autowired   private CurrentEnvironment currentEnvironment;
-	@Autowired   private BadgeRepository badgeRepository;
+	@Autowired	 private BadgeService badgeService;
     /**
      * Register a user and sends a validation mail.
      * 
@@ -452,21 +451,13 @@ public class UserService {
     				&& user.isPicture() != true
     				&& user.getTitle() != null
     				&& user.getUserName() != null   ) {
-    		saveBadgeTypeForUser(BadgeType.AUTOBIOGRAPHER, user);
+    		badgeService.saveBadgeTypeForUser(BadgeType.AUTOBIOGRAPHER, user);
     		}
     	
     	}
     }
     
-    public void saveBadgeTypeForUser (BadgeType badgeType, User user){
-		Badge badge = new Badge();
-		badge.setBadgeType(badgeType);
-		badge.setUser(user);
-		badgeRepository.persist(badge);
-		NotificationUtil.addNotificationMessage(
-				"Félicitations vous avez obtenu le badge " + BadgeType.AUTOBIOGRAPHER.getName() +  
-				" de niveau " + BadgeType.AUTOBIOGRAPHER.getBadgeTypeLevel().getName() );
-    }
+
     
 	
 }
