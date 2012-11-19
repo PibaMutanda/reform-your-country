@@ -7,6 +7,12 @@
 
 <script type="text/javascript" src="js/int/argument.js">
 </script>
+<script type="text/javascript" src="js/int/CKeditorManager.js">
+</script>
+<script type="text/javascript" src="js/int/general.js">
+</script>
+<script type="text/javascript" src="js/int/general.form.js">
+</script>
 
 <!-- First we had the column with the negatives args -->
 <c:set var="color" value="#8B0000" scope="request"/>
