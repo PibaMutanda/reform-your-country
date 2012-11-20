@@ -120,15 +120,6 @@
 <!-- 				  <a class="addthis_button_google_plusone" g:plusone:size="medium"></a> -->
 <!-- 				  <a class="addthis_counter addthis_pill_style"></a> -->
 <!-- 				</div>  -->
-			  <!-- AddThis Button BEGIN -->
-				<div class="addthis_toolbox addthis_default_style ">
-				<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-				<a class="addthis_button_tweet"></a>
-				<a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
-				<a class="addthis_counter addthis_pill_style"></a>
-<!-- 				</div> -->
-				<br/>
-			  <!-- AddThis Button END -->
 				<div id="carouselh">
 					<c:forEach items="${videoList}" var="video">
 						<div class="inline-block">
@@ -136,6 +127,14 @@
 						</div>
 					</c:forEach>
 				</div>
+				<!-- AddThis Button BEGIN -->
+				<div class="addthis_toolbox addthis_default_style" style="padding-top:30px; padding-bottom:10px;">
+   					<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+					<a class="addthis_button_tweet"></a>
+					<a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+					<a class="addthis_counter addthis_pill_style"></a>
+				</div>
+			  <!-- AddThis Button END -->
 				<div class="article_summary"><div style="font-size:.85em;margin-bottom:10px;">RESUME</div>${article.lastVersionRenderdSummary}</div>
 			   <br/>
 			   <div style="font-size:.85em;margin-bottom:10px;">ARTICLE</div>
