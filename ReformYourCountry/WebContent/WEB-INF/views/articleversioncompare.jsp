@@ -22,6 +22,14 @@
 #content {
     width: 100%;
 }
+#div1 {
+	width: 49%;
+	float:left;
+}
+#div2 {
+	width: 49%;
+	float:right;
+}
 </style>
 
 
@@ -49,10 +57,9 @@
 	</ryctag:pageheadertitle>
 
 	<table>
-		<tr>
 		    <% int i=1; %>
 		    <c:forEach var="selectedArticleVersionAndText" items="${twoArticleVersionAndTexts}">
-			  <td>
+			  <div id="div<%=i%>">
 			
 			   <select class="versionarticle" id="versionarticle<%=i%>">
 			        <%-- 1. The selected version --%>
@@ -60,7 +67,7 @@
 									
 					<%-- 2. All the other versions --%>				
 					<c:forEach items="${versionList}" var="version" >
-					   <  <c:if test="${version.id != selectedArticleVersionAndText.articleVersion.id}">	
+					    <c:if test="${version.id != selectedArticleVersionAndText.articleVersion.id}">	
 						  <option value="${version.id}">${version.versionNumberDateAndUser}</option>
 						</c:if> 
 					</c:forEach>
@@ -68,11 +75,10 @@
 				<p>
 				  ${selectedArticleVersionAndText.text}
 				</p>
-			  </td>
+			  </div>
 			  <% i++; %>
 			</c:forEach>
 			
-		</tr>
 		
 	</table>
 	
