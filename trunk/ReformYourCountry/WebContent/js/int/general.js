@@ -28,6 +28,9 @@ function sendSimpleValue(button,idItem,idEditedValueContainer,url,value){
 		});
 
 	requestArg.fail(function(jqXHR, textStatus) {
-		alert("Erreur de communication lors d'un vote"+textStatus);
+		addErrorMessageInEditor("Erreur de communication lors d'un vote"+textStatus);
 	});
+}
+function addErrorMessageInEditor(msg,idItem){	
+	$("#"+idItem).prepend("<p style='color:red;'>"+msg+"</p>");
 }

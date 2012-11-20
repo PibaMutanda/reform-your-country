@@ -56,15 +56,15 @@ public class ArgumentController extends BaseController<Argument>{
         mv.addObject("urlAction","/ajax/argumenteditsubmit");
         mv.addObject("positiveArg",positiveArg);
         mv.addObject("idParent",actionId); 
-        mv.addObject("helpContent",PropertyLoaderServletContextListener.getProprerty("helpArg"));  // Text in yellow div.
+        mv.addObject("helpContent",PropertyLoaderServletContextListener.getProprerty("p_argument_help"));  // Text in yellow div.
         return mv;
     }
   
     
     @RequestMapping("/ajax/argumenteditsubmit")
     public ModelAndView argumentEditSubmit(
-            @RequestParam(value="actionId", required=false)Long actionId, @RequestParam("ispos")Boolean isPos,  // In case of create
-            @RequestParam(value="argumentId", required=false)Long argumentId,  // In case of edit
+            @RequestParam(value="idParent", required=false)Long actionId, @RequestParam("ispos")Boolean isPos,  // In case of create
+            @RequestParam(value="idItem", required=false)Long argumentId,  // In case of edit
             @RequestParam("content")String content, @RequestParam("title")String title) throws Exception{
         SecurityContext.assertUserIsLoggedIn();
         
