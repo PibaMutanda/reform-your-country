@@ -18,13 +18,19 @@
     </c:if>
     <input type='hidden' name='idParent' value='${idParent}'/>
     <input type="hidden" name="idItem" value="${idItem}" />
-    
-    <label for='titleItem' style="padding: 0px 5px 0 0;">Titre</label><input type='text' id='titleItem' name='title' style='width:330px;' value="${titleItem}"/>
+    <label for='titleItem' style="padding: 0px 5px 0 0;">Titre</label>
+    <input type='text' id='titleItem' name='title' style='width:330px;' value="${titleItem}"/>
     
     <textarea id='contentItem'  name='content' >${contentItem}</textarea>
-    <input type='button' id='CkEditFormSubmit' value='<c:choose>
-                                    <c:when test="${idItem== null}">Ajouter</c:when>
-                                    <c:otherwise>Sauver</c:otherwise>
-                                </c:choose>' style='padding: 3px; margin: 5px;'/>
+    
+    <c:choose>
+        <c:when test="${idItem== null}">
+        	<input type='button' id='CkEditFormSubmit' value='Ajouter' style='padding: 3px; margin: 5px;'/>
+        </c:when>
+         <c:otherwise>
+         	<input type='button' id='CkEditFormSubmit' value='Sauver' style='padding: 3px; margin: 5px;'/>
+         </c:otherwise>
+    </c:choose>
+    
 </form>
 

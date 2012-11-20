@@ -1,10 +1,16 @@
 //Will Send the value of the new Argument form to the controller 
-function argumentEditSubmit(ispos){
+function argumentEditSubmit(){
+	var isNew = $('#ckEditForm > input[name="idItem"]').val();
+	var ispos =$('#ckEditForm > input[name="ispos"]').val();
+	if(typeof isNew ==="undefined" || isNew==""){
+		CKeditorEditSubmit("colArg"+ispos+">.listArgument");
+	}else{
+		CKeditorEditSubmit('arg'+$('#ckEditForm > input[name="idItem"]').val());
+	}
 	$('#argumentAddDivFakeEditor'+ispos).show();  // Show the fake textarea to invite the user adding an argument.
 	var argumentAddDivRealEditor = $('#argumentAddDivRealEditor'+ispos);
 	argumentAddDivRealEditor.empty();
 	argumentAddDivRealEditor.hide();  // a small visible part may remain due to padding.
-	CKeditorEditSubmit(ispos);
 	///FIXME moved to general.js
 //	
 //	
@@ -75,6 +81,7 @@ function argumentEditStart(item, newid){
 				function(data){
 			$("#arg"+newid).html(data);
 			activateCkEditorAndHelpDiv();
+			$("#CkEditFormSubmit").attr("onclick","argumentEditSubmit()");
 	});
 }
 
@@ -90,6 +97,7 @@ function argumentCreateStart(isPos, idAction) {
 				$('#argumentAddDivRealEditor'+isPos).html(data);
 				$('#argumentAddDivRealEditor'+isPos).show();
 				activateCkEditorAndHelpDiv();
+				$("#CkEditFormSubmit").attr("onclick","argumentEditSubmit()");
 	});
 
 }

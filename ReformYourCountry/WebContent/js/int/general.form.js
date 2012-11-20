@@ -48,7 +48,7 @@ function CKeditorEditSubmit(idEditedValueContainer){
 }
 
 function addErrorMessageInEditor(msg){	
-	$("#ckEditForm > #errors").prepend("<p style='color:red;'>"+msg+"</p>");
+	addErrorMessageInEditor(msg,idItem);
 }
 function resetErrorMessagesInEditor(){	
 	$("#ckEditForm > #errors").empty();
@@ -56,7 +56,6 @@ function resetErrorMessagesInEditor(){
 
 //Finishes the activation of the editor
 function activateCkEditorAndHelpDiv() {
-	alert("tonton");
 	createCkEditor("contentItem");
     var pos = $("#ckEditForm").position();
 	$('#help').css({"position": "absolute"
