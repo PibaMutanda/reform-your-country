@@ -376,7 +376,7 @@ public class BBConverter {
 
 		String outUrl = tag.getAttributeValue("out");  
 		if (outUrl != null) {
-			if (!UrlUtil.isUrlValid(outUrl)) {  // FIXME: opening a connection each time is probably a bad performance idea (unless we buffer the generated html).
+			if (!UrlUtil.isUrlValid(outUrl)) {  
 				addErrorMessage("Invalid url '" + outUrl+"'", tag);
 			}
 			if (author == null) {
