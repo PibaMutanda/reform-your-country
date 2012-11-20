@@ -1,6 +1,8 @@
 package reformyourcountry.controller;
 
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +22,8 @@ import reformyourcountry.repository.VoteArgumentRepository;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.ActionService;
 import reformyourcountry.service.ArgumentService;
+import reformyourcountry.web.ContextUtil;
+import reformyourcountry.web.PropertyLoaderServletContextListener;
 
 @Controller
 public class ArgumentController extends BaseController<Argument>{
@@ -38,18 +42,21 @@ public class ArgumentController extends BaseController<Argument>{
     public ModelAndView argumentEdit(@RequestParam(value="argumentId",required=false) Long argumentId,   // For editing existing arguments.
             @RequestParam(value="idAction",required=false)Long actionId,@RequestParam(value="isPos",required=false)Boolean positiveArg      // For creating a new argument.
             ){
-        ModelAndView mv = new ModelAndView("argumenteditform");
+        ModelAndView mv = new ModelAndView("ckeditorform");
         
         if(argumentId != null) {
             Argument argument =  (Argument)getRequiredEntity(argumentId, Argument.class);
-            mv.addObject("argument",argument);
-            
+            mv.addObject("idItem",argumentId);
+            mv.addObject("titleItem",argument.getTitle());
+            mv.addObject("contentItem",argument.getContent());
             // We should not get both argumentId and other parameters at the same time.
             actionId = argument.getAction().getId();
             positiveArg = argument.isPositiveArg();
         } 
+        mv.addObject("urlAction","/ajax/argumenteditsubmit");
         mv.addObject("positiveArg",positiveArg);
-        mv.addObject("actionId",actionId);
+        mv.addObject("idParent",actionId); 
+        mv.addObject("helpContent",PropertyLoaderServletContextListener.getProprerty("helpArg"));  // Text in yellow div.
         return mv;
     }
   
@@ -86,7 +93,7 @@ public class ArgumentController extends BaseController<Argument>{
     
     
     @RequestMapping("ajax/argumentvote")
-    public ModelAndView argumentVote(@RequestParam("idArg")Long idArg,@RequestParam("value")int value)throws Exception{
+    public ModelAndView argumentVote(@RequestParam("id")Long idArg,@RequestParam("value")int value)throws Exception{
         User user = SecurityContext.getUser();
         if (user !=null){
             Argument arg = argumentRepository.find(idArg);
@@ -101,7 +108,7 @@ public class ArgumentController extends BaseController<Argument>{
     }
    
     @RequestMapping("ajax/commentAdd")
-	public ModelAndView commentAdd(@RequestParam("arg")Long idArg, @RequestParam("comment")String com) throws Exception{
+	public ModelAndView commentAdd(@RequestParam("id")Long idArg, @RequestParam("value")String com) throws Exception{
 		User user = SecurityContext.getUser();
 		if (user !=null){
 			Argument argument = argumentRepository.find(idArg);

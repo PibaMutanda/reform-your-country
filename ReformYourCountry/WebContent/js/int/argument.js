@@ -114,7 +114,7 @@ function argumentCreateStart(isPos, idAction) {
 
 
 function voteOnArgument(item,idArg,value){
-	sendSimpleValue(item,idArg,"Arg"+idArg,"/ajax/argumentvote",value);
+	sendSimpleValue(item,idArg,"arg"+idArg,"/ajax/argumentvote",value);
 	//FIXME use of method below
 //	if (showMessageIfNotLogged(item)) {
 //		return;
@@ -137,7 +137,7 @@ function voteOnArgument(item,idArg,value){
 ///////////////////////////////// COMMENTS
 
 function sendNewComment(item, idArg){
-	sendSimpleValue(item,idArg,"Arg"+idArg,"/ajax/commentAdd",$('#comm'+idArg).val());
+	sendSimpleValue(item,idArg,"arg"+idArg,"/ajax/commentAdd",$('#comm'+idArg).val());
 	//FIXME use of method below
 //	if (showMessageIfNotLogged(item)) {
 //		return;
