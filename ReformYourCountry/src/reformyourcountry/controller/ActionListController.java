@@ -25,7 +25,7 @@ public class ActionListController {
     @Autowired ActionService actionService;
     @Autowired VoteActionRepository voteActionRepository;
     
-    @RequestMapping(value="/action",method=RequestMethod.GET)
+    @RequestMapping(value="/action")
     public ModelAndView actionListDisplay(){
         ////////// Builds a list of action with connex data
         List<ActionItem> actionItems = new ArrayList<ActionItem>();
@@ -44,7 +44,7 @@ public class ActionListController {
     @RequestMapping(value="/ajax/voteactionlist")
     public ModelAndView voteFromList(@RequestParam("idAction")Long idAction, @RequestParam("vote")int vote){
         SecurityContext.assertUserIsLoggedIn();       
-       VoteAction va = actionService.userVoteForAction(SecurityContext.getUser(),idAction,vote);
+        VoteAction va = actionService.userVoteForAction(SecurityContext.getUser(), idAction, vote);
         List<Long> resultNumbers = actionService.getResultNumbersForAction(idAction);
         ModelAndView mv = new ModelAndView("voteactionwidget");
         mv.addObject("vote",va);
