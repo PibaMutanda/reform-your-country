@@ -120,6 +120,12 @@
 <!-- 				  <a class="addthis_button_google_plusone" g:plusone:size="medium"></a> -->
 <!-- 				  <a class="addthis_counter addthis_pill_style"></a> -->
 <!-- 				</div>  -->
+				<c:if test="${empty article.children}">
+					<a href="article/${article.url}/pdf"><img class="generatepdfarticle" style="cursor:pointer;" src="images\pdf_button.png" width="50px"height="47px"></img></a>
+				</c:if>
+				<c:if test="${!empty article.children}">
+					<img class="generatepdfgroup" style="cursor:pointer;" src="images\pdf_button.png" width="50px"height="47px"></img>
+				</c:if>
 				<div id="carouselh">
 					<c:forEach items="${videoList}" var="video">
 						<div class="inline-block">
