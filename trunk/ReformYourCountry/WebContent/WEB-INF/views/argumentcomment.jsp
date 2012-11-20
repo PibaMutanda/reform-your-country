@@ -14,12 +14,12 @@
 	
 	<div id="addcom${argument.id}">
 		<br>
-		<div id="commentLink" onclick="commentEditStart(this,${argument.id})">commenter</div>
+		<div id="commentLink" class="commentLink" onclick="commentEditStart(this,${argument.id})">commenter</div>
 	</div>
 	<br>
 	<div id="commentArea${argument.id}" style="display: none;">
 		<textarea id="comm${argument.id}" style="width: 250px; height: 60px;" onkeyup="maxlength_comment(this,${argument.id},50,10);"></textarea>
 		<input style="float: right;" id="sendArgComm${argument.id}"	type="button" disabled="disabled" value="Commenter"	onclick="return sendNewComment(this, ${argument.id});">
-		<div style="float: left;" id="nbrCaract${argument.id}"></div>
+		<div style="float: left;" id="nbrCaract${argument.id}"></div><div class="commentLink" style="float: right;text-align:center;" id="cancel"	onclick="return cancelComment('${argument.id}');">Annuler</div>
 	</div>
 </div>

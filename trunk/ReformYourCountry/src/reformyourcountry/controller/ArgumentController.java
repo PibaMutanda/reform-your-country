@@ -1,6 +1,8 @@
 package reformyourcountry.controller;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import reformyourcountry.model.Action;
 import reformyourcountry.model.Argument;
 import reformyourcountry.model.Comment;
 import reformyourcountry.model.User;
+import reformyourcountry.model.VoteArgument;
 import reformyourcountry.repository.ActionRepository;
 import reformyourcountry.repository.ArgumentRepository;
 import reformyourcountry.repository.CommentRepository;
@@ -123,5 +126,21 @@ public class ArgumentController extends BaseController<Argument>{
 			throw new Exception("no user logged");
 		}
 	}
-
+    @RequestMapping("ajax/unvoteargument")
+    public ModelAndView unVote(@RequestParam("id")Long idArg) throws Exception{
+        User user = SecurityContext.getUser();
+        Argument argument = argumentRepository.find(idArg);
+        List<VoteArgument> listVote = argument.getVoteArguments();
+        for(VoteArgument vote : listVote){
+            if (vote.getUser()== user){
+                argument.getVoteArguments().remove(vote);
+                argumentRepository.merge(argument);
+                voteArgumentRepository.remove(vote);
+                break;
+            }
+        }  
+        ModelAndView mv = new ModelAndView("argumentdetail");
+        mv.addObject("argument",argument);
+        return mv;
+    }
 }

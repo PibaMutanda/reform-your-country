@@ -34,3 +34,18 @@ function sendSimpleValue(button,idItem,idEditedValueContainer,url,value){
 function addErrorMessageInEditor(msg,idItem){	
 	$("#"+idItem).prepend("<p style='color:red;'>"+msg+"</p>");
 }
+
+function cancelComment(idItem){
+	$("#addcom"+idItem).show();
+	$("#commentArea"+idItem).hide();
+	
+}
+function unVote(url,idItem){
+	var requestArg = $.post(url,
+			{id : idItem},function(data){
+				return data;
+			});
+	requestArg.fail(function(jqXHR, textStatus) {
+		addErrorMessageInEditor("Erreur de communication lors d'un vote"+textStatus);
+	});
+}
