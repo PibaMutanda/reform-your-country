@@ -7,6 +7,7 @@
 
 <head>
     <script type="text/javascript" src="js/int/url-generate.js"></script>
+    
 </head>
 <body>
 	<c:choose>
@@ -23,7 +24,10 @@
 	<ryctag:form modelAttribute="article" action="/article/editsubmit">
         <tr>
             <ryctag:input path="title" label="Titre" id="title" required="required" />
-            <ryctag:input path="shortName" label="Raccourci" />
+            
+            <tr><td style="padding: 6px;">Raccourci</td>
+            	<td><input type="text" id="shortName" value="${article.shortName}" maxlength="20"/></td></tr>   
+            	       	
             <tr class="tooltip" data-tooltip="identifiant pour l'article dans les URLs">
 				<td><label for="url">Fragment d'URL</label></td>
 				<td><form:input path="url" required="required" id="url" type="input" cssStyle="width:100%;" /></td>
