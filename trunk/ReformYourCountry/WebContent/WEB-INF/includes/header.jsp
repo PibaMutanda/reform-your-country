@@ -1,9 +1,29 @@
 ﻿
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ include file="/WEB-INF/includes/notificationbar.jsp"%>
+
+<script>
+$(document).ready(function(){
+	$("#notificationArea").slideDown();  // Was hidden at the beginning.
+});
+</script>
+
 <div id="header">
 	<div class="header-holder">
+
+	    <%-- ********** NOTIFICATIONS ************** --%>
+        <c:if test="${!empty sessionScope.notifications}">
+ 		    <div id="notificationArea" class="header-area" style="padding:3px; <%-- padding in style to override header-area class padding  --%> 
+                     display:none;">  <%-- display none because will be shown through animation by the docuiment ready javascript --%>
+		        <a id="notificationCloser" style="float:right; padding:0px 0px 0px 10px; cursor: pointer;" onclick="$('#notificationArea').slideUp();">×</a>
+		        <c:forEach items="${sessionScope.notifications}"   var="notif">
+		           ${notif.text}
+   	            </c:forEach>
+   	            <% session.removeAttribute("notifications"); %>
+		   </div>
+		</c:if>
+		
+		
 		<div class="rays">
 			<div class="header-area">
 				<!-- ***************** - LOGO - ***************** -->
