@@ -1,4 +1,4 @@
-#setup developer machine
+#summary setup developer machine
 
 = Introduction =
 
