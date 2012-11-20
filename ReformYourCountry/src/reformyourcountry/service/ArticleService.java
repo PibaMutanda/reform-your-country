@@ -1,15 +1,22 @@
 package reformyourcountry.service;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.converter.BBConverter;
 import reformyourcountry.exception.InvalidUrlException;
 import reformyourcountry.model.Article;
 import reformyourcountry.model.ArticleVersion;
+import reformyourcountry.pdf.ArticlePdfGenerator;
 import reformyourcountry.repository.ActionRepository;
 import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.repository.ArticleVersionRepository;
@@ -137,4 +144,18 @@ public class ArticleService {
 	     article.setLastVersionRenderdSummary(new BBConverter(bookRepository, articleRepository,actionRepository).transformBBCodeToHtmlCode(article.getLastVersionRenderdSummary()));
 	 }
 	
+	 public void makePdf(Article article){
+	        try(ByteArrayOutputStream baos = new ByteArrayOutputStream()){
+	        	ArticlePdfGenerator cPdf = new ArticlePdfGenerator(true);
+	        	String title = cPdf.createArticleTitle(article);
+	        	cPdf.generatePDF(article.getLastVersionRenderdSummary()+article.getLastVersionRenderedContent(),baos,true);
+	        	
+	        	File filetest = new File(System.getProperty("java.io.tmpdir")+"pd4ml.pdf");
+				try(FileOutputStream fos =new FileOutputStream(filetest)){
+					baos.writeTo(fos);
+				}
+	        } catch (IOException e) {
+	        	throw new RuntimeException(e);
+			}
+		}
 }
