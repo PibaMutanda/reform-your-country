@@ -89,4 +89,6 @@ public class ArticleDisplayController extends BaseController<Article> {
         mv.addObject("articleToClassify", bbc.transformBBCodeToHtmlCode(article.getLastVersion().getToClassify()));
         return mv;
 	}
+	
+	
 }
