@@ -192,7 +192,6 @@ public class SocialAccountManageController extends BaseController<User>{
 
     @RequestMapping(value="addconnection/{providerId}", method=RequestMethod.GET)
     public ModelAndView oauthCallback(@PathVariable String providerId,  @RequestParam(value="code",required = false) String code,NativeWebRequest request) {
-        // TODO: make only 1 callback method with 2 optional params oauth_token and code with an if OAuth1 or 2 or invalid param.
         Connection<?> connection = null;
         if(code==null){
             OAuth1ConnectionFactory<?> connectionFactory = (OAuth1ConnectionFactory<?>) connectionFactoryLocator.getConnectionFactory(providerId);

@@ -69,7 +69,6 @@ public class CurrentEnvironment {
 	 */
 	public enum Environment {
 
-		// XXX(Domain Name, Mail Deamon Started,Social NW Connected, Paypal Env.)
 		DEV(MailBehavior.SENT, true),
 		PROD(MailBehavior.SENT, true);
 

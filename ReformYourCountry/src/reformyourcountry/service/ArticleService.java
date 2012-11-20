@@ -35,14 +35,11 @@ public class ArticleService {
 	
 	/** @param newParentId if null, removes the current parent and makes a root node. */
 	public void changeParent(Article article, Long newParentId) {
-		//FIXME dead code? --maxime 16/10/2012
 		// Verify that the parent is not the article itself or one of its children (it would create a cycle in the tree).
 		Article newParent = newParentId == null ? null : articleRepository.find(newParentId);
-		
-		
-		/*if (newParent != null && newParent.equalsOrIsParentOf(article)) {
+		if (newParent != null && newParent.equalsOrIsParentOf(article)) {
 			throw new RuntimeException("Bug: should not try to set a child as parent. Child id = " + article.getId() + "; new parent id = " + newParentId);
-		}*/
+		}
 				
 		// Detach the article from its current parent
 		if (article.getParent() != null) {
