@@ -15,6 +15,7 @@ import reformyourcountry.repository.UserRepository;
 import reformyourcountry.service.LoginService;
 
 import reformyourcountry.util.Logger;
+import reformyourcountry.util.NotificationUtil;
 
 @Controller
 public class ValidationController extends BaseController<User>{
@@ -45,14 +46,11 @@ public class ValidationController extends BaseController<User>{
                         user.setAccountStatus(User.AccountStatus.ACTIVE);
                         em.merge(user);  
                         result = Result.VALID_BUT_NOT_LOGGED;
-                    }
-                  
-                     else {
-                        throw new RuntimeException("Unsupported value " + user.getAccountStatus()); // TODO: replace with a nice user message (probably account locked, for example).
+                        log.debug(user.getMail()+" just validated");
+                    } else {
+                        NotificationUtil.addNotificationMessage("Impossible de valider votre compte. Son état actuel est: "+user.getAccountStatus().getName());
                     }
                     
-                    
-                    log.debug(user.getMail()+" just validated");
                     try {
                         loginService.loginEncrypted(user.getMail(), user.getPassword(), true,user.getId(),AccountConnectedType.LOCAL);
                         result = Result.VALID_AND_LOGGED;
