@@ -13,7 +13,7 @@
 
 <form id='ckEditForm' action='${urlAction}'>
     <div id="errors" style="color:red;"><%--Error messages inserted by JavaScript --%></div>
-    <c:if test="${positiveArg not empty}">
+    <c:if test="${not empty positiveArg }">
         <input type='hidden' name='ispos' value='${positiveArg}'/>
     </c:if>
     <input type='hidden' name='idParent' value='${idParent}'/>
@@ -22,9 +22,9 @@
     <label for='titleItem' style="padding: 0px 5px 0 0;">Titre</label><input type='text' id='titleItem' name='title' style='width:330px;' value="${titleItem}"/>
     
     <textarea id='contentItem'  name='content' >${contentItem}</textarea>
-    <input type='submit' id='CkEditFormSubmit' value='<c:choose>
+    <input type='button' id='CkEditFormSubmit' value='<c:choose>
                                     <c:when test="${idItem== null}">Ajouter</c:when>
                                     <c:otherwise>Sauver</c:otherwise>
-                                </c:choose>' style='margin:5px;'/>
+                                </c:choose>' style='padding: 3px; margin: 5px;'/>
 </form>
 

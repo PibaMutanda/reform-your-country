@@ -2,7 +2,7 @@ function showMessageIfNotLogged(item){
 	if (idUser.length>0) {  // User is logged in (variable defined by the JSP)
 		return false;
 	}
-	
+	 
 	$(item).CreateBubblePopup({ 
 		innerHtmlStyle: {  // give css property to the inner div of the popup	    	   
 			'opacity':0.9

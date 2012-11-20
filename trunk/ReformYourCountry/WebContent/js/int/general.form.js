@@ -56,6 +56,7 @@ function resetErrorMessagesInEditor(){
 
 //Finishes the activation of the editor
 function activateCkEditorAndHelpDiv() {
+	alert("tonton");
 	createCkEditor("contentItem");
     var pos = $("#ckEditForm").position();
 	$('#help').css({"position": "absolute"

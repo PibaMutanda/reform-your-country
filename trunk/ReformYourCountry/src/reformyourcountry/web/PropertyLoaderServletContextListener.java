@@ -43,5 +43,9 @@ public class PropertyLoaderServletContextListener implements javax.servlet.Servl
     public void contextDestroyed(ServletContextEvent arg0) {
         
     }
+    
+    public static String getProprerty(String propertyName) {
+        return (String) ContextUtil.servletContext.getAttribute(propertyName);
+    }
 
 }
