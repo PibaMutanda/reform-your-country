@@ -1,0 +1,13 @@
+#setup developer machine
+
+= Introduction =
+
+how to setupe eclipse , DB 
+
+
+= Details =
+
+Project use PostreSQL 9.1.
+To have working windows batch without modify you must install PostgreSQL to <br/>
+*C:/PostgreSQL/9.1* <br/>
+otherwise change EXE_LOCATION in scripts.
