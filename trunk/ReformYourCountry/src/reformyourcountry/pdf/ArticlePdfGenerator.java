@@ -13,6 +13,8 @@ import javax.imageio.ImageIO;
 import org.zefer.pd4ml.PD4ML;
 import org.zefer.pd4ml.PD4PageMark;
 
+import reformyourcountry.model.Article;
+
 
 
 /** Generates an html String with course sections, and use PD4ML to transform the html into a pdf document */ 
@@ -139,7 +141,7 @@ public class ArticlePdfGenerator {
 		
         
         // first we add the begining of the html document start with <html> to <body>
-		String head ="<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html lang=\"fr\" xmlns=\"http://www.w3.org/1999/xhtml\"   ><head><title>Scrum Méthode</title><META http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body>";
+		String head ="<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html lang=\"fr\" xmlns=\"http://www.w3.org/1999/xhtml\"   ><head><title>Enseignement2.be</title><META http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body>";
 		
 		// next we add the cover html 
 		head += createCoverHtml();
@@ -201,8 +203,7 @@ public class ArticlePdfGenerator {
 	/** creation of the footer */
 	public void createFooter(){
 		// ${page} and ${total} will be recognized/replaced by PD4ML.
-		String footerHtmlTemplate = "<table width='100%'><tr><td></td><td class='licence'>"+"wikipedia 2012"+
-				"</td><td align='right' class='valignBottom'>${page}<span class='grey'> /${total}</span></td></tr></table>";
+		String footerHtmlTemplate = "<table width='100%'><tr><td></td><td></td><td align='right' class='valignBottom'>${page}<span class='grey'> /${total}</span></td></tr></table>";
 		PD4PageMark foot = new PD4PageMark();
 
 
@@ -269,18 +270,16 @@ public class ArticlePdfGenerator {
 
 
 
-	//TODO Update following methodes when we have the domain model.
 
 	/** title style */
-	/*
 
-	public String createArticleTitle(SectionText sectionTxt){
-		int size = getTitleSize(sectionTxt.getSection());
+	public String createArticleTitle(Article article){
+//		int size = getTitleSize(sectionTxt.getSection());
 		String title = null;
-		int level = Math.min(size+1, 4);
-		title = "<br/><pd4ml:page.break ifSpaceBelowLessThan=\"120\"><h"+level+">"+sectionTxt.getNumberedTitle()+"</h"+level+">";
+//		int level = Math.min(size+1, 4);
+		title = "<br/><pd4ml:page.break ifSpaceBelowLessThan=\"120\"><h1"/*+level*/+">"+article.getTitle()+"</h1"/*+level*/+">";
 		return title;
-	}*/
+	}
 
 	/** Check the title importance */
 
