@@ -377,7 +377,9 @@ public class LoginService {
     
     public String getPageAfterLogin(User user){
         
-        if(user.getSpecialType() != SpecialType.PRIVATE && !user.isAskedGroup()){
+        if(user.getSpecialType() != SpecialType.PRIVATE && !user.isAskedGroup()
+        		&& (!user.getVoteActions().isEmpty() || !user.getVoteArguments().isEmpty()))  // We only ask to input the groups when the user has already voted (it's less interesting to know for the non voters);
+        {
             user.setAskedGroup(true);
             userRepository.merge(user);
             return "/manageGroup?id="+user.getId();
