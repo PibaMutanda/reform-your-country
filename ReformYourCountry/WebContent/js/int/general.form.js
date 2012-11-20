@@ -48,7 +48,7 @@ function CKeditorEditSubmit(idEditedValueContainer){
 }
 
 function addErrorMessageInEditor(msg){	
-	addErrorMessageInEditor(msg,idItem);
+	addErrorMessageInEditor(msg,"ckEditForm");
 }
 function resetErrorMessagesInEditor(){	
 	$("#ckEditForm > #errors").empty();

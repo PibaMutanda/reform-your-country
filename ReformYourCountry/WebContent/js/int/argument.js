@@ -96,5 +96,8 @@ function maxlength_comment(textarea, itemToCommentId, max, min) {
 		$button.prop('disabled', false);
 	}
 }
+function  unVoteArg(id){
+	$("#arg"+id).replaceWith(unVote("/ajax/unvoteargument",id));
+}
 
 

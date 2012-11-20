@@ -40,7 +40,7 @@
 	<div style=" margin-bottom:5px;width: 45px;text-align:center;font-weight: bold;font-size: 25px;">
 			<c:choose>
 				<c:when test="${argument.getVoteValueByUser(current.user)>0}">
-					<img class="div-align-center" align="middle" src="\images\_global\up_selected.png"/>		
+					<img class="div-align-center" align="middle" src="\images\_global\up_selected.png"  onclick="unVoteArg(${argument.id});"/>		
 				</c:when>
 				<c:otherwise>
 					<img class="div-align-center" align="middle" src="\images\_global\up.png" onclick="voteOnArgument(this,${argument.id},1);"/>
@@ -51,7 +51,7 @@
 
 			<c:choose>
 				<c:when test="${argument.getVoteValueByUser(current.user)<0}">
-					<img class="div-align-center" align="middle" src="\images\_global\down_selected.png"/>		
+					<img class="div-align-center" align="middle" src="\images\_global\down_selected.png"  onclick="unVoteArg(${argument.id});"/>		
 				</c:when>
 				<c:otherwise>
 					<img class="div-align-center" align="middle" src="\images\_global\down.png" onclick="voteOnArgument(this,${argument.id},-1);"/>

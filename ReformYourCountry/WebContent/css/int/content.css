@@ -53,8 +53,16 @@
 	font-size: 40px;
 	float:left;
 }
+.commentLink{
+	width:55px;
+}
 
-
+.commentLink:hover{
+	cursor: pointer;
+	cursor: hand;
+	background-color: grey;
+	color: white;
+}
 /*Separating line*/
 .line{
 	color:rgb(67, 84, 126);
