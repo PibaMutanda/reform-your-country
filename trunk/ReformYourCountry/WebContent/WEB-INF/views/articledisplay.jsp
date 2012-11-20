@@ -135,7 +135,15 @@
 					<a class="addthis_counter addthis_pill_style"></a>
 				</div>
 			  <!-- AddThis Button END -->
-				<div class="article_summary"><div style="font-size:.85em;margin-bottom:10px;">RESUME</div>${article.lastVersionRenderdSummary}</div>
+				<div class="article_summary">
+					<div style="font-size:.85em;margin-bottom:10px;">
+						RESUME
+						<div class="action-list">
+							
+						</div>
+					</div>
+					${article.lastVersionRenderdSummary}
+				</div>
 			   <br/>
 			   <div style="font-size:.85em;margin-bottom:10px;">ARTICLE</div>
 			  ${article.lastVersionRenderedContent}

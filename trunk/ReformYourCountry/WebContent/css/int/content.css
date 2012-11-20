@@ -292,6 +292,11 @@ color: #444;
 	border-right-style: solid;
 	border-right-width: 1px;
 }
+
+.action-list{
+	float: right;
+}
+
 .icon-32{  /* Because i'm to lazy to go in GIMP and change every icons we have to 32px... */
     width:32px;
     height: 32px;
