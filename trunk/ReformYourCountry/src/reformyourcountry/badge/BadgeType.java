@@ -4,7 +4,8 @@ public enum BadgeType {
 	
 	AUTOBIOGRAPHER		("Autobiographe", "a complété tous les champs de son profil", BadgeTypeLevel.BRONZE),
 	FILMMAKER			("Cinéaste", "a produit une vidéo", BadgeTypeLevel.GOLD),
-	CITIZEN				("Citoyen", "a voté sur toutes les actions", BadgeTypeLevel.SILVER);
+	CITIZEN				("Citoyen", "a voté sur toutes les actions", BadgeTypeLevel.SILVER),
+	STATISTICIAN 	    ("Statisticien"," a complété son appartenance à un ou plusieurs groupes", BadgeTypeLevel.BRONZE);
 	
 	
 	

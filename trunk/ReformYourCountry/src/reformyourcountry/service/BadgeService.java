@@ -21,9 +21,19 @@ public class BadgeService {
 		badge.setBadgeType(badgeType);
 		badge.setUser(user);
 		badgeRepository.persist(badge);
+		user.getBadges().add(badge);
 		NotificationUtil.addNotificationMessage(
 				"Félicitations vous avez obtenu le badge " + badgeType.getName() +  
 				" de niveau " + badgeType.getBadgeTypeLevel().getName() );
     }
+
+	public void grantBadgeForGroups(User user) {
+        // 1. User a déjà le badge -> exit.
+		if(!user.isHasBadgeType(BadgeType.STATISTICIAN))
+			saveBadgeTypeForUser(BadgeType.STATISTICIAN, user);
+		// 2. On lui donne le badge
+
+		
+	}
 	
 }

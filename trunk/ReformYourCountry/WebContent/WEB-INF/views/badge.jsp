@@ -29,18 +29,22 @@
   <div class=""></div>
     <table>
 
-    <c:forEach items="${badges}" var="badge">	
+    <c:forEach items="${badges}" var="badgeMapEntry">	
      <tr>
+       <td>
+           <c:if test="${current.user.isHasBadgeType(badgeMapEntry.key)}"><span class="badge-earned-check">&nbsp;
+           </span></c:if>  
+       </td>
        <td class="badge-cell"><span class="badge"  >
        		<c:choose> 
-          		<c:when test="${badge.key.badgeTypeLevel.name=='Or'}"><span class="badge1"></span></c:when>
-          		<c:when test="${badge.key.badgeTypeLevel.name=='Argent'}"><span class="badge2"></span></c:when>
-          		<c:when test="${badge.key.badgeTypeLevel.name=='Bronze'}"><span class="badge3"></span></c:when>
+          		<c:when test="${badgeMapEntry.key.badgeTypeLevel.name=='Or'}"><span class="badge1"></span></c:when>
+          		<c:when test="${badgeMapEntry.key.badgeTypeLevel.name=='Argent'}"><span class="badge2"></span></c:when>
+          		<c:when test="${badgeMapEntry.key.badgeTypeLevel.name=='Bronze'}"><span class="badge3"></span></c:when>
            	</c:choose>
-           	&nbsp;${badge.key.name}</span>
-       		<span class="item-multiplier">× ${badge.value}</span>
+           	&nbsp;${badgeMapEntry.key.name}</span>
+       		<span class="item-multiplier">× ${badgeMapEntry.value}</span>
        </td> 
-	   <td class="dataBadge" >${badge.key.description}</td>
+	   <td class="dataBadge" >${badgeMapEntry.key.description}</td>
      </tr>
     </c:forEach>
     

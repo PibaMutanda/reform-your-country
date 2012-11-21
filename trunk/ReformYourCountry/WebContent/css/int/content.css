@@ -53,16 +53,8 @@
 	font-size: 40px;
 	float:left;
 }
-.commentLink{
-	width:55px;
-}
 
-.commentLink:hover{
-	cursor: pointer;
-	cursor: hand;
-	background-color: grey;
-	color: white;
-}
+
 /*Separating line*/
 .line{
 	color:rgb(67, 84, 126);
@@ -94,10 +86,11 @@
 	 font-size:.85em;
 }
 .vote{
-	display: inline-block; width: 90px; height: 30px; text-align: center; border:1px solid black; cursor: pointer;
+	display: inline-block; width: 90px; height: 30px; text-align: center; border:1px solid black; cursor: hand; cursor: pointer;
 }
 .smallvote{
-	display: inline-block;width: 30px; height: 20px;text-align: center; border:1px solid black; cursor: pointer;
+	display: inline-block;width: 30px; height: 20px;text-align: center; border:1px solid black; cursor: hand; cursor: pointer;
+	
 }
 .smallvote:hover{
 	font-weight : bold;
@@ -219,7 +212,15 @@ background-repeat-y: no-repeat;
 }
 
 
-
+.badge-earned-check {
+background-position: 0px -609px;
+background-position-x: 0px;
+background-position-y: -609px;
+width: 20px;
+height: 23px;
+display: inline-block;
+background-image: url('/images/sprites.png?v=5');
+}
 .badge1, .badge2, .badge3 {
 display: inline-block;
 width: 6px;
@@ -299,12 +300,6 @@ color: #444;
 	border-right-style: solid;
 	border-right-width: 1px;
 }
-
-.action-list{
-	width: 100px;
-	float: right;
-}
-
 .icon-32{  /* Because i'm to lazy to go in GIMP and change every icons we have to 32px... */
     width:32px;
     height: 32px;
@@ -652,15 +647,3 @@ color: #444;
 	margin-bottom:5px;
 }
 
-#notificationArea{
-	margin-top: 0px;
-	margin-right: auto;
-	margin-bottom: 0px;
-	margin-left: auto;
-	
-	background-color:#F5F6CE;
-	text-align:center;
-	
-	border-style:solid;
-    border-width:1px;
-}
