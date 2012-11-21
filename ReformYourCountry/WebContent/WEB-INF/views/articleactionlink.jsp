@@ -6,11 +6,11 @@
 
 </head>
 <body>
-<ryctag:pageheadertitle title="Ajouter une action" >
+<ryctag:pageheadertitle title="Ajouter une action pour l'article ${article.title}" >
     <ryctag:breadcrumbelement label="${action.title}" link="/article/${action.url}" />
 </ryctag:pageheadertitle>
 
-Liste des actions
+Liste des actions 
 <form action="editactionsubmit" method="post">
 	<c:forEach items="${actionList}" var="action" >
 	<div>
