@@ -33,6 +33,7 @@ import org.springframework.social.google.api.Google;
 import org.springframework.social.linkedin.api.LinkedIn;
 import org.springframework.social.twitter.api.Twitter;
 
+import reformyourcountry.badge.BadgeType;
 import reformyourcountry.mail.MailingDelayType;
 import reformyourcountry.security.Privilege;
 
@@ -331,6 +332,18 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     private Role role = Role.USER;
 
     
+    ///////////////////////////////////////////////////////////////////////////////////////
+    public boolean isHasBadgeType(BadgeType badgeType) {
+    	// Recherche dans la liste.
+    	for(Badge badge : badges){
+    		if(badge.getBadgeType().equals(badgeType))
+    			return true;
+    	}
+    
+    	return  false;
+    }
+    
+    
     /////////////////////////////////////////: GETTERS & SETTERS //////////////////////////
     /////////////////////////////////////////: GETTERS & SETTERS //////////////////////////
     /////////////////////////////////////////: GETTERS & SETTERS //////////////////////////
@@ -347,7 +360,9 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
 	public Set<Badge> getBadges() {
 		return badges;
 	}
-
+	
+    
+    
 	public void setCertificationDate(Date certificationDate) {
 		this.certificationDate = certificationDate;
 	}
