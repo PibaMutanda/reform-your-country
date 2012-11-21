@@ -40,7 +40,7 @@ public class ArticleActionLinkController extends BaseController<Action>{
 			article.getActions().add(a);
 		}
 		articleRepository.merge(article);
-		return new ModelAndView("redirect:/article/"+article.getTitle()); 
+		return new ModelAndView("redirect:/article/"+article.getUrl()); 
 	}
 	
 

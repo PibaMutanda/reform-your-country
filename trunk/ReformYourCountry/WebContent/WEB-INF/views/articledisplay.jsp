@@ -145,6 +145,18 @@
 					<div style="font-size:.85em;margin-bottom:10px;">
 						RESUME
 						<div class="action-list">
+							<p>Actions ${article.title}</p>
+							<c:forEach items="${article.actions}" var="action">
+								<div><a href="/action/${action.url}">${action.title}</a></div>
+							</c:forEach>
+							<a href="/editaction?id=${article.id}">editer action</a> 
+							<p>Action enfants</p>
+							<c:forEach items="${article.children}" var="child">
+								<p>${child.title}</p>
+								<c:forEach items="${article.children.actions}" var="actionsChild">
+									<div><a href="/action/${actionsChild.url}">${actionsChild.title}</a></div>
+								</c:forEach>
+							</c:forEach>
 							
 						</div>
 					</div>

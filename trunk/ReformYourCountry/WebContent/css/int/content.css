@@ -301,6 +301,7 @@ color: #444;
 }
 
 .action-list{
+	width: 100px;
 	float: right;
 }
 
