@@ -36,9 +36,8 @@ public class UserGroupListEditController extends BaseController<User> {
         }
         
         ModelAndView mv=new ModelAndView("redirect:user/"+user.getUserName());
-       
-        groupService.changeGroupReg(user, groupIds);       
         
+        groupService.changeGroupReg(user, groupIds);       
         return mv;
     }
 }
