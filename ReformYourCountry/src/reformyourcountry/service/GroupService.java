@@ -24,7 +24,7 @@ public class GroupService {
 	public void changeGroupReg(User user,Long[] groupIds){
 
 		/////// 1. Add new groupRegs
-
+       
 		for (Long groupId : groupIds) {  // For all groups selected by the user
 
 			// Search: Is there already a GroupReg for the current group?
@@ -77,5 +77,6 @@ public class GroupService {
 		
 		///////////// 3. Grand badges
 		badgeService.grantBadgeForGroups(user);
+		
 	}
 }
