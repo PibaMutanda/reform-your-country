@@ -49,3 +49,6 @@ function unVote(url,idItem,container){
 		addErrorMessageInEditor("Erreur de communication lors d'un vote"+textStatus);
 	});
 }
+function vote(item,idArg,value,idItem,url){
+	sendSimpleValue(item,idArg,idItem,url,value);
+}

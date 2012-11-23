@@ -11,8 +11,8 @@
         <c:if test='${!ispos}'>width:385px; float:left;background: url(images/_global/bg-sidebar.gif) 100% 0 repeat-y; padding-right:15px;</c:if> <%-- Left column + vertical separator line --%>
         ">
     <div class="listArgument">
-	  <c:forEach items="${listToShow}" var="argument">
-			<%@include file="argumentdetail.jsp"%>
+	  <c:forEach items="${listToShow}" var="currentItem">
+			<%@include file="itemdetail.jsp"%>
 	  </c:forEach>
    	</div>
 
