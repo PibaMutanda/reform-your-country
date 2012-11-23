@@ -31,24 +31,67 @@ function sendSimpleValue(button,idItem,idEditedValueContainer,url,value){
 		addErrorMessageInEditor("Erreur de communication lors d'un vote"+textStatus);
 	});
 }
+
 function addErrorMessage(msg,idItem){	
 	$("#"+idItem).prepend("<p style='color:red;'>"+msg+"</p>");
+}
+
+
+//VOTE
+
+function unVote(url,idItem,idItemToReplace){
+	var requestArg = $.post(url,
+			{id : idItem},function(data){
+				$("#"+idItemToReplace).replaceWith(data);
+			});
+	requestArg.fail(function(jqXHR, textStatus) {
+		addErrorMessageInEditor("Erreur de communication lors d'un vote"+textStatus);
+	});
+}
+function vote(item,url,value,idParent,idItemToReplace){
+	sendSimpleValue(item,idParent,idItemToReplace,url,value);
+}
+
+
+
+//COMMENT
+
+function commentEditStart(item, idComment){
+	if (showMessageIfNotLogged(item)) {
+		return;
+	}
+	showHelp("addcom"+idComment,"help"+idComment);
+	$("#addcom"+idComment).hide();
+	$("#addcom"+idComment).click(function(){
+		$("#addcom"+idComment).hide();
+		$("#commentArea"+idComment).show();
+	});	
+}
+
+
+function maxlength_comment(textarea, itemToCommentId, max, min) {
+	$button = $('#sendArgComm'+itemToCommentId);
+	$lengthCountMessage = $('#nbrCaract'+itemToCommentId);
+	var currentLength = textarea.value.length;
+	
+	if (currentLength < min) {
+		var mini = min-currentLength;
+		$lengthCountMessage.html("Vous devez encore entrer " +mini+ " caractères");
+		$button.prop('disabled', true);
+	} else {
+		if (currentLength>max) {
+			textarea.value=textarea.value.substr(0,max);
+			//redifine currentLength otherwise $lengthCountMessage show "-1 caractère restant"
+			currentLength = textarea.value.length;
+		}
+		var maxi = max-currentLength;
+		$lengthCountMessage.html(maxi + " caractères restant");	
+		$button.prop('disabled', false);
+	}
 }
 
 function cancelComment(idItem){
 	$("#addcom"+idItem).show();
 	$("#commentArea"+idItem).hide();
 	
-}
-function unVote(url,idItem,container){
-	var requestArg = $.post(url,
-			{id : idItem},function(data){
-				$("#"+container).replaceWith(data);
-			});
-	requestArg.fail(function(jqXHR, textStatus) {
-		addErrorMessageInEditor("Erreur de communication lors d'un vote"+textStatus);
-	});
-}
-function vote(item,idArg,value,idItem,url){
-	sendSimpleValue(item,idArg,idItem,url,value);
 }

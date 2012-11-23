@@ -53,51 +53,19 @@ function argumentCreateStart(isPos, idAction) {
 
 
 function voteOnArgument(item,idArg,value){
-	vote(item,idArg,value,"arg"+idArg,"/ajax/argumentvote");
+	vote(item,"/ajax/argumentvote",value,idArg,"arg"+idArg);
 }
 
-
-///////////////////////////////// COMMENTS
-
-function sendNewComment(item, idArg){
-	sendSimpleValue(item,idArg,"arg"+idArg,"/ajax/commentAdd",$('#comm'+idArg).val());
-}
-
-
-function commentEditStart(item, idComment){
-	if (showMessageIfNotLogged(item)) {
-		return;
-	}
-	showHelp("addcom"+idComment,"help"+idComment);
-	$("#addcom"+idComment).hide();
-	$("#addcom"+idComment).click(function(){
-		$("#addcom"+idComment).hide();
-		$("#commentArea"+idComment).show();
-	});	
-}
-
-function maxlength_comment(textarea, itemToCommentId, max, min) {
-	$button = $('#sendArgComm'+itemToCommentId);
-	$lengthCountMessage = $('#nbrCaract'+itemToCommentId);
-	var currentLength = textarea.value.length;
-	
-	if (currentLength < min) {
-		var mini = min-currentLength;
-		$lengthCountMessage.html("Vous devez encore entrer " +mini+ " caractères");
-		$button.prop('disabled', true);
-	} else {
-		if (currentLength>max) {
-			textarea.value=textarea.value.substr(0,max);
-			//redifine currentLength otherwise $lengthCountMessage show "-1 caractère restant"
-			currentLength = textarea.value.length;
-		}
-		var maxi = max-currentLength;
-		$lengthCountMessage.html(maxi + " caractères restant");	
-		$button.prop('disabled', false);
-	}
-}
 function  unVoteArg(id){
 	 unVote("/ajax/unvoteargument",id,"arg"+id);
 }
+
+///////////////////////////////// COMMENTS
+
+function sendNewComment(item,divId,idArg){
+	sendSimpleValue(item,idArg,divId,"/ajax/argcommentadd",$('#comm'+idArg).val());
+}
+
+
 
 

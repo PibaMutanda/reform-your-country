@@ -4,12 +4,13 @@
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
 
 <div id="colArg${ispos}" style="
         <c:if test='${ispos}'> width:390px; float:right;</c:if>  <%-- Right column --%>
         <c:if test='${!ispos}'>width:385px; float:left;background: url(images/_global/bg-sidebar.gif) 100% 0 repeat-y; padding-right:15px;</c:if> <%-- Left column + vertical separator line --%>
         ">
+        
+	<c:set var="canNegativeVote" value="true" scope="request"/>
     <div class="listArgument">
 	  <c:forEach items="${listToShow}" var="currentItem">
 			<%@include file="itemdetail.jsp"%>
