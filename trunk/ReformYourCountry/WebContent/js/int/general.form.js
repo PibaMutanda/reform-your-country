@@ -58,17 +58,22 @@ function resetErrorMessagesInEditor(){
 }
 
 //Finishes the activation of the editor
-function activateCkEditorAndHelpDiv() {
+function activateCkEditorAndHelpDiv(itemId) {
 	createCkEditor("contentItem");
-    var pos = $("#ckEditForm").position();
-	$('#help').css({"position": "absolute"
-						,"left":pos.left
-						,"top": pos.top-$('#help').outerHeight(true)-5 + "px"
-						, "z-index": 1});
-	$('#help').show("slide", {direction: 'down'},"slow");
+	showHelp('ckEditForm','help'+itemId);
 }
 
+//ReferenceId must be the Div just below the helpDiv (From where the help is appearing)
+function showHelp(referenceId,helpId){
+
+    var pos = $("#"+referenceId).position();
+	$('#'+helpId).css({"position": "absolute"
+		,"left":pos.left
+		,"top": pos.top-$('#'+helpId).outerHeight(true)-5 + "px"
+		, "z-index": 1});
+	$('#'+helpId).show("slide", {direction: 'down'},"slow");
+}
 //Called by the onClick of the X button in the top right corner of the help div.
-function hideHelp(){
-	$("#help").hide("slide", {direction: 'down'},"slow");
+function hideHelp(idItem){
+	$("#"+idItem).hide("slide", {direction: 'down'},"slow");
 }

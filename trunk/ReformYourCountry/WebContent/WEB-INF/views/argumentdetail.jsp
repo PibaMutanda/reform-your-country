@@ -33,7 +33,10 @@
 			
 			</div>
 		</div>
-		<%@include file="argumentcomment.jsp"%>
+		<c:set var="idItem" value="${argument.id}" scope="request"/>
+		<c:set var="currentItem" value="${argument}" scope="request"/>
+		<c:set var="helpContent" value="${p_comment_help}" scope="request"/>
+		<%@include file="comment.jsp"%>
 	</div>
 
     <%-- VOTES --%>

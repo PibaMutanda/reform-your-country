@@ -1,15 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<div id="help" style="display:none;background-color:#FFFFCC; padding:10px; font-size:0.8em; ">
-            <div style="width:100%; text-align: right;">
-                <div style="font-weight: bold;" onclick="hideHelp();">
-                    X
-                </div>
-            </div>
-            ${helpContent}
-</div>
 
+<c:set var="helpContent" value="${itemHelpContent}" scope="request"/>
+<%@include file="help.jsp"%>
 
 <form id='ckEditForm' action='${urlAction}'>
     <div id="errors" style="color:red;"><%--Error messages inserted by JavaScript --%></div>

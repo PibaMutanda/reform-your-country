@@ -40,10 +40,10 @@ function cancelComment(idItem){
 	$("#commentArea"+idItem).hide();
 	
 }
-function unVote(url,idItem){
+function unVote(url,idItem,container){
 	var requestArg = $.post(url,
 			{id : idItem},function(data){
-				return data;
+				$("#"+container).replaceWith(data);
 			});
 	requestArg.fail(function(jqXHR, textStatus) {
 		addErrorMessageInEditor("Erreur de communication lors d'un vote"+textStatus);
