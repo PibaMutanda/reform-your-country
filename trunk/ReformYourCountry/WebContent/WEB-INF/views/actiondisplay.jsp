@@ -21,23 +21,27 @@
     <%-- Action text --%>
 	<div style=" width: 100%;">
 			<div style="font-size:1.3em;">
+				<div class="action-list" style="font-size:0.8em">
+					<c:forEach items="${action.articles}" var="article">
+						<div>
+							<a href="/article/${article.url}">
+								<span class="tooltip" data-tooltip='${article.description}'>${article.title}</span>
+							</a>
+						</div>
+					</c:forEach>
+				</div>		
 				${action.content}
 			</div>
 			<div>
-				<div style=" ">
-					
-					<div style="width:100%">
+					<div>
 						<a href="/action" style="font-size:0.8em;">retour à la liste des actions</a>
 							<ryc:conditionDisplay privilege="EDIT_ACTION">
 								- <a href="/action/edit?id=${action.id}" style="font-size:0.8em;">éditer</a>
 							</ryc:conditionDisplay>
-						
  						<ryctag:form action="/action/edit" modelAttribute="action" method="get" width="50px;"> 
  							<input type="hidden" value="${action.id}" name="id" id="idAction" /> 
 						</ryctag:form> 
 					</div>
-					
-				</div>
 			</div>
 	</div>
 		

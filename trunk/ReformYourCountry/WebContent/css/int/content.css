@@ -54,7 +54,6 @@
 	float:left;
 }
 
-
 /*Separating line*/
 .line{
 	color:rgb(67, 84, 126);
@@ -86,11 +85,10 @@
 	 font-size:.85em;
 }
 .vote{
-	display: inline-block; width: 90px; height: 30px; text-align: center; border:1px solid black; cursor: hand; cursor: pointer;
+	display: inline-block; width: 90px; height: 30px; text-align: center; border:1px solid black; cursor: pointer;
 }
 .smallvote{
-	display: inline-block;width: 30px; height: 20px;text-align: center; border:1px solid black; cursor: hand; cursor: pointer;
-	
+	display: inline-block;width: 20px; height: 15px;text-align: center; border:1px solid black; cursor: pointer;
 }
 .smallvote:hover{
 	font-weight : bold;
@@ -298,7 +296,19 @@ color: #444;
 	padding-right: .5em;
 	border-right-style: solid;
 	border-right-width: 1px;
+	display:inline-block;
+	width:100%;
 }
+
+.action-list{
+	padding:5px;
+	margin:10px;
+	width: 150px;
+	float: right;
+	border-style:solid;
+	border-width: 1px;
+}
+
 .icon-32{  /* Because i'm to lazy to go in GIMP and change every icons we have to 32px... */
     width:32px;
     height: 32px;
