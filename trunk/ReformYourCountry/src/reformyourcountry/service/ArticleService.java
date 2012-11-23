@@ -16,12 +16,15 @@ import reformyourcountry.converter.BBConverter;
 import reformyourcountry.exception.InvalidUrlException;
 import reformyourcountry.model.Article;
 import reformyourcountry.model.ArticleVersion;
+import reformyourcountry.model.User;
 import reformyourcountry.pdf.ArticlePdfGenerator;
 import reformyourcountry.repository.ActionRepository;
 import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.repository.ArticleVersionRepository;
 import reformyourcountry.repository.BookRepository;
+import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
+import reformyourcountry.util.FileUtil;
 
 @Service
 @Transactional
@@ -35,11 +38,14 @@ public class ArticleService {
 	
 	/** @param newParentId if null, removes the current parent and makes a root node. */
 	public void changeParent(Article article, Long newParentId) {
+		//FIXME dead code? --maxime 16/10/2012
 		// Verify that the parent is not the article itself or one of its children (it would create a cycle in the tree).
 		Article newParent = newParentId == null ? null : articleRepository.find(newParentId);
-		if (newParent != null && newParent.equalsOrIsParentOf(article)) {
+		
+		
+		/*if (newParent != null && newParent.equalsOrIsParentOf(article)) {
 			throw new RuntimeException("Bug: should not try to set a child as parent. Child id = " + article.getId() + "; new parent id = " + newParentId);
-		}
+		}*/
 				
 		// Detach the article from its current parent
 		if (article.getParent() != null) {
@@ -141,18 +147,48 @@ public class ArticleService {
 	     article.setLastVersionRenderdSummary(new BBConverter(bookRepository, articleRepository,actionRepository).transformBBCodeToHtmlCode(article.getLastVersionRenderdSummary()));
 	 }
 	
-	 public void makePdf(Article article){
-	        try(ByteArrayOutputStream baos = new ByteArrayOutputStream()){
-	        	ArticlePdfGenerator cPdf = new ArticlePdfGenerator(true);
-	        	String title = cPdf.createArticleTitle(article);
-	        	cPdf.generatePDF(article.getLastVersionRenderdSummary()+article.getLastVersionRenderedContent(),baos,true);
+	 public ByteArrayOutputStream makePdf(Article article,boolean isCover,boolean isToc,boolean onlySummary,boolean isNotPublished){
+
+	     if(isNotPublished){
+
+	         SecurityContext.assertUserHasPrivilege(Privilege.VIEW_UNPUBLISHED_ARTICLE);
+	     }
+
+	     try(ByteArrayOutputStream baos = new ByteArrayOutputStream()){
+
+	         ArticlePdfGenerator cPdf = new ArticlePdfGenerator(article,true,isCover,isToc);
+
+	         if(onlySummary){
+	             cPdf.generatePDF(article.getLastVersionRenderdSummary()+article.getLastVersionRenderedContent(),baos);
+	         }else{
+	             cPdf.generatePDF(article.getLastVersionRenderdSummary(),baos);
+	         }
+
+	        	 
+	        	 
 	        	
-	        	File filetest = new File(System.getProperty("java.io.tmpdir")+"pd4ml.pdf");
-				try(FileOutputStream fos =new FileOutputStream(filetest)){
+	        	
+	        	/*File filetest = new File(FileUtil.getGenFolderPath()+FileUtil.PDF_FOLDER);
+	        	FileOutputStream fos = null;
+	        	
+                  if(!filetest.exists()){
+                      filetest.mkdirs();
+                  }
+                  filetest = new File(FileUtil.getGenFolderPath()+FileUtil.PDF_FOLDER,article.getUrl()+".pdf");
+				    fos =new FileOutputStream(filetest);
 					baos.writeTo(fos);
-				}
+					fos.close();*/
+					
+					
+					return baos;
+				
+	        	
 	        } catch (IOException e) {
 	        	throw new RuntimeException(e);
 			}
-		}
+	
+	 
+	 
+  }
+	 
 }
