@@ -24,11 +24,11 @@
     <textarea id='contentItem'  name='content' >${contentItem}</textarea>
     
     <c:choose>
-        <c:when test="${idItem== null}">
-        	<input type='button' id='CkEditFormSubmit' value='Ajouter' style='padding: 3px; margin: 5px;'/>
+        <c:when test="${empty idItem}">
+        	<input type='submit' id='CkEditFormSubmit' value='Ajouter' style='padding: 3px; margin: 5px;'/>
         </c:when>
          <c:otherwise>
-         	<input type='button' id='CkEditFormSubmit' value='Sauver' style='padding: 3px; margin: 5px;'/>
+         	<input type='submit' id='CkEditFormSubmit' value='Sauver' style='padding: 3px; margin: 5px;'/>
          </c:otherwise>
     </c:choose>
     

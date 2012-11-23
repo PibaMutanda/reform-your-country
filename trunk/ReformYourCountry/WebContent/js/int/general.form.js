@@ -1,6 +1,7 @@
 
 //Will Send the value of the new Argument form to the controller 
 function CKeditorEditSubmit(idEditedValueContainer){
+	console.log("CKeditorEditSubmit");
 	if (idUser.length=0){  // Not loggedin
 		console.error("Bug: User should not see the button (and the form)");
 		return false;
@@ -10,11 +11,13 @@ function CKeditorEditSubmit(idEditedValueContainer){
 	var errorHappened = false;
 	resetErrorMessagesInEditor();
 	if( getContentFromCkEditor()=="" ) {
+		console.log("Vous devez écrire le contenu.");
 		addErrorMessageInEditor("Vous devez écrire le contenu.");
 		errorHappened = true;
 	}
 		
 	if ( $('#ckEditForm > input[name="title"]').val()=="") {
+		console.log("Vous devez écrire le contenu.");
 		addErrorMessageInEditor("Vous devez remplir le champs titre.");
 		errorHappened = true;
 	}
@@ -22,7 +25,7 @@ function CKeditorEditSubmit(idEditedValueContainer){
 	if (errorHappened) {
 		return false;
 	}
-
+	console.log("Vous devez écrire le contenu.");
 	// Verify if it's a new argument or an edited argument.
 	var itemId = $('#ckEditForm > input[name="idItem"]').val();
 
@@ -30,15 +33,15 @@ function CKeditorEditSubmit(idEditedValueContainer){
 	var requestArg = $.post($("#ckEditForm").attr("action"),serializeFormWithCkEditorContent($("#ckEditForm"), "content"))
 	                   .done(function(data) {
 	                	   destroyCkEditor();
-	                	   if (itemId.length == 0) {   	// Creation of a new argument
+	                	   if (itemId.length == 0) {   	// Creation of a new item
 	                		  
-	                		   $("#"+idEditedValueContainer).append(data); // We append the dsp detail of the arg it at the bottom of its column. 
+	                		   $("#"+idEditedValueContainer).append(data); // We append the jsp detail of the arg it at the bottom of its column. 
 	                	   } else {  // Existing argument, we put it inplace
 	                		   $("#"+idEditedValueContainer).replaceWith(data);
 	                	   }
 	                	   // TODO: Add visual effect (highlight 1 second) to the div containing the argument detail just received (data).
 	                   });
-
+	console.log("Vous devez écrire le contenu.");
 	requestArg.fail(function(jqXHR, textStatus) {
 		// TODO show that error in a jQuery pop-up
 		addErrorMessageInEditor("Erreur de communication lors de l'envoi de l'argument...");
@@ -48,7 +51,7 @@ function CKeditorEditSubmit(idEditedValueContainer){
 }
 
 function addErrorMessageInEditor(msg){	
-	addErrorMessageInEditor(msg,"ckEditForm");
+	addErrorMessage(msg,"ckEditForm");
 }
 function resetErrorMessagesInEditor(){	
 	$("#ckEditForm > #errors").empty();

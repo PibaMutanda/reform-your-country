@@ -31,7 +31,7 @@ function sendSimpleValue(button,idItem,idEditedValueContainer,url,value){
 		addErrorMessageInEditor("Erreur de communication lors d'un vote"+textStatus);
 	});
 }
-function addErrorMessageInEditor(msg,idItem){	
+function addErrorMessage(msg,idItem){	
 	$("#"+idItem).prepend("<p style='color:red;'>"+msg+"</p>");
 }
 

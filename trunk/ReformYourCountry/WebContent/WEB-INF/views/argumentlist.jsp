@@ -5,7 +5,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
-<script type="text/javascript" src="/ckeditor/adapters/jquery.js"></script>
 
 <div id="colArg${ispos}" style="
         <c:if test='${ispos}'> width:390px; float:right;</c:if>  <%-- Right column --%>
