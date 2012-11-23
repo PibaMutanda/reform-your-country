@@ -14,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -85,6 +86,7 @@ public class Article extends BaseEntity {
 	private Article parent;
 
 	@OneToMany(mappedBy = "parent")
+	@OrderBy("title ASC")
 	private List<Article> children = new ArrayList <Article>();
     
 	@OneToMany(mappedBy="article")
