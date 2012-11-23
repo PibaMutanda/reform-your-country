@@ -112,6 +112,34 @@ public class Article extends BaseEntity {
 		return result;
 	}
 	
+	//recursion for article's childen and grandchildren
+	public List<Article> getChildrenAndSubChildren() {
+		List <Article> result = new ArrayList <Article> ();
+		for (Article child : this.getChildren()) {
+			child.getChildrenRecursively(result);
+		}
+		return result;
+	}
+
+	private void getChildrenRecursively(List<Article> result) {
+		result.add(this);
+		for (Article child : this.getChildren()){
+   		    child.getChildrenRecursively(result);
+		}
+	}
+	
+	
+	
+	//////////////////////////////////////////////////////
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public List<Video> getVideos() {
 		return videos;
 	}
