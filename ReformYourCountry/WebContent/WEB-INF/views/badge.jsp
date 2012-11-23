@@ -13,7 +13,7 @@
  <div id="module">
   <h4 id="h-legend">Légende</h4>
    <div id="legend-size">
-   
+
       <div class="mb" ><span class="badge"><span class="badge1"></span>&nbsp;Gommette d'or</span></div>
            <p style="font-size: 12px;">Les gommettes d'or sont rares. Vous aurez à travailler activemment pour ça. Ils sont en quelque sorte un exploit!</p>
       <div class="mb"><span class="badge"><span class="badge2"></span>&nbsp;Gommette d'argent</span></span></div>
@@ -32,8 +32,8 @@
     <c:forEach items="${badges}" var="badgeMapEntry">	
      <tr>
        <td>
-           <c:if test="${current.user.isHasBadgeType(badgeMapEntry.key)}"><span class="badge-earned-check">&nbsp;
-           </span></c:if>  
+           <c:if test="${current.user.isHasBadgeType(badgeMapEntry.key)}"><img  class="badge-earned-check"   alt="badge earned" src="/images/badge_earned.png" />
+           </c:if>  
        </td>
        <td class="badge-cell"><span class="badge"  >
        		<c:choose> 

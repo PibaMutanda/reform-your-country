@@ -219,7 +219,6 @@ background-position-y: -609px;
 width: 20px;
 height: 23px;
 display: inline-block;
-background-image: url('/images/sprites.png?v=5');
 }
 .badge1, .badge2, .badge3 {
 display: inline-block;

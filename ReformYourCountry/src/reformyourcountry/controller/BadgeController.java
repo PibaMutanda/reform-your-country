@@ -34,6 +34,5 @@ public class BadgeController extends BaseController<Badge> {
 		
 		return new ModelAndView("badge", "badges", badgeCount);
 
-	}
-
+	}	
 }

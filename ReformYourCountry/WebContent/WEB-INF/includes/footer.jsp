@@ -13,8 +13,12 @@
 	 <h3>Utilisateurs</h3>
 	 <div class="footer_post">
 		 <ul class="list sitemap-list">
-		 <li><a href="user">Liste des utilisateurs</a></li>
-		 <li><a href="grouplist">Groupes</a></li>
+		 <li><a href="grouplist"><span>Groupes</span></a></li>
+			<c:if test="${current.user!=null}"><li><a href="user/${current.user.userName}"><span>Mon profil</span></a></li></c:if>
+			<li><a href="user"><span>Autres utilisateurs</span></a></li>
+			<li><a href="/specialuserslist"><span>Partis politiques et Associations</span></a></li>
+			<li><a href="/badge/"><span>Badges</span></a>
+		 
 		 </ul>
 	</div><!-- end footer_post -->
 </div><!-- end first one_fourth_column -->

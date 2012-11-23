@@ -26,6 +26,5 @@ public class BadgeRepository extends BaseRepository<Badge> {
 				.getSingleResult();
 		return count;
 	}
-	
-	
+	                   
 }
