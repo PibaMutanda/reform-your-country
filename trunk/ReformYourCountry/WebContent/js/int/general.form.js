@@ -25,25 +25,24 @@ function CKeditorEditSubmit(idEditedValueContainer){
 	if (errorHappened) {
 		return false;
 	}
-	console.log("Vous devez écrire le contenu.");
+	console.log("Paramètres ok.");
 	// Verify if it's a new argument or an edited argument.
 	var itemId = $('#ckEditForm > input[name="idItem"]').val();
 
 	//// POST to server
-	var requestArg = $.post($("#ckEditForm").attr("action"),serializeFormWithCkEditorContent($("#ckEditForm"), "content"))
-	                   .done(function(data) {
-	                	   destroyCkEditor();
-	                	   if (itemId.length == 0) {   	// Creation of a new item
-	                		  
-	                		   $("#"+idEditedValueContainer).append(data); // We append the jsp detail of the arg it at the bottom of its column. 
-	                	   } else {  // Existing argument, we put it inplace
-	                		   $("#"+idEditedValueContainer).replaceWith(data);
-	                	   }
-	                	   // TODO: Add visual effect (highlight 1 second) to the div containing the argument detail just received (data).
-	                   });
-	console.log("Vous devez écrire le contenu.");
-	requestArg.fail(function(jqXHR, textStatus) {
+	$.post($("#ckEditForm").attr("action"),serializeFormWithCkEditorContent($("#ckEditForm"), "content"),
+			function(data) {
+				destroyCkEditor();
+				if (itemId.length == 0) {   	// Creation of a new item
+					$("#"+idEditedValueContainer).append(data); // We append the jsp detail of the arg it at the bottom of its column. 
+				} else {  // Existing argument, we put it inplace
+					$("#"+idEditedValueContainer).replaceWith(data);
+				}
+				console.log(idEditedValueContainer+"a été modifié");
+				// TODO: Add visual effect (highlight 1 second) to the div containing the argument detail just received (data).
+	}).fail(function(jqXHR, textStatus) {
 		// TODO show that error in a jQuery pop-up
+		alert("Erreur de communication lors de l'envoi de l'argument...");
 		addErrorMessageInEditor("Erreur de communication lors de l'envoi de l'argument...");
 		return false;
 	});

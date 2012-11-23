@@ -26,7 +26,7 @@ function argumentEditStart(item, newid){
 				function(data){
 			$("#arg"+newid).html(data);
 			activateCkEditorAndHelpDiv(newid);
-			$("#CkEditFormSubmit").attr("onclick","argumentEditSubmit()");
+			$("#CkEditFormSubmit").attr("onclick","return argumentEditSubmit();");//return false when method succes otherwise form is submitted
 	});
 }
 
@@ -53,7 +53,7 @@ function argumentCreateStart(isPos, idAction) {
 
 
 function voteOnArgument(item,idArg,value){
-	sendSimpleValue(item,idArg,"arg"+idArg,"/ajax/argumentvote",value);
+	vote(item,idArg,value,"arg"+idArg,"/ajax/argumentvote");
 }
 
 

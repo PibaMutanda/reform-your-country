@@ -50,7 +50,7 @@ function serializeFormWithCkEditorContent($form, ParamName) {
             value: content_val
         });
     }
-
+    console.log("values returned by serializa " + values);
     // Convert to URL-encoded string
     return jQuery.param(values);
 }

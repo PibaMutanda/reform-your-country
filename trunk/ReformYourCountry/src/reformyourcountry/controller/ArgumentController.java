@@ -90,8 +90,8 @@ public class ArgumentController extends BaseController<Argument>{
             actionRepository.merge(action);
         }
         
-        ModelAndView mv = new ModelAndView("argumentdetail");  // Redisplay that argument (with new values)
-        mv.addObject("argument",argument);
+        ModelAndView mv = new ModelAndView("itemdetail");  // Redisplay that argument (with new values)
+        mv.addObject("currentItem",argument);
         return mv;
     }        
         
@@ -103,8 +103,8 @@ public class ArgumentController extends BaseController<Argument>{
         if (user !=null){
             Argument arg = argumentRepository.find(idArg);
             argumentService.updateVoteArgument(idArg, value, user, arg);
-            ModelAndView mv = new ModelAndView("argumentdetail");  // Redisplay that argument (with new vote values)
-            mv.addObject("argument",arg);
+            ModelAndView mv = new ModelAndView("itemdetail");  // Redisplay that argument (with new vote values)
+            mv.addObject("currentItem",arg);
             return mv;
            
         } else {
@@ -121,8 +121,8 @@ public class ArgumentController extends BaseController<Argument>{
             commentRepository.persist(comment);
             argument.addComment(comment);
 			argumentRepository.merge(argument);       
-			ModelAndView mv = new ModelAndView("argumentdetail");
-            mv.addObject("argument",argument);
+			ModelAndView mv = new ModelAndView("itemdetail");
+            mv.addObject("currentItem",argument);
 			return mv;
 		}else {
 			throw new Exception("no user logged");
@@ -141,8 +141,8 @@ public class ArgumentController extends BaseController<Argument>{
                 break;
             }
         }  
-        ModelAndView mv = new ModelAndView("argumentdetail");
-        mv.addObject("argument",argument);
+        ModelAndView mv = new ModelAndView("itemdetail");
+        mv.addObject("currentItem",argument);
         return mv;
     }
 }
