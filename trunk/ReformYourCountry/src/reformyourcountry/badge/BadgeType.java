@@ -5,8 +5,9 @@ public enum BadgeType {
 	AUTOBIOGRAPHER		("Autobiographe", "a complété tous les champs de son profil", BadgeTypeLevel.BRONZE),
 	FILMMAKER			("Cinéaste", "a produit une vidéo", BadgeTypeLevel.GOLD),
 	CITIZEN				("Citoyen", "a voté sur toutes les actions", BadgeTypeLevel.SILVER),
-	STATISTICIAN 	    ("Statisticien"," a complété son appartenance à un ou plusieurs groupes", BadgeTypeLevel.BRONZE);
-	
+	STATISTICIAN 	    ("Statisticien"," a complété son appartenance à un ou plusieurs groupes", BadgeTypeLevel.BRONZE),
+	RUBBERNECK          ("Badaud","a voté sur une action",BadgeTypeLevel.BRONZE),
+	ELECTOR             ("Electeur","a voté sur 10 actions",BadgeTypeLevel.BRONZE);
 	
 	
 	private BadgeType(String name, String description, BadgeTypeLevel badgeTypeLevel) {

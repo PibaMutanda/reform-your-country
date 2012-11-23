@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import reformyourcountry.badge.BadgeType;
 import reformyourcountry.model.Badge;
 import reformyourcountry.model.User;
+import reformyourcountry.repository.ActionRepository;
 import reformyourcountry.repository.BadgeRepository;
 import reformyourcountry.util.NotificationUtil;
 
@@ -15,6 +16,7 @@ import reformyourcountry.util.NotificationUtil;
 public class BadgeService {
 
 	@Autowired BadgeRepository badgeRepository;
+	@Autowired ActionRepository actionRepository;
 	
     public void saveBadgeTypeForUser (BadgeType badgeType, User user){
 		Badge badge = new Badge();
@@ -27,6 +29,8 @@ public class BadgeService {
 				" de niveau " + badgeType.getBadgeTypeLevel().getName() );
     }
 
+        
+    
 	public void grantBadgeForGroups(User user) {
         // 1. User a déjà le badge -> exit.
 		if(!user.isHasBadgeType(BadgeType.STATISTICIAN))
@@ -36,4 +40,27 @@ public class BadgeService {
 		
 	}
 	
+    
+    public void grantBadgeForVoteAction(User user) {
+        int count = user.getVoteActions().size();
+        
+        // Does the user deserve a RUBBERNECK badge ?
+        if(count>=1){
+            if(!user.isHasBadgeType(BadgeType.RUBBERNECK))
+                saveBadgeTypeForUser(BadgeType.RUBBERNECK, user);
+            
+        }
+        
+        if(count>=10){
+            if(!user.isHasBadgeType(BadgeType.ELECTOR))
+                saveBadgeTypeForUser(BadgeType.ELECTOR, user);
+        }
+        
+        
+        if(count >= actionRepository.findAll().size()){
+            if(!user.isHasBadgeType(BadgeType.CITIZEN))
+                saveBadgeTypeForUser(BadgeType.CITIZEN, user);
+        }
+    }
+    
 }

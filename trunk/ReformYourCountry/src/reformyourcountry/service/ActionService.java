@@ -19,6 +19,8 @@ import reformyourcountry.security.SecurityContext;
 public class ActionService {
 	@Autowired VoteActionRepository voteActionRepository;
 	@Autowired ActionRepository actionRepository;
+	@Autowired BadgeService badgeService;
+	
 	public void putGraphNumbersInModelAndView(ModelAndView mv, Action action){
 		List<Long> resultNumbers = getResultNumbersForAction(action);
         mv.addObject("resultNumbers", resultNumbers);
@@ -126,7 +128,7 @@ public class ActionService {
        }
 	   
 	   public VoteAction userVoteForAction(User user,Long idAction,int vote){
-	        
+	        	        	        
 	        VoteAction va = voteActionRepository.findVoteActionForUser(SecurityContext.getUser(), idAction);
 	        if (va==null){
 	            va = new VoteAction(vote, actionRepository.find(idAction), SecurityContext.getUser());

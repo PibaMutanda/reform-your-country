@@ -17,6 +17,7 @@ import reformyourcountry.repository.UserRepository;
 import reformyourcountry.repository.VoteActionRepository;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.ActionService;
+import reformyourcountry.service.BadgeService;
 
 @Controller
 public class ActionDisplayController extends BaseController<Action> {
@@ -27,7 +28,8 @@ public class ActionDisplayController extends BaseController<Action> {
     @Autowired ActionService actionService;
     @Autowired ActionRepository actionRepository;
     @Autowired UserRepository userRepository;
-
+    @Autowired BadgeService badgeService;
+    
     @RequestMapping("/action/{actionUrl}")
     public ModelAndView displayAction(@PathVariable("actionUrl") String actionUrl) {
         Action action = getRequiredEntityByUrl(actionUrl);
@@ -40,7 +42,7 @@ public class ActionDisplayController extends BaseController<Action> {
     }
     @RequestMapping("ajax/vote")
     public ModelAndView vote(@RequestParam("actionId") long actionId, @RequestParam("vote") int vote){
-        SecurityContext.assertUserIsLoggedIn();
+        SecurityContext.assertUserIsLoggedIn();  
         VoteAction va = voteActionRepository.findVoteActionForUser(SecurityContext.getUser(), actionId);
         if (va==null){
             va = new VoteAction(vote, actionRepository.find(actionId), SecurityContext.getUser());
@@ -50,6 +52,7 @@ public class ActionDisplayController extends BaseController<Action> {
             voteActionRepository.merge(va);
         }
         
+        badgeService.grantBadgeForVoteAction(SecurityContext.getUser());
         ModelAndView mv = new ModelAndView("voteaction");
         
         Action action = getRequiredEntity(actionId);
@@ -64,4 +67,5 @@ public class ActionDisplayController extends BaseController<Action> {
         return mv;
     }   
 
+    
 }
