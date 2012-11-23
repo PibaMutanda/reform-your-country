@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.security.InvalidParameterException;
 
@@ -14,6 +15,7 @@ import org.zefer.pd4ml.PD4ML;
 import org.zefer.pd4ml.PD4PageMark;
 
 import reformyourcountry.model.Article;
+import reformyourcountry.web.UrlUtil;
 
 
 
@@ -23,7 +25,7 @@ public class ArticlePdfGenerator {
 
 
 	//default cover page image link
-	public static String COVER_PAGE_IMG = "http://upload.wikimedia.org/wikipedia/en/b/bc/Wiki.png";//="/VAADIN/themes/blackbelt/image/bgphoto/asianWomanSword.jpg";
+	public static String COVER_PAGE_IMG = UrlUtil.getAbsoluteUrl("")+"/images/logo/enseignement2-logo-black.png";//="/VAADIN/themes/blackbelt/image/bgphoto/asianWomanSword.jpg";
 
 	
 
@@ -33,8 +35,12 @@ public class ArticlePdfGenerator {
 	private BufferedImage logoImage;
 
 	private boolean doTheUserWantACoverPage;
+    private boolean doTheUserWantAToc;
+    private boolean doTheUserWantOnlySummary;
 
+    private Article article;
 	public boolean enableDebug ;
+	private ByteArrayOutputStream baos;
 
 	private final String CSS = "h1,h2,h3,h4 {" +
 			"	color: #AA0000; /* #AA0000 = blackbelt_dark_red  */" +
@@ -69,7 +75,7 @@ public class ArticlePdfGenerator {
 
 			".titre{"+
 			"font-size:26px;"+
-			"font-family:helvetica,Times_New_Roman;"+
+			"font-family:Arial,Times New Roman;"+
 			"}"+
 			".logo{"+
 			"font-size:32;"+
@@ -118,14 +124,23 @@ public class ArticlePdfGenerator {
 			"font-size:10px;"+
 			"}";
 
-	public ArticlePdfGenerator(boolean enableDebug){
+	public ArticlePdfGenerator(Article article ,boolean doTheUserWantACoverPage,boolean doTheUserWantAToc,boolean doTheUserWantOnlySummary, boolean enableDebug){
 		this.pd4ml = new PD4ML();
+		this.article = article;
 		this.enableDebug = enableDebug;
+		this.doTheUserWantACoverPage = doTheUserWantACoverPage;
+		this.doTheUserWantAToc = doTheUserWantAToc;
+		this.doTheUserWantOnlySummary = doTheUserWantOnlySummary;
+	
+		baos = new ByteArrayOutputStream();
 	}
 
-	public void generatePDF(String inputHtml,ByteArrayOutputStream bos,boolean doTheUserWantACoverPage) {
+	public ByteArrayOutputStream generatePDF() {
 
-		this.doTheUserWantACoverPage = doTheUserWantACoverPage;
+	    String content = "Résumé</br></br>"+article.getLastVersionRenderdSummary();
+        if(!doTheUserWantOnlySummary){
+            content += "Article</br></br>"+article.getLastVersionRenderedContent();
+        }
 
 		/** PDF document setting */
 		pd4ml.addStyle(CSS,true);
@@ -141,12 +156,14 @@ public class ArticlePdfGenerator {
 		
         
         // first we add the begining of the html document start with <html> to <body>
-		String head ="<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html lang=\"fr\" xmlns=\"http://www.w3.org/1999/xhtml\"   ><head><title>Enseignement2.be</title><META http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body>";
-		
+	//	String head ="<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html lang=\"fr\" xmlns=\"http://www.w3.org/1999/xhtml\"   ><head><title>Enseignement2.be</title><META http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body>";
+		String head ="<!DOCTYPE html><head><title>Enseignement2.be - "+article.getTitle()+"</title></head><body>";
 		// next we add the cover html 
+		if(doTheUserWantACoverPage)
 		head += createCoverHtml();
 		
 		//next we add the table of content
+		if(doTheUserWantAToc)
 		head += createToc();
 		
 		createHeader();
@@ -157,14 +174,13 @@ public class ArticlePdfGenerator {
 		// enable debugging of pd4ml 		
 		if (enableDebug) {
 			pd4ml.enableDebugInfo();
-		}
-
-		
+		}	
 		//after the cover we add the rest of the html document
-		String finalresult  =  head+inputHtml;
+		String finalresult  =  head+content+"</body></html>";
 		// generate the pdf in binary output stream from html
 		try {
-			pd4ml.render(new StringReader( finalresult), bos);
+		    System.out.println(finalresult);
+			pd4ml.render(new StringReader( finalresult), baos);
 
 
 		} catch (InvalidParameterException e) {
@@ -172,6 +188,8 @@ public class ArticlePdfGenerator {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
+		
+		return baos;
 	}
 
 
@@ -180,6 +198,8 @@ public class ArticlePdfGenerator {
 
 	/** creation of the header */
 	public void createHeader(){
+	    
+	    
 		// ${title} will be recognized/replaced by PD4ML.
 		String headerHtmlTemplate = "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">"
 				+ "<tr>"
@@ -217,6 +237,10 @@ public class ArticlePdfGenerator {
 		pd4ml.setPageFooter(foot); //Add footer
 	}
 
+	public ByteArrayOutputStream getOutputStream(){
+	    
+	    return baos;
+	}
 	
 	/** Creation of the cover page */
 	public String createCoverHtml(){
@@ -240,10 +264,10 @@ public class ArticlePdfGenerator {
 				"</div><br/><br/>" +
 
                 "<div align='center' style='font-size:24px;color: #AA0000;font-weight: bold;'>"+
-                "Bienvenue sur le site"+"</div><br/><br/>" +
+                createArticleTitle()+"</div><br/><br/>" +
                 
                 //we add a second image with 650x430 dimension
-                "<div  width='650' height='430' align='center'>"+
+                "<div  width='620' height='400' align='center'>"+
                 "<table align='center'><tr><td>" +
                 getHtmlResizedImg(img,true,url)+
 
@@ -273,7 +297,7 @@ public class ArticlePdfGenerator {
 
 	/** title style */
 
-	public String createArticleTitle(Article article){
+	public String createArticleTitle(){
 //		int size = getTitleSize(sectionTxt.getSection());
 		String title = null;
 //		int level = Math.min(size+1, 4);
@@ -307,8 +331,8 @@ public class ArticlePdfGenerator {
 		// if we want a big picture on cover page ,we change the height and the width of the image which will be use
 		// as numeric value in the tag img ( 430px x 650px )
 		if(bigPictureCoverPage){
-			maxH = 430.0f;
-			maxW = 650.0f;
+			maxH = 400.0f;
+			maxW = 620.0f;
 			align = "align='middle'";
 			
 			// or we want a little image with 40x40 dimension.
