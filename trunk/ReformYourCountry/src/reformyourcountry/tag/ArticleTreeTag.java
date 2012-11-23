@@ -2,6 +2,8 @@ package reformyourcountry.tag;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -69,7 +71,7 @@ public class ArticleTreeTag extends SimpleTagSupport{
 			articleRepository =  ContextUtil.getSpringBean(ArticleRepository.class);  // No Spring injection from this class (managed by Tomcat).
 			articleService =  ContextUtil.getSpringBean(ArticleService.class); 
 			List<Article> articles = null;
-
+						
 			// If we show radio buttons to select a parent, we display an extra radio button on the top to select a (virtual) root (= no parent).
 
 			if (radio) {
@@ -105,13 +107,15 @@ public class ArticleTreeTag extends SimpleTagSupport{
 		
 		if (isFirstPass) {
 			articles=articleRepository.findAllWithoutParent();
+			
 		    result+="<ul id=\"articletree\">";         
 		} else {
             result+="<ul class=\"subarticle\">";    
 		}
-		
+
+		Collections.sort( (List<Article>)articles, new ArticleComparator() );
 		for (Article child: articles) {
-			result+=displayArticle(child); 
+			result += displayArticle(child); 
 		}
 		
 		result+="</ul>";   
@@ -192,6 +196,13 @@ public class ArticleTreeTag extends SimpleTagSupport{
 	
 	public static void invalidateNavBarCache(){
 		 setLeftNavBarCache(null);
+	}
+	
+	static public class  ArticleComparator implements Comparator<Article> {
+		@Override
+		public int compare(Article art0, Article art1) {
+			return art0.getTitle().compareTo(art1.getTitle());
+		}
 	}
 }
 
