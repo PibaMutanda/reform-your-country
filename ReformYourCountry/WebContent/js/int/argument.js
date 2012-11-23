@@ -25,7 +25,7 @@ function argumentEditStart(item, newid){
 	$.post("/ajax/argumentedit",{argumentId:newid},
 				function(data){
 			$("#arg"+newid).html(data);
-			activateCkEditorAndHelpDiv();
+			activateCkEditorAndHelpDiv(newid);
 			$("#CkEditFormSubmit").attr("onclick","argumentEditSubmit()");
 	});
 }
@@ -41,7 +41,7 @@ function argumentCreateStart(isPos, idAction) {
 			function(data){
 				$('#argumentAddDivRealEditor'+isPos).html(data);
 				$('#argumentAddDivRealEditor'+isPos).show();
-				activateCkEditorAndHelpDiv();
+				activateCkEditorAndHelpDiv('');
 				$("#CkEditFormSubmit").attr("onclick","argumentEditSubmit()");
 	});
 
@@ -64,15 +64,15 @@ function sendNewComment(item, idArg){
 }
 
 
-function commentEditStart(item, addcom){
+function commentEditStart(item, idComment){
 	if (showMessageIfNotLogged(item)) {
 		return;
 	}
-	
-	$("#addcom"+addcom).hide();
-	$("#addcom"+addcom).click(function(){
-		$("#addcom"+addcom).hide();
-		$("#commentArea"+addcom).show();
+	showHelp("addcom"+idComment,"help"+idComment);
+	$("#addcom"+idComment).hide();
+	$("#addcom"+idComment).click(function(){
+		$("#addcom"+idComment).hide();
+		$("#commentArea"+idComment).show();
 	});	
 }
 
@@ -97,7 +97,7 @@ function maxlength_comment(textarea, itemToCommentId, max, min) {
 	}
 }
 function  unVoteArg(id){
-	$("#arg"+id).replaceWith(unVote("/ajax/unvoteargument",id));
+	 unVote("/ajax/unvoteargument",id,"arg"+id);
 }
 
 

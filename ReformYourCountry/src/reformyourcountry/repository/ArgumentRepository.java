@@ -22,7 +22,7 @@ public class ArgumentRepository extends BaseRepository<Argument>{
     }
 
     public List<Argument> findAll(Long idAction){
-        List<Argument> list = em.createQuery("select a from Argument a where a.action.id = :idAction")
+        List<Argument> list = em.createQuery("select a,(a.voteCountPro-a.voteCountAgainst) tot from Argument a where a.action.id = :idAction order by a.positiveArg,tot")
                 .setParameter("idAction", idAction)
                 .getResultList();
         return list;

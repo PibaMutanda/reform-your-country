@@ -59,7 +59,9 @@ public class ArgumentController extends BaseController<Argument>{
         mv.addObject("urlAction","/ajax/argumenteditsubmit");
         mv.addObject("positiveArg",positiveArg);
         mv.addObject("idParent",actionId); 
-        mv.addObject("helpContent",PropertyLoaderServletContextListener.getProprerty("p_argument_help"));  // Text in yellow div.
+        
+        mv.addObject("itemHelpContent",PropertyLoaderServletContextListener.getProprerty("p_argument_help"));  // Text in yellow div.
+        
         return mv;
     }
   
