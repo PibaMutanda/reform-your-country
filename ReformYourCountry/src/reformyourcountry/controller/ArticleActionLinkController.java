@@ -16,10 +16,10 @@ import reformyourcountry.repository.ArticleRepository;
 
 @Controller
 public class ArticleActionLinkController extends BaseController<Action>{
-	
+
 	@Autowired ArticleRepository articleRepository;
 	@Autowired ActionRepository actionRepository;
-	
+
 	@RequestMapping("/editaction")
 	public ModelAndView editAction(@RequestParam ("id") Long articleId){
 		Article article = articleRepository.find(articleId);
@@ -29,19 +29,26 @@ public class ArticleActionLinkController extends BaseController<Action>{
 		mv.addObject("article", article);
 		return mv;
 	}
-	
+
 	@RequestMapping("/editactionsubmit")
 	public ModelAndView editSubmitAction(@RequestParam ("id") Long articleId,
 			@RequestParam(value="action", required=false)Long[] actionIds){
 		Article article = articleRepository.find(articleId);
-		article.getActions().clear();
-		for(Long id : actionIds){
-			Action a =  actionRepository.find(id);
-			article.getActions().add(a);
+		if(actionIds != null){
+			article.getActions().clear();
+			for(Long id : actionIds){
+				Action a =  actionRepository.find(id);
+				a.addArticle(article);
+				actionRepository.merge(a);
+				article.getActions().add(a);
+			}
+		}
+		else{
+			article.getActions().clear();
 		}
 		articleRepository.merge(article);
 		return new ModelAndView("redirect:/article/"+article.getUrl()); 
 	}
-	
+
 
 }
