@@ -32,12 +32,12 @@
 			
 			</div>
 		</div>
+		<c:set var="divId" value="arg${currentItem.id}" scope="request"/>
 		<c:set var="helpContent" value="${p_comment_help}" scope="request"/>
 		<%@include file="comment.jsp"%>
 	</div>
 	
     <%-- VOTES --%>
-	<c:set var="canNegativeVote" value="true" scope="request"/>
 	<%@include file="vote.jsp"%>
 	
 

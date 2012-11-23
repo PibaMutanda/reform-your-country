@@ -6,10 +6,15 @@
 <head>
 <meta name="description" lang="fr" content="${action.shortDescription}"/>
 <meta name="robots" content="index, follow"/>
-<script type="text/javascript" src="js/int/voteaction.js"></script>
-<script type="text/javascript" src="js/ext/d3.v2.min.js"></script>
-<script src="js/ext/jquery-bubble-popup-v3.min.js" type="text/javascript"></script>
-<link href="css/ext/jquery-bubble-popup-v3.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/js/int/voteaction.js"></script>
+<script type="text/javascript" src="/js/ext/d3.v2.min.js"></script>
+<script type="text/javascript" src="/js/ext/jquery-bubble-popup-v3.min.js"></script>
+<script type="text/javascript" src="/js/int/argument.js"></script>
+<script type="text/javascript" src="/js/int/CKeditorManager.js"></script>
+<script type="text/javascript" src="/js/int/general.js"></script>
+<script type="text/javascript" src="/js/int/general.form.js"></script>
+<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+<link href="/css/ext/jquery-bubble-popup-v3.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 

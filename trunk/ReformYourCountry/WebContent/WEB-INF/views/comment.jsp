@@ -20,7 +20,7 @@
 	</div>
 	<div id="commentArea${currentItem.id}" style="display: none;">
 		<textarea id="comm${currentItem.id}" style="font-size:1.3em;width: 250px; height: 60px;" onkeyup="maxlength_comment(this,${currentItem.id},50,10);"></textarea>
-		<input style="float: right;" id="sendArgComm${currentItem.id}"	type="button" disabled="disabled" value="Commenter"	onclick="return sendNewComment(this, ${currentItem.id});">
+		<input style="float: right;" id="sendArgComm${currentItem.id}"	type="button" disabled="disabled" value="Commenter"	onclick="return sendNewComment(this,${divId},${currentItem.id});">
 		<div style="float: left;" id="nbrCaract${currentItem.id}"></div><div class="commentLink" style="float: right;text-align:center;" id="cancel"	onclick="return cancelComment('${currentItem.id}');">Annuler</div>
 	</div>
 </div>

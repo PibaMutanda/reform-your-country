@@ -90,9 +90,7 @@ public class ArgumentController extends BaseController<Argument>{
             actionRepository.merge(action);
         }
         
-        ModelAndView mv = new ModelAndView("itemdetail");  // Redisplay that argument (with new values)
-        mv.addObject("currentItem",argument);
-        return mv;
+        return returnitemDetail(argument);
     }        
         
     
@@ -103,16 +101,14 @@ public class ArgumentController extends BaseController<Argument>{
         if (user !=null){
             Argument arg = argumentRepository.find(idArg);
             argumentService.updateVoteArgument(idArg, value, user, arg);
-            ModelAndView mv = new ModelAndView("itemdetail");  // Redisplay that argument (with new vote values)
-            mv.addObject("currentItem",arg);
-            return mv;
+            return returnitemDetail(arg);
            
         } else {
             throw new Exception("no user logged");  // Catched by the JavaScript (should not happen because we don't send the ajax reqeust with non logged in user)
         }
     }
    
-    @RequestMapping("ajax/commentAdd")
+    @RequestMapping("ajax/argcommentadd")
 	public ModelAndView commentAdd(@RequestParam("id")Long idArg, @RequestParam("value")String com) throws Exception{
 		User user = SecurityContext.getUser();
 		if (user !=null){
@@ -121,9 +117,7 @@ public class ArgumentController extends BaseController<Argument>{
             commentRepository.persist(comment);
             argument.addComment(comment);
 			argumentRepository.merge(argument);       
-			ModelAndView mv = new ModelAndView("itemdetail");
-            mv.addObject("currentItem",argument);
-			return mv;
+			return returnitemDetail(argument);
 		}else {
 			throw new Exception("no user logged");
 		}
@@ -136,13 +130,19 @@ public class ArgumentController extends BaseController<Argument>{
         for(VoteArgument vote : listVote){
             if (vote.getUser()== user){
                 argument.getVoteArguments().remove(vote);
+                argument.recalculate();
                 argumentRepository.merge(argument);
                 voteArgumentRepository.remove(vote);
                 break;
             }
-        }  
+        }
+        return returnitemDetail(argument);
+    }
+    public ModelAndView returnitemDetail(Argument arg){
+        
         ModelAndView mv = new ModelAndView("itemdetail");
-        mv.addObject("currentItem",argument);
+        mv.addObject("canNegativeVote",true);
+        mv.addObject("currentItem",arg);
         return mv;
     }
 }
