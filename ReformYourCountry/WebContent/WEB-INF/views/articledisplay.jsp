@@ -4,10 +4,7 @@
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
 
-<!-- code used for "i like facebook" -->
-<html xmlns="http://www.w3.org/1999/xhtml" 
-      xmlns:og="http://ogp.me/ns#" 
-       xmlns:fb="http://www.facebook.com/2012/fbml"> 
+ 
 
 <head>
 <link rel="stylesheet" href="css/ext/jquery-bubble-popup-v3.css"  type="text/css" />
