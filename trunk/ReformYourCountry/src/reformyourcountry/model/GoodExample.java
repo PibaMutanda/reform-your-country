@@ -12,7 +12,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
-public class GoodExample extends BaseEntity {
+public class GoodExample extends BaseEntity implements IVote{
 
 	@NotBlank(message="entrer un titre")
 	@Column(length = 100, unique = true, nullable = false)// need nullable= false for schemaupdate
@@ -62,6 +62,18 @@ public class GoodExample extends BaseEntity {
     public void setVoteCount(int voteCount) {
         this.voteCount = voteCount;
     }
+
+	@Override
+	public int getTotal() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getVoteValueByUser(User user) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 	
 }
