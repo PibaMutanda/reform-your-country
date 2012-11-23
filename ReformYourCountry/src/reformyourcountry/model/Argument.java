@@ -14,7 +14,7 @@ import org.hibernate.annotations.Type;
 
 import reformyourcountry.security.SecurityContext;
 @Entity
-public class Argument extends BaseEntity{
+public class Argument extends BaseEntity implements IVote{
     
     @Column(length = 100)
 	private String title; 
@@ -154,6 +154,7 @@ public class Argument extends BaseEntity{
 	public String toString() {
 		return content;
 	}
+    @Override
     public int getTotal(){
         return this.voteCountPro-this.voteCountAgainst;
     }
@@ -168,6 +169,7 @@ public class Argument extends BaseEntity{
             }
         }
     }
+    @Override
     public int getVoteValueByUser(User user){
         for(VoteArgument vote:voteArguments){
             if (vote.getUser()==user){
