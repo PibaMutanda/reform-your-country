@@ -60,6 +60,7 @@ public class ArticleEditController extends BaseController<Article>{
             setMessage(mv, "L'url est déja utilisée par un autre article");
             return mv;
         } else {//if the article has no error
+        
             if (article.getId() == null) {//if this is a new article
                 articleService.saveArticle(article,null,null,null);
                 ArticleTreeTag.invalidateNavBarCache();
