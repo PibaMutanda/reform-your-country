@@ -2,8 +2,6 @@ package reformyourcountry.tag;
 
 import java.io.IOException;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -20,8 +18,6 @@ import reformyourcountry.web.ContextUtil;
 import reformyourcountry.web.UrlUtil;
 
 public class ArticleTreeTag extends SimpleTagSupport{
-
-
 	
 	ArticleRepository articleRepository;
 	ArticleService articleService;
@@ -113,7 +109,6 @@ public class ArticleTreeTag extends SimpleTagSupport{
             result+="<ul class=\"subarticle\">";    
 		}
 
-		Collections.sort( (List<Article>)articles, new ArticleComparator() );
 		for (Article child: articles) {
 			result += displayArticle(child); 
 		}
@@ -196,13 +191,6 @@ public class ArticleTreeTag extends SimpleTagSupport{
 	
 	public static void invalidateNavBarCache(){
 		 setLeftNavBarCache(null);
-	}
-	
-	static public class  ArticleComparator implements Comparator<Article> {
-		@Override
-		public int compare(Article art0, Article art1) {
-			return art0.getTitle().compareTo(art1.getTitle());
-		}
 	}
 }
 
