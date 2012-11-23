@@ -25,8 +25,8 @@ public enum Privilege {
      
     EDIT_BOOK("Edit book", Role.MODERATOR),
     EDIT_ACTION("Manage actions and arguments", Role.MODERATOR),
-    EDIT_GROUP("Edit group", Role.MODERATOR);
-    
+    EDIT_GROUP("Edit group", Role.MODERATOR),
+    VIEW_UNPUBLISHED_ARTICLE("View article unpublished",Role.MODERATOR);
     
 	String name;
 	Role associatedRole;
