@@ -127,7 +127,7 @@ public class SocialAccountManageController extends BaseController<User>{
             }
         }
         if (connection == null)  {  // not found => PROBLEM (user edits connections from 2 pages ?) 
-            return setMessage(new ModelAndView("redirect:socialaccountmanage"), "Association avec "+ providerId + " NON effacée (problème de consistance).");
+            NotificationUtil.addNotificationMessage("Association avec "+ providerId + " NON effacée (problème de consistance).");
         }
 
         // We remove the connection from the DB now.

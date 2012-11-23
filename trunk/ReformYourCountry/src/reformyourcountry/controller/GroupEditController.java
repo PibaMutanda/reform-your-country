@@ -17,6 +17,7 @@ import reformyourcountry.model.Group;
 import reformyourcountry.repository.GroupRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
+import reformyourcountry.util.NotificationUtil;
 
 @Controller
 public class GroupEditController extends BaseController<Group> {
@@ -57,7 +58,7 @@ public class GroupEditController extends BaseController<Group> {
         if (group.getId() == null){ //New group instance (not from DB)
             if(groupHavingThatName != null) {
                 ModelAndView mv = new ModelAndView ("groupedit", "group", group);
-                setMessage(mv, "Un autre groupe utilise déjà ce nom '" + group.getName() + '"');
+                NotificationUtil.addNotificationMessage("Un autre groupe utilise déjà ce nom '" + group.getName() + '"');
                 return mv;
             }
             groupRepository.persist(group);
@@ -65,7 +66,7 @@ public class GroupEditController extends BaseController<Group> {
         } else { // Edited group instance.
             if(groupHavingThatName != null && !group.equals(groupHavingThatName)) {
                 ModelAndView mv = new ModelAndView ("groupedit", "group", group);
-                setMessage(mv, "Un autre groupe utilise déjà ce nom'" + group.getName() + '"');
+                NotificationUtil.addNotificationMessage("Un autre groupe utilise déjà ce nom'" + group.getName() + '"');
                 return mv;
             }
             groupRepository.merge(group);

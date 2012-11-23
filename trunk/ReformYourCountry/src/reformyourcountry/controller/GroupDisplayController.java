@@ -17,6 +17,7 @@ import reformyourcountry.repository.GroupRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.util.FileUtil;
+import reformyourcountry.util.NotificationUtil;
 import reformyourcountry.util.FileUtil.InvalidImageFileException;
 import reformyourcountry.util.ImageUtil;
 
@@ -62,7 +63,7 @@ public class GroupDisplayController extends BaseController<Group> {
 
 
         } catch (InvalidImageFileException e) {  //Tell the user that its image is invalid.
-            setMessage(mv, e.getMessageToUser());
+        	NotificationUtil.addNotificationMessage(e.getMessageToUser());
         }
 
         return mv;

@@ -17,6 +17,7 @@ import reformyourcountry.model.Article;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.util.FileUtil;
+import reformyourcountry.util.NotificationUtil;
 import reformyourcountry.util.FileUtil.InvalidImageFileException;
 import reformyourcountry.util.ImageUtil;
 
@@ -39,7 +40,7 @@ public class ArticleImageController extends BaseController<Article>{
         
         ModelAndView mv =new ModelAndView("articleimage");
         mv.addObject("listFiles",listFiles); 
-        setMessage( mv, error);
+        NotificationUtil.addNotificationMessage(error);
         return mv;
     }
     
@@ -56,9 +57,9 @@ public class ArticleImageController extends BaseController<Article>{
         try {
             FileUtil.uploadFile(multipartFile, FileUtil.getGenFolderPath() + FileUtil.ARTICLE_SUB_FOLDER, multipartFile.getOriginalFilename());
         } catch (InvalidImageFileException iife) {
-            setMessage(mv, iife.getMessageToUser());
+        	NotificationUtil.addNotificationMessage(iife.getMessageToUser());
         } catch (IOException e) {
-            setMessage(mv, e.getMessage());
+        	NotificationUtil.addNotificationMessage(e.getMessage());
         }
         
         return mv;
@@ -78,7 +79,7 @@ public class ArticleImageController extends BaseController<Article>{
         try{
             image = ImageUtil.readImage(url);
         }catch (RuntimeException e) {
-            setMessage(mv, "veuillez indiquer une URL valide");
+        	NotificationUtil.addNotificationMessage("veuillez indiquer une URL valide");
             return mv;//useless to try to save image if we don't have it
         }
         
