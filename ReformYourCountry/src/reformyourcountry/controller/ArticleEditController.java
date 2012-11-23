@@ -18,6 +18,7 @@ import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.ArticleService;
 import reformyourcountry.service.IndexManagerService;
 import reformyourcountry.tag.ArticleTreeTag;
+import reformyourcountry.util.NotificationUtil;
 
 
 @Controller
@@ -51,13 +52,13 @@ public class ArticleEditController extends BaseController<Article>{
 		    return mv;
 
 		} else if ((otherArticleInDB = articleRepository.findByTitle(article.getTitle())) != null && ! otherArticleInDB.equals(article)) {
-            setMessage(mv, "Le titre est déja utilisé par un autre article");
+            NotificationUtil.addNotificationMessage("Le titre est déja utilisé par un autre article");
             return mv;
         } else if ((otherArticleInDB = articleRepository.findByShortName(article.getShortName())) != null && ! otherArticleInDB.equals(article)) {
-            setMessage(mv, "Le raccourci est déja utilisé par un autre article");
+        	NotificationUtil.addNotificationMessage("Le raccourci est déja utilisé par un autre article");
             return mv;
         } else if ((otherArticleInDB = articleRepository.findByUrl(article.getUrl())) != null && ! otherArticleInDB.equals(article)) {
-            setMessage(mv, "L'url est déja utilisée par un autre article");
+        	NotificationUtil.addNotificationMessage("L'url est déja utilisée par un autre article");
             return mv;
         } else {//if the article has no error
         

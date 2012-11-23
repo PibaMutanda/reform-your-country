@@ -20,6 +20,7 @@ import reformyourcountry.repository.BookRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.util.FileUtil;
+import reformyourcountry.util.NotificationUtil;
 import reformyourcountry.util.FileUtil.InvalidImageFileException;
 import reformyourcountry.util.ImageUtil;
 
@@ -63,7 +64,7 @@ public class BookDisplayController extends BaseController<Book> {
 
 
         } catch (InvalidImageFileException e) {  //Tell the user that its image is invalid.
-            setMessage(mv, e.getMessageToUser());
+        	NotificationUtil.addNotificationMessage(e.getMessageToUser());
         } catch (IOException e) {
             throw new RuntimeException();
         }
@@ -86,7 +87,7 @@ public class BookDisplayController extends BaseController<Book> {
         try{
             image = ImageUtil.readImage(url);
         }catch (RuntimeException e) {
-            setMessage(mv, "veuillez indiquer une URL valide");
+        	NotificationUtil.addNotificationMessage("veuillez indiquer une URL valide");
             return mv;//useless to try to save image if we don't have it
         }
 

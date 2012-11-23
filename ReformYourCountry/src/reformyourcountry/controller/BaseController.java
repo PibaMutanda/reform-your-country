@@ -73,12 +73,6 @@ public class BaseController<E extends BaseEntity> {
     	return entity;
     }
     
-    /** Sets a message string to be displayed by the next JSP in the sitemesh template */
-    @Deprecated
-    // TODO: remove this method, and use addNotificationMessage() instead.
-    public ModelAndView setMessage(ModelAndView mv, String message){
-        mv.addObject("message",message);
-        return mv;  // For chained calls.
-    }
+    
    
 }
