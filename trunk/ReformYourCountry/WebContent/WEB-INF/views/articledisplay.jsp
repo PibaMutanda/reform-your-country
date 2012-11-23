@@ -105,18 +105,6 @@
 		  	  <ryc:conditionDisplay privilege="EDIT_ARTICLE">
 		 		 <hr/>
 			  </ryc:conditionDisplay>
-			  
-<!-- 			  <div class="addthis_toolbox addthis_default_style ">  -->
-<!-- 				<a href="http://www.addthis.com/bookmark.php?v=250&pubid=ra-509a829c59a66215" _cke_saved_href="http://www.addthis.com/bookmark.php?v=250&pubid=ra-509a829c59a66215" class="addthis_button_compact">Share</a>  -->
-<!-- 				<span class="addthis_separator">|</span> -->
-<!-- 				  <a class="addthis_button_facebook_like" fb:like:layout="button_count" -->
-<%-- 				  		addthis:title="${article.title}" --%>
-<!-- 				        addthis:url="http://www.enseignement2.be" -->
-<%-- 				        addthis:description="${article.description}"></a> --%>
-<!-- 				  <a class="addthis_button_tweet"></a> -->
-<!-- 				  <a class="addthis_button_google_plusone" g:plusone:size="medium"></a> -->
-<!-- 				  <a class="addthis_counter addthis_pill_style"></a> -->
-<!-- 				</div>  -->
 				<c:if test="${empty article.children}">
 					<a href="article/${article.url}/pdf"><img class="generatepdfarticle" style="cursor:pointer;" src="images/pdf_button.png" width="50px"height="47px"></img></a>
 				</c:if>
@@ -137,31 +125,39 @@
 					<a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
 					<a class="addthis_counter addthis_pill_style"></a>
 				</div>
-			  <!-- AddThis Button END -->
+			    <!-- AddThis Button END -->
+			  
 				<div class="article_summary">
-					<div style="font-size:.85em;margin-bottom:10px;">
-						RESUME
+				
+				        <%---------- List of actions --%>
 						<div class="action-list">
-							<p>Actions ${article.title}</p>
-							<c:forEach items="${article.actions}" var="action">
-								<div><a href="/action/${action.url}">${action.title}</a></div>
-							</c:forEach>
-							<a href="/editaction?id=${article.id}">editer action</a> 
-							<p>Action enfants</p>
-							<c:forEach items="${article.children}" var="child">
-								<p>${child.title}</p>
-								<c:forEach items="${article.children.actions}" var="actionsChild">
-									<div><a href="/action/${actionsChild.url}">${actionsChild.title}</a></div>
-								</c:forEach>
-							</c:forEach>
+						
+							<c:set var="actionItems" value="${actionItemsParent}" scope="request"/>
+ 						    <%@include file="actionsummary.jsp"%>
+ 						    
+							<ryc:conditionDisplay privilege="EDIT_ARTICLE">
+								<div style="text-align:center;" >
+									<a href="/editaction?id=${article.id}">
+										<font color="grey" size="1em">editer action</font>
+									</a>
+								</div>
+								<hr/>
+							</ryc:conditionDisplay> 
+							
+							<c:set var="actionItems" value="${actionItemChildren}" scope="request"/>
+							<%@include file="actionsummary.jsp"%>
 							
 						</div>
-					</div>
-					${article.lastVersionRenderdSummary}
+						
+						<%----------- Summary --%>
+						<div style="font-size:.85em;margin-bottom:10px;">
+							RESUME
+						</div>
+						${article.lastVersionRenderdSummary}
 				</div>
 			   <br/>
 			   <div style="font-size:.85em;margin-bottom:10px;">ARTICLE</div>
-			  ${article.lastVersionRenderedContent}
+			   ${article.lastVersionRenderedContent}
 	  	</div>
 	  </c:when>
 	
@@ -169,7 +165,7 @@
 		<c:if test="${displayDate != null}">
   		  <br/><br/><br/>
           <!-- COUNT DOWN -->
-		  <div   id="defaultCountdown" ></div>
+		   <div id="defaultCountdown" ></div>
 			<script type="text/javascript">
 			    $(document).ready(function () {
 						var publishDay = new Date(${publishYear}, ${publishMonth}, ${publishDay});
@@ -183,7 +179,6 @@
 			</script>
 			<br/><br/><br/> avant publication.
 		</c:if>
-	  
 	  </c:otherwise>
 </c:choose>
 
