@@ -33,49 +33,49 @@
         <input type="hidden" name="goodExampleId" value="${goodExample.id}">
     </form>
     <script type="text/javascript">
-    //global var for editor because we want only one editor per page
-    $.ckeditorNameSpace = { 
-    		editor : null 
-    };
+//     //global var for editor because we want only one editor per page
+//     $.ckeditorNameSpace = { 
+//     		editor : null 
+//     };
     
-    $('#${goodExample.id}_edit').click(function() {
-    	var descriptionFieldId = '${goodExample.id}_description';
+//     $('#${goodExample.id}_edit').click(function() {
+//     	var descriptionFieldId = '${goodExample.id}_description';
 
-    	//if other CKeditor instance or previously instance none destroyed
-        if ($.ckeditorNameSpace.editor) { 
-        	console.log("i destroy " +$.ckeditorNameSpace.editor.name);
-        	$.ckeditorNameSpace.editor.destroy();
-        }
+//     	//if other CKeditor instance or previously instance none destroyed
+//         if ($.ckeditorNameSpace.editor) { 
+//         	console.log("i destroy " +$.ckeditorNameSpace.editor.name);
+//         	$.ckeditorNameSpace.editor.destroy();
+//         }
     	
-        $.ckeditorNameSpace.editor = CKEDITOR.replace( descriptionFieldId,{ 
-            customConfig : '/js/ext/ckeditor_config.js',
-            toolbar : 'goodExample'
-                });
+//         $.ckeditorNameSpace.editor = CKEDITOR.replace( descriptionFieldId,{ 
+//             customConfig : '/js/ext/ckeditor_config.js',
+//             toolbar : 'goodExample'
+//                 });
         
-        return false;
-	});
+//         return false;
+// 	});
     
-    //handler of the for submit
-    $($("#${goodExample.id}_description").closest("form")).submit(function() {
+//     //handler of the for submit
+//     $($("#${goodExample.id}_description").closest("form")).submit(function() {
     	
-    	//we don't serialize the form because ckeditor doesn't seem to submit his content 
-    	//with the code above and below
-        $.post( $('#${goodExample.id}_description').closest('form').attr('action'), 
-        		{ description : $.ckeditorNameSpace.editor.getData(),
-                  goodExampleId : ${goodExample.id},
-                  articleId : ${article.id} },
-                function(data) {
+//     	//we don't serialize the form because ckeditor doesn't seem to submit his content 
+//     	//with the code above and below
+//         $.post( $('#${goodExample.id}_description').closest('form').attr('action'), 
+//         		{ description : $.ckeditorNameSpace.editor.getData(),
+//                   goodExampleId : ${goodExample.id},
+//                   articleId : ${article.id} },
+//                 function(data) {
         	
-            // remove editor from the page
-            if ($.ckeditorNameSpace.editor) { 
-                $.ckeditorNameSpace.editor.destroy();
-            }
+//             // remove editor from the page
+//             if ($.ckeditorNameSpace.editor) { 
+//                 $.ckeditorNameSpace.editor.destroy();
+//             }
             
-            var $goodExample = $('#${goodExample.id}');
-            $goodExample.html('loading...');
-            $goodExample.html(data);
-        });
-       return false;
-     });
+//             var $goodExample = $('#${goodExample.id}');
+//             $goodExample.html('loading...');
+//             $goodExample.html(data);
+//         });
+//        return false;
+//      });
 
     </script>

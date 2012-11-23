@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.exception.InvalidUrlException;
@@ -17,6 +16,7 @@ import reformyourcountry.model.GoodExample;
 import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.repository.GoodExampleRepository;
 import reformyourcountry.util.Logger;
+import reformyourcountry.web.PropertyLoaderServletContextListener;
 
 @Controller
 public class GoodExampleController extends BaseController<GoodExample>{
@@ -51,63 +51,71 @@ public class GoodExampleController extends BaseController<GoodExample>{
         return mv;
     }
     
-    @RequestMapping(value="/ajax/goodexample/edit")
-    public ModelAndView editGoodExample(@RequestParam("goodExampleId") Long goodExampleId,@RequestParam(value="description",required=false)String description, @RequestParam("articleId") Long articleId){
-        ModelAndView mv = new ModelAndView("goodexampledisplay");
-
+    @RequestMapping("/ajax/goodexample/edit")
+    public ModelAndView GoodExampleEdit(@RequestParam(value="idItem",required=false) Long goodExampleId,   
+            							@RequestParam("id") Long articleId
+            ){
+        ModelAndView mv = new ModelAndView("ckeditorform");
         
-        GoodExample goodExample = getRequiredEntity(goodExampleId);
-        log.debug("editGoodExample i'm call");
-        if(description != null) {
-            log.debug("i will edit description"+description);
-            goodExample.setDescription(description);
-        }
-        //TODO title edit
-        //TODO url edit?
-        
-        goodExampleRepository.merge(goodExample);
-        
-        mv.addObject("goodExample",goodExample);
-        mv.addObject("article",getRequiredArticle(articleId));
-        
+        if(goodExampleId != null) {// For editing existing arguments.
+            GoodExample goodExample =  getRequiredEntity(goodExampleId);
+            mv.addObject("idItem",goodExampleId);
+            mv.addObject("titleItem",goodExample.getTitle());
+            mv.addObject("contentItem",goodExample.getDescription());
+        } 
+        mv.addObject("urlAction","/ajax/goodexample/editsubmit");
+        mv.addObject("idParent",articleId); 
+        mv.addObject("helpContent",PropertyLoaderServletContextListener.getProprerty("p_argument_help"));  // Text in yellow div.
         return mv;
     }
     
-    @RequestMapping(value="/ajax/goodexample/create")
-    public ModelAndView createGoodExample(@RequestParam("description")String description,
-                                           @RequestParam("title")String title, 
-                                           @RequestParam("articleId") Long articleId){
-        ModelAndView mv = new ModelAndView("goodexampledisplay");
+    @RequestMapping(value="/ajax/goodexample/editsubmit")
+    public ModelAndView editGoodExample(@RequestParam("goodExampleId") Long goodExampleId,
+    									@RequestParam("title") String title,
+    									@RequestParam("description") String description, 
+    									@RequestParam("articleId") Long articleId){
         
-        GoodExample goodExample = new GoodExample();
-        //FIXME make exception fot unvalid infos --maxime 14/11/12
-        goodExample.setDescription(description);
+    	ModelAndView mv = new ModelAndView("goodexampledisplay");
+    	
+    	GoodExample goodExample = null;
+    	
+        if(goodExampleId == null){//if this is a new goodExample
+        	goodExample = new GoodExample();
+        } else {
+        	goodExample = getRequiredEntity(goodExampleId);
+        }
+        
         goodExample.setTitle(title);
-        //FIXME make real url system --maxime 14/11/12
-        goodExample.setUrl(title);
+        goodExample.setDescription(description);
         
-        Article article = getRequiredArticle(articleId);
+        Article article = (Article) getRequiredEntity(articleId, Article.class);//check if the id of an article is good before persist goodExample
         
-        goodExample.getArticles().add(article);
-        goodExampleRepository.persist(goodExample);
-        
-        article.getGoodExamples().add(goodExample);
-        articleRepository.merge(article);
-        
+        if(goodExample.getId() == null) { //link article-goodExample only needed in case of a new goodExample
+
+        	goodExample.getArticles().add(article);
+        	goodExampleRepository.persist(goodExample);
+
+        	article.getGoodExamples().add(goodExample);
+        	articleRepository.merge(article);
+        } else {
+        	
+        	goodExampleRepository.merge(goodExample);
+        }
+
         mv.addObject("goodExample",goodExample);
         mv.addObject("article",article);
-        
         return mv;
     }
-
+    
     @RequestMapping(value="/ajax/goodexample/edit/addarticle")
-    public String addArticle(@RequestParam("goodExampleId") Long goodExampleId, @RequestParam("articleUrl") String articleUrl){
-        Article article = getRequiredArticle(articleUrl);
+    public String addArticle(@RequestParam("goodExampleId") Long goodExampleId, 
+    						 @RequestParam("articleUrl") String articleUrl){
+        Article article = (Article) getRequiredEntityByUrl(articleUrl, Article.class);
         GoodExample goodExample = getRequiredEntity(goodExampleId);
         
         ////if they are already linked this is an url hacking or a bug
         if (assertArticleLinkedToGoodExample(goodExample, article)) {
-            throw new InvalidUrlException("goodExample est déjà lié à l'article "+article.getTitle());
+            throw new InvalidUrlException("goodExample is already linked with "+article.getTitle());
         } else { ////all id ok now add link and merge
             goodExample.getArticles().add(article);
             article.getGoodExamples().add(goodExample);
@@ -118,14 +126,15 @@ public class GoodExampleController extends BaseController<GoodExample>{
         return "redirect:/goodexample/"+article.getUrl();
     }
     
-    @RequestMapping(value="ajax/goodexample//edit/deletearticle")
-    public String deleteArticle(@RequestParam("goodExampleId") Long goodExampleId, @RequestParam("articleId") Long articleId){
-        Article article = getRequiredArticle(articleId);
+    @RequestMapping(value="ajax/goodexample/edit/deletearticle")
+    public String deleteArticle(@RequestParam("goodExampleId") Long goodExampleId, 
+    							@RequestParam("articleId") Long articleId){
+        Article article = (Article) getRequiredEntity(articleId, Article.class);
         GoodExample goodExample = getRequiredEntity(goodExampleId);
         ////if they are already linked we can delete them
         if (assertArticleLinkedToGoodExample(goodExample, article)) {
             if (log.isDebugEnabled()) {
-                log.debug("deleteArticle articles list linkde to goodExample sizes is "+goodExample.getArticles().size());
+                log.debug("deleteArticle articles list linked to goodExample sizes is "+goodExample.getArticles().size());
             }
             if (goodExample.getArticles().size() < 2) { // button should not be shown = url hacking
                 throw new InvalidUrlException("a goodExample must be linked at least at 1 article");
@@ -142,29 +151,13 @@ public class GoodExampleController extends BaseController<GoodExample>{
         return "redirect:/goodexample/"+article.getUrl();
     }
     
-    private Article getRequiredArticle(Long articleId) {
-        Article article;
-        if((article = articleRepository.find(articleId)) == null){
-            throw new InvalidUrlException("article ayant l'id '"+articleId+"' est introuvable.");
-        }
-        return article;
-    }
-    
-    private Article getRequiredArticle(String articleUrl) {
-        Article article;
-        if((article = articleRepository.findByUrl(articleUrl)) == null){
-            throw new InvalidUrlException("article ayant l'url '"+articleUrl+"' est introuvable.");
-        }
-        return article;
-    }
-    
     private boolean assertArticleLinkedToGoodExample(GoodExample goodExample,Article article){
-        List<Article> articleList = goodExample.getArticles();
+    	List<Article> articleList = goodExample.getArticles();
         //if goodExample isn't attache to this article
         if(articleList == null || !articleList.contains(article)){
             return false;
         }
-        //goodExampe have contains article in his list
+        //goodExample contains article in his list
         //so we check if article have the reference to the goodexample otherwise this is a bug
         List<GoodExample> goodExampleList = article.getGoodExamples();
         if(goodExampleList == null || !goodExampleList.contains(goodExample)){

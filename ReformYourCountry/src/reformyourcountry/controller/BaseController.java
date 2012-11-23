@@ -3,13 +3,10 @@ package reformyourcountry.controller;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.exception.InvalidUrlException;
@@ -35,7 +32,6 @@ public class BaseController<E extends BaseEntity> {
         binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
     }
     
-    @SuppressWarnings("unchecked")
     protected Object getRequiredEntity(long id, Class<?> clazz) {
         Object obj =  em.find(clazz, id );
         if (obj == null) {
@@ -49,8 +45,18 @@ public class BaseController<E extends BaseEntity> {
         return ( E )getRequiredEntity(id, entityClass);
     }
     
+    protected Object getRequiredEntityByUrl(String url, Class<?> clazz){
+    	Object obj;
+		try {
+			obj = em.createQuery("select e from "+clazz.getName()+" e where e.url = :url").setParameter("url",url).getSingleResult();
+		} catch (Exception e) {
+			throw new InvalidUrlException(clazz.getName() + " ayant l'url '"+url+"' est introuvable.", e);
+		}
+        return obj;
+    }
+    
     @SuppressWarnings("unchecked")
-    public E getRequiredEntityByUrl(String url){
+    protected E getRequiredEntityByUrl(String url){
     	Object obj;
 		try {
 			obj = em.createQuery("select e from "+entityClass.getName()+" e where e.url = :url").setParameter("url",url).getSingleResult();
@@ -72,7 +78,4 @@ public class BaseController<E extends BaseEntity> {
     	em.detach(entity);
     	return entity;
     }
-    
-    
-   
 }

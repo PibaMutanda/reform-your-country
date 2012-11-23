@@ -23,6 +23,7 @@ function getContentFromCkEditor() {
         console.error("Bug: the ckEditorUniqueInstance should not be null at this stage.");
         return;
     }
+    console.log("getContentFromCkEditor " + ckEditorUniqueInstance.getData());
     return ckEditorUniqueInstance.getData();
 }
 
