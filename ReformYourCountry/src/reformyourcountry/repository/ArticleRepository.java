@@ -5,8 +5,6 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import reformyourcountry.model.Article;
-import reformyourcountry.model.ArticleVersion;
-import reformyourcountry.model.Book;
 
 
 @Repository
@@ -18,7 +16,7 @@ public class ArticleRepository extends BaseRepository<Article>{
     }
     
     public List<Article> findAllWithoutParent(){
-        return    em.createQuery("select a from Article a where a.parent is null order by a.title").getResultList();
+        return    em.createQuery("select a from Article a where a.parent is null").getResultList();
     }
     
     public Article findByShortName(String shortName){
