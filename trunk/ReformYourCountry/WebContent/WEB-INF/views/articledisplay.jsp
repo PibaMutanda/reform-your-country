@@ -74,6 +74,7 @@
 			 - <a href="/article/a_classer/${article.url}" >afficher à classer</a>
 			 - <a href="/article/version/${article.url}" >historique des versions</a>
 			 - <a href="/video/manager?id=${article.id}" >vidéo</a>
+			 - <a href="/goodexample/${article.url}" >bons exemples de l'article</a>
 		</ryc:conditionDisplay>
 		</div>
 		<br/>
