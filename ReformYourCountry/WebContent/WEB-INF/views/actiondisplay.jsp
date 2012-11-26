@@ -26,6 +26,8 @@
     <%-- Action text --%>
 	<div style=" width: 100%;">
 			<div style="font-size:1.3em;">
+			
+			    <%-- List of articles within the action --%>
 				<div class="action-list" style="font-size:0.8em">
 					<c:forEach items="${action.articles}" var="article">
 						<div>
@@ -34,7 +36,7 @@
 							</a>
 						</div>
 					</c:forEach>
-				</div>		
+				</div>
 				${action.content}
 			</div>
 			<div>
