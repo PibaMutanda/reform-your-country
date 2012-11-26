@@ -16,18 +16,7 @@ public class NotificationUtil {
 	public static void addNotificationMessage(String notification){
 	    
 	    HttpSession httpSession = ContextUtil.getHttpSession();
-
-	    /* prendre liste de la session
-	     * si list null new list et mettre dans la session.
-	     * list.add
-	     * 
-	     */
-	    
-	    String existingNotif = (String)httpSession.getAttribute("notification");
-	    if(!StringUtils.isBlank(existingNotif)){
-			notification = existingNotif + "<br/>"+ notification; 
-		}
-	    
+	       
 	    @SuppressWarnings("unchecked")
 		List<Notification> notifications=(List<Notification>) httpSession.getAttribute("notifications");
 	    

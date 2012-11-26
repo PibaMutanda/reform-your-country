@@ -7,7 +7,10 @@ public enum BadgeType {
 	CITIZEN				("Citoyen", "a voté sur toutes les actions", BadgeTypeLevel.SILVER),
 	STATISTICIAN 	    ("Statisticien"," a complété son appartenance à un ou plusieurs groupes", BadgeTypeLevel.BRONZE),
 	RUBBERNECK          ("Badaud","a voté sur une action",BadgeTypeLevel.BRONZE),
-	ELECTOR             ("Electeur","a voté sur 10 actions",BadgeTypeLevel.BRONZE);
+	ELECTOR             ("Electeur","a voté sur 10 actions",BadgeTypeLevel.BRONZE),
+	REFEREE             ("Arbitre","a voté sur 10 arguments",BadgeTypeLevel.BRONZE),
+	JUDGE               ("Juge","a voté sur 50 arguments",BadgeTypeLevel.SILVER),
+	INQUISITOR          ("Inquisiteur","a voté sur 200 arguments",BadgeTypeLevel.GOLD);
 	
 	
 	private BadgeType(String name, String description, BadgeTypeLevel badgeTypeLevel) {

@@ -3,8 +3,6 @@ package reformyourcountry.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +23,7 @@ import reformyourcountry.repository.VoteArgumentRepository;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.ActionService;
 import reformyourcountry.service.ArgumentService;
-import reformyourcountry.web.ContextUtil;
+import reformyourcountry.service.BadgeService;
 import reformyourcountry.web.PropertyLoaderServletContextListener;
 
 @Controller
@@ -39,7 +37,7 @@ public class ArgumentController extends BaseController<Argument>{
     @Autowired VoteArgumentRepository voteArgumentRepository;
     @Autowired ArgumentService argumentService;
     @Autowired ActionService actionService;
-    
+    @Autowired BadgeService badgeService;
     
     @RequestMapping("ajax/argumentedit")
     public ModelAndView argumentEdit(@RequestParam(value="argumentId",required=false) Long argumentId,   // For editing existing arguments.
@@ -101,10 +99,11 @@ public class ArgumentController extends BaseController<Argument>{
         if (user !=null){
             Argument arg = argumentRepository.find(idArg);
             argumentService.updateVoteArgument(idArg, value, user, arg);
+            badgeService.grandBadgeForArgument(user);
             return returnitemDetail(arg);
            
         } else {
-            throw new Exception("no user logged");  // Catched by the JavaScript (should not happen because we don't send the ajax reqeust with non logged in user)
+            throw new Exception("no user logged");  // Catched by the JavaScript (should not happen because we don't send the ajax request with non logged in user)
         }
     }
    
@@ -116,7 +115,7 @@ public class ArgumentController extends BaseController<Argument>{
 			Comment comment = new Comment(com, argument, user);
             commentRepository.persist(comment);
             argument.addComment(comment);
-			argumentRepository.merge(argument);       
+			argumentRepository.merge(argument); 			
 			return returnitemDetail(argument);
 		}else {
 			throw new Exception("no user logged");
@@ -136,6 +135,7 @@ public class ArgumentController extends BaseController<Argument>{
                 break;
             }
         }
+        badgeService.grandBadgeForArgument(user);
         return returnitemDetail(argument);
     }
     public ModelAndView returnitemDetail(Argument arg){

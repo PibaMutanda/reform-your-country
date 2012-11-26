@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.model.Action;
-import reformyourcountry.model.Argument;
 import reformyourcountry.model.VoteAction;
 import reformyourcountry.repository.ActionRepository;
 import reformyourcountry.repository.ArgumentRepository;
