@@ -34,6 +34,17 @@
 			<rtexprvalue>false</rtexprvalue>
 		</attribute>
 	</tag>
+	<tag>
+		<name>articlesNavBar</name>
+		<tag-class>reformyourcountry.tag.ArticleNavBarTag</tag-class>
+		<body-content>empty</body-content>
+	</tag>
+	
+	<tag>
+		<name>articlesList</name>
+		<tag-class>reformyourcountry.tag.ArticleListTag</tag-class>
+		<body-content>empty</body-content>
+	</tag>
 	
 	<tag>
 		<name>conditionDisplay</name>

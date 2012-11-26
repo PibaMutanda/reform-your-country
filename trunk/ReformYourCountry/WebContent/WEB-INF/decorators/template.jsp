@@ -29,7 +29,7 @@
 			<div class="main-holder">
 				<!-- ***************** - START Left list of articles - ***************** -->
 				<div id="sub_nav">
-				  <ryc:articlesTree link="true" />
+				  <ryc:articlesNavBar/>
 				</div>
 				<!-- ***************** - END Left list of articles - ***************** -->
 				<!-- ***************** - START Content - ***************** -->

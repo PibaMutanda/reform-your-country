@@ -23,7 +23,7 @@ list-style-type:none;
 		<tr>
 		<form:hidden path="id"/>
 		
-			<td><ryc:articlesTree radio="true" /></td>
+			<td><ryc:articlesTree/></td>
 			
 		</tr>
 		<tr><td><input type="submit" value="Sauver" /></td></tr>	

@@ -16,8 +16,7 @@ import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.ArticleService;
-import reformyourcountry.service.IndexManagerService;
-import reformyourcountry.tag.ArticleTreeTag;
+import reformyourcountry.tag.ArticleNavBarTag;
 import reformyourcountry.util.NotificationUtil;
 
 
@@ -64,11 +63,11 @@ public class ArticleEditController extends BaseController<Article>{
         
             if (article.getId() == null) {//if this is a new article
                 articleService.saveArticle(article,null,null,null);
-                ArticleTreeTag.invalidateNavBarCache();
+                ArticleNavBarTag.invalidateNavBarCache();
                 return new ModelAndView("redirect:parentedit","id",article.getId()); // Next step after creation: select the parent.
             } else {
                 articleRepository.merge(article);
-                ArticleTreeTag.invalidateNavBarCache();
+                ArticleNavBarTag.invalidateNavBarCache();
                 return new ModelAndView("redirect:"+article.getUrl());
             }
             
