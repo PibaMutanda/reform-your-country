@@ -135,9 +135,9 @@
  						    <%@include file="actionsummary.jsp"%>
  						    
 							<ryc:conditionDisplay privilege="EDIT_ARTICLE">
-								<div style="text-align:center;" >
+								<div class="article-options">
 									<a href="/articleactionlinkedit?id=${article.id}">
-										<font color="grey" size="1em">editer action</font>
+										editer action
 									</a>
 								</div>
 								<hr/>
