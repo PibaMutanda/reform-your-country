@@ -515,6 +515,15 @@ color: #444;
 #underlineUser:hover{
 	text-decoration:underline;
 }
+/***************ArticleVersionCompare***********************/
+.versionCompare {
+	width: 49%;
+	display:inline-block;
+	vertical-align:top;
+}
+.versionCompareSegment {
+	width: 100%;
+}
 
 /***********************Badge*******************************/
 .badges-page #badge-legend .mb {
