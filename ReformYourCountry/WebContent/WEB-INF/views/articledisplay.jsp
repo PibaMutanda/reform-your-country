@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
-
  
 
 <head>
@@ -137,14 +136,14 @@
  						    
 							<ryc:conditionDisplay privilege="EDIT_ARTICLE">
 								<div style="text-align:center;" >
-									<a href="/editaction?id=${article.id}">
+									<a href="/articleactionlinkedit?id=${article.id}">
 										<font color="grey" size="1em">editer action</font>
 									</a>
 								</div>
 								<hr/>
 							</ryc:conditionDisplay> 
 							
-							<c:set var="actionItems" value="${actionItemChildren}" scope="request"/>
+							<c:set var="actionItems" value="${actionItemsChildren}" scope="request"/>
 							<%@include file="actionsummary.jsp"%>
 							
 						</div>

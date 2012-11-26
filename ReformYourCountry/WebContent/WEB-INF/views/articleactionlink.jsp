@@ -11,7 +11,7 @@
 </ryctag:pageheadertitle>
 
 Liste des actions 
-<form action="editactionsubmit" method="post">
+<form action="articleactionlinkeditsubmit" method="post">
 	<c:forEach items="${actionList}" var="action" >
 	<div>
 		<input type="checkbox" name="action" <c:if test="${article.actions.contains(action)}">checked="checked" </c:if> value="${action.id}" /> ${action.title}
