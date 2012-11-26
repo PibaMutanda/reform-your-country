@@ -3,6 +3,8 @@ package reformyourcountry.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +41,8 @@ public class ArgumentController extends BaseController<Argument>{
     @Autowired ActionService actionService;
     @Autowired BadgeService badgeService;
     
-    @RequestMapping("ajax/argumentedit")
+    
+    @RequestMapping("ajax/argument/edit")
     public ModelAndView argumentEdit(@RequestParam(value="argumentId",required=false) Long argumentId,   // For editing existing arguments.
             @RequestParam(value="idAction",required=false)Long actionId,@RequestParam(value="isPos",required=false)Boolean positiveArg      // For creating a new argument.
             ){
@@ -54,7 +57,7 @@ public class ArgumentController extends BaseController<Argument>{
             actionId = argument.getAction().getId();
             positiveArg = argument.isPositiveArg();
         } 
-        mv.addObject("urlAction","/ajax/argumenteditsubmit");
+        mv.addObject("urlAction","/ajax/argument/editsubmit");
         mv.addObject("positiveArg",positiveArg);
         mv.addObject("idParent",actionId); 
         
@@ -64,7 +67,7 @@ public class ArgumentController extends BaseController<Argument>{
     }
   
     
-    @RequestMapping("/ajax/argumenteditsubmit")
+    @RequestMapping("/ajax/argument/editsubmit")
     public ModelAndView argumentEditSubmit(
             @RequestParam(value="idParent", required=false)Long actionId, @RequestParam("ispos")Boolean isPos,  // In case of create
             @RequestParam(value="idItem", required=false)Long argumentId,  // In case of edit
@@ -93,7 +96,7 @@ public class ArgumentController extends BaseController<Argument>{
         
     
     
-    @RequestMapping("ajax/argumentvote")
+    @RequestMapping("ajax/argument/vote")
     public ModelAndView argumentVote(@RequestParam("id")Long idArg,@RequestParam("value")int value)throws Exception{
         User user = SecurityContext.getUser();
         if (user !=null){
@@ -107,7 +110,7 @@ public class ArgumentController extends BaseController<Argument>{
         }
     }
    
-    @RequestMapping("ajax/argcommentadd")
+    @RequestMapping("ajax/argument/commentadd")
 	public ModelAndView commentAdd(@RequestParam("id")Long idArg, @RequestParam("value")String com) throws Exception{
 		User user = SecurityContext.getUser();
 		if (user !=null){
@@ -115,13 +118,13 @@ public class ArgumentController extends BaseController<Argument>{
 			Comment comment = new Comment(com, argument, user);
             commentRepository.persist(comment);
             argument.addComment(comment);
-			argumentRepository.merge(argument); 			
+			argumentRepository.merge(argument);       
 			return returnitemDetail(argument);
 		}else {
 			throw new Exception("no user logged");
 		}
 	}
-    @RequestMapping("ajax/unvoteargument")
+    @RequestMapping("ajax/argument/unvote")
     public ModelAndView unVote(@RequestParam("id")Long idArg) throws Exception{
         User user = SecurityContext.getUser();
         Argument argument = argumentRepository.find(idArg);
@@ -145,4 +148,38 @@ public class ArgumentController extends BaseController<Argument>{
         mv.addObject("currentItem",arg);
         return mv;
     }
+    @RequestMapping("/ajax/argument/deletecomment")
+    public ModelAndView deleteComment(@RequestParam("id")Long idComment) throws Exception{
+        Comment com = commentRepository.find(idComment);
+        
+        if(com ==null){
+            throw new Exception("this id doesn't reference any comment.");
+        }
+        if(!com.isEditable()){
+             throw new Exception("this person can't suppress this comment(hacking).");
+        }
+        Argument argument = com.getArgument();
+        argument.getCommentList().remove(com);
+        commentRepository.remove(com);
+        argumentRepository.merge(argument);
+        return returnitemDetail(argument);
+        
+    }
+    @RequestMapping("/ajax/argument/commentedit")
+    public ModelAndView commentEdit(@RequestParam("id")Long idComment,@RequestParam("value")String content) throws Exception{
+        Comment com = commentRepository.find(idComment);
+        if(com ==null){
+            throw new Exception("this id doesn't reference any comment.");
+        }
+        if(!com.isEditable()){
+             throw new Exception("this person can't suppress this comment(hacking).");
+        }
+        com.setContent(content);
+        commentRepository.merge(com);
+        Argument argument = com.getArgument();
+        return returnitemDetail(argument);
+        
+    }
 }
+
+

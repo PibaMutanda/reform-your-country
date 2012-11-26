@@ -22,7 +22,7 @@ function argumentEditStart(item, newid){
 		return;
 	}
 	
-	$.post("/ajax/argumentedit",{argumentId:newid},
+	$.post("/ajax/argument/edit",{argumentId:newid},
 				function(data){
 			$("#arg"+newid).html(data);
 			activateCkEditorAndHelpDiv(newid);
@@ -37,12 +37,13 @@ function argumentCreateStart(isPos, idAction) {
 	}
 	
 	$('#argumentAddDivFakeEditor'+isPos).hide();
-	$.post("/ajax/argumentedit",{isPos:isPos,idAction:idAction},
+	$.post("/ajax/argument/edit",{isPos:isPos,idAction:idAction},
 			function(data){
 				$('#argumentAddDivRealEditor'+isPos).html(data);
 				$('#argumentAddDivRealEditor'+isPos).show();
 				activateCkEditorAndHelpDiv('');
-				$("#CkEditFormSubmit").attr("onclick","argumentEditSubmit()");
+				$("#CkEditFormSubmit").attr("onclick","return argumentEditSubmit()");
+				return;
 	});
 
 }
@@ -52,20 +53,25 @@ function argumentCreateStart(isPos, idAction) {
 ///////////////////////////////// VOTES 
 
 
-function voteOnArgument(item,idArg,value){
-	vote(item,"/ajax/argumentvote",value,idArg,"arg"+idArg);
+function voteOnItem(item,idArg,value){
+	vote(item,"/ajax/argument/vote",value,idArg,"item"+idArg);
 }
 
-function  unVoteArg(id){
-	 unVote("/ajax/unvoteargument",id,"arg"+id);
+function  unVoteItem(id){
+	 unVote("/ajax/argument/unvote",id,"item"+id);
 }
 
 ///////////////////////////////// COMMENTS
 
-function sendNewComment(item,divId,idArg){
-	sendSimpleValue(item,idArg,divId,"/ajax/argcommentadd",$('#comm'+idArg).val());
+function sendEditComment(item,itemId){
+	sendSimpleValue(item,$('#idComm'+itemId).val(),"item"+itemId,"/ajax/argument/commentedit",$("#comm"+itemId).attr("value"));
 }
-
+function sendNewComment(item,divId,idArg){
+	sendSimpleValue(item,idArg,divId,"/ajax/argument/commentadd",$('#comm'+idArg).val());
+}
+function deleteComment(item,idComment,idDiv){
+	sendSimpleValue(item,idComment,idDiv,"/ajax/argument/deletecomment","");
+}
 
 
 

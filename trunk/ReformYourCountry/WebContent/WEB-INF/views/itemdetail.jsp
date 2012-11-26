@@ -7,7 +7,7 @@
 <%@ page import="java.util.*"%>
 
 
-<div id="arg${currentItem.id}" style="width:100%; display: inline-block;background:url(/images/_global/separator3.gif) 0 0 repeat-x ;">
+<div id="item${currentItem.id}" style="width:100%; display: inline-block;background:url(/images/_global/separator3.gif) 0 0 repeat-x ;">
 
 	<div class="argument" style="width:340px; margin-bottom:5px;float:right;">
 		<div style="width:100%;background:url(/images/_global/separator3.gif) 0 100% repeat-x ;padding-top:10px;">
