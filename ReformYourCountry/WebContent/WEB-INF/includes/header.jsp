@@ -96,11 +96,13 @@ $(document).ready(function(){
 						<!-- ***************** - END Main Navigation - ***************** -->
 						<!-- Hidden div that JavaScript will move in a dialog box when we press the login link -->
 						<div id ="logindialog" style = "display:none;">
+						
 					</div>
 				</div>
 			</div><!-- end header-area -->
 			
 		</div><!-- end rays -->
+		<div id="pdfdialog" style="display:hidden"></div>
 	</div><!-- end header-holder -->
 </div><!-- end header -->
  

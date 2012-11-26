@@ -66,5 +66,5 @@
 		});
 		</script>
 	<!-- ***************************** End Shadow For pics script **************************** -->   
-
+<script type="text/javascript" src="js/int/generatepdf.js"></script>
 <!-- ***************************** END JAVASCRIPT **************************** -->   
