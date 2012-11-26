@@ -70,12 +70,10 @@
 }
 .v-2{
 	 background-color: #005fb1;
-	 color:#ffffff;
 	 font-size:.85em;
 }
 .v-1{
 	 background-color: #c9e2ff;
-	 color:#333;
 	 font-size:.85em;
 }
 .v0{
@@ -85,23 +83,32 @@
 
 .v1{
 	 background-color: #ff9999;
-	 color:#333;
 	 font-size:.85em;
 }
 
 .v2{
 	 background-color: #bb1100;
-	 color:#ffffff;
 	 font-size:.85em;
 }
 .vote{
-	display: inline-block; width: 90px; height: 30px; text-align: center; border:1px solid black; cursor: pointer;
+	display: inline-block; 
+	width: 90px; 
+	height: 30px; 
+	text-align: center; 
+	border:1px solid black; 
+	cursor: pointer;
 }
 .smallvote{
-	display: inline-block;width: 20px; height: 15px;text-align: center; border:1px solid black; cursor: pointer;
+	
+	display: inline-block;
+	width: 22px;
+	height: 22px;
+	text-align: center; 
+	cursor: pointer;
+	background-image:url("/images/logoaction/grey.jpg");
 }
 .smallvote:hover{
-	font-weight : bold;
+	background-image:url("/images/logoaction/greenPlus.jpg");
 	
 }
 .vote:hover{
@@ -109,6 +116,9 @@
 }
 .selected{
 	border: 3px solid #000;
+}
+.selectedsmall{
+	background-image:url("/images/logoaction/greenPlus.jpg");
 }
 .login-link{
 	/* padding-right:65px;*/
@@ -311,12 +321,14 @@ color: #444;
 }
 
 .action-list{
+	font-size:0.9em;
 	padding:5px;
 	margin:10px;
-	width: 150px;
-	float: right;
+	width:150px;
+	float:right;
 	border-style:solid;
-	border-width: 1px;
+	border-width:1px;
+	font-family:"helvetica neue", Helvetica, Arial, Verdana, sans serif;  
 }
 
 .icon-32{  /* Because i'm to lazy to go in GIMP and change every icons we have to 32px... */
