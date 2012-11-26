@@ -63,4 +63,22 @@ public class BadgeService {
         }
     }
     
+    
+    public void grandBadgeForArgument(User user){
+        int count=user.getVoteArguments().size();
+        
+        if(count>=10){
+            if(!user.isHasBadgeType(BadgeType.REFEREE))
+                saveBadgeTypeForUser(BadgeType.REFEREE, user);
+        }
+        
+        if(count>=50){
+            if(!user.isHasBadgeType(BadgeType.JUDGE))
+                saveBadgeTypeForUser(BadgeType.JUDGE, user);
+        }
+        if(count>=200){
+            if(!user.isHasBadgeType(BadgeType.INQUISITOR))
+                saveBadgeTypeForUser(BadgeType.INQUISITOR, user);
+        }
+    }
 }
