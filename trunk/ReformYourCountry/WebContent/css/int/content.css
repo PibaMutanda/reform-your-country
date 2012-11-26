@@ -28,6 +28,16 @@
 
 
 /*********** bordel à classer********/
+.commentLink{
+	width:60px;
+}
+
+.commentLink:hover{
+	cursor: pointer;
+	cursor: hand;
+	background-color: grey;
+	color: white;
+}
 .inline-block{
 	display:inline-block;
 	zoom: 1; /*for ie http://haslayout.net/haslayout*/

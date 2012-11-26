@@ -7,8 +7,13 @@
 <div style="width:100%; font-size:0.7em;">
 	<c:forEach items="${currentItem.commentList}" var="comment">
 		<div style="margin:0px; width:100%;">
+				<c:if test="${comment.editable}">
+					<div onclick="return deleteComment(${comment.id})" style="color:red;font-weight: bold;float:right;" >X</div>
+				</c:if>
+				<div>
 				${comment.content} - <a id="underlineUser" href="/user/${comment.user.userName}">${comment.user.userName}</a> - 
 				${comment.formatedCreatedOn}
+				</div>	
 		</div>
 	</c:forEach>
 	<div  style="font-size:1.3em;">

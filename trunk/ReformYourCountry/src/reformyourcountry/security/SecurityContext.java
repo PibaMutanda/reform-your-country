@@ -5,6 +5,7 @@ import java.util.Set;
 
 import reformyourcountry.exception.UnauthorizedAccessException;
 import reformyourcountry.model.Argument;
+import reformyourcountry.model.Comment;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.Role;
 import reformyourcountry.repository.UserRepository;
@@ -213,6 +214,11 @@ public  class SecurityContext {
     }
     public static boolean canCurrentUserEditArgument(Argument arg) { 
         return arg.getUser().equals(getUser()) // If the user is editing himself
+                || isUserHasPrivilege(Privilege.EDIT_ACTION);     // or If this user has the privilege to edit other users
+
+    }
+    public static boolean canCurrentUserEditComment(Comment com) { 
+        return com.getUser().equals(getUser()) // If the user is editing himself
                 || isUserHasPrivilege(Privilege.EDIT_ACTION);     // or If this user has the privilege to edit other users
 
     }
