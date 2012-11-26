@@ -6,6 +6,8 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Type;
 
+import reformyourcountry.security.SecurityContext;
+
 @Entity
 public class Comment extends BaseEntity{
    
@@ -57,7 +59,9 @@ public class Comment extends BaseEntity{
 	public User getUser() {
 		return user;
 	}
-
+    public boolean isEditable(){
+        return SecurityContext.canCurrentUserEditComment(this);
+    }
 	public void setUser(User user) {
 		this.user = user;
 	}
