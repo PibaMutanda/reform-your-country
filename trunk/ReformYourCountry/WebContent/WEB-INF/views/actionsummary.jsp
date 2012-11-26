@@ -3,8 +3,8 @@
 <script type="text/javascript" src="js/int/votelistaction.js"></script>
 
 <c:forEach items="${actionItems}" var="actionItem">
-		<div style="text-align:center;">
-			<a href="/action/${actionItem.action.url}" style="margin:10px;">
+		<div>
+			<a href="/action/${actionItem.action.url}">
 			 <c:choose>
 			     <c:when test="${actionItem.action.shortDescription != null}">
 					<span class="tooltip" data-tooltip="${actionItem.action.shortDescription}">${actionItem.action.title}</span>
