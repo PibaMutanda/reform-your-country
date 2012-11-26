@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.InvalidParameterException;
 
@@ -41,6 +42,8 @@ public class ArticlePdfGenerator {
     private Article article;
 	public boolean enableDebug ;
 	private ByteArrayOutputStream baos;
+	private URL url;
+	private  BufferedImage img;
 
 	private final String CSS = "h1,h2,h3,h4 {" +
 			"	color: #AA0000; /* #AA0000 = blackbelt_dark_red  */" +
@@ -63,7 +66,7 @@ public class ArticlePdfGenerator {
 			"}"+
 			"body{"+
 			"font-family:arial, helvetica, verdana, sans-serif;"+
-			"font-size:12px;"+
+			"font-size:15px;"+
 			"}"+
 			"p{"+
 			"line-height:17px;"+
@@ -74,8 +77,9 @@ public class ArticlePdfGenerator {
 			"}"+
 
 			".titre{"+
-			"font-size:26px;"+
+			"font-size:8px;"+
 			"font-family:Arial,Times New Roman;"+
+			"vertical-align:top;"+ 
 			"}"+
 			".logo{"+
 			"font-size:32;"+
@@ -123,6 +127,7 @@ public class ArticlePdfGenerator {
 			".small{"+
 			"font-size:10px;"+
 			"}";
+		
 
 	public ArticlePdfGenerator(Article article ,boolean doTheUserWantACoverPage,boolean doTheUserWantAToc,boolean doTheUserWantOnlySummary, boolean enableDebug){
 		this.pd4ml = new PD4ML();
@@ -133,6 +138,15 @@ public class ArticlePdfGenerator {
 		this.doTheUserWantOnlySummary = doTheUserWantOnlySummary;
 	
 		baos = new ByteArrayOutputStream();
+	
+        try {
+            url = new URL(COVER_PAGE_IMG);
+            img = ImageIO.read(url);
+            
+        } catch (Exception e) {
+             
+           throw new RuntimeException(e);
+        }
 	}
 
 	public ByteArrayOutputStream generatePDF() {
@@ -201,10 +215,11 @@ public class ArticlePdfGenerator {
 	    
 	    
 		// ${title} will be recognized/replaced by PD4ML.
-		String headerHtmlTemplate = "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">"
+		String headerHtmlTemplate = "";/*"<table class='header' border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">"
 				+ "<tr>"
-				+ "<td><span class =\"titre\">${title}</span></td>"
-				+ "</tr>" + "</table>";
+				+ "<td style='width:100%' ><span class =\"titre\">${title}</span></td>"
+				+"<td>"+ getHtmlResizedImg(img,false,url)+"</td>"
+				+ "</tr>" + "</table>";*/
 		
 		PD4PageMark header = new PD4PageMark();
 		header.setAreaHeight(45);
@@ -223,10 +238,17 @@ public class ArticlePdfGenerator {
 	/** creation of the footer */
 	public void createFooter(){
 		// ${page} and ${total} will be recognized/replaced by PD4ML.
-		String footerHtmlTemplate = "<table width='100%'><tr><td></td><td></td><td align='right' class='valignBottom'>${page}<span class='grey'> /${total}</span></td></tr></table>";
+	    
+	    String footerHtmlTemplate = "<table  border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" height ='45px'>"
+        + "<tr>"
+        + "<td >"+ getHtmlResizedImg(img,false,url)+"</td>"
+        +"<td style='width:90%;padding-left:5px;'><span class =\"titre\">${title}</span></td>"
+        +"<td style='width:10%;text-align:right' class='valignBottom'>${page}<span class='grey'> /${total}</span></td>"
+        + "</tr>" + "</table>";
+	
 		PD4PageMark foot = new PD4PageMark();
 
-
+  
 		if(doTheUserWantACoverPage){ //If the user want a cover page
 			foot.setPagesToSkip(1); //Skip the header at the first page
 		}
@@ -247,15 +269,6 @@ public class ArticlePdfGenerator {
 		
 		String result = new String("");
 	
-		try {
-	
-		URL	url = new URL(COVER_PAGE_IMG);
-		
-		
-		
-			BufferedImage img = ImageIO.read(url);
-		
-			
 		// we resize the image before add to <div>
 		result +=
 
@@ -274,15 +287,7 @@ public class ArticlePdfGenerator {
                 "</td></tr></table></div>"+
                 "<br/><br/><br/>";
 
-		result+="<table width='100%'><tr><td width='45px'>"
-				+"</td><td class='valignMiddle'><span class='small'>Download by :</span><br/><i>"+
-				"</i><br/><span class='small'>"+
-				"</span></td></tr></table><pd4ml:page.break>";
-		
-			} catch (IOException e) {
-				
-				new RuntimeException(e);
-			}
+		result+="<pd4ml:page.break>";
 		return result;
 	}
 

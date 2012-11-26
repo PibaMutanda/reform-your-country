@@ -57,13 +57,10 @@ public class PdfGeneratorController extends BaseController<Article>{
         boolean onlysummary = isOnlysummary != null ;
         boolean subarticles = isSubarticles != null;
         
-        ArticlePdfGenerator cPdf = new ArticlePdfGenerator(article,true,cover,toc,onlysummary);
-        
-        
-
+        ArticlePdfGenerator cPdf = new ArticlePdfGenerator(article,cover,toc,onlysummary,true);
         ByteArrayOutputStream baos = cPdf.generatePDF();
 
-      //  ByteArrayOutputStream baos = articleService.makePdf(article, cover, toc,onlysummary,notpublished);
+        // Put the outpustream in the response.
         try {
             response.setHeader("Content-Disposition", "attachment; filename=" + article.getUrl()+".pdf");
 
