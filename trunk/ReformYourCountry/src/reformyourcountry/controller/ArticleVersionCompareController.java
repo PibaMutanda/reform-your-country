@@ -39,10 +39,13 @@ public class ArticleVersionCompareController extends BaseController<ArticleVersi
         mv.addObject("versionList",versionList);
         
         /// Add for the JSP an array with both articles.
-        List<ArticleVersionAndText> twoArticleVersionAndTexts = new ArrayList<ArticleVersionAndText>();  // 0 = left, 1 = right
+        List<ArticleVersionAndText> twoArticleVersionAndTexts = new ArrayList<ArticleVersionAndText>();// 0 = left, 1 = right
+                
         mv.addObject("twoArticleVersionAndTexts", twoArticleVersionAndTexts);
+               
         twoArticleVersionAndTexts.add(new ArticleVersionAndText());
         twoArticleVersionAndTexts.add(new ArticleVersionAndText());
+         
         
         twoArticleVersionAndTexts.get(0).articleVersion = av;
         if(id2!=null){
@@ -53,18 +56,39 @@ public class ArticleVersionCompareController extends BaseController<ArticleVersi
 		
         DiffGenerator diffGenerator = new DiffGenerator(twoArticleVersionAndTexts.get(0).articleVersion.getContent(),
         		                                        twoArticleVersionAndTexts.get(1).articleVersion.getContent());
-        twoArticleVersionAndTexts.get(0).text = diffGenerator.getTextOriginalHtmlDiff(true);
-        twoArticleVersionAndTexts.get(1).text = diffGenerator.getTextModifiedHtmlDiff(true);
+        twoArticleVersionAndTexts.get(0).content = diffGenerator.getTextOriginalHtmlDiff(true);
+        twoArticleVersionAndTexts.get(1).content = diffGenerator.getTextModifiedHtmlDiff(true);
+        
+        DiffGenerator diffGeneratorSummary = new DiffGenerator(twoArticleVersionAndTexts.get(0).articleVersion.getSummary(),
+                												twoArticleVersionAndTexts.get(1).articleVersion.getSummary());
+        
+        twoArticleVersionAndTexts.get(0).summary = diffGeneratorSummary.getTextOriginalHtmlDiff(true);
+        twoArticleVersionAndTexts.get(1).summary = diffGeneratorSummary.getTextModifiedHtmlDiff(true);
+        
+        DiffGenerator diffGeneratorToClassify = new DiffGenerator(twoArticleVersionAndTexts.get(0).articleVersion.getToClassify(),
+																  twoArticleVersionAndTexts.get(1).articleVersion.getToClassify());
+        
+        twoArticleVersionAndTexts.get(0).toClassify = diffGeneratorToClassify.getTextOriginalHtmlDiff(true);
+        twoArticleVersionAndTexts.get(1).toClassify = diffGeneratorToClassify.getTextModifiedHtmlDiff(true);
         
 		return mv;
 	}
 	
 	public static class ArticleVersionAndText {
 		ArticleVersion articleVersion;
-		String text;
+		String content;
+		String summary;
+		String toClassify;
+		
 		// Need getters for EL.
-		public String getText() {
-			return text;
+		public String getContent() {
+			return content;
+		}
+		public String getSummary(){
+			return summary;
+		}
+		public String getToClassify() {
+			return toClassify;
 		}
 		public ArticleVersion getArticleVersion() {
 			return articleVersion;
