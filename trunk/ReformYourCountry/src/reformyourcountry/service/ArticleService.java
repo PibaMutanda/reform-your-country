@@ -147,48 +147,7 @@ public class ArticleService {
 	     article.setLastVersionRenderdSummary(new BBConverter(bookRepository, articleRepository,actionRepository).transformBBCodeToHtmlCode(article.getLastVersionRenderdSummary()));
 	 }
 	
-	 public ByteArrayOutputStream makePdf(Article article,boolean isCover,boolean isToc,boolean onlySummary,boolean isNotPublished){
-
-	     if(isNotPublished){
-
-	         SecurityContext.assertUserHasPrivilege(Privilege.VIEW_UNPUBLISHED_ARTICLE);
-	     }
-
-	     try(ByteArrayOutputStream baos = new ByteArrayOutputStream()){
-
-	         ArticlePdfGenerator cPdf = new ArticlePdfGenerator(article,true,isCover,isToc);
-
-	         if(onlySummary){
-	             cPdf.generatePDF(article.getLastVersionRenderdSummary()+article.getLastVersionRenderedContent(),baos);
-	         }else{
-	             cPdf.generatePDF(article.getLastVersionRenderdSummary(),baos);
-	         }
-
-	        	 
-	        	 
-	        	
-	        	
-	        	/*File filetest = new File(FileUtil.getGenFolderPath()+FileUtil.PDF_FOLDER);
-	        	FileOutputStream fos = null;
-	        	
-                  if(!filetest.exists()){
-                      filetest.mkdirs();
-                  }
-                  filetest = new File(FileUtil.getGenFolderPath()+FileUtil.PDF_FOLDER,article.getUrl()+".pdf");
-				    fos =new FileOutputStream(filetest);
-					baos.writeTo(fos);
-					fos.close();*/
-					
-					
-					return baos;
-				
-	        	
-	        } catch (IOException e) {
-	        	throw new RuntimeException(e);
-			}
-	
 	 
 	 
-  }
-	 
+
 }
