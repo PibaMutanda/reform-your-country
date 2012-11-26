@@ -5,7 +5,7 @@
 <c:forEach items="${actionItems}" var="actionItem">
 		<div style="text-align:center;">
 			<a href="/action/${actionItem.action.url}" style="margin:10px;">
-				<span class="tooltip" data-tooltip='${actionItem.action.shortDescription}'>${actionItem.action.title}</span>
+				<span class="tooltip" data-tooltip="${actionItem.action.shortDescription}">${actionItem.action.title}</span>
 			</a>
 			<div id="voteContainer" style="margin:10px;">
   					<c:set var="vote" value="${actionItem.voteAction}" scope="request"/>
