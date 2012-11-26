@@ -32,7 +32,7 @@
 					<c:forEach items="${action.articles}" var="article">
 						<div>
 							<a href="/article/${article.url}">
-								<span class="tooltip" data-tooltip='${article.description}'>${article.title}</span>
+								<span class="tooltip" data-tooltip="${article.description}">${article.title}</span>
 							</a>
 						</div>
 					</c:forEach>
