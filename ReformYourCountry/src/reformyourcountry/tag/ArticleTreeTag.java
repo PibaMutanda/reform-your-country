@@ -65,22 +65,17 @@ public class ArticleTreeTag extends SimpleTagSupport{
 
 			JspWriter out = this.getJspContext().getOut();
 			articleRepository =  ContextUtil.getSpringBean(ArticleRepository.class);  // No Spring injection from this class (managed by Tomcat).
-			articleService =  ContextUtil.getSpringBean(ArticleService.class); 
-			List<Article> articles = null;
 						
 			// If we show radio buttons to select a parent, we display an extra radio button on the top to select a (virtual) root (= no parent).
 
 			if (radio) {
-				out.println("<input type='radio' name='parentid' value=''" +
-						((articleFromRequest == null || articleFromRequest.getParent() == null) ? " checked='checked'" : "") + 
-						"'/>" +
-						" pas d'article parent");
+				out.println("<input type='radio' name='parentid' value=''"+
+						((articleFromRequest == null || articleFromRequest.getParent() == null) ? " checked='checked'" : "")+
+						"'/> pas d'article parent");
 			}
-			
 			String htmlResult="";
 			if (!radio && link) { // For the left nav bar, we cache the results.
 				htmlResult = getLeftNavBarCache();
-
 				if (htmlResult == null) { // Empty cache (1st time since web app started, or been invalidated by article add or change)
 					htmlResult = displayArticleList(articles, true);
 					setLeftNavBarCache(htmlResult);
@@ -88,10 +83,7 @@ public class ArticleTreeTag extends SimpleTagSupport{
 			} else {  // Not the left nav bar => no cache.
 				htmlResult = displayArticleList(articles, true);
 			}
-			
-			
 			out.write(htmlResult);
-
 		} catch(IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -103,16 +95,14 @@ public class ArticleTreeTag extends SimpleTagSupport{
 		
 		if (isFirstPass) {
 			articles=articleRepository.findAllWithoutParent();
-			
-		    result+="<ul id=\"articletree\">";         
+		    result+="<ul id=\"articletree\">";
 		} else {
-            result+="<ul class=\"subarticle\">";    
+            result+="<ul class=\"subarticle\">";
 		}
 
 		for (Article child: articles) {
-			result += displayArticle(child); 
+			result += displayArticle(child);
 		}
-		
 		result+="</ul>";   
 		
 		return result;
@@ -121,7 +111,7 @@ public class ArticleTreeTag extends SimpleTagSupport{
 
 	private String displayArticle(Article article) throws JspException, IOException { 
 	    // class=\"current_page_item\"
-		String result="";		
+		String result="";
 		result += "<li>" + getArticleString(article);
 		result += displayArticleList(article.getChildren(), false);
 		result += "</li>";
@@ -193,8 +183,3 @@ public class ArticleTreeTag extends SimpleTagSupport{
 		 setLeftNavBarCache(null);
 	}
 }
-
-
-
-
-

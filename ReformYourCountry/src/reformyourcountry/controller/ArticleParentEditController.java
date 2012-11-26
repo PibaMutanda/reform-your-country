@@ -1,6 +1,7 @@
 package reformyourcountry.controller;
 
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -14,7 +15,7 @@ import reformyourcountry.model.Article;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.ArticleService;
-import reformyourcountry.tag.ArticleTreeTag;
+import reformyourcountry.tag.ArticleNavBarTag;
 
 // Edition of the parents
 @Controller
@@ -46,7 +47,7 @@ public class ArticleParentEditController extends BaseController<Article>{
 		} else { 
 			//article do not need a merge because the following method do it already
 		    articleService.changeParent(article, parentId);
-		    ArticleTreeTag.invalidateNavBarCache();
+		    ArticleNavBarTag.invalidateNavBarCache();
 		}
 	    return new ModelAndView ("redirect:/article/"+article.getUrl());
 	}

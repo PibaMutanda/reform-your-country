@@ -39,7 +39,7 @@ JUnit :
 PD4ML :
 			-pd4ml
 			-fonts   for accentuated characters
-
+			-ss_css2
 			
 Lucene :	
 			-lucene-core-4.0.0
