@@ -14,7 +14,7 @@
 
 /* Overrides the page template to enable this specific page to take the whole window width */
 #main .main-area {
-    width:100%;  
+    width: 100%;  
 } 
 #sub_nav{
     display: none;
@@ -22,14 +22,8 @@
 #content {
     width: 100%;
 }
-#div1 {
-	width: 49%;
-	float:left;
-}
-#div2 {
-	width: 49%;
-	float:right;
-}
+
+
 </style>
 
 
@@ -56,10 +50,10 @@
 		<ryctag:breadcrumbelement label="comparaison de versions" />
 	</ryctag:pageheadertitle>
 
-	<table>
-		    <% int i=1; %>
-		    <c:forEach var="selectedArticleVersionAndText" items="${twoArticleVersionAndTexts}">
-			  <div id="div<%=i%>">
+	<div class="versionCompareSegment" >
+		 <% int i=1; %>
+		 <c:forEach var="selectedArticleVersionAndText" items="${twoArticleVersionAndTexts}">
+			  <div class="versionCompare">
 			
 			   <select class="versionarticle" id="versionarticle<%=i%>">
 			        <%-- 1. The selected version --%>
@@ -72,15 +66,48 @@
 						</c:if> 
 					</c:forEach>
 			    </select>
-				<p>
-				  ${selectedArticleVersionAndText.text}
-				</p>
-			  </div>
-			  <% i++; %>
-			</c:forEach>
-			
+			 </div>
+			 <% i++;%>
+		</c:forEach>	    
+	</div>
+	
+	<h2>Résumé</h2>
+	<div class="versionCompareSegment" >
+		  <% int j=1; %>
+		  <c:forEach var="selectedArticleVersionAndText" items="${twoArticleVersionAndTexts}">
+		  	<div class="versionCompare">
+			   		${selectedArticleVersionAndText.summary}
+		 	</div>
+		 	<% j++;%>
+		  </c:forEach>	
+	</div>
+	<hr>
+
+	<h2>Contenu</h2>
+ 	<div class="versionCompareSegment">
+		  <% int k=1; %>
+		  <c:forEach var="selectedArticleVersionAndText" items="${twoArticleVersionAndTexts}">
+		  	<div class="versionCompare">
+			   ${selectedArticleVersionAndText.content}
+		 	</div>
+		 	<% k++;%>
+		  </c:forEach>	
+	</div>
+	<hr>
+	
+	<h2>A classer</h2>
+	<div class="versionCompareSegment">
+		  <% int l=1; %>
+		  <c:forEach var="selectedArticleVersionAndText" items="${twoArticleVersionAndTexts}">
+		  	<div class="versionCompare">
+			   ${selectedArticleVersionAndText.toClassify}
+		 	</div>
+		 	<% l++;%>
+		  </c:forEach>	
+	</div>
+			 
 		
-	</table>
+	
 	
 </body>
 </html>
