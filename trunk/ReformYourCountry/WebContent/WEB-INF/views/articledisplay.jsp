@@ -74,7 +74,6 @@
 			 - <a href="/article/a_classer/${article.url}" >afficher à classer</a>
 			 - <a href="/article/version/${article.url}" >historique des versions</a>
 			 - <a href="/video/manager?id=${article.id}" >vidéo</a>
-			 - <a href="/goodexample/${article.url}" >bons exemples de l'article</a>
 		</ryc:conditionDisplay>
 		</div>
 		<br/>
@@ -130,6 +129,7 @@
 				<div class="article_summary">
 				
 				        <%---------- List of actions --%>
+					<div style="float:right;">
 						<div class="action-list">
 						
 							<c:set var="actionItems" value="${actionItemsParent}" scope="request"/>
@@ -138,7 +138,7 @@
 							<ryc:conditionDisplay privilege="EDIT_ARTICLE">
 								<div class="article-options">
 									<a href="/articleactionlinkedit?id=${article.id}">
-										editer action
+										editer actions
 									</a>
 								</div>
 								<hr/>
@@ -149,6 +149,26 @@
 							
 						</div>
 						
+						<%---------- List of arguments --%>
+						
+						<div class="goodexample-list">
+						
+						
+						<c:forEach items="${article.goodExamples}" var="example">
+						     <a href="/goodexample/${example.url}">example.title</a>
+						</c:forEach>
+						
+						<ryc:conditionDisplay privilege="EDIT_ARTICLE">
+								<div class="article-options">
+									<a href="/articlegoodexamplelinkedit?id=${article.id}">
+										editer bons exemples
+									</a>
+								</div>
+								<hr/>
+							</ryc:conditionDisplay> 
+						</div>
+						
+						</div>
 						<%----------- Summary --%>
 						<div style="font-size:.85em;margin-bottom:10px;">
 							RESUME
