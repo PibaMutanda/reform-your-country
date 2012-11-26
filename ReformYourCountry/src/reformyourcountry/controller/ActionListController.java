@@ -71,15 +71,7 @@ public class ActionListController {
         public VoteAction getVoteAction() {
             return voteAction;
         }
-		@Override
-		public int hashCode() {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result
-					+ ((action == null) ? 0 : action.hashCode());
-			return result;
-		}
-		
+
 		@Override
 		public boolean equals(Object obj) {
 			if (this == obj)
@@ -95,6 +87,12 @@ public class ActionListController {
 			} else if (!action.equals(other.action))
 				return false;
 			return true;
+		}
+		@Override
+		public String toString() {
+			return "ActionItem [action=" + action + ", resultNumbers="
+					+ resultNumbers + ", voteAction=" + voteAction
+					+ ", toString()=" + super.toString() + "]";
 		}
         
     }

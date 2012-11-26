@@ -20,7 +20,7 @@ public class ArticleActionLinkController extends BaseController<Action>{
 	@Autowired ArticleRepository articleRepository;
 	@Autowired ActionRepository actionRepository;
 
-	@RequestMapping("/editaction")
+	@RequestMapping("/articleactionlinkedit")
 	public ModelAndView editAction(@RequestParam ("id") Long articleId){
 		Article article = articleRepository.find(articleId);
 		List <Action> actionList = actionRepository.findAll();
@@ -30,21 +30,18 @@ public class ArticleActionLinkController extends BaseController<Action>{
 		return mv;
 	}
 
-	@RequestMapping("/editactionsubmit")
+	@RequestMapping("/articleactionlinkeditsubmit")
 	public ModelAndView editSubmitAction(@RequestParam ("id") Long articleId,
 			@RequestParam(value="action", required=false)Long[] actionIds){
 		Article article = articleRepository.find(articleId);
+		article.getActions().clear();
 		if(actionIds != null){
-			article.getActions().clear();
 			for(Long id : actionIds){
 				Action a =  actionRepository.find(id);
 				a.addArticle(article);
 				actionRepository.merge(a);
 				article.getActions().add(a);
 			}
-		}
-		else{
-			article.getActions().clear();
 		}
 		articleRepository.merge(article);
 		return new ModelAndView("redirect:/article/"+article.getUrl()); 
