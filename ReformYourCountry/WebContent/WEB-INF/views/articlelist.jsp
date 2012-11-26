@@ -24,9 +24,9 @@
 </div>
 <hr/>
 </ryc:conditionDisplay>
-<img class="generatepdflist" style="cursor:pointer;" src="images/pdf_button.png" width="50px"height="47px"></img>
+<img class="generatepdflist" style="cursor:pointer;" src="images/pdf_button.png"></img>
 <div class="article_content">
-<ryc:articlesList/>
+<ryc:articlesTree link="true" description="true"/>
 </div>
 </body>
 </html>
