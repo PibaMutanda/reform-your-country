@@ -4,17 +4,11 @@ import reformyourcountry.model.Article;
 
 public interface ArticleTreeVisitor {
 	
-	void processArticle(Article article, boolean isFirstPass);
+	void processArticle(Article article);
 	
-	/**
-	 * Used to add informations before the first recursive traversal
-	 */
-	void preWalk();
-	
-	/**
-	 * Used to add informations after each recursive traversal
-	 */
-	void postWalk();
+	void beforeChildren(int recurtionLevel);
+
+	void afterChildren();
 	
 
 }

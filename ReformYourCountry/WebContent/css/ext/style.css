@@ -618,7 +618,7 @@ padding-top: 1px;}
 #sub_nav ul li {vertical-align:top;height:1%;}
 #sub_nav ul ul {margin:0;padding:0 0 0 0;font-size:11px;}
 #sub_nav ul ul ul {padding:0 0 0 10px ;}
-#articletree > li{padding-bottom: 12px;}
+.articletreelevel0 > li{padding-bottom: 12px;}
 #sub_nav ul a.current_page_item  {background:url(/images/secondary-royal-blue/navblueback.png) 0 0 repeat-y; color:#ccc;}
 .nav_right_sub_nav ul li.current_page_item ul li a,
 .nav_right_sub_nav ul li.current_page_item ul li a:hover,

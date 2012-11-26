@@ -11,7 +11,7 @@ import reformyourcountry.repository.ArticleRepository;
 public class ArticleTreeWalker {
 	ArticleRepository articleRepository;
 	ArticleTreeVisitor atv;
-	
+	int recurtionLevel;  // root = 0
 	
 	public ArticleTreeWalker(ArticleTreeVisitor atv,ArticleRepository articleRepository){
 		this.atv=atv;
@@ -21,23 +21,25 @@ public class ArticleTreeWalker {
 
 	public void walk() throws IOException { 
 		List<Article> articles = articleRepository.findAllWithoutParent();
-		atv.preWalk();
-
-		processArticleList(articles,true);
-		
-		atv.postWalk();
+		recurtionLevel = 0;
+		processArticleList(articles);
 	}
 	
-	private void processArticleList(Collection<Article> articles, boolean isFirstPass) throws IOException {
-		for (Article child: articles) {
-			processArticle(child,isFirstPass); 
+	private void processArticleList(Collection<Article> articles) throws IOException {
+		if (articles.size() > 0) {
+			atv.beforeChildren(recurtionLevel);
+			for (Article child: articles) {
+				processArticle(child); 
+			}
+			atv.afterChildren();
 		}
 	}
 
 
-	private void processArticle(Article article, boolean isFirstPass) throws  IOException { 
-		atv.processArticle(article, isFirstPass);
-		processArticleList(article.getChildren(), false);
-		if(!isFirstPass) atv.postWalk();
+	private void processArticle(Article article) throws  IOException { 
+		atv.processArticle(article);
+		recurtionLevel++;
+		processArticleList(article.getChildren());
+		recurtionLevel--;
 	}
 }
