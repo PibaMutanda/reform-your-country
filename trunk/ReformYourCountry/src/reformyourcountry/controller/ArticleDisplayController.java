@@ -49,11 +49,10 @@ public class ArticleDisplayController extends BaseController<Article> {
 
 		ModelAndView mv = new ModelAndView("articledisplay");
 
-		List<ActionItem> actionItemsChildrenUnsorted = new ArrayList<ActionItem>();
+		List<ActionItem> actionItemsChildren = new ArrayList<ActionItem>();
 
 		List<ActionItem> actionItemsParent = new ArrayList<ActionItem>();
 		
-
 		Article article = getRequiredEntityByUrl(articleUrl);
 
 		//////// Prepares the list of Action(Item)s to display beside the summary.
@@ -65,27 +64,17 @@ public class ArticleDisplayController extends BaseController<Article> {
 		}
 
 		//this one serves for sort the action list of children, because we should have the same action in differents children
-		Set<ActionItem> actionItemChildren = new HashSet<ActionItem>();
-		
-		if(!article.getChildren().isEmpty()){
-			for(Article a : article.getChildren()){
-				for(Action ac : a.getActions()){
-					VoteAction va = voteActionRepository.findVoteActionForUser(SecurityContext.getUser(), ac.getId());
-					if(!actionItemsParent.contains(ac)){
-  					    ActionItem actionItem = new ActionItem(ac, actionService.getResultNumbersForAction(ac), va);
-						actionItemsChildrenUnsorted.add(actionItem);
-					}
-				}
-			}
-			Set<Action> action = new HashSet<Action>();
-			for(ActionItem a : actionItemsChildrenUnsorted){
-				if(!action.contains(a.action)){
-					action.add(a.action);
-					actionItemChildren.add(a);
+		for(Article a : article.getChildrenAndSubChildren()){
+			for(Action ac : a.getActions()){
+				VoteAction va = voteActionRepository.findVoteActionForUser(SecurityContext.getUser(), ac.getId());
+			    ActionItem actionItem = new ActionItem(ac, actionService.getResultNumbersForAction(ac), va);
+				if(!actionItemsParent.contains(actionItem) && !actionItemsChildren.contains(actionItem)){
+					actionItemsChildren.add(actionItem);
 				}
 			}
 		}
-		mv.addObject("actionItemChildren", actionItemChildren);
+		
+		mv.addObject("actionItemsChildren", actionItemsChildren);
 		mv.addObject("actionItemsParent", actionItemsParent);
 		log.debug("i found "+article.getTitle());
 		log.debug("his content"+article.getLastVersion().getContent());
