@@ -5,6 +5,15 @@
 	height:70%;
 	padding-top:63px; 
 }
+
+.icon-32{  /* Because i'm to lazy to go in GIMP and change every icons we have to 32px... */
+    width:32px;
+    height: 32px;
+}
+.icon-11{  /* Because i'm to lazy to go in GIMP and change every icons we have to 32px... */
+    width:11px;
+    height: 11px;
+}
  #CU3ER-container{
 	width:465px;
 }
@@ -31,7 +40,9 @@
 .commentLink{
 	width:60px;
 }
-
+.divButton{
+	cursor: pointer;
+}
 .commentLink:hover{
 	cursor: pointer;
 	cursor: hand;
@@ -331,10 +342,6 @@ color: #444;
 	font-family:"helvetica neue", Helvetica, Arial, Verdana, sans serif;  
 }
 
-.icon-32{  /* Because i'm to lazy to go in GIMP and change every icons we have to 32px... */
-    width:32px;
-    height: 32px;
-}
 .untranslated,.translated{
 	/*if not inline-block the jquery slideshow will not be visible*/
 	display:inline-block;	

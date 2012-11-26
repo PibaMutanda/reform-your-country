@@ -55,22 +55,43 @@ function vote(item,url,value,idParent,idItemToReplace){
 
 
 //COMMENT
-
-function commentEditStart(item, idComment){
+function commentEditStart(item, idParent,idComment,content){
 	if (showMessageIfNotLogged(item)) {
 		return;
 	}
-	showHelp("addcom"+idComment,"help"+idComment);
-	$("#addcom"+idComment).hide();
-	$("#addcom"+idComment).click(function(){
-		$("#addcom"+idComment).hide();
-		$("#commentArea"+idComment).show();
+	$("#comm"+idParent).attr("value",content);
+	showHelp("addcom"+idParent,"help"+idParent);
+	$("#idComm"+idParent).attr("value",idComment);
+	$("#addcom"+idParent).hide();
+	$("#sendEditComm"+idParent).show();
+	$("#sendArgComm"+idParent).hide();
+	$("#commentArea"+idParent).show();
+	$("#addcom"+idParent).click(function(){
+		$("#addcom"+idParent).hide();
+		$("#commentArea"+idParent).show();
+	});	
+}
+
+function commentAddStart(item, idParent){
+	if (showMessageIfNotLogged(item)) {
+		return;
+	}
+	$("#comm"+idParent).attr("value","");
+	showHelp("addcom"+idParent,"help"+idParent);
+	$("#idComm"+idParent).attr("value","");
+	$("#addcom"+idParent).hide();
+	$("#sendEditComm"+idParent).hide();
+	$("#sendArgComm"+idParent).show();
+	$("#addcom"+idParent).click(function(){
+		$("#addcom"+idParent).hide();
+		$("#commentArea"+idParent).show();
 	});	
 }
 
 
 function maxlength_comment(textarea, itemToCommentId, max, min) {
 	$button = $('#sendArgComm'+itemToCommentId);
+	$buttonEdit=$('#sendEditComm'+itemToCommentId);
 	$lengthCountMessage = $('#nbrCaract'+itemToCommentId);
 	var currentLength = textarea.value.length;
 	
@@ -78,6 +99,7 @@ function maxlength_comment(textarea, itemToCommentId, max, min) {
 		var mini = min-currentLength;
 		$lengthCountMessage.html("Vous devez encore entrer " +mini+ " caractères");
 		$button.prop('disabled', true);
+		$buttonEdit.prop('disabled', true);
 	} else {
 		if (currentLength>max) {
 			textarea.value=textarea.value.substr(0,max);
@@ -87,6 +109,7 @@ function maxlength_comment(textarea, itemToCommentId, max, min) {
 		var maxi = max-currentLength;
 		$lengthCountMessage.html(maxi + " caractères restant");	
 		$button.prop('disabled', false);
+		$buttonEdit.prop('disabled', false);
 	}
 }
 
