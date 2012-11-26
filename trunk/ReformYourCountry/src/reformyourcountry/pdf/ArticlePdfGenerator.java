@@ -197,9 +197,7 @@ public class ArticlePdfGenerator {
 			pd4ml.render(new StringReader( finalresult), baos);
 
 
-		} catch (InvalidParameterException e) {
-			throw new RuntimeException(e);
-		} catch (IOException e) {
+		} catch (InvalidParameterException | IOException e) {
 			throw new RuntimeException(e);
 		}
 		

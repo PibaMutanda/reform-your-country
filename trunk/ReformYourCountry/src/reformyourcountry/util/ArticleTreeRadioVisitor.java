@@ -14,9 +14,8 @@ public class ArticleTreeRadioVisitor implements ArticleTreeVisitor {
 		this.articleFromRequest=articleFromRequest;
 	}
 	@Override
-	public void processArticle(Article article, boolean isFirstPass) {
+	public void processArticle(Article article) {
 		
-		if(!isFirstPass) htmlResult+="<ul class=\"subarticle\">";
 		htmlResult+="<li>";
 		
 		// We don't display the radio button for the article we are editing and its children (we wouldn't want to create a cycle by making an article the child of one of its children, or itself).
@@ -34,12 +33,12 @@ public class ArticleTreeRadioVisitor implements ArticleTreeVisitor {
 	}
 
 	@Override
-	public void preWalk() {
-		htmlResult += "<ul id=\"articletree\">";
+	public void beforeChildren(int recurtionLevel) {
+		htmlResult += "<ul class=\"articletreelevel"+recurtionLevel+"\">";
 	}
 
 	@Override
-	public void postWalk() {
+	public void afterChildren() {
 		htmlResult += "</ul>";
 		
 	}

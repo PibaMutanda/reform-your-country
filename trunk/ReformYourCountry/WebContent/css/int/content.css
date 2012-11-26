@@ -453,10 +453,10 @@ color: #444;
 	font-size: 0.85em;
 	color: #444;
 }
-#articletree {
+.articletreelevel0 {
 	list-style: none;
 }
-.subarticle {
+.articletreelevel1 {
 	padding-top: 11px;
 	list-style: none;
 }

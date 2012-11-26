@@ -16,9 +16,8 @@ public class ArticleTreeNavBarVisitor implements ArticleTreeVisitor {
 		this.isList = isList;
 	}
 	@Override
-	public void processArticle(Article article, boolean isFirstPass) {
+	public void processArticle(Article article) {
 		
-		if(!isFirstPass) htmlResult+="<ul class=\"subarticle\">";
 		htmlResult+="<li>";
 		
 	    if (ContextUtil.getHttpServletRequest().getRequestURL().toString().endsWith(article.getUrl())) {
@@ -34,14 +33,18 @@ public class ArticleTreeNavBarVisitor implements ArticleTreeVisitor {
 			if(!article.isPublished()) {
 				if (article.getPublishDate() != null && article.getPublishDate().after(new Date())){
 					htmlResult+="<span class=\"datepublication\">publié dans "+DateUtil.formatDuration(new Date(), article.getPublishDate() )+"</span>";
+					htmlResult+="<div class=\"descriptNotPublish\">"+article.getDescription()+"<div/>";
 				} else if (article.getPublishDate() != null && article.getPublishDate().before(new Date())){
 					htmlResult+="<span class=\"datepublication\">publié il y a "+DateUtil.formatDuration(new Date(), article.getPublishDate() )+"</span>";
+					htmlResult+="<div class=\"descriptPublish\">"+article.getDescription()+"<div/>";
 				} else {
 					htmlResult+="<span class=\"datepublication\">non publié</span>";
+					htmlResult+="<div class=\"descriptNotPublish\">"+article.getDescription()+"<div/>";
 				}
 				
-				htmlResult+="<div class=\"descriptNotPublish\">"+article.getDescription()+"<div/>";
+				
 			} else {
+				htmlResult+="<span class=\"datepublication\">publié</span>";
 				htmlResult+="<div class=\"descriptPublish\">"+article.getDescription()+"<div/>";
 			}
 			
@@ -51,12 +54,12 @@ public class ArticleTreeNavBarVisitor implements ArticleTreeVisitor {
 	}
 
 	@Override
-	public void preWalk	(){
-		htmlResult += "<ul id=\"articletree\">";
+	public void beforeChildren(int recurtionLevel){
+		htmlResult += "<ul class=\"articletreelevel"+recurtionLevel+"\">";
 	}
 
 	@Override
-	public void postWalk() {
+	public void afterChildren() {
 		htmlResult += "</ul>";
 	}
 	
