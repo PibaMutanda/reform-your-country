@@ -110,10 +110,10 @@
  	<c:forEach items="${goodExampleListByDate}" var="goodex">
  		<div class="listgoodexample">
  			<div style= "float:left">
- 				${goodex.goodexample.title}<br/>
+ 			${goodex.goodExample.title}<br/>
  				<c:choose>
-						<c:when test="${goodex.goodexample.description != null}">
-							${goodex.goodexample.description}						
+						<c:when test="${goodex.goodExample.description != null}">
+							${goodex.goodExample.description}						
 						</c:when>
 						<c:otherwise>
 							Pas de description disponible pour ce bon example.

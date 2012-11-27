@@ -120,19 +120,19 @@ public class HomeController {
 	
 	public static class GoodExampleAndDate{
 		
-		private GoodExample goodexample;
+		private GoodExample goodExample;
 		
 		public GoodExampleAndDate(GoodExample goodexample){
-			this.goodexample=goodexample;
+			this.goodExample=goodexample;
 		}
 		public GoodExample getGoodExample(){
-			return goodexample;
+			return goodExample;
 		}
 		public void setGoodExample(GoodExample goodexample){
-			this.goodexample=goodexample;
+			this.goodExample=goodexample;
 		}
 		public String getDifference() {
-			return DateUtil.formatIntervalFromToNowFR(goodexample.getCreatedOn());
+			return DateUtil.formatIntervalFromToNowFR(goodExample.getCreatedOn());
 		}
 	}
 }
