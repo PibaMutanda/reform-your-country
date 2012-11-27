@@ -240,16 +240,10 @@ public class BBConverter {
 			return;
 		}
 		// numeric?
-		long id;
-		try {
-			id = Long.parseLong(idStr);
-		} catch (Exception e) {
-			addErrorMessage("id should be numeric", tag);
-			return;
-		}
-		Action action = actionRepository.find(id);
+		
+		Action action = actionRepository.findByShortName(idStr);
 		if (action == null) {
-	             addErrorMessage("invalid id "+id+" (corresponding action not found)", tag);
+	             addErrorMessage("invalid id "+idStr+" (corresponding action not found)", tag);
 	             return;
 	    }
 		bufferTextForP("<span class='action quote'>"+action.getShortDescription());

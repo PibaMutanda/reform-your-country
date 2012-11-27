@@ -1,8 +1,16 @@
 var ckEditorUniqueInstance = null;  // We only want one CkEditor instance per page, and it's here.
 
 function destroyCkEditor() {
+	 var editor = CKEDITOR.instances["contentItem"];
+	 
+	    if (editor) { editor.destroy(true);
+	    delete CKEDITOR.instances["contentItem"];
+	    }
+	console.log("before destroy");
     ckEditorUniqueInstance.destroy(true);
+    delete ckEditorUniqueInstance;
     ckEditorUniqueInstance = null;
+    console.log("after destrory");
 }
 
 // Will replace the text area by the ck editor.
@@ -11,10 +19,12 @@ function createCkEditor(textAreaId) {
         console.error("Bug: the ckEditorUniqueInstance should be null at this stage.");
         destroyCkEditor();
     }
+    console.log("just before creating instance"+ (ckEditorUniqueInstance != null));
     ckEditorUniqueInstance = CKEDITOR.replace( textAreaId, { 
         customConfig : '/js/ext/ckeditor_config.js',
         toolbar : 'goodExample'
             });
+    console.log("just after creating instance");
 }
 
 

@@ -13,7 +13,9 @@ function showMessageIfNotLogged(item){
     });
 	return true;
 }
+
 //send value with an id only for logged users
+//AND REPLACE CONTENT OF THE DIV WITH ID = idEditedValueContainer, By the content returned by server
 function sendSimpleValue(button,idItem,idEditedValueContainer,url,value){
 	if (showMessageIfNotLogged(button)) {
 		return;
@@ -24,6 +26,7 @@ function sendSimpleValue(button,idItem,idEditedValueContainer,url,value){
 		function(data){
 			//Send the new data to the div containing the argument
 			$("#"+idEditedValueContainer).html(data);
+			$("#"+idEditedValueContainer).effect("highlight", {}, 1500);
 			return false;
 		});
 
@@ -43,6 +46,7 @@ function unVote(url,idItem,idItemToReplace){
 	var requestArg = $.post(url,
 			{id : idItem},function(data){
 				$("#"+idItemToReplace).replaceWith(data);
+				$("#"+idItemToReplace).effect("highlight", {}, 3000);
 			});
 	requestArg.fail(function(jqXHR, textStatus) {
 		addErrorMessageInEditor("Erreur de communication lors d'un vote"+textStatus);
@@ -59,33 +63,27 @@ function commentEditStart(item, idParent,idComment,content){
 	if (showMessageIfNotLogged(item)) {
 		return;
 	}
-	$("#comm"+idParent).attr("value",content);
+	$("#comm"+idParent).attr("value",content);  // Put content in text area
 	showHelp("addcom"+idParent,"help"+idParent);
-	$("#idComm"+idParent).attr("value",idComment);
-	$("#addcom"+idParent).hide();
-	$("#sendEditComm"+idParent).show();
-	$("#sendArgComm"+idParent).hide();
-	$("#commentArea"+idParent).show();
-	$("#addcom"+idParent).click(function(){
-		$("#addcom"+idParent).hide();
-		$("#commentArea"+idParent).show();
-	});	
+	$("#idComm"+idParent).attr("value",idComment);  // Put id in a hidden field
+	$("#addcom"+idParent).hide();   // Hide the button to add a comment
+	$("#sendEditComm"+idParent).show(); // show the "modify" submit button
+	$("#sendArgComm"+idParent).hide();  // hides the "create" submit button
+	$("#commentArea"+idParent).show();  // show the text area
+
 }
 
 function commentAddStart(item, idParent){
 	if (showMessageIfNotLogged(item)) {
 		return;
 	}
-	$("#comm"+idParent).attr("value","");
+	$("#comm"+idParent).attr("value","");//Initialize content textarea
 	showHelp("addcom"+idParent,"help"+idParent);
-	$("#idComm"+idParent).attr("value","");
-	$("#addcom"+idParent).hide();
-	$("#sendEditComm"+idParent).hide();
-	$("#sendArgComm"+idParent).show();
-	$("#addcom"+idParent).click(function(){
-		$("#addcom"+idParent).hide();
-		$("#commentArea"+idParent).show();
-	});	
+	$("#idComm"+idParent).attr("value","");//Initialize id hidden field
+	$("#addcom"+idParent).hide(); // Hide the button to add a comment
+	$("#sendEditComm"+idParent).hide();// hide the "modify" submit button
+	$("#sendArgComm"+idParent).show();// show the "create" submit button
+	$("#commentArea"+idParent).show();	// show the text area
 }
 
 
