@@ -1,6 +1,7 @@
 package reformyourcountry.repository;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -25,8 +26,11 @@ public class GoodExampleRepository extends BaseRepository<GoodExample>{
     }
 	@SuppressWarnings("unchecked")
 	public List<GoodExample> findLastGoodExample(Article article, int amount){
-		return em.createQuery("select ge from GoodExample ge join ge.articles a where a = :article order by ge.publishDate DESC")
-				.setParameter("article", article)
+		 List <Article> articleList = new ArrayList <Article>();
+		 articleList.addAll (article.getChildren());
+		 articleList.add( article);
+		return em.createQuery("select DISTINCT ge from GoodExample ge join ge.articles a where a in (:articleList) order by ge.publishDate DESC")
+				.setParameter("articleList",articleList)
 				.setMaxResults(amount)
     			.getResultList();
 	}
