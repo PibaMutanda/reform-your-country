@@ -12,6 +12,7 @@
 	
 	<table>
 		<c:forEach items="${goodExamples}" var="goodExample">
+		
 <!-- 			<tr> -->
 <%-- 				<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${goodExample.createdOn}"/></td> --%>
 <%-- 				<td>${goodExample.title}</td> --%>

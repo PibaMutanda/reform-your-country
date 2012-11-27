@@ -130,6 +130,7 @@
 				
 				        <%---------- List of actions --%>
 					<div style="float:right;">
+					
 						<div class="action-list">
 						
 							<c:set var="actionItems" value="${actionItemsParent}" scope="request"/>
@@ -144,9 +145,10 @@
 								<hr/>
 							</ryc:conditionDisplay> 
 							
+							<div>
 							<c:set var="actionItems" value="${actionItemsChildren}" scope="request"/>
 							<%@include file="actionsummary.jsp"%>
-							
+							</div>
 						</div>
 						
 						<%---------- List of arguments --%>
@@ -155,7 +157,9 @@
 						
 						
 						<c:forEach items="${lastFiveExample}" var="example">
-						     <a href="/goodexample/${example.title}">example.title</a>
+							<div>
+						   	  <a href="/goodexample/${example.title}">${example.title}</a>
+						    </div>
 						</c:forEach>
 						
 							<ryc:conditionDisplay privilege="EDIT_ARTICLE">
@@ -165,10 +169,10 @@
 									</a>
 								</div>
 								<hr/>
-							</ryc:conditionDisplay> 
+						</ryc:conditionDisplay> 
 						</div>
 						
-						</div>
+				</div>
 						<%----------- Summary --%>
 						<div style="font-size:.85em;margin-bottom:10px;">
 							RESUME

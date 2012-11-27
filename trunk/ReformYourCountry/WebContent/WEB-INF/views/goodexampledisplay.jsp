@@ -2,6 +2,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%-- <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag"%> --%>
+
+<%-- <ryctag:pageheadertitle title="Liste des bons exemples" /> --%>
+
 <form action="/ajax/goodexample/edit" method="post">
     <h4>${goodExample.title}</h4>
     <div id="${goodExample.id}_description">${goodExample.description}</div>
