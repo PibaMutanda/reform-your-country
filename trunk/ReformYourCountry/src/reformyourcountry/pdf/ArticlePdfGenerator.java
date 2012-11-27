@@ -45,15 +45,13 @@ public class ArticlePdfGenerator {
 	private URL url;
 	private  BufferedImage img;
 
-	private final String CSS = "h1,h2,h3,h4 {" +
-			"	color: #AA0000; /* #AA0000 = blackbelt_dark_red  */" +
-			"	font-weight: bold;" +
-			"}"+
+	private final String CSS = 
 			"h1 { "+
 			"font-size: 30px;"+
 			"}"+
 			"h2 { "+
-			"font-size: 24px; "+
+			"font-size: 1.9em;"+
+			"font-weight: normal;"+
 			"}"+
 			"h3 {"+
 			"font-size: 18px;"+
@@ -68,14 +66,12 @@ public class ArticlePdfGenerator {
 			"font-family:arial, helvetica, verdana, sans-serif;"+
 			"font-size:15px;"+
 			"}"+
+			"strong, b {"+
+			 "font-weight: bold;"+
+			 "}"+
 			"p{"+
 			"line-height:17px;"+
 			"}"+
-			"a {"+
-			"text-decoration: none;"+
-			"color: #AA0000;"+
-			"}"+
-
 			".titre{"+
 			"font-size:8px;"+
 			"font-family:Arial,Times New Roman;"+
@@ -114,10 +110,7 @@ public class ArticlePdfGenerator {
 			"vertical-align: bottom;"+
 			"padding-left: 15px;"+
 			"}"+
-			".licence a {"+
-			"font-size:8px;"+
-			"color: #9E9E9E;"+
-			"}"+".valignTop{vertical-align:top;"+
+			".valignTop{vertical-align:top;"+
 			".valignBottom{"+
 			"vertical-align: bottom;"+
 			"}"+
@@ -126,7 +119,40 @@ public class ArticlePdfGenerator {
 			"}"+
 			".small{"+
 			"font-size:10px;"+
-			"}";
+			"}"+
+			".bibref-after-block {"+
+			"color: #AAA;"+
+			"font-family: Arial, Helvetica, \"Liberation Sans\", FreeSans, sans-serif;"+
+			"font-size: 0.6em;"+
+			"text-align: right;"+
+			"margin-left: 50px;"+
+			"margin-bottom:1em;"+
+			"}"+
+			".article_content {"+
+			"font-family: Georgia, \"DejaVu Serif\", Norasi, serif;"+
+			"color: #444;"+
+			"display: block;"+
+			"}"+
+			".quote-block {"+
+			"margin: 0;"+
+			"margin-right: 40px;"+
+			"margin-left: 40px;"+
+			"margin-top:1em;"+
+			"margin-bottom:1em;"+
+			"}"+
+			".quote {"+
+			"color: #777;"+
+			"font-family: \"Times New Roman\", Times, \"Liberation Serif\", FreeSerif, serif;"+
+			"font-size: 1.05em;"+
+			"}"+
+
+			"#content a, #sidebar a, .content_full_width a, p a strong {"+
+			    "color: #7D92B9;"+
+			    "}"+
+			    
+			    "#main .blog_wrap h1, #main .single_blog_wrap h1, #main .comment-title, .four_o_four, .callout-wrap span, .video-sub h2, .two-d-sub h2, .three-d-sub h2, .main-holder h1, .main-holder h2, .main-holder h3, .main-holder h4, .main-holder h5, .main-holder h6, .search-title, .home-banner-main h2, #main .portfolio_full_width h3, #main .frame h1, #main .month, .home-bnr-jquery-content h2, .callout2, #main .contact_iphone h4, .comment-author-about {"+
+			     "font-family: Colaborate, Arial, sans-serif;"+
+			     "}";
 		
 
 	public ArticlePdfGenerator(Article article ,boolean doTheUserWantACoverPage,boolean doTheUserWantAToc,boolean doTheUserWantOnlySummary, boolean enableDebug){
@@ -147,6 +173,8 @@ public class ArticlePdfGenerator {
              
            throw new RuntimeException(e);
         }
+        
+        pd4ml.enableDebugInfo();
 	}
 
 	public ByteArrayOutputStream generatePDF() {
@@ -160,12 +188,14 @@ public class ArticlePdfGenerator {
 		pd4ml.addStyle(CSS,true);
 		try {
 			pd4ml.useTTF( "java:fonts", true );  // Looks for fonts.jar in classpath (WEB-INF/lib)
+		
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException("Problem while trying PD4ML to get font file", e);
 		}  
-
+     
 		pd4ml.setDefaultTTFs("Times New Roman", "Arial", "Courier New");  
         pd4ml.enableImgSplit(false);
+        
       
 		
         
@@ -173,12 +203,14 @@ public class ArticlePdfGenerator {
 	//	String head ="<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html lang=\"fr\" xmlns=\"http://www.w3.org/1999/xhtml\"   ><head><title>Enseignement2.be</title><META http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body>";
 		String head ="<!DOCTYPE html><head><title>Enseignement2.be - "+article.getTitle()+"</title></head><body>";
 		// next we add the cover html 
-		if(doTheUserWantACoverPage)
-		head += createCoverHtml();
-		
+		if(doTheUserWantACoverPage){
+		    head += createCoverHtml();
+		}
+
 		//next we add the table of content
-		if(doTheUserWantAToc)
-		head += createToc();
+		if(doTheUserWantAToc){
+		    head += createToc();
+		}
 		
 		createHeader();
 
