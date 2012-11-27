@@ -6,6 +6,7 @@ $(document).ready(function() {
 		
 	   
 		var hasSubArticle = false;
+		var isfromGeneralList = false;
 		$('#pdfdialog').dialog({
 			title :   "Generation PDF - "+$('meta[name=title]').attr("content"),
 			autoOpen: false,
@@ -25,10 +26,15 @@ $(document).ready(function() {
 		if($(this).hasClass('generatepdfgroup')){
 			hasSubArticle = true;			
 		}
+	
+		if(!$(this).hasClass('generatepdflist')){
+			var id = $('input[name="articleId"]').attr("value");		
+		}
+		
 		console.log(hasSubArticle);
 		
 		// 2. ills the dialog with content from the server (PdfGeneratorController) whent the user clicks the link
-		var id = $('input[name="articleId"]').attr("value");
+		
 		$('#pdfdialog').load("ajax/pdfgeneration",{hassubarticle:hasSubArticle,id:id}, function(){
 			
 			$('#pdfdialog').dialog('open');
