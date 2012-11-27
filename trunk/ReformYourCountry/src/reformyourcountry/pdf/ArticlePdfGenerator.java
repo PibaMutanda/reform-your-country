@@ -5,10 +5,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StringReader;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.InvalidParameterException;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -39,7 +38,7 @@ public class ArticlePdfGenerator {
     private boolean doTheUserWantAToc;
     private boolean doTheUserWantOnlySummary;
 
-    private Article article;
+    private List<Article> articles;
 	public boolean enableDebug ;
 	private ByteArrayOutputStream baos;
 	private URL url;
@@ -154,10 +153,28 @@ public class ArticlePdfGenerator {
 			     "font-family: Colaborate, Arial, sans-serif;"+
 			     "}";
 		
-
 	public ArticlePdfGenerator(Article article ,boolean doTheUserWantACoverPage,boolean doTheUserWantAToc,boolean doTheUserWantOnlySummary, boolean enableDebug){
 		this.pd4ml = new PD4ML();
-		this.article = article;
+		this.articles.add(article);
+		this.enableDebug = enableDebug;
+		this.doTheUserWantACoverPage = doTheUserWantACoverPage;
+		this.doTheUserWantAToc = doTheUserWantAToc;
+		this.doTheUserWantOnlySummary = doTheUserWantOnlySummary;
+	
+		baos = new ByteArrayOutputStream();
+	
+        try {
+            url = new URL(COVER_PAGE_IMG);
+            img = ImageIO.read(url);
+            
+        } catch (Exception e) {
+             
+           throw new RuntimeException(e);
+        }
+	}
+	public ArticlePdfGenerator(List<Article> article ,boolean doTheUserWantACoverPage,boolean doTheUserWantAToc,boolean doTheUserWantOnlySummary, boolean enableDebug){
+		this.pd4ml = new PD4ML();
+		this.articles = article;
 		this.enableDebug = enableDebug;
 		this.doTheUserWantACoverPage = doTheUserWantACoverPage;
 		this.doTheUserWantAToc = doTheUserWantAToc;
@@ -179,9 +196,12 @@ public class ArticlePdfGenerator {
 
 	public ByteArrayOutputStream generatePDF() {
 
-	    String content = "Résumé</br></br>"+article.getLastVersionRenderdSummary();
+	    return genrateOneArticlePdf();
+	}
+	private ByteArrayOutputStream genrateOneArticlePdf() {
+		String content = "Résumé</br></br>"+articles.get(0).getLastVersionRenderdSummary();
         if(!doTheUserWantOnlySummary){
-            content += "Article</br></br>"+article.getLastVersionRenderedContent();
+            content += "Article</br></br>"+articles.get(0).getLastVersionRenderedContent();
         }
 
 		/** PDF document setting */
@@ -201,7 +221,7 @@ public class ArticlePdfGenerator {
         
         // first we add the begining of the html document start with <html> to <body>
 	//	String head ="<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html lang=\"fr\" xmlns=\"http://www.w3.org/1999/xhtml\"   ><head><title>Enseignement2.be</title><META http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body>";
-		String head ="<!DOCTYPE html><head><title>Enseignement2.be - "+article.getTitle()+"</title></head><body>";
+		String head ="<!DOCTYPE html><head><title>Enseignement2.be - "+articles.get(0).getTitle()+"</title></head><body>";
 		// next we add the cover html 
 		if(doTheUserWantACoverPage){
 		    head += createCoverHtml();
@@ -336,7 +356,7 @@ public class ArticlePdfGenerator {
 //		int size = getTitleSize(sectionTxt.getSection());
 		String title = null;
 //		int level = Math.min(size+1, 4);
-		title = "<br/><pd4ml:page.break ifSpaceBelowLessThan=\"120\"><h1"/*+level*/+">"+article.getTitle()+"</h1"/*+level*/+">";
+		title = "<br/><pd4ml:page.break ifSpaceBelowLessThan=\"120\"><h1"/*+level*/+">"+articles.get(0).getTitle()+"</h1"/*+level*/+">";
 		return title;
 	}
 
