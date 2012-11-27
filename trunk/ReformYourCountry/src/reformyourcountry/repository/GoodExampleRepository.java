@@ -1,10 +1,12 @@
 package reformyourcountry.repository;
 
 
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
+
 
 import reformyourcountry.model.Article;
 import reformyourcountry.model.GoodExample;
@@ -20,6 +22,15 @@ public class GoodExampleRepository extends BaseRepository<GoodExample>{
 		return goodExamples;
 	
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<GoodExample> findByDate(Date publishDate, int maxAmount){
+    	return em.createQuery("select ge from GoodExample ge where (ge.createdOn < :now) order by ge.createdOn DESC")
+    			.setParameter("now", new Date())
+    			.setMaxResults(maxAmount)
+    			.getResultList();
+    }
+	
 	@SuppressWarnings("unchecked")
 	public List<GoodExample> findAll(){
         return    em.createQuery("select g from GoodExample g order by upper(g.title)").getResultList();
