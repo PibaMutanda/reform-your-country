@@ -31,6 +31,7 @@ public class GoodExampleRepository extends BaseRepository<GoodExample>{
     			.getResultList();
     }
 	
+	
 	@SuppressWarnings("unchecked")
 	public List<GoodExample> findAll(){
         return    em.createQuery("select g from GoodExample g order by upper(g.title)").getResultList();
