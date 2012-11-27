@@ -34,8 +34,6 @@ public class GoodExample extends BaseEntity implements IVote{
 	@ManyToMany(mappedBy = "goodExamples")
 	private List<Article> articles = new ArrayList <Article>();
 	
-	private Date publishDate;
-	
 	private int voteCount;
 
 	public String getTitle() {
@@ -65,14 +63,6 @@ public class GoodExample extends BaseEntity implements IVote{
     public void setVoteCount(int voteCount) {
         this.voteCount = voteCount;
     }
-    
-    public Date getPublishDate() {
-		return publishDate;
-	}
-
-	public void setPublishDate(Date publishDate) {
-		this.publishDate = publishDate;
-	}
     
     public void addArticle(Article article){
 

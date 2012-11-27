@@ -31,7 +31,6 @@ public class GoodExampleRepository extends BaseRepository<GoodExample>{
     			.getResultList();
     }
 	
-	
 	@SuppressWarnings("unchecked")
 	public List<GoodExample> findAll(){
         return    em.createQuery("select g from GoodExample g order by upper(g.title)").getResultList();
@@ -41,7 +40,7 @@ public class GoodExampleRepository extends BaseRepository<GoodExample>{
 		 List <Article> articleList = new ArrayList <Article>();
 		 articleList.addAll (article.getChildren());
 		 articleList.add( article);
-		return em.createQuery("select DISTINCT ge from GoodExample ge join ge.articles a where a in (:articleList) order by ge.publishDate DESC")
+		return em.createQuery("select DISTINCT ge from GoodExample ge join ge.articles a where a in (:articleList) order by ge.createdOn DESC")
 				.setParameter("articleList",articleList)
 				.setMaxResults(amount)
     			.getResultList();
