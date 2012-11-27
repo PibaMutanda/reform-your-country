@@ -110,7 +110,7 @@
  	<c:forEach items="${goodExampleListByDate}" var="goodex">
  		<div class="listgoodexample">
  			<div style= "float:left">
- 				<a href ="/goodexample/${goodex.goodexample.article.url}">${goodex.goodexample.title}</a><br/>
+ 				${goodex.goodexample.title}<br/>
  				<c:choose>
 						<c:when test="${goodex.goodexample.description != null}">
 							${goodex.goodexample.description}						
