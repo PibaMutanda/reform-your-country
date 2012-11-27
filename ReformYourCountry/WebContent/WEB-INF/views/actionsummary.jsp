@@ -3,7 +3,6 @@
 <script type="text/javascript" src="js/int/votelistaction.js"></script>
 
 <c:forEach items="${actionItems}" var="actionItem">
-		<div>
 			<a href="/action/${actionItem.action.url}">
 			 <c:choose>
 			     <c:when test="${actionItem.action.shortDescription != null}">
@@ -20,5 +19,4 @@
 				    <c:set var="id" value="${actionItem.action.id}" scope="request" />
 		            <span style="width:130px; margin:0 auto;"><%@ include file="/WEB-INF/views/voteactionwidget.jsp" %></span>
        		</div>
-		</div>
-</c:forEach>
+</c:forEach> 

@@ -19,5 +19,9 @@
 <input type="submit" value="génération de l'html de tous les articles"/>
 </form>
 
+<form action="/admin/listGoodExample" method="post">
+<input type="submit" value="Liste de tous les bons examples"/>
+</form>
+
 </body>
 </html>

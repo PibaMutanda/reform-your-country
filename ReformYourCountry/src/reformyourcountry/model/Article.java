@@ -249,6 +249,11 @@ public class Article extends BaseEntity {
 		actions.add(action);
 	}
 	
+	public void addGoodExample(GoodExample goodExample){
+
+		goodExamples.add(goodExample);
+	}
+	
 	public List<GoodExample> getGoodExamples() {
 		return goodExamples;
 	}

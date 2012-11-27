@@ -25,7 +25,7 @@
 			 
 				<div class="actionTitle"><a href="/action/${actionItem.action.url}">${actionItem.action.title}</a></div>
 						
-				<div id="voteContainer">
+				<div id="voteContainer" style="float:right;">
 				    <c:set var="vote" value="${actionItem.voteAction}" scope="request"/>
 				    <c:set var="resultNumbers" value="${actionItem.resultNumbers}" scope="request" />
 				    <c:set var="id" value="${actionItem.action.id}" scope="request" />

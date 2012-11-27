@@ -1,6 +1,7 @@
 package reformyourcountry.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -33,6 +34,8 @@ public class GoodExample extends BaseEntity implements IVote{
 	@ManyToMany(mappedBy = "goodExamples")
 	private List<Article> articles = new ArrayList <Article>();
 	
+	private Date publishDate;
+	
 	private int voteCount;
 
 	public String getTitle() {
@@ -62,6 +65,19 @@ public class GoodExample extends BaseEntity implements IVote{
     public void setVoteCount(int voteCount) {
         this.voteCount = voteCount;
     }
+    
+    public Date getPublishDate() {
+		return publishDate;
+	}
+
+	public void setPublishDate(Date publishDate) {
+		this.publishDate = publishDate;
+	}
+    
+    public void addArticle(Article article){
+
+		articles.add(article);
+	}
 
 	@Override
 	public int getTotal() {
