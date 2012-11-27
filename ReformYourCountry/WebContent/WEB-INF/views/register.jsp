@@ -26,9 +26,7 @@
      	</tr>
     	<tr> 
       	  <td COLSPAN="2" align="center"> 
-    	  <span class="ka_button small_button small_royalblue" >
     	    <input type="submit" value="m'inscrire" />
-      	  </span>
      	  </td> 
      	</tr> 
     </ryctag:form>

@@ -44,7 +44,7 @@ public class ArticleVersion extends BaseEntity{
     @Type(type="org.hibernate.type.StringClobType")
     private String content;
     
-    private Integer versionNumber;
+    private int versionNumber;
 
    
     
@@ -54,12 +54,12 @@ public class ArticleVersion extends BaseEntity{
     }
 
 
-	public Integer getVersionNumber() {
+	public int getVersionNumber() {
 		return versionNumber;
 	}
 
 
-	public void setVersionNumber(Integer versionNumber) {
+	public void setVersionNumber(int versionNumber) {
 		this.versionNumber = versionNumber;
 	}
 

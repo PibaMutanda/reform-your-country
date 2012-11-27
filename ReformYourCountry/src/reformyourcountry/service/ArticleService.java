@@ -129,8 +129,8 @@ public class ArticleService {
 	     newVersion.setToClassify(toClassify != null ? toClassify : (previousVersion!=null ? previousVersion.getToClassify() : "") );
 
 	     ///// 4.store the rendered version of the content and summary, for performance optimization
-	     
 	     updateRendreredContentAndSummary(article);
+	     
 	     ///// 5.merge
 	     articleVersionRepository.merge(newVersion);
  	     articleRepository.merge(article);
@@ -143,8 +143,8 @@ public class ArticleService {
  	     }
 	 }
 	 public void updateRendreredContentAndSummary(Article article){
-		 article.setLastVersionRenderedContent(new BBConverter(bookRepository, articleRepository,actionRepository).transformBBCodeToHtmlCode(article.getLastVersionRenderedContent()));
-	     article.setLastVersionRenderdSummary(new BBConverter(bookRepository, articleRepository,actionRepository).transformBBCodeToHtmlCode(article.getLastVersionRenderdSummary()));
+		 article.setLastVersionRenderedContent(new BBConverter(bookRepository, articleRepository,actionRepository).transformBBCodeToHtmlCode(article.getLastVersion().getContent()));
+	     article.setLastVersionRenderdSummary(new BBConverter(bookRepository, articleRepository,actionRepository).transformBBCodeToHtmlCode(article.getLastVersion().getSummary()));
 	 }
 	
 	 
