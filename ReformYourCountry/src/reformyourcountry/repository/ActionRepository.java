@@ -1,5 +1,6 @@
 package reformyourcountry.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -11,6 +12,13 @@ public class ActionRepository extends BaseRepository<Action> {
 
     public List<Action> findAll(){
         return    em.createQuery("select a from Action a order by upper(a.title)").getResultList();
+    }
+    
+    public List<Action> findByDate(Date publishDate, int maxAmount){
+    	return em.createQuery("select a from Action a where (a.createdOn < :now) order by a.createdOn DESC")
+    			.setParameter("now", new Date())
+    			.setMaxResults(maxAmount)
+    			.getResultList();
     }
   
 }
