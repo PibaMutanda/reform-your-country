@@ -34,9 +34,12 @@ function CKeditorEditSubmit(idEditedValueContainer){
 			function(data) {
 				destroyCkEditor();
 				if (itemId.length == 0) {   	// Creation of a new item
-					$("#"+idEditedValueContainer).append(data); // We append the jsp detail of the arg it at the bottom of its column. 
+					$("#"+idEditedValueContainer).append(data);    // here idEditedValueContainer is the container (the argument column for example) of the new item.
+					$("#"+idEditedValueContainer).children().last().effect("highlight", {}, 3000);                           // We append the jsp detail of the arg it at the bottom of its column.
+				
 				} else {  // Existing argument, we put it inplace
-					$("#"+idEditedValueContainer).replaceWith(data);
+					$("#"+idEditedValueContainer).replaceWith(data);  // Here idEditedValueContainer is the edited item
+					$("#"+idEditedValueContainer).effect("highlight", {}, 3000);  
 				}
 				console.log(idEditedValueContainer+"a été modifié");
 				// TODO: Add visual effect (highlight 1 second) to the div containing the argument detail just received (data).
@@ -58,6 +61,7 @@ function resetErrorMessagesInEditor(){
 
 //Finishes the activation of the editor
 function activateCkEditorAndHelpDiv(itemId) {
+	console.log(ckEditorUniqueInstance);
 	createCkEditor("contentItem");
 	showHelp('ckEditForm','help'+itemId);
 }

@@ -4,27 +4,38 @@ function argumentEditSubmit(){
 	var ispos =$('#ckEditForm > input[name="ispos"]').val();
 	if(typeof isNew ==="undefined" || isNew==""){
 		CKeditorEditSubmit("colArg"+ispos+">.listArgument");
+		$('#argumentAddDivFakeEditor'+ispos).show();  // Show the fake textarea to invite the user adding an argument.
+		var argumentAddDivRealEditor = $('#argumentAddDivRealEditor'+ispos);
+		argumentAddDivRealEditor.empty();
+		argumentAddDivRealEditor.hide();  // a small visible part may remain due to padding.
 	}else{
-		CKeditorEditSubmit('arg'+$('#ckEditForm > input[name="idItem"]').val());
+		CKeditorEditSubmit('item'+$('#ckEditForm > input[name="idItem"]').val());
 	}
-	$('#argumentAddDivFakeEditor'+ispos).show();  // Show the fake textarea to invite the user adding an argument.
-	var argumentAddDivRealEditor = $('#argumentAddDivRealEditor'+ispos);
-	argumentAddDivRealEditor.empty();
-	argumentAddDivRealEditor.hide();  // a small visible part may remain due to padding.
-
 	return false;
 }
 
+function hideAllCkEditorContainer(){
 
+	var ispos =$('#ckEditForm > input[name="ispos"]').val();
+	var isNew = $('#ckEditForm > input[name="idItem"]').val();	
+	if(typeof isNew ==="undefined" || isNew==""){
+		$('#argumentAddDivFakeEditor'+ispos).show();
+		$('#argumentAddDivRealEditor'+ispos).empty();
+		$('#argumentAddDivRealEditor'+ispos).hide();
+	}else{
+		sendSimpleValue(null,isNew,'item'+isNew,"/ajax/argument/refresh",""); //Refresh the div with the arg values no changes
+	}
+}
 //Display editor to edit an existing argument.
 function argumentEditStart(item, newid){
 	if (showMessageIfNotLogged(item)) {
 		return;
 	}
-	
+	hideAllCkEditorContainer();
 	$.post("/ajax/argument/edit",{argumentId:newid},
 				function(data){
-			$("#arg"+newid).html(data);
+			$("#ckEditForm").html("");
+			$("#item"+newid).html(data);
 			activateCkEditorAndHelpDiv(newid);
 			$("#CkEditFormSubmit").attr("onclick","return argumentEditSubmit();");//return false when method succes otherwise form is submitted
 	});
@@ -35,10 +46,11 @@ function argumentCreateStart(isPos, idAction) {
 	if (showMessageIfNotLogged($('#argumentAddDivFakeEditor'+isPos))) {
 		return;
 	}
-	
 	$('#argumentAddDivFakeEditor'+isPos).hide();
+	hideAllCkEditorContainer();
 	$.post("/ajax/argument/edit",{isPos:isPos,idAction:idAction},
 			function(data){
+				$("#ckEditForm").html("");
 				$('#argumentAddDivRealEditor'+isPos).html(data);
 				$('#argumentAddDivRealEditor'+isPos).show();
 				activateCkEditorAndHelpDiv('');
@@ -49,7 +61,15 @@ function argumentCreateStart(isPos, idAction) {
 }
 
 
-
+function deleteItem(item,idArgument){
+	var answer = confirm('Etes vous sur de vouloir supprimer cet argument?');
+	if (answer)
+	{
+		sendSimpleValue(item,idArgument,"item"+idArgument,"/ajax/argument/argdelete","");
+    	$("#item"+idArgument).html("");
+    	$("#item"+idArgument).hide();
+	}
+}
 ///////////////////////////////// VOTES 
 
 
@@ -69,8 +89,12 @@ function sendEditComment(item,itemId){
 function sendNewComment(item,divId,idArg){
 	sendSimpleValue(item,idArg,divId,"/ajax/argument/commentadd",$('#comm'+idArg).val());
 }
+
 function deleteComment(item,idComment,idDiv){
-	sendSimpleValue(item,idComment,idDiv,"/ajax/argument/deletecomment","");
+	var answer = confirm('Etes vous sur de vouloir supprimer ce commentaire?');
+	if (answer)	{
+		sendSimpleValue(item,idComment,idDiv,"/ajax/argument/commentdelete","");
+	}
 }
 
 

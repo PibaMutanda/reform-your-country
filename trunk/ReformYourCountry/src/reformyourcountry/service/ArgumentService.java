@@ -5,10 +5,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import reformyourcountry.model.Argument;
+import reformyourcountry.model.Comment;
 import reformyourcountry.model.User;
 import reformyourcountry.model.VoteArgument;
 import reformyourcountry.repository.ActionRepository;
 import reformyourcountry.repository.ArgumentRepository;
+import reformyourcountry.repository.CommentRepository;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.repository.VoteActionRepository;
 import reformyourcountry.repository.VoteArgumentRepository;
@@ -22,6 +24,7 @@ public class ArgumentService {
     @Autowired UserRepository userRepository;
     @Autowired VoteActionRepository voteActionRepository;
     @Autowired VoteArgumentRepository voteArgumentRepository;
+    @Autowired CommentRepository commentRepository;
     
     // A user is voting
     public void updateVoteArgument(Long idArg, int value, User user, Argument arg) {
@@ -51,7 +54,15 @@ public class ArgumentService {
         return null;  // Not found
     }
     
-    
+    public void deleteArgument(Argument arg){
+       for( Comment com :arg.getCommentList()){
+           commentRepository.remove(com);
+       }
+       for( VoteArgument vote :arg.getVoteArguments()){
+           voteArgumentRepository.remove(vote);
+       }
+       argumentRepository.remove(arg);
+    }
     
 
     

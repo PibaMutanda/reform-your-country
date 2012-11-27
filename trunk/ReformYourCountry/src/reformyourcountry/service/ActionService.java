@@ -12,12 +12,14 @@ import reformyourcountry.model.Argument;
 import reformyourcountry.model.User;
 import reformyourcountry.model.VoteAction;
 import reformyourcountry.repository.ActionRepository;
+import reformyourcountry.repository.ArgumentRepository;
 import reformyourcountry.repository.VoteActionRepository;
 import reformyourcountry.security.SecurityContext;
 
 @Service
 public class ActionService {
 	@Autowired VoteActionRepository voteActionRepository;
+    @Autowired ArgumentRepository argumentRepository;
 	@Autowired ActionRepository actionRepository;
 	@Autowired BadgeService badgeService;
 	
@@ -92,7 +94,7 @@ public class ActionService {
 	
 	public void putArgumentListInModelAndView(ModelAndView mv, Action action) {
         //Divide all the arguments in 2 lists: positive ones and negative ones.
-        List<Argument> listArgs = action.getArguments();
+        List<Argument> listArgs = argumentRepository.findAll(action.getId());
         List<Argument> listPosArgs = new ArrayList<Argument>();
         List<Argument> listNegArgs = new ArrayList<Argument>();
         for(Argument args :listArgs){

@@ -3,8 +3,6 @@ package reformyourcountry.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -94,7 +92,11 @@ public class ArgumentController extends BaseController<Argument>{
         return returnitemDetail(argument);
     }        
         
-    
+    @RequestMapping("ajax/argument/refresh")
+    public ModelAndView argumentVote(@RequestParam("id")Long idArg)throws Exception{
+        Argument arg = argumentRepository.find(idArg);
+        return returnitemDetail(arg);
+    }
     
     @RequestMapping("ajax/argument/vote")
     public ModelAndView argumentVote(@RequestParam("id")Long idArg,@RequestParam("value")int value)throws Exception{
@@ -148,7 +150,7 @@ public class ArgumentController extends BaseController<Argument>{
         mv.addObject("currentItem",arg);
         return mv;
     }
-    @RequestMapping("/ajax/argument/deletecomment")
+    @RequestMapping("/ajax/argument/commentdelete")
     public ModelAndView deleteComment(@RequestParam("id")Long idComment) throws Exception{
         Comment com = commentRepository.find(idComment);
         
@@ -165,6 +167,7 @@ public class ArgumentController extends BaseController<Argument>{
         return returnitemDetail(argument);
         
     }
+    
     @RequestMapping("/ajax/argument/commentedit")
     public ModelAndView commentEdit(@RequestParam("id")Long idComment,@RequestParam("value")String content) throws Exception{
         Comment com = commentRepository.find(idComment);
@@ -172,12 +175,26 @@ public class ArgumentController extends BaseController<Argument>{
             throw new Exception("this id doesn't reference any comment.");
         }
         if(!com.isEditable()){
-             throw new Exception("this person can't suppress this comment(hacking).");
+             throw new Exception("this person can't edit this comment(hacking).");
         }
         com.setContent(content);
         commentRepository.merge(com);
         Argument argument = com.getArgument();
         return returnitemDetail(argument);
+        
+    }
+
+    @RequestMapping("/ajax/argument/argdelete")
+    public String deleteArgument(@RequestParam("id")Long idArg) throws Exception{
+        Argument arg = argumentRepository.find(idArg);
+        if(arg ==null){
+            throw new Exception("this id doesn't reference any comment.");
+        }
+        if(!arg.isEditable()){
+             throw new Exception("this person can't suppress this comment(hacking).");
+        }
+        argumentService.deleteArgument(arg);
+        return "";
         
     }
 }

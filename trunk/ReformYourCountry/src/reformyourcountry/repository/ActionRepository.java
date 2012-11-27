@@ -14,6 +14,10 @@ public class ActionRepository extends BaseRepository<Action> {
         return    em.createQuery("select a from Action a order by upper(a.title)").getResultList();
     }
     
+    public Action findByShortName(String desc){
+        return getSingleOrNullResult(em.createQuery("select a from Action a where lower(a.shortName) = :shortname").setParameter("shortname",desc.toLowerCase()));
+    }
+    
     public List<Action> findByDate(Date publishDate, int maxAmount){
     	return em.createQuery("select a from Action a where (a.createdOn < :now) order by a.createdOn DESC")
     			.setParameter("now", new Date())

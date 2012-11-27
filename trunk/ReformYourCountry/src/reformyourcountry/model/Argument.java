@@ -178,7 +178,8 @@ public class Argument extends BaseEntity implements IVote{
         }
         return 0;
     }
-    public boolean isEditable(){
+    
+    public boolean isEditable(){  // Placed in the entity because used in JSPs (EL).
         return SecurityContext.canCurrentUserEditArgument(this);
     }
 }
