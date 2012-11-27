@@ -154,11 +154,11 @@
 						<div class="goodexample-list">
 						
 						
-						<c:forEach items="${article.goodExamples}" var="example">
-						     <a href="/goodexample/${example.url}">example.title</a>
+						<c:forEach items="${lastFiveExample}" var="example">
+						     <a href="/goodexample/${example.title}">example.title</a>
 						</c:forEach>
 						
-						<ryc:conditionDisplay privilege="EDIT_ARTICLE">
+							<ryc:conditionDisplay privilege="EDIT_ARTICLE">
 								<div class="article-options">
 									<a href="/articlegoodexamplelinkedit?id=${article.id}">
 										editer bons exemples

@@ -2,7 +2,10 @@ package reformyourcountry.repository;
 
 
 import java.util.List;
+
 import org.springframework.stereotype.Repository;
+
+import reformyourcountry.model.Article;
 import reformyourcountry.model.GoodExample;
 
 
@@ -16,5 +19,11 @@ public class GoodExampleRepository extends BaseRepository<GoodExample>{
 		return goodExamples;
 	
 	}
-	
+	@SuppressWarnings("unchecked")
+	public List<GoodExample> findLastGoodExample(Article article, int amount){
+		return em.createQuery("select g from GoodExample g where g.articles.id := article order by g.publishDate DESC")
+				.setParameter("article", article.getId())
+				.setMaxResults(amount)
+    			.getResultList();
+	}
 }

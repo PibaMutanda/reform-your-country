@@ -2,10 +2,9 @@ package reformyourcountry.controller;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +17,12 @@ import reformyourcountry.controller.ActionListController.ActionItem;
 import reformyourcountry.converter.BBConverter;
 import reformyourcountry.model.Action;
 import reformyourcountry.model.Article;
+import reformyourcountry.model.GoodExample;
 import reformyourcountry.model.VoteAction;
 import reformyourcountry.repository.ActionRepository;
 import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.repository.BookRepository;
+import reformyourcountry.repository.GoodExampleRepository;
 import reformyourcountry.repository.VideoRepository;
 import reformyourcountry.repository.VoteActionRepository;
 import reformyourcountry.security.Privilege;
@@ -41,6 +42,7 @@ public class ArticleDisplayController extends BaseController<Article> {
 	@Autowired VideoRepository videoRepository;
 	@Autowired VoteActionRepository voteActionRepository;
 	@Autowired ActionService actionService;
+	@Autowired GoodExampleRepository goodExampleRepository;
 
 	@RequestMapping(value={"/{articleUrl}"})
 	public ModelAndView articleDisplay( @PathVariable("articleUrl") String articleUrl){
@@ -62,7 +64,7 @@ public class ArticleDisplayController extends BaseController<Article> {
 			ActionItem actionItem = new ActionItem(action, actionService.getResultNumbersForAction(action), va);
 			actionItemsParent.add(actionItem);   
 		}
-
+		
 		//this one serves for sort the action list of children, because we should have the same action in differents children
 		for(Article a : article.getChildrenAndSubChildren()){
 			for(Action ac : a.getActions()){
@@ -74,6 +76,10 @@ public class ArticleDisplayController extends BaseController<Article> {
 			}
 		}
 		
+		//we find the lats five GoodExample for this article
+		List<GoodExample> lastFiveExample = goodExampleRepository.findLastGoodExample(article, 5);
+		
+		mv.addObject("lastFiveExample", lastFiveExample);
 		mv.addObject("actionItemsChildren", actionItemsChildren);
 		mv.addObject("actionItemsParent", actionItemsParent);
 		log.debug("i found "+article.getTitle());
