@@ -15,7 +15,8 @@
     height: 11px;
 }
  #CU3ER-container{
-	width:465px;
+	width:100%;
+	display:inline-block;
 }
 .center-align { /* use this class instead of <center>*/
     text-align: center;
