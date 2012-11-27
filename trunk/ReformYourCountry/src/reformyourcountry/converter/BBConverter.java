@@ -246,49 +246,8 @@ public class BBConverter {
 	             addErrorMessage("invalid id "+idStr+" (corresponding action not found)", tag);
 	             return;
 	    }
-		bufferTextForP("<span class='action quote'>"+action.getShortDescription());
-        // TODO: prevents  [untranslated]  inside quote inline.
-                   // Add the quoted text.
-
-        String quoteHtml ="</span>";
-        // Outside div which will not be taken inside the tooltip.
-        quoteHtml +="<div style='display:none;'>";    // We don't display the author within the text (=> display: none).   
-
-        // Inner div, taken within the tooltip.
-        quoteHtml +="<div class='actionToolTip'>";  // div and class to style the tooltip through CSS.
-        quoteHtml += "<a href='/action/"+action.getUrl()+"' target = '_blank'>"+action.getTitle()+"</a>";
-        quoteHtml +="</div>";
-        quoteHtml +="</div>";
-//        if (author != null) { // Normally, here book == null
-//            // We need to display, in a bubble tooltip, the author (and maybe with an out link to an URL).
-//            // We create a div with that content.
-//
-//            // Outside div which will not be taken inside the tooltip.
-//            quoteHtml +="<div style='display:none;'>";    // We don't display the author within the text (=> display: none).   
-//
-//            // Inner div, taken within the tooltip.
-//            quoteHtml +="<div class='authorToolTip'>";  // div and class to style the tooltip through CSS.
-//
-//            if (outUrl != null) {
-//                quoteHtml += "<a href='"+outUrl+"' target = '_blank'>"+author+"</a>";
-//            } else {
-//                quoteHtml += author;
-//            }
-//
-//            quoteHtml +="</div>";
-//            quoteHtml +="</div>";
-//        }
-//        
-        bufferTextForP(quoteHtml);
-		///// Get the action from the DB.
-		// TODO: Action action = actionDao.find(id);
-		// if (action == null) {
-		//     addErrorMessage("invalid id "+id+" (corresponding action not found)", tag);
-		//     return;
-		// }
-		
-		html += "<span class=\"action-title\">" + "Coca gratuit" + "</div><div class=\"action-body\">"+"Il faut que le coca-cola soit gratuit chez TechnofuturTic"+"</div>"; 
-	}
+		bufferTextForP("<a href='/action/"+action.getUrl()+"'>"+action.getTitle()+"</a>");
+    }
 	
 	private String getInnerTextContent(BBTag tag) {
 		String content = "";
