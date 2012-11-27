@@ -45,6 +45,7 @@
 			</c:choose>
 		</table>
 		<input type="hidden" name="idarticle" value="${id}">
+		
 	</form>
 </body>
 </html>
