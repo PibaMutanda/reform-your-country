@@ -1861,8 +1861,7 @@ background: url("/images/_global/bg-buttons-sprite.png") no-repeat scroll 100% -
 }
 .listarticle{
 	font-size: 1em;
-	display:inline-block; 
-	width:450px;
+	
 	padding-bottom:10px;
 }
 .listarticle div span {
@@ -1872,6 +1871,21 @@ background: url("/images/_global/bg-buttons-sprite.png") no-repeat scroll 100% -
 .listarticle div  {
 	font-size: 0.9em;
 }
+.listaction{
+	
+	font-size: 1em;
+	display:inline-block;
+	padding-bottom:10px; 
+	width:100%;
+}
+.listaction div span {
+	font-size: 0.7em;
+}
+.listaction div {
+	
+	font-size: 0.9em;
+}
+
 .h7 {font-size:0.8em; margin-bottom: 15px !important; border-bottom-style: solid;border-bottom-width: 1px;}
 
 .listToSearchTitle{
