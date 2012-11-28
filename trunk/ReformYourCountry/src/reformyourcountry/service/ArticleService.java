@@ -144,6 +144,7 @@ public class ArticleService {
 	     for(ArticleVersion va: articleVersionRepository.findAllVersionForAnArticle(article)){
 	         articleVersionRepository.remove(va);
 	     }
+	     indexManagerService.deleteArticle(article);
 	     articleRepository.remove(article);
 	 }
 	 

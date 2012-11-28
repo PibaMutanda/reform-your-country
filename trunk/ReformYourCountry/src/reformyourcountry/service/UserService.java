@@ -41,6 +41,7 @@ import reformyourcountry.model.BadgeType;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountConnectedType;
 import reformyourcountry.model.User.AccountStatus;
+import reformyourcountry.model.User.Role;
 import reformyourcountry.model.User.SpecialType;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.security.SecurityContext;
@@ -457,7 +458,16 @@ public class UserService {
     	}
     }
     
-
+    public void setAnonymous(User user){
+        changeUserName(user, "Anonymous"+user.getId(), "", "");
+        user.setTitle("");
+        user.setCertificationDate(null);
+        user.setBirthDate(null);
+        user.setGender(null);
+        user.setAccountStatus(AccountStatus.LOCKED);
+        user.setRole(Role.ANONYMOUS);
+        user.setPicture(false);
+    }
     
 	
 }
