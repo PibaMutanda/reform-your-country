@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
+
  
 
 <head>
@@ -17,6 +18,7 @@
 <script src="js/ext/jsCarousel-2.0.0.js" type="text/javascript"></script>
 <meta name="robots" content="index, follow"/>
 <meta name="description" content="${article.description}"/>
+<meta name="title" content ="${article.title}"/>
 <c:if test="${fn:length(videoList) gt 3}">
     <script type="application/javascript">
         $(document).ready(function() {
@@ -104,12 +106,7 @@
 		  	  <ryc:conditionDisplay privilege="EDIT_ARTICLE">
 		 		 <hr/>
 			  </ryc:conditionDisplay>
-				<c:if test="${empty article.children}">
-					<a href="article/${article.url}/pdf"><img class="generatepdfarticle" style="cursor:pointer;" src="images/pdf_button.png" width="50px"height="47px"></img></a>
-				</c:if>
-				<c:if test="${!empty article.children}">
-					<img class="generatepdfgroup" style="cursor:pointer;" src="images/pdf_button.png" width="50px"height="47px"></img>
-				</c:if>
+				
 				<div id="carouselh">
 					<c:forEach items="${videoList}" var="video">
 						<div class="inline-block">
@@ -119,10 +116,22 @@
 				</div>
 				<!-- AddThis Button BEGIN -->
 				<div class="addthis_toolbox addthis_default_style" style="padding-top:30px; padding-bottom:10px;">
+				 <div style="float:left">
    					<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
 					<a class="addthis_button_tweet"></a>
 					<a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
 					<a class="addthis_counter addthis_pill_style"></a>
+				 </div>
+				 <div style="float:right;vertical-align:bottom">	
+					<c:if test="${empty article.children}">
+					<img class="generatepdfarticle" style="cursor:pointer;text-align:right;" src="images/pdf_button.png"></img>
+			    	</c:if>
+				    <c:if test="${!empty article.children}">
+					<img class="generatepdfgroup" style="cursor:pointer;text-align:right;" src="images/pdf_button.png"></img>
+				    </c:if>
+				 </div>	
+					
+					
 				</div>
 			    <!-- AddThis Button END -->
 			  
@@ -205,8 +214,9 @@
 		</c:if>
 	  </c:otherwise>
 </c:choose>
-
-
+<!-- Used by javascript (generatedpdf.js) -->
+<input type = "hidden" name = "articleId" value="${article.id}" >
+<input type = "hidden" name = "articleUrl" value="${article.url}" >
 </body>
 </html>   
 
