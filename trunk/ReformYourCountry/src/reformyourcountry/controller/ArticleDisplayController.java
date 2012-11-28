@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.controller.ActionListController.ActionItem;
@@ -27,6 +28,8 @@ import reformyourcountry.repository.VoteActionRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.ActionService;
+import reformyourcountry.service.ArticleService;
+import reformyourcountry.tag.ArticleNavBarTag;
 import reformyourcountry.util.DateUtil;
 import reformyourcountry.util.Logger;
 
@@ -42,6 +45,7 @@ public class ArticleDisplayController extends BaseController<Article> {
 	@Autowired VoteActionRepository voteActionRepository;
 	@Autowired ActionService actionService;
 	@Autowired GoodExampleRepository goodExampleRepository;
+	@Autowired ArticleService articleService;
 
 	@RequestMapping(value={"/{articleUrl}"})
 	public ModelAndView articleDisplay( @PathVariable("articleUrl") String articleUrl){
@@ -110,8 +114,14 @@ public class ArticleDisplayController extends BaseController<Article> {
 		mv.addObject("videoList",videoRepository.findAllVideoForAnArticle(article));
 		return mv;
 	}
-
-
+	
+	@RequestMapping(value={"/delete"})
+    public ModelAndView articleDelete(@RequestParam("id") Long idArticle){
+	    Article article = articleRepository.find(idArticle);
+	    articleService.deleteArticle(article);
+        ArticleNavBarTag.invalidateNavBarCache();
+	    return new ModelAndView("redirect:/article");
+	}
 
 	@RequestMapping(value={"/a_classer/{articleUrl}"})
 	public ModelAndView toClassifyDisplay( @PathVariable("articleUrl") String articleUrl){
@@ -120,7 +130,7 @@ public class ArticleDisplayController extends BaseController<Article> {
 
 		Article article = getRequiredEntityByUrl(articleUrl);
 		mv.addObject("article", article);
-
+		
 		// For the breadcrumb
 		mv.addObject("parentsPath", article.getParentPath());
 

@@ -11,17 +11,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.model.Action;
-import reformyourcountry.model.Book;
 import reformyourcountry.repository.ActionRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
+import reformyourcountry.service.ActionService;
 
 @Controller
 @RequestMapping("/action")
 public class ActionEditController extends BaseController<Action>{
     
     @Autowired ActionRepository actionRepository;
-  
+    @Autowired ActionService actionService;
     
     @RequestMapping("/create")
     public ModelAndView actionCreate(){
@@ -33,7 +33,15 @@ public class ActionEditController extends BaseController<Action>{
     @RequestMapping("/edit")
     public ModelAndView actionEdit(@RequestParam("id") long actionId){
         Action action = getRequiredEntity(actionId); 
+        
         return new ModelAndView("actionedit","action",action);
+    }
+    @RequestMapping("/delete")
+    public ModelAndView actionDelete(@RequestParam("id") long actionId){
+        Action action = getRequiredEntity(actionId); 
+        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ACTION);
+        actionService.delete(action);
+        return new ModelAndView("redirect:/action");
     }
    
     @RequestMapping("/editsubmit")
