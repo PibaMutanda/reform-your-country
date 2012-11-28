@@ -1794,3 +1794,103 @@ border-radius: 5px;
 .portfolio_content_top_portrait {float: left;width: 293px;height: 389px;}
 .port_img_portrait_full {width: 612px;height: 792px;float: left;position: absolute;top:8px;left:9px;}
 .portfolio_portrait_full_last {float: right;width: 630px;height: 836px;position: relative;}
+
+/*---------------------------------------------------------------*/
+/* Added By cedric and Delphine
+/*---------------------------------------------------------------*/
+.realshadow{
+   border : solid 10px; /*needed to draw border (in some browsers)*/
+   -moz-border-image: url(/images/_global/cadre.png) 8  stretch;/* for before firefox15*/
+   -webkit-border-image: url(/images/_global/cadre.png) 8  stretch; /*for safari ,mobile browser and chrome before 16*/
+   -o-border-image: url(/images/_global/cadre.png) 8    stretch; /* for opera*/
+   border-image: url(/images/_global/cadre.png) 8    stretch; /*correct declaration*/
+	
+/* padding: 10px; */
+/* -moz-border-radius: 5px; */
+/* -webkit-border-radius: 5px; */
+/* border-radius: 5px; */
+/* background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#182947), color-stop(51%,#436591), color-stop(100%,#182947)); Chrome,Safari4+ */
+/* background: #182947; Old browsers */
+/* background: -moz-linear-gradient(top, #182947 0%, #436591 51%, #182947 100%); FF3.6+ */
+/* background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#182947), color-stop(51%,#436591), color-stop(100%,#182947)); Chrome,Safari4+ */
+/* background: -webkit-linear-gradient(top, #182947 0%,#436591 51%,#182947 100%); Chrome10+,Safari5.1+ */
+/* background: -o-linear-gradient(top, #182947 0%,#436591 51%,#182947 100%); Opera 11.10+ */
+/* background: -ms-linear-gradient(top, #182947 0%,#436591 51%,#182947 100%); IE10+ */
+/* background: linear-gradient(to bottom, #182947 0%,#436591 51%,#182947 100%); W3C */
+/* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#182947', endColorstr='#182947',GradientType=0 ); IE6-9 */
+}
+
+
+
+
+
+
+.logodiv {cursor:pointer; float:left;  padding-top: 28px;}
+.logodiv div a{color:#7D92B9}
+.button{
+	margin: 0;
+padding: 16px 0 17px 21px;
+line-height: 10px;
+background: transparent url(images/_global/bg-buttons-sprite.png) 0 0 no-repeat scroll;
+}
+.spanbutton{
+	background-image: url(images/_global/bg-buttons-sprite-royalblue.png) !important;
+}
+.small{
+	margin: 5px 10px 5px 0px;
+padding: 0px 21px 0px 0px;
+font-size: 0.9em;
+background: url("/images/_global/bg-buttons-sprite.png") no-repeat scroll 100% -43px transparent;
+}
+.text-big{
+	font-size: 15px;
+}
+.listarticle{
+	font-size: 1em;
+	
+	padding-bottom:10px;
+}
+.listarticle div span {
+	font-size: 0.7em;
+}
+
+.listarticle div  {
+	font-size: 0.9em;
+}
+.listaction{
+	
+	font-size: 1em;
+	display:inline-block;
+	padding-bottom:10px; 
+	width:100%;
+}
+.listaction div span {
+	font-size: 0.7em;
+}
+.listaction div {
+	
+	font-size: 0.9em;
+}
+.listgoodexample{
+	font-size: 1em;
+	display:inline-block;
+	padding-bottom:10px; 
+	width:100%;
+}
+.listgoodexample div span{
+	font-size: 0.7em;
+}
+
+.listgoodexample div{
+	font-size: 0.9em;
+}
+
+.h7 {font-size:0.8em; margin-bottom: 15px !important; border-bottom-style: solid;border-bottom-width: 1px;}
+
+.listToSearchTitle{
+	font-size:22px;
+}
+
+.listToSearch{
+	font-size:90%;
+}
