@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import reformyourcountry.badge.BadgeType;
 import reformyourcountry.model.Badge;
+import reformyourcountry.model.BadgeType;
 //import reformyourcountry.repository.BadgeRepositorty;
 import reformyourcountry.repository.BadgeRepository;
 

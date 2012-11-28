@@ -33,7 +33,6 @@ import org.springframework.social.google.api.Google;
 import org.springframework.social.linkedin.api.LinkedIn;
 import org.springframework.social.twitter.api.Twitter;
 
-import reformyourcountry.badge.BadgeType;
 import reformyourcountry.mail.MailingDelayType;
 import reformyourcountry.security.Privilege;
 
