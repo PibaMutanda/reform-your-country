@@ -45,6 +45,12 @@
 		<tag-class>reformyourcountry.tag.ArticleListTag</tag-class>
 		<body-content>empty</body-content>
 	</tag>
+		
+	<tag>
+		<name>articlesListMultiSelect</name>
+		<tag-class>reformyourcountry.tag.ArticlesLinkedGoodExempleTag</tag-class>
+		<body-content>empty</body-content>
+	</tag>
 	
 	<tag>
 		<name>conditionDisplay</name>

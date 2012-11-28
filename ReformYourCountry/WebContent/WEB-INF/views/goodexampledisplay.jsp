@@ -30,12 +30,14 @@
             </c:forEach>
         </c:otherwise>
     </c:choose>
+    <br/>
+    <a href="/articlelinkedgoodexample?id=${goodExample.id}" >Liste des articles</a>
     
-    <form action="/ajax/goodexample/edit/addarticle" method="post">
-        <label for="articleUrl">ajout de l'article</label><input type="text" placeholder="url" name="articleUrl" id="articleUrl"/>
-        <input type="submit" value="ajouter" /> 
-        <input type="hidden" name="goodExampleId" value="${goodExample.id}">
-    </form>
+<%--     <form action="/ajax/goodexample/edit/addarticle" method="post"> --%>
+<!--         <label for="articleUrl">ajout de l'article</label><input type="text" placeholder="url" name="articleUrl" id="articleUrl"/> -->
+<!--         <input type="submit" value="ajouter" />  -->
+<%--         <input type="hidden" name="goodExampleId" value="${goodExample.id}"> --%>
+<%--     </form> --%>
     <script type="text/javascript">
 //     //global var for editor because we want only one editor per page
 //     $.ckeditorNameSpace = { 

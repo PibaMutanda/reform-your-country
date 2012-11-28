@@ -5,13 +5,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.model.Article;
 import reformyourcountry.model.BaseEntity;
+import reformyourcountry.model.GoodExample;
 import reformyourcountry.model.User.Role;
 import reformyourcountry.repository.ArticleRepository;
+import reformyourcountry.repository.GoodExampleRepository;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.ArticleService;
 import reformyourcountry.service.IndexManagerService;
@@ -26,6 +29,7 @@ public class AdminController  extends BaseController<BaseEntity> {//used for set
 	@Autowired IndexManagerService indexManagerService;
 	@Autowired ArticleRepository articleRepository;
 	@Autowired ArticleService articleService;
+	@Autowired GoodExampleRepository goodExampleRepository;
 
 	@RequestMapping("")
 	public ModelAndView adminDisplay(){
@@ -56,4 +60,8 @@ public class AdminController  extends BaseController<BaseEntity> {//used for set
 		}
 		return new ModelAndView("redirect:/admin");
 	}
+	
+
+
+
 }
