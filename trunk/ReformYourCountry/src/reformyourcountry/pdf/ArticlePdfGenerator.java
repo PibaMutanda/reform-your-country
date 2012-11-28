@@ -56,22 +56,28 @@ public class ArticlePdfGenerator {
 	private final String CSS = 
 			"h1 { "+
 			"font-size: 2.0em;"+
+			"font-family: Colaborate, Arial, sans-serif;"+
 			"}"+
 			"h2 { "+
 			"font-size: 1.9em;"+
 			"font-weight: normal;"+
+			"font-family: Colaborate, Arial, sans-serif;"+
 			"}"+
 			"h3 {"+
 			"font-size: 18px;"+
+			"font-family: Colaborate, Arial, sans-serif;"+
 			"}"+
 			"h4 {"+
 			"font-size: 15px;"+
+			"font-family: Colaborate, Arial, sans-serif;"+
 			"}"+
 			"#gardeTitle{"+
 			"font-size:32;"+
 			"}"+
 			"body{"+
-			"font-family:arial, helvetica, verdana, sans-serif;"+
+			"font-family:Georgia, \"DejaVu Serif\", Norasi, serif;"+
+			"color: #444;"+
+			"display: block;"+
 			"font-size:15px;"+
 			"}"+
 			"strong, b {"+
@@ -135,11 +141,6 @@ public class ArticlePdfGenerator {
 			"text-align: right;"+
 			"margin-left: 50px;"+
 			"margin-bottom:1em;"+
-			"}"+
-			".article_content {"+
-			"font-family: Georgia, \"DejaVu Serif\", Norasi, serif;"+
-			"color: #444;"+
-			"display: block;"+
 			"}"+
 			".quote-block {"+
 			"margin: 0;"+
