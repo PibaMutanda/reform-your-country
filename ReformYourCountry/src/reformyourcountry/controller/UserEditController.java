@@ -71,11 +71,11 @@ public class UserEditController extends BaseController<User> {
     }
 
     @RequestMapping("/deleteconfirmed")
-    public String userDeleteConfirmed(@RequestParam(value="id") Long idUser){
+    public ModelAndView userDeleteConfirmed(@RequestParam(value="id") Long idUser){
         User user  = userRepository.find(idUser);
         SecurityContext.assertCurrentUserMayEditThisUser(user);
         userService.setAnonymous(user);
-        return "home";
+        return new ModelAndView("home","message","L'utilisateur est bien supprimé");
     }
     
     

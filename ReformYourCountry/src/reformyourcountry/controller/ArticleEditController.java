@@ -76,6 +76,21 @@ public class ArticleEditController extends BaseController<Article>{
         }
 	}
 	
+	   @RequestMapping(value={"/delete"})
+	    public ModelAndView articleDelete(@RequestParam("id") Long idArticle){
+	        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
+	        Article article = getRequiredEntity(idArticle);
+	        return getConfirmBeforeDeletePage(article.getTitle(), "/article/deleteconfirmed", "/article/"+article.getUrl(), idArticle);
+	    }
+	    @RequestMapping(value={"/deleteconfirmed"})
+	    public ModelAndView articleDeleteConfirmed(@RequestParam("id") Long idArticle){
+	        // TODO ASSERT
+	        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
+	        Article article = articleRepository.find(idArticle);
+	        articleService.deleteArticle(article);
+	        return new ModelAndView("article","message","L'article et ses descendants ont bien été supprimés");
+	    }
+	
 	@ModelAttribute
 	public Article findArticle(@RequestParam(value="id",required=false)Long id){
 	    if(id==null){

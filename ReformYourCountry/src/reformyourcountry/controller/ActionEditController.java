@@ -47,7 +47,7 @@ public class ActionEditController extends BaseController<Action>{
         Action action = getRequiredEntity(actionId); 
         SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ACTION);
         actionService.delete(action);
-        return new ModelAndView("redirect:/action");
+        return new ModelAndView("/action","message","L'action a bien été supprimée");
     }
    
     @RequestMapping("/editsubmit")

@@ -39,6 +39,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import reformyourcountry.converter.BBConverter;
+import reformyourcountry.model.Action;
 import reformyourcountry.model.Article;
 import reformyourcountry.repository.ActionRepository;
 import reformyourcountry.repository.ArticleRepository;
@@ -256,6 +257,11 @@ public class IndexManagerService {
     	SimpleFSDirectory sfsd = new SimpleFSDirectory(new File(FileUtil.getLuceneIndexDirectory()));
         IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_40, new StandardAnalyzer(Version.LUCENE_40));
         return new IndexWriter(sfsd, iwc);
+    }
+
+    public void deleteAction(Action action) {
+        // TODO implement me
+        
     }
     
 }
