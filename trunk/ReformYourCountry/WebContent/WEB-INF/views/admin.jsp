@@ -19,6 +19,10 @@
 <input type="submit" value="génération de l'html de tous les articles"/>
 </form>
 
-
+<ul>
+   <li>
+		<a href="/privilegeoverview">Liste des utilisateurs ayant un rôle ou un privilège spécial</a>
+   </li>
+</ul>
 </body>
 </html>
