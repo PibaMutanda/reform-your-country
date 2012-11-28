@@ -48,13 +48,13 @@ public class PdfGeneratorController extends BaseController<Article>{
                                                       HttpServletResponse response){
         Article article = null;
         if(idArticle != null){ //if id article is null that mean we re trying to generate the pdf from the whole article list page.
-        article = this.getRequiredEntity(idArticle);
-       
-        if(!article.isPublished() && !SecurityContext.isUserHasPrivilege(Privilege.EDIT_ARTICLE)){
-            throw new UnauthorizedAccessException("You're trying to access pdf by url hacking");
+            article = this.getRequiredEntity(idArticle);
+
+            if(!article.isPublished() && !SecurityContext.isUserHasPrivilege(Privilege.EDIT_ARTICLE)){
+                throw new UnauthorizedAccessException("You're trying to access pdf by url hacking");
+            }
         }
         
-        }
         boolean includeNotPublished = isNotPublished != null ? isNotPublished : false;
         if (includeNotPublished){
             SecurityContext.assertUserHasPrivilege(Privilege.VIEW_UNPUBLISHED_ARTICLE);
@@ -67,24 +67,17 @@ public class PdfGeneratorController extends BaseController<Article>{
         
         ArticlePdfGenerator cPdf = null;
         try {
-            if(article == null){ // if article is null that mean we re trying to generate the pdf from the whole article list page.
-
-                ArticleTreePdfVisitor atv = new ArticleTreePdfVisitor();
-                ArticleTreeWalker atw = new ArticleTreeWalker(atv, articleRepository);
-                atw.walk();
-
-                cPdf = new ArticlePdfGenerator(atv.getListResult(),cover,toc,onlysummary,includeNotPublished,true);
-            }else{
-                cPdf = new ArticlePdfGenerator(article,cover,toc,onlysummary,subarticles,includeNotPublished,true);
-            }
+            
+            
+            cPdf = new ArticlePdfGenerator(article,articleRepository,cover,toc,onlysummary,subarticles,includeNotPublished,true);
+          
             ByteArrayOutputStream baos = null;
-            if(cPdf != null)
+            if(cPdf != null)  {
               baos = cPdf.generatePdf();
-
+            }
+            
             // Put the outpustream in the response.
-
             response.setHeader("Content-Disposition", "attachment; filename=" + (article != null ? article.getUrl() : "Enseignement2_be")+".pdf");
-
             response.setContentType("application/pdf");
 
             if (baos != null){
