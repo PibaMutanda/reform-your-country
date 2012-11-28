@@ -6,6 +6,15 @@
  
 
 <head>
+<!-- code used for "i like facebook" -->
+	 <meta property="og:title" content="${article.title}" /> 
+     <meta property="og:type" content="article" /> 
+     <meta property="og:url" content="http://www.enseignement2.be/article/${article.title}" /> 
+     <meta property="og:image" content="images/logo/2-logo.png" /> 
+     <meta property="og:site_name" content="www.enseignement2.be" /> 
+     <meta property="fb:admins" content="${user.id}" /> 
+     <meta property="og:description"  content="${article.description}" />
+     
 <link rel="stylesheet" href="css/ext/jquery-bubble-popup-v3.css"  type="text/css" />
 <script src="js/ext/jquery-bubble-popup-v3.min.js" type="text/javascript"></script>
 <script src="js/int/bubble-pop-up-articledisplay.js" type = "text/javascript"></script>
@@ -31,28 +40,13 @@
  src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-509a829c59a66215"></script>
  
  
- 	<!-- code used for "i like facebook" -->
-	 <meta property="og:title" content="${article.title}"/> 
-     <meta property="og:type" content="article"/> 
-     <meta property="og:url" content="http://www.enseignement2.be/article/${article.title}"/> 
-     <meta property="og:image" content=""/> 
-     <meta property="og:site_name" content="www.enseignement2.be"/> 
-     <meta property="fb:admins" content="${user.id}"/> 
-     <meta property="og:description"  content="${article.description}"/> 
+ 	 
 
      
  
 </head>
 <body>
 
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
 
 
 
@@ -141,17 +135,27 @@
 					<div style="float:right;">
 					
 						<div class="action-list">
+							<div class="action-goodexample-title" >
+								actions
+							</div>
+							
 						
 							<c:set var="actionItems" value="${actionItemsParent}" scope="request"/>
  						    <%@include file="actionsummary.jsp"%>
  						    
 							<ryc:conditionDisplay privilege="EDIT_ARTICLE">
-								<div class="article-options">
-									<a href="/articleactionlinkedit?id=${article.id}">
-										editer actions
-									</a>
+								<div class="article-liens" >
+									<div style="text-align:right;">
+										<a href="/articleactionlinkedit?id=${article.id}">
+											
+												éditer actions
+											
+										</a>
+									</div>
 								</div>
-								<hr/>
+								<c:if test="${!article.children.isEmpty()}">
+									<hr/>
+								</c:if>
 							</ryc:conditionDisplay> 
 							
 							<div>
@@ -164,20 +168,24 @@
 						
 						<div class="goodexample-list">
 						
+						<div class="action-goodexample-title"  >
+								bons exemples
+							</div>
 						
 						<c:forEach items="${lastFiveExample}" var="example">
 							<div>
 						   	  <a href="/goodexample/${example.title}">${example.title}</a>
 						    </div>
 						</c:forEach>
-						
+						<%--we are waiting for Max's page --%>
 							<ryc:conditionDisplay privilege="EDIT_ARTICLE">
-								<div class="article-options">
-									<a href="/articlegoodexamplelinkedit?id=${article.id}">
-										editer bons exemples
-									</a>
+								<div class="article-liens">
+									<div style="text-align:right;">
+										<a href="/articlegoodexamplelinkedit?id=${article.id}" style="text-align:rignt;">
+											plus ...
+										</a>
+									</div>
 								</div>
-								<hr/>
 						</ryc:conditionDisplay> 
 						</div>
 						
