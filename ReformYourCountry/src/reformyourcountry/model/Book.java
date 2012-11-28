@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotBlank;
@@ -12,7 +13,8 @@ import org.hibernate.validator.constraints.NotBlank;
 public class Book extends BaseEntity {
 	
     @NotBlank(message = "Vous devez introduire une abréviation")
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length=20)
+    @Size(max=20, message="l'abréviation ne peut contenir que 20 caractères maximum")
     String abrev;
     
     String title;
