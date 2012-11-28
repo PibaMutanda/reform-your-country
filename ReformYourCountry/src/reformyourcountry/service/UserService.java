@@ -448,7 +448,7 @@ public class UserService {
     				&& user.getGender() != null
     				&& user.getLastName() != null
     				&& user.getMail() != null
-    				&& user.isPicture() != true
+    				&& user.isPicture() == true
     				&& user.getTitle() != null
     				&& user.getUserName() != null   ) {
     		badgeService.saveBadgeTypeForUser(BadgeType.AUTOBIOGRAPHER, user);
