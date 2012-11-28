@@ -24,4 +24,9 @@ public class ActionRepository extends BaseRepository<Action> {
     			.setMaxResults(maxAmount)
     			.getResultList();
     }
+    public List<Action> findByUpdateDate(){
+    	return em.createQuery("select a from Action a where (a.updatedOn < :now) order by a.updatedOn DESC")
+    			.setParameter("now", new Date())
+    			.getResultList();
+    }
 }
