@@ -28,7 +28,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.request.WebRequest;
 
-import reformyourcountry.badge.BadgeType;
 import reformyourcountry.exception.InvalidPasswordException;
 import reformyourcountry.exception.UserAlreadyExistsException;
 import reformyourcountry.exception.UserAlreadyExistsException.IdentifierType;
@@ -38,6 +37,7 @@ import reformyourcountry.exception.UserNotValidatedException;
 import reformyourcountry.mail.MailCategory;
 import reformyourcountry.mail.MailType;
 import reformyourcountry.model.Badge;
+import reformyourcountry.model.BadgeType;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountConnectedType;
 import reformyourcountry.model.User.AccountStatus;

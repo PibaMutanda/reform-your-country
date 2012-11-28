@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import reformyourcountry.badge.BadgeType;
 import reformyourcountry.model.Badge;
+import reformyourcountry.model.BadgeType;
 import reformyourcountry.model.User;
 import reformyourcountry.repository.ActionRepository;
 import reformyourcountry.repository.BadgeRepository;

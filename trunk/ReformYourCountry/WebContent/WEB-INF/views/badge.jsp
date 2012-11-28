@@ -35,16 +35,20 @@
            <c:if test="${current.user.isHasBadgeType(badgeMapEntry.key)}"><img  class="badge-earned-check"   alt="badge earned" src="/images/badge_earned.png" />
            </c:if>  
        </td>
-       <td class="badge-cell"><span class="badge"  >
-       		<c:choose> 
-          		<c:when test="${badgeMapEntry.key.badgeTypeLevel.name=='Or'}"><span class="badge1"></span></c:when>
-          		<c:when test="${badgeMapEntry.key.badgeTypeLevel.name=='Argent'}"><span class="badge2"></span></c:when>
-          		<c:when test="${badgeMapEntry.key.badgeTypeLevel.name=='Bronze'}"><span class="badge3"></span></c:when>
-           	</c:choose>
-           	&nbsp;${badgeMapEntry.key.name}</span>
-       		<span class="item-multiplier">× ${badgeMapEntry.value}</span>
+       <td class="badge-cell">
+          <a href="usersbybadge?badgeType=${badgeMapEntry.key}"> 
+          	<span class="badge" >
+       			<c:choose> 
+          			<c:when test="${badgeMapEntry.key.badgeTypeLevel.name=='Or'}"><span class="badge1"></span></c:when>
+          			<c:when test="${badgeMapEntry.key.badgeTypeLevel.name=='Argent'}"><span class="badge2"></span></c:when>
+          			<c:when test="${badgeMapEntry.key.badgeTypeLevel.name=='Bronze'}"><span class="badge3"></span></c:when>
+           		</c:choose>
+           	&nbsp;${badgeMapEntry.key.name}
+          	</span>
+          </a>
+       	  <span class="item-multiplier">× ${badgeMapEntry.value}</span>
        </td> 
-	   <td class="dataBadge" >${badgeMapEntry.key.description}</td>
+	   <td class="dataBadge">${badgeMapEntry.key.description}</td>
      </tr>
     </c:forEach>
     

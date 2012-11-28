@@ -6,7 +6,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import reformyourcountry.badge.BadgeType;
 
 @Entity
 public class Badge extends BaseEntity {
