@@ -92,9 +92,16 @@ public class ArticlePdfGenerator {
 			"font-family:Arial,Times New Roman;"+
 			"vertical-align:top;"+ 
 			"}"+
-			".logo{"+
+			"#titregeneral{" +
+			"font-size:22px;"+
+			"color: #7D92B9;"+
+			"font-family: Colaborate, Arial, sans-serif;"+
+			"margin-top:170px"+
+			"}"+
+			"#logo{"+
 			"font-size:32;"+
 			"font-family:helvetica,Aharoni,Impact;"+
+			"margin-top:200px"+
 			"}"+
 			".grey{"+
 			"color:#787878;"+
@@ -193,7 +200,7 @@ public class ArticlePdfGenerator {
             }
             unFilteredArticles.addAll(atv.getListResult());
             Date today = new Date();
-            title = "Tout les articles au "+DateUtil.formatddMMyyyy(today);
+            title = "Tous les articles au "+DateUtil.formatyyyyMMdd(today);
         } else {
             unFilteredArticles.add(article);
             if(doTheUserwantSubArticles){
@@ -252,12 +259,12 @@ public class ArticlePdfGenerator {
     private String createContent(Article article){
 
         String content ="";
-        content += "<div id=#article ><H1>"+article.getTitle()+"</H1></br></br>"+article.getLastVersionRenderdSummary();
+        content += "<H1>"+article.getTitle()+"</H1></br></br>"+article.getLastVersionRenderdSummary();
 
         if(!doTheUserWantOnlySummary){
             content += "<H1>Article - "+article.getTitle()+"</H1></br></br>"+article.getLastVersionRenderedContent();
         }
-        content += "</div><pd4ml:page.break>"; 
+        content += "<pd4ml:page.break>"; 
         return content;
     }
 
@@ -291,7 +298,6 @@ public class ArticlePdfGenerator {
 		 ByteArrayOutputStream  baos = new ByteArrayOutputStream();
 		try {
 			pd4ml.render(new StringReader( finalresult), baos);
-			System.out.println(finalresult);
 		} catch (InvalidParameterException | IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -353,28 +359,23 @@ public class ArticlePdfGenerator {
 	
 	/** Creation of the cover page */
 	public String createCoverHtml(){
-		
-		String result = new String("");
-	
-		// we resize the image before add to <div>
-		result +=
-				"<div align='center' class='logo'>" +
-				getHtmlResizedImg(img,false,url)+"</div><br/><br/>"+ 
-				"</div><br/><br/>" +
 
-                "<div align='center' style='font-size:24px;color: #AA0000;font-weight: bold;'>"+
-                createArticleTitle()+"</div><br/><br/>" +
-                
+	    String result = new String("");
+
+	    // we resize the image before add to <div>
+	    result +=			
+	            "<div id='titregeneral' align='center' >"+
+	                    createArticleTitle()+"<br/><br/></div>" +
+
                 //we add a second image with 650x430 dimension
-                "<div  width='620' height='400' align='center'>"+
+                "<div  id ='logo' width='620' height='400' align='center'>"+
                 "<table align='center'><tr><td>" +
                 getHtmlResizedImg(img,true,url)+
 
-                "</td></tr></table></div>"+
-                "<br/><br/><br/>";
+                "</td></tr></table></div>";
 
-		result+="<pd4ml:page.break>";
-		return result;
+	    result+="<pd4ml:page.break>";
+	    return result;
 	}
 
 	/** Creation of the table of content */
@@ -389,11 +390,9 @@ public class ArticlePdfGenerator {
 	/** title style */
 
 	public String createArticleTitle(){
-//		int size = getTitleSize(sectionTxt.getSection());
-		String title = null;
-//		int level = Math.min(size+1, 4);
-		title = "<br/><pd4ml:page.break ifSpaceBelowLessThan=\"120\"><h1"/*+level*/+">"+articles.get(0).getTitle()+"</h1"/*+level*/+">";
-		return title;
+
+		return  "<br/><pd4ml:page.break ifSpaceBelowLessThan=\"120\">"+title+"";
+		
 	}
 
 
