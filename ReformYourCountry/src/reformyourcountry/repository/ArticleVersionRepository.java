@@ -26,4 +26,7 @@ public class ArticleVersionRepository extends BaseRepository<ArticleVersion>{
         		.setMaxResults(rowAmount)
                 .getResultList();
     }
+    public List<ArticleVersion> findAllLastVersion(){
+    	return em.createQuery("select av from ArticleVersion av where av=av.article.lastVersion").getResultList();
+    }
 }
