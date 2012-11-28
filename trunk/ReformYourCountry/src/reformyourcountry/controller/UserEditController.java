@@ -24,6 +24,7 @@ import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.UserService;
 import reformyourcountry.util.DateUtil;
+import reformyourcountry.util.HTMLUtil;
 
 
 @Controller
@@ -39,9 +40,7 @@ public class UserEditController extends BaseController<User> {
         User user = getRequiredEntity(userId); 
     	SecurityContext.assertCurrentUserMayEditThisUser(user);
                
-    	ModelAndView mv=new ModelAndView("useredit");
-    	mv.addObject("id", userId); 
-    	mv.addObject("user", user);
+    	ModelAndView mv=prepareModelAndView(userId, user);
     	
     	// Sets an initial date in the form
     	Calendar birthCalendar = Calendar.getInstance();
@@ -52,6 +51,13 @@ public class UserEditController extends BaseController<User> {
 	    	mv.addObject("birthYear", birthCalendar.get(Calendar.YEAR));
 		}
 		
+    	return mv;
+    }
+    
+    private ModelAndView prepareModelAndView(Long userId,User user) {
+    	ModelAndView mv=new ModelAndView("useredit");
+    	mv.addObject("id", userId); 
+    	mv.addObject("user", user);
     	mv.addObject("canChangeUserName", (SecurityContext.canCurrentUserChangeUser(user) && user.getCertificationDate() == null) || SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS));
     	return mv;
     }
@@ -76,36 +82,39 @@ public class UserEditController extends BaseController<User> {
     
     @RequestMapping("/editsubmit")
     public ModelAndView userEditSubmit(@RequestParam(value="lastName",required=false) String newLastName,
-                                        @RequestParam(value="firstName",required=false) String newFirstName,
-                                        @RequestParam(value="userName") String newUserName,
-                                        @RequestParam(value="gender",required=false) Gender newGender,
-                                        @RequestParam(value="mail") String newMail,
-                                        @RequestParam(value="birthDay") String day,
-                                        @RequestParam(value="birthMonth") String month,
-                                        @RequestParam(value="birthYear") String year,
-                                        @RequestParam(value="nlSubscriber", required=false) Boolean newNlSubscriber,
-                                        @RequestParam(value="title") String title,
-                                        @RequestParam(value="certified", required = false) Boolean certified,
-                                        @RequestParam("id") long id,
-                                        @Valid @ModelAttribute User doNotUseThisUserInstance,  // To enable the use of errors param.
-                                        Errors errors) {
+                                       @RequestParam(value="firstName",required=false) String newFirstName,
+                                       @RequestParam(value="userName") String newUserName,
+                                       @RequestParam(value="gender",required=false) Gender newGender,
+                                       @RequestParam(value="mail") String newMail,
+                                       @RequestParam(value="birthDay") String day,
+                                       @RequestParam(value="birthMonth") String month,
+                                       @RequestParam(value="birthYear") String year,
+                                       @RequestParam(value="nlSubscriber", required=false) Boolean newNlSubscriber,
+                                       @RequestParam(value="title") String title,
+                                       @RequestParam(value="certified", required=false) Boolean certified,
+                                       @RequestParam("id") long userId,
+                                       @Valid @ModelAttribute User doNotUseThisUserInstance,  // To enable the use of errors param.
+                                       Errors errors) {
     	
-        User user = getRequiredEntity(id); 
+        User user = getRequiredEntity(userId); 
     	SecurityContext.assertCurrentUserMayEditThisUser(user);
-        	  	
+        
+    	//field html dangerousity check
+    	checkFieldContainDangerousHtml(newLastName,"lastName", errors);
+    	checkFieldContainDangerousHtml(newFirstName,"firstName", errors);
+    	checkFieldContainDangerousHtml(newUserName,"userName", errors);  
+    	checkFieldContainDangerousHtml(newMail,"mail", errors);
+    	checkFieldContainDangerousHtml(title,"title", errors);
+
        
         //birthDate
     	Date dateNaiss = null;
         if ((!day.equals("null"))||(!month.equals("null"))||(!year.equals("null"))) {
 			dateNaiss = DateUtil.parseyyyyMMdd(year + "-" + month + "-" + day);
 			if (dateNaiss.after(new Date())) {
-
-				ModelAndView mv = new ModelAndView("useredit");
-				String errorBirthDate = "Vous avez sélectionné une date dans le futur. Veuillez choisir une date de naissance passée.";
-
-				mv.addObject("id", id);
-				mv.addObject("user", user);
-				mv.addObject("errorBirthDate", errorBirthDate);
+				////constrcut modelandview because brithday is split in 3 input so we connat use the erros variable.
+				ModelAndView mv = prepareModelAndView(userId, user);
+				mv.addObject("errorBirthDate", "Vous avez sélectionné une date dans le futur. Veuillez choisir une date de naissance passée.");
 				return mv;
 			}
 		}
@@ -113,7 +122,7 @@ public class UserEditController extends BaseController<User> {
         boolean hasUserAlreadyExist=false;
         newUserName = org.springframework.util.StringUtils.trimAllWhitespace(newUserName).toLowerCase();  // remove blanks
         if (! org.apache.commons.lang3.StringUtils.equalsIgnoreCase(user.getUserName(), newUserName)) {  // Want to change username
-            // check duplicate
+        	// check duplicate
             User otherUser = userRepository.getUserByUserName(newUserName);
             if (otherUser != null) { // Another user already uses that userName
                 errors.rejectValue("userName", null, "Ce pseudonyme est déjà utilisé par un autre utilisateur.");
@@ -134,12 +143,10 @@ public class UserEditController extends BaseController<User> {
         
         
         if (errors.hasErrors()) {
-            ModelAndView mv = new ModelAndView("useredit");
+            ModelAndView mv = prepareModelAndView(userId, user);
             if (doNotUseThisUserInstance.getUserName()==""|| hasUserAlreadyExist==true ) {
                 doNotUseThisUserInstance.setUserName(user.getUserName());  // We need to restore the username, because the "Cancel" link in the JSP needs it.
             }
-            mv.addObject("user", doNotUseThisUserInstance);  // Get out of here before we change the user entity (Hibernate could save because of dirty checking).
-            mv.addObject("id", id); // need to pass 'id' apart because 'doNotUseThisUserInstance.id' is set to null
             return mv;
         }
         
@@ -154,10 +161,13 @@ public class UserEditController extends BaseController<User> {
         user.setNlSubscriber(newNlSubscriber != null ? newNlSubscriber : false);
         user.setTitle(title);
         
-        if (certified == null || certified ==  false && SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS)) {  // Check box shown to the user (privilege) but not in the request (=> unchecked)
-        	user.setCertificationDate(null);
-        } else {
-        	user.setCertificationDate(new Date());
+        if (SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS)) {  // User sees the check box
+            if ((certified == null || certified ==  false)) {  // Check box not in the request (=> unchecked)
+            	user.setCertificationDate(null);
+            } else if (user.getCertificationDate() == null) {  // User is not yet certified
+            	user.setCertificationDate(new Date());
+            }
+        	
         }
         
         user = userRepository.merge(user);
@@ -166,9 +176,10 @@ public class UserEditController extends BaseController<User> {
         
         return new ModelAndView("redirect:/user/"+user.getUserName());
     }
-    
-    
 
-   
-
+	private void checkFieldContainDangerousHtml(String toCheck,String fieldName, Errors errors) {
+		if( !HTMLUtil.isHtmlSecure(toCheck)) {
+			errors.rejectValue(fieldName, null, "vous avez introduit du HTML/Javascript dans vos informations " + toCheck);
+		}
+	}
 }

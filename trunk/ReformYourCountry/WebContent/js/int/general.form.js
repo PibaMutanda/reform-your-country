@@ -2,7 +2,7 @@
 //Will Send the value of the new Argument form to the controller 
 function CKeditorEditSubmit(idEditedValueContainer){
 	console.log("CKeditorEditSubmit");
-	if (idUser.length=0){  // Not loggedin
+	if (idUser.length=0){  // Not logged in
 		console.error("Bug: User should not see the button (and the form)");
 		return false;
 	}
@@ -30,8 +30,8 @@ function CKeditorEditSubmit(idEditedValueContainer){
 	var itemId = $('#ckEditForm > input[name="idItem"]').val();
 
 	//// POST to server
-	$.post($("#ckEditForm").attr("action"),serializeFormWithCkEditorContent($("#ckEditForm"), "content"),
-			function(data) {
+	$.post($("#ckEditForm").attr("action"),serializeFormWithCkEditorContent($("#ckEditForm"), "content"))
+		.succes(function(data) {
 				destroyCkEditor();
 				if (itemId.length == 0) {   	// Creation of a new item
 					$("#"+idEditedValueContainer).append(data);    // here idEditedValueContainer is the container (the argument column for example) of the new item.
@@ -43,12 +43,14 @@ function CKeditorEditSubmit(idEditedValueContainer){
 				}
 				console.log(idEditedValueContainer+"a été modifié");
 				// TODO: Add visual effect (highlight 1 second) to the div containing the argument detail just received (data).
-	}).fail(function(jqXHR, textStatus) {
+				})
+		.error(function(jqXHR, textStatus) {
 		// TODO show that error in a jQuery pop-up
-		alert("Erreur de communication lors de l'envoi de l'argument...");
-		addErrorMessageInEditor("Erreur de communication lors de l'envoi de l'argument...");
-		return false;
-	});
+			var exceptionVO = jQuery.parseJSON(jqXHR.responseText);
+			console.error(exceptionVO.method + " in " + exceptionVO.clazz + " throw " + exceptionVO.message);
+			
+			addErrorMessageInEditor(exceptionVO.message);
+		});
 	return false;
 }
 

@@ -15,7 +15,9 @@ import reformyourcountry.model.Article;
 import reformyourcountry.model.GoodExample;
 import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.repository.GoodExampleRepository;
+import reformyourcountry.util.HTMLUtil;
 import reformyourcountry.util.Logger;
+import reformyourcountry.util.NotificationUtil;
 import reformyourcountry.web.PropertyLoaderServletContextListener;
 
 @Controller
@@ -74,7 +76,14 @@ public class GoodExampleController extends BaseController<GoodExample>{
     									@RequestParam("title") String title,
     									@RequestParam("description") String description, 
     									@RequestParam("articleId") Long articleId){
-        
+        //TODO review
+        //check if content or title haven't dangerous html
+        if (!HTMLUtil.isHtmlSecure(title) || !HTMLUtil.isHtmlSecure(description)) {
+        	NotificationUtil.addNotificationMessage("vous avez introduit du HTML/Javascript invalide dans el titre ou le content");
+        	return null;
+        }
+    	
+    	
     	ModelAndView mv = new ModelAndView("goodexampledisplay");
     	
     	GoodExample goodExample = null;

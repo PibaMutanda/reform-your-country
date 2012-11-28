@@ -248,6 +248,7 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     private Date certificationDate;
     
     @Column(length = 100)
+    //FIXME waarom ? --28/11/12
     //@NotBlank(message="entrer votre mot de passe")
     @Size(min = 4, message = "votre mot de passe doit contenir au moins 4 caractères")
     private String password;
@@ -268,9 +269,9 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     @Enumerated(EnumType.STRING)
     private Gender gender;
     
-    
-   // @Temporal(TemporalType.TIMESTAMP)
-  //  @NotNull(message="you must indicate your birthdate in format yyyy-MM-dd")
+    //FIXME waarom ? --28/11/12
+    // @Temporal(TemporalType.TIMESTAMP)
+    //  @NotNull(message="you must indicate your birthdate in format yyyy-MM-dd")
     private Date birthDate;
 
     private boolean picture;  // Picture name = user id + ".jpg"
@@ -342,7 +343,7 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     	return  false;
     }
     
-   
+   //FIXME i think i understand with only one line ... --maxime 28/11/12
     /////////////////////////////////////////: GETTERS & SETTERS //////////////////////////
     /////////////////////////////////////////: GETTERS & SETTERS //////////////////////////
     /////////////////////////////////////////: GETTERS & SETTERS //////////////////////////

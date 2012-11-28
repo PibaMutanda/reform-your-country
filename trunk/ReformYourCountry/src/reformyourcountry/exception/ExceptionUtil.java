@@ -10,18 +10,7 @@ public class ExceptionUtil {
 
 	/** Look for a BatchUpdateException in the causes, in order to display the real cause of that exception. */		
 	public static void printBatchUpdateException(Throwable throwable, PrintStream out) {
-//		Throwable cause = getCauseException(throwable);
 		out.print(getStringBatchUpdateExceptionStackTrace(throwable,false));
-//		while (cause != null) {
-//			if (cause instanceof BatchUpdateException) {
-//				BatchUpdateException bue = (BatchUpdateException)cause;
-//				out.println();
-//				out.println("XXXXXXXXXXXXXXXXX NEXT from BatchUpdateException");
-//				bue.getNextException().printStackTrace(out);
-//			}
-//			cause = getCauseException(cause);
-//		}				
-
 	}
 	public static String getStringBatchUpdateExceptionStackTrace(Throwable throwable, boolean htmlVersion) {
         String response ="";

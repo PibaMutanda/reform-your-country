@@ -28,8 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.request.WebRequest;
 
-import reformyourcountry.exception.InvalidPasswordException;
-import reformyourcountry.exception.UserAlreadyExistsException;
+USimport reformyourcountry.exception.UserAlreadyExistsException;
 import reformyourcountry.exception.UserAlreadyExistsException.IdentifierType;
 import reformyourcountry.exception.UserLockedException;
 import reformyourcountry.exception.UserNotFoundException;
@@ -86,7 +85,12 @@ public class UserService {
      */
 
     public User registerUser(boolean directValidation, String username, String passwordInClear, String mail, boolean isSocial) throws UserAlreadyExistsException {
-        
+        //exception if html is dangerous
+    	//TODO review
+    	if(!HTMLUtil.isHtmlSecure(username)) {
+    		throw new RuntimeException("String used for register a user is dangerous : " + username);
+    	}
+    	
         if (userRepository.getUserByUserName(username) != null)    {
             throw new UserAlreadyExistsException(IdentifierType.USERNAME, username);
         }
