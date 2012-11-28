@@ -24,6 +24,11 @@ public class GoodExampleRepository extends BaseRepository<GoodExample>{
 	}
 	
 	@SuppressWarnings("unchecked")
+	public List<GoodExample> findGoodExampleByUpdateDate(){
+		return em.createQuery("select ge from GoodExample ge order by ge.updatedOn DESC").getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
 	public List<GoodExample> findByDate(Date publishDate, int maxAmount){
     	return em.createQuery("select ge from GoodExample ge where (ge.createdOn < :now) order by ge.createdOn DESC")
     			.setParameter("now", new Date())

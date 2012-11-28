@@ -37,6 +37,10 @@ public class ArticleRepository extends BaseRepository<Article>{
     			.getResultList();
     }
     
+    public List<Article> findbyUpdateDate(){
+    	return em.createQuery("select a from Article a order by a.updatedOn DESC").getResultList();
+    }
+    
     public Article findArticleBySummary(String summary){
         return getSingleOrNullResult( em.createQuery("select a from Article a where lower(a.arcticleVersion.summary) = :summary").setParameter("summary",summary.toLowerCase()) );
     }

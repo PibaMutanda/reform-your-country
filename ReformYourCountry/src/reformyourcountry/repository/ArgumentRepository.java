@@ -27,6 +27,8 @@ public class ArgumentRepository extends BaseRepository<Argument>{
                 .getResultList();
         return list;
     }
-    
+    public List<Argument> findArgumentByDate(){
+    	return em.createQuery("select a from Argument a order by a.updatedOn DESC").getResultList();
+    }
    
 }
