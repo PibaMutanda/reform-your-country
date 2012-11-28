@@ -9,6 +9,6 @@ ALTER TABLE goodexample DROP COLUMN  url ;
 -- 2012-11-27 Delphine
 
     alter table goodexample 
-        drop column publishdate timestamp; 
+        drop column publishdate ; 
         
         
