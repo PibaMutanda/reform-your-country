@@ -46,15 +46,16 @@ public class BBConverter {
 	private Set<Book> booksRefferedInTheText = new HashSet<Book>();  // To collect the books seen in the [quote bib="..."] and [link bib="..."].
 		
 	private boolean hasBeenUsed = false;
-	
+	private boolean useFullImageUrl = false;
 	//////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////// PUBLIC ///////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////
 	
-	public BBConverter(BookRepository bRep, ArticleRepository aRep,ActionRepository actionRep) {
+	public BBConverter(BookRepository bRep, ArticleRepository aRep,ActionRepository actionRep,boolean useFullImageUrl) {
 	    bookRepository = bRep;
 	    articleRepository = aRep;
 	    actionRepository = actionRep;
+	    this.useFullImageUrl = useFullImageUrl;
 	}
 	
 	
@@ -163,8 +164,12 @@ public class BBConverter {
 		String name = tag.getAttributeValue("name");
 		
 		if(name != null) {
-
-			String imgHtml = "<img src=\"gen/article/"+name+"\"";
+		    String imgHtml;
+            if(useFullImageUrl){// pd4ml need absolute url to generate image in pdf.
+		    imgHtml = "<img src=\""+UrlUtil.getAbsoluteUrl("")+"gen/article/"+name+"\"";
+            }else{
+                imgHtml = "<img src=\"gen/article/"+name+"\"";
+            }
 
 			if(tag.getAttributeValue("style") != null){
 				imgHtml +=" style=\""+tag.getAttributeValue("style")+"\"";

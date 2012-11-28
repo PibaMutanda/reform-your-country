@@ -17,8 +17,11 @@ import javax.imageio.ImageIO;
 import org.zefer.pd4ml.PD4ML;
 import org.zefer.pd4ml.PD4PageMark;
 
+import reformyourcountry.converter.BBConverter;
 import reformyourcountry.model.Article;
+import reformyourcountry.repository.ActionRepository;
 import reformyourcountry.repository.ArticleRepository;
+import reformyourcountry.repository.BookRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.util.ArticleTreePdfVisitor;
@@ -38,13 +41,11 @@ public class ArticlePdfGenerator {
 
 	private PD4ML pd4ml;
 
-	private String logoUrl;
-	private BufferedImage logoImage;
+	
 
 	private boolean doTheUserWantACoverPage;
     private boolean doTheUserWantAToc;
-    private boolean doTheUserWantOnlySummary;
-    private boolean doTheUserWantUnpublishedArticles;
+    private boolean doTheUserWantOnlySummary;  
 
     private List<Article> articles;
 	public boolean enableDebug ;
@@ -53,11 +54,14 @@ public class ArticlePdfGenerator {
 	private String title;
 
 	ArticleRepository articleRepository;
+	BookRepository   bookRepository;
+	ActionRepository actionRepository;
 	
 	private final String CSS = 
 			"h1 { "+
 			"font-size: 2.0em;"+
 			"font-family: Colaborate, Arial, sans-serif;"+
+			"font-weight: normal;"+
 			"}"+
 			"h2 { "+
 			"font-size: 1.9em;"+
@@ -65,11 +69,11 @@ public class ArticlePdfGenerator {
 			"font-family: Colaborate, Arial, sans-serif;"+
 			"}"+
 			"h3 {"+
-			"font-size: 18px;"+
+			"font-size: 1.8em;"+
 			"font-family: Colaborate, Arial, sans-serif;"+
 			"}"+
 			"h4 {"+
-			"font-size: 15px;"+
+			"font-size: 1.7em;"+
 			"font-family: Colaborate, Arial, sans-serif;"+
 			"}"+
 			"#gardeTitle{"+
@@ -81,27 +85,23 @@ public class ArticlePdfGenerator {
 			"display: block;"+
 			"font-size:15px;"+
 			"}"+
-			"strong, b {"+
-			 "font-weight: bold;"+
-			 "}"+
 			"p{"+
 			"line-height:17px;"+
 			"}"+
 			".titre{"+
-			"font-size:8px;"+
-			"font-family:Arial,Times New Roman;"+
+			"font-size:8px;"+			
 			"vertical-align:top;"+ 
 			"}"+
 			"#titregeneral{" +
-			"font-size:22px;"+
-			"color: #7D92B9;"+
+			"font-size:40px;"+
 			"font-family: Colaborate, Arial, sans-serif;"+
 			"margin-top:170px"+
 			"}"+
 			"#logo{"+
-			"font-size:32;"+
-			"font-family:helvetica,Aharoni,Impact;"+
-			"margin-top:200px"+
+			//"font-size:32;"+
+			//"font-family:helvetica,Aharoni,Impact;"+
+			"margin:auto;"+
+			"margin-top:300px"+
 			"}"+
 			".grey{"+
 			"color:#787878;"+
@@ -158,7 +158,7 @@ public class ArticlePdfGenerator {
 			"}"+
 			".quote {"+
 			"color: #666;"+
-			"font-family: \"Times New Roman\", Times, \"Liberation Serif\", FreeSerif, serif;"+
+		
 			"font-size: 1.05em;"+
 			"}"+
 
@@ -178,15 +178,32 @@ public class ArticlePdfGenerator {
              "padding-right: .5em;"+
              "display: inline-block;"+
              "width: 100%;"+
-             "}";
+             "border-top-style: solid;"+
+             "border-bottom-style: solid;"+
+             "border-right-style: solid;"+
+             "border-right-width: 1px;"+
+             "border-top-width: 2px;"+
+             "border-bottom-width: 2px;"+
+             "border-color:black;"+
+             "}"+
+             "img{"+
+             "display:block;"+
+             "text-align:center;"+ //FIXME center image 
+             "}"+
+             ".realshadow {"+
+              "border: solid 10px;"+
+              "border-image: url("+UrlUtil.getAbsoluteUrl("")+"images/_global/cadre.png) 8 stretch;"+
+              "  }";
 
 	/** @Param article article to print. If null, we print all articles. 
 	 * Articles that the user may not see are skipped. */
 	
-	public ArticlePdfGenerator(Article article, ArticleRepository aRepository,
+	public ArticlePdfGenerator(Article article, ArticleRepository aRepository,ActionRepository actionRepository,BookRepository bookRepository,
+	        
 	        boolean doTheUserWantACoverPage,boolean doTheUserWantAToc,boolean doTheUserWantOnlySummary,boolean doTheUserwantSubArticles,boolean doTheUserWantUnpublishedArticles,boolean enableDebug){
 	    articleRepository = aRepository;
-	    
+	    this.actionRepository = actionRepository;
+	    this.bookRepository = bookRepository;
 	    ////// 1. Builds the list of articles to print
 	    List<Article> unFilteredArticles = new ArrayList<Article>();
         if (article == null){ // if article is null that mean we re trying to generate the pdf from the whole article list page.
@@ -218,20 +235,20 @@ public class ArticlePdfGenerator {
             }
         }
         
-        init(doTheUserWantACoverPage,doTheUserWantAToc,doTheUserWantOnlySummary,doTheUserWantUnpublishedArticles,enableDebug);
+        init(doTheUserWantACoverPage,doTheUserWantAToc,doTheUserWantOnlySummary,enableDebug);
    }
         
         
 	
 	
-    private void init(boolean doTheUserWantACoverPage,boolean doTheUserWantAToc,boolean doTheUserWantOnlySummary,boolean doTheUserWantUnpublishedArticles,boolean enableDebug){
+    private void init(boolean doTheUserWantACoverPage,boolean doTheUserWantAToc,boolean doTheUserWantOnlySummary,boolean enableDebug){
 	    
 	    this.pd4ml = new PD4ML();
         this.enableDebug = enableDebug;
         this.doTheUserWantACoverPage = doTheUserWantACoverPage;
         this.doTheUserWantAToc = doTheUserWantAToc;
         this.doTheUserWantOnlySummary = doTheUserWantOnlySummary;
-        this.doTheUserWantUnpublishedArticles = doTheUserWantUnpublishedArticles;
+      
         
         try {
             url = new URL(COVER_PAGE_IMG);
@@ -259,10 +276,10 @@ public class ArticlePdfGenerator {
     private String createContent(Article article){
 
         String content ="";
-        content += "<H1>"+article.getTitle()+"</H1></br></br>"+article.getLastVersionRenderdSummary();
+        content += "<H1>"+article.getTitle()+"</H1>"+"<div class ='article_summary'>RESUME</br></br>"+new BBConverter(bookRepository, articleRepository,actionRepository,true).transformBBCodeToHtmlCode(article.getLastVersion().getSummary())+"</div>";
 
         if(!doTheUserWantOnlySummary){
-            content += "<H1>Article - "+article.getTitle()+"</H1></br></br>"+article.getLastVersionRenderedContent();
+            content += "<BR/>CONTENU"+"</br></br>"+new BBConverter(bookRepository, articleRepository,actionRepository,true).transformBBCodeToHtmlCode(article.getLastVersion().getContent());
         }
         content += "<pd4ml:page.break>"; 
         return content;
@@ -368,11 +385,11 @@ public class ArticlePdfGenerator {
 	                    createArticleTitle()+"<br/><br/></div>" +
 
                 //we add a second image with 650x430 dimension
-                "<div  id ='logo' width='620' height='400' align='center'>"+
-                "<table align='center'><tr><td>" +
+                "<div  id ='logo' align='center'>"+
+            //    "<table align='center'><tr><td>" +
                 getHtmlResizedImg(img,true,url)+
 
-                "</td></tr></table></div>";
+              /*  "</td></tr></table>*/"</div>";
 
 	    result+="<pd4ml:page.break>";
 	    return result;
@@ -400,27 +417,27 @@ public class ArticlePdfGenerator {
 	//buffered image is used to compute the dimension picture
 	//URL is used to get the url path image.
 	public String getHtmlResizedImg(BufferedImage image,boolean bigPictureCoverPage,URL urlImg){
-		String align="";
+	
 		String imgHtmlTag = "";
 		float maxH;
 		float maxW;
 		// if we want a big picture on cover page ,we change the height and the width of the image which will be use
 		// as numeric value in the tag img ( 430px x 650px )
 		if(bigPictureCoverPage){
-			maxH = 400.0f;
-			maxW = 620.0f;
-			align = "align='middle'";
+			maxH = 333.33f;
+			maxW = 516.66f;
+			
 			
 			// or we want a little image with 40x40 dimension.
 		}else{
 			maxH = 70.0f;
 			maxW = 70.0f;
-			align = "align='right'";
+			
 		}
 		if((float)image.getWidth()/maxW > (float)image.getHeight()/maxH){
-			imgHtmlTag +="<img src ='"+urlImg.toString()+"' width='"+maxW+"' "+align+">";
+			imgHtmlTag +="<img src ='"+urlImg.toString()+"' width='"+maxW+"' "+">";
 		}else{
-			imgHtmlTag +="<img src ='"+urlImg.toString()+"' height='"+maxH+"' "+align+">";
+			imgHtmlTag +="<img src ='"+urlImg.toString()+"' height='"+maxH+"' "+">";
 		}
 		return imgHtmlTag;
 	}

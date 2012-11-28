@@ -14,18 +14,20 @@ import org.springframework.web.servlet.ModelAndView;
 import reformyourcountry.exception.UnauthorizedAccessException;
 import reformyourcountry.model.Article;
 import reformyourcountry.pdf.ArticlePdfGenerator;
+import reformyourcountry.repository.ActionRepository;
 import reformyourcountry.repository.ArticleRepository;
+import reformyourcountry.repository.BookRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.ArticleService;
-import reformyourcountry.util.ArticleTreePdfVisitor;
-import reformyourcountry.util.ArticleTreeWalker;
 
 @Controller
 public class PdfGeneratorController extends BaseController<Article>{
     
     @Autowired ArticleService articleService;
     @Autowired ArticleRepository articleRepository;
+    @Autowired ActionRepository actionRepository;
+    @Autowired BookRepository bookRepository;
 
     @RequestMapping("/ajax/pdfgeneration")
     public ModelAndView pdfGeneration(@RequestParam("hassubarticle") boolean hasSubArticle,@RequestParam(value="id",required=false) Long id){
@@ -69,7 +71,7 @@ public class PdfGeneratorController extends BaseController<Article>{
         try {
             
             
-            cPdf = new ArticlePdfGenerator(article,articleRepository,cover,toc,onlysummary,subarticles,includeNotPublished,true);
+            cPdf = new ArticlePdfGenerator(article,articleRepository,actionRepository,bookRepository,cover,toc,onlysummary,subarticles,includeNotPublished,true);
           
             ByteArrayOutputStream baos = null;
             if(cPdf != null)  {

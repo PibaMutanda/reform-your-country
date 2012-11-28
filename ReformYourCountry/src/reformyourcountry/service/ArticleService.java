@@ -134,8 +134,8 @@ public class ArticleService {
  	     }
 	 }
 	 public void updateRendreredContentAndSummary(Article article){
-		 article.setLastVersionRenderedContent(new BBConverter(bookRepository, articleRepository,actionRepository).transformBBCodeToHtmlCode(article.getLastVersion().getContent()));
-	     article.setLastVersionRenderdSummary(new BBConverter(bookRepository, articleRepository,actionRepository).transformBBCodeToHtmlCode(article.getLastVersion().getSummary()));
+		 article.setLastVersionRenderedContent(new BBConverter(bookRepository, articleRepository,actionRepository,false).transformBBCodeToHtmlCode(article.getLastVersion().getContent()));
+	     article.setLastVersionRenderdSummary(new BBConverter(bookRepository, articleRepository,actionRepository,false).transformBBCodeToHtmlCode(article.getLastVersion().getSummary()));
 	 }
 
 	 

@@ -128,7 +128,7 @@ public class ArticleDisplayController extends BaseController<Article> {
 		mv.addObject("parentsPath", article.getParentPath());
 
 		mv.addObject("showContent", (article.isPublished() || SecurityContext.isUserHasPrivilege(Privilege.EDIT_ARTICLE)));
-		BBConverter bbc = new BBConverter(bookRepository, articleRepository,actionRepository);
+		BBConverter bbc = new BBConverter(bookRepository, articleRepository,actionRepository,false);
 		mv.addObject("articleToClassify", bbc.transformBBCodeToHtmlCode(article.getLastVersion().getToClassify()));
 		return mv;
 	}
