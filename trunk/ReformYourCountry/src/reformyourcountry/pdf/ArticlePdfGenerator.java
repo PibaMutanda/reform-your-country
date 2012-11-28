@@ -1,5 +1,6 @@
 package reformyourcountry.pdf;
 
+import java.awt.Insets;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -17,9 +18,11 @@ import org.zefer.pd4ml.PD4ML;
 import org.zefer.pd4ml.PD4PageMark;
 
 import reformyourcountry.model.Article;
-import reformyourcountry.model.User;
+import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
+import reformyourcountry.util.ArticleTreePdfVisitor;
+import reformyourcountry.util.ArticleTreeWalker;
 import reformyourcountry.util.DateUtil;
 import reformyourcountry.web.UrlUtil;
 
@@ -27,8 +30,6 @@ import reformyourcountry.web.UrlUtil;
 
 /** Generates an html String with course sections, and use PD4ML to transform the html into a pdf document */ 
 public class ArticlePdfGenerator {
-
-
 
 	//default cover page image link
 	public static String COVER_PAGE_IMG = UrlUtil.getAbsoluteUrl("")+"/images/logo/enseignement2-logo-black.png";//="/VAADIN/themes/blackbelt/image/bgphoto/asianWomanSword.jpg";
@@ -43,16 +44,16 @@ public class ArticlePdfGenerator {
 	private boolean doTheUserWantACoverPage;
     private boolean doTheUserWantAToc;
     private boolean doTheUserWantOnlySummary;
-    private boolean doTheUserwantSubArticles;
     private boolean doTheUserWantUnpublishedArticles;
 
     private List<Article> articles;
 	public boolean enableDebug ;
-	private ByteArrayOutputStream baos;
 	private URL url;
 	private  BufferedImage img;
 	private String title;
 
+	ArticleRepository articleRepository;
+	
 	private final String CSS = 
 			"h1 { "+
 			"font-size: 2.0em;"+
@@ -135,7 +136,7 @@ public class ArticlePdfGenerator {
 			"font-size:10px;"+
 			"}"+
 			".bibref-after-block {"+
-			"color: #AAA;"+
+			"color: #888;"+
 			"font-family: Arial, Helvetica, \"Liberation Sans\", FreeSans, sans-serif;"+
 			"font-size: 0.6em;"+
 			"text-align: right;"+
@@ -150,47 +151,71 @@ public class ArticlePdfGenerator {
 			"margin-bottom:1em;"+
 			"}"+
 			".quote {"+
-			"color: #777;"+
+			"color: #666;"+
 			"font-family: \"Times New Roman\", Times, \"Liberation Serif\", FreeSerif, serif;"+
 			"font-size: 1.05em;"+
 			"}"+
 
 			"#content a, #sidebar a, .content_full_width a, p a strong {"+
-			    "color: #7D92B9;"+
-			    "}"+
-			    
-			    "#main .blog_wrap h1, #main .single_blog_wrap h1, #main .comment-title, .four_o_four, .callout-wrap span, .video-sub h2, .two-d-sub h2, .three-d-sub h2, .main-holder h1, .main-holder h2, .main-holder h3, .main-holder h4, .main-holder h5, .main-holder h6, .search-title, .home-banner-main h2, #main .portfolio_full_width h3, #main .frame h1, #main .month, .home-bnr-jquery-content h2, .callout2, #main .contact_iphone h4, .comment-author-about {"+
-			     "font-family: Colaborate, Arial, sans-serif;"+
-			     "}";
-		
-	public ArticlePdfGenerator(Article article ,boolean doTheUserWantACoverPage,boolean doTheUserWantAToc,boolean doTheUserWantOnlySummary,boolean doTheUserwantSubArticles,boolean doTheUserWantUnpublishedArticles,boolean enableDebug){
-	    articles = new ArrayList<Article>();
-		this.articles.add(article);
-		this.doTheUserwantSubArticles = doTheUserwantSubArticles;
-		title = article.getTitle();
-		init(doTheUserWantACoverPage,doTheUserWantAToc,doTheUserWantOnlySummary,doTheUserWantUnpublishedArticles,enableDebug);
-		if(doTheUserwantSubArticles){
-		   articles.addAll(article.getChildren());
-		}
-		
-		 for(Article art : articles){
-		     if(!art.isPublished() && SecurityContext.isUserHasPrivilege(Privilege.VIEW_UNPUBLISHED_ARTICLE) && doTheUserWantUnpublishedArticles ){
-		         title = art.getTitle();
-		         break;
-		     }else if(art.isPublished()){
-		         title = art.getTitle();
-		         break;
-		     }
-		 }
-        
-	}
-	public ArticlePdfGenerator(List<Article> article ,boolean doTheUserWantACoverPage,boolean doTheUserWantAToc,boolean doTheUserWantOnlySummary,boolean doTheUserWantUnpublishedArticles, boolean enableDebug){		
-		this.articles = article;
-		Date today = new Date();
-		title = "Tout les articles au "+DateUtil.formatddMMyyyy(today);
-		init(doTheUserWantACoverPage,doTheUserWantAToc,doTheUserWantOnlySummary,doTheUserWantUnpublishedArticles,enableDebug);
-	}
+			"color: #7D92B9;"+
+			"}"+
+
+		    "#main .blog_wrap h1, #main .single_blog_wrap h1, #main .comment-title, .four_o_four, .callout-wrap span, .video-sub h2, .two-d-sub h2, .three-d-sub h2, .main-holder h1, .main-holder h2, .main-holder h3, .main-holder h4, .main-holder h5, .main-holder h6, .search-title, .home-banner-main h2, #main .portfolio_full_width h3, #main .frame h1, #main .month, .home-bnr-jquery-content h2, .callout2, #main .contact_iphone h4, .comment-author-about {"+
+			"font-family: Colaborate, Arial, sans-serif;"+
+			 "}"+
+			".article_summary {"+        
+             "margin-top: 0px;"+
+             "margin-right: -0.5em;"+
+             "margin-bottom: 0px;"+
+             "margin-left: -0.5em;"+
+             "padding-left: .5em;"+
+             "padding-right: .5em;"+
+             "display: inline-block;"+
+             "width: 100%;"+
+             "}";
+
+	/** @Param article article to print. If null, we print all articles. 
+	 * Articles that the user may not see are skipped. */
 	
+	public ArticlePdfGenerator(Article article, ArticleRepository aRepository,
+	        boolean doTheUserWantACoverPage,boolean doTheUserWantAToc,boolean doTheUserWantOnlySummary,boolean doTheUserwantSubArticles,boolean doTheUserWantUnpublishedArticles,boolean enableDebug){
+	    articleRepository = aRepository;
+	    
+	    ////// 1. Builds the list of articles to print
+	    List<Article> unFilteredArticles = new ArrayList<Article>();
+        if (article == null){ // if article is null that mean we re trying to generate the pdf from the whole article list page.
+            // Collect list of all articles.
+            ArticleTreePdfVisitor atv = new ArticleTreePdfVisitor();
+            ArticleTreeWalker atw = new ArticleTreeWalker(atv, articleRepository);
+            try {
+                atw.walk();
+            } catch (IOException e) {
+               throw new RuntimeException(e);
+            }
+            unFilteredArticles.addAll(atv.getListResult());
+            Date today = new Date();
+            title = "Tout les articles au "+DateUtil.formatddMMyyyy(today);
+        } else {
+            unFilteredArticles.add(article);
+            if(doTheUserwantSubArticles){
+                unFilteredArticles.addAll(article.getChildren());
+             }
+            title = article.getTitle();
+        }
+
+        ////// 2. We filter out the articles that the user may not see.
+        articles = new ArrayList<Article>();
+        for (Article art : unFilteredArticles){
+            if(art.isPublished() || 
+                    (SecurityContext.isUserHasPrivilege(Privilege.VIEW_UNPUBLISHED_ARTICLE) && doTheUserWantUnpublishedArticles) ){
+                articles.add(art);                
+            }
+        }
+        
+        init(doTheUserWantACoverPage,doTheUserWantAToc,doTheUserWantOnlySummary,doTheUserWantUnpublishedArticles,enableDebug);
+   }
+        
+        
 	
 	
     private void init(boolean doTheUserWantACoverPage,boolean doTheUserWantAToc,boolean doTheUserWantOnlySummary,boolean doTheUserWantUnpublishedArticles,boolean enableDebug){
@@ -201,45 +226,39 @@ public class ArticlePdfGenerator {
         this.doTheUserWantAToc = doTheUserWantAToc;
         this.doTheUserWantOnlySummary = doTheUserWantOnlySummary;
         this.doTheUserWantUnpublishedArticles = doTheUserWantUnpublishedArticles;
-    
-        baos = new ByteArrayOutputStream();
-    
+        
         try {
             url = new URL(COVER_PAGE_IMG);
             img = ImageIO.read(url);
-            
         } catch (Exception e) {
-             
            throw new RuntimeException(e);
         }
         if (enableDebug) {
-        pd4ml.enableDebugInfo();
+            pd4ml.enableDebugInfo();
         }
-        
+
         /** PDF document setting */
         pd4ml.addStyle(CSS,true);
         try {
             pd4ml.useTTF( "java:fonts", true );  // Looks for fonts.jar in classpath (WEB-INF/lib)
-        
         } catch (FileNotFoundException e) {
             throw new RuntimeException("Problem while trying PD4ML to get font file", e);
         }  
      
         pd4ml.setDefaultTTFs("Times New Roman", "Arial", "Courier New");  
         pd4ml.enableImgSplit(false);
-        
-	    
+        pd4ml.setPageInsets(new Insets(25,50,25,60));
 	}
 
     private String createContent(Article article){
-        
+
         String content ="";
-        content += "<H1>"+article.getTitle()+"</H1></br></br>"+article.getLastVersionRenderdSummary();
-        
+        content += "<div id=#article ><H1>"+article.getTitle()+"</H1></br></br>"+article.getLastVersionRenderdSummary();
+
         if(!doTheUserWantOnlySummary){
-        content += "Article - "+article.getTitle()+"</br></br>"+article.getLastVersionRenderedContent();
-       }
-        content += "<pd4ml:page.break>"; 
+            content += "Article - "+article.getTitle()+"</br></br>"+article.getLastVersionRenderedContent();
+        }
+        content += "</div><pd4ml:page.break>"; 
         return content;
     }
 
@@ -247,21 +266,12 @@ public class ArticlePdfGenerator {
 	    String content = "";
 
 	    for(Article article : articles){
-	        
-	        if(!article.isPublished() && SecurityContext.isUserHasPrivilege(Privilege.VIEW_UNPUBLISHED_ARTICLE) && doTheUserWantUnpublishedArticles){
-		     content += createContent(article);
-           
-	        }else if (article.isPublished()){
-	            
-	            content += createContent(article);
-	            
-	        }
-	    }
-        
+                content += createContent(article);
+        }
   
         // first we add the begining of the html document start with <html> to <body>
-	//	String head ="<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html lang=\"fr\" xmlns=\"http://www.w3.org/1999/xhtml\"   ><head><title>Enseignement2.be</title><META http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body>";
 		String head ="<!DOCTYPE html><head><title>Enseignement2.be - "+title+"</title></head><body>";
+
 		// next we add the cover html 
 		if(doTheUserWantACoverPage){
 		    head += createCoverHtml();
@@ -279,11 +289,9 @@ public class ArticlePdfGenerator {
 		//after the cover we add the rest of the html document
 		String finalresult  =  head+content+"</body></html>";
 		// generate the pdf in binary output stream from html
+		 ByteArrayOutputStream  baos = new ByteArrayOutputStream();
 		try {
-		    System.out.println(finalresult);
 			pd4ml.render(new StringReader( finalresult), baos);
-
-
 		} catch (InvalidParameterException | IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -294,10 +302,8 @@ public class ArticlePdfGenerator {
 
 
 
-
 	/** creation of the header */
 	public void createHeader(){
-	    
 	    
 		// ${title} will be recognized/replaced by PD4ML.
 		String headerHtmlTemplate = "";/*"<table class='header' border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">"
@@ -324,33 +330,26 @@ public class ArticlePdfGenerator {
 	public void createFooter(){
 		// ${page} and ${total} will be recognized/replaced by PD4ML.
 	    
-	    String footerHtmlTemplate = "<table  border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" height ='45px'>"
+	    String footerHtmlTemplate = "<table  border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" height ='30px'>"
         + "<tr>"
         + "<td >"+ getHtmlResizedImg(img,false,url)+"</td>"
-        +"<td style='width:90%;padding-left:5px;'><span class =\"titre\">Enseignement2.be - "+title+"</span></td>"
+        +"<td style='width:90%;padding-left:5px;text-align:center'><span class =\"titre\">"+title+"</span></td>"
         +"<td style='width:10%;text-align:right' class='valignBottom'>${page}<span class='grey'> /${total}</span></td>"
         + "</tr>" + "</table>";
 	
 		PD4PageMark foot = new PD4PageMark();
 		
-		
-      
-  
 		if(doTheUserWantACoverPage){ //If the user want a cover page
 			foot.setPagesToSkip(1); //Skip the header at the first page
 		}
 		foot.setInitialPageNumber(1);
 
 		foot.setHtmlTemplate(footerHtmlTemplate);
-		foot.setAreaHeight(45); //Adjust the height
+		foot.setAreaHeight(30); //Adjust the height
 		pd4ml.setPageFooter(foot); //Add footer
-		
 	}
 
-	public ByteArrayOutputStream getOutputStream(){
-	    
-	    return baos;
-	}
+	
 	
 	/** Creation of the cover page */
 	public String createCoverHtml(){
@@ -359,7 +358,6 @@ public class ArticlePdfGenerator {
 	
 		// we resize the image before add to <div>
 		result +=
-
 				"<div align='center' class='logo'>" +
 				getHtmlResizedImg(img,false,url)+"</div><br/><br/>"+ 
 				"</div><br/><br/>" +
@@ -398,20 +396,6 @@ public class ArticlePdfGenerator {
 		return title;
 	}
 
-	/** Check the title importance */
-
-	/*
-	public int getTitleSize(Section section){
-		int result = 0;
-		//See how much parent have a section. With this number we can see the importance of a title and defined its size.
-		while(section.getParent() != null){
-			section = section.getParent();
-			result++;
-		}
-		return result;
-	}*/
-
-
 
 	//get the html tag for resized imgs, coverpage logo size or heaer logo size
 	//buffered image is used to compute the dimension picture
@@ -430,8 +414,8 @@ public class ArticlePdfGenerator {
 			
 			// or we want a little image with 40x40 dimension.
 		}else{
-			maxH = 40.0f;
-			maxW = 40.0f;
+			maxH = 70.0f;
+			maxW = 70.0f;
 			align = "align='right'";
 		}
 		if((float)image.getWidth()/maxW > (float)image.getHeight()/maxH){
@@ -441,7 +425,6 @@ public class ArticlePdfGenerator {
 		}
 		return imgHtmlTag;
 	}
-
 
 
 }
