@@ -115,21 +115,7 @@ public class ArticleDisplayController extends BaseController<Article> {
 		return mv;
 	}
 	
-	@RequestMapping(value={"/delete"})
-    public ModelAndView articleDelete(@RequestParam("id") Long idArticle){
-        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
-	    Article article = getRequiredEntity(idArticle);
-	    return getConfirmBeforeDeletePage(article.getTitle(), "/article/deleteconfirmed", "/article/"+article.getUrl(), idArticle);
-	}
-	@RequestMapping(value={"/deleteconfirmed"})
-    public ModelAndView articleDeleteConfirmed(@RequestParam("id") Long idArticle){
-	    // TODO ASSERT
-        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
-        Article article = articleRepository.find(idArticle);
-        articleService.deleteArticle(article);
-        ArticleNavBarTag.invalidateNavBarCache();
-        return new ModelAndView("redirect:/article");
-    }
+
 	@RequestMapping(value={"/a_classer/{articleUrl}"})
 	public ModelAndView toClassifyDisplay( @PathVariable("articleUrl") String articleUrl){
 		SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);

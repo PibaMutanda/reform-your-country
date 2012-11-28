@@ -15,6 +15,7 @@ import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.repository.ArticleVersionRepository;
 import reformyourcountry.repository.BookRepository;
 import reformyourcountry.security.SecurityContext;
+import reformyourcountry.tag.ArticleNavBarTag;
 
 @Service
 @Transactional
@@ -136,11 +137,19 @@ public class ArticleService {
 		 article.setLastVersionRenderedContent(new BBConverter(bookRepository, articleRepository,actionRepository).transformBBCodeToHtmlCode(article.getLastVersion().getContent()));
 	     article.setLastVersionRenderdSummary(new BBConverter(bookRepository, articleRepository,actionRepository).transformBBCodeToHtmlCode(article.getLastVersion().getSummary()));
 	 }
-	
+
+	 
 	 public void deleteArticle(Article article){
+	     deleteArticleRecursive(article);
+	     ArticleNavBarTag.invalidateNavBarCache();
+	 }
+
+	 // Recurisve delete 
+	 private void deleteArticleRecursive(Article article){
 	     for (Article child: article.getChildren()){
 	         deleteArticle(child);
 	     }
+	     
 	     for(ArticleVersion va: articleVersionRepository.findAllVersionForAnArticle(article)){
 	         articleVersionRepository.remove(va);
 	     }

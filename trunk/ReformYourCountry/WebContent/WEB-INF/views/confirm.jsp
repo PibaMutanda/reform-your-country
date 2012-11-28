@@ -9,7 +9,7 @@
 </head>
 <body>
 	<ryctag:pageheadertitle title="Demande de confirmation"/>
-	<div>Etes-vous sur de vouloir supprimer: ${message}</div>
+	<div>Etes-vous sur de vouloir supprimer: ${info}</div>
 	<form action="${url}" method="post" >
 		<input type="hidden" name="id" value="${id}"/>
 		<input type="submit" value="Je confirme"/>

@@ -114,7 +114,7 @@ public class BaseController<E extends BaseEntity> {
 
         ModelAndView mv = new ModelAndView("confirm");
         mv.addObject("url",deleteMethodAdress);
-        mv.addObject("message",message);
+        mv.addObject("info",message);
         mv.addObject("id",id);
         mv.addObject("abortUrl",urlInCaseOfAbortion);
         return mv;
