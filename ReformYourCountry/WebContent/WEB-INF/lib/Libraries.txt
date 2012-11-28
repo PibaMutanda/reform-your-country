@@ -79,3 +79,9 @@ spring-social-google-1.0.0.M1.jar
 log4jdbc4-1.2.jar //test jdbc trace with driver spy
 
 ************************** End of Spring Social : ****************************
+***************************Content formatting*********************************
+
+antisamy-1.4.4.jar //collection of APIs for safely allowing users to supply 
+				   //their own HTML and CSS without exposing the site to XSS vulnerabilities.
+				   //https://code.google.com/p/owaspantisamy/
+***************************************************************************** 

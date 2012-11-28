@@ -1,14 +1,23 @@
 package reformyourcountry.controller;
 
+import java.io.IOException;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import reformyourcountry.exception.AjaxExceptionVO;
+import reformyourcountry.exception.AjaxValidationException;
 import reformyourcountry.exception.InvalidUrlException;
 import reformyourcountry.model.BaseEntity;
 import reformyourcountry.util.ClassUtil;
@@ -77,6 +86,19 @@ public class BaseController<E extends BaseEntity> {
     	E entity = getRequiredEntity(id);
     	em.detach(entity);
     	return entity;
+    }
+
+    /**
+     * handle AjaxValidationException and return an AjaxExceptionVO to get message in jQuery.error() 
+     * @see https://doanduyhai.wordpress.com/2012/05/06/spring-mvc-part-v-exception-handling/
+     */
+    @ExceptionHandler(AjaxValidationException.class)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    protected AjaxExceptionVO handleAjaxValidationException(AjaxValidationException ex, HttpServletResponse response) throws IOException
+    {
+    	AjaxExceptionVO exceptionVO = new AjaxExceptionVO("handleAjaxValidationException()", this.getClass().toString(), ex.getMessage());
+    	return exceptionVO;
     }
     
     /**

@@ -17,6 +17,7 @@ import reformyourcountry.exception.UserAlreadyExistsException.IdentifierType;
 import reformyourcountry.model.User;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.service.UserService;
+import reformyourcountry.util.HTMLUtil;
 import reformyourcountry.util.NotificationUtil;
 
 @Controller
@@ -33,9 +34,15 @@ public class RegisterController extends BaseController<User> {
     @RequestMapping("/registersubmit")
     public ModelAndView registerSubmit(@Valid @ModelAttribute User user, BindingResult result,WebRequest request){
         if(result.hasErrors()){
+        	
             ModelAndView mv = new ModelAndView("register");
             return mv;
             
+        } else if (!HTMLUtil.isHtmlSecure(user.getUserName())) {
+            //TODO review
+        	ModelAndView mv = new ModelAndView("register");
+            NotificationUtil.addNotificationMessage("vous avez introduit du HTML/Javascript dans vos informations d'enregistrement " + user.getUserName());
+            return mv;
         } else {
             try {
                 user = userService.registerUser(false, user.getUserName(), user.getPassword(), user.getMail(),false);

@@ -19,8 +19,8 @@
 </ryctag:pageheadertitle>
 
 <div style="float:left; padding-left:30px; width: 810px;">
-    <ryctag:form action="user/editsubmit" modelAttribute="user" >
-    
+    <ryctag:form action="user/editsubmit" modelAttribute="user" method="get">
+    <form:errors path="*"/>
     <c:choose>
     	<c:when test="${canChangeUserName}"><%-- Only an admin can modify name of a certified user --%>
     		<ryctag:input path="lastName" label="Nom" />
