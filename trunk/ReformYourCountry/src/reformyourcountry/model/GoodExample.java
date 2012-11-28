@@ -65,7 +65,6 @@ public class GoodExample extends BaseEntity implements IVote{
     }
     
     public void addArticle(Article article){
-
 		articles.add(article);
 	}
 

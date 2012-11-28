@@ -398,11 +398,25 @@ color: #444;
     margin-top: .5em;
     margin-bottom: .5em;
 }
-
-.article-options{
-	font-size:0.8em;
+.action-goodexample-title{
+	font-size:10px;
+	color:#CCC;
+	margin-top:-3px;
+	margin-bottom:1px;
+	text-align:right;
 	
 }
+
+.article-options{
+	font-size:12px;
+	
+}
+
+.article-liens{
+	font-size:9px;
+	
+}
+
 .article-title{
 	float:left;
 	width: 770px;
