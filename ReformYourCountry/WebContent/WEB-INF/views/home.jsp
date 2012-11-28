@@ -44,9 +44,6 @@
 
 <!-- ***************** - END Homepage 3D Slider - ***************** -->
 
-
-<input type="submit" id="notificationButton" >
-
 <div style="width:100%; ">
 
  <div style="width:49%; display:inline-block; vertical-align:top;"> 
