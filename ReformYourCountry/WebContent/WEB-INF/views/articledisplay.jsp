@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
-
  
 
 <head>
@@ -76,6 +75,7 @@
 			 - <a href="/article/a_classer/${article.url}" >afficher à classer</a>
 			 - <a href="/article/version/${article.url}" >historique des versions</a>
 			 - <a href="/video/manager?id=${article.id}" >vidéo</a>
+			 - <a href="/article/delete?id=${article.id}" >Supprimer l'article</a>
 		</ryc:conditionDisplay>
 		</div>
 		<br/>

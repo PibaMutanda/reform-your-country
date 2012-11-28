@@ -6,9 +6,18 @@
 <html>
 <head>
 <script type="text/javascript" src="js/int/url-generate.js"></script>
+<script type="text/javascript" src="js/int/action.js"></script>
 </head>
 <body>
 <c:choose><c:when test="${action.id != null}"><ryctag:pageheadertitle title="Modifier une action"/></c:when><c:otherwise><ryctag:pageheadertitle title="Créer une action"/></c:otherwise></c:choose>
+	<c:choose>
+       	<c:when test="${action.id != null}">
+       			<ryctag:form action="/action/delete" modelAttribute="action">
+        			<input type="hidden" name="id" value="${action.id}"/> 
+        			<input type="submit" value="Supprimer"/>
+       			</ryctag:form>
+       	</c:when>			
+    </c:choose>
 	<ryctag:form action="/action/editsubmit" modelAttribute="action">
         <ryctag:input path="title" label="Titre" id="title"/>  
         <ryctag:input path="shortName" label="identifiant de l'action" id="shortName"/>      
@@ -19,11 +28,25 @@
        
 		<input type="hidden" name="id" value="${action.id}"/> 
             
-        <tr><td><input type="submit" value="<c:choose><c:when test="${action.id != null}">Sauver</c:when><c:otherwise>Créer</c:otherwise></c:choose>" /></td>
-        <td> <a href="	<c:choose>
+        <tr>
+        <td>
+       		
+        		<input type="submit" value="<c:choose><c:when test="${action.id != null}">Sauver</c:when><c:otherwise>Créer</c:otherwise></c:choose>" />
+
+        </td>
+        <td style="text-align: center;"> 
+        	<a href="	<c:choose>
         					<c:when test="${action.id != null}">/action/${action.url}</c:when>
         					<c:otherwise>/action</c:otherwise>
-        				</c:choose>"     >Annuler</a></td></tr>
+        				</c:choose>"     >
+        		Annuler
+        	</a>
+        </td>
+       
+      
+        	
+
+        </tr>
     </ryctag:form>
   
 </html>

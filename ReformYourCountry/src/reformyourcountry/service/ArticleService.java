@@ -1,30 +1,20 @@
 package reformyourcountry.service;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.converter.BBConverter;
 import reformyourcountry.exception.InvalidUrlException;
 import reformyourcountry.model.Article;
 import reformyourcountry.model.ArticleVersion;
-import reformyourcountry.model.User;
-import reformyourcountry.pdf.ArticlePdfGenerator;
 import reformyourcountry.repository.ActionRepository;
 import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.repository.ArticleVersionRepository;
 import reformyourcountry.repository.BookRepository;
-import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
-import reformyourcountry.util.FileUtil;
 
 @Service
 @Transactional
@@ -147,7 +137,15 @@ public class ArticleService {
 	     article.setLastVersionRenderdSummary(new BBConverter(bookRepository, articleRepository,actionRepository).transformBBCodeToHtmlCode(article.getLastVersion().getSummary()));
 	 }
 	
-	 
+	 public void deleteArticle(Article article){
+	     for (Article child: article.getChildren()){
+	         deleteArticle(child);
+	     }
+	     for(ArticleVersion va: articleVersionRepository.findAllVersionForAnArticle(article)){
+	         articleVersionRepository.remove(va);
+	     }
+	     articleRepository.remove(article);
+	 }
 	 
 
 }

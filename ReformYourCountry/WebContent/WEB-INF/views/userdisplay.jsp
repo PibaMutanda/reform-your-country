@@ -86,6 +86,7 @@
 			 <c:if test="${canEdit}">
 				 <li><a href="user/edit?id=${user.id}">Editer le Profil</a></li>
 				 <li><a href="user/changepassword?id=${user.id}">Modifier le mot de passe</a></li>
+				 <li><a href="user/delete?id=${user.id}">Supprimer le compte</a></li>
 			 </c:if>
 		</ul>	
 	</div>

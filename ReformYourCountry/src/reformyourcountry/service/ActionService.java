@@ -22,6 +22,7 @@ public class ActionService {
     @Autowired ArgumentRepository argumentRepository;
 	@Autowired ActionRepository actionRepository;
 	@Autowired BadgeService badgeService;
+	@Autowired ArgumentService argumentService;
 	
 	public void putGraphNumbersInModelAndView(ModelAndView mv, Action action){
 		List<Long> resultNumbers = getResultNumbersForAction(action);
@@ -143,6 +144,14 @@ public class ActionService {
 	        return va;
 	        
 	    }
-
+	   public void delete(Action action){
+	       for(VoteAction vote : action.getVoteActions()){
+	           voteActionRepository.remove(vote);
+	       }
+	       for(Argument arg:action.getArguments()){
+	           argumentService.deleteArgument(arg);
+	       }
+	       actionRepository.remove(action);
+	   }
 
 }
