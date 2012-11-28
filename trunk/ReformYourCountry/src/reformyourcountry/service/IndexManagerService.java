@@ -122,7 +122,7 @@ public class IndexManagerService {
 	}
 
 	private String cleanAndTransform(String textToTransform) {
-		String result = HTMLUtil.removeHmlTags(new BBConverter(bookRepository, articleRepository,actionRepository).transformBBCodeToHtmlCode(textToTransform));
+		String result = HTMLUtil.removeHmlTags(new BBConverter(bookRepository, articleRepository,actionRepository,false).transformBBCodeToHtmlCode(textToTransform));
 		return result;
 	}
 	
