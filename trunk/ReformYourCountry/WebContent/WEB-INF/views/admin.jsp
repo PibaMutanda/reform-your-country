@@ -24,5 +24,9 @@
 		<a href="/privilegeoverview">Liste des utilisateurs ayant un rôle ou un privilège spécial</a>
    </li>
 </ul>
+
+<a href="/lastevent/listupdatedevent">Liste des derniers changements</a><br/>
+<a href="/lasteventargumentcomment/listupdatedevent">Liste des derniers changements(Arguments,Commentaires, Bons examples)</a>
+
 </body>
 </html>
