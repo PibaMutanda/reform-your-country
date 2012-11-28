@@ -147,7 +147,6 @@ public class ArticlePdfGenerator {
 			"margin: 0;"+
 			"margin-right: 40px;"+
 			"margin-left: 40px;"+
-			"margin-top:1em;"+
 			"margin-bottom:1em;"+
 			"}"+
 			".quote {"+
@@ -256,7 +255,7 @@ public class ArticlePdfGenerator {
         content += "<div id=#article ><H1>"+article.getTitle()+"</H1></br></br>"+article.getLastVersionRenderdSummary();
 
         if(!doTheUserWantOnlySummary){
-            content += "Article - "+article.getTitle()+"</br></br>"+article.getLastVersionRenderedContent();
+            content += "<H1>Article - "+article.getTitle()+"</H1></br></br>"+article.getLastVersionRenderedContent();
         }
         content += "</div><pd4ml:page.break>"; 
         return content;
@@ -292,6 +291,7 @@ public class ArticlePdfGenerator {
 		 ByteArrayOutputStream  baos = new ByteArrayOutputStream();
 		try {
 			pd4ml.render(new StringReader( finalresult), baos);
+			System.out.println(finalresult);
 		} catch (InvalidParameterException | IOException e) {
 			throw new RuntimeException(e);
 		}
