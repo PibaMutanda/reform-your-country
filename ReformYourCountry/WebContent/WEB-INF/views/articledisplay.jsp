@@ -118,10 +118,10 @@
 				 </div>
 				 <div style="float:right;vertical-align:bottom">	
 					<c:if test="${empty article.children}">
-					<img class="generatepdfarticle" style="cursor:pointer;text-align:right;" src="images/pdf_button.png"></img>
+					  <img class="generatepdfarticle" style="cursor:pointer;text-align:right;" src="images/pdf_button.png" title="Générez un PDF pour lire/imprimer cet article"></img>
 			    	</c:if>
 				    <c:if test="${!empty article.children}">
-					<img class="generatepdfgroup" style="cursor:pointer;text-align:right;" src="images/pdf_button.png"></img>
+					  <img class="generatepdfgroup" style="cursor:pointer;text-align:right;" src="images/pdf_button.png" title="Générez un PDF pour lire/imprimer cet article (et ses sous-articles)"></img>
 				    </c:if>
 				 </div>	
 					
