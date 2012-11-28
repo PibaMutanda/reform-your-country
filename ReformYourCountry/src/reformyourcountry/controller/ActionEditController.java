@@ -40,6 +40,12 @@ public class ActionEditController extends BaseController<Action>{
     public ModelAndView actionDelete(@RequestParam("id") long actionId){
         Action action = getRequiredEntity(actionId); 
         SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ACTION);
+        return getConfirmBeforeDeletePage(action.getTitle(), "/action/deleteconfirmed", "/action/"+action.getUrl(), actionId);
+    }
+    @RequestMapping("/deleteconfirmed")
+    public ModelAndView actionDeleteConfirm(@RequestParam("id") long actionId){
+        Action action = getRequiredEntity(actionId); 
+        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ACTION);
         actionService.delete(action);
         return new ModelAndView("redirect:/action");
     }

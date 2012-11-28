@@ -78,4 +78,23 @@ public class BaseController<E extends BaseEntity> {
     	em.detach(entity);
     	return entity;
     }
+    
+    /**
+     * This method will return a premade model and view to go on confiorm page before the deletion of some Entities.
+     * 
+     * @param message 
+     * @param deleteMethodAdress address of the controller method 
+     * @param urlInCaseOfAbortion
+     * @param id
+     * @return 
+     */
+    protected ModelAndView getConfirmBeforeDeletePage(String message,String deleteMethodAdress,String urlInCaseOfAbortion,Long id){
+
+        ModelAndView mv = new ModelAndView("confirm");
+        mv.addObject("url",deleteMethodAdress);
+        mv.addObject("message",message);
+        mv.addObject("id",id);
+        mv.addObject("abortUrl",urlInCaseOfAbortion);
+        return mv;
+    }
 }

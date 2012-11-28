@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import reformyourcountry.model.Article;
 import reformyourcountry.model.User;
+import reformyourcountry.model.User.AccountStatus;
 import reformyourcountry.model.User.Gender;
+import reformyourcountry.model.User.Role;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
@@ -52,7 +55,25 @@ public class UserEditController extends BaseController<User> {
     	mv.addObject("canChangeUserName", (SecurityContext.canCurrentUserChangeUser(user) && user.getCertificationDate() == null) || SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS));
     	return mv;
     }
-  
+    
+    @RequestMapping("/delete")
+    public ModelAndView userDelete(@RequestParam(value="id") Long idUser){
+        User user  = userRepository.find(idUser);
+        SecurityContext.assertCurrentUserMayEditThisUser(user);
+        return getConfirmBeforeDeletePage(user.getUserName(), "/user/deleteconfirmed", "/user/"+user.getUserName(), idUser);
+
+    }
+
+    @RequestMapping("/deleteconfirmed")
+    public String userDeleteConfirmed(@RequestParam(value="id") Long idUser){
+        User user  = userRepository.find(idUser);
+        SecurityContext.assertCurrentUserMayEditThisUser(user);
+        userService.setAnonymous(user);
+        return "home";
+    }
+    
+    
+    
     @RequestMapping("/editsubmit")
     public ModelAndView userEditSubmit(@RequestParam(value="lastName",required=false) String newLastName,
                                         @RequestParam(value="firstName",required=false) String newFirstName,
