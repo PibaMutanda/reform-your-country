@@ -28,7 +28,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.request.WebRequest;
 
-USimport reformyourcountry.exception.UserAlreadyExistsException;
+import reformyourcountry.exception.InvalidPasswordException;
+import reformyourcountry.exception.UserAlreadyExistsException;
 import reformyourcountry.exception.UserAlreadyExistsException.IdentifierType;
 import reformyourcountry.exception.UserLockedException;
 import reformyourcountry.exception.UserNotFoundException;
@@ -48,6 +49,7 @@ import reformyourcountry.service.LoginService.WaitDelayNotReachedException;
 import reformyourcountry.util.CurrentEnvironment;
 import reformyourcountry.util.DateUtil;
 import reformyourcountry.util.FileUtil;
+import reformyourcountry.util.HTMLUtil;
 import reformyourcountry.util.ImageUtil;
 import reformyourcountry.util.Logger;
 import reformyourcountry.util.NotificationUtil;
