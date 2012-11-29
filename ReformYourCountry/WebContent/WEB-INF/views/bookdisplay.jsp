@@ -19,7 +19,7 @@
         </c:if>
         <p class="bookContent">${book.description}</p>
         <a href="${book.externalUrl}"target="_blank"><img  alt="Lien externe" title="Lien externe"src="/images/_global/links.png" width="32px" height="32px"/></a>
-         <ryc:conditionDisplay privilege="EDIT_BOOK">
+         <ryc:conditionDisplay privilege="MANAGE_BOOK">
 	 		 <ryctag:submit entity="${book}" value="Editer" action="/book/edit"/>	
 	    <form method="post" action="/book/remove">
 			<input type="hidden" name="id" value="${book.id}" />  <br><input type="submit" value="Supprimer ce livre" />
@@ -27,7 +27,7 @@
 	  	</ryc:conditionDisplay>
     </div>
     <div style="display: inline-block;">
-    <ryc:conditionDisplay privilege="EDIT_BOOK">
+    <ryc:conditionDisplay privilege="MANAGE_BOOK">
 		<form method="post" action="/book/imagedelete">
 			<input type="hidden" name="id" value="${book.id}" />  <br><input type="submit" value="Supprimer l'image" />
 		</form>

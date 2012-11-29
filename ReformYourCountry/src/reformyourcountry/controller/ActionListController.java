@@ -17,6 +17,7 @@ import reformyourcountry.repository.ActionRepository;
 import reformyourcountry.repository.VoteActionRepository;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.ActionService;
+import reformyourcountry.util.DateUtil;
 
 @Controller
 public class ActionListController {
@@ -57,6 +58,8 @@ public class ActionListController {
         Action action;
         List<Long> resultNumbers;
         VoteAction voteAction;
+
+      
         public ActionItem(Action action,List<Long> resultNumbers,VoteAction voteAction){
             this.action = action;
             this.resultNumbers = resultNumbers;
@@ -70,6 +73,9 @@ public class ActionListController {
         }
         public VoteAction getVoteAction() {
             return voteAction;
+        }
+        public String getDifference() {
+            return DateUtil.formatIntervalFromToNowFR(action.getCreatedOn());
         }
 
 		@Override

@@ -12,7 +12,7 @@
 <body>	
 <ryctag:pageheadertitle title="Liste des actions"/>
 	
-	<ryc:conditionDisplay privilege="EDIT_ACTION">
+	<ryc:conditionDisplay privilege="MANAGE_ACTION">
 		<form action="/action/create" method="post" >
 			<input type="hidden" name="id" value="">
 			<input type="submit"  value="Créer action" />

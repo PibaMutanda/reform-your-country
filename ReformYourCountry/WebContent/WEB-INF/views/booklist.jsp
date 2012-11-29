@@ -27,7 +27,7 @@ width:50%;
 <div style="display:inline-block;">
 
 	<div style="float:right; ">
-		<ryc:conditionDisplay privilege="EDIT_BOOK">
+		<ryc:conditionDisplay privilege="MANAGE_BOOK">
 
 			    <ul class="list sitemap-list">
 					 <li><a href="/book/create">Créer livre</a></li>

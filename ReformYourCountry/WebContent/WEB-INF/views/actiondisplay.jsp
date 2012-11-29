@@ -8,19 +8,13 @@
 <meta name="robots" content="index, follow"/>
 <script type="text/javascript" src="/js/int/voteaction.js"></script>
 <script type="text/javascript" src="/js/ext/d3.v2.min.js"></script>
-<script type="text/javascript" src="/js/ext/jquery-bubble-popup-v3.min.js"></script>
 <script type="text/javascript" src="/js/int/argument.js"></script>
 <script type="text/javascript" src="/js/int/CKeditorManager.js"></script>
-<script type="text/javascript" src="/js/int/general.js"></script>
 <script type="text/javascript" src="/js/int/general.form.js"></script>
 <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
-<link href="/css/ext/jquery-bubble-popup-v3.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 
-<script type="text/javascript">
-   var idUser = "${current.user.id}";
-</script>
     <ryctag:pageheadertitle title="${action.title}"/>
 
     <%-- Action text --%>
@@ -48,7 +42,7 @@
 			<div>
 					<div>
 						<a href="/action" style="font-size:0.8em;">retour à la liste des actions</a>
-							<ryc:conditionDisplay privilege="EDIT_ACTION">
+							<ryc:conditionDisplay privilege="MANAGE_ACTION">
 								- <a href="/action/edit?id=${action.id}" style="font-size:0.8em;">éditer</a>
 							</ryc:conditionDisplay>
  						<ryctag:form action="/action/edit" modelAttribute="action" method="get" width="50px;"> 

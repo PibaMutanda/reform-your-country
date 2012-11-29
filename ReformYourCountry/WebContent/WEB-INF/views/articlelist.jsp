@@ -12,7 +12,7 @@
 <body>
 <ryctag:pageheadertitle title="Liste des articles"></ryctag:pageheadertitle>
 
-<ryc:conditionDisplay privilege="EDIT_ARTICLE">
+<ryc:conditionDisplay privilege="MANAGE_ARTICLE">
 <div style="display:inline-block">
 <div class="article-options">
 <!-- 			    <ul class="list sitemap-list"> -->

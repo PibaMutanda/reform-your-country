@@ -17,7 +17,7 @@ Url : ${group.url} <br/>
         alt="${group.name}" class="imggroup">
 </c:if>
  
-<ryc:conditionDisplay privilege="EDIT_GROUP">
+<ryc:conditionDisplay privilege="MANAGE_GROUP">
 		<ryctag:submit entity="${group}" value="Editer" action="/groupedit" />
 		
 		<%-- IMAGE --%>

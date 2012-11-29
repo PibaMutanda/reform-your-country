@@ -60,7 +60,7 @@
 
 	<div style="display:inline-block"><!-- DO NOT REMOVE OTHERWISE TITLE AND MENU ARE UPSIDE DOWN	 -->
 		<div class="article-options">
-	    <ryc:conditionDisplay privilege="EDIT_ARTICLE" >
+	    <ryc:conditionDisplay privilege="MANAGE_ARTICLE" >
 			 <a href="/article/contentedit?id=${article.id}" >éditer contenu</a>
 			 - <a href="/article/summaryedit?id=${article.id}" >éditer résumé</a>
 			 - <a href="/article/toclassifyedit?id=${article.id}" >éditer à classer</a>
@@ -75,7 +75,7 @@
 		<br/>
 		<div class="article-title" >
 		  <div class="article-shortname" >
-			<ryc:conditionDisplay privilege="EDIT_ARTICLE">
+			<ryc:conditionDisplay privilege="MANAGE_ARTICLE">
 		    	<span class="tooltip" data-tooltip='identifiant de cet article pour utilisation dans la balise [link article="${article.shortName}"]'>${article.shortName}</span>   <!--  Tooltip avec "identifiant de cet article pour utilisation dans la balise [link article="identifiant"]" -->
 			</ryc:conditionDisplay>	
 		   </div>
@@ -97,7 +97,7 @@
     <c:choose>
   	  <c:when test="${showContent}">
 		<div class="article_content">
-		  	  <ryc:conditionDisplay privilege="EDIT_ARTICLE">
+		  	  <ryc:conditionDisplay privilege="MANAGE_ARTICLE">
 		 		 <hr/>
 			  </ryc:conditionDisplay>
 				
@@ -144,7 +144,7 @@
 							<c:set var="actionItems" value="${actionItemsParent}" scope="request"/>
  						    <%@include file="actionsummary.jsp"%>
  						    
-							<ryc:conditionDisplay privilege="EDIT_ARTICLE">
+							<ryc:conditionDisplay privilege="MANAGE_ARTICLE">
 								<div class="article-liens" >
 									<div style="text-align:right;">
 										<a href="/articleactionlinkedit?id=${article.id}">
@@ -179,7 +179,7 @@
 						    </div>
 						</c:forEach>
 						<%--we are waiting for Max's page --%>
-							<ryc:conditionDisplay privilege="EDIT_ARTICLE">
+							<ryc:conditionDisplay privilege="MANAGE_ARTICLE">
 								<div class="article-liens">
 									<div style="text-align:right;">
 										<a href="/articlegoodexamplelinkedit?id=${article.id}" style="text-align:rignt;">

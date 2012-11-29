@@ -16,6 +16,7 @@
 <script type="text/javascript" src="js/ext/swfobject.js"></script>
 <script type="text/javascript" src="js/ext/CU3ER.js"></script>
 <script type="text/javascript" src="js/ext/home.js"></script>
+<script type="text/javascript" src="js/int/votelistaction.js"></script>
 <!-- CU3ER content JavaScript part ends here   -->
 <title>${p_home_title}</title>
 </head>
@@ -79,6 +80,9 @@
     <c:forEach items="${actionListByDate}" var="act">
 		 <div class="listaction">
  		     <div style="float:right;">
+				    <c:set var="vote" value="${act.voteAction}" scope="request"/>
+				    <c:set var="resultNumbers" value="${act.resultNumbers}" scope="request" />
+				    <c:set var="id" value="${act.action.id}" scope="request" />
 		     	<%@include file="voteactionwidget.jsp"%>
 		     </div>	
 			 <div >

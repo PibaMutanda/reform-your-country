@@ -10,7 +10,7 @@
 <body>
 	<h1>Liste des groupes</h1>
 	
-	<ryc:conditionDisplay privilege="EDIT_GROUP">
+	<ryc:conditionDisplay privilege="MANAGE_GROUP">
 		<form action="/groupcreate" method="get" >
 			<input type="hidden" name="id" value="">
 			<input type="submit"  value="Créer un nouveau groupe" />
