@@ -55,11 +55,13 @@ public class UserEditController extends BaseController<User> {
     	return mv;
     }
     
-    private ModelAndView prepareModelAndView(Long userId,User user) {
+    private ModelAndView prepareModelAndView(Long userId,User user) { 
     	ModelAndView mv=new ModelAndView("useredit");
     	mv.addObject("id", userId); 
     	mv.addObject("user", user);
-    	mv.addObject("canChangeUserName", (SecurityContext.canCurrentUserChangeUser(getRequiredEntity(userId)) && getRequiredEntity(userId).getCertificationDate() == null) || SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS));
+    	mv.addObject("canChangeUserName", (SecurityContext.canCurrentUserChangeUser(getRequiredEntity(userId)) /// If we have a validation error, the given user is a fake, used for error handling;
+    												&& getRequiredEntity(userId).getCertificationDate() == null)// in that case, we have to compare the current user with the real one, hence the getRequiredEntity
+    												|| SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS));
     	return mv;
     }
     
