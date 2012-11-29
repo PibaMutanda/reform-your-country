@@ -125,11 +125,11 @@ public class UserEditController extends BaseController<User> {
 		else {
 			  
 			    String errorBirthDate=null;
-			    if (day.equals("null"))      errorBirthDate = "Vous devez sélectionner un jour SVP";
-			    if (month.equals("null"))    errorBirthDate = "Vous devez sélectionner un mois SVP";    
-			    if (year.equals("null"))     errorBirthDate = "Vous devez sélectionner une année SVP";      
+			    if (day.equals("null"))      errorBirthDate = "Vous devez sélectionner le jour SVP";
+			    if (month.equals("null"))    errorBirthDate = "Vous devez sélectionner le mois SVP";    
+			    if (year.equals("null"))     errorBirthDate = "Vous devez sélectionner  l'année SVP";      
 			    ModelAndView mv=prepareModelAndView(userId, user);
-			    mv.addObject("errorBirthdate", errorBirthDate);
+			    mv.addObject("errorBirthDate", errorBirthDate);
 			    return mv;
 
 			    
