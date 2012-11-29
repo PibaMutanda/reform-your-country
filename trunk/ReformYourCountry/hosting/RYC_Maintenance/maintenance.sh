@@ -24,8 +24,8 @@ case $1 in
                 chmod 0777 $BACKUP_FOLDER/DB
                 
                 cd $BACKUP_FOLDER/DB 
-                su -c 'pg_dump '$DB_NAME' | xz -e9c > last.xz' postgres 
-                cp -a last.xz $NOW.xz
+                su -c 'pg_dump '$DB_NAME' | xz -e9c > last-db.xz' postgres 
+                cp -a last-db.xz $NOW-db.xz
 
                 rotateBackup DB
                 exit 0
@@ -42,22 +42,20 @@ case $1 in
                 if [ "$(ls -A "$GEN_DIR")" ]; then
 
                         #must be in the gen and execute tar in it otherwise tar archive all the dir structure
-                        cd $GEN_DIR
-                        tar -Jcvf $BACKUP_FOLDER/gen/last.tar.xz * 
-                        #must now copy the generated archive and compress it with the right to the right location
-                        #mv last.tar $BACKUP_FOLDER/gen/last.tar 
+                        cd $GEN_DIR/..
+                        tar -Jcvf $BACKUP_FOLDER/gen/last-gen.tar.xz gen 
+                        #must now copy the generated archive  to the right location
                         cd $BACKUP_FOLDER/gen 
-                        #use "last" copy name instead of directly named with the name to easely get the last backup from dev computer 
-                        #xz -fe9 last.tar 
-                        cp -a last.tar.xz $NOW.tar.xz
+                        #use "last" copy name instead of directly named with the name to easely get the last backup from dev computer with a script                      
+                        cp -a last-gen.tar.xz $NOW-gen.tar.xz
+                        rotateBackup gen
 
-                        exit $?
                 else
                         echo "nothing to do, gen directory is empty "
-                        exit 0
+                       
                 fi
-                rotateBackup gen
-                exit 0
+            
+                exit $?
                 ;;
         "rotateBackup")
                 case $2 in
