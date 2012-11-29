@@ -166,9 +166,9 @@ public class BBConverter {
 		if(name != null) {
 		    String imgHtml;
             if(useFullImageUrl){// pd4ml need absolute url to generate image in pdf.
-		    imgHtml = "<img src=\""+UrlUtil.getAbsoluteUrl("")+"gen/article/"+name+"\"";
+            	imgHtml = "<img src=\""+UrlUtil.getAbsoluteUrl("")+"gen/article/"+name+"\"";
             }else{
-                imgHtml = "<img src=\"gen/article/"+name+"\"";
+                imgHtml = "<img src=\"/gen/article/"+name+"\"";
             }
 
 			if(tag.getAttributeValue("style") != null){
@@ -580,7 +580,7 @@ public class BBConverter {
         block += "<div class='book'>";  // Will be in the tooltip too.
         
         if(book.isHasImage()) {
-            block += "<img src='gen" + FileUtil.BOOK_SUB_FOLDER + FileUtil.BOOK_RESIZED_SUB_FOLDER +"/"+book.getId()+".jpg' alt='"+book.getTitle()+"' class='imgbook'>";
+            block += "<img src='/gen" + FileUtil.BOOK_SUB_FOLDER + FileUtil.BOOK_RESIZED_SUB_FOLDER +"/"+book.getId()+".jpg' alt='"+book.getTitle()+"' class='imgbook'>";
         }
 
         if (book.getSubtitle()!=null) {
