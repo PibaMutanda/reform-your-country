@@ -30,8 +30,8 @@ function CKeditorEditSubmit(idEditedValueContainer){
 	var itemId = $('#ckEditForm > input[name="idItem"]').val();
 
 	//// POST to server
-	$.post($("#ckEditForm").attr("action"),serializeFormWithCkEditorContent($("#ckEditForm"), "content"))
-		.succes(function(data) {
+	$.post($("#ckEditForm").attr("action"),serializeFormWithCkEditorContent($("#ckEditForm"), "content")
+		 	).success(function(data) {
 				destroyCkEditor();
 				if (itemId.length == 0) {   	// Creation of a new item
 					$("#"+idEditedValueContainer).append(data);    // here idEditedValueContainer is the container (the argument column for example) of the new item.
@@ -43,8 +43,7 @@ function CKeditorEditSubmit(idEditedValueContainer){
 				}
 				console.log(idEditedValueContainer+"a été modifié");
 				// TODO: Add visual effect (highlight 1 second) to the div containing the argument detail just received (data).
-				})
-		.error(function(jqXHR, textStatus) {
+			}).error(function(jqXHR, textStatus) {
 		// TODO show that error in a jQuery pop-up
 			var exceptionVO = jQuery.parseJSON(jqXHR.responseText);
 			console.error(exceptionVO.method + " in " + exceptionVO.clazz + " throw " + exceptionVO.message);
