@@ -113,7 +113,7 @@ public class UserEditController extends BaseController<User> {
        
         //birthDate
     	Date dateNaiss = null;
-        if ((!day.equals("null"))||(!month.equals("null"))||(!year.equals("null"))) {
+        if ((!day.equals("null"))&&(!month.equals("null"))&&(!year.equals("null"))) {
 			dateNaiss = DateUtil.parseyyyyMMdd(year + "-" + month + "-" + day);
 			if (dateNaiss.after(new Date())) {
 				////constrcut modelandview because brithday is split in 3 input so we connat use the erros variable.
@@ -121,7 +121,21 @@ public class UserEditController extends BaseController<User> {
 				mv.addObject("errorBirthDate", "Vous avez sélectionné une date dans le futur. Veuillez choisir une date de naissance passée.");
 				return mv;
 			}
-		}
+        }
+		else {
+			  
+			    String errorBirthDate=null;
+			    if (day.equals("null"))      errorBirthDate = "Vous devez sélectionner un jour SVP";
+			    if (month.equals("null"))    errorBirthDate = "Vous devez sélectionner un mois SVP";    
+			    if (year.equals("null"))     errorBirthDate = "Vous devez sélectionner une année SVP";      
+			    ModelAndView mv=prepareModelAndView(userId, user);
+			    mv.addObject("errorBirthdate", errorBirthDate);
+			    return mv;
+
+			    
+			}
+        
+        
 		// userName
         boolean hasUserAlreadyExist=false;
         newUserName = org.springframework.util.StringUtils.trimAllWhitespace(newUserName).toLowerCase();  // remove blanks
