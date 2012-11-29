@@ -88,7 +88,8 @@ public class ArticleEditController extends BaseController<Article>{
 	        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
 	        Article article = articleRepository.find(idArticle);
 	        articleService.deleteArticle(article);
-	        return new ModelAndView("article","message","L'article et ses descendants ont bien été supprimés");
+	        NotificationUtil.addNotificationMessage("L'article est bien supprimé");
+	        return new ModelAndView("redirect:/article");
 	    }
 	
 	@ModelAttribute

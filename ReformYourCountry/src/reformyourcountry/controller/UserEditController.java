@@ -25,6 +25,7 @@ import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.UserService;
 import reformyourcountry.util.DateUtil;
 import reformyourcountry.util.HTMLUtil;
+import reformyourcountry.util.NotificationUtil;
 
 
 @Controller
@@ -75,7 +76,8 @@ public class UserEditController extends BaseController<User> {
         User user  = userRepository.find(idUser);
         SecurityContext.assertCurrentUserMayEditThisUser(user);
         userService.setAnonymous(user);
-        return new ModelAndView("home","message","L'utilisateur est bien supprimé");
+        NotificationUtil.addNotificationMessage("L'utilisateur est bien supprimé");
+        return new ModelAndView("home");
     }
     
     

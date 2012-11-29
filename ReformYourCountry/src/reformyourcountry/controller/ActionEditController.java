@@ -15,6 +15,7 @@ import reformyourcountry.repository.ActionRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.ActionService;
+import reformyourcountry.util.NotificationUtil;
 
 @Controller
 @RequestMapping("/action")
@@ -47,7 +48,8 @@ public class ActionEditController extends BaseController<Action>{
         Action action = getRequiredEntity(actionId); 
         SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ACTION);
         actionService.delete(action);
-        return new ModelAndView("/home","message","L'action a bien été supprimée");
+        NotificationUtil.addNotificationMessage("L'action est bien supprimée");
+        return new ModelAndView("redirect:/action");
     }
    
     @RequestMapping("/editsubmit")
