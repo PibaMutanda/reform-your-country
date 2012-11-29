@@ -377,12 +377,12 @@ public class ArticlePdfGenerator {
 	/** Creation of the cover page */
 	public String createCoverHtml(){
 
-	    String result = new String("");
+  String result = new String("");
 
-	    // we resize the image before add to <div>
-	    result +=			
-	            "<div id='titregeneral' align='center' >"+
-	                    createArticleTitle()+"<br/><br/></div>" +
+			    // we resize the image before add to <div>
+			    result +=			
+			            "<div id='titregeneral' align='center' >"+
+			                    createArticleTitle()+"<br/><br/></div>" +
 
                 //we add a second image with 650x430 dimension
                 "<div  id ='logo' align='center'>"+

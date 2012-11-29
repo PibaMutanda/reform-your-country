@@ -59,7 +59,7 @@ public class UserEditController extends BaseController<User> {
     	ModelAndView mv=new ModelAndView("useredit");
     	mv.addObject("id", userId); 
     	mv.addObject("user", user);
-    	mv.addObject("canChangeUserName", (SecurityContext.canCurrentUserChangeUser(user) && user.getCertificationDate() == null) || SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS));
+    	mv.addObject("canChangeUserName", (SecurityContext.canCurrentUserChangeUser(getRequiredEntity(userId)) && getRequiredEntity(userId).getCertificationDate() == null) || SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS));
     	return mv;
     }
     
@@ -145,7 +145,7 @@ public class UserEditController extends BaseController<User> {
         
         
         if (errors.hasErrors()) {
-            ModelAndView mv = prepareModelAndView(userId, user);
+            ModelAndView mv = prepareModelAndView(userId, doNotUseThisUserInstance);
             if (doNotUseThisUserInstance.getUserName()==""|| hasUserAlreadyExist==true ) {
                 doNotUseThisUserInstance.setUserName(user.getUserName());  // We need to restore the username, because the "Cancel" link in the JSP needs it.
             }
