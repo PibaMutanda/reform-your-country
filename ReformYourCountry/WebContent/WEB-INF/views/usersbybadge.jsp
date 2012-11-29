@@ -10,12 +10,26 @@
 </head>
 <body>
   
-	<ryctag:badge badgeType="${badgeType}"/> ${badgeType.description} - ${badges.size()}: utilisateurs ont gagné ce badge. <br/>
-	           
-   	<c:forEach items="${badges}" var="badge">
-    	${badge.user.firstName}<br />
-	</c:forEach>
-      
+	<ryctag:badge badgeType="${badgeType}"/> ${badgeType.description} - 
+	    <c:choose>
+	     <c:when test="${badges.size()==0 || badges.size()==1}">${badges.size()}: utilisateur a gagné ce badge.<br/> 
+	    </c:when>
+	   		 <c:otherwise> ${badges.size()}: utilisateurs ont gagné ce badge. <br/>
+	   		 </c:otherwise>
+	   </c:choose>
+	    
+	<table style='width:100%'>    
+	<% int i = 0;%>   
+   		<c:forEach items="${badges}" var="badge">
+    	    <c:set var="u" value="<%=i%>"/>
+    	    <c:if test="${(u mod 4) == 0}"><tr></c:if>
+   		    <td><ryctag:user user="${badge.user}"></ryctag:user></td>
+       	    <c:if test="${(u mod 4) == 3}"></tr></c:if>
+   		    <%  i=i+1; %>
+		</c:forEach>
+    </table>
+    
+
       
 </body>
 </html>

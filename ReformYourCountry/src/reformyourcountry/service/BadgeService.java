@@ -25,8 +25,8 @@ public class BadgeService {
 		badgeRepository.persist(badge);
 		user.getBadges().add(badge);
 		NotificationUtil.addNotificationMessage(
-				"Félicitations vous avez obtenu le badge " + badgeType.getName() +  
-				" de niveau " + badgeType.getBadgeTypeLevel().getName() );
+				"Félicitations vous avez obtenu un badge de niveau : " + badgeType.getBadgeTypeLevel().getName()  
+				+ " " + badgeType.getName());
     }
 
         

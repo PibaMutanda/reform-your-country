@@ -10,16 +10,15 @@
 <div class="user" id="${user.id}">
 
 	<div class="avatar">
-	<%-- 	<c:if test="${user.isPicture}"> --%>
+	<c:if test="${user.picture}"> 
        <img src="gen<%=FileUtil.USER_SUB_FOLDER%><%=FileUtil.USER_RESIZED_SUB_FOLDER%><%=FileUtil.USER_RESIZED_SMALL_SUB_FOLDER %>/${user.id}.jpg" /> 
-	<%--     </c:if> --%>
+	</c:if> 
 	</div>
 	<a href="/user/${user.userName}" class="a-name">
       <div class="lien">
 		<span>${user.firstName} ${user.lastName}</span>
 		<c:if test="${user.certificationDate != null }">
 			<img src="images/green-check.png" />
-			
 		</c:if>
 <!-- 		certification -->
       </div>
