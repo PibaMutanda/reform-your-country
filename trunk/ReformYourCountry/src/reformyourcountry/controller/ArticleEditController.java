@@ -31,7 +31,7 @@ public class ArticleEditController extends BaseController<Article>{
 
 	@RequestMapping(value={"/edit","/create"})
 	public ModelAndView articleEdit(@ModelAttribute Article article){
-		SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
+		SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_ARTICLE);
 		ModelAndView mv = new ModelAndView("articleedit");
 		mv.addObject("article",article);
         mv.addObject("parentsPath", article.getPath()); // For the breadcrumb
@@ -40,7 +40,7 @@ public class ArticleEditController extends BaseController<Article>{
 
 	@RequestMapping("/editsubmit")
 	public ModelAndView articleEditSubmit(@Valid @ModelAttribute Article article, Errors errors){
-		SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
+		SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_ARTICLE);
 		
 		Article otherArticleInDB = null;
 	    ModelAndView mv = new ModelAndView("articleedit", "article", article);
@@ -78,14 +78,14 @@ public class ArticleEditController extends BaseController<Article>{
 	
 	   @RequestMapping(value={"/delete"})
 	    public ModelAndView articleDelete(@RequestParam("id") Long idArticle){
-	        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
+	        SecurityContext.assertUserHasPrivilege(Privilege.DELETE);
 	        Article article = getRequiredEntity(idArticle);
 	        return getConfirmBeforeDeletePage(article.getTitle(), "/article/deleteconfirmed", "/article/"+article.getUrl(), idArticle);
 	    }
 	    @RequestMapping(value={"/deleteconfirmed"})
 	    public ModelAndView articleDeleteConfirmed(@RequestParam("id") Long idArticle){
 	        // TODO ASSERT
-	        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
+	        SecurityContext.assertUserHasPrivilege(Privilege.DELETE);
 	        Article article = articleRepository.find(idArticle);
 	        articleService.deleteArticle(article);
 	        NotificationUtil.addNotificationMessage("L'article est bien supprimé");

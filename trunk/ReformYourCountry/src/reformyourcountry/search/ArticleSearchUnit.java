@@ -26,6 +26,6 @@ public class ArticleSearchUnit{
 	}
 	 
 	public boolean isVisible(){
-		return (article.isPublished() || SecurityContext.isUserHasPrivilege(Privilege.EDIT_ARTICLE));
+		return (article.isPublished() || SecurityContext.isUserHasPrivilege(Privilege.MANAGE_ARTICLE));
 	}
 }

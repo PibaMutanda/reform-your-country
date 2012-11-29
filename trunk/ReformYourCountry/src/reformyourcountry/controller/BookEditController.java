@@ -26,13 +26,13 @@ public class BookEditController extends BaseController<Book> {
 
     @RequestMapping("/create")
     public ModelAndView bookCreate(){
-        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_BOOK);
+        SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_BOOK);
         return prepareModelAndView(new Book());
     }
 
     @RequestMapping("/edit")
     public ModelAndView bookEdit(@RequestParam("id") long id){
-        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_BOOK);
+        SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_BOOK);
         Book book = getRequiredEntity(id);
         return prepareModelAndView(book);
     }	
@@ -48,7 +48,7 @@ public class BookEditController extends BaseController<Book> {
     @RequestMapping("/editsubmit")
     public ModelAndView bookEditSubmit(@Valid @ModelAttribute Book book, BindingResult result){
        
-        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_BOOK);
+        SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_BOOK);
         
         if (result.hasErrors()){
             return new ModelAndView ("bookedit", "book", book);

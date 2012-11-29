@@ -25,7 +25,7 @@ public class ArticleLinkedGoodExampleController extends BaseController<GoodExamp
 
 	@RequestMapping("/articlelinkedgoodexample")
 	public ModelAndView articleLinkedGoodExample(@RequestParam("id") Long id){
-		SecurityContext.assertUserHasPrivilege(Privilege.EDIT_GOODEXAMPLE);
+		SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_GOODEXAMPLE);
 		ModelAndView mv = new ModelAndView("articleslinkedtogoodexample");
 		GoodExample goodExample = goodExampleRepository.find(id);
 		List<Article> articleList = goodExample.getArticles();	
@@ -38,7 +38,7 @@ public class ArticleLinkedGoodExampleController extends BaseController<GoodExamp
 	public ModelAndView articleLinkedGoodExampleSubmit(@RequestParam ("id") Long goodExampleId,
 			@RequestParam(value="selectedarticleid", required=false)Long[] articleId){
 
-		SecurityContext.assertUserHasPrivilege(Privilege.EDIT_GOODEXAMPLE);
+		SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_GOODEXAMPLE);
 		GoodExample goodExample = this.getRequiredEntity(goodExampleId);
 		
 		/// Unbind that goodExample from all articles.

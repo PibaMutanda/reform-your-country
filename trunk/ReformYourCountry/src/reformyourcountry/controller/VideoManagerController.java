@@ -20,7 +20,7 @@ public class VideoManagerController extends BaseController<Article> {
 	
 	@RequestMapping("/manager")
 	public ModelAndView manager(@RequestParam("id") Long articleId){
-	    SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
+	    SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_ARTICLE);
 		ModelAndView mv = new ModelAndView("videomanager");
 		Article article = this.getRequiredEntity(articleId);
 		mv.addObject("article", article);

@@ -43,7 +43,7 @@ public class BookDisplayController extends BaseController<Book> {
     @RequestMapping("/imageadd")
     public ModelAndView bookImageAdd(@RequestParam("id") long bookid, @RequestParam("file") MultipartFile multipartFile) {    
         
-        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_BOOK);
+        SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_BOOK);
 
         Book book = bookRepository.find(bookid);
 
@@ -75,7 +75,7 @@ public class BookDisplayController extends BaseController<Book> {
     @RequestMapping("/imageaddfromurl")
     public ModelAndView bookImageAddFromUrl(@RequestParam("id") long bookid, @RequestParam(value="fileurl") String url) {    
         
-        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_BOOK);
+        SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_BOOK);
 
         Book book = bookRepository.find(bookid);
 
@@ -113,7 +113,7 @@ public class BookDisplayController extends BaseController<Book> {
     
     @RequestMapping("/imagedelete")
     public ModelAndView bookImageDelete(@RequestParam("id") long bookid){
-        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_BOOK);
+        SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_BOOK);
 
         Book book = bookRepository.find(bookid);
 

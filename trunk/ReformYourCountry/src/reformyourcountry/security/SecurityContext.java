@@ -206,7 +206,7 @@ public  class SecurityContext {
     public static void assertCurrentUserCanEditArgument(Argument arg){
         User user = SecurityContext.getUser();
         if (user != null){
-            if((arg.getUser()==user)||isUserHasPrivilege(Privilege.EDIT_ACTION)){
+            if((arg.getUser()==user)||isUserHasPrivilege(Privilege.MANAGE_ACTION)){
                 return;
             }
         }
@@ -214,12 +214,12 @@ public  class SecurityContext {
     }
     public static boolean canCurrentUserEditArgument(Argument arg) { 
         return arg.getUser().equals(getUser()) // If the user is editing himself
-                || isUserHasPrivilege(Privilege.EDIT_ACTION);     // or If this user has the privilege to edit other users
+                || isUserHasPrivilege(Privilege.MANAGE_ACTION);     // or If this user has the privilege to edit other users
 
     }
     public static boolean canCurrentUserEditComment(Comment com) { 
         return com.getUser().equals(getUser()) // If the user is editing himself
-                || isUserHasPrivilege(Privilege.EDIT_ACTION);     // or If this user has the privilege to edit other users
+                || isUserHasPrivilege(Privilege.MANAGE_ACTION);     // or If this user has the privilege to edit other users
 
     }
 }

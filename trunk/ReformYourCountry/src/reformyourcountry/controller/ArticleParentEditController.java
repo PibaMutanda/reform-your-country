@@ -27,7 +27,7 @@ public class ArticleParentEditController extends BaseController<Article>{
 	
 	@RequestMapping("/parentedit")
 	public ModelAndView articleParentEdit(@ModelAttribute Article article){
-		SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
+		SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_ARTICLE);
 		ModelAndView mv = new ModelAndView("articleparentedit");
         mv.addObject("parentsPath", article.getPath()); // For the breadcrumb
 	    return mv.addObject("article", article); 
@@ -38,7 +38,7 @@ public class ArticleParentEditController extends BaseController<Article>{
 	public ModelAndView articleParentEditSubmit(@Valid @ModelAttribute Article article, BindingResult result,
 			@RequestParam("parentid") Long parentId){
 		
-		SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
+		SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_ARTICLE);
 	
 		if (result.hasErrors()) {
 			ModelAndView mv = new ModelAndView ("articleparentedit", "article", article);
