@@ -3,28 +3,29 @@ package reformyourcountry.model;
 
 public enum BadgeType {
 	
-	AUTOBIOGRAPHER		("Autobiographe", "a complété tous les champs de son profil", BadgeTypeLevel.BRONZE),
-	FILMMAKER			("Cinéaste", "a produit une vidéo", BadgeTypeLevel.GOLD),
-	CITIZEN				("Citoyen", "a voté sur toutes les actions", BadgeTypeLevel.SILVER),
-	STATISTICIAN 	    ("Statisticien"," a complété son appartenance à un ou plusieurs groupes", BadgeTypeLevel.BRONZE),
-	RUBBERNECK          ("Badaud","a voté sur une action",BadgeTypeLevel.BRONZE),
-	ELECTOR             ("Electeur","a voté sur 10 actions",BadgeTypeLevel.BRONZE),
-	REFEREE             ("Arbitre","a voté sur 10 arguments",BadgeTypeLevel.BRONZE),
-	JUDGE               ("Juge","a voté sur 50 arguments",BadgeTypeLevel.SILVER),
-	INQUISITOR          ("Inquisiteur","a voté sur 200 arguments",BadgeTypeLevel.GOLD);
+	AUTOBIOGRAPHER		("Autobiographe", "a complété tous les champs de son profil", BadgeTypeLevel.BRONZE,true),
+	FILMMAKER			("Cinéaste", "a produit une vidéo", BadgeTypeLevel.GOLD,false),
+	CITIZEN				("Citoyen", "a voté sur toutes les actions", BadgeTypeLevel.SILVER,true),
+	STATISTICIAN 	    ("Statisticien"," a complété son appartenance à un ou plusieurs groupes", BadgeTypeLevel.BRONZE,false),
+	RUBBERNECK          ("Badaud","a voté sur une action",BadgeTypeLevel.BRONZE,false),
+	ELECTOR             ("Electeur","a voté sur 10 actions",BadgeTypeLevel.BRONZE,true),
+	REFEREE             ("Arbitre","a voté sur 10 arguments",BadgeTypeLevel.BRONZE,true),
+	JUDGE               ("Juge","a voté sur 50 arguments",BadgeTypeLevel.SILVER,true),
+	INQUISITOR          ("Inquisiteur","a voté sur 200 arguments",BadgeTypeLevel.GOLD,true);
 	
 	
-	private BadgeType(String name, String description, BadgeTypeLevel badgeTypeLevel) {
+	private BadgeType(String name, String description, BadgeTypeLevel badgeTypeLevel,boolean mailConfirm) {
 		this.name = name;
 		this.description = description;
 		this.badgeTypeLevel = badgeTypeLevel;
+		this.mailConfirm = mailConfirm;
 	}
 
 	
 	String name;
 	String description;
 	BadgeTypeLevel badgeTypeLevel;
-	
+	boolean mailConfirm;
 	public String getName() {
 		return name;
 	}
@@ -42,6 +43,10 @@ public enum BadgeType {
 	}
 	public void setBadgeTypeLevel(BadgeTypeLevel badgeTypeLevel) {
 		this.badgeTypeLevel = badgeTypeLevel;
+	}
+	
+	public boolean isMailConfirm(){
+	    return mailConfirm;
 	}
 	
 		
