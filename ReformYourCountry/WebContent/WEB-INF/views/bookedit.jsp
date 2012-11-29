@@ -22,7 +22,7 @@
 
 	<ryctag:form action="/book/editsubmit" modelAttribute="book" width="800px">
 		<tr>
-		    <td>Abréviation du livre</td><td><form:input path="abrev" /> </td>
+		    <td>Abréviation du livre</td><td><form:input path="abrev" /> </td><td><form:errors path="abrev" cssClass="error" /></td>
 		 </tr>
 		<ryctag:input path="title" label="Titre du livre:" id="title" />
 		<ryctag:input path="subtitle" label="Sous-titre du livre" id="subtitle"/>
