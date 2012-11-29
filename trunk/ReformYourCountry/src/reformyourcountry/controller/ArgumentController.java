@@ -76,7 +76,7 @@ public class ArgumentController extends BaseController<Argument>{
         //TODO review
         //check if content or title haven't dangerous html
         if (!HTMLUtil.isHtmlSecure(title) || !HTMLUtil.isHtmlSecure(content)) {
-        	 throw new AjaxValidationException("vous avez introduit du HTML/Javascript invalide dans le titre ou le content");
+        	 throw new AjaxValidationException("vous avez introduit du HTML/Javascript invalide dans le titre ou le contenu");
         }
         	
         Argument argument;
@@ -115,13 +115,12 @@ public class ArgumentController extends BaseController<Argument>{
         }
     }
    
-    @RequestMapping("ajax/argcommentadd")
+    @RequestMapping("ajax/argument/commentadd")
 	public ModelAndView commentAdd(@RequestParam("id")Long idArg, @RequestParam("value")String com) throws Exception{
         //TODO review
         //check if content or title haven't dangerous html
         if (!HTMLUtil.isHtmlSecure(com)) {
-        	NotificationUtil.addNotificationMessage("vous avez introduit du HTML/Javascript invalide dans el titre ou le content");
-        	return null;
+        	 throw new AjaxValidationException("vous avez introduit du HTML/Javascript invalide dans le commentaire");
         }
     	
     	User user = SecurityContext.getUser();
