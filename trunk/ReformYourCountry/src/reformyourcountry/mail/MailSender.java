@@ -27,6 +27,7 @@ import reformyourcountry.util.CurrentEnvironment.Environment;
 import reformyourcountry.util.CurrentEnvironment.MailBehavior;
 import reformyourcountry.util.HtmlToTextUtil;
 import reformyourcountry.util.Logger;
+import reformyourcountry.web.ContextUtil;
 
 
 
@@ -69,6 +70,12 @@ public class MailSender extends Thread {
         javaMailSender.setHost(smtpHost);
         javaMailSender.setPort(smtpPort);
 
+        if(ContextUtil.devMode){ // u need to set port 587 and smtp.gmail.com in config.properties file too .
+        javaMailSender.setUsername("reformyourcountrytest@gmail.com");
+        javaMailSender.setPassword("technofutur");
+        javaMailSender.getJavaMailProperties().setProperty("mail.smtp.starttls.enable", "true");
+        javaMailSender.getJavaMailProperties().setProperty("mail.smtp.auth", "true");
+        }
         setName("MailSender"); // Sets the name of the thread to be visible in the prod server thread list.
         if(environment.getMailBehavior() != MailBehavior.NOT_STARTED){
             this.start();
