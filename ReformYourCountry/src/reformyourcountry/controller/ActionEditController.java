@@ -26,7 +26,7 @@ public class ActionEditController extends BaseController<Action>{
     
     @RequestMapping("/create")
     public ModelAndView actionCreate(){
-        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ACTION);
+        SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_ACTION);
         return new ModelAndView("actionedit","action", new Action());
     }
     
@@ -40,13 +40,13 @@ public class ActionEditController extends BaseController<Action>{
     @RequestMapping("/delete")
     public ModelAndView actionDelete(@RequestParam("id") long actionId){
         Action action = getRequiredEntity(actionId); 
-        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ACTION);
+        SecurityContext.assertUserHasPrivilege(Privilege.DELETE);
         return getConfirmBeforeDeletePage(action.getTitle(), "/action/deleteconfirmed", "/action/"+action.getUrl(), actionId);
     }
     @RequestMapping("/deleteconfirmed")
     public ModelAndView actionDeleteConfirm(@RequestParam("id") long actionId){
         Action action = getRequiredEntity(actionId); 
-        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ACTION);
+        SecurityContext.assertUserHasPrivilege(Privilege.DELETE);
         actionService.delete(action);
         NotificationUtil.addNotificationMessage("L'action est bien supprimée");
         return new ModelAndView("redirect:/action");
@@ -55,7 +55,7 @@ public class ActionEditController extends BaseController<Action>{
     @RequestMapping("/editsubmit")
     public ModelAndView actionEditSubmit(@Valid @ModelAttribute Action action, Errors errors) {
       
-        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ACTION);
+        SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_ACTION);
 
         if (errors.hasErrors()) {
             return new ModelAndView("actionedit","action", action);

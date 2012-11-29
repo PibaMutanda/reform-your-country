@@ -33,7 +33,7 @@ public class ArticleImageController extends BaseController<Article>{
     @RequestMapping("/image")
     public ModelAndView articleImage(@RequestParam(value="errorMsg", required=false)String error){
 
-        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
+        SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_ARTICLE);
         FileUtil.ensureFolderExists(FileUtil.getGenFolderPath() + FileUtil.ARTICLE_SUB_FOLDER);
         List<File> listFiles = FileUtil.getFilesFromFolder(FileUtil.getGenFolderPath() + FileUtil.ARTICLE_SUB_FOLDER);
         Collections.sort(listFiles, LastModifiedFileComparator.LASTMODIFIED_COMPARATOR);
@@ -51,7 +51,7 @@ public class ArticleImageController extends BaseController<Article>{
     @RequestMapping("/imageadd")
     public ModelAndView articleImageAdd(@RequestParam("file") MultipartFile multipartFile){
         
-        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
+        SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_ARTICLE);
         
         ModelAndView mv = new ModelAndView("redirect:/article/image");
         try {
@@ -72,7 +72,7 @@ public class ArticleImageController extends BaseController<Article>{
     @RequestMapping("/imageaddfromurl")
     public ModelAndView articleImageAddFromUrl(@RequestParam("fileurl") String url,@RequestParam("name")String imageName) {
         
-        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
+        SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_ARTICLE);
         ModelAndView mv = new ModelAndView("redirect:/article/image");
         BufferedImage image = null;
         
@@ -97,7 +97,7 @@ public class ArticleImageController extends BaseController<Article>{
      */
     @RequestMapping("/imagedel")
     public ModelAndView articleImageDel(@RequestParam("fileName") String fileName) throws IOException{
-        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
+        SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_ARTICLE);
         
         File file = new File(FileUtil.getGenFolderPath() + FileUtil.ARTICLE_SUB_FOLDER + '/'+fileName);
         file.delete();

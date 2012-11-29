@@ -26,7 +26,7 @@ public class ArticleVersionController {
     @RequestMapping(value={"/{articleUrl}"})
     public ModelAndView displayArticleVersion(@PathVariable("articleUrl") String articleUrl){
         
-    	SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
+    	SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_ARTICLE);
         ModelAndView mv = new ModelAndView("articleversionlist");
         Article article = articleRepository.findByUrl(articleUrl);
         List<ArticleVersion> versionList = articleVersionRepository.findAllVersionForAnArticle(article);
@@ -40,7 +40,7 @@ public class ArticleVersionController {
     @RequestMapping("/changelog")
     public ModelAndView displayArticleVersion(){
           	
-        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
+        SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_ARTICLE);
     	ModelAndView mv = new ModelAndView("articleversionlist");
         List<ArticleVersion> versionList = articleVersionRepository.findAll(500);
         mv.addObject("versionList",versionList);

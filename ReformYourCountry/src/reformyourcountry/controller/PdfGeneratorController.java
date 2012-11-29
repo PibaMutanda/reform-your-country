@@ -52,7 +52,7 @@ public class PdfGeneratorController extends BaseController<Article>{
         if(idArticle != null){ //if id article is null that mean we re trying to generate the pdf from the whole article list page.
             article = this.getRequiredEntity(idArticle);
 
-            if(!article.isPublished() && !SecurityContext.isUserHasPrivilege(Privilege.EDIT_ARTICLE)){
+            if(!article.isPublished() && !SecurityContext.isUserHasPrivilege(Privilege.MANAGE_ARTICLE)){
                 throw new UnauthorizedAccessException("You're trying to access pdf by url hacking");
             }
         }

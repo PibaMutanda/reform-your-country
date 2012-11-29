@@ -25,7 +25,7 @@ public class ArticleContentEditController extends BaseController<Article>{
     
     @RequestMapping(value={"/article/contentedit"})
     public ModelAndView articleContentEdit(@RequestParam("id")Long id) {
-        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
+        SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_ARTICLE);
         ModelAndView mv = new ModelAndView("articlecontentedit");
         Article article = getRequiredEntity(id);
         mv.addObject("article", article);
@@ -38,7 +38,7 @@ public class ArticleContentEditController extends BaseController<Article>{
     
     @RequestMapping(value={"/article/summaryedit"})
     public ModelAndView articleSummaryEdit(@RequestParam("id")Long id) {
-        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
+        SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_ARTICLE);
         ModelAndView mv = new ModelAndView("articlecontentedit");
         Article article = getRequiredEntity(id);
         mv.addObject("article", article);
@@ -51,7 +51,7 @@ public class ArticleContentEditController extends BaseController<Article>{
     
     @RequestMapping(value={"/article/toclassifyedit"})
     public ModelAndView articleToClassifyEdit(@RequestParam("id")Long id) {
-        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
+        SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_ARTICLE);
         ModelAndView mv = new ModelAndView("articlecontentedit");
         Article article = getRequiredEntity(id);
         mv.addObject("article", article);
@@ -67,7 +67,7 @@ public class ArticleContentEditController extends BaseController<Article>{
                                                           @RequestParam(value="summary",required=false)String summary,
                                                           @RequestParam(value="toClassify",required=false)String toClassify,
                                                           @RequestParam(value="id") Long id){
-        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
+        SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_ARTICLE);
         
         articleService.saveArticle(getRequiredEntity(id), content, summary, toClassify);
         return new ResponseEntity<String>("sauvegarde",  // that tiny message will appear next to the save button and a save hour.
@@ -80,7 +80,7 @@ public class ArticleContentEditController extends BaseController<Article>{
     public ModelAndView articleContentEditSubmit(@RequestParam(value="value")String content,
                                                  @RequestParam(value="id") Long id){
         
-    	SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
+    	SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_ARTICLE);
     	content = content == null ? "" : content;
     	
     	
@@ -92,7 +92,7 @@ public class ArticleContentEditController extends BaseController<Article>{
     public ModelAndView articleSummaryEditSubmit(@RequestParam(value="value")String summary,
                                                  @RequestParam(value="id") Long id){
         
-    	SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
+    	SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_ARTICLE);
     	summary = summary == null ? "" : summary;
     	
         articleService.saveArticle(getRequiredEntity(id), null, summary, null);
@@ -103,7 +103,7 @@ public class ArticleContentEditController extends BaseController<Article>{
     public ModelAndView articleToClassifyEditSubmit(@RequestParam(value="value")String toClassify,
                                                  	@RequestParam(value="id") Long id){
         
-    	SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
+    	SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_ARTICLE);
     	toClassify = toClassify == null ? "" : toClassify;
     	
                 
@@ -115,7 +115,7 @@ public class ArticleContentEditController extends BaseController<Article>{
     public ResponseEntity<?> articleToClassifyEditSubmitAjax(@RequestParam(value="value")String toClassify,
                                                         @RequestParam(value="id") Long id){
         
-        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_ARTICLE);
+        SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_ARTICLE);
         toClassify = toClassify == null ? "" : toClassify;
         
                 

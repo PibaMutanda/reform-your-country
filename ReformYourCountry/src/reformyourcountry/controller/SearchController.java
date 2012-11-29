@@ -30,7 +30,7 @@ public class SearchController{
 		ModelAndView mv= new ModelAndView("search");
 		mv.addObject("searchtext",searchtext);
 		ArticleSearchResult articleSearchResult;
-		if(SecurityContext.isUserHasPrivilege(Privilege.EDIT_ARTICLE)){
+		if(SecurityContext.isUserHasPrivilege(Privilege.MANAGE_ARTICLE)){
 			articleSearchResult = searchService.searchArticle(searchtext, null, true, true);
 		}else{
 			articleSearchResult = searchService.searchArticle(searchtext, null, false, true);

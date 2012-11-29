@@ -69,7 +69,7 @@ public class UserEditController extends BaseController<User> {
     @RequestMapping("/delete")
     public ModelAndView userDelete(@RequestParam(value="id") Long idUser){
         User user  = userRepository.find(idUser);
-        SecurityContext.assertCurrentUserMayEditThisUser(user);
+        SecurityContext.assertUserHasPrivilege(Privilege.DELETE);
         return getConfirmBeforeDeletePage(user.getUserName(), "/user/deleteconfirmed", "/user/"+user.getUserName(), idUser);
 
     }
@@ -77,7 +77,7 @@ public class UserEditController extends BaseController<User> {
     @RequestMapping("/deleteconfirmed")
     public ModelAndView userDeleteConfirmed(@RequestParam(value="id") Long idUser){
         User user  = userRepository.find(idUser);
-        SecurityContext.assertCurrentUserMayEditThisUser(user);
+        SecurityContext.assertUserHasPrivilege(Privilege.DELETE);
         userService.setAnonymous(user);
         NotificationUtil.addNotificationMessage("L'utilisateur est bien supprimé");
         return new ModelAndView("home");
