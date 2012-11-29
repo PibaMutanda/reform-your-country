@@ -1,5 +1,6 @@
 package reformyourcountry.controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -124,10 +125,17 @@ public class UserEditController extends BaseController<User> {
         }
 		else {
 			  
-			    String errorBirthDate=null;
-			    if (day.equals("null"))      errorBirthDate = "Vous devez sélectionner le jour SVP";
-			    if (month.equals("null"))    errorBirthDate = "Vous devez sélectionner le mois SVP";    
-			    if (year.equals("null"))     errorBirthDate = "Vous devez sélectionner  l'année SVP";      
+			    ArrayList<String>errorBirthDate=new ArrayList<>();
+			    
+			    if (day.equals("null"))       
+			        errorBirthDate.add("Vous devez sélectionner le jour Svp");
+			    
+			    if (month.equals("null"))   
+			        errorBirthDate.add("Vous devez sélectionner le mois Svp") ;    
+			    
+			    if (year.equals("null"))    
+			        errorBirthDate.add("Vous devez sélectionner  l'année Svp");      
+			    
 			    ModelAndView mv=prepareModelAndView(userId, user);
 			    mv.addObject("errorBirthDate", errorBirthDate);
 			    return mv;
