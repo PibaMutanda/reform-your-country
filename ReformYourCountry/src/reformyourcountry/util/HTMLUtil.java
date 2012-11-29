@@ -38,15 +38,20 @@ public class HTMLUtil {
 		return result;
     }
 
-    public static boolean isHtmlSecure(String htmlToCheck) {
+	public static boolean isHtmlSecure(String htmlToCheck) {
     	ArrayList<?> error = null;
-
-    	try {
-    		error = getAntiSamyInstance().scan(htmlToCheck, antiSamyPolicyInstance, AntiSamy.SAX).getErrorMessages();
-    		System.out.println(error.toString());
-    	} catch (ScanException | PolicyException e) {
-    		return false;
+    	//sometimes controller send null parameter or empty so it isn't unsecure...
+    	if ( htmlToCheck == null || htmlToCheck.isEmpty() ) {
+    		return true;
+    	} else {
+    		try {
+    			error = getAntiSamyInstance().scan(htmlToCheck, antiSamyPolicyInstance, AntiSamy.SAX).getErrorMessages();
+    			System.out.println(error.toString());
+    		} catch (ScanException | PolicyException e) {
+    			return false;
+    		}
     	}
+    	
 		return error.isEmpty();
     	
     }
