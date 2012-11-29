@@ -4,12 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import reformyourcountry.mail.MailCategory;
+import reformyourcountry.mail.MailType;
 import reformyourcountry.model.Badge;
 import reformyourcountry.model.BadgeType;
 import reformyourcountry.model.User;
 import reformyourcountry.repository.ActionRepository;
 import reformyourcountry.repository.BadgeRepository;
 import reformyourcountry.util.NotificationUtil;
+import reformyourcountry.web.UrlUtil;
 
 @Service
 @Transactional
@@ -17,6 +20,7 @@ public class BadgeService {
 
 	@Autowired BadgeRepository badgeRepository;
 	@Autowired ActionRepository actionRepository;
+	@Autowired MailService mailService;
 	
     public void saveBadgeTypeForUser (BadgeType badgeType, User user){
 		Badge badge = new Badge();
@@ -27,6 +31,16 @@ public class BadgeService {
 		NotificationUtil.addNotificationMessage(
 				"Félicitations vous avez obtenu un badge de niveau : " + badgeType.getBadgeTypeLevel().getName()  
 				+ " " + badgeType.getName());
+		
+		
+	System.out.println("send badge");	
+		if(badgeType.isMailConfirm()){
+		    String htmlMessage = "Félicitation, vous venez de recevoir votre badge "+badgeType.getName() +  
+		            " de niveau " + badgeType.getBadgeTypeLevel().getName();
+		    mailService.sendMail(user, "Vous avez reçu un nouveau badge!", htmlMessage, MailType.SLOW_NOT_GROUPABLE, MailCategory.USER);
+        
+		}
+		
     }
 
         
