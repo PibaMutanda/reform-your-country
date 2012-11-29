@@ -1,6 +1,7 @@
 function clicked(item) {  // A user is voting.
-	
-	if(idUser.length>0) {  // A user is logged in
+	 showMessageIfNotLogged(item);
+	 
+	 // A user is logged in
 		var voteValue =$(item).attr('id');
 		var idAction=$(item).parent().children('input[name="id"]').attr('value');
 //		console.log(idAction+" "+voteValue);
@@ -16,7 +17,7 @@ function clicked(item) {  // A user is voting.
 			// Reload the widget
 			$(item).parent().parent().html(data);
 		});
-	}
+	
 	
 	
 	

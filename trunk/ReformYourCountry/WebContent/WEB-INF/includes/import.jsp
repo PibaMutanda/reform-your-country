@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>  
     
 <!-- ***************************** CSS **************************** -->     
+
+<link href="/css/ext/jquery-bubble-popup-v3.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="/css/int/ryc-tooltip.css" />
 <link rel="stylesheet" type="text/css" href="/css/int/template.css" />
 <link rel="stylesheet" type="text/css" href="/css/int/content.css" />
@@ -35,9 +37,14 @@
 	<script src="/js/ext/jquery.pnotify.js" type="text/javascript"></script>
 	<script src="/js/ext/jquery.pnotify.min.js" type="text/javascript"></script>
 	<!-- ***************************** Script from our dev (that should be on every pages) **************************** -->   
-		<script src="/js/int/datepicker.js" type="text/javascript"></script>
-		<script src="/js/int/redirect.js"></script>
-		<script src="/js/int/focusevent.js"></script>
+	<script type="text/javascript">
+   		var idUser = "${current.user.id}";
+	</script>
+	<script src="/js/int/datepicker.js" type="text/javascript"></script>
+	<script src="/js/int/redirect.js"></script>
+	<script src="/js/int/focusevent.js"></script>
+	<script type="text/javascript" src="/js/ext/jquery-bubble-popup-v3.min.js"></script>
+	<script type="text/javascript" src="/js/int/general.js"></script>
 	<!-- ***************************** End Script from our dev **************************** -->   
 	
 	<!-- ***************************** Design from themeforest/karma template **************************** -->   
@@ -67,4 +74,5 @@
 		</script>
 	<!-- ***************************** End Shadow For pics script **************************** -->   
 <script type="text/javascript" src="js/int/generatepdf.js"></script>
+
 <!-- ***************************** END JAVASCRIPT **************************** -->   

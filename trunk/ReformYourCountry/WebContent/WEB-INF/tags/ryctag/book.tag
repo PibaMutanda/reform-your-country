@@ -17,7 +17,7 @@
         <a href="${book.externalUrl}" target="_blank"> 
             <img alt="Lien externe" title="Lien externe" src="/images/_global/links.png" class="icon-32" />
         </a>
-    <ryc:conditionDisplay privilege="EDIT_BOOK">
+    <ryc:conditionDisplay privilege="MANAGE_BOOK">
         <a href="book/${book.url}"> 
             <img alt="Editer" title="Editer" src="/images/_global/edit.png" class="icon-32" />
         </a>

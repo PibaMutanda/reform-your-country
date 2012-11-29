@@ -12,15 +12,19 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import reformyourcountry.controller.ActionListController.ActionItem;
 import reformyourcountry.model.Action;
 import reformyourcountry.model.Article;
 import reformyourcountry.model.GoodExample;
 import reformyourcountry.model.User;
+import reformyourcountry.model.VoteAction;
 import reformyourcountry.model.User.AccountConnectedType;
 import reformyourcountry.repository.ActionRepository;
 import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.repository.GoodExampleRepository;
+import reformyourcountry.repository.VoteActionRepository;
 import reformyourcountry.security.SecurityContext;
+import reformyourcountry.service.ActionService;
 import reformyourcountry.util.DateUtil;
 
 @Controller
@@ -32,12 +36,13 @@ public class HomeController {
 	@Autowired ArticleRepository articleRepository;
 	@Autowired ActionRepository actionRepository;
 	@Autowired GoodExampleRepository goodExampleRepository;
+    @Autowired VoteActionRepository voteActionRepository;
+    @Autowired ActionService actionService;
 	
 	@RequestMapping(value={"/home","/"})
 	public ModelAndView home( NativeWebRequest request){
 		Date toDay = new Date();
 		List<ArticleAndDate> listart = new ArrayList<ArticleAndDate>();
-		List<ActionAndDate> listact = new ArrayList<ActionAndDate>();
 		List<GoodExampleAndDate> listgoodexample = new ArrayList<GoodExampleAndDate>();
 		
 		
@@ -49,8 +54,12 @@ public class HomeController {
 			listart.add(new ArticleAndDate(article));
 		}
 		
+		List<ActionItem> actionItems = new ArrayList<ActionItem>();
+
 		for(Action action:actionListByDate){
-			listact.add(new ActionAndDate(action));
+		    VoteAction va = voteActionRepository.findVoteActionForUser(SecurityContext.getUser(), action.getId());
+            ActionItem actionItem = new ActionItem(action, actionService.getResultNumbersForAction(action), va);
+            actionItems.add(actionItem);        
 		}
 		
 		for(GoodExample ge:goodExampleListByDate){
@@ -59,7 +68,7 @@ public class HomeController {
 		
 		ModelAndView mv = new ModelAndView("home");
 		mv.addObject("articleListByDate", listart);
-		mv.addObject("actionListByDate",listact);
+		mv.addObject("actionListByDate",actionItems);
 		mv.addObject("goodExampleListByDate", listgoodexample);
 		
 		//detect if the user is connected with a social account
@@ -101,22 +110,7 @@ public class HomeController {
 		}
 	}
 	
-	public static class ActionAndDate{
-		private Action action;
-		
-		public ActionAndDate(Action action) {
-			this.action=action;
-		}
-		public Action getAction(){
-			return action;
-		}
-		public void setAction(Action action){
-			this.action=action;
-		}
-		public String getDifference() {
-			return DateUtil.formatIntervalFromToNowFR(action.getCreatedOn());
-		}
-	}
+
 	
 	public static class GoodExampleAndDate{
 		
