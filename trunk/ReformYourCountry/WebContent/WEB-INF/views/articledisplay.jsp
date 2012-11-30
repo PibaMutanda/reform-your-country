@@ -1,4 +1,5 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="reformyourcountry.web.UrlUtil" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
@@ -9,9 +10,9 @@
 <!-- code used for "i like facebook" -->
 	 <meta property="og:title" content="${article.title}" /> 
      <meta property="og:type" content="article" /> 
-     <meta property="og:url" content="http://www.enseignement2.be/article/${article.title}" /> 
-     <meta property="og:image" content="images/logo/2-logo.png" /> 
-     <meta property="og:site_name" content="www.enseignement2.be" /> 
+     <meta property="og:url" content="http://<%= UrlUtil.getProdAbsoluteDomainName()%>/article/${article.title}" /> 
+     <meta property="og:image" content="http://<%= UrlUtil.getProdAbsoluteDomainName()%>/images/logo/2-logo.png" /> 
+     <meta property="og:site_name" content="<%= UrlUtil.getProdAbsoluteDomainName()%>" /> 
      <meta property="fb:admins" content="${user.id}" /> 
      <meta property="og:description"  content="${article.description}" />
      
