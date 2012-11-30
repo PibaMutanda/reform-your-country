@@ -24,7 +24,7 @@
 </div>
 <hr/>
 </ryc:conditionDisplay>
-<img class="generatepdflist" style="cursor:pointer;" src="images/pdf_button.png"></img>
+<img class="generatepdflist" style="cursor:pointer;margin-left:15px;" src="images/pdf_button.png"></img>
 <div class="article_content">
 <ryc:articlesList/>
 </div>
