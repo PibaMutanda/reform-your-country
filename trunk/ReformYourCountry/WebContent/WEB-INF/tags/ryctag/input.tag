@@ -1,9 +1,8 @@
-<%@ tag body-content="scriptless" isELIgnored="false" %>
+﻿<%@ tag body-content="scriptless" isELIgnored="false" %>
 <%@taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
 <%@taglib uri="http://www.springframework.org/tags/form"  prefix="form"%>
 <%@ attribute name="path" required="true"%>
 <%@ attribute name="label"%>
-<%@ attribute name="id"%>
 <%@ attribute name="required"%>
 <%@ attribute name="tooltip" %>
 <%@ attribute name="type" %>
@@ -20,6 +19,6 @@ see http://stackoverflow.com/questions/439861/spring-mvc-tag-interaction-with-cu
  	</c:otherwise>
  </c:choose>
 	<td><label for="${path}">${label}</label></td>
-	<td><form:input path="${path}" required="${required}" id="${id}" type="${type}" cssStyle="width:100%;" /></td>
+	<td><form:input path="${path}" required="${required}" type="${type}" cssStyle="width:100%;" /></td>
 	<td><form:errors path="${path}" cssClass="error" /></td>
 </tr>
