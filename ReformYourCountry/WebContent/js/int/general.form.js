@@ -30,9 +30,10 @@ function CKeditorEditSubmit(idEditedValueContainer,succesfn){
 	var itemId = $('#ckEditForm > input[name="idItem"]').val();
 
 	//// POST to server
-	$.post($("#ckEditForm").attr("action"),serializeFormWithCkEditorContent($("#ckEditForm"), "content")
-		 	).success(function(data) {
-				destroyCkEditor();
+	$.post($("#ckEditForm").attr("action"),
+			serializeFormWithCkEditorContent($("#ckEditForm"), "content"),
+			function(data) {
+				console.log("it's a succes");
 				if (itemId.length == 0) {   	// Creation of a new item
 					$("#"+idEditedValueContainer).append(data);    // here idEditedValueContainer is the container (the argument column for example) of the new item.
 					$("#"+idEditedValueContainer).children().last().effect("highlight", {}, 3000);                           // We append the jsp detail of the arg it at the bottom of its column.
@@ -41,9 +42,10 @@ function CKeditorEditSubmit(idEditedValueContainer,succesfn){
 					$("#"+idEditedValueContainer).replaceWith(data);  // Here idEditedValueContainer is the edited item
 					$("#"+idEditedValueContainer).effect("highlight", {}, 3000);  
 				}
-				succesfn;
+				succesfn();
 				console.log(idEditedValueContainer+"a été modifié");
 				// TODO: Add visual effect (highlight 1 second) to the div containing the argument detail just received (data).
+				return false;
 			}).error(function(jqXHR, textStatus) {
 		// TODO show that error in a jQuery pop-up
 			var exceptionVO = jQuery.parseJSON(jqXHR.responseText);
@@ -52,7 +54,7 @@ function CKeditorEditSubmit(idEditedValueContainer,succesfn){
 			addErrorMessageInEditor(exceptionVO.message);
 			return false;
 		});
-	return true;
+	return false;
 }
 
 function addErrorMessageInEditor(msg){	
