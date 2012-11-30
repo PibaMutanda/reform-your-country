@@ -3,15 +3,14 @@ function argumentEditSubmit(){
 	var isNew = $('#ckEditForm > input[name="idItem"]').val();
 	var ispos =$('#ckEditForm > input[name="ispos"]').val();
 	if(typeof isNew ==="undefined" || isNew==""){
-		CKeditorEditSubmit("colArg"+ispos+">.listArgument",hideAllCkEditorContainer());
+		CKeditorEditSubmit("colArg"+ispos+">.listArgument",hideAllCkEditorContainer);
 	}else{
-		CKeditorEditSubmit('item'+$('#ckEditForm > input[name="idItem"]').val());
+		CKeditorEditSubmit('item'+$('#ckEditForm > input[name="idItem"]').val(),hideAllCkEditorContainer);
 	}
 	return false;
 }
 
 function hideAllCkEditorContainer(){
-
 	var ispos =$('#ckEditForm > input[name="ispos"]').val();
 	var isNew = $('#ckEditForm > input[name="idItem"]').val();	
 	if(typeof isNew ==="undefined" || isNew==""){

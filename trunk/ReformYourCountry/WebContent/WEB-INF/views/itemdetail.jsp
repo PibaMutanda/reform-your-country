@@ -9,7 +9,7 @@
 
 <div id="item${currentItem.id}" style="width:100%; display: inline-block;background:url(/images/_global/separator3.gif) 0 0 repeat-x ;">
 
-	<div class="argument" style="width:340px; margin-bottom:5px;float:right;">
+	<div style="width:340px; margin-bottom:5px;float:right;">
 		<div style="width:100%;background:url(/images/_global/separator3.gif) 0 100% repeat-x ;padding-top:10px;">
 
 			<div style="font-weight:bold; font-size:18px;">
@@ -26,7 +26,7 @@
 				<div>
 					<c:if test="${currentItem.editable}">
 						<div onclick="deleteItem(this,${currentItem.id})" class="divButton" style="color:red; font-size:1.3em;font-weight: bold;float:right;" title="Supprimer">×</div>
-						<div  onclick="argumentEditStart(this,${currentItem.id});">Editer</div>
+						<div  onclick="ItemEditStart(this,${currentItem.id});">Editer</div>
 						<!--<img src="\images\_global\edit.png" width="16px" onfocus="handle();" onclick="editArg(this,${arg.id},'${arg.title}','${arg.content}');">-->
 					</c:if>
 				</div>
