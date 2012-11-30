@@ -28,6 +28,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+import org.jsoup.helper.StringUtil;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.google.api.Google;
 import org.springframework.social.linkedin.api.LinkedIn;
@@ -319,7 +320,7 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     private Set<Badge> badges = new HashSet<Badge>();
     
     @Enumerated(EnumType.STRING)
-    private MailingDelayType mailingDelayType = MailingDelayType.IMMEDIATELY; 
+    private MailingDelayType mailingDelayType = MailingDelayType.DAILY; 
     public MailingDelayType getMailingDelayType() {
         return this.mailingDelayType;
     }
@@ -531,7 +532,13 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     public String getFullName() {
         String lnChar = (lastName == null || lastName.isEmpty()) ? "" : " "
                 + StringUtils.capitalize(lastName);
-        return StringUtils.capitalize(firstName) + lnChar;
+        String firstAndLastName = StringUtils.capitalize(firstName) + lnChar;
+        
+        if (!StringUtil.isBlank(firstAndLastName)) {
+            return firstAndLastName;
+        } else {
+            return this.getUserName();
+        }
     }
 
     public boolean isNlSubscriber() {
@@ -618,7 +625,7 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
         }
     }
 
-    public void setMailDelayType(MailingDelayType mailingDelay) {
+    public void setMailingDelayType(MailingDelayType mailingDelay) {
         this.mailingDelayType = mailingDelay;
     }
     
