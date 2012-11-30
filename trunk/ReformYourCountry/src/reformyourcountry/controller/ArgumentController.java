@@ -132,7 +132,11 @@ public class ArgumentController extends BaseController<Argument>{
 			Comment comment = new Comment(content, argument, user);
             commentRepository.persist(comment);
             argument.addComment(comment);
-			argumentRepository.merge(argument);       
+			argumentRepository.merge(argument); 
+			
+			argumentService.notifyByEmailNewCommentPosted(argument,comment);
+			
+			
 			return returnitemDetail(argument);
 		}else {
 			throw new Exception("no user logged");
