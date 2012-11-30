@@ -23,7 +23,7 @@
 	</c:choose>
 	<ryctag:form modelAttribute="article" action="/article/editsubmit">
         <tr>
-            <ryctag:input path="title" label="Titre" id="title" required="required" />
+            <ryctag:input path="title" label="Titre" required="required" />
 
             
             <tr><td style="padding: 6px;">Raccourci</td>
@@ -31,7 +31,7 @@
             	       	
             <tr class="tooltip" data-tooltip="identifiant pour l'article dans les URLs">
 				<td><label for="url">Fragment d'URL</label></td>
-				<td><form:input path="url" required="required" id="url" type="input" cssStyle="width:100%;" /></td>
+				<td><form:input path="url" required="required" type="input" cssStyle="width:100%;" /></td>
 				<td><input type="submit" value="Générer une url" id="generate" /></td>
 			</tr>
 			

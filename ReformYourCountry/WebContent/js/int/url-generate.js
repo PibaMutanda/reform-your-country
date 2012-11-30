@@ -1,8 +1,8 @@
 $(document).ready(function() {
 	$("#generate").click(function(event){
 		event.preventDefault();
-		var titleValue = $("#title").val();
-		$("#url").val(computeUrlFragmentFromName(titleValue));
+		var titleValue = $("input[name='title']").val();
+		$("input[name='url']").val(computeUrlFragmentFromName(titleValue));
 	});
 });
 function computeUrlFragmentFromName(nameParam) {
