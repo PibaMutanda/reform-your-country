@@ -3,11 +3,7 @@ function argumentEditSubmit(){
 	var isNew = $('#ckEditForm > input[name="idItem"]').val();
 	var ispos =$('#ckEditForm > input[name="ispos"]').val();
 	if(typeof isNew ==="undefined" || isNew==""){
-		CKeditorEditSubmit("colArg"+ispos+">.listArgument");
-		$('#argumentAddDivFakeEditor'+ispos).show();  // Show the fake textarea to invite the user adding an argument.
-		var argumentAddDivRealEditor = $('#argumentAddDivRealEditor'+ispos);
-		argumentAddDivRealEditor.empty();
-		argumentAddDivRealEditor.hide();  // a small visible part may remain due to padding.
+		CKeditorEditSubmit("colArg"+ispos+">.listArgument",hideAllCkEditorContainer());
 	}else{
 		CKeditorEditSubmit('item'+$('#ckEditForm > input[name="idItem"]').val());
 	}
@@ -20,8 +16,7 @@ function hideAllCkEditorContainer(){
 	var isNew = $('#ckEditForm > input[name="idItem"]').val();	
 	if(typeof isNew ==="undefined" || isNew==""){
 		$('#argumentAddDivFakeEditor'+ispos).show();
-		$('#argumentAddDivRealEditor'+ispos).empty();
-		$('#argumentAddDivRealEditor'+ispos).hide();
+		$('#argumentAddDivRealEditor'+ispos).empty().hide();
 	}else{
 		sendSimpleValue(null,isNew,'item'+isNew,"/ajax/argument/refresh",""); //Refresh the div with the arg values no changes
 	}
@@ -58,6 +53,12 @@ function argumentCreateStart(isPos, idAction) {
 				return;
 	});
 
+}
+
+function argumentCreateFinalize(isPos){
+	console.log("i finalize");
+	$('#argumentAddDivFakeEditor'+isPos).show();  // Show the fake textarea to invite the user adding an argument.
+	$('#argumentAddDivRealEditor'+isPos).empty().hide();  // a small visible part may remain due to padding.
 }
 
 
