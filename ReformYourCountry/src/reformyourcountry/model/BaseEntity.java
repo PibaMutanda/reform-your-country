@@ -6,6 +6,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
 import javax.persistence.PostPersist;
@@ -30,9 +31,11 @@ public class BaseEntity {
     @Id   @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
     @OneToOne(fetch=FetchType.LAZY)
+    @JoinColumn(nullable=true) //when we are not in a thread web request, no user will be associated to entity creation/update (no logged in user)
     User createdBy;
     Date createdOn;
-    @OneToOne(fetch=FetchType.LAZY)
+    @OneToOne(fetch=FetchType.LAZY)  
+    @JoinColumn(nullable=true) //when we are not in a thread web request, no user will be associated to entity creation/update (no logged in user)
     User updatedBy;
     Date updatedOn;
 

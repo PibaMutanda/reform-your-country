@@ -272,7 +272,7 @@ public class LoginService {
      * @returns null if no user logged in
      */
     public Long getLoggedInUserIdFromSession() {
-        if (ContextUtil.isInBatchNonWebMode()) {
+        if (!ContextUtil.isInWebRequestProcessingThread()) {
             return null;  // Nobody logged in during in batch jobs
         } else { // normal web case
             return (Long) ContextUtil.getHttpSession().getAttribute(USERID_KEY);
