@@ -78,14 +78,13 @@ public class UserService {
     @Autowired   private LoginService loginService;
     @Autowired   private UsersConnectionRepository usersConnectionRepository;
     @Autowired   private CurrentEnvironment currentEnvironment;
-	@Autowired	 private BadgeService badgeService;
+
     /**
      * Register a user and sends a validation mail.
      * 
      * @param directValidation
      *            : validate an account directly without send a mail
      */
-
     public User registerUser(boolean directValidation, String username, String passwordInClear, String mail, boolean isSocial) throws UserAlreadyExistsException {
         //exception if html is dangerous
     	//TODO review
@@ -434,37 +433,9 @@ public class UserService {
     }
     
     
-    /**verify if the user has already the BadgeType passed in parameter*/
-    public boolean hasAlreadyBadgeAffected(BadgeType badgeType, User user){
-    	
-    	for (Badge badge : user.getBadges()){
-    		if (badge.getBadgeType().equals(badgeType)){
-    			return true;
-    		}
-    	}
-    	return false;
-    }
+
     
-    
-    /**give an AUTOBIOGRAPHER badge only if the user has fully completed his profile*/
-    public void grantIfUserIsComplete (User user){
-    	
-    	if (!hasAlreadyBadgeAffected(BadgeType.AUTOBIOGRAPHER, user)){
-    		//test if the user has completed his profile
-    		if (	user.getBirthDate() != null
-    				&& user.getFirstName() != null
-    				&& user.getGender() != null
-    				&& user.getLastName() != null
-    				&& user.getMail() != null
-    				&& user.isPicture() == true
-    				&& user.getTitle() != null
-    				&& user.getUserName() != null   ) {
-    		badgeService.saveBadgeTypeForUser(BadgeType.AUTOBIOGRAPHER, user);
-    		}
-    	
-    	}
-    }
-    
+
     public void setAnonymous(User user){
         changeUserName(user, "Anonymous"+user.getId(), "", "");
         user.setTitle("");
