@@ -20,6 +20,7 @@
 
 <div style="float:left; padding-left:30px; width: 810px;">
     <ryctag:form action="user/editsubmit" modelAttribute="user">
+    <tr><th></th><th style="width:300px;"></th><th style="width:300px;"></th></tr>
     <c:choose>
     	<c:when test="${canChangeUserName}"><%-- Only an admin can modify name of a certified user --%>
     		<ryctag:input path="lastName" label="Nom" />
@@ -86,7 +87,13 @@
         
         <ryctag:input path="mail" label="Mail"/>
         <ryctag:checkbox path="nlSubscriber" label="Newsletters"/>
-        
+        <tr title="Le site vous envoie un e-mail de notification, par exemple lorsqu'un utilisateur commente un de vos arguments, ou lorsque vous recevez un badge. Ces mails peuvent-être groupés en un mail quotidien ou hebdomadaire.">
+            <td><form:label path ="mailingDelayType" >Intervalle de reception des email :</form:label></td>
+            <td><form:radiobutton  path="mailingDelayType" value="DAILY"/>Quotidien<br/>
+                <form:radiobutton  path="mailingDelayType" value="WEEKLY"/>Hebdomadaire<br/>
+                <form:radiobutton  path="mailingDelayType" value="IMMEDIATELY"/>Immédiat</td>
+            <td></td>
+         </tr>
 		<input type="hidden" name="id" value="${id}"/> <%-- We do not use form:hidden because user.id is sometimes null (fake user)--%>
 		
         <tr><td><input type="submit" value="Sauver" /></td><td> <a href="/user/${user.userName}">Annuler</a></td></tr>
