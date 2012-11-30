@@ -1,9 +1,7 @@
 package reformyourcountry.controller;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import javax.validation.Valid;
 
@@ -21,6 +19,7 @@ import reformyourcountry.model.User.Gender;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
+import reformyourcountry.service.BadgeService;
 import reformyourcountry.service.UserService;
 import reformyourcountry.util.DateUtil;
 import reformyourcountry.util.HTMLUtil;
@@ -32,7 +31,8 @@ import reformyourcountry.util.NotificationUtil;
 public class UserEditController extends BaseController<User> {
     
     @Autowired UserRepository userRepository;
-    @Autowired UserService userService; 
+    @Autowired UserService userService;
+    @Autowired BadgeService badgeService;
     
     @RequestMapping("/edit")
     public ModelAndView userEdit(@RequestParam(value="id", required=true) long userId) {
@@ -179,7 +179,7 @@ public class UserEditController extends BaseController<User> {
         
         user = userRepository.merge(user);
         
-        userService.grantIfUserIsComplete(user);
+        badgeService.grantIfUserIsComplete(user);
         
         return new ModelAndView("redirect:/user/"+user.getUserName());
     }

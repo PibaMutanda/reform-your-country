@@ -2,30 +2,25 @@ package reformyourcountry.controller;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
-import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.social.connect.Connection;
-import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.model.User;
-import reformyourcountry.model.User.AccountConnectedType;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
+import reformyourcountry.service.BadgeService;
 import reformyourcountry.service.UserService;
 import reformyourcountry.util.FileUtil;
-import reformyourcountry.util.NotificationUtil;
 import reformyourcountry.util.FileUtil.InvalidImageFileException;
 import reformyourcountry.util.ImageUtil;
+import reformyourcountry.util.NotificationUtil;
 
 @Controller
 @RequestMapping("/user")
@@ -33,7 +28,8 @@ public class UserImageController extends BaseController<User> {
 
 	@Autowired UserRepository userRepository;
 	@Autowired UsersConnectionRepository usersConnectionRepository;
-	 @Autowired UserService userService;
+	@Autowired UserService userService;
+	@Autowired BadgeService badgeService;
 	
 	@RequestMapping("/image")
 	public ModelAndView userImage(@RequestParam("id") long userid){
@@ -71,6 +67,9 @@ public class UserImageController extends BaseController<User> {
 			user.setPicture(true);
 			
 			userRepository.merge(user);
+			
+			badgeService.grantIfUserIsComplete(user);
+			
 		} catch (InvalidImageFileException e) {  //Tell the user that its image is invalid.
 			NotificationUtil.addNotificationMessage(e.getMessageToUser());
 		}

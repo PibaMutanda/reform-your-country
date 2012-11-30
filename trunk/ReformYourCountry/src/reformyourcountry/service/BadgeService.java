@@ -94,4 +94,37 @@ public class BadgeService {
                 saveBadgeTypeForUser(BadgeType.INQUISITOR, user);
         }
     }
+    
+    
+    
+    /**give an AUTOBIOGRAPHER badge only if the user has fully completed his profile*/
+    public void grantIfUserIsComplete (User user){
+    	
+    	if (!hasAlreadyBadgeAffected(BadgeType.AUTOBIOGRAPHER, user)){
+    		//test if the user has completed his profile
+    		if (	user.getBirthDate() != null
+    				&& user.getFirstName() != null
+    				&& user.getGender() != null
+    				&& user.getLastName() != null
+    				&& user.getMail() != null
+    				&& user.isPicture() == true
+    				&& user.getTitle() != null
+    				&& user.getUserName() != null   ) {
+    		  this.saveBadgeTypeForUser(BadgeType.AUTOBIOGRAPHER, user);
+    		}
+    	
+    	}
+    }
+    
+    /**verify if the user has already the BadgeType passed in parameter*/
+    public boolean hasAlreadyBadgeAffected(BadgeType badgeType, User user){
+    	
+    	for (Badge badge : user.getBadges()){
+    		if (badge.getBadgeType().equals(badgeType)){
+    			return true;
+    		}
+    	}
+    	return false;
+    }
+    
 }
