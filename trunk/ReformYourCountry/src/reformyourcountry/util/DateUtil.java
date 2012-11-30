@@ -31,6 +31,13 @@ public class DateUtil {
         return formatter.format(date);
 	    
 	}
+	
+   public static String formatddMMyyyyHHmm(Date date){
+        
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy 'à' HH:mm");
+        return formatter.format(date);
+        
+    }
 
 	public static Date parseyyyyMMddWithParseException(String str) throws ParseException {
 	    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
