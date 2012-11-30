@@ -23,6 +23,7 @@
 			
 			    <%-- List of articles within the action --%>
 				<div class="action-list" style="font-size:0.8em">
+					<a href="/specialuserslist/${action.url}" title="Voir ce que les partis et associations ont voté.">Avis des partis</a>
 					<c:forEach items="${action.articles}" var="article">
 						<div>
 							<a href="/article/${article.url}">

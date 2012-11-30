@@ -19,9 +19,9 @@
        	</c:when>			
     </c:choose>
 	<ryctag:form action="/action/editsubmit" modelAttribute="action">
-        <ryctag:input path="title" label="Titre" id="title"/>  
-        <ryctag:input path="shortName" label="identifiant de l'action" id="shortName"/>      
-        <ryctag:input path="url" label="Nom de la page de l'action" id="url"/>
+        <ryctag:input path="title" label="Titre"/>  
+        <ryctag:input path="shortName" label="identifiant de l'action"/>      
+        <ryctag:input path="url" label="Nom de la page de l'action"/>
         <td><input type="submit" value="Générer une url" id="generate" /></td>
         <ryctag:input path="shortDescription" label="Description brève"/>
         <ryctag:textarea path="content" label="Description étendue"/>

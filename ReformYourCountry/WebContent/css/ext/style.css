@@ -608,7 +608,7 @@ padding-top: 1px;}
 #sub_nav ul a:hover,
 
 #sub_nav {list-style-type: none;width:160px;/*float:left //use of inline-block now --maxime 2/10/2012*/padding-bottom:0px;overflow:hidden;}
-#sub_nav ul a {display:block;background:url(/images/_global/separator3.gif) 0 0 repeat-x ;padding:4px 0 0 0;height:1%;margin:0 0 0 0;}
+#sub_nav ul a {display:block;background:url(/images/_global/separator3.gif) 0 8px repeat-x ;padding:8px 0 0 0;height:1%;margin:0 0 0 0;}
 #sub_nav ul a:hover {background:url(/images/secondary-royal-blue/navblueback.png) 0 0 repeat-y;padding:0 0 0 ;margin-right:0;color:#ccc;text-decoration:none;}
 #sub_nav ul li a.current_page_item {background:url(/images/secondary-royal-blue/navblueback.png) 0 0 repeat-y;padding:0 0 0 ;margin-right:0;color:#ccc;text-decoration:none;}
 #sub_nav ul ul a {background:url(/images/_global/bullet1.gif) 0 -9px no-repeat;padding:0 0 0 ;}
@@ -618,7 +618,6 @@ padding-top: 1px;}
 #sub_nav ul li {vertical-align:top;height:1%;}
 #sub_nav ul ul {margin:0;padding:0 0 0 0;font-size:11px;}
 #sub_nav ul ul ul {padding:0 0 0 10px ;}
-.articletreelevel0 > li{padding-bottom: 12px;}
 #sub_nav ul a.current_page_item  {background:url(/images/secondary-royal-blue/navblueback.png) 0 0 repeat-y; color:#ccc;}
 .nav_right_sub_nav ul li.current_page_item ul li a,
 .nav_right_sub_nav ul li.current_page_item ul li a:hover,
