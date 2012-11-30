@@ -29,6 +29,11 @@ function createCkEditor(textAreaId) {
 
 
 function getContentFromCkEditor() {
+	if(console.log(CKEDITOR.currentInstance.getData())) {
+		console.log(CKEDITOR.currentInstance.getData());
+		console.log(CKEDITOR.currentInstance.getData() == ckEditorUniqueInstance);
+	}
+	
     if (ckEditorUniqueInstance == null) {
         console.error("Bug: the ckEditorUniqueInstance should not be null at this stage.");
         return;

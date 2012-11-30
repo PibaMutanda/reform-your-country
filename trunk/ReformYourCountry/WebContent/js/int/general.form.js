@@ -1,6 +1,6 @@
 
 //Will Send the value of the new Argument form to the controller 
-function CKeditorEditSubmit(idEditedValueContainer){
+function CKeditorEditSubmit(idEditedValueContainer,succesfn){
 	console.log("CKeditorEditSubmit");
 	if (idUser.length=0){  // Not logged in
 		console.error("Bug: User should not see the button (and the form)");
@@ -10,14 +10,14 @@ function CKeditorEditSubmit(idEditedValueContainer){
 	///// Form errors check.
 	var errorHappened = false;
 	resetErrorMessagesInEditor();
-	if( getContentFromCkEditor()=="" ) {
+	if( getContentFromCkEditor() == "" ) {
 		console.log("Vous devez écrire le contenu.");
 		addErrorMessageInEditor("Vous devez écrire le contenu.");
 		errorHappened = true;
 	}
 		
 	if ( $('#ckEditForm > input[name="title"]').val()=="") {
-		console.log("Vous devez écrire le contenu.");
+		console.log("Vous devez écrire le titre.");
 		addErrorMessageInEditor("Vous devez remplir le champs titre.");
 		errorHappened = true;
 	}
@@ -41,6 +41,7 @@ function CKeditorEditSubmit(idEditedValueContainer){
 					$("#"+idEditedValueContainer).replaceWith(data);  // Here idEditedValueContainer is the edited item
 					$("#"+idEditedValueContainer).effect("highlight", {}, 3000);  
 				}
+				succesfn;
 				console.log(idEditedValueContainer+"a été modifié");
 				// TODO: Add visual effect (highlight 1 second) to the div containing the argument detail just received (data).
 			}).error(function(jqXHR, textStatus) {
@@ -49,12 +50,13 @@ function CKeditorEditSubmit(idEditedValueContainer){
 			console.error(exceptionVO.method + " in " + exceptionVO.clazz + " throw " + exceptionVO.message);
 			
 			addErrorMessageInEditor(exceptionVO.message);
+			return false;
 		});
-	return false;
+	return true;
 }
 
 function addErrorMessageInEditor(msg){	
-	addErrorMessage(msg,"ckEditForm");
+	addErrorMessage(msg,"ckEditForm > #errors");
 }
 function resetErrorMessagesInEditor(){	
 	$("#ckEditForm > #errors").empty();
