@@ -1,9 +1,15 @@
 package reformyourcountry.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.jsoup.helper.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import reformyourcountry.mail.MailCategory;
+import reformyourcountry.mail.MailType;
 import reformyourcountry.model.Argument;
 import reformyourcountry.model.Comment;
 import reformyourcountry.model.User;
@@ -14,6 +20,9 @@ import reformyourcountry.repository.CommentRepository;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.repository.VoteActionRepository;
 import reformyourcountry.repository.VoteArgumentRepository;
+import reformyourcountry.security.SecurityContext;
+import reformyourcountry.util.DateUtil;
+import reformyourcountry.util.HTMLUtil;
 
 @Service
 @Transactional
@@ -25,6 +34,7 @@ public class ArgumentService {
     @Autowired VoteActionRepository voteActionRepository;
     @Autowired VoteArgumentRepository voteArgumentRepository;
     @Autowired CommentRepository commentRepository;
+    @Autowired MailService mailService;
     
     // A user is voting
     public void updateVoteArgument(Long idArg, int value, User user, Argument arg) {
@@ -65,6 +75,20 @@ public class ArgumentService {
     }
     
 
+    public void notifyByEmailNewCommentPosted(Argument argument,Comment comment){
+        User userPostComment = SecurityContext.getUser();
+        User ownerArg = argument.getUser();
+        Date date = comment.getCreatedOn();
+        String dateString = DateUtil.formatddMMyyyyHHmm(date);
+        
+        String htmlMessage = HTMLUtil.getUserPageLink(userPostComment)+
+                " vient de publier un commentaire sur votre argument \""+argument.getTitle()+"\" :<br/><br/>"+
+                "Le "+dateString +":<br/>"+
+                comment.getContent();
+               ;
+        mailService.sendMail(ownerArg, "Un utilisateur a commenté votre argument "+argument.getTitle(), htmlMessage, MailType.GROUPABLE, MailCategory.USER);
+        
+    }
     
     
     
