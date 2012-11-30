@@ -32,13 +32,7 @@ public class Comment extends BaseEntity{
 		this.user = user;
 	}
 
-	public String getContentComment() {
-		return content;
-	}
-
-	public void setContentComment(String contentComment) {
-		this.content = contentComment;
-	}
+	
 		
 	public String getContent() {
 		return content;
