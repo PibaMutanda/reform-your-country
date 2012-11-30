@@ -221,13 +221,14 @@ public class UserService {
             break;
         case TWITTER:                
             Twitter twitter = (Twitter) connection.getApi();
-            userImage =  twitter.userOperations().getUserProfileImage(twitter.userOperations().getScreenName(),ImageSize.ORIGINAL);
-            if(userImage != null){
-            try {
-                addOrUpdateUserImage(user, ImageIO.read(new ByteArrayInputStream(userImage)));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            // At 30/11/2012 the method getUserProfileImage() seem not work on twitter so we get the image by its url.
+          //  userImage =  twitter.userOperations().getUserProfileImage(twitter.userOperations().getScreenName(),ImageSize.ORIGINAL);
+            String urlImage = twitter.userOperations().getUserProfile().getProfileImageUrl();
+            urlImage = urlImage.replace("_normal", "");
+            if(urlImage != null){
+            BufferedImage image = ImageUtil.readImage(urlImage);
+            // addOrUpdateUserImage(user, ImageIO.read(new ByteArrayInputStream(userImage)));
+            addOrUpdateUserImage(user, image);
             }else{
                 NotificationUtil.addNotificationMessage("Aucune image n'est disponnible depuis votre compte "+connection.getKey().getProviderId());
             }
