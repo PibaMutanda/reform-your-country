@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.exception.AjaxValidationException;
@@ -26,7 +27,6 @@ import reformyourcountry.service.ActionService;
 import reformyourcountry.service.ArgumentService;
 import reformyourcountry.service.BadgeService;
 import reformyourcountry.util.HTMLUtil;
-import reformyourcountry.util.NotificationUtil;
 import reformyourcountry.web.PropertyLoaderServletContextListener;
 
 @Controller
@@ -42,12 +42,13 @@ public class ArgumentController extends BaseController<Argument>{
     @Autowired ActionService actionService;
     @Autowired BadgeService badgeService;
     
+    
     @RequestMapping("ajax/argument/edit")
     public ModelAndView argumentEdit(@RequestParam(value="argumentId",required=false) Long argumentId,   // For editing existing arguments.
             @RequestParam(value="idAction",required=false)Long actionId,@RequestParam(value="isPos",required=false)Boolean positiveArg      // For creating a new argument.
             ){
         ModelAndView mv = new ModelAndView("ckeditorform");
-
+        
         if(argumentId != null) {
             Argument argument =  (Argument)getRequiredEntity(argumentId, Argument.class);
             mv.addObject("idItem",argumentId);
@@ -76,9 +77,8 @@ public class ArgumentController extends BaseController<Argument>{
         //TODO review
         //check if content or title haven't dangerous html
         if (!HTMLUtil.isHtmlSecure(title) || !HTMLUtil.isHtmlSecure(content)) {
-        	 throw new AjaxValidationException("vous avez introduit du HTML/Javascript invalide dans le titre ou le contenu");
+        	 throw new AjaxValidationException("vous avez introduit du HTML/Javascript invalide dans le commentaire");
         }
-        	
         Argument argument;
         if (argumentId != null) {  // It's an edit (vs a create)
             argument = getRequiredEntity(argumentId);
@@ -99,7 +99,11 @@ public class ArgumentController extends BaseController<Argument>{
         return returnitemDetail(argument);
     }        
         
-    
+    @RequestMapping("ajax/argument/refresh")
+    public ModelAndView argumentVote(@RequestParam("id")Long idArg)throws Exception{
+        Argument arg = argumentRepository.find(idArg);
+        return returnitemDetail(arg);
+    }
     
     @RequestMapping("ajax/argument/vote")
     public ModelAndView argumentVote(@RequestParam("id")Long idArg,@RequestParam("value")int value)throws Exception{
@@ -116,26 +120,25 @@ public class ArgumentController extends BaseController<Argument>{
     }
    
     @RequestMapping("ajax/argument/commentadd")
-	public ModelAndView commentAdd(@RequestParam("id")Long idArg, @RequestParam("value")String com) throws Exception{
+	public ModelAndView commentAdd(@RequestParam("id")Long idArg, @RequestParam("value")String content) throws Exception{
         //TODO review
         //check if content or title haven't dangerous html
-        if (!HTMLUtil.isHtmlSecure(com)) {
+        if (!HTMLUtil.isHtmlSecure(content)) {
         	 throw new AjaxValidationException("vous avez introduit du HTML/Javascript invalide dans le commentaire");
         }
-    	
-    	User user = SecurityContext.getUser();
+		User user = SecurityContext.getUser();
 		if (user !=null){
 			Argument argument = argumentRepository.find(idArg);
-			Comment comment = new Comment(com, argument, user);
+			Comment comment = new Comment(content, argument, user);
             commentRepository.persist(comment);
             argument.addComment(comment);
-			argumentRepository.merge(argument); 			
+			argumentRepository.merge(argument);       
 			return returnitemDetail(argument);
 		}else {
 			throw new Exception("no user logged");
 		}
 	}
-    @RequestMapping("ajax/unvoteargument")
+    @RequestMapping("ajax/argument/unvote")
     public ModelAndView unVote(@RequestParam("id")Long idArg) throws Exception{
         User user = SecurityContext.getUser();
         Argument argument = argumentRepository.find(idArg);
@@ -158,5 +161,58 @@ public class ArgumentController extends BaseController<Argument>{
         mv.addObject("canNegativeVote",true);
         mv.addObject("currentItem",arg);
         return mv;
+    }
+    @RequestMapping("/ajax/argument/commentdelete")
+    public ModelAndView deleteComment(@RequestParam("id")Long idComment) throws Exception{
+        Comment com = commentRepository.find(idComment);
+        
+        if(com ==null){
+            throw new Exception("this id doesn't reference any comment.");
+        }
+        if(!com.isEditable()){
+             throw new Exception("this person can't suppress this comment(hacking).");
+        }
+        Argument argument = com.getArgument();
+        argument.getCommentList().remove(com);
+        commentRepository.remove(com);
+        argumentRepository.merge(argument);
+        return returnitemDetail(argument);
+        
+    }
+    
+    @RequestMapping("/ajax/argument/commentedit")
+    public ModelAndView commentEdit(@RequestParam("id")Long idComment,@RequestParam("value")String content) throws Exception{
+        //TODO review
+        //check if content or title haven't dangerous html
+        if (!HTMLUtil.isHtmlSecure(content)) {
+        	 throw new AjaxValidationException("vous avez introduit du HTML/Javascript invalide dans le commentaire");
+        }
+        Comment com = commentRepository.find(idComment);
+        if(com ==null){
+            throw new Exception("this id doesn't reference any comment.");
+        }
+        if(!com.isEditable()){
+             throw new Exception("this person can't edit this comment(hacking).");
+        }
+        com.setContent(content);
+        commentRepository.merge(com);
+        Argument argument = com.getArgument();
+        return returnitemDetail(argument);
+        
+    }
+
+    @RequestMapping("/ajax/argument/argdelete")
+    @ResponseBody
+    public String deleteArgument(@RequestParam("id")Long idArg) throws Exception{
+        Argument arg = argumentRepository.find(idArg);
+        if(arg ==null){
+            throw new Exception("this id doesn't reference any comment.");
+        }
+        if(!arg.isEditable()){
+             throw new Exception("this person can't suppress this comment(hacking).");
+        }
+        argumentService.deleteArgument(arg);
+        return "";
+        
     }
 }
