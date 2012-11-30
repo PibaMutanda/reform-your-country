@@ -121,7 +121,7 @@
 <body>
 
     <div style="display:inline-block"><!-- DO NOT REMOVE OTHERWISE TITLE AND MENU ARE UPSIDE DOWN    -->
-        <ryc:conditionDisplay privilege="EDIT_ARTICLE">
+        <ryc:conditionDisplay privilege="MANAGE_ARTICLE">
         <ul style="float:left">
                     <li><a href="/article/a_classer/${article.url}">Afficher "A classer"</a></li>
                 </ul>
@@ -136,7 +136,7 @@
         </div>
         </ryc:conditionDisplay>
         <div class="article-title" style>
-            <ryc:conditionDisplay privilege="EDIT_ARTICLE">
+            <ryc:conditionDisplay privilege="MANAGE_ARTICLE">
                 <span class="tooltip" data-tooltip='identifiant de cet article pour utilisation dans la balise [link article="${article.shortName}"]'>${article.shortName}</span>   <!--  Tooltip avec "identifiant de cet article pour utilisation dans la balise [link article="identifiant"]" -->
             </ryc:conditionDisplay> 
             <c:if test="${!article.publicView}">
@@ -191,7 +191,7 @@
     <c:choose>
       <c:when test="${showContent}">
         <div class="article_content">
-              <ryc:conditionDisplay privilege="EDIT_ARTICLE">
+              <ryc:conditionDisplay privilege="MANAGE_ARTICLE">
                  <hr/>
               </ryc:conditionDisplay>  
               <div class="article_summary">${articleSummary}</div>
