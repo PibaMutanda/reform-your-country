@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import reformyourcountry.mail.MailingDelayType;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.Gender;
 import reformyourcountry.repository.UserRepository;
@@ -31,9 +32,8 @@ import reformyourcountry.util.NotificationUtil;
 public class UserEditController extends BaseController<User> {
     
     @Autowired UserRepository userRepository;
-    @Autowired UserService userService;
+    @Autowired UserService userService; 
     @Autowired BadgeService badgeService;
-    
     @RequestMapping("/edit")
     public ModelAndView userEdit(@RequestParam(value="id", required=true) long userId) {
         
@@ -42,22 +42,25 @@ public class UserEditController extends BaseController<User> {
                
     	ModelAndView mv=prepareModelAndView(userId, user);
     	
-    	// Sets an initial date in the form
-    	Calendar birthCalendar = Calendar.getInstance();
-    	if (user.getBirthDate()!=null) {
-			birthCalendar.setTime(user.getBirthDate());
-			mv.addObject("birthDay", birthCalendar.get(Calendar.DAY_OF_MONTH));
-	    	mv.addObject("birthMonth", birthCalendar.get(Calendar.MONTH));
-	    	mv.addObject("birthYear", birthCalendar.get(Calendar.YEAR));
-		}
+    	
 		
     	return mv;
     }
     
     private ModelAndView prepareModelAndView(Long userId,User user) { 
     	ModelAndView mv=new ModelAndView("useredit");
+    	// Sets an initial date in the form
+        Calendar birthCalendar = Calendar.getInstance();
+        if (user.getBirthDate()!=null) {
+            birthCalendar.setTime(user.getBirthDate());
+            mv.addObject("birthDay", birthCalendar.get(Calendar.DAY_OF_MONTH));
+            mv.addObject("birthMonth", birthCalendar.get(Calendar.MONTH));
+            mv.addObject("birthYear", birthCalendar.get(Calendar.YEAR));
+        }
+        
     	mv.addObject("id", userId); 
     	mv.addObject("user", user);
+    	mv.addObject("canChangeUserName", SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS) ||( SecurityContext.canCurrentUserChangeUser(user) && user.getCertificationDate() == null));
     	mv.addObject("canChangeUserName", (SecurityContext.canCurrentUserChangeUser(getRequiredEntity(userId)) /// If we have a validation error, the given user is a fake, used for error handling;
     												&& getRequiredEntity(userId).getCertificationDate() == null)// in that case, we have to compare the current user with the real one, hence the getRequiredEntity
     												|| SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS));
@@ -95,6 +98,7 @@ public class UserEditController extends BaseController<User> {
                                        @RequestParam(value="nlSubscriber", required=false) Boolean newNlSubscriber,
                                        @RequestParam(value="title") String title,
                                        @RequestParam(value="certified", required=false) Boolean certified,
+                                       @RequestParam(value="mailingDelayType",required=false)MailingDelayType mailingDelayType,
                                        @RequestParam("id") long userId,
                                        @Valid @ModelAttribute User doNotUseThisUserInstance,  // To enable the use of errors param.
                                        Errors errors) {
@@ -153,15 +157,39 @@ public class UserEditController extends BaseController<User> {
             if (doNotUseThisUserInstance.getUserName()==""|| hasUserAlreadyExist==true ) {
                 doNotUseThisUserInstance.setUserName(user.getUserName());  // We need to restore the username, because the "Cancel" link in the JSP needs it.
             }
+            Calendar birthCalendar = Calendar.getInstance();
+          
+            if (user.getBirthDate()!=null) {
+                birthCalendar.setTime(user.getBirthDate());
+                mv.addObject("birthDay", birthCalendar.get(Calendar.DAY_OF_MONTH));
+            
+       
+                mv.addObject("birthMonth", birthCalendar.get(Calendar.MONTH));
+            
+             
+                mv.addObject("birthYear", birthCalendar.get(Calendar.YEAR));
+            }
+            
+            
+          
+           
             return mv;
         }
         
-       
         // We start modifiying user (that may then be automatically saved by hibernate due to dirty checking.
-        if ((certified == null || certified ==  false || SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS)) &&
+        if ((SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS) || certified == null || certified ==  false ) &&
         	( !ObjectUtils.equals(newFirstName, user.getFirstName()) || !ObjectUtils.equals(newLastName, user.getLastName()) || !ObjectUtils.equals(newUserName, user.getUserName()))){
            userService.changeUserName(user, newUserName, newFirstName, newLastName); 
         }
+        
+        // MailDelayType
+        if(mailingDelayType != null){
+            
+            user.setMailingDelayType(mailingDelayType);
+        }
+        
+        
+        
         user.setBirthDate(dateNaiss);
         user.setMail(newMail);
         user.setGender(newGender);
