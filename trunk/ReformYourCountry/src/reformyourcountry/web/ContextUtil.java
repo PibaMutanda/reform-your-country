@@ -79,6 +79,14 @@ public class ContextUtil implements Filter, ServletContextListener {
     	return getServletContext() == null;
     }
 
+    /** The current thread is probably created by tomcat to process a request.
+     * But sometimes, not. For example, the background thread sending mails is not bound to a specific web request.
+     */
+    public static boolean isInWebRequestProcessingThread() {
+        return httpServletRequest.get() != null;
+        
+    }
+
    public static Object getSpringBean(String name) {
 		return springContext.getBean(name);
 	}

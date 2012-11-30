@@ -163,7 +163,6 @@ public class UserEditController extends BaseController<User> {
                 birthCalendar.setTime(user.getBirthDate());
                 mv.addObject("birthDay", birthCalendar.get(Calendar.DAY_OF_MONTH));
             
-       
                 mv.addObject("birthMonth", birthCalendar.get(Calendar.MONTH));
             
              
