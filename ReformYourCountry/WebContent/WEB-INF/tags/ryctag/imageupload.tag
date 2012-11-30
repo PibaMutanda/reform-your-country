@@ -16,7 +16,7 @@
 <form method="post" action="${action}" enctype="multipart/form-data" style="width:500px;">
     <fieldset>
         <legend>à partir de votre ordinateur</legend>
-        <input type="submit" class="saveBtn" value="" style="float:right;"/>
+        <input type="submit" class="" value="Ajouter" style="float:right;"/>
         <input type="button" value="" class="uploadBtn" onmouseout="showfile()" onclick="getfile()" style="float:right;" />
         <input type="file" name="file" id="hiddenfile" style="display:none;" required="required"/>
         <input type="text"  disabled="disabled"  id="selectedfile" style="width:495px;" />
