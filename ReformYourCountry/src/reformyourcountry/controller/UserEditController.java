@@ -3,6 +3,7 @@ package reformyourcountry.controller;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -15,11 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import reformyourcountry.model.Article;
 import reformyourcountry.model.User;
-import reformyourcountry.model.User.AccountStatus;
 import reformyourcountry.model.User.Gender;
-import reformyourcountry.model.User.Role;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
@@ -114,6 +112,7 @@ public class UserEditController extends BaseController<User> {
        
         //birthDate
     	Date dateNaiss = null;
+    	// Verification 1: is the date in the future?
         if ((!day.equals("null"))&&(!month.equals("null"))&&(!year.equals("null"))) {
 			dateNaiss = DateUtil.parseyyyyMMdd(year + "-" + month + "-" + day);
 			if (dateNaiss.after(new Date())) {
@@ -122,26 +121,7 @@ public class UserEditController extends BaseController<User> {
 				mv.addObject("errorBirthDate", "Vous avez sélectionné une date dans le futur. Veuillez choisir une date de naissance passée.");
 				return mv;
 			}
-        }
-		else {
-			  
-			    ArrayList<String>errorBirthDate=new ArrayList<>();
-			    
-			    if (day.equals("null"))       
-			        errorBirthDate.add("Vous devez sélectionner le jour Svp");
-			    
-			    if (month.equals("null"))   
-			        errorBirthDate.add("Vous devez sélectionner le mois Svp") ;    
-			    
-			    if (year.equals("null"))    
-			        errorBirthDate.add("Vous devez sélectionner  l'année Svp");      
-			    
-			    ModelAndView mv=prepareModelAndView(userId, user);
-			    mv.addObject("errorBirthDate", errorBirthDate);
-			    return mv;
-
-			    
-			}
+        }  // No else because the birthdate is not mandatory. 
         
         
 		// userName
@@ -176,6 +156,7 @@ public class UserEditController extends BaseController<User> {
             return mv;
         }
         
+       
         // We start modifiying user (that may then be automatically saved by hibernate due to dirty checking.
         if ((certified == null || certified ==  false || SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS)) &&
         	( !ObjectUtils.equals(newFirstName, user.getFirstName()) || !ObjectUtils.equals(newLastName, user.getLastName()) || !ObjectUtils.equals(newUserName, user.getUserName()))){
