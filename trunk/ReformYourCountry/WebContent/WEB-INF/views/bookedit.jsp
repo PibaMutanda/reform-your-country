@@ -24,12 +24,12 @@
 		<tr>
 		    <td>Abréviation du livre</td><td><form:input path="abrev" /> </td><td><form:errors path="abrev" cssClass="error" /></td>
 		 </tr>
-		<ryctag:input path="title" label="Titre du livre:" id="title" />
-		<ryctag:input path="subtitle" label="Sous-titre du livre" id="subtitle"/>
+		<ryctag:input path="title" label="Titre du livre:"/>
+		<ryctag:input path="subtitle" label="Sous-titre du livre"/>
 		<tr></tr>
 		<tr class="tooltip" data-tooltip="identifiant pour le livre dans les URLs">
 			<td><label for="url">Fragment d'URL</label></td>
-			<td><form:input path="url" required="required" id="url" type="input" cssStyle="width:400px;"  /></td>
+			<td><form:input path="url" required="required" type="input" cssStyle="width:400px;"  /></td>
 			<td><input type="submit" value="Générer une url" id="generate" /></td>
 		</tr>
 		 <tr>

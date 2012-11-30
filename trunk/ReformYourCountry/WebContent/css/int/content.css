@@ -468,6 +468,7 @@ color: #444;
 .articletreelevel1 {
 	padding-top: 11px;
 	list-style: none;
+	padding-bottom:12px;
 }
 .datepublication {
 	float: right;

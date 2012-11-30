@@ -1,8 +1,9 @@
 package reformyourcountry.repository;
 
 
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
+import org.springframework.stereotype.Repository;
 
 import reformyourcountry.model.User;
 import reformyourcountry.model.VoteAction;

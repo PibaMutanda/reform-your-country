@@ -6,13 +6,14 @@
 <head>
 </head>
 <body>
-<ryctag:pageheadertitle title="Liste des utilisateurs spéciaux"/>
+<ryctag:pageheadertitle title="Liste des Partis politiques et Associations"/>
 <br>
 <c:forEach items="${values}"   var="specialType">
 
   <c:if test='${! empty userMapGroupByType[specialType.name]}'>
   <c:set var="tablename" value="${specialType.familyName}" scope ="request"/>
-  <c:set var='listUser' value='${userMapGroupByType[specialType.name]}' scope ="request"/>
+  <c:set var='listUserAndVotes' value='${userMapGroupByType[specialType.name]}' scope ="request"/>
+  <c:set var='isVoteResultPage' value='${isVoteResultPage}' scope ="request"/>
   <%@include file="specialuserlistfragment.jsp" %>	  
   </c:if>
 </c:forEach>
