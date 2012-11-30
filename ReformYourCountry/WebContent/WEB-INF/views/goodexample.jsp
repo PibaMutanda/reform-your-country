@@ -4,14 +4,10 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <head>
-
 <script type="text/javascript" src="/js/int/CKeditorManager.js"></script>
-<script type="text/javascript" src="/js/int/general.js"></script>
 <script type="text/javascript" src="/js/int/general.form.js"></script>
 <script type="text/javascript" src="/js/int/goodexample.js"></script>
-<script type="text/javascript" src="js/ext/jquery-bubble-popup-v3.min.js" ></script>
 <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
-<link href="css/ext/jquery-bubble-popup-v3.css" rel="stylesheet" type="text/css" />
 </head>
 <ryctag:pageheadertitle title="goodexamplelist" >
 Insert breadcrumb elements here

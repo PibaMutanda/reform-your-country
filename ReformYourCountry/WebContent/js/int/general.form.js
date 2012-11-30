@@ -47,7 +47,6 @@ function CKeditorEditSubmit(idEditedValueContainer,succesfn){
 				// TODO: Add visual effect (highlight 1 second) to the div containing the argument detail just received (data).
 				return false;
 			}).error(function(jqXHR, textStatus) {
-		// TODO show that error in a jQuery pop-up
 			var exceptionVO = jQuery.parseJSON(jqXHR.responseText);
 			console.error(exceptionVO.method + " in " + exceptionVO.clazz + " throw " + exceptionVO.message);
 			
