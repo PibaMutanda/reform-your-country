@@ -21,7 +21,7 @@ function hideAllCkEditorContainer(){
 	}
 }
 //Display editor to edit an existing argument.
-function argumentEditStart(item, newid){
+function ItemEditStart(item, newid){
 	if (showMessageIfNotLogged(item)) {
 		return;
 	}
@@ -65,7 +65,7 @@ function deleteItem(item,idArgument){
 	var answer = confirm('Etes vous sur de vouloir supprimer cet argument?');
 	if (answer)
 	{
-		sendSimpleValue(item,idArgument,"item"+idArgument,"/ajax/argument/argdelete","");
+		sendSimpleValue(item,idArgument,"item"+idArgument,"item"+idArgument,"/ajax/argument/argdelete","");
     	$("#item"+idArgument).html("");
     	$("#item"+idArgument).hide();
 	}
@@ -84,16 +84,15 @@ function  unVoteItem(id){
 ///////////////////////////////// COMMENTS
 
 function sendEditComment(item,itemId){
-	sendSimpleValue(item,$('#idComm'+itemId).val(),"item"+itemId,"/ajax/argument/commentedit",$("#comm"+itemId).attr("value"));
+	sendSimpleValue(item,$('#idComm'+itemId).val(),"item"+itemId,"commentArea"+itemId,"/ajax/argument/commentedit",$("#comm"+itemId).attr("value"));
 }
 function sendNewComment(item,divId,idArg){
-	sendSimpleValue(item,idArg,divId,"/ajax/argument/commentadd",$('#comm'+idArg).val());
+	sendSimpleValue(item,idArg,divId,"commentArea"+idArg,"/ajax/argument/commentadd",$('#comm'+idArg).val());
 }
-
 function deleteComment(item,idComment,idDiv){
 	var answer = confirm('Etes vous sur de vouloir supprimer ce commentaire?');
 	if (answer)	{
-		sendSimpleValue(item,idComment,idDiv,"/ajax/argument/commentdelete","");
+		sendSimpleValue(item,idComment,idDiv,"commentArea"+idComment,"/ajax/argument/commentdelete","");
 	}
 }
 

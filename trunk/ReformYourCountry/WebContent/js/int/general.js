@@ -16,22 +16,23 @@ function showMessageIfNotLogged(item){
 
 //send value with an id only for logged users
 //AND REPLACE CONTENT OF THE DIV WITH ID = idEditedValueContainer, By the content returned by server
-function sendSimpleValue(button,idItem,idEditedValueContainer,url,value){
+function sendSimpleValue(button,idItem,idEditedValueContainer,IdErrorMessageContainer,url,value){
 	if (showMessageIfNotLogged(button)) {
 		return;
 	}
-	var requestArg = $.post(url,
+	$.post(url,
 			{value : value,
 			id : idItem},
-		function(data){
-			//Send the new data to the div containing the argument
-			$("#"+idEditedValueContainer).html(data);
-			$("#"+idEditedValueContainer).effect("highlight", {}, 1500);
-			return false;
-		});
-
-	requestArg.fail(function(jqXHR, textStatus) {
-		addErrorMessageInEditor("Erreur de communication lors d'un vote"+textStatus);
+			function(data){
+				//Send the new data to the div containing the argument
+				$("#"+idEditedValueContainer).html(data);
+				$("#"+idEditedValueContainer).effect("highlight", {}, 1500);
+				return false;
+			}
+	).error(function(jqXHR, textStatus) {
+		var exceptionVO = jQuery.parseJSON(jqXHR.responseText);
+		console.error(exceptionVO.method + " in " + exceptionVO.clazz + " throw " + exceptionVO.message);
+		addErrorMessage(exceptionVO.message,idEditedValueContainer);
 	});
 }
 
@@ -53,7 +54,7 @@ function unVote(url,idItem,idItemToReplace){
 	});
 }
 function vote(item,url,value,idParent,idItemToReplace){
-	sendSimpleValue(item,idParent,idItemToReplace,url,value);
+	sendSimpleValue(item,idParent,idItemToReplace,idParent,url,value);
 }
 
 
