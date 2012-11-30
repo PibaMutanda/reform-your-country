@@ -29,15 +29,14 @@ public class BadgeService {
 		badgeRepository.persist(badge);
 		user.getBadges().add(badge);
 		NotificationUtil.addNotificationMessage(
-				"Félicitations vous avez obtenu un badge de niveau : " + badgeType.getBadgeTypeLevel().getName()  
-				+ " " + badgeType.getName());
-		
-		
-	System.out.println("send badge");	
+				"Félicitations vous avez obtenu un badge de niveau " + badgeType.getBadgeTypeLevel().getName()  
+				+ ": " + badgeType.getName());
+	
 		if(badgeType.isMailConfirm()){
+		    //TODO add link to Badges user page in message.
 		    String htmlMessage = "Félicitation, vous venez de recevoir votre badge "+badgeType.getName() +  
 		            " de niveau " + badgeType.getBadgeTypeLevel().getName();
-		    mailService.sendMail(user, "Vous avez reçu un nouveau badge!", htmlMessage, MailType.SLOW_NOT_GROUPABLE, MailCategory.USER);
+		    mailService.sendMail(user, "Vous avez reçu un nouveau badge!", htmlMessage, MailType.GROUPABLE, MailCategory.USER);
         
 		}
 		
