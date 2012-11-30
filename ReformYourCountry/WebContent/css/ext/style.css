@@ -1861,8 +1861,9 @@ background: url("/images/_global/bg-buttons-sprite.png") no-repeat scroll 100% -
 }
 .listarticle{
 	font-size: 1em;
-	
-	padding-bottom:10px;
+	display:inline-block;
+	padding-bottom:10px; 
+	width:100%;
 }
 .listarticle div span {
 	font-size: 0.7em;
