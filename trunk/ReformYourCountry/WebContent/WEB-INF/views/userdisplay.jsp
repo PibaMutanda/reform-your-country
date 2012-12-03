@@ -106,11 +106,12 @@ Groupes:
 	</c:if>
 <br />
 </div>
+
+
 <!--  **************************Badges********************* -->
-
- 	<c:forEach items="${user.badges}"  var="badge"> </br>
-
+    <c:forEach items="${user.badges}"  var="badge"> <br/>
 			<ryctag:badge badgeType="${badge.badgeType}" />
 	</c:forEach>
+	
 </body>
 </html>
