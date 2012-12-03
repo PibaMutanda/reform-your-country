@@ -9,3 +9,5 @@
         add constraint fk9bde863f14093d3 
         foreign key (goodexample_id) 
         references goodexample;
+        
+XXXXXXXXXXXXXXXXX->>>>>>>>>>>>>>>>>>> deployed. Use 0.0.9.sql        
