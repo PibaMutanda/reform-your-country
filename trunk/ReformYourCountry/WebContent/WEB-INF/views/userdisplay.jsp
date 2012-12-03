@@ -148,6 +148,13 @@ Groupes:
 				<br />
 				<ryctag:badge badgeType="${badge.badgeType}" />
 			</c:forEach>
+			
+			<form action="/user/recomputebadge" method="post">
+			  <input type="hidden" name="userid" value="${user.id}">
+			  <input type="submit" value="Recalculer">
+			</form>
+			
+			
 		</div>
 	</div>
 
