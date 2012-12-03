@@ -38,9 +38,7 @@
     	</c:otherwise>
      </c:choose>
      
-     	<ryc:conditionDisplay privilege="MANAGE_USERS">
-     	    <input type="checkbox" name="certified" value="true" checked="${certificationDate != null}" /> Certifié
-        </ryc:conditionDisplay>
+     	
     	 
 		
      	  <ryctag:input path="userName" label="Pseudonyme" required="required"/>
@@ -94,6 +92,37 @@
                 <form:radiobutton  path="mailingDelayType" value="IMMEDIATELY"/>Immédiat</td>
             <td></td>
          </tr>
+         <c:choose>
+         <c:when test="${canChangeAccountStatus}">
+	         <tr><td>Statut du compte:
+	         </td><td><form:select path="accountStatus" >
+	         	<form:options items="${statusList}" />
+	         </form:select></td><td></td>
+	         </tr>
+         </c:when>
+         <c:otherwise><!-- because accountstatus cannot be null due to sql constraint -->
+          <input type="hidden" name="accountStatus" value="${user.accountStatus}"/>
+         </c:otherwise>
+         </c:choose>
+         
+         <ryc:conditionDisplay privilege="MANAGE_USERS">
+	         <tr><td>
+	         ${certificationDate}
+	         <c:choose>
+	         <c:when test="${user.certificationDate != null}">
+	     	    <input type="checkbox" name="certified" value="true" checked = "checked" /> 
+	     	    </c:when>
+	     	    <c:otherwise>
+	     	    <input type="checkbox" name="certified" value="true" /> 
+	     	    </c:otherwise>
+	     	</c:choose>
+	     	Certifié
+	     	    </td>
+	     	    <td></td><td></td>
+	     	</tr>
+        </ryc:conditionDisplay>
+         
+         
 		<input type="hidden" name="id" value="${id}"/> <%-- We do not use form:hidden because user.id is sometimes null (fake user)--%>
 		
         <tr><td><input type="submit" value="Sauver" /></td><td> <a href="/user/${user.userName}">Annuler</a></td></tr>
