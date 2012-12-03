@@ -13,7 +13,17 @@
 <body>
 
 <ryctag:pageheadertitle title="${user.firstName} ${user.lastName}"/>
-
+<div class="user-options">
+            <ryc:conditionDisplay privilege="MANAGE_USERS">
+				 <a href="user/privilegeedit?id=${user.id}">Privilèges</a>-
+				 <a href="user/usertypeedit?id=${user.id}">Editer le type d'un user</a>-
+			</ryc:conditionDisplay>
+			 <c:if test="${canEdit}">
+				<a href="user/edit?id=${user.id}">Editer le Profil</a>-
+				<a href="user/changepassword?id=${user.id}">Modifier le mot de passe</a>-
+				<a href="user/delete?id=${user.id}">Supprimer le compte</a>
+			 </c:if>
+</div>
 <div style="display:inline-block;" class="text-big">
 	<div style="float:left;">
 		<c:choose>
@@ -76,20 +86,7 @@
 				</c:if>
 	</div>
 	
-	<div style="float:right; padding-left:50px;" >
-		<ul class="list sitemap-list">
-			<ryc:conditionDisplay privilege="MANAGE_USERS">
-				 <li><a href="user/privilegeedit?id=${user.id}">Privilèges</a></li>
-				 <li><a href="user/usertypeedit?id=${user.id}">Editer le type d'un user</a></li>
-			</ryc:conditionDisplay>
-			
-			 <c:if test="${canEdit}">
-				 <li><a href="user/edit?id=${user.id}">Editer le Profil</a></li>
-				 <li><a href="user/changepassword?id=${user.id}">Modifier le mot de passe</a></li>
-				 <li><a href="user/delete?id=${user.id}">Supprimer le compte</a></li>
-			 </c:if>
-		</ul>	
-	</div>
+	
 </div>
 
 <!-- ******************** GROUPS ******************** -->
