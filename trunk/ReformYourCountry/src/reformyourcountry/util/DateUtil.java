@@ -58,56 +58,73 @@ public class DateUtil {
 	}
 
 	public static String formatDuration(Date startDate, Date endDate, boolean shorten) {
-
-		if (startDate.after(endDate)) { // swap
-			Date tmp = startDate;
-			startDate = endDate;
-			endDate = tmp;
-		}
-
-		// Code copy/pasted/adapted from apache DurationFormatUtils.formatPeriod
-		// To suppress too much detail for long duration, we will round the
-		// diffMili.
-
-		GregorianCalendar start = new GregorianCalendar();
-		start.setTime(startDate);
-		GregorianCalendar end = new GregorianCalendar();
-		end.setTime(endDate);
-
-		// initial estimates
-		int seconds = end.get(Calendar.SECOND) - start.get(Calendar.SECOND);
-		int minutes = end.get(Calendar.MINUTE) - start.get(Calendar.MINUTE);
-		int hours = end.get(Calendar.HOUR_OF_DAY) - start.get(Calendar.HOUR_OF_DAY);
-		int days = end.get(Calendar.DAY_OF_MONTH) - start.get(Calendar.DAY_OF_MONTH);
-		int months = end.get(Calendar.MONTH) - start.get(Calendar.MONTH);
-		int years = end.get(Calendar.YEAR) - start.get(Calendar.YEAR);
-
-		// each initial estimate is adjusted in case it is under 0
-		while (seconds < 0) {
-			seconds += 60;
-			minutes -= 1;
-		}
-		while (minutes < 0) {
-			minutes += 60;
-			hours -= 1;
-		}
-		while (hours < 0) {
-			hours += 24;
-			days -= 1;
-		}
-		while (days < 0) {
-			days += start.getActualMaximum(Calendar.DAY_OF_MONTH);
-			months -= 1;
-			start.add(Calendar.MONTH, 1);
-		}
-		while (months < 0) {
-			months += 12;
-			years -= 1;
-		}
-
-		return assembleIntervalStringFR(shorten, minutes, hours, days, months,
-				years);
+	    SlicedTimeInterval sti = sliceDuration(startDate, endDate);
+		return assembleIntervalStringFR(shorten, sti.minutes, sti.hours, sti.days, sti.months,
+				sti.years);
 	}
+
+	
+	public static SlicedTimeInterval sliceDuration(Date startDate, Date endDate) {
+
+        if (startDate.after(endDate)) { // swap
+            Date tmp = startDate;
+            startDate = endDate;
+            endDate = tmp;
+        }
+
+        // Code copy/pasted/adapted from apache DurationFormatUtils.formatPeriod
+        // To suppress too much detail for long duration, we will round the
+        // diffMili.
+
+        GregorianCalendar start = new GregorianCalendar();
+        start.setTime(startDate);
+        GregorianCalendar end = new GregorianCalendar();
+        end.setTime(endDate);
+
+        // initial estimates
+        SlicedTimeInterval value = new SlicedTimeInterval();
+        value.seconds = end.get(Calendar.SECOND) - start.get(Calendar.SECOND);
+        value.minutes = end.get(Calendar.MINUTE) - start.get(Calendar.MINUTE);
+        value.hours = end.get(Calendar.HOUR_OF_DAY) - start.get(Calendar.HOUR_OF_DAY);
+        value.days = end.get(Calendar.DAY_OF_MONTH) - start.get(Calendar.DAY_OF_MONTH);
+        value.months = end.get(Calendar.MONTH) - start.get(Calendar.MONTH);
+        value.years = end.get(Calendar.YEAR) - start.get(Calendar.YEAR);
+
+        // each initial estimate is adjusted in case it is under 0
+        while (value.seconds < 0) {
+            value.seconds += 60;
+            value.minutes -= 1;
+        }
+        while (value.minutes < 0) {
+            value.minutes += 60;
+            value.hours -= 1;
+        }
+        while (value.hours < 0) {
+            value.hours += 24;
+            value.days -= 1;
+        }
+        while (value.days < 0) {
+            value.days += start.getActualMaximum(Calendar.DAY_OF_MONTH);
+            value.months -= 1;
+            start.add(Calendar.MONTH, 1);
+        }
+        while (value.months < 0) {
+            value.months += 12;
+            value.years -= 1;
+        }
+
+        return value;
+	}
+	
+	public static class SlicedTimeInterval {
+	    public int years;
+	    public int months;
+	    public int days;
+	    public int hours;
+	    public int minutes;
+	    public int seconds;
+	}
+	
 
 	private static String assembleIntervalString(boolean shorten, int minutes,
 			int hours, int days, int months, int years) {
