@@ -76,7 +76,7 @@
 				<c:choose><c:when test="${user.firstName ne null}">${user.firstName}</c:when><c:otherwise>?</c:otherwise></c:choose>
 				<c:choose><c:when test="${user.lastName ne null}">${user.lastName}</c:when><c:otherwise>?</c:otherwise></c:choose> <br/>
 				<c:choose><c:when test="${user.title ne null}">${user.title}</c:when><c:otherwise>?</c:otherwise></c:choose> <br/>
-							
+									
 				<% 
 				   if (((User) pageContext.getRequest().getAttribute("user")).getBirthDate() != null){
 				   DateUtil.SlicedTimeInterval sti = DateUtil.sliceDuration(((User) pageContext.getRequest().getAttribute("user")).getBirthDate(), new Date());
@@ -150,12 +150,12 @@ Groupes:
 				<br />
 				<ryctag:badge badgeType="${badge.badgeType}" />
 			</c:forEach>
-			
+		
 			<form action="/user/recomputebadge" method="post">
 			  <input type="hidden" name="userid" value="${user.id}">
 			  <input type="submit" value="Recalculer">
 			</form>
-			
+			<a href="/badge/">Badges disponibles</a>
 			
 		</div>
 	</div>
