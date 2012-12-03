@@ -23,8 +23,8 @@ public class UsersByBadgeController extends BaseController<Badge> {
         
         
         ModelAndView mv=new ModelAndView("usersbybadge");
-        mv.addObject("badgeType",badgeType);
-        mv.addObject("badges",badgesRepository.findTypeBadge(badgeType));
+        mv.addObject("badgeType", badgeType);
+        mv.addObject("badges", badgesRepository.findByTypeBadge(badgeType));
         
         return mv;
     }
