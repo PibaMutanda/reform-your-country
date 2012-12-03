@@ -206,20 +206,41 @@ public  class SecurityContext {
     public static void assertCurrentUserCanEditArgument(Argument arg){
         User user = SecurityContext.getUser();
         if (user != null){
-            if((arg.getUser()==user)||isUserHasPrivilege(Privilege.MANAGE_ACTION)){
+            if((arg.getUser()==user)||isUserHasPrivilege(Privilege.MANAGE_ARGUMENT)){
                 return;
             }
         }
         throw new UnauthorizedAccessException(" cannot edit that Argument: "+arg.getTitle());
     }
+    
     public static boolean canCurrentUserEditArgument(Argument arg) { 
         return arg.getUser().equals(getUser()) // If the user is editing himself
-                || isUserHasPrivilege(Privilege.MANAGE_ACTION);     // or If this user has the privilege to edit other users
+                || isUserHasPrivilege(Privilege.MANAGE_ARGUMENT);     // or If this user has the privilege to edit other users
 
     }
+    
     public static boolean canCurrentUserEditComment(Comment com) { 
+    	////this method is used for argument and goodExample
         return com.getUser().equals(getUser()) // If the user is editing himself
-                || isUserHasPrivilege(Privilege.MANAGE_ACTION);     // or If this user has the privilege to edit other users
-
+                || isUserHasPrivilege(Privilege.MANAGE_ARGUMENT) 
+                || isUserHasPrivilege(Privilege.MANAGE_GOODEXAMPLE);    
+    }
+    
+    public static boolean canCurrentUserHideComment(Comment comment) { 
+    	User creator =  null;
+    	if( comment.getGoodExample() == null &&  comment.getArgument() == null) {
+    		//exception
+    		throw new IllegalArgumentException("Cannot have comment from both actions and goodexamples");
+    	}
+    	if (comment.getArgument() != null) {
+    		//get from argument
+    		creator= comment.getArgument().getCreatedBy();
+    	}else{
+    		//get from goodexample
+    		creator= comment.getGoodExample().getCreatedBy();
+    	}
+    	
+    	return creator.equals(getUser()) // If the user is the author of the goodExample who's commented
+                || isUserHasPrivilege(Privilege.MANAGE_GOODEXAMPLE);
     }
 }

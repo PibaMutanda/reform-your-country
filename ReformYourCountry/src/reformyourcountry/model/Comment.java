@@ -15,12 +15,17 @@ public class Comment extends BaseEntity{
 	private String content;
 	
 	@ManyToOne
-	@JoinColumn(nullable = false)
+	@JoinColumn(nullable = true)
 	private Argument argument;
 	
 	@ManyToOne
-	@JoinColumn(nullable = false)
+	@JoinColumn(nullable = true)
+	private GoodExample goodExample;
+	
+	@ManyToOne
 	private User user;
+	
+	private boolean hidden;
 		
 	public Comment() {
 	}	
@@ -31,8 +36,6 @@ public class Comment extends BaseEntity{
 		this.argument = argument;
 		this.user = user;
 	}
-
-	
 		
 	public String getContent() {
 		return content;
@@ -53,14 +56,37 @@ public class Comment extends BaseEntity{
 	public User getUser() {
 		return user;
 	}
-    public boolean isEditable(){
-        return SecurityContext.canCurrentUserEditComment(this);
-    }
+	
 	public void setUser(User user) {
 		this.user = user;
 	}
 
-    @Override
+    public GoodExample getGoodExample() {
+		return goodExample;
+	}
+
+	public void setGoodExample(GoodExample goodExample) {
+		this.goodExample = goodExample;
+	}
+
+	public boolean isHidden() {
+		return hidden;
+	}
+
+	public void setHidden(boolean isHidden) {
+		this.hidden = isHidden;
+	}
+	////// security methods //////
+    public boolean isEditable(){
+        return SecurityContext.canCurrentUserEditComment(this);
+    }
+    
+    public boolean isHidable(){
+        return SecurityContext.canCurrentUserHideComment(this);
+    }
+
+    ///// custom methods /////
+	@Override
 	public String toString() {
 		return content;
 	}

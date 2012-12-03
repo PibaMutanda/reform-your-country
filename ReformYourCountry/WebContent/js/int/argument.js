@@ -96,5 +96,9 @@ function deleteComment(item,idComment,idDiv){
 	}
 }
 
+function commentHide(item,idArg,idComment){
+	sendSimpleValue(item,idComment,"item"+idArg,'commentArea'+idComment,"/ajax/argument/commenthide","");
+}
+
 
 
