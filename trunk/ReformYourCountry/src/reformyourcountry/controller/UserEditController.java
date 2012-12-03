@@ -1,7 +1,9 @@
 package reformyourcountry.controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.mail.MailingDelayType;
 import reformyourcountry.model.User;
+import reformyourcountry.model.User.AccountStatus;
 import reformyourcountry.model.User.Gender;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.security.Privilege;
@@ -41,8 +44,6 @@ public class UserEditController extends BaseController<User> {
     	SecurityContext.assertCurrentUserMayEditThisUser(user);
                
     	ModelAndView mv=prepareModelAndView(userId, user);
-    	
-    	
 		
     	return mv;
     }
@@ -58,12 +59,22 @@ public class UserEditController extends BaseController<User> {
             mv.addObject("birthYear", birthCalendar.get(Calendar.YEAR));
         }
         
-    	mv.addObject("id", userId); 
+    	mv.addObject("id", userId);  // Do not remove because when we use the dummy model attribute (doNotUseThisUserInstance), it has no id. 
     	mv.addObject("user", user);
-    	mv.addObject("canChangeUserName", SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS) ||( SecurityContext.canCurrentUserChangeUser(user) && user.getCertificationDate() == null));
     	mv.addObject("canChangeUserName", (SecurityContext.canCurrentUserChangeUser(getRequiredEntity(userId)) /// If we have a validation error, the given user is a fake, used for error handling;
     												&& getRequiredEntity(userId).getCertificationDate() == null)// in that case, we have to compare the current user with the real one, hence the getRequiredEntity
-    												|| SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS));
+    										|| SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS));
+    	
+    	List<AccountStatus> statusList = new ArrayList<AccountStatus>();
+    	
+    	// User.Status (ACTIVE, LOCKED, etc.)
+    	for(AccountStatus status : AccountStatus.values()){
+    	    statusList.add(status);   	    
+    	}
+    	mv.addObject("statusList", statusList);
+    	User currentUser = SecurityContext.getUser();
+    	mv.addObject("canChangeAccountStatus", !currentUser.equals(getRequiredEntity(userId)) && SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS));
+    	
     	return mv;
     }
     
@@ -99,6 +110,7 @@ public class UserEditController extends BaseController<User> {
                                        @RequestParam(value="title") String title,
                                        @RequestParam(value="certified", required=false) Boolean certified,
                                        @RequestParam(value="mailingDelayType",required=false)MailingDelayType mailingDelayType,
+                                       @RequestParam(value="accountStatus",required=false) AccountStatus accountStatus,
                                        @RequestParam("id") long userId,
                                        @Valid @ModelAttribute User doNotUseThisUserInstance,  // To enable the use of errors param.
                                        Errors errors) {
@@ -194,7 +206,6 @@ public class UserEditController extends BaseController<User> {
         user.setGender(newGender);
         user.setNlSubscriber(newNlSubscriber != null ? newNlSubscriber : false);
         user.setTitle(title);
-        
         if (SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS)) {  // User sees the check box
             if ((certified == null || certified ==  false)) {  // Check box not in the request (=> unchecked)
             	user.setCertificationDate(null);
@@ -203,7 +214,7 @@ public class UserEditController extends BaseController<User> {
             }
         	
         }
-        
+        user.setAccountStatus(accountStatus);
         user = userRepository.merge(user);
         
         badgeService.grantIfUserIsComplete(user);
