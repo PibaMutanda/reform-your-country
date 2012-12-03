@@ -30,7 +30,7 @@ public class BadgeRepository extends BaseRepository<Badge> {
 	}
 	       
 	@SuppressWarnings("unchecked")
-    public List<Badge> findTypeBadge(BadgeType badgeType){
+    public List<Badge> findByTypeBadge(BadgeType badgeType){
 	    List<Badge> badges= em.createQuery("select b from Badge b where b.badgeType=:badgeT order by b.createdOn DESC")
 	                        .setMaxResults(80)
 	                        .setParameter("badgeT",badgeType)
