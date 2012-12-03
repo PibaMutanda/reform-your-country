@@ -52,8 +52,6 @@ public class DateUtil {
         }
 	}
 
-     
-	
 	public static String formatDuration(Date startDate, Date endDate) {
 		return formatDuration(startDate, endDate, false);
 	}
