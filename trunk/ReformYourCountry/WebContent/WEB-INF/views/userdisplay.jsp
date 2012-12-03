@@ -3,9 +3,22 @@
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
 <%@ taglib uri="http://www.springframework.org/tags/form"  prefix="form"%>
+<%@ page import="reformyourcountry.util.DateUtil" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="reformyourcountry.model.User" %>
+
 <html>
 
 <head>
+
+
+<script>
+    $(function() {
+        $( "#tabs" ).tabs();
+    });
+</script>
+
+
 <!-- you can set variables starting with "p_" in the file named website_content.properties -->
 <link rel="canonical" href="${p_website_address}/user/${user.userName}"/>
 <meta name="description" content="${user.firstName} ${user.lastName}">
@@ -60,6 +73,48 @@
 	</div>
 	
 	<div style="float:left; padding-left:50px;">
+				<c:choose><c:when test="${user.firstName ne null}">${user.firstName}</c:when><c:otherwise>?</c:otherwise></c:choose>
+				<c:choose><c:when test="${user.lastName ne null}">${user.lastName}</c:when><c:otherwise>?</c:otherwise></c:choose> <br/>
+				<c:choose><c:when test="${user.title ne null}">${user.title}</c:when><c:otherwise>?</c:otherwise></c:choose> <br/>
+									
+				<% 
+				   DateUtil.SlicedTimeInterval sti = DateUtil.sliceDuration(((User) pageContext.getRequest().getAttribute("user")).getBirthDate(), new Date());
+  				   out.println(sti.years + " ans");
+ 				%>
+ 				<br/>
+ 				<c:if test="${user.role != USER}">
+				   ${user.role.name}<br/>
+				</c:if>
+	</div>
+	
+	
+</div>
+
+
+<!-- ******************** GROUPS ******************** -->
+<div  class="text-big">
+Groupes:
+<c:forEach items="${user.groupRegs }" var="groupReg"  >
+  <a href="group?id=${groupReg.group.id}">${groupReg.group.name}</a>
+<%--   <c:if test="${lastGroupReg !eq groupReg}">,</c:if>    --%><%-- no "," after the last one --%>
+ <c:if test="${user.groupRegs.lastIndexOf(groupReg) < (user.groupRegs.size()-1)}">,</c:if>    <%-- no "," after the last one --%>
+</c:forEach>
+&nbsp;&nbsp;&nbsp;
+	<c:if test="${canEdit}">
+		<a href="manageGroup?id=${user.id}">modifier les groupes</a>
+	</c:if>
+<br />
+</div>
+<br/>
+
+
+	<div id="tabs">
+		<ul>
+			<li><a href="#tabs-1">Signalétique</a></li>
+			<li><a href="#tabs-2">Badges</a></li>
+		</ul>
+		<div id="tabs-1">
+			<div>
 				Prénom: <c:choose><c:when test="${user.firstName ne null}">${user.firstName}</c:when><c:otherwise>?</c:otherwise></c:choose> <br/>
 				Nom de famille: <c:choose><c:when test="${user.lastName ne null}">${user.lastName}</c:when><c:otherwise>?</c:otherwise></c:choose> <br/>
 				Pseudo : ${user.userName}<br/>
@@ -84,31 +139,17 @@
 					</c:if>
 										
 				</c:if>
+			</div>
+		</div>
+		<div id="tabs-2">
+
+			<!--  **************************Badges********************* -->
+			<c:forEach items="${user.badges}" var="badge">
+				<br />
+				<ryctag:badge badgeType="${badge.badgeType}" />
+			</c:forEach>
+		</div>
 	</div>
-	
-	
-</div>
 
-<!-- ******************** GROUPS ******************** -->
-<div  class="text-big">
-Groupes:
-<c:forEach items="${user.groupRegs }" var="groupReg"  >
-  <a href="group?id=${groupReg.group.id}">${groupReg.group.name}</a>
-<%--   <c:if test="${lastGroupReg !eq groupReg}">,</c:if>    --%><%-- no "," after the last one --%>
- <c:if test="${user.groupRegs.lastIndexOf(groupReg) < (user.groupRegs.size()-1)}">,</c:if>    <%-- no "," after the last one --%>
-</c:forEach>
-&nbsp;&nbsp;&nbsp;
-	<c:if test="${canEdit}">
-		<a href="manageGroup?id=${user.id}">modifier les groupes</a>
-	</c:if>
-<br />
-</div>
-
-
-<!--  **************************Badges********************* -->
-    <c:forEach items="${user.badges}"  var="badge"> <br/>
-			<ryctag:badge badgeType="${badge.badgeType}" />
-	</c:forEach>
-	
 </body>
 </html>
