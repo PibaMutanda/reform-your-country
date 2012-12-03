@@ -126,5 +126,10 @@ public class BadgeService {
     	}
     	return false;
     }
-    
+   
+    public void recomputeBadges(User user){ 	
+    	grantBadgeForGroups(user);
+    	grantBadgeForVoteAction(user);
+    	grandBadgeForArgument(user);
+    }
 }

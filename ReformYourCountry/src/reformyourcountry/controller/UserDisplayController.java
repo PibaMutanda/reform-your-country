@@ -21,6 +21,7 @@ import reformyourcountry.model.User.AccountConnectedType;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
+import reformyourcountry.service.BadgeService;
 import reformyourcountry.service.UserService;
 
 
@@ -31,7 +32,8 @@ public class UserDisplayController extends BaseController<User> {
     @Autowired UserRepository userRepository;
     @Autowired UsersConnectionRepository usersConnectionRepository;
     @Autowired UserService userService;
-
+    @Autowired BadgeService badgeService;
+    
     @RequestMapping("/{userName}")
     public ModelAndView userDisplayByUrl(@PathVariable("userName") String userName, @RequestParam(value="random",required=false) Integer random) {
        
@@ -69,6 +71,12 @@ public class UserDisplayController extends BaseController<User> {
     }
  
 
- 
+    @RequestMapping("/recomputebadge")
+    public ModelAndView recomputeBadgeForUser(@RequestParam("userid")long userId){
+    	User user= getRequiredEntity(userId);
+    	badgeService.recomputeBadges(user);
+
+    	return  new ModelAndView("redirect:/user/"+user.getUserName());	
+    }
 
 }
