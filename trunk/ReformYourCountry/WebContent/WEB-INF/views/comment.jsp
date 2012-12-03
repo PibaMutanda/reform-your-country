@@ -6,17 +6,21 @@
 
 <div style="width:100%; font-size:0.7em;">
 	<c:forEach items="${currentItem.commentList}" var="comment">
-		<div style="margin:0px; width:100%;">
-				<c:if test="${comment.editable}">
-					<div onclick="deleteComment(this,${comment.id},'item${currentItem.id}')" class="divButton" style="vertical-align:text-top; color:red;font-size:1.2em; font-weight: bold;float:right;" title="Supprimer">&nbsp;×</div>
-					<div onclick="commentEditStart(this,${currentItem.id},${comment.id},'${comment.content}')" class="divButton" style="float:right;" ><img alt="Editer" title="Editer" src="/images/_global/edit.png" class="icon-11" /></div>
-				
-				</c:if>
-				<div>
-				${comment.content} - <a id="underlineUser" href="/user/${comment.user.userName}">${comment.user.userName}</a> - 
-				${comment.formatedCreatedOn}
-				</div>	
-		</div>
+		<c:if test="${!comment.hidden}">
+			<div style="margin:0px; width:100%;">
+					<c:if test="${comment.editable}">
+						<div onclick="deleteComment(this,${comment.id},'item${currentItem.id}')" class="divButton" style="vertical-align:text-top; color:red;font-size:1.2em; font-weight: bold;float:right;" title="Supprimer">&nbsp;×</div>
+						<div onclick="commentEditStart(this,${currentItem.id},${comment.id},'${comment.content}')" class="divButton" style="float:right;" ><img alt="Editer" title="Editer" src="/images/_global/edit.png" class="icon-11" /></div>
+					</c:if>
+					<c:if test="${comment.hidable}">
+						<div onclick="commentHide(this,${currentItem.id},${comment.id})" class="divButton" style="float:right;" ><img alt="Cacher" title="Cacher" src="/images/_global/edit.png" class="icon-11" /></div>
+					</c:if>
+					<div>
+					${comment.content} - <a id="underlineUser" href="/user/${comment.user.userName}">${comment.user.userName}</a> - 
+					${comment.formatedCreatedOn}
+					</div>	
+			</div>
+		</c:if>
 	</c:forEach>
 	<div  style="font-size:1.3em;">
 		<%@include file="help.jsp"%>
