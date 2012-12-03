@@ -76,10 +76,12 @@
 				<c:choose><c:when test="${user.firstName ne null}">${user.firstName}</c:when><c:otherwise>?</c:otherwise></c:choose>
 				<c:choose><c:when test="${user.lastName ne null}">${user.lastName}</c:when><c:otherwise>?</c:otherwise></c:choose> <br/>
 				<c:choose><c:when test="${user.title ne null}">${user.title}</c:when><c:otherwise>?</c:otherwise></c:choose> <br/>
-									
+							
 				<% 
+				   if (((User) pageContext.getRequest().getAttribute("user")).getBirthDate() != null){
 				   DateUtil.SlicedTimeInterval sti = DateUtil.sliceDuration(((User) pageContext.getRequest().getAttribute("user")).getBirthDate(), new Date());
   				   out.println(sti.years + " ans");
+				   }
  				%>
  				<br/>
  				<c:if test="${user.role != USER}">
