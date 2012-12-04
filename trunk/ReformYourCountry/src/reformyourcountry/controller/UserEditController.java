@@ -91,7 +91,7 @@ public class UserEditController extends BaseController<User> {
     public ModelAndView userDeleteConfirmed(@RequestParam(value="id") Long idUser){
         User user  = userRepository.find(idUser);
         SecurityContext.assertUserHasPrivilege(Privilege.DELETE);
-        userService.setAnonymous(user);
+        userService.setUser(user);
         NotificationUtil.addNotificationMessage("L'utilisateur est bien supprimé");
         return new ModelAndView("home");
     }
