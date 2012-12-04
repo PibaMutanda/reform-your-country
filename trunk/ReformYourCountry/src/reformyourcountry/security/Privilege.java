@@ -29,7 +29,7 @@ public enum Privilege {
     // User generated data
     MANAGE_GOODEXAMPLE("Manage good examples", Role.CORRECTOR),
     MANAGE_ARGUMENT("Manage arguments", Role.CORRECTOR),
-    EDIT_GROUP("Manage group", Role.SUBADMIN);
+    MANAGE_GROUP("Manage group", Role.SUBADMIN);
     
 	String name;
 	Role associatedRole;
