@@ -125,14 +125,11 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     }
 
     public enum Role {
-        NONE("non", -1), 
         ADMIN("Administrator", 10),
         SUBADMIN("Sub-Administrator", 15),
-        MODERATOR("Moderator", 100), 
+        MODERATOR("Moderator", 100),
         CORRECTOR("Corrector",500),
-        USER("User", 1000),
-        ANONYMOUS("Anonymous", 10000);
-
+        USER("User", 1000);
 
         private int level;
         String name;
@@ -149,7 +146,7 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
         public int getLevel() {
             return level;
         }
-
+        
         /**
          * Test if the current role is lower or equivalent than the role given as parameter.<br/>
          * Note that you test role and not its value.
@@ -160,7 +157,7 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
          */
         public boolean isLowerOrEquivalent(Role level) {
             if (level == null)
-                return this == Role.ANONYMOUS;
+                return this == Role.USER;
             return this.getLevel() >= level.getLevel();
         }
 
@@ -174,7 +171,7 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
          */
         public boolean isHigherOrEquivalent(Role level) {
             if (level == null)
-                return this == Role.ANONYMOUS;
+                return this == Role.USER;
             return this.getLevel() <= level.getLevel();
         }
 
