@@ -81,7 +81,6 @@
 		 <div class="listaction">
  		     <div style="float:right;">
 				    <c:set var="vote" value="${act.voteAction}" scope="request"/>
-				    <c:set var="resultNumbers" value="${act.resultNumbers}" scope="request" />
 				    <c:set var="id" value="${act.action.id}" scope="request" />
 		     	<%@include file="voteactionwidget.jsp"%>
 		     </div>	
