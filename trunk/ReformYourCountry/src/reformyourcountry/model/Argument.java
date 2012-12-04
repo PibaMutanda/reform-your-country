@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 import org.hibernate.annotations.Type;
 
@@ -33,6 +34,7 @@ public class Argument extends BaseEntity implements IVote{
 	@OneToMany(mappedBy = "argument")
 	private List<VoteArgument> voteArguments = new ArrayList<VoteArgument>();
 	@OneToMany(mappedBy = "argument")
+	@OrderBy("createdOn ASC")
 	private List<Comment> commentList = new ArrayList<Comment>();
 	public List<Comment> getCommentList() {
 		return commentList;
