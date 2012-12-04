@@ -33,9 +33,8 @@ public class CurrentEnvironment {
     private String siteAddress;
     @Value("${version}")
     private String version;
-    @Value("${genFolderOnProd}")
+	@Value("${genFolderOnProd}")
 	private String genFolderOnProd;
-	
 	
 	
 	public String getGoogleClientId() {
@@ -71,7 +70,7 @@ public class CurrentEnvironment {
 	 */
 	public enum Environment {
 
-		DEV(MailBehavior.SENT, true),
+		DEV(MailBehavior.NOT_STARTED, true),
 		PROD(MailBehavior.SENT, true);
 
 		// Flag that tells wether the mail demon thread must be started
@@ -127,11 +126,9 @@ public class CurrentEnvironment {
         return version;
     }
 
-	public String getGenFolderOnProd() {
+   public String getGenFolderOnProd() {
 		return genFolderOnProd;
 	}
-
-   
    
 
 
