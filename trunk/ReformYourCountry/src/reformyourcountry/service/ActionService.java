@@ -116,8 +116,9 @@ public class ActionService {
 	        for(int i=-2;i<=2;i++){
 	            resultNumbers.add(voteActionRepository.getNumberOfVotesByValue(action.getId(), i));
 	        }
-	        
+	
 	        return resultNumbers;
+	  
 	    }
 	 
 	   public List<Long> getResultNumbersForAction( Long Idaction){
