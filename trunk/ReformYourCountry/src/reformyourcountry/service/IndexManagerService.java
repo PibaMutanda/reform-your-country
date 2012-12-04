@@ -37,6 +37,7 @@ import org.apache.lucene.store.SimpleFSDirectory;
 import org.apache.lucene.util.Version;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import reformyourcountry.converter.BBConverter;
 import reformyourcountry.model.Action;
@@ -48,7 +49,8 @@ import reformyourcountry.util.CurrentEnvironment;
 import reformyourcountry.util.FileUtil;
 import reformyourcountry.util.HTMLUtil;
 
-@Component
+@Component 
+@Transactional
 /**
  * Manage Lucene library (create, search, update the index).
  * 
