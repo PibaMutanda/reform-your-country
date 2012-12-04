@@ -45,7 +45,7 @@ public class GroupDisplayController extends BaseController<Group> {
     public ModelAndView bookImageAdd(@RequestParam("id") long groupid,
             @RequestParam("file") MultipartFile multipartFile) throws Exception{    
         
-        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_GROUP);
+        SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_GROUP);
 
         Group group = groupRepository.find(groupid);
 
@@ -74,7 +74,7 @@ public class GroupDisplayController extends BaseController<Group> {
     
     @RequestMapping("/groupimagedelete")
     public ModelAndView groupImageDelete(@RequestParam("id") long groupid){
-        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_GROUP);
+        SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_GROUP);
 
         Group group = groupRepository.find(groupid);
 
