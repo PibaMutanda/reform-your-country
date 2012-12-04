@@ -62,12 +62,14 @@ public class HomeController {
 //            actionItems.add(actionItem);        
 //		}
 //		
-		List<VoteAction> votesActions = voteActionRepository.findVotesActionForUser(SecurityContext.getUser(), actionListByDate);
-		for(VoteAction va:votesActions){
-           // VoteAction va = voteActionRepository.findVoteActionForUser(SecurityContext.getUser(), action.getId());
-            ActionItem actionItem = new ActionItem(va.getAction(), va);
-            actionItems.add(actionItem);        
-        }
+		if(!actionListByDate.isEmpty()){
+		    List<VoteAction> votesActions = voteActionRepository.findVotesActionForUser(SecurityContext.getUser(), actionListByDate);
+		    for(VoteAction va:votesActions){
+		        // VoteAction va = voteActionRepository.findVoteActionForUser(SecurityContext.getUser(), action.getId());
+		        ActionItem actionItem = new ActionItem(va.getAction(), va);
+		        actionItems.add(actionItem);        
+		    }
+		}
 		
 		for(GoodExample ge:goodExampleListByDate){
 			listgoodexample.add(new GoodExampleAndDate(ge));
