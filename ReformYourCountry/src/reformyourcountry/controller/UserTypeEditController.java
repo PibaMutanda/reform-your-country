@@ -20,7 +20,7 @@ public class UserTypeEditController {
 
 	@RequestMapping("/user/usertypeedit")
 	public ModelAndView userTypeEdit(@RequestParam(value="id", required=true) long userId){
-		SecurityContext.assertUserHasPrivilege(Privilege.EDIT_GROUP);
+		SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_GROUP);
 	    User user=userRepository.find(userId);
 		  
 		ModelAndView mv= new ModelAndView("usertypeedit");
@@ -33,7 +33,7 @@ public class UserTypeEditController {
 	@RequestMapping("/user/usertypeeditsubmit")
 	public ModelAndView userTypeEditSubmit(@RequestParam(value="id", required=true) long userId,@RequestParam String specialType){
 				
-		SecurityContext.assertUserHasPrivilege(Privilege.EDIT_GROUP);
+		SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_GROUP);
 		User user=userRepository.find(userId);
 		
 		
