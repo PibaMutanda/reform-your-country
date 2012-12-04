@@ -76,7 +76,7 @@
 				<c:choose><c:when test="${user.firstName ne null}">${user.firstName}</c:when><c:otherwise>?</c:otherwise></c:choose>
 				<c:choose><c:when test="${user.lastName ne null}">${user.lastName}</c:when><c:otherwise>?</c:otherwise></c:choose> <br/>
 				<c:choose><c:when test="${user.title ne null}">${user.title}</c:when><c:otherwise>?</c:otherwise></c:choose> <br/>
-									
+							
 				<% 
 				   if (((User) pageContext.getRequest().getAttribute("user")).getBirthDate() != null){
 				   DateUtil.SlicedTimeInterval sti = DateUtil.sliceDuration(((User) pageContext.getRequest().getAttribute("user")).getBirthDate(), new Date());
@@ -114,6 +114,7 @@ Groupes:
 		<ul>
 			<li><a href="#tabs-1">Signalétique</a></li>
 			<li><a href="#tabs-2">Badges</a></li>
+			<li><a href="#tabs-3">Rédaction</a></li>
 		</ul>
 		<div id="tabs-1">
 			<div>
@@ -150,7 +151,7 @@ Groupes:
 				<br />
 				<ryctag:badge badgeType="${badge.badgeType}" />
 			</c:forEach>
-		
+			
 			<form action="/user/recomputebadge" method="post">
 			  <input type="hidden" name="userid" value="${user.id}">
 			  <input type="submit" value="Recalculer">
@@ -158,6 +159,15 @@ Groupes:
 			<a href="/badge/">Badges disponibles</a>
 			
 		</div>
+		<div id="tabs-3">
+
+			<!--  **************************Rédaction********************* -->
+			<c:forEach items="${arguments}" var="argument">
+				${argument.voteCountAgainst} ${argument.title} ${argument.content} ${argument.updatedOrCreatedOn}
+			</c:forEach>
+			
+		</div>
+		
 	</div>
 
 </body>

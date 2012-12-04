@@ -1,6 +1,7 @@
 package reformyourcountry.controller;
 
 
+import java.util.List;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletResponse;
@@ -16,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import reformyourcountry.model.Argument;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountConnectedType;
+import reformyourcountry.repository.ArgumentRepository;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
@@ -33,16 +36,21 @@ public class UserDisplayController extends BaseController<User> {
     @Autowired UsersConnectionRepository usersConnectionRepository;
     @Autowired UserService userService;
     @Autowired BadgeService badgeService;
+    @Autowired ArgumentRepository argumentRepository;
     
     @RequestMapping("/{userName}")
     public ModelAndView userDisplayByUrl(@PathVariable("userName") String userName, @RequestParam(value="random",required=false) Integer random) {
        
         User user = userRepository.getUserByUserName(userName);
+        List<Argument> arguments = argumentRepository.findByUser(user);
+        
         ModelAndView mv = new ModelAndView("userdisplay", "user", user);
+        mv.addObject("arguments", arguments);
+        
         if (random != null) {
             mv.addObject("random", random);
         }
-        mv.addObject("canEdit", canEdit(user));
+        mv.addObject("canEdit", canEdit(user));        
         return mv;
 
     }
