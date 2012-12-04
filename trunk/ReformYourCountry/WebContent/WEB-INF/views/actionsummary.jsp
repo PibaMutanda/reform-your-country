@@ -15,7 +15,6 @@
 			</a>
 			<div id="voteContainer" style="margin:10px;">
   					<c:set var="vote" value="${actionItem.voteAction}" scope="request"/>
-				    <c:set var="resultNumbers" value="${actionItem.resultNumbers}" scope="request" />
 				    <c:set var="id" value="${actionItem.action.id}" scope="request" />
 		            <span style="width:130px; margin:0 auto;"><%@ include file="/WEB-INF/views/voteactionwidget.jsp" %></span>
        		</div>
