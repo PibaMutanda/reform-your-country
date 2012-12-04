@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import reformyourcountry.model.Action;
 import reformyourcountry.model.User;
 import reformyourcountry.model.VoteAction;
 
@@ -25,6 +26,17 @@ public class VoteActionRepository extends BaseRepository<VoteAction> {
     	Long result = (Long)em.createQuery("select count(v) from VoteAction v where v.action.id = :idAction and v.value = :voteValue")
     			.setParameter("idAction", idAction).setParameter("voteValue", voteValue).getSingleResult();
     	return result!=null ? result : 0l;
+    }
+    
+
+    
+    @SuppressWarnings("unchecked")
+    public List<VoteAction> findVotesActionForUser(User user , List<Action> actions){
+        
+        return (List<VoteAction>) em.createQuery("select v from VoteAction v where v.user = :user and v.action in (:actions)")
+                .setParameter("user",user)
+                .setParameter("actions",actions).getResultList();
+        
     }
 
 }
