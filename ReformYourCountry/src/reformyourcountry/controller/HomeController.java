@@ -56,11 +56,18 @@ public class HomeController {
 		
 		List<ActionItem> actionItems = new ArrayList<ActionItem>();
 
-		for(Action action:actionListByDate){
-		    VoteAction va = voteActionRepository.findVoteActionForUser(SecurityContext.getUser(), action.getId());
-            ActionItem actionItem = new ActionItem(action, actionService.getResultNumbersForAction(action), va);
+//		for(Action action:actionListByDate){
+//		    VoteAction va = voteActionRepository.findVoteActionForUser(SecurityContext.getUser(), action.getId());
+//            ActionItem actionItem = new ActionItem(action, actionService.getResultNumbersForAction(action), va);
+//            actionItems.add(actionItem);        
+//		}
+//		
+		List<VoteAction> votesActions = voteActionRepository.findVotesActionForUser(SecurityContext.getUser(), actionListByDate);
+		for(VoteAction va:votesActions){
+           // VoteAction va = voteActionRepository.findVoteActionForUser(SecurityContext.getUser(), action.getId());
+            ActionItem actionItem = new ActionItem(va.getAction(), va);
             actionItems.add(actionItem);        
-		}
+        }
 		
 		for(GoodExample ge:goodExampleListByDate){
 			listgoodexample.add(new GoodExampleAndDate(ge));
