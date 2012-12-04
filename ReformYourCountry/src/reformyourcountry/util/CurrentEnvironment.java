@@ -33,6 +33,8 @@ public class CurrentEnvironment {
     private String siteAddress;
     @Value("${version}")
     private String version;
+    @Value("${genFolderOnProd}")
+	private String genFolderOnProd;
 	
 	
 	
@@ -124,6 +126,10 @@ public class CurrentEnvironment {
     public String getVersion() {
         return version;
     }
+
+	public String getGenFolderOnProd() {
+		return genFolderOnProd;
+	}
 
    
    

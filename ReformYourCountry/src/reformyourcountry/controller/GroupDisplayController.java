@@ -10,22 +10,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
 import reformyourcountry.model.Group;
 import reformyourcountry.model.GroupReg;
 import reformyourcountry.repository.GroupRegRepository;
 import reformyourcountry.repository.GroupRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
+import reformyourcountry.util.CurrentEnvironment;
 import reformyourcountry.util.FileUtil;
-import reformyourcountry.util.NotificationUtil;
 import reformyourcountry.util.FileUtil.InvalidImageFileException;
 import reformyourcountry.util.ImageUtil;
+import reformyourcountry.util.NotificationUtil;
 
 @Controller
 public class GroupDisplayController extends BaseController<Group> {
 
     @Autowired  GroupRepository groupRepository;
     @Autowired  GroupRegRepository groupRegRepository;
+    @Autowired  CurrentEnvironment currentEnvironment;
     
     @RequestMapping("/group")
     public ModelAndView groupDisplay(@RequestParam("id") long id) {
@@ -50,13 +53,13 @@ public class GroupDisplayController extends BaseController<Group> {
 
         ///// Save original image, scale it and save the resized image.
         try {
-            FileUtil.uploadFile(multipartFile, FileUtil.getGenFolderPath() + FileUtil.GROUP_SUB_FOLDER + FileUtil.GROUP_ORIGINAL_SUB_FOLDER, 
+            FileUtil.uploadFile(multipartFile, FileUtil.getGenFolderPath(currentEnvironment) + FileUtil.GROUP_SUB_FOLDER + FileUtil.GROUP_ORIGINAL_SUB_FOLDER, 
                     FileUtil.assembleImageFileNameWithCorrectExtention(multipartFile, Long.toString(group.getId())));
 
             BufferedImage resizedImage = ImageUtil.scale(new ByteArrayInputStream(multipartFile.getBytes()),120 * 200, 200, 200);
 
             ImageUtil.saveImageToFileAsJPEG(resizedImage,  
-                    FileUtil.getGenFolderPath() + FileUtil.GROUP_SUB_FOLDER + FileUtil.GROUP_RESIZED_SUB_FOLDER, group.getId() + ".jpg", 0.9f);
+                    FileUtil.getGenFolderPath(currentEnvironment) + FileUtil.GROUP_SUB_FOLDER + FileUtil.GROUP_RESIZED_SUB_FOLDER, group.getId() + ".jpg", 0.9f);
 
             group.setHasImage(true);
             groupRepository.merge(group);
@@ -75,8 +78,8 @@ public class GroupDisplayController extends BaseController<Group> {
 
         Group group = groupRepository.find(groupid);
 
-        FileUtil.deleteFilesWithPattern(FileUtil.getGenFolderPath() + FileUtil.GROUP_SUB_FOLDER + FileUtil.GROUP_ORIGINAL_SUB_FOLDER, group.getId()+".*");
-        FileUtil.deleteFilesWithPattern(FileUtil.getGenFolderPath() + FileUtil.GROUP_SUB_FOLDER + FileUtil.GROUP_RESIZED_SUB_FOLDER, group.getId()+".*");
+        FileUtil.deleteFilesWithPattern(FileUtil.getGenFolderPath(currentEnvironment) + FileUtil.GROUP_SUB_FOLDER + FileUtil.GROUP_ORIGINAL_SUB_FOLDER, group.getId()+".*");
+        FileUtil.deleteFilesWithPattern(FileUtil.getGenFolderPath(currentEnvironment) + FileUtil.GROUP_SUB_FOLDER + FileUtil.GROUP_RESIZED_SUB_FOLDER, group.getId()+".*");
         group.setHasImage(false);
         groupRepository.merge(group);
 
