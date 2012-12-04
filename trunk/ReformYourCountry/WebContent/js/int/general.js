@@ -35,6 +35,49 @@ function sendSimpleValue(button,idItem,idEditedValueContainer,IdErrorMessageCont
 		addErrorMessage(exceptionVO.message,idEditedValueContainer);
 	});
 }
+function sendValues(url, values, succesFunction){
+	$.post(url,values
+	).success(function(){
+		if (succesFunction != undefined) {
+			succesFunction;
+		}	
+	}).error(function(jqXHR, textStatus) {
+		var exceptionVO = jQuery.parseJSON(jqXHR.responseText);
+		console.error(exceptionVO.method + " in " + exceptionVO.clazz + " throw " + exceptionVO.message);
+		addErrorMessage(exceptionVO.message,idEditedValueContainer);
+	});
+}
+/**
+ * send value as post and reload the window after
+ * @param value : the value to send with value as parameter name
+ */
+function sendValuesAndReload(url, value, idErrorContainer){
+	sendValues(url, value, idErrorContainer);
+	window.location.reload();
+}
+/**
+ * send one value as post
+ * @param value : the value to send with value as parameter name
+ */
+function sendValue(url, value, idErrorContainer, succesFunction){
+	sendValues(url, {value : value}, idErrorContainer, succesFunction);
+}
+/**
+ * send value(s) as post
+ * @param values :  an json of values to send
+ */
+function sendValues(url, values, idErrorContainer,succesFunction){
+	$.post(url,values
+	).success(function(){
+		if (succesFunction != undefined) {
+			succesFunction;
+		}	
+	}).error(function(jqXHR, textStatus) {
+		var exceptionVO = jQuery.parseJSON(jqXHR.responseText);
+		console.error(exceptionVO.method + " in " + exceptionVO.clazz + " throw " + exceptionVO.message);
+		addErrorMessage(exceptionVO.message,idErrorContainer);
+	});
+}
 
 function addErrorMessage(msg,idItem){	
 	$("#"+idItem).prepend("<p style='color:red;'>"+msg+"</p>");
