@@ -1,6 +1,5 @@
 package reformyourcountry.controller;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +27,7 @@ import reformyourcountry.service.ArgumentService;
 import reformyourcountry.service.BadgeService;
 import reformyourcountry.util.HTMLUtil;
 import reformyourcountry.web.PropertyLoaderServletContextListener;
+import reformyourcountry.controller.BaseController;
 
 @Controller
 public class ArgumentController extends BaseController<Argument>{
@@ -42,13 +42,24 @@ public class ArgumentController extends BaseController<Argument>{
     @Autowired ActionService actionService;
     @Autowired BadgeService badgeService;
     
+    @RequestMapping("/argument")
+    public ModelAndView showArgument(@RequestParam("id") Long id) {
+        ModelAndView mv = new ModelAndView("commentlist");
+        Argument arg = getRequiredEntity(id);
+        SecurityContext.assertCurrentUserCanEditArgument(arg);
+        
+        mv.addObject("urlParent", ("/action/"+arg.getAction().getUrl()));
+        mv.addObject("parentContent",arg.getContent());
+        mv.addObject("commentList",arg.getCommentList());
+        return mv;
+    }
     
     @RequestMapping("ajax/argument/edit")
     public ModelAndView argumentEdit(@RequestParam(value="argumentId",required=false) Long argumentId,   // For editing existing arguments.
             @RequestParam(value="idAction",required=false)Long actionId,@RequestParam(value="isPos",required=false)Boolean positiveArg      // For creating a new argument.
             ){
-    	//FIXME no verif if user can edit --maxime 30/11/12
-    	ModelAndView mv = new ModelAndView("ckeditorform");
+        //FIXME no verif if user can edit --maxime 30/11/12
+        ModelAndView mv = new ModelAndView("ckeditorform");
         
         if(argumentId != null) {
             Argument argument =  (Argument)getRequiredEntity(argumentId, Argument.class);
@@ -78,7 +89,7 @@ public class ArgumentController extends BaseController<Argument>{
         //TODO review
         //check if content or title haven't dangerous html
         if (!HTMLUtil.isHtmlSecure(title) || !HTMLUtil.isHtmlSecure(content)) {
-        	 throw new AjaxValidationException("vous avez introduit du HTML/Javascript invalide dans le commentaire");
+             throw new AjaxValidationException("vous avez introduit du HTML/Javascript invalide dans le commentaire");
         }
         Argument argument;
         if (argumentId != null) {  // It's an edit (vs a create)
@@ -121,33 +132,33 @@ public class ArgumentController extends BaseController<Argument>{
     }
    
     @RequestMapping("ajax/argument/commentadd")
-	public ModelAndView commentAdd(@RequestParam("id")Long idArg, @RequestParam("value")String content) throws Exception{
-    	//TODO review
+    public ModelAndView commentAdd(@RequestParam("id")Long idArg, @RequestParam("value")String content) throws Exception{
+        //TODO review
         //check if content or title haven't dangerous html
         if (!HTMLUtil.isHtmlSecure(content)) {
-        	 throw new AjaxValidationException("vous avez introduit du HTML/Javascript invalide dans le commentaire");
+             throw new AjaxValidationException("vous avez introduit du HTML/Javascript invalide dans le commentaire");
         }
-		User user = SecurityContext.getUser();
-		if (user !=null){
-			Argument argument = argumentRepository.find(idArg);
-			Comment comment = new Comment(content, argument, user);
+        User user = SecurityContext.getUser();
+        if (user !=null){
+            Argument argument = argumentRepository.find(idArg);
+            Comment comment = new Comment(content, argument, user);
             commentRepository.persist(comment);
             argument.addComment(comment);
-			argumentRepository.merge(argument); 
-			
-			argumentService.notifyByEmailNewCommentPosted(argument,comment);
-			
-			
-			return returnitemDetail(argument);
-		}else {
-			throw new Exception("no user logged");
-		}
-	}
+            argumentRepository.merge(argument); 
+            
+            argumentService.notifyByEmailNewCommentPosted(argument,comment);
+            
+            
+            return returnitemDetail(argument);
+        }else {
+            throw new Exception("no user logged");
+        }
+    }
     @RequestMapping("ajax/argument/unvote")
     public ModelAndView unVote(@RequestParam("id")Long idArg) throws Exception{
-    	
-    	//FIXME no verif if user can edit --maxime 30/11/12
-    	User user = SecurityContext.getUser();
+        
+        //FIXME no verif if user can edit --maxime 30/11/12
+        User user = SecurityContext.getUser();
         Argument argument = argumentRepository.find(idArg);
         List<VoteArgument> listVote = argument.getVoteArguments();
         for(VoteArgument vote : listVote){
@@ -163,7 +174,7 @@ public class ArgumentController extends BaseController<Argument>{
         return returnitemDetail(argument);
     }
     public ModelAndView returnitemDetail(Argument arg){
-    	//FIXME no verif if user can edit --maxime 30/11/12
+        //FIXME no verif if user can edit --maxime 30/11/12
         ModelAndView mv = new ModelAndView("itemdetail");
         mv.addObject("canNegativeVote",true);
         mv.addObject("currentItem",arg);
@@ -171,8 +182,8 @@ public class ArgumentController extends BaseController<Argument>{
     }
     @RequestMapping("/ajax/argument/commentdelete")
     public ModelAndView deleteComment(@RequestParam("id")Long idComment) throws Exception{
-    	//FIXME no verif if user can edit --maxime 30/11/12
-    	Comment com = commentRepository.find(idComment);
+        //FIXME no verif if user can edit --maxime 30/11/12
+        Comment com = commentRepository.find(idComment);
         
         if(com ==null){
             throw new Exception("this id doesn't reference any comment.");
@@ -191,17 +202,17 @@ public class ArgumentController extends BaseController<Argument>{
     @RequestMapping("/ajax/argument/commentedit")
     public ModelAndView commentEdit(@RequestParam("id")Long idComment,@RequestParam("value")String content) throws Exception{
         //FIXME no verif if user can edit --maxime 30/11/12
-    	//TODO review
+        //TODO review
         //check if content or title haven't dangerous html
         if (!HTMLUtil.isHtmlSecure(content)) {
-        	 throw new AjaxValidationException("vous avez introduit du HTML/Javascript invalide dans le commentaire");
+             throw new AjaxValidationException("vous avez introduit du HTML/Javascript invalide dans le commentaire");
         }
         Comment com = commentRepository.find(idComment);
         if(com ==null){
-        	throw new Exception("this id doesn't reference any comment.");
+            throw new Exception("this id doesn't reference any comment.");
         }
         if(!com.isEditable()){
-        	throw new Exception("this person can't edit this comment(hacking).");
+            throw new Exception("this person can't edit this comment(hacking).");
         }
         com.setContent(content);
         commentRepository.merge(com);
@@ -214,8 +225,8 @@ public class ArgumentController extends BaseController<Argument>{
     @RequestMapping("/ajax/argument/argdelete")
     @ResponseBody
     public String deleteArgument(@RequestParam("id")Long idArg) throws Exception{
-    	//FIXME no verif if user can edit --maxime 30/11/12
-    	Argument arg = argumentRepository.find(idArg);
+        //FIXME no verif if user can edit --maxime 30/11/12
+        Argument arg = argumentRepository.find(idArg);
         if(arg ==null){
             throw new Exception("this id doesn't reference any comment.");
         }
@@ -227,15 +238,33 @@ public class ArgumentController extends BaseController<Argument>{
         
     }
     @RequestMapping("/ajax/argument/commenthide")
-    public ModelAndView commentHide(@RequestParam("id")Long idComment)throws Exception{
-    	Comment com = commentRepository.find(idComment);
-    	
+    public ModelAndView commentHide(@RequestParam("id")Long idComment){
+        Comment com = commentRepository.find(idComment);
+        //FIXME check if comment is already hidden
         if (!SecurityContext.canCurrentUserHideComment(com)) {
-       	 throw new AjaxValidationException("vous ne pouvez pas cacher ce commentaire");
+            throw new AjaxValidationException("vous ne pouvez pas cacher ce commentaire");
         }
         
-    	com.setHidden(true);
-    	Argument argument = com.getArgument();
+        com.setHidden(true);
+        Argument argument = com.getArgument();
         return returnitemDetail(argument);
+    }
+    @RequestMapping("/ajax/argument/commentunhide")
+    public ModelAndView commentUnhide(@RequestParam("id")Long idComment) throws AjaxValidationException{
+        Comment com = commentRepository.find(idComment);
+        
+        if (com.isHidden()) {
+            throw new AjaxValidationException("ce commentaire est déjà caché");
+        }
+        if (!SecurityContext.canCurrentUserHideComment(com)) {
+            throw new AjaxValidationException("vous ne pouvez pas cacher ce commentaire");
+        }
+        
+        com.setHidden(false);
+        ModelAndView mv = new ModelAndView("commentlist");
+        Argument arg = com.getArgument();
+        mv.addObject("parentContent",arg.getContent());
+        mv.addObject("commentList",arg.getCommentList());
+        return mv;
     }
 }
