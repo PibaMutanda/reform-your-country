@@ -112,7 +112,7 @@ public class ArgumentController extends BaseController<Argument>{
         if (user !=null){
             Argument arg = argumentRepository.find(idArg);
             argumentService.updateVoteArgument(idArg, value, user, arg);
-            badgeService.grandBadgeForArgument(user);
+            badgeService.grandBadgeForArgumentVoter(user);
             return returnitemDetail(arg);
            
         } else {
@@ -159,7 +159,7 @@ public class ArgumentController extends BaseController<Argument>{
                 break;
             }
         }
-        badgeService.grandBadgeForArgument(user);
+        badgeService.grandBadgeForArgumentVoter(user);
         return returnitemDetail(argument);
     }
     public ModelAndView returnitemDetail(Argument arg){
@@ -207,6 +207,7 @@ public class ArgumentController extends BaseController<Argument>{
         commentRepository.merge(com);
         Argument argument = com.getArgument();
         return returnitemDetail(argument);
+        
         
     }
 
