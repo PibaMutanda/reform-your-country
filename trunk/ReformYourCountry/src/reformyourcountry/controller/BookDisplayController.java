@@ -19,6 +19,7 @@ import reformyourcountry.model.Book;
 import reformyourcountry.repository.BookRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
+import reformyourcountry.util.CurrentEnvironment;
 import reformyourcountry.util.FileUtil;
 import reformyourcountry.util.NotificationUtil;
 import reformyourcountry.util.FileUtil.InvalidImageFileException;
@@ -29,7 +30,8 @@ import reformyourcountry.util.ImageUtil;
 public class BookDisplayController extends BaseController<Book> {
 
     @Autowired BookRepository bookRepository;
-
+    @Autowired  CurrentEnvironment currentEnvironment;
+    
     @RequestMapping("/{bookUrl}")
     public ModelAndView bookDisplay(@PathVariable("bookUrl") String bookUrl){
         Book book = getRequiredEntityByUrl(bookUrl);      
@@ -52,12 +54,12 @@ public class BookDisplayController extends BaseController<Book> {
 
         ///// Save original image, scale it and save the resized image.
         try {
-            FileUtil.uploadFile(multipartFile, FileUtil.getGenFolderPath() + FileUtil.BOOK_SUB_FOLDER + FileUtil.BOOK_ORIGINAL_SUB_FOLDER, 
+            FileUtil.uploadFile(multipartFile, FileUtil.getGenFolderPath(currentEnvironment) + FileUtil.BOOK_SUB_FOLDER + FileUtil.BOOK_ORIGINAL_SUB_FOLDER, 
                     FileUtil.assembleImageFileNameWithCorrectExtention(multipartFile, Long.toString(book.getId())));
 
             BufferedImage resizedImage = ImageUtil.scale(new ByteArrayInputStream(multipartFile.getBytes()),120 * 200, 200, 200);
 
-            ImageUtil.saveImageToFileAsJPEG(resizedImage, FileUtil.getGenFolderPath() + FileUtil.BOOK_SUB_FOLDER + FileUtil.BOOK_RESIZED_SUB_FOLDER, book.getId() + ".jpg", 0.9f);
+            ImageUtil.saveImageToFileAsJPEG(resizedImage, FileUtil.getGenFolderPath(currentEnvironment) + FileUtil.BOOK_SUB_FOLDER + FileUtil.BOOK_RESIZED_SUB_FOLDER, book.getId() + ".jpg", 0.9f);
 
             book.setHasImage(true);
             bookRepository.merge(book);
@@ -99,7 +101,7 @@ public class BookDisplayController extends BaseController<Book> {
             image = ImageUtil.scale(new ByteArrayInputStream(outStream.toByteArray()),120 * 200, 200, 200);
 
             ImageUtil.saveImageToFileAsJPEG(image,  
-                    FileUtil.getGenFolderPath() + FileUtil.BOOK_SUB_FOLDER + FileUtil.BOOK_RESIZED_SUB_FOLDER, book.getId() + ".jpg", 0.9f);
+                    FileUtil.getGenFolderPath(currentEnvironment) + FileUtil.BOOK_SUB_FOLDER + FileUtil.BOOK_RESIZED_SUB_FOLDER, book.getId() + ".jpg", 0.9f);
 
             book.setHasImage(true);
             bookRepository.merge(book);
@@ -117,8 +119,8 @@ public class BookDisplayController extends BaseController<Book> {
 
         Book book = bookRepository.find(bookid);
 
-        FileUtil.deleteFilesWithPattern(FileUtil.getGenFolderPath() + FileUtil.BOOK_SUB_FOLDER + FileUtil.BOOK_ORIGINAL_SUB_FOLDER, book.getId()+".*");
-        FileUtil.deleteFilesWithPattern(FileUtil.getGenFolderPath() + FileUtil.BOOK_SUB_FOLDER + FileUtil.BOOK_RESIZED_SUB_FOLDER, book.getId()+".*");
+        FileUtil.deleteFilesWithPattern(FileUtil.getGenFolderPath(currentEnvironment) + FileUtil.BOOK_SUB_FOLDER + FileUtil.BOOK_ORIGINAL_SUB_FOLDER, book.getId()+".*");
+        FileUtil.deleteFilesWithPattern(FileUtil.getGenFolderPath(currentEnvironment) + FileUtil.BOOK_SUB_FOLDER + FileUtil.BOOK_RESIZED_SUB_FOLDER, book.getId()+".*");
         book.setHasImage(false);
         bookRepository.merge(book);
 

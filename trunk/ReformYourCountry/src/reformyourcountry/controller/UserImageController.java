@@ -17,6 +17,7 @@ import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.BadgeService;
 import reformyourcountry.service.UserService;
+import reformyourcountry.util.CurrentEnvironment;
 import reformyourcountry.util.FileUtil;
 import reformyourcountry.util.FileUtil.InvalidImageFileException;
 import reformyourcountry.util.ImageUtil;
@@ -30,6 +31,7 @@ public class UserImageController extends BaseController<User> {
 	@Autowired UsersConnectionRepository usersConnectionRepository;
 	@Autowired UserService userService;
 	@Autowired BadgeService badgeService;
+	@Autowired CurrentEnvironment currentEnvironment;
 	
 	@RequestMapping("/image")
 	public ModelAndView userImage(@RequestParam("id") long userid){
@@ -51,18 +53,18 @@ public class UserImageController extends BaseController<User> {
 
 		///// Save original image, scale it and save the resized image.
 		try {
-			FileUtil.uploadFile(multipartFile, FileUtil.getGenFolderPath() + FileUtil.USER_SUB_FOLDER + FileUtil.USER_ORIGINAL_SUB_FOLDER, 
+			FileUtil.uploadFile(multipartFile, FileUtil.getGenFolderPath(currentEnvironment) + FileUtil.USER_SUB_FOLDER + FileUtil.USER_ORIGINAL_SUB_FOLDER, 
 					FileUtil.assembleImageFileNameWithCorrectExtention(multipartFile, Long.toString(user.getId())));
 
 			BufferedImage resizedImage = ImageUtil.scale(new ByteArrayInputStream(multipartFile.getBytes()),120 * 200, 200, 200);
 						
 			ImageUtil.saveImageToFileAsJPEG(resizedImage,  
-					FileUtil.getGenFolderPath() + FileUtil.USER_SUB_FOLDER + FileUtil.USER_RESIZED_SUB_FOLDER +  FileUtil.USER_RESIZED_LARGE_SUB_FOLDER, user.getId() + ".jpg", 0.9f);
+					FileUtil.getGenFolderPath(currentEnvironment) + FileUtil.USER_SUB_FOLDER + FileUtil.USER_RESIZED_SUB_FOLDER +  FileUtil.USER_RESIZED_LARGE_SUB_FOLDER, user.getId() + ".jpg", 0.9f);
 			
 			BufferedImage resizedSmallImage = ImageUtil.scale(new ByteArrayInputStream(multipartFile.getBytes()),40 * 40, 60, 60);
 			
 			ImageUtil.saveImageToFileAsJPEG(resizedSmallImage,  
-					FileUtil.getGenFolderPath() + FileUtil.USER_SUB_FOLDER + FileUtil.USER_RESIZED_SUB_FOLDER + FileUtil.USER_RESIZED_SMALL_SUB_FOLDER, user.getId() + ".jpg", 0.9f);
+					FileUtil.getGenFolderPath(currentEnvironment) + FileUtil.USER_SUB_FOLDER + FileUtil.USER_RESIZED_SUB_FOLDER + FileUtil.USER_RESIZED_SMALL_SUB_FOLDER, user.getId() + ".jpg", 0.9f);
 
 			user.setPicture(true);
 			

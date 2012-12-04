@@ -22,6 +22,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.multipart.MultipartFile;
 
+import reformyourcountry.util.CurrentEnvironment.Environment;
 import reformyourcountry.web.ContextUtil;
 
 public abstract class FileUtil {
@@ -42,9 +43,15 @@ public abstract class FileUtil {
 	final static public String PDF_FOLDER ="/pdf";
 
     static private Log log = LogFactory.getLog(FileUtil.class);
-    // In dev mode, returns somthing like C:\Users\forma308\Documents\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ReformYourCountry\gen 
-    public static String getGenFolderPath() {
-        return ContextUtil.getServletContext().getRealPath("/gen");
+    public static String getGenFolderPath(CurrentEnvironment currentEnvironment) {
+    	if (currentEnvironment.getEnvironment() == Environment.PROD) {
+    		return currentEnvironment.getGenFolderOnProd();  // probably something like "/var/www/html/gen".
+    	} else if (currentEnvironment.getEnvironment() == Environment.DEV) {
+    		// In dev mode, returns something like C:\Users\forma308\Documents\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ReformYourCountry\gen 
+    		return ContextUtil.getServletContext().getRealPath("/gen");
+    	} else {  // Defensive coding.
+    		throw new IllegalStateException("Bug: unexpected enum value " + currentEnvironment.getEnvironment());
+    	}
     }
 
     
@@ -354,8 +361,8 @@ public abstract class FileUtil {
         }
     }
 
-	public static String getLuceneIndexDirectory() {
-		return getGenFolderPath()+LUCENE_INDEX_FOLDER+"/";
+	public static String getLuceneIndexDirectory(CurrentEnvironment currentEnvironment) {
+		return getGenFolderPath(currentEnvironment)+LUCENE_INDEX_FOLDER+"/";
 	}
     
     

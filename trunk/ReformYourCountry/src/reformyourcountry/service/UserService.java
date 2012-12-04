@@ -186,12 +186,12 @@ public class UserService {
 
 
             ImageUtil.saveImageToFileAsJPEG(image,  
-                    FileUtil.getGenFolderPath() + FileUtil.USER_SUB_FOLDER + FileUtil.USER_ORIGINAL_SUB_FOLDER, user.getId() + ".jpg", 0.9f);
+                    FileUtil.getGenFolderPath(currentEnvironment) + FileUtil.USER_SUB_FOLDER + FileUtil.USER_ORIGINAL_SUB_FOLDER, user.getId() + ".jpg", 0.9f);
 
             BufferedImage resizedImage = ImageUtil.scale(ImageUtil.convertIntoByteArrayInputStream(image),120 * 200, 200, 200);
 
             ImageUtil.saveImageToFileAsJPEG(resizedImage,  
-                    FileUtil.getGenFolderPath() + FileUtil.USER_SUB_FOLDER +FileUtil.USER_RESIZED_SUB_FOLDER+ FileUtil.USER_RESIZED_LARGE_SUB_FOLDER, user.getId() + ".jpg", 0.9f);
+                    FileUtil.getGenFolderPath(currentEnvironment) + FileUtil.USER_SUB_FOLDER +FileUtil.USER_RESIZED_SUB_FOLDER+ FileUtil.USER_RESIZED_LARGE_SUB_FOLDER, user.getId() + ".jpg", 0.9f);
 
 
             user.setPicture(true);
@@ -448,9 +448,9 @@ public class UserService {
     
     public void userImageDelete(User user){
 
-        FileUtil.deleteFilesWithPattern(FileUtil.getGenFolderPath() + FileUtil.USER_SUB_FOLDER + FileUtil.USER_ORIGINAL_SUB_FOLDER, user.getId()+".*");
-        FileUtil.deleteFilesWithPattern(FileUtil.getGenFolderPath() + FileUtil.USER_SUB_FOLDER + FileUtil.USER_RESIZED_SUB_FOLDER + FileUtil.USER_RESIZED_LARGE_SUB_FOLDER, user.getId()+".*");
-        FileUtil.deleteFilesWithPattern(FileUtil.getGenFolderPath() + FileUtil.USER_SUB_FOLDER + FileUtil.USER_RESIZED_SUB_FOLDER +  FileUtil.USER_RESIZED_SMALL_SUB_FOLDER, user.getId()+".*");
+        FileUtil.deleteFilesWithPattern(FileUtil.getGenFolderPath(currentEnvironment) + FileUtil.USER_SUB_FOLDER + FileUtil.USER_ORIGINAL_SUB_FOLDER, user.getId()+".*");
+        FileUtil.deleteFilesWithPattern(FileUtil.getGenFolderPath(currentEnvironment) + FileUtil.USER_SUB_FOLDER + FileUtil.USER_RESIZED_SUB_FOLDER + FileUtil.USER_RESIZED_LARGE_SUB_FOLDER, user.getId()+".*");
+        FileUtil.deleteFilesWithPattern(FileUtil.getGenFolderPath(currentEnvironment) + FileUtil.USER_SUB_FOLDER + FileUtil.USER_RESIZED_SUB_FOLDER +  FileUtil.USER_RESIZED_SMALL_SUB_FOLDER, user.getId()+".*");
         user.setPicture(false);
     }
 	

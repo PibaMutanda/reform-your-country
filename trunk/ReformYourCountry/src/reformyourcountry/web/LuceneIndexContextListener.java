@@ -1,14 +1,12 @@
 package reformyourcountry.web;
 
 import java.io.File;
-import java.io.IOException;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import reformyourcountry.service.IndexManagerService;
+import reformyourcountry.util.CurrentEnvironment;
 import reformyourcountry.util.FileUtil;
 
 
@@ -26,7 +24,8 @@ public class LuceneIndexContextListener implements ServletContextListener{
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
 		IndexManagerService indexManagerService = ContextUtil.getSpringBean(IndexManagerService.class);
-		File file = new File(FileUtil.getLuceneIndexDirectory());
+		CurrentEnvironment currentEnvironment = ContextUtil.getSpringBean(CurrentEnvironment.class);
+		File file = new File(FileUtil.getLuceneIndexDirectory(currentEnvironment));
 		if(file.isDirectory()) {  // The directory exists
 			if(file.list().length>0){  // It's full of index files.
 				// Do nothing, the index is there !!!
