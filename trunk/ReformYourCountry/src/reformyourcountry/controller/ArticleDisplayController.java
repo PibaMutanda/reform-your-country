@@ -64,7 +64,7 @@ public class ArticleDisplayController extends BaseController<Article> {
 		/*we find all article's actions and we create actionItem for the action widget*/
 		for (Action action : article.getActions()){
 			VoteAction va = voteActionRepository.findVoteActionForUser(SecurityContext.getUser(), action.getId());
-			ActionItem actionItem = new ActionItem(action, actionService.getResultNumbersForAction(action), va);
+			ActionItem actionItem = new ActionItem(action, va);
 			actionItemsParent.add(actionItem);   
 		}
 		
@@ -72,7 +72,7 @@ public class ArticleDisplayController extends BaseController<Article> {
 		for(Article a : article.getChildrenAndSubChildren()){
 			for(Action ac : a.getActions()){
 				VoteAction va = voteActionRepository.findVoteActionForUser(SecurityContext.getUser(), ac.getId());
-			    ActionItem actionItem = new ActionItem(ac, actionService.getResultNumbersForAction(ac), va);
+			    ActionItem actionItem = new ActionItem(ac,  va);
 				if(!actionItemsParent.contains(actionItem) && !actionItemsChildren.contains(actionItem)){
 					actionItemsChildren.add(actionItem);
 				}

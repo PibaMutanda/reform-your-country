@@ -33,7 +33,7 @@ public class ActionListController {
 
         for (Action action : actionRepository.findAll()){
             VoteAction va = voteActionRepository.findVoteActionForUser(SecurityContext.getUser(), action.getId());
-            ActionItem actionItem = new ActionItem(action, actionService.getResultNumbersForAction(action), va);
+            ActionItem actionItem = new ActionItem(action, va);
             actionItems.add(actionItem);           
         }
 
@@ -60,17 +60,14 @@ public class ActionListController {
         VoteAction voteAction;
 
       
-        public ActionItem(Action action,List<Long> resultNumbers,VoteAction voteAction){
-            this.action = action;
-            this.resultNumbers = resultNumbers;
+        public ActionItem(Action action,VoteAction voteAction){
+            this.action = action;        
             this.voteAction = voteAction;
         }
         public Action getAction() {
             return action;
         }
-        public List<Long> getResultNumbers() {
-            return resultNumbers;
-        }
+      
         public VoteAction getVoteAction() {
             return voteAction;
         }
