@@ -58,7 +58,7 @@ public class BookDisplayController extends BaseController<Book> {
                     FileUtil.assembleImageFileNameWithCorrectExtention(multipartFile, Long.toString(book.getId())));
 
             BufferedImage resizedImage = ImageUtil.scale(new ByteArrayInputStream(multipartFile.getBytes()),120 * 200, 200, 200);
-
+            
             ImageUtil.saveImageToFileAsJPEG(resizedImage, FileUtil.getGenFolderPath(currentEnvironment) + FileUtil.BOOK_SUB_FOLDER + FileUtil.BOOK_RESIZED_SUB_FOLDER, book.getId() + ".jpg", 0.9f);
 
             book.setHasImage(true);
@@ -97,6 +97,8 @@ public class BookDisplayController extends BaseController<Book> {
         try {
             ByteArrayOutputStream outStream= new ByteArrayOutputStream();
             ImageIO.write(image, "jpg", outStream);
+            
+            ImageUtil.saveImageToFileAsJPEG(image, FileUtil.getGenFolderPath(currentEnvironment) + FileUtil.BOOK_SUB_FOLDER + FileUtil.BOOK_ORIGINAL_SUB_FOLDER, book.getId() + ".jpg", 0.9f);
             
             image = ImageUtil.scale(new ByteArrayInputStream(outStream.toByteArray()),120 * 200, 200, 200);
 
