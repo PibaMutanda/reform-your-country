@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
@@ -36,7 +37,7 @@ public class Article extends BaseEntity {
 	@Pattern(message="l'Url ne peut contenir des caractères spéciaux", regexp="[A-Za-z0-9_-]{2,256}")
 	private String url; //Used to create a more readable URL; derived from the title (ie: if the title is "Le Web 2.0", url will be "le-Web-2-0") 
 	
-	@OneToOne  // This is not the back-link to ArticleVersion.article (these are 2 independent hibernate links)
+	@OneToOne(fetch = FetchType.LAZY)  // This is not the back-link to ArticleVersion.article (these are 2 independent hibernate links)
 	private ArticleVersion lastVersion;
 	
     @Lob
