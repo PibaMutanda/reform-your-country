@@ -5,6 +5,15 @@
 	 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
 <html>
 <head>
+
+<script type="text/javascript">
+	function getfile() {
+		document.getElementById('hiddenfile').click();
+	}
+	function showfile() {
+		document.getElementById('selectedfile').value = document.getElementById('hiddenfile').value;
+	}
+</script>
 </head>
 <body>
 
@@ -21,17 +30,26 @@
 		</c:when>
 	</c:choose>
 
-	(l'image doit faire moins de 1,5Mo)
+
 	<form method="post" action="/user/imageadd" enctype="multipart/form-data">
-		<input type="file" name="file" /><br>
-		<input type="hidden" name="id" value="${user.id}" />
-		<input type="submit" value="Ajouter" />
+	
+		<p>Vous pouvez choisir ici une image pour votre compte utilisateur</p>
+		<ol>
+			<li><input type="button" value="séléctionner le fichier" onmouseout="showfile()" onclick="getfile()" /> 	
+			    <input type="text"  disabled="disabled"  id="selectedfile" style="width:495px;"  style="float:right;" />
+			    <input type="file" name="file" id="hiddenfile" style="display:none;" required="required"/>
+			</li>
+			<li><input type="submit" class="" value="télécharger sur le serveur"/>
+				<input type="hidden" name="id" value="${user.id}" /></li>
+		</ol>    
+			
+			
+			
+			
+
+		
 		<a href="/user/${user.userName}">Annuler</a><br>
 	</form>
 	
-	<form method="post" action="/user/imagedelete">
-		<input type="hidden" name="id" value="${user.id}" />
-		<input type="submit" value="Supprimer" />
-	</form>
 </body>
 </html>
