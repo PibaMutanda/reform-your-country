@@ -106,7 +106,7 @@ public class BookDisplayController extends BaseController<Book> {
             book.setHasImage(true);
             bookRepository.merge(book);
         } catch (IOException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
 
         return mv;
