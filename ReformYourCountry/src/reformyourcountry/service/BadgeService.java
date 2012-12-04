@@ -77,24 +77,28 @@ public class BadgeService {
     }
     
     
-    public void grandBadgeForArgument(User user){
-        int count=user.getVoteArguments().size();
+    public void grandBadgeForArgumentVoter(User voter){
+        int count=voter.getVoteArguments().size();
         
         if(count>=10){
-            if(!user.isHasBadgeType(BadgeType.REFEREE))
-                saveBadgeTypeForUser(BadgeType.REFEREE, user);
+            if(!voter.isHasBadgeType(BadgeType.REFEREE))
+                saveBadgeTypeForUser(BadgeType.REFEREE, voter);
         }
         
         if(count>=50){
-            if(!user.isHasBadgeType(BadgeType.JUDGE))
-                saveBadgeTypeForUser(BadgeType.JUDGE, user);
+            if(!voter.isHasBadgeType(BadgeType.JUDGE))
+                saveBadgeTypeForUser(BadgeType.JUDGE, voter);
         }
         if(count>=200){
-            if(!user.isHasBadgeType(BadgeType.INQUISITOR))
-                saveBadgeTypeForUser(BadgeType.INQUISITOR, user);
+            if(!voter.isHasBadgeType(BadgeType.INQUISITOR))
+                saveBadgeTypeForUser(BadgeType.INQUISITOR, voter);
         }
     }
     
+   public void grandBadgeForArgumentAuthor(User author) {
+    	// TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	   
+   }
     
     
     /**give an AUTOBIOGRAPHER badge only if the user has fully completed his profile*/
@@ -115,6 +119,9 @@ public class BadgeService {
     	
     	}
     }
+
+ 
+    
     
     /**verify if the user has already the BadgeType passed in parameter*/
     public boolean hasAlreadyBadgeAffected(BadgeType badgeType, User user){
@@ -130,6 +137,6 @@ public class BadgeService {
     public void recomputeBadges(User user){ 	
     	grantBadgeForGroups(user);
     	grantBadgeForVoteAction(user);
-    	grandBadgeForArgument(user);
+    	grandBadgeForArgumentVoter(user);
     }
 }
