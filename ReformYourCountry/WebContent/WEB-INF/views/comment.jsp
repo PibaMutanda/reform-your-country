@@ -27,12 +27,12 @@
 	</div>
 	<div id="addcom${currentItem.id}">
 		<br>
-		<div id="commentLink" class="commentLink divButton" onclick="commentAddStart(this,${currentItem.id})">commenter</div>
+		<div class="commentLink" class="commentLink divButton" onclick="commentAddStart(this,${currentItem.id})">commenter</div>
 	</div>
 	<div id="commentArea${currentItem.id}" style="display: none;">
 		<div id="errors" style="color:red;"><%--Error messages inserted by JavaScript --%></div>
 		<input type="hidden" id="idComm${currentItem.id}" name="id" value=""/>
-		<textarea id="comm${currentItem.id}" style="width: 250px; height: 60px;" onfocus="maxlength_comment(this,${currentItem.id},250,10);" onkeyup="maxlength_comment(this,${currentItem.id},250,10);"></textarea>
+		<textarea id="comm${currentItem.id}" style="width: 250px; height: 60px;" onfocus="maxlength_comment(this,${currentItem.id},50,10);" onkeyup="maxlength_comment(this,${currentItem.id},50,10);"></textarea>
 		<input style="float: right; display:hidden;" id="sendEditComm${currentItem.id}"	type="button" disabled="disabled" value="Modifier"	onclick="return sendEditComment(this,${currentItem.id});">
 		<input style="float: right;" id="sendArgComm${currentItem.id}"	type="button" disabled="disabled" value="Commenter"	onclick="return sendNewComment(this,'item${currentItem.id}',${currentItem.id});">
 		<div style="float: left;" id="nbrCaract${currentItem.id}"></div>
