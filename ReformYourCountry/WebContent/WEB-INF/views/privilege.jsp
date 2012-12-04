@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c' %>
+<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c' %>
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
+<%@page import="reformyourcountry.model.User" %>
 <html>
 <head>
 <title>Privilege</title>
@@ -17,9 +18,9 @@
 
 	<form action="/user/roleeditsubmit" method="post">
 		<input type="hidden" name="id" value="${user.id}">
-		<input type="radio" name="role" value="ADMIN" <c:if test="${user.role == 'ADMIN'}">checked="checked"</c:if>>Administrateur	<br>
-		<input type="radio" name="role" value="MODERATOR" <c:if test="${user.role == 'MODERATOR'}">checked="checked"</c:if>>Modérateur<br>
-		<input type="radio" name="role" value="USER" <c:if test="${user.role == 'USER'}">checked="checked"</c:if>>Utilisateur<br><br/>
+		<c:forEach var="role" items="<%=User.Role.values()%>">
+			<input type="radio" name="role" value="${role}" <c:if test="${user.role == role}">checked="checked"</c:if>>${role.name}<br>
+		</c:forEach>
 		<input type="submit" value="Changer rôle"><br>
 	</form>
 	<br/>
