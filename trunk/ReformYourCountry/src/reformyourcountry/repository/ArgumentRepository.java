@@ -1,11 +1,9 @@
 package reformyourcountry.repository;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 import reformyourcountry.model.Argument;
-import reformyourcountry.model.Article;
 import reformyourcountry.model.User;
 
 
@@ -16,7 +14,9 @@ public class ArgumentRepository extends BaseRepository<Argument>{
     
     public List<Argument> findByUser(User user){
         if (user!=null){
-            return (List<Argument>)em.createQuery("select a from Argument a where a.user = :user").setParameter("user",user);
+            return (List<Argument>) em.createQuery("select a from Argument a where a.user = :user")
+                    .setParameter("user",user)
+                    .getResultList();
         }
         return null;
     }
