@@ -18,7 +18,6 @@ public class GroupListController extends BaseController<Group>{
 
     @RequestMapping("/grouplist")
     public ModelAndView showGroupList(){
-
         List<Group> group = groupRepository.findAll();
         return new ModelAndView("grouplist", "groupList", group);
 
