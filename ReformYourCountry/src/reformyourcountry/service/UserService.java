@@ -436,14 +436,14 @@ public class UserService {
 
     
 
-    public void setAnonymous(User user){
+    public void setUser(User user){
         changeUserName(user, "Anonymous"+user.getId(), "", "");
         user.setTitle("");
         user.setCertificationDate(null);
         user.setBirthDate(null);
         user.setGender(null);
         user.setAccountStatus(AccountStatus.LOCKED);
-        user.setRole(Role.ANONYMOUS);
+        user.setRole(Role.USER);
     }
     
     public void userImageDelete(User user){
