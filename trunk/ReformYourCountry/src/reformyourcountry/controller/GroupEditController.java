@@ -27,13 +27,13 @@ public class GroupEditController extends BaseController<Group> {
 
     @RequestMapping("/groupcreate")
     public ModelAndView groupCreate(){
-        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_GROUP);
+        SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_GROUP);
         return prepareModelAndView(new Group());
     }
 
     @RequestMapping("/groupedit")
     public ModelAndView groupEdit(@RequestParam("id") long id){
-        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_GROUP);
+        SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_GROUP);
         Group group = getRequiredEntity(id);
         return prepareModelAndView(group);
     }   
@@ -47,7 +47,7 @@ public class GroupEditController extends BaseController<Group> {
     @RequestMapping("/groupeditsubmit")
     public ModelAndView groupEditSubmit(@Valid @ModelAttribute Group group, Errors errors) {
       
-        SecurityContext.assertUserHasPrivilege(Privilege.EDIT_GROUP);
+        SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_GROUP);
         
         if (errors.hasErrors()) {
             return new ModelAndView("groupedit", "group", group);
