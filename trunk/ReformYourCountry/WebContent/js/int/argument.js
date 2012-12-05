@@ -13,9 +13,11 @@ function argumentEditSubmit(){
 function hideAllCkEditorContainer(){
 	var ispos =$('#ckEditForm > input[name="ispos"]').val();
 	var isNew = $('#ckEditForm > input[name="idItem"]').val();	
+	hideHelp("help"+isNew);
 	if(typeof isNew ==="undefined" || isNew==""){
 		$('#argumentAddDivFakeEditor'+ispos).show();
 		$('#argumentAddDivRealEditor'+ispos).empty().hide();
+
 	}else{
 		sendSimpleValue(null,isNew,'item'+isNew,'item'+isNew,"/ajax/argument/refresh",""); //Refresh the div with the arg values no changes
 	}
