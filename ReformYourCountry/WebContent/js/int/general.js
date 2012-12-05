@@ -35,6 +35,19 @@ function sendSimpleValue(button,idItem,idEditedValueContainer,IdErrorMessageCont
 		addErrorMessage(exceptionVO.message,idEditedValueContainer);
 	});
 }
+
+function sendValuesAndReplaceItem (url,values,idItemToReplace, ObjectBubbleAttached){
+	sendValues(url, 
+			values, 
+			function(data){
+				//Send the new data to the div containing the argument
+				$("#"+idItemToReplace).html(data);
+				$("#"+idItemToReplace).effect("highlight", {}, 1500);
+			}, 
+			idItemToReplace, 
+			ObjectBubbleAttached);
+}
+
 function sendValues(url, values, succesFunction, idErrorContainer, ObjectBubbleAttached){
 	if (showMessageIfNotLogged(ObjectBubbleAttached)) {
 		return;
@@ -103,33 +116,30 @@ function vote(item,url,value,idParent,idItemToReplace){
 
 
 //COMMENT
-function commentEditStart(item, idParent,idComment,content){
+function commentEditStart(item, itemToCommentDbId,idComment,content){
 	if (showMessageIfNotLogged(item)) {
 		return;
 	}
-	$("#comm"+idParent).attr("value",content);  // Put content in text area
-	showHelp("addcom"+idParent,"help"+idParent);
-	$("#idComm"+idParent).attr("value",idComment);  // Put id in a hidden field
-	$("#addcom"+idParent).hide();   // Hide the button to add a comment
-	$("#sendEditComm"+idParent).show(); // show the "modify" submit button
-	$("#sendArgComm"+idParent).hide();  // hides the "create" submit button
-	$("#commentArea"+idParent).show();  // show the text area
-
-}
-
-function commentCreateStart(item, idParent){
-	if (showMessageIfNotLogged(item)) {
-		return;
+	showHelp("addcomForItem"+itemToCommentDbId,"help"+itemToCommentDbId);
+	
+	$button = $('#commentAreaForItem'+itemToCommentDbId+'> input[type="button"]');
+	$textarea = $("#comm"+itemToCommentDbId);
+	$idCommentHiddenField = $("#idComm"+itemToCommentDbId);
+	
+	////Initialize content textarea and id hidden field
+	if(! typeof content === "undefined" && ! typeof idComment === "undefined") { //this is a comment edit
+		$textarea.val(content);
+		$idCommentHiddenField.val(idComment);
+		$button.val("Modifier");
+	} else { // empty the field in case of create
+		$textarea.val("");
+		$idCommentHiddenField.val("");
+		$button.val("Commenter");
 	}
-	$("#comm"+idParent).attr("value","");//Initialize content textarea
-	showHelp("addcom"+idParent,"help"+idParent);
-	$("#idComm"+idParent).attr("value","");//Initialize id hidden field
-	$("#addcom"+idParent).hide(); // Hide the button to add a comment
-	$("#sendEditComm"+idParent).hide();// hide the "modify" submit button
-	$("#sendArgComm"+idParent).show();// show the "create" submit button
-	$("#commentArea"+idParent).show();	// show the text area
+	
+	$("#addcomForItem"+itemToCommentDbId).hide(); //hide the box who invite user to add a new comment
+	$("#commentAreaForItem"+itemToCommentDbId).show();  //show the area where user can edit or add a comment
 }
-
 
 function maxlength_comment(textarea, itemToCommentId, max, min) {
 	$button = $('#commentAreaForItem'+itemToCommentId+'> input[type="button"]');

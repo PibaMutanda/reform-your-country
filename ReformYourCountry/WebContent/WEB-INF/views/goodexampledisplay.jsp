@@ -8,7 +8,7 @@
 
 <form action="/ajax/goodexample/edit" method="post">
     <h4>${goodExample.title}</h4>
-    <div id="${goodExample.id}_description">${goodExample.description}</div>
+    <div id="${goodExample.id}_description">${goodExample.content}</div>
     <input type="hidden" name="goodExampleId" value="${goodExample.id}" />
     <input type="hidden" name="articleId" value="${article.id}" /> 
     <a href="#" id="${goodExample.id}_edit">editer</a>

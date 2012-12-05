@@ -112,8 +112,8 @@
  			<div style= "float:left">
  			${goodex.goodExample.title}<br/>
  				<c:choose>
-						<c:when test="${goodex.goodExample.description != null}">
-							${goodex.goodExample.description}						
+						<c:when test="${goodex.goodExample.content != null}">
+							${goodex.goodExample.content}						
 						</c:when>
 						<c:otherwise>
 							Pas de description disponible pour ce bon example.

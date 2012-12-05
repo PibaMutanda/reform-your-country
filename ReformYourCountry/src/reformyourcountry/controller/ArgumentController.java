@@ -41,7 +41,7 @@ public class ArgumentController extends BaseController<Argument>{
     @Autowired ArgumentService argumentService;
     @Autowired ActionService actionService;
     @Autowired BadgeService badgeService;
-   
+    
     @RequestMapping("/argument")
     public ModelAndView showArgument(@RequestParam("id") Long id) {
         ModelAndView mv = new ModelAndView("commentlist");
@@ -54,15 +54,24 @@ public class ArgumentController extends BaseController<Argument>{
         return mv;
     }
     
+    public ModelAndView returnitemDetail(Argument arg){
+        //FIXME no verif if user can edit --maxime 30/11/12
+        ModelAndView mv = new ModelAndView("itemdetail");
+        mv.addObject("canNegativeVote",true);
+        mv.addObject("currentItem",arg);
+        return mv;
+    }
+    
     @RequestMapping("ajax/argument/edit")
     public ModelAndView argumentEdit(@RequestParam(value="argumentId",required=false) Long argumentId,   // For editing existing arguments.
             @RequestParam(value="idAction",required=false)Long actionId,@RequestParam(value="isPos",required=false)Boolean positiveArg      // For creating a new argument.
             ){
-        //FIXME no verif if user can edit --maxime 30/11/12
+        SecurityContext.assertUserIsLoggedIn();
         ModelAndView mv = new ModelAndView("ckeditorform");
         
         if(argumentId != null) {
-            Argument argument =  (Argument)getRequiredEntity(argumentId, Argument.class);
+            Argument argument =  getRequiredEntity(argumentId);
+            SecurityContext.assertCurrentUserCanEditArgument(argument);
             mv.addObject("idItem",argumentId);
             mv.addObject("titleItem",argument.getTitle());
             mv.addObject("contentItem",argument.getContent());
@@ -84,7 +93,7 @@ public class ArgumentController extends BaseController<Argument>{
     public ModelAndView argumentEditSubmit(
             @RequestParam(value="idParent", required=false)Long actionId, @RequestParam("ispos")Boolean isPos,  // In case of create
             @RequestParam(value="idItem", required=false)Long argumentId,  // In case of edit
-            @RequestParam("content")String content, @RequestParam("title")String title) throws Exception{
+            @RequestParam("content")String content, @RequestParam("title")String title) throws AjaxValidationException{
         SecurityContext.assertUserIsLoggedIn();
         //TODO review
         //check if content or title haven't dangerous html
@@ -95,65 +104,58 @@ public class ArgumentController extends BaseController<Argument>{
         if (argumentId != null) {  // It's an edit (vs a create)
             argument = getRequiredEntity(argumentId);
             SecurityContext.assertCurrentUserCanEditArgument(argument);
-            argument.setTitle(title);
-            argument.setContent(content);
-            argumentRepository.merge(argument);
-          
         } else {  // It's a create
             Action action = (Action)getRequiredEntity(actionId, Action.class);
-            argument = new Argument(title, content, action, SecurityContext.getUser());
-            argument.setPositiveArg(isPos);
+            argument = new Argument(action, isPos);
+            
             argumentRepository.persist(argument);
+            
             action.addArgument(argument);
             actionRepository.merge(action);
         }
         
+        argument.setTitle(title);
+        argument.setContent(content);
+        argumentRepository.merge(argument);
         return returnitemDetail(argument);
-    }        
+    }   
+    
+    @RequestMapping("/ajax/argument/delete")
+    @ResponseBody
+    public String deleteArgument(@RequestParam("id")Long idArg) throws Exception{
+        //FIXME no verif if user can edit --maxime 30/11/12
+        Argument arg = argumentRepository.find(idArg);
+        if(arg ==null){
+            throw new Exception("this id doesn't reference any comment.");
+        }
+        if(!arg.isEditable()){
+             throw new Exception("this person can't suppress this comment(hacking).");
+        }
+        argumentService.deleteArgument(arg);
+        return "";
+        
+    }
         
     @RequestMapping("ajax/argument/refresh")
-    public ModelAndView argumentVote(@RequestParam("id")Long idArg)throws Exception{
+    public ModelAndView argumentVote(@RequestParam("id")Long idArg){
+        SecurityContext.assertUserIsLoggedIn();
         Argument arg = argumentRepository.find(idArg);
         return returnitemDetail(arg);
     }
     
     @RequestMapping("ajax/argument/vote")
-    public ModelAndView argumentVote(@RequestParam("id")Long idArg,@RequestParam("value")int value)throws Exception{
+    public ModelAndView argumentVote(@RequestParam("id")Long idArg,@RequestParam("value")int value){
+        SecurityContext.assertUserIsLoggedIn();
+        
         User user = SecurityContext.getUser();
-        if (user !=null){
-            Argument arg = argumentRepository.find(idArg);
-            argumentService.updateVoteArgument(idArg, value, user, arg);
-            badgeService.grandBadgeForArgumentVoter(user);
-            return returnitemDetail(arg);
-           
-        } else {
-            throw new Exception("no user logged");  // Catched by the JavaScript (should not happen because we don't send the ajax request with non logged in user)
-        }
+        
+        Argument argument = (Argument) getRequiredEntity(idArg,Argument.class);
+        argumentService.updateVoteArgument(idArg, value, user, argument);
+        badgeService.grandBadgeForArgumentVoter(user);
+        
+        return returnitemDetail(argument);
     }
    
-    @RequestMapping("ajax/argument/commentadd")
-    public ModelAndView commentAdd(@RequestParam("id")Long idArg, @RequestParam("value")String content) throws Exception{
-        //TODO review
-        //check if content or title haven't dangerous html
-        if (!HTMLUtil.isHtmlSecure(content)) {
-             throw new AjaxValidationException("vous avez introduit du HTML/Javascript invalide dans le commentaire");
-        }
-        User user = SecurityContext.getUser();
-        if (user !=null){
-            Argument argument = argumentRepository.find(idArg);
-            Comment comment = new Comment(content, argument, user);
-            commentRepository.persist(comment);
-            argument.addComment(comment);
-            argumentRepository.merge(argument); 
-            
-            argumentService.notifyByEmailNewCommentPosted(argument,comment);
-            badgeService.grandBadgeForComment(comment.getCreatedBy());
-            
-            return returnitemDetail(argument);
-        }else {
-            throw new Exception("no user logged");
-        }
-    }
     @RequestMapping("ajax/argument/unvote")
     public ModelAndView unVote(@RequestParam("id")Long idArg) throws Exception{
         
@@ -174,69 +176,44 @@ public class ArgumentController extends BaseController<Argument>{
         badgeService.grandBadgeForArgumentVoter(user);
         return returnitemDetail(argument);
     }
-    public ModelAndView returnitemDetail(Argument arg){
-        //FIXME no verif if user can edit --maxime 30/11/12
-        ModelAndView mv = new ModelAndView("itemdetail");
-        mv.addObject("canNegativeVote",true);
-        mv.addObject("currentItem",arg);
-        return mv;
-    }
-    @RequestMapping("/ajax/argument/commentdelete")
-    public ModelAndView deleteComment(@RequestParam("id")Long idComment) throws Exception{
-        //FIXME no verif if user can edit --maxime 30/11/12
-        Comment com = commentRepository.find(idComment);
-        
-        if(com ==null){
-            throw new Exception("this id doesn't reference any comment.");
-        }
-        if(!com.isEditable()){
-             throw new Exception("this person can't suppress this comment(hacking).");
-        }
-        Argument argument = com.getArgument();
-        argument.getCommentList().remove(com);
-        commentRepository.remove(com);
-        argumentRepository.merge(argument);
-        return returnitemDetail(argument);
-        
-    }
-    
-    @RequestMapping("/ajax/argument/commentedit")
-    public ModelAndView commentEdit(@RequestParam("id")Long idComment,@RequestParam("value")String content) throws Exception{
-        //FIXME no verif if user can edit --maxime 30/11/12
+
+    @RequestMapping("/ajax/argument/commenteditsubmit")
+    public ModelAndView commentEdit(@RequestParam(value="idArgument",required=false)Long idArgument,//for create a new comment
+                                    @RequestParam(value="idComment",required=false)Long idComment,//for editing
+                                    @RequestParam("content")String content) throws Exception{
+        SecurityContext.assertUserIsLoggedIn();
         //TODO review
         //check if content or title haven't dangerous html
         if (!HTMLUtil.isHtmlSecure(content)) {
              throw new AjaxValidationException("vous avez introduit du HTML/Javascript invalide dans le commentaire");
         }
-        Comment com = commentRepository.find(idComment);
-        if(com ==null){
-            throw new Exception("this id doesn't reference any comment.");
+        
+        Comment comment = null;
+        
+        if (idComment == null && idArgument == null) {
+            throw new IllegalArgumentException("idComment and idArgument are null : can't determine if it's a create or an edit");
+        } else if ( idComment == null ) {//it's a create, only idComment is null 
+            Argument argument =  getRequiredEntity(idArgument);
+            comment = new Comment(argument);
+            
+            commentRepository.persist(comment);
+            argument.addComment(comment);
+            argumentRepository.merge(argument); 
+            badgeService.grandBadgeForComment(comment.getCreatedBy());
+        } else { //it's an edit , only idArgument is null
+            
+            comment = (Comment) getRequiredEntity(idComment, Comment.class);
+            SecurityContext.assertCurrentUserCanEditComment(comment);
         }
-        if(!com.isEditable()){
-            throw new Exception("this person can't edit this comment(hacking).");
-        }
-        com.setContent(content);
-        commentRepository.merge(com);
-        return returnitemDetail(com.getArgument());
-    }
 
-    @RequestMapping("/ajax/argument/argdelete")
-    @ResponseBody
-    public String deleteArgument(@RequestParam("id")Long idArg) throws Exception{
-        //FIXME no verif if user can edit --maxime 30/11/12
-        Argument arg = argumentRepository.find(idArg);
-        if(arg ==null){
-            throw new Exception("this id doesn't reference any comment.");
-        }
-        if(!arg.isEditable()){
-             throw new Exception("this person can't suppress this comment(hacking).");
-        }
-        argumentService.deleteArgument(arg);
-        return "";
+        comment.setContent(content);
+        commentRepository.merge(comment);
+        return returnitemDetail(comment.getArgument());
         
     }
+
     @RequestMapping("/ajax/argument/commenthide")
-    public ModelAndView commentHide(@RequestParam("id")Long idComment){
+    public ModelAndView commentHide(@RequestParam("id")Long idComment) throws AjaxValidationException{
         Comment com = commentRepository.find(idComment);
         //FIXME check if comment is already hidden
         if (!SecurityContext.canCurrentUserHideComment(com)) {
@@ -247,6 +224,7 @@ public class ArgumentController extends BaseController<Argument>{
         Argument argument = com.getArgument();
         return returnitemDetail(argument);
     }
+    
     @RequestMapping("/ajax/argument/commentunhide")
     public ModelAndView commentUnhide(@RequestParam("id")Long idComment) throws AjaxValidationException{
         Comment com = commentRepository.find(idComment);
@@ -264,5 +242,24 @@ public class ArgumentController extends BaseController<Argument>{
         mv.addObject("parentContent",arg.getContent());
         mv.addObject("commentList",arg.getCommentList());
         return mv;
+    }
+    
+    @RequestMapping("/ajax/argument/commentdelete")
+    public ModelAndView deleteComment(@RequestParam("id")Long idComment) throws Exception{
+        //FIXME no verif if user can edit --maxime 30/11/12
+        Comment com = commentRepository.find(idComment);
+        
+        if(com ==null){
+            throw new Exception("this id doesn't reference any comment.");
+        }
+        if(!com.isEditable()){
+             throw new Exception("this person can't suppress this comment(hacking).");
+        }
+        Argument argument = com.getArgument();
+        argument.getCommentList().remove(com);
+        commentRepository.remove(com);
+        argumentRepository.merge(argument);
+        return returnitemDetail(argument);
+        
     }
 }

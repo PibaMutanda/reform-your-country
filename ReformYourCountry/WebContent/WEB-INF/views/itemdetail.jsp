@@ -1,11 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="reformyourcountry.model.User"%>
-<%@ page import="java.util.*"%>
-
 
 <div id="item${currentItem.id}" style="width:100%; display: inline-block;background:url(/images/_global/separator3.gif) 0 0 repeat-x ;">
 
@@ -18,20 +14,16 @@
 			<div style="margin-top:5px;font-size:0.9em;">
 				${currentItem.content}
 			</div>
-			<ryctag:user user="${currentItem.user}"/>
+			<ryctag:user user="${currentItem.createdBy}"/>
 			<div style="display:inline-block;font-size:0.8em;width:100%">
-				<div>
-					<div style="float:right;">
-						<span class="commentLink" onclick="ItemEditStart(this,${currentItem.id});">Editer</span>
-						<span onclick="deleteItem(this,${currentItem.id})" class="divButton" style="color:red; font-size:1.3em;font-weight: bold;" title="Supprimer">×</span>
-					</div >
-					<div style="font-style: italic;">crée le ${currentItem.formatedCreatedOn}</div>
-					
+				<div style="float:right;">
+					<span onclick="deleteItem(this,${currentItem.id})" class="divButton" style="color:red; font-size:1.3em;font-weight: bold;" title="Supprimer">×</span>
+					<span style="font-style: italic;"><br/>créé le ${currentItem.formatedCreatedOn}</span> 
 				</div>
+				<div style="font-style: italic;">crée le ${currentItem.formatedCreatedOn}</div>
 				<div>
 					<c:if test="${currentItem.editable}">
 						<a href="/argument?id=${currentItem.id}">Administrer les commentaires</a> 
-						
 						
 						<!--<img src="\images\_global\edit.png" width="16px" onfocus="handle();" onclick="editArg(this,${arg.id},'${arg.title}','${arg.content}');">-->
 					</c:if>
