@@ -63,7 +63,7 @@ public class GoodExampleController extends BaseController<GoodExample>{
             GoodExample goodExample =  getRequiredEntity(goodExampleId);
             mv.addObject("idItem",goodExampleId);
             mv.addObject("titleItem",goodExample.getTitle());
-            mv.addObject("contentItem",goodExample.getDescription());
+            mv.addObject("contentItem",goodExample.getContent());
         } 
         mv.addObject("urlAction","/ajax/goodexample/editsubmit");
         mv.addObject("idParent",articleId); 
@@ -79,7 +79,7 @@ public class GoodExampleController extends BaseController<GoodExample>{
         //TODO review
         //check if content or title haven't dangerous html
         if (!HTMLUtil.isHtmlSecure(title) || !HTMLUtil.isHtmlSecure(description)) {
-        	NotificationUtil.addNotificationMessage("vous avez introduit du HTML/Javascript invalide dans el titre ou le content");
+        	NotificationUtil.addNotificationMessage("vous avez introduit du HTML/Javascript invalide dans le titre ou le content");
         	return null;
         }
     	
@@ -95,7 +95,7 @@ public class GoodExampleController extends BaseController<GoodExample>{
         }
         
         goodExample.setTitle(title);
-        goodExample.setDescription(description);
+        goodExample.setContent(description);
         
         Article article = (Article) getRequiredEntity(articleId, Article.class);//check if the id of an article is good before persist goodExample
         
