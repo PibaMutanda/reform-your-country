@@ -13,7 +13,7 @@
 						<div onclick="commentEditStart(this,${currentItem.id},${comment.id},'${comment.content}')" class="divButton" style="float:right;" ><img alt="Editer" title="Editer" src="/images/_global/edit.png" class="icon-11" /></div>
 					</c:if>
 					<c:if test="${comment.hidable}">
-						<div onclick="commentHide(this,${currentItem.id},${comment.id})" class="divButton" style="float:right;" ><img alt="Cacher" title="Cacher" src="/images/_global/edit.png" class="icon-11" /></div>
+						<div title="hide comment" onclick="commentHide(this,${currentItem.id},${comment.id})" class="divButton" style="float:right;color:blue;font-weight:bold;font-size:1.6em;" >-&nbsp;&nbsp;</div>
 					</c:if>
 					<div>
 					${comment.content} - <a id="underlineUser" href="/user/${comment.user.userName}">${comment.user.userName}</a> - 
