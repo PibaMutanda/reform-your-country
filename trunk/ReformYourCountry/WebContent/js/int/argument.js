@@ -36,8 +36,6 @@ function ItemEditStart(item, newid){
 	});
 }
 
-
-
 // Display editor to create an argument
 function argumentCreateStart(isPos, idAction) {
 	if (showMessageIfNotLogged($('#argumentAddDivFakeEditor'+isPos))) {
@@ -62,8 +60,7 @@ function deleteItem(item,idArgument){
 	if (answer)
 	{
 		sendSimpleValue(item,idArgument,"item"+idArgument,"item"+idArgument,"/ajax/argument/argdelete","");
-    	$("#item"+idArgument).html("");
-    	$("#item"+idArgument).hide();
+    	$("#item"+idArgument).empty.hide();
 	}
 }
 ///////////////////////////////// VOTES 
