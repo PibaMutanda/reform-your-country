@@ -149,6 +149,21 @@ function maxlength_comment(textarea, itemToCommentId, max, min) {
 	}
 }
 
+function submitComment(url,objectButton,commentedItemDbID){
+	dbIdComment = $('#commentAreaForItem'+commentedItemDbID+'> input[name="idEditedComment"]').val();
+	contentComment = $('#comm'+commentedItemDbID).val();
+	
+	values = {content : contentComment};
+
+	if(dbIdComment > 0){//in case of an edit
+		values.idComment =  dbIdComment;
+	} else {//this is a new comment
+		values.idCommentedItem =  commentedItemDbID;
+	}
+	
+	sendValuesAndReplaceItem(url,values,"item"+commentedItemDbID, objectButton);
+}
+
 function cancelComment(idItem){
 	$("#addcomForItem"+idItem).show();
 	$("#commentAreaForItem"+idItem).hide();

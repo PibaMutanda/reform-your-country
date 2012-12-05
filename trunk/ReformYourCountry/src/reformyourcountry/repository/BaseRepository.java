@@ -60,8 +60,6 @@ public abstract class BaseRepository<E extends BaseEntity> {
         }
     }
 
-
-    
     // The JPA API EntityManager.getsingleResult() throws an exception if not found, which is not nice.
     protected E getSingleOrNullResult(Query query) {
         try {

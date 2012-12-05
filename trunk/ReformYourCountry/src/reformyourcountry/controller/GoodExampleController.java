@@ -10,14 +10,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import reformyourcountry.exception.AjaxValidationException;
 import reformyourcountry.exception.InvalidUrlException;
+import reformyourcountry.model.Argument;
 import reformyourcountry.model.Article;
+import reformyourcountry.model.Comment;
 import reformyourcountry.model.GoodExample;
 import reformyourcountry.repository.ArticleRepository;
+import reformyourcountry.repository.CommentRepository;
 import reformyourcountry.repository.GoodExampleRepository;
+import reformyourcountry.security.SecurityContext;
+import reformyourcountry.service.BadgeService;
+import reformyourcountry.service.GoodExampleService;
 import reformyourcountry.util.HTMLUtil;
 import reformyourcountry.util.Logger;
-import reformyourcountry.util.NotificationUtil;
 import reformyourcountry.web.PropertyLoaderServletContextListener;
 
 @Controller
@@ -27,7 +33,21 @@ public class GoodExampleController extends BaseController<GoodExample>{
     GoodExampleRepository goodExampleRepository;
     @Autowired
     ArticleRepository articleRepository;
+    @Autowired
+    GoodExampleService goodExampleService;
+    @Autowired
+    CommentRepository commentRepository;
+    @Autowired
+    BadgeService badgeService;
 
+    public ModelAndView itemDetail(GoodExample example){
+        //FIXME no verif if user can edit --maxime 30/11/12
+        ModelAndView mv = new ModelAndView("itemdetail");
+        mv.addObject("canNegativeVote",false);
+        mv.addObject("currentItem",example);
+        return mv;
+    }
+    
     /**
      * display goodExampleList for an article or call displayGoodExample if the pathvariable isn't an article url
      * @param articleUrl or the goodexample if can't find an article for this url
@@ -52,7 +72,9 @@ public class GoodExampleController extends BaseController<GoodExample>{
         mv.addObject("article", article);
         return mv;
     }
-    
+    /**
+     * send a jsp fragment who contains a form for edit a goodExample
+     */
     @RequestMapping("/ajax/goodexample/edit")
     public ModelAndView GoodExampleEdit(@RequestParam(value="idItem",required=false) Long goodExampleId,   
             							@RequestParam("id") Long articleId
@@ -72,21 +94,19 @@ public class GoodExampleController extends BaseController<GoodExample>{
     }
     
     @RequestMapping(value="/ajax/goodexample/editsubmit")
-    public ModelAndView editGoodExample(@RequestParam("goodExampleId") Long goodExampleId,
-    									@RequestParam("title") String title,
-    									@RequestParam("description") String description, 
-    									@RequestParam("articleId") Long articleId){
+    public ModelAndView editGoodExample(
+            @RequestParam(value="idParent", required=false)Long articleId,  // In case of create
+            @RequestParam(value="idItem", required=false)Long goodExampleId,  // In case of edit
+            @RequestParam("content")String content, @RequestParam("title")String title) throws AjaxValidationException{
         //TODO review
         //check if content or title haven't dangerous html
-        if (!HTMLUtil.isHtmlSecure(title) || !HTMLUtil.isHtmlSecure(description)) {
-        	NotificationUtil.addNotificationMessage("vous avez introduit du HTML/Javascript invalide dans le titre ou le content");
-        	return null;
+        if (!HTMLUtil.isHtmlSecure(title) || !HTMLUtil.isHtmlSecure(content)) {
+             throw new AjaxValidationException("vous avez introduit du HTML/Javascript invalide dans le commentaire");
         }
-    	
     	
     	ModelAndView mv = new ModelAndView("goodexampledisplay");
     	
-    	GoodExample goodExample = null;
+    	GoodExample goodExample;
     	
         if(goodExampleId == null){//if this is a new goodExample
         	goodExample = new GoodExample();
@@ -95,7 +115,7 @@ public class GoodExampleController extends BaseController<GoodExample>{
         }
         
         goodExample.setTitle(title);
-        goodExample.setContent(description);
+        goodExample.setContent(content);
         
         Article article = (Article) getRequiredEntity(articleId, Article.class);//check if the id of an article is good before persist goodExample
         
@@ -111,9 +131,122 @@ public class GoodExampleController extends BaseController<GoodExample>{
         	goodExampleRepository.merge(goodExample);
         }
 
-        mv.addObject("goodExample",goodExample);
-        mv.addObject("article",article);
+        return itemDetail(goodExample);
+    }
+        
+    @RequestMapping("ajax/goodexample/refresh")
+    public ModelAndView argumentVote(@RequestParam("id")Long goodExampleId){
+        SecurityContext.assertUserIsLoggedIn();
+        return itemDetail((GoodExample) getRequiredEntity(goodExampleId, GoodExample.class));
+    }
+    
+    @RequestMapping("ajax/goodexample/vote")
+    public ModelAndView vote(@RequestParam("id")Long goodExampleId){
+        SecurityContext.assertUserIsLoggedIn();
+        
+        GoodExample goodExample = (GoodExample) getRequiredEntity(goodExampleId,GoodExample.class);
+        goodExampleService.vote(goodExample);
+        
+        return itemDetail(goodExample);
+    }
+   
+    @RequestMapping("ajax/goodexample/unvote")
+    public ModelAndView unVote(@RequestParam("id")Long goodExampleId) throws Exception{
+        SecurityContext.assertUserIsLoggedIn();
+        
+        GoodExample goodExample = (GoodExample) getRequiredEntity(goodExampleId,GoodExample.class);
+        goodExampleService.unVote(goodExample);
+        
+        return itemDetail(goodExample);
+    }
+
+    @RequestMapping("/ajax/goodexample/commenteditsubmit")
+    public ModelAndView commentEdit(@RequestParam(value="idCommentedItem",required=false)Long goodExampleId,//for create a new comment
+                                    @RequestParam(value="idComment",required=false)Long idComment,//for editing
+                                    @RequestParam("content")String content) throws Exception{
+        SecurityContext.assertUserIsLoggedIn();
+        //TODO review
+        //check if content or title haven't dangerous html
+        if (!HTMLUtil.isHtmlSecure(content)) {
+             throw new AjaxValidationException("vous avez introduit du HTML/Javascript invalide dans le commentaire");
+        }
+        
+        Comment comment = null;
+        
+        if (idComment == null && goodExampleId == null) {
+            throw new IllegalArgumentException("idComment and goodExampleId are null : can't determine if it's a create or an edit");
+        } else if ( idComment == null ) {//it's a create, only idComment is null 
+            GoodExample goodExample =  getRequiredEntity(goodExampleId);
+            comment = new Comment();
+            comment.setGoodExample(goodExample);
+            commentRepository.persist(comment);
+            
+            goodExample.getCommentList().add(comment);
+            goodExampleRepository.merge(goodExample);
+            
+            badgeService.grandBadgeForComment(comment.getCreatedBy());
+        } else { //it's an edit , only idArgument is null
+            comment = (Comment) getRequiredEntity(idComment, Comment.class);
+            SecurityContext.assertCurrentUserCanEditComment(comment);
+        }
+
+        comment.setContent(content);
+        commentRepository.merge(comment);
+        return itemDetail(comment.getGoodExample());
+        
+    }
+
+    @RequestMapping("/ajax/goodexample/commenthide")
+    public ModelAndView commentHide(@RequestParam("id")Long idComment) throws AjaxValidationException{
+        Comment comment = commentRepository.find(idComment);
+
+        if (comment.isHidden()) {
+            throw new AjaxValidationException("ce commentaire n'est pas caché");
+        }
+        if (!SecurityContext.canCurrentUserHideComment(comment)) {
+            throw new AjaxValidationException("vous ne pouvez pas cacher ce commentaire");
+        }
+        
+        comment.setHidden(true);
+        return itemDetail(comment.getGoodExample());
+    }
+    
+    @RequestMapping("/ajax/goodexample/commentunhide")
+    public ModelAndView commentUnhide(@RequestParam("id")Long idComment) throws AjaxValidationException{
+        Comment comment = commentRepository.find(idComment);
+        
+        if (!comment.isHidden()) {
+            throw new AjaxValidationException("ce commentaire n'est pas caché");
+        }
+        if (!SecurityContext.canCurrentUserHideComment(comment)) {
+            throw new AjaxValidationException("vous ne pouvez pas cacher ce commentaire");
+        }
+        
+        comment.setHidden(false);
+        ModelAndView mv = new ModelAndView("commentlist"); //it's only on a moderation special page we can unhide comment
+        GoodExample goodExample = comment.getGoodExample();
+        mv.addObject("parentContent",goodExample.getContent());
+        mv.addObject("commentList",goodExample.getCommentList());
         return mv;
+    }
+    
+    @RequestMapping("/ajax/goodexample/commentdelete")
+    public ModelAndView deleteComment(@RequestParam("id")Long idComment) throws Exception{
+        Comment comment = commentRepository.find(idComment);
+        
+        SecurityContext.assertCurrentUserCanEditComment(comment);
+        
+        if(comment ==null){
+            throw new Exception("this id doesn't reference any comment.");
+        }
+        if(!comment.isEditable()){
+             throw new Exception("this person can't suppress this comment(hacking).");
+        }
+        GoodExample goodExample = comment.getGoodExample();
+        goodExample.getCommentList().remove(comment);
+        commentRepository.remove(comment);
+        goodExampleRepository.merge(goodExample);
+        return itemDetail(goodExample);
     }
     
     @RequestMapping(value="/ajax/goodexample/edit/addarticle")

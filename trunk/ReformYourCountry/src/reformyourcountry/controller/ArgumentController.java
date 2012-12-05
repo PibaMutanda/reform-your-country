@@ -179,7 +179,7 @@ public class ArgumentController extends BaseController<Argument>{
     }
 
     @RequestMapping("/ajax/argument/commenteditsubmit")
-    public ModelAndView commentEdit(@RequestParam(value="idArgument",required=false)Long idArgument,//for create a new comment
+    public ModelAndView commentEdit(@RequestParam(value="idCommentedItem",required=false)Long idArgument,//for create a new comment
                                     @RequestParam(value="idComment",required=false)Long idComment,//for editing
                                     @RequestParam("content")String content) throws Exception{
         SecurityContext.assertUserIsLoggedIn();
@@ -195,7 +195,8 @@ public class ArgumentController extends BaseController<Argument>{
             throw new IllegalArgumentException("idComment and idArgument are null : can't determine if it's a create or an edit");
         } else if ( idComment == null ) {//it's a create, only idComment is null 
             Argument argument =  getRequiredEntity(idArgument);
-            comment = new Comment(argument);
+            comment = new Comment();
+            comment.setArgument(argument);
             
             commentRepository.persist(comment);
             argument.addComment(comment);
