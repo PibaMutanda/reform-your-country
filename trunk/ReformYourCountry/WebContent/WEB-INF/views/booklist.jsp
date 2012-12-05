@@ -26,13 +26,9 @@ width:50%;
 <ryctag:pageheadertitle title="Bibliographie"/>
 <div style="display:inline-block;">
 
-	<div style="float:right; ">
+	<div class="small-text">
 		<ryc:conditionDisplay privilege="MANAGE_BOOK">
-
-			    <ul class="list sitemap-list">
-					 <li><a href="/book/create">Créer livre</a></li>
-				</ul>	
-
+			 <a href="/book/create">Créer livre</a>
 		</ryc:conditionDisplay>
 	</div>
 	<p>

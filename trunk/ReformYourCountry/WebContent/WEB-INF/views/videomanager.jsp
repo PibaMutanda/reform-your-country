@@ -12,7 +12,7 @@
         <ryctag:breadcrumbelement label="${article.title}" link="/article/${article.url}" /><ryctag:breadcrumbelement label="vidéos" />
     </ryctag:pageheadertitle>
 
-	<div class="article-options">
+	<div class="small-text">
 		<ul class="list sitemap-list">
 			<li><a href="/video/create?idArticle=${article.id}">Ajouter video</a></li>
 		</ul>
