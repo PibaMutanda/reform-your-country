@@ -24,7 +24,6 @@
 					<div style="font-style: italic;">crée le ${currentItem.formatedCreatedOn}</div>
 					
 				</div>
-				<div style="font-style: italic;">crée le ${currentItem.formatedCreatedOn}</div>
 				<div>
 					<c:if test="${currentItem.editable}">
 						<a href="/argument?id=${currentItem.id}">Administrer les commentaires</a> 
