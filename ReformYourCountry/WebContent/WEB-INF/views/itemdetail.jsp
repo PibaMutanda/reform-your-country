@@ -16,9 +16,13 @@
 			</div>
 			<ryctag:user user="${currentItem.createdBy}"/>
 			<div style="display:inline-block;font-size:0.8em;width:100%">
-				<div style="float:right;">
-					<span onclick="deleteItem(this,${currentItem.id})" class="divButton" style="color:red; font-size:1.3em;font-weight: bold;" title="Supprimer">×</span>
-					<span style="font-style: italic;"><br/>créé le ${currentItem.formatedCreatedOn}</span> 
+				<div>
+					<div style="float:right;">
+						<span class="commentLink" onclick="ItemEditStart(this,${currentItem.id});">Editer</span>
+						<span onclick="deleteItem(this,${currentItem.id})" class="divButton delete" style=" font-size:1.3em;font-weight: bold;" title="Supprimer">×</span>
+					</div >
+					<div style="font-style: italic;">crée le ${currentItem.formatedCreatedOn}</div>
+					
 				</div>
 				<div style="font-style: italic;">crée le ${currentItem.formatedCreatedOn}</div>
 				<div>

@@ -10,8 +10,8 @@
 			<div style="margin:0px; width:100%;">
                     
 					<c:if test="${comment.editable}">
-					   <div onclick="deleteComment(this,${comment.id},${currentItem.id})" class="divButton" style="vertical-align:text-top; color:red;font-size:1em; font-weight: bold;float:right;" title="Supprimer">&nbsp;X</div>
-					   <div onclick="commentEditStart(this,${currentItem.id},${comment.id},'${comment.content}')" class="divButton" style="float:right;" ><img alt="Editer" title="Editer" src="/images/_global/edit.png" class="icon-11" /></div>
+						<div onclick="deleteComment(this,${comment.id},${currentItem.id})" class="divButton delete" style="vertical-align:text-top;font-size:1em; font-weight: bold;float:right;" title="Supprimer">&nbsp;X</div>
+						<div onclick="commentEditStart(this,${currentItem.id},${comment.id},'${comment.content}')" class="divButton" style="float:right;" ><img alt="Editer" title="Editer" src="/images/_global/edit.png" class="icon-11" /></div>
 					</c:if>
 					<c:if test="${comment.hidable}">
 					   <div title="hide comment" onclick="commentHide(this,${currentItem.id},${comment.id})" class="divButton" style="float:right;color:blue;" >&ndash;&nbsp;&nbsp;</div>
