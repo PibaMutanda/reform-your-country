@@ -10,8 +10,8 @@
 			<div style="margin:0px; width:100%;">
                     
 					<c:if test="${comment.editable}">
-						<div onclick="deleteComment(this,${comment.id},${currentItem.id})" class="divButton delete" style="vertical-align:text-top;font-size:1em; font-weight: bold;float:right;" title="Supprimer">&nbsp;X</div>
-						<div onclick="commentEditStart(this,${currentItem.id},${comment.id},'${comment.content}')" class="divButton" style="float:right;" ><img alt="Editer" title="Editer" src="/images/_global/edit.png" class="icon-11" /></div>
+					   <div onclick="deleteComment(this,${comment.id},${currentItem.id})" class="divButton delete" style="vertical-align:text-top; color:red;font-size:1em; font-weight: bold;float:right;" title="Supprimer">&nbsp;X</div>
+					   <div onclick="commentEditStart(this,${currentItem.id},${comment.id},'${comment.content}')" class="divButton" style="float:right;" ><img alt="Editer" title="Editer" src="/images/_global/edit.png" class="icon-11" /></div>
 					</c:if>
 					<c:if test="${comment.hidable}">
 					   <div title="hide comment" onclick="commentHide(this,${currentItem.id},${comment.id})" class="divButton" style="float:right;color:blue;" >&ndash;&nbsp;&nbsp;</div>
@@ -34,7 +34,7 @@
 		<div class="errors" style="color:red;"><%--Error messages inserted by JavaScript --%></div>
         <input type="hidden" name="idEditedComment" value="${comment.id}"/>
 		<textarea id="comm${currentItem.id}" style="width: 250px; height: 60px;" onfocus="maxlength_comment(this,${currentItem.id},50,10);" onkeyup="maxlength_comment(this,${currentItem.id},50,10);"></textarea>
-		<input style="float: right;" type="button" disabled="disabled" value="If you see this, something goes wrong javascript"	onclick="return sendEditComment(this,${currentItem.id});">
+		<input style="float: right;" type="button" disabled="disabled" value="If you see this, something goes wrong javascript"	onclick="return submitComment(this,${currentItem.id});">
 		<div style="float: left;" id="nbrCaract${currentItem.id}"></div>
 		<div class="commentLink divButton" style="float: right;text-align:center;" id="cancel"	onclick="return cancelComment('${currentItem.id}');">Annuler</div>
 	</div>

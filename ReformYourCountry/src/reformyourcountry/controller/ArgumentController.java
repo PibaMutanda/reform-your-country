@@ -51,6 +51,7 @@ public class ArgumentController extends BaseController<Argument>{
         mv.addObject("urlParent", ("/action/"+arg.getAction().getUrl()));
         mv.addObject("parentContent",arg.getContent());
         mv.addObject("commentList",arg.getCommentList());
+        mv.addObject("canNegativeVote",true);
         return mv;
     }
     
@@ -229,7 +230,7 @@ public class ArgumentController extends BaseController<Argument>{
     public ModelAndView commentUnhide(@RequestParam("id")Long idComment) throws AjaxValidationException{
         Comment com = commentRepository.find(idComment);
         
-        if (com.isHidden()) {
+        if (!com.isHidden()) {
             throw new AjaxValidationException("ce commentaire est déjà caché");
         }
         if (!SecurityContext.canCurrentUserHideComment(com)) {
