@@ -22,7 +22,15 @@
         	<input type='submit' id='CkEditFormSubmit' value='Ajouter' style='padding: 3px; margin: 5px;'/>
         </c:when>
          <c:otherwise>
-         	<input type='submit' id='CkEditFormSubmit' value='Sauver' style='padding: 3px; margin: 5px;'/>
+         <div>
+         	<div style="float:right;">
+         		<input type='button' id='CkEditFormAbort' value='Annuler' style='padding: 3px; margin: 5px;'/>
+         	</div>
+         	<div>
+         		<input type='submit' id='CkEditFormSubmit' value='Sauver' style='padding: 3px; margin: 5px;'/>
+         	</div>
+         </div>
+         	
          </c:otherwise>
     </c:choose>
     
