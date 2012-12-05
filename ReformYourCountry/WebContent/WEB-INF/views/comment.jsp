@@ -14,7 +14,7 @@
 					   <div onclick="commentEditStart(this,${currentItem.id},${comment.id},'${comment.content}')" class="divButton" style="float:right;" ><img alt="Editer" title="Editer" src="/images/_global/edit.png" class="icon-11" /></div>
 					</c:if>
 					<c:if test="${comment.hidable}">
-					   <div title="hide comment" onclick="commentHide(this,${currentItem.id},${comment.id})" class="divButton" style="float:right;color:blue;" >&ndash;&nbsp;&nbsp;</div>
+					   <div title="cacher ce commentaire (si par exemple il propose une correction et que cette correction est résolue)" onclick="commentHide(this,${currentItem.id},${comment.id})" class="divButton" style="float:right;color:blue;" >&ndash;&nbsp;&nbsp;</div>
 					</c:if>
 					<div>
 					   ${comment.content} - <a id="underlineUser" href="/user/${comment.createdBy.userName}">${comment.createdBy.userName}</a> - 
