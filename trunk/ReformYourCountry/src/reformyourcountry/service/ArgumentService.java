@@ -35,7 +35,7 @@ public class ArgumentService {
     @Autowired VoteArgumentRepository voteArgumentRepository;
     @Autowired CommentRepository commentRepository;
     @Autowired MailService mailService;
-    
+    @Autowired BadgeService badgeService;
     // A user is voting
     public void updateVoteArgument(Long idArg, int value, User user, Argument arg) {
         VoteArgument vote = getVoteArgument(user, arg);
@@ -52,6 +52,7 @@ public class ArgumentService {
             arg.recalculate();
             argumentRepository.merge(arg);
         }
+        badgeService.grandBadgeForArgumentAuthor(arg.getCreatedBy());
     }   
 
     // Finds the voteArguemnt for the given user on the given argument.

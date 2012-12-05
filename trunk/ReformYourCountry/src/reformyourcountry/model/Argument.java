@@ -156,13 +156,15 @@ public class Argument extends BaseEntity implements IVote{
 	public String toString() {
 		return content;
 	}
+    
     @Override
     public int getTotal(){
         return this.voteCountPro-this.voteCountAgainst;
     }
+    
     public void recalculate(){
-        this.voteCountAgainst=0;
-        this.voteCountPro =0;
+        this.voteCountAgainst = 0;
+        this.voteCountPro = 0;
         for(VoteArgument vote:voteArguments){
             if (vote.getValue()>0){
                 this.incrementVoteCountPro();
@@ -171,6 +173,7 @@ public class Argument extends BaseEntity implements IVote{
             }
         }
     }
+    
     @Override
     public int getVoteValueByUser(User user){
         for(VoteArgument vote:voteArguments){
