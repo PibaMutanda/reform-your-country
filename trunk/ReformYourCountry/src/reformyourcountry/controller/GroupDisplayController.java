@@ -2,6 +2,7 @@ package reformyourcountry.controller;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.model.Group;
 import reformyourcountry.model.GroupReg;
+import reformyourcountry.model.User;
 import reformyourcountry.repository.GroupRegRepository;
 import reformyourcountry.repository.GroupRepository;
 import reformyourcountry.security.Privilege;
@@ -30,60 +32,27 @@ public class GroupDisplayController extends BaseController<Group> {
     @Autowired  GroupRegRepository groupRegRepository;
     @Autowired  CurrentEnvironment currentEnvironment;
     
-    @RequestMapping("/group")
+
+	@RequestMapping("/group")
     public ModelAndView groupDisplay(@RequestParam("id") long id) {
         Group group = getRequiredEntity(id);
         List<GroupReg>groupRegList = groupRegRepository.findAllByGroup(group);
+        
+        List<User> userByGroupList = new ArrayList<User>();
+        for(GroupReg greg:groupRegList){
+           	if(!userByGroupList.contains(greg.getUser())){
+        	   	userByGroupList.add(greg.getUser());
+        	}
+             	
+        }
+        
         ModelAndView mv = new ModelAndView("groupdisplay");
+        mv.addObject("userbygrouplist", userByGroupList);
         mv.addObject("groupRegList", groupRegList);
         mv.addObject("group", group);   
         mv.addObject("random", System.currentTimeMillis());
         return mv;
     }
     
-    @RequestMapping("/groupimageadd")
-    public ModelAndView bookImageAdd(@RequestParam("id") long groupid,
-            @RequestParam("file") MultipartFile multipartFile) throws Exception{    
-        
-        SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_GROUP);
-
-        Group group = groupRepository.find(groupid);
-
-        ModelAndView mv = new ModelAndView("redirect:group", "id", group.getId());
-
-        ///// Save original image, scale it and save the resized image.
-        try {
-            FileUtil.uploadFile(multipartFile, FileUtil.getGenFolderPath(currentEnvironment) + FileUtil.GROUP_SUB_FOLDER + FileUtil.GROUP_ORIGINAL_SUB_FOLDER, 
-                    FileUtil.assembleImageFileNameWithCorrectExtention(multipartFile, Long.toString(group.getId())));
-
-            BufferedImage resizedImage = ImageUtil.scale(new ByteArrayInputStream(multipartFile.getBytes()),120 * 200, 200, 200);
-
-            ImageUtil.saveImageToFileAsJPEG(resizedImage,  
-                    FileUtil.getGenFolderPath(currentEnvironment) + FileUtil.GROUP_SUB_FOLDER + FileUtil.GROUP_RESIZED_SUB_FOLDER, group.getId() + ".jpg", 0.9f);
-
-            group.setHasImage(true);
-            groupRepository.merge(group);
-
-
-        } catch (InvalidImageFileException e) {  //Tell the user that its image is invalid.
-        	NotificationUtil.addNotificationMessage(e.getMessageToUser());
-        }
-
-        return mv;
-    }
     
-    @RequestMapping("/groupimagedelete")
-    public ModelAndView groupImageDelete(@RequestParam("id") long groupid){
-        SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_GROUP);
-
-        Group group = groupRepository.find(groupid);
-
-        FileUtil.deleteFilesWithPattern(FileUtil.getGenFolderPath(currentEnvironment) + FileUtil.GROUP_SUB_FOLDER + FileUtil.GROUP_ORIGINAL_SUB_FOLDER, group.getId()+".*");
-        FileUtil.deleteFilesWithPattern(FileUtil.getGenFolderPath(currentEnvironment) + FileUtil.GROUP_SUB_FOLDER + FileUtil.GROUP_RESIZED_SUB_FOLDER, group.getId()+".*");
-        group.setHasImage(false);
-        groupRepository.merge(group);
-
-        return new ModelAndView("redirect:group", "id", group.getId());
-    }
-
 }

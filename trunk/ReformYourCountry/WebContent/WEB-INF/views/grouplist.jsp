@@ -2,25 +2,24 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags/form"  prefix="form"%>
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
+<%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag"%>
 
 <html>
 <head>
 <title>Liste des groupes</title>
 </head>
 <body>
-	<h1>Liste des groupes</h1>
+	<ryctag:pageheadertitle title="Liste des groupes"></ryctag:pageheadertitle>
 	
 	<ryc:conditionDisplay privilege="MANAGE_GROUP">
-		<form action="/groupcreate" method="get" >
-			<input type="hidden" name="id" value="">
-			<input type="submit"  value="Créer un nouveau groupe" />
-		</form>
+		<a href="/groupcreate?id=" style="font-size:12px">créer</a><br/>
 	</ryc:conditionDisplay>
+	
 	<table>
 		<c:forEach items="${groupList}" var="group">
 			<tr>
-				<td>${group.name}</td>
-				<td>: <a href="/group?id=${group.id}">Détails</a></td>
+				<td><a href="/group?id=${group.id}">${group.name}</a></td>
+		
 			</tr>
 		</c:forEach>
 	</table>

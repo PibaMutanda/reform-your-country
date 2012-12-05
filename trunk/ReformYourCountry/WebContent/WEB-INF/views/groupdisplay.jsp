@@ -8,43 +8,23 @@
 </head>
 <body>
 
-<h1>Nom du groupe : ${group.name}</h1>	
-Description : ${group.description} <br/>
-Url : ${group.url} <br/>
+<ryctag:pageheadertitle title="${group.name}">
+	<ryctag:breadcrumbelement label="groupes" link="/grouplist" />
+	<ryctag:breadcrumbelement label="${group.name}" />
+</ryctag:pageheadertitle>
 
-<c:if test="${group.hasImage==true}">
-   <img src="/gen/group/resized/${group.id}.jpg?random=${random}"  <%-- Random, to force the reload of the image in case it changes (but its name does not change) --%>
-        alt="${group.name}" class="imggroup">
-</c:if>
- 
-<ryc:conditionDisplay privilege="MANAGE_GROUP">
-		<ryctag:submit entity="${group}" value="Editer" action="/groupedit" />
-		
-		<%-- IMAGE --%>
-		<form method="post" action="/groupimageadd" enctype="multipart/form-data">
-			<input type="file" name="file" /> 
-			
-			<input type="hidden" name="id" value="${group.id}" />
-			<input type="submit" value="Uploader une image" />
-		</form>
-		<form method="get" action="/groupimagedelete">
-			<input type="hidden" name="id" value="${group.id}" /> <br>
-			<input type="submit" value="Supprimer une image" />
-		</form>
-		<form method="get" action="/groupremove">
-			<input type="hidden" name="id" value="${group.id}" /> <br>
-			<input type="submit" value="Supprimer un group" />
-		</form>
-</ryc:conditionDisplay>
-	    
-La liste des membres<br /> 
-<table>
-     <c:forEach items="${groupRegList}" var="gReg">
-        <tr><td>${gReg.user.firstName}</td></tr>
-     </c:forEach> 
-</table>
-	    
-	    
-<br><a href="/grouplist">Liste des groupes</a>
+<div style="font-size:12px">
+	<ryc:conditionDisplay privilege="MANAGE_GROUP">
+		 <a href="/groupedit?id=${group.id}">edit</a>&nbsp-&nbsp
+		 <a href="/groupremove?id=${group.id}">supprimer</a>	
+	</ryc:conditionDisplay>
+</div>
+<br/>
+${group.description} <br/><br/>    
+
+<div>
+	<ryctag:usersgrid userList="${userbygrouplist}"></ryctag:usersgrid>
+</div>
+
 </body>
 </html>
