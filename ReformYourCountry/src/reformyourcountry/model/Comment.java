@@ -24,14 +24,6 @@ public class Comment extends BaseEntity{
 	
 	private boolean hidden;
 		
-	public Comment() {
-	}	
-	
-	public Comment(Argument argument)
-	{
-		this.argument = argument;
-	}
-		
 	public String getContent() {
 		return content;
 	}

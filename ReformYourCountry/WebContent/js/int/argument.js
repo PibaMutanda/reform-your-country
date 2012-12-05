@@ -78,18 +78,7 @@ function  unVoteItem(id){
 ///////////////////////////////// COMMENTS
 
 function submitComment(objectButton,commentedItemDbID){
-	dbIdComment = $('#commentAreaForItem'+commentedItemDbID+'> input[name="idEditedComment"]').val();
-	contentComment = $('#comm'+commentedItemDbID).val();
-	
-	values = {content : contentComment};
-
-	if(dbIdComment > 0){//in case of an edit
-		values.idComment =  dbIdComment;
-	} else {//this is a new comment
-		values.idArgument =  commentedItemDbID;
-	}
-	
-	sendValuesAndReplaceItem("/ajax/argument/commenteditsubmit",values,"item"+commentedItemDbID, objectButton);
+	submitComment("/ajax/argument/commenteditsubmit",objectButton,commentedItemDbID);
 }
 
 function deleteComment(objectButton,idDbComment,commentedItemDbID){

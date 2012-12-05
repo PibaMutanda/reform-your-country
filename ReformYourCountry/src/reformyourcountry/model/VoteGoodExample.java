@@ -13,7 +13,7 @@ public class VoteGoodExample extends BaseEntity{
 	private GoodExample goodExample;
 	@ManyToOne
     @JoinColumn(nullable = false)
-	private User user;
+	private User user; // 5/12/12 cannot we replace by createdBy ?
 	
     public GoodExample getGoodExample() {
         return goodExample;

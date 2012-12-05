@@ -1,7 +1,7 @@
 var createEditorOpen = false;
 var editEditorOpen = false;
 
-function editSubmit(idEditedValueContainer, isNewExample){
+function editSubmit(){
 	var idItem = $('#ckEditForm > input[name="idItem"]').val();
 
 	if(typeof idItem === "undefined" || idItem == ""){ //in case of a new item id is not defined
@@ -19,7 +19,7 @@ function editStart(item, editedItemDBId){
 	
 	hideAllCkEditorContainer();
 	sendValues("/ajax/goodexample/edit", 
-				{ argumentId : editedItemDBId }, 
+				{ goodExampleId : editedItemDBId }, 
 				function(data){
 					$("#ckEditForm").empty();
 					$("#item"+editedItemDBId).html(data);
@@ -31,14 +31,14 @@ function editStart(item, editedItemDBId){
 }
 
 // Display editor to create a goodexample
-function createStart(ParamToSend,suffixDivId) {
+function createStart(idParent) {
 	if (showMessageIfNotLogged($('#argumentAddDivFakeEditor'+suffixDivId))) {
 		return;
 	}
 	$('#createDivFakeEditor'+suffixDivId).hide();
 	hideAllCkEditorContainer();
 	sendValues("/ajax/argument/edit",
-				ParamToSend,
+				{ idParent : idParent },
 				function(data){
 					$("#ckEditForm").html("");
 					$('#createDivRealEditor'+suffixDivId).html(data);
@@ -79,18 +79,16 @@ function unVoteItem(idGoodExample){
 
 ///////////////////////////////// COMMENTS
 
-function sendEditComment(item,itemId){
-	sendSimpleValue(item,$('#idComm'+itemId).val(),"item"+itemId,"commentArea"+itemId,"/ajax/argument/commentedit",$("#comm"+itemId).attr("value"));
+function submitComment(objectButton,commentedItemDbID){
+	submitComment("/ajax/goodexample/commenteditsubmit",objectButton,commentedItemDbID);
 }
-function sendNewComment(item,divId,idArg){
-	sendSimpleValue(item,idArg,divId,"commentArea"+idArg,"/ajax/argument/commentadd",$('#comm'+idArg).val());
-}
-function deleteComment(item,DbidComment,commentedItemDbId){
-	var answer = confirm('Etes vous sur de vouloir supprimer ce commentaire?');
-	if (answer)	{
-		sendSimpleValue(item,DbidComment,"item" + commentedItemDbId,"commentArea" + DbidComment,"/ajax/argument/commentdelete","");
+
+function deleteComment(objectButton,idDbComment,commentedItemDbID){
+	if (confirm('Etes vous sur de vouloir supprimer ce commentaire?'))	{
+		sendValuesAndReplaceItem("/ajax/goodexample/commentdelete",{id : idDbComment},"item"+commentedItemDbID, objectButton);
 	}
 }
-function commentHide(item,idArg,DbidComment){
-	sendSimpleValue(item,DbidComment,"item"+idArg,'commentArea'+DbidComment,"/ajax/argument/commenthide","");
+
+function commentHide(item,commentedItemDbID,idDbComment){
+	sendSimpleValue(item,idDbComment,"item"+commentedItemDbID,'commentArea'+idDbComment,"/ajax/goodexample/commenthide","");
 }

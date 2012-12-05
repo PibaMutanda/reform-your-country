@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotBlank;
@@ -30,8 +32,12 @@ public class GoodExample extends BaseEntity implements IVote{
 	@NotBlank(message="entrer une description")
 	private String content;
 	
-	@ManyToMany(mappedBy = "goodExamples")
+	@ManyToMany(mappedBy = "goodExample")
 	private List<Article> articles = new ArrayList <Article>();
+	
+	@OneToMany(mappedBy = "goodExample")
+	@OrderBy("createdOn ASC")
+	private List<Comment> commentList = new ArrayList<Comment>();
 	
 	private int voteCount;
 
@@ -66,6 +72,15 @@ public class GoodExample extends BaseEntity implements IVote{
     public void addArticle(Article article){
 		articles.add(article);
 	}
+    
+    public List<Comment> getCommentList() {
+        return commentList;
+    }
+
+
+    public void setCommentList(List<Comment> commentList) {
+        this.commentList = commentList;
+    }
 
 	@Override
 	public int getTotal() {
