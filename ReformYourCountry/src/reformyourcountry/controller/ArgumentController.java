@@ -167,6 +167,7 @@ public class ArgumentController extends BaseController<Argument>{
                 argument.recalculate();
                 argumentRepository.merge(argument);
                 voteArgumentRepository.remove(vote);
+                badgeService.grandBadgeForArgumentAuthor(argument.getCreatedBy());
                 break;
             }
         }
