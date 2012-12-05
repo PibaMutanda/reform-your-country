@@ -42,6 +42,7 @@ function sendValuesAndReplaceItem (url,values,idItemToReplace, ObjectBubbleAttac
 			function(data){
 				//Send the new data to the div containing the argument
 				$("#"+idItemToReplace).html(data);
+				console.log("i replace");
 				$("#"+idItemToReplace).effect("highlight", {}, 1500);
 			}, 
 			idItemToReplace, 
@@ -53,9 +54,11 @@ function sendValues(url, values, succesFunction, idErrorContainer, ObjectBubbleA
 		return;
 	}
 	$.post(url,values
-	).success(function(){
-		if (succesFunction != undefined) {
-			succesFunction;
+	).success(function(data){
+		console.log("it's a success");
+		if (typeof succesFunction === 'function') {
+			console.log("i execute the succes function");
+			succesFunction(data);
 		}	
 	}).error(function(jqXHR, textStatus) {
 		var exceptionVO = jQuery.parseJSON(jqXHR.responseText);
@@ -69,22 +72,6 @@ function sendValues(url, values, succesFunction, idErrorContainer, ObjectBubbleA
  */
 function sendValue(url, value, idErrorContainer, succesFunction){
 	sendValues(url, {value : value}, idErrorContainer, succesFunction);
-}
-/**
- * send value(s) as post
- * @param values :  an json of values to send
- */
-function sendValues(url, values, idErrorContainer,succesFunction){
-	$.post(url,values
-	).success(function(){
-		if (succesFunction != undefined) {
-			succesFunction;
-		}	
-	}).error(function(jqXHR, textStatus) {
-		var exceptionVO = jQuery.parseJSON(jqXHR.responseText);
-		console.error(exceptionVO.method + " in " + exceptionVO.clazz + " throw " + exceptionVO.message);
-		addErrorMessage(exceptionVO.message,idErrorContainer);
-	});
 }
 
 function addErrorMessage(msg,idItem){	
@@ -124,10 +111,10 @@ function commentEditStart(item, itemToCommentDbId,idComment,content){
 	
 	$button = $('#commentAreaForItem'+itemToCommentDbId+'> input[type="button"]');
 	$textarea = $("#comm"+itemToCommentDbId);
-	$idCommentHiddenField = $("#idComm"+itemToCommentDbId);
+	$idCommentHiddenField = $('#commentAreaForItem'+itemToCommentDbId+'> input[name="idEditedComment"]');
 	
 	////Initialize content textarea and id hidden field
-	if(! typeof content === "undefined" && ! typeof idComment === "undefined") { //this is a comment edit
+	if(typeof content !== "undefined" && typeof idComment !== "undefined") { //this is a comment edit
 		$textarea.val(content);
 		$idCommentHiddenField.val(idComment);
 		$button.val("Modifier");
@@ -150,7 +137,6 @@ function maxlength_comment(textarea, itemToCommentId, max, min) {
 		var mini = min-currentLength;
 		$lengthCountMessage.html("Vous devez encore entrer " +mini+ " caractères");
 		$button.prop('disabled', true);
-		$buttonEdit.prop('disabled', true);
 	} else {
 		if (currentLength>max) {
 			textarea.value=textarea.value.substr(0,max);
@@ -160,7 +146,6 @@ function maxlength_comment(textarea, itemToCommentId, max, min) {
 		var maxi = max-currentLength;
 		$lengthCountMessage.html(maxi + " caractères restant");	
 		$button.prop('disabled', false);
-		$buttonEdit.prop('disabled', false);
 	}
 }
 

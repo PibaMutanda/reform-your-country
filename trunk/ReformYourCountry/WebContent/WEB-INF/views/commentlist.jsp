@@ -8,7 +8,7 @@
 						<a href="javascript:sendSimpleValue(this,${comment.id},'content',${comment.id},'ajax/argument/commentunhide')">unhide</a>
 					</c:if>
 					<div>
-					${comment.content} - <a id="underlineUser" href="/user/${comment.user.userName}">${comment.user.userName}</a> - 
+					${comment.content} - <a id="underlineUser" href="/user/${comment.createdBy.userName}">${comment.createdBy.userName}</a> - 
 					${comment.formatedCreatedOn}
 					</div>	
 			</div>

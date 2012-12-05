@@ -17,7 +17,6 @@ function hideAllCkEditorContainer(){
 	if(typeof isNew ==="undefined" || isNew==""){
 		$('#argumentAddDivFakeEditor'+ispos).show();
 		$('#argumentAddDivRealEditor'+ispos).empty().hide();
-
 	}else{
 		sendSimpleValue(null,isNew,'item'+isNew,'item'+isNew,"/ajax/argument/refresh",""); //Refresh the div with the arg values no changes
 	}
@@ -61,8 +60,8 @@ function deleteItem(item,idArgument){
 	var answer = confirm('Etes vous sur de vouloir supprimer cet argument?');
 	if (answer)
 	{
-		sendSimpleValue(item,idArgument,"item"+idArgument,"item"+idArgument,"/ajax/argument/argdelete","");
-    	$("#item"+idArgument).empty.hide();
+		sendSimpleValue(item,idArgument,"item"+idArgument,"item"+idArgument,"/ajax/argument/delete","");
+    	$("#item"+idArgument).empty().hide();
 	}
 }
 ///////////////////////////////// VOTES 
@@ -78,22 +77,27 @@ function  unVoteItem(id){
 
 ///////////////////////////////// COMMENTS
 
-function sendEditComment(item,itemId){
-	sendSimpleValue(item,$('#idComm'+itemId).val(),"item"+itemId,"commentArea"+itemId,"/ajax/argument/commentedit",$("#comm"+itemId).attr("value"));
+function submitComment(objectButton,commentedItemDbID){
+	dbIdComment = $('#commentAreaForItem'+commentedItemDbID+'> input[name="idEditedComment"]').val();
+	contentComment = $('#comm'+commentedItemDbID).val();
+	
+	values = {content : contentComment};
+
+	if(dbIdComment > 0){//in case of an edit
+		values.idComment =  dbIdComment;
+	} else {//this is a new comment
+		values.idArgument =  commentedItemDbID;
+	}
+	
+	sendValuesAndReplaceItem("/ajax/argument/commenteditsubmit",values,"item"+commentedItemDbID, objectButton);
 }
-function sendNewComment(item,divId,idArg){
-	sendSimpleValue(item,idArg,divId,"commentArea"+idArg,"/ajax/argument/commentadd",$('#comm'+idArg).val());
-}
-function deleteComment(item,idComment,idDiv){
-	var answer = confirm('Etes vous sur de vouloir supprimer ce commentaire?');
-	if (answer)	{
-		sendSimpleValue(item,idComment,idDiv,"commentArea"+idComment,"/ajax/argument/commentdelete","");
+
+function deleteComment(objectButton,idDbComment,commentedItemDbID){
+	if (confirm('Etes vous sur de vouloir supprimer ce commentaire?'))	{
+		sendValuesAndReplaceItem("/ajax/argument/commentdelete",{id : idDbComment},"item"+commentedItemDbID, objectButton);
 	}
 }
 
 function commentHide(item,idArg,idComment){
 	sendSimpleValue(item,idComment,"item"+idArg,'commentArea'+idComment,"/ajax/argument/commenthide","");
 }
-
-
-
