@@ -60,7 +60,7 @@
 
 
 	<div style="display:inline-block"><!-- DO NOT REMOVE OTHERWISE TITLE AND MENU ARE UPSIDE DOWN	 -->
-		<div class="article-options">
+		<div class="small-text">
 	    <ryc:conditionDisplay privilege="MANAGE_ARTICLE" >
 			 <a href="/article/contentedit?id=${article.id}" >éditer contenu</a>
 			 - <a href="/article/summaryedit?id=${article.id}" >éditer résumé</a>
