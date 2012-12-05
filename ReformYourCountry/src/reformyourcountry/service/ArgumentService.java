@@ -78,7 +78,7 @@ public class ArgumentService {
 
     public void notifyByEmailNewCommentPosted(Argument argument,Comment comment){
         User userPostComment = SecurityContext.getUser();
-        User ownerArg = argument.getUser();
+        User ownerArg = argument.getCreatedBy();
         Date date = comment.getCreatedOn();
         String dateString = DateUtil.formatddMMyyyyHHmm(date);
         
