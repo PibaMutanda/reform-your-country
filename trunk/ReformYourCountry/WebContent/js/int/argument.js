@@ -54,13 +54,6 @@ function argumentCreateStart(isPos, idAction) {
 
 }
 
-function argumentCreateFinalize(isPos){
-	console.log("i finalize");
-	$('#argumentAddDivFakeEditor'+isPos).show();  // Show the fake textarea to invite the user adding an argument.
-	$('#argumentAddDivRealEditor'+isPos).empty().hide();  // a small visible part may remain due to padding.
-}
-
-
 function deleteItem(item,idArgument){
 	var answer = confirm('Etes vous sur de vouloir supprimer cet argument?');
 	if (answer)

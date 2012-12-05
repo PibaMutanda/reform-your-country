@@ -35,7 +35,10 @@ function sendSimpleValue(button,idItem,idEditedValueContainer,IdErrorMessageCont
 		addErrorMessage(exceptionVO.message,idEditedValueContainer);
 	});
 }
-function sendValues(url, values, succesFunction){
+function sendValues(url, values, succesFunction, idErrorContainer, ObjectBubbleAttached){
+	if (showMessageIfNotLogged(ObjectBubbleAttached)) {
+		return;
+	}
 	$.post(url,values
 	).success(function(){
 		if (succesFunction != undefined) {
@@ -44,16 +47,8 @@ function sendValues(url, values, succesFunction){
 	}).error(function(jqXHR, textStatus) {
 		var exceptionVO = jQuery.parseJSON(jqXHR.responseText);
 		console.error(exceptionVO.method + " in " + exceptionVO.clazz + " throw " + exceptionVO.message);
-		addErrorMessage(exceptionVO.message,idEditedValueContainer);
+		addErrorMessage(exceptionVO.message,idErrorContainer);
 	});
-}
-/**
- * send value as post and reload the window after
- * @param value : the value to send with value as parameter name
- */
-function sendValuesAndReload(url, value, idErrorContainer){
-	sendValues(url, value, idErrorContainer);
-	window.location.reload();
 }
 /**
  * send one value as post
@@ -87,14 +82,19 @@ function addErrorMessage(msg,idItem){
 //VOTE
 
 function unVote(url,idItem,idItemToReplace){
-	var requestArg = $.post(url,
-			{id : idItem},function(data){
-				$("#"+idItemToReplace).replaceWith(data);
-				$("#"+idItemToReplace).effect("highlight", {}, 3000);
-			});
-	requestArg.fail(function(jqXHR, textStatus) {
-		addErrorMessageInEditor("Erreur de communication lors d'un vote"+textStatus);
-	});
+	$.post(url,{id : idItem}
+	).success(
+		function(data){
+			$("#"+idItemToReplace).replaceWith(data);
+			$("#"+idItemToReplace).effect("highlight", {}, 3000);
+		}
+	).error(
+		function(jqXHR, textStatus) {
+			var exceptionVO = jQuery.parseJSON(jqXHR.responseText);
+			console.error(exceptionVO.method + " in " + exceptionVO.clazz + " throw " + exceptionVO.message);
+			addErrorMessage(exceptionVO.message,idEditedValueContainer);
+		}
+	);
 }
 function vote(item,url,value,idParent,idItemToReplace){
 	sendSimpleValue(item,idParent,idItemToReplace,idParent,url,value);
@@ -117,7 +117,7 @@ function commentEditStart(item, idParent,idComment,content){
 
 }
 
-function commentAddStart(item, idParent){
+function commentCreateStart(item, idParent){
 	if (showMessageIfNotLogged(item)) {
 		return;
 	}
@@ -132,8 +132,7 @@ function commentAddStart(item, idParent){
 
 
 function maxlength_comment(textarea, itemToCommentId, max, min) {
-	$button = $('#sendArgComm'+itemToCommentId);
-	$buttonEdit=$('#sendEditComm'+itemToCommentId);
+	$button = $('#commentAreaForItem'+itemToCommentId+'> input[type="button"]');
 	$lengthCountMessage = $('#nbrCaract'+itemToCommentId);
 	var currentLength = textarea.value.length;
 	
@@ -156,7 +155,7 @@ function maxlength_comment(textarea, itemToCommentId, max, min) {
 }
 
 function cancelComment(idItem){
-	$("#addcom"+idItem).show();
-	$("#commentArea"+idItem).hide();
+	$("#addcomForItem"+idItem).show();
+	$("#commentAreaForItem"+idItem).hide();
 	
 }

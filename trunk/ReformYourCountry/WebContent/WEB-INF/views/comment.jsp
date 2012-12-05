@@ -9,7 +9,7 @@
 		<c:if test="${!comment.hidden}">
 			<div style="margin:0px; width:100%;">
 					<c:if test="${comment.editable}">
-						<div onclick="deleteComment(this,${comment.id},'item${currentItem.id}')" class="divButton" style="vertical-align:text-top; color:red;font-size:1em; font-weight: bold;float:right;" title="Supprimer">&nbsp;X</div>
+						<div onclick="deleteComment(this,${comment.id},${currentItem.id})" class="divButton" style="vertical-align:text-top; color:red;font-size:1em; font-weight: bold;float:right;" title="Supprimer">&nbsp;X</div>
 						<div onclick="commentEditStart(this,${currentItem.id},${comment.id},'${comment.content}')" class="divButton" style="float:right;" ><img alt="Editer" title="Editer" src="/images/_global/edit.png" class="icon-11" /></div>
 					</c:if>
 					<c:if test="${comment.hidable}">
@@ -25,11 +25,11 @@
 	<div  style="font-size:1.3em;">
 		<%@include file="help.jsp"%>
 	</div>
-	<div id="addcom${currentItem.id}">
+	<div id="addcomForItem${currentItem.id}">
 		<br>
-		<div class="commentLink" class="commentLink divButton" onclick="commentAddStart(this,${currentItem.id})">commenter</div>
+		<span class="commentLink" class="commentLink divButton" onclick="commentCreateStart(this,${currentItem.id})">commenter</span>
 	</div>
-	<div id="commentArea${currentItem.id}" style="display: none;">
+	<div id="commentAreaForItem${currentItem.id}" style="display: none;">
 		<div id="errors" style="color:red;"><%--Error messages inserted by JavaScript --%></div>
 		<input type="hidden" id="idComm${currentItem.id}" name="id" value=""/>
 		<textarea id="comm${currentItem.id}" style="width: 250px; height: 60px;" onfocus="maxlength_comment(this,${currentItem.id},50,10);" onkeyup="maxlength_comment(this,${currentItem.id},50,10);"></textarea>
