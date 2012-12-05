@@ -14,7 +14,9 @@ public enum BadgeType {
 	INQUISITOR          ("Inquisiteur","a voté sur 200 arguments",BadgeTypeLevel.GOLD,true),
 	LAWYER              ("Avocat","A écrit 1 argument qui a recueilli un score de 10", BadgeTypeLevel.BRONZE, true),
 	TENOR               ("Ténor","A écrit 5 arguments qui ont chacun recueilli un score de 20", BadgeTypeLevel.SILVER,true),
-	LUMINARY            ("Sommité","A écrit 20 arguments qui ont chacun recueilli un score de 100", BadgeTypeLevel.GOLD,true);
+	LUMINARY            ("Sommité","A écrit 20 arguments qui ont chacun recueilli un score de 100", BadgeTypeLevel.GOLD,true),
+	COMMENTATOR         ("Commentateur","A ajouté 10 commentaires à des arguments ou de bons exemples",BadgeTypeLevel.BRONZE,false),
+	BLABBERMOUTH        ("Pipelette","A ajouté 100 commentaires à des arguments ou de bons exemples",BadgeTypeLevel.SILVER,false);
 	
 	private BadgeType(String name, String description, BadgeTypeLevel badgeTypeLevel,boolean mailConfirm) {
 		this.name = name;

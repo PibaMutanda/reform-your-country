@@ -1,4 +1,3 @@
-
 package reformyourcountry.service;
 
 import java.util.List;
@@ -16,6 +15,7 @@ import reformyourcountry.model.User;
 import reformyourcountry.repository.ActionRepository;
 import reformyourcountry.repository.ArgumentRepository;
 import reformyourcountry.repository.BadgeRepository;
+import reformyourcountry.repository.CommentRepository;
 import reformyourcountry.repository.VoteArgumentRepository;
 import reformyourcountry.util.NotificationUtil;
 
@@ -33,6 +33,8 @@ public class BadgeService {
     ArgumentRepository argumentRepository;
     @Autowired
     VoteArgumentRepository voteArgumentRepository;
+    @Autowired
+    CommentRepository commentRepository;
 
     public void createBadgeIfNotAlreadyExist(BadgeType badgeType, User user) {
         if (user.isHasBadgeType(badgeType)) {
@@ -109,10 +111,10 @@ public class BadgeService {
         int argHaving100Votes = 0;
 
         for (Argument arg : argumentsForUser) {
-            if (arg.getTotal() >= 1) {  
+            if (arg.getTotal() >= 1) {
                 argHaving10Votes++;
-            }   
-            if (arg.getTotal() >= 5) { 
+            }
+            if (arg.getTotal() >= 5) {
                 argHaving20Votes++;
             }
             if (arg.getTotal() >= 20) {
@@ -165,4 +167,16 @@ public class BadgeService {
         grantBadgeForVoteAction(user);
         grandBadgeForArgumentVoter(user);
     }
+
+    public void grandBadgeForComment(User user) {
+        long countComment = commentRepository.countCommentsForUser(user);
+
+        if (countComment >= 10) {
+            createBadgeIfNotAlreadyExist(BadgeType.COMMENTATOR, user);
+        }
+        if (countComment >= 100) {
+            createBadgeIfNotAlreadyExist(BadgeType.BLABBERMOUTH, user);
+        }
+    }
+
 }

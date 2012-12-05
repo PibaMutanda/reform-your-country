@@ -41,7 +41,7 @@ public class ArgumentController extends BaseController<Argument>{
     @Autowired ArgumentService argumentService;
     @Autowired ActionService actionService;
     @Autowired BadgeService badgeService;
-    
+   
     @RequestMapping("/argument")
     public ModelAndView showArgument(@RequestParam("id") Long id) {
         ModelAndView mv = new ModelAndView("commentlist");
@@ -147,7 +147,7 @@ public class ArgumentController extends BaseController<Argument>{
             argumentRepository.merge(argument); 
             
             argumentService.notifyByEmailNewCommentPosted(argument,comment);
-            
+            badgeService.grandBadgeForComment(comment.getCreatedBy());
             
             return returnitemDetail(argument);
         }else {
@@ -217,10 +217,7 @@ public class ArgumentController extends BaseController<Argument>{
         }
         com.setContent(content);
         commentRepository.merge(com);
-        Argument argument = com.getArgument();
-        return returnitemDetail(argument);
-        
-        
+        return returnitemDetail(com.getArgument());
     }
 
     @RequestMapping("/ajax/argument/argdelete")

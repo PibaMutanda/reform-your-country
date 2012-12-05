@@ -17,7 +17,7 @@ $(document).ready(function(){
                      display:none;">  <%-- display none because will be shown through animation by the docuiment ready javascript --%>
 		        <a id="notificationCloser" style="float:right; padding:0px 0px 0px 10px; cursor: pointer;" onclick="$('#notificationArea').slideUp();">×</a>
 		        <c:forEach items="${sessionScope.notifications}"   var="notif">
-		           ${notif.text}
+		           ${notif.text}<br/>
    	            </c:forEach>
    	            <% session.removeAttribute("notifications"); %>
 		   </div>
