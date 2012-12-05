@@ -47,14 +47,42 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     public static final String UNIVERSAL_PASSWORD_MD5 = "477bc098b8f2606137c290f9344dcee8";
     public static final String UNIVERSAL_DEV_PASSWORD_MD5 = "e77989ed21758e78331b20e477fc5582";  // "dev" in clear. -> any developer can use "dev" to impersonate anybody when developing. Does not work in production. 
 
+  //this variable is for counting the total of points for each badge 
+    private Integer badgePoints;
 
-    public enum SpecialType {
+    public Integer getBadgePoints() {
+		return badgePoints;
+	}
+
+    public void RecalculateBadgePoints(User user){
+		Integer badgePointsCounter = 0;
+		Set<Badge> badgeList = user.getBadges();
+		for(Badge b : badgeList){
+			if (b.getBadgeType().getBadgeTypeLevel() == BadgeTypeLevel.GOLD){
+				badgePointsCounter+=100;
+				
+			} else if (b.getBadgeType().getBadgeTypeLevel() == BadgeTypeLevel.SILVER) {
+				badgePointsCounter+=10;
+				
+			} else if (b.getBadgeType().getBadgeTypeLevel() == BadgeTypeLevel.BRONZE) {
+				badgePointsCounter+=1;
+				
+			} else {  // Defensive coding.
+				throw new RuntimeException("Bug: non supported badge type "+b.getBadgeType()+" for user " +b.getUser().getId());
+			}
+		}
+		this.badgePoints = badgePointsCounter;    
+	}
+
+	public enum SpecialType {
         POLITIC("Politic","Partis"),
         UNION("Union","Syndicats"),
         ASSOCIATION("Association","Associations"),
         PRIVATE("Private","Particuliers");
         
         String name,familyName;
+        
+        
         
         SpecialType(String name,String familyName){
             this.name=name;
@@ -529,9 +557,11 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     public String getFullName() {
         String lnChar = (lastName == null || lastName.isEmpty()) ? "" : " "
                 + StringUtils.capitalize(lastName);
-        String firstAndLastName = StringUtils.capitalize(firstName) + lnChar;
+        String firstAndLastName = (firstName == null || firstName.isEmpty()) ? "" : " "
+                + StringUtils.capitalize(firstName)
+                + lnChar;
         
-        if (!StringUtil.isBlank(firstAndLastName)) {
+        if (!StringUtil.isBlank(firstAndLastName)  ) {
             return firstAndLastName;
         } else {
             return this.getUserName();
