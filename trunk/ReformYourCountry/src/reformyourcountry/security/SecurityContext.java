@@ -206,22 +206,32 @@ public  class SecurityContext {
     public static void assertCurrentUserCanEditArgument(Argument arg){
         User user = SecurityContext.getUser();
         if (user != null){
-            if((arg.getUser()==user)||isUserHasPrivilege(Privilege.MANAGE_ARGUMENT)){
+            if((arg.getCreatedBy()==user)||isUserHasPrivilege(Privilege.MANAGE_ARGUMENT)){
                 return;
             }
         }
         throw new UnauthorizedAccessException(" cannot edit that Argument: "+arg.getTitle());
     }
     
+    public static void assertCurrentUserCanEditComment(Comment comment){
+        assertUserIsLoggedIn();
+        if(comment.getCreatedBy().equals(getUser()) // If the user is editing himself
+                || isUserHasPrivilege(Privilege.MANAGE_ARGUMENT) 
+                || isUserHasPrivilege(Privilege.MANAGE_GOODEXAMPLE) ){
+            return;
+        }
+        throw new UnauthorizedAccessException(" cannot edit that Comment: "+comment.getId());
+    }
+    
     public static boolean canCurrentUserEditArgument(Argument arg) { 
-        return arg.getUser().equals(getUser()) // If the user is editing himself
+        return arg.getCreatedBy().equals(getUser()) // If the user is editing himself
                 || isUserHasPrivilege(Privilege.MANAGE_ARGUMENT);     // or If this user has the privilege to edit other users
 
     }
     
     public static boolean canCurrentUserEditComment(Comment com) { 
     	////this method is used for argument and goodExample
-        return com.getUser().equals(getUser()) // If the user is editing himself
+        return com.getCreatedBy().equals(getUser()) // If the user is editing himself
                 || isUserHasPrivilege(Privilege.MANAGE_ARGUMENT) 
                 || isUserHasPrivilege(Privilege.MANAGE_GOODEXAMPLE);    
     }

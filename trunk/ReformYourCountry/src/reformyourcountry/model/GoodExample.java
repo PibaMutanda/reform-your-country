@@ -1,7 +1,6 @@
 package reformyourcountry.model;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -29,7 +28,7 @@ public class GoodExample extends BaseEntity implements IVote{
     @Type(type="org.hibernate.type.StringClobType")
 	@Column(nullable = false)
 	@NotBlank(message="entrer une description")
-	private String description;
+	private String content;
 	
 	@ManyToMany(mappedBy = "goodExamples")
 	private List<Article> articles = new ArrayList <Article>();
@@ -44,12 +43,12 @@ public class GoodExample extends BaseEntity implements IVote{
 		this.title = title;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getContent() {
+		return content;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 	public List<Article> getArticles() {

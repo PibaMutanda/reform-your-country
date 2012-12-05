@@ -36,46 +36,19 @@ public class Argument extends BaseEntity implements IVote{
 	@OneToMany(mappedBy = "argument")
 	@OrderBy("createdOn ASC")
 	private List<Comment> commentList = new ArrayList<Comment>();
-	public List<Comment> getCommentList() {
-		return commentList;
-	}
-
-
-	public void setCommentList(List<Comment> commentList) {
-		this.commentList = commentList;
-	}
-	@ManyToOne
-	@JoinColumn(nullable = false)
-	private User user;
 	private int voteCountPro;
 	//use it as +1 not as -1
 	private int voteCountAgainst;
 	private boolean positiveArg;
 	
-	public boolean isPositiveArg() {
-        return positiveArg;
-    }
-
-
-    public void setPositiveArg(boolean positiveArg) {
-        this.positiveArg = positiveArg;
-    }
-
-
     public Argument (){
 		
 	}
 	
 	
-	public Argument(String title,String content, Action action, User user ) {
-
-        this.voteCountAgainst=0;
-        this.voteCountPro =0;
-	    this.title = title;
-		this.content = content;
+	public Argument(Action action,boolean isAPositiveArgument) {
 		this.action = action;
-		this.user = user;
-		
+		this.positiveArg = isAPositiveArgument;
 	}
 	
 	public String getTitle() {
@@ -112,17 +85,6 @@ public class Argument extends BaseEntity implements IVote{
 		return voteArguments;
 	}
 	
-	
-	public User getUser() {
-		return user;
-	}
-
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-
 	public int getVoteCountPro() {
         return voteCountPro;
     }
@@ -131,7 +93,15 @@ public class Argument extends BaseEntity implements IVote{
     public void incrementVoteCountPro() {
         voteCountPro++;
     }
+    
+    public List<Comment> getCommentList() {
+        return commentList;
+    }
 
+
+    public void setCommentList(List<Comment> commentList) {
+        this.commentList = commentList;
+    }
 
     public int getVoteCountAgainst() {
         return voteCountAgainst;
@@ -152,16 +122,23 @@ public class Argument extends BaseEntity implements IVote{
     	this.commentList.add(comment);
     }
     
+    public boolean isPositiveArg() {
+        return positiveArg;
+    }
+
+
+    public void setPositiveArg(boolean positiveArg) {
+        this.positiveArg = positiveArg;
+    }
+    
     @Override
 	public String toString() {
 		return content;
 	}
-    
     @Override
     public int getTotal(){
         return this.voteCountPro-this.voteCountAgainst;
     }
-    
     public void recalculate(){
         this.voteCountAgainst = 0;
         this.voteCountPro = 0;
@@ -173,7 +150,6 @@ public class Argument extends BaseEntity implements IVote{
             }
         }
     }
-    
     @Override
     public int getVoteValueByUser(User user){
         for(VoteArgument vote:voteArguments){
