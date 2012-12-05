@@ -9,25 +9,62 @@
 <meta name="Keywords" content="utilisateur, informations" />
 <meta name="robots" content="index, follow" />
 <meta name="googlebot" content="noarchive"/>
+<title>Utilisateurs</title>
+<script>
+<c:set var="search" value="${search}"/>
+    $(function() {
+        if(${!search}){
+        	$("#tabs").tabs();
+        }else{
+        	$("#tabs").tabs({selected: 2});
+        }
+    });
+</script>
 </head>
 <body>
-<ryctag:pageheadertitle title="Rechercher des utilisateurs"></ryctag:pageheadertitle>
-	<ryc:conditionDisplay privilege="MANAGE_USERS">
-		 <a href="/privilegeoverview">voir rôles et privilèges des utilisateurs</a>
-	</ryc:conditionDisplay>
-	<form action="/user" method="GET">
-		prénom, nom ou pseudo <input type="text" name="name"/> 
-		<input type="submit" value="rechercher" />
-	</form>
-	<table>
-		<c:forEach items="${userList}" var="user">
-			<tr>
-				<td>${user.userName}</td>
-				<td>${user.firstName}</td>
-				<td>${user.lastName}</td>
-				<td><a href="/user/${user.userName}">Afficher les détails</a></td>
-			</tr>
-		</c:forEach>
-	</table>
+<ryctag:pageheadertitle title="Utilisateurs"></ryctag:pageheadertitle>
+<div id="tabs">
+		<ul>
+			<li><a href="#tabs-1">Top contributeurs</a></li>
+			<li><a href="#tabs-2">Derniers inscrits</a></li>
+			<li><a href="#tabs-3">Recherche</a></li>
+				<ryc:conditionDisplay privilege="MANAGE_USERS">
+					<li><a href="#tabs-4">Privilèges utilisateurs</a></li>
+				</ryc:conditionDisplay>
+		</ul>
+		<div id="tabs-1">
+			<ryctag:usersgrid userList="${topUserList}"></ryctag:usersgrid>
+		</div>
+		<div id="tabs-2">
+			<ryctag:usersgrid userList="${lastUsersRegistered}"></ryctag:usersgrid>
+		</div>
+		<div id="tabs-3">
+			<form action="/user" method="GET">
+				prénom, nom ou pseudo <input type="text" name="name"/> 
+				<input type="submit" value="rechercher" />
+			</form>
+			<ryctag:usersgrid userList="${usersList}"></ryctag:usersgrid>
+		</div>
+		<ryc:conditionDisplay privilege="MANAGE_USERS">
+		<div id="tabs-4">
+			 <table border="1">
+				<tr>
+					<th>Pseudo</th>
+					<th>Role</th>
+					<th>Privileges</th>
+					<th>Editer privileges</th>
+				</tr>
+				<c:forEach items="${infoList}" var="info">
+					<tr>
+						<td><a href= "/user/${info.user.userName}">${info.user.userName}</a></td>
+						<td>${info.user.role}</td>
+						<td>${info.privileges}</td>
+						<td><a href= "/user/privilegeedit?id=${info.user.id}">Editer</a></td>
+					</tr>
+				</c:forEach>
+			</table>
+		</div>
+		</ryc:conditionDisplay>
+	</div>
 </body>
 </html>
