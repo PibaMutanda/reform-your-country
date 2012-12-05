@@ -32,7 +32,7 @@ public class GoodExample extends BaseEntity implements IVote{
 	@NotBlank(message="entrer une description")
 	private String content;
 	
-	@ManyToMany(mappedBy = "goodExample")
+	@ManyToMany(mappedBy = "goodExamples")
 	private List<Article> articles = new ArrayList <Article>();
 	
 	@OneToMany(mappedBy = "goodExample")
