@@ -22,19 +22,14 @@ public class Comment extends BaseEntity{
 	@JoinColumn(nullable = true)
 	private GoodExample goodExample;
 	
-	@ManyToOne
-	private User user;
-	
 	private boolean hidden;
 		
 	public Comment() {
 	}	
 	
-	public Comment(String content, Argument argument, User user)
+	public Comment(Argument argument)
 	{
-		this.content = content;
 		this.argument = argument;
-		this.user = user;
 	}
 		
 	public String getContent() {
@@ -51,14 +46,6 @@ public class Comment extends BaseEntity{
 
 	public void setArgument(Argument argument) {
 		this.argument = argument;
-	}
-
-	public User getUser() {
-		return user;
-	}
-	
-	public void setUser(User user) {
-		this.user = user;
 	}
 
     public GoodExample getGoodExample() {

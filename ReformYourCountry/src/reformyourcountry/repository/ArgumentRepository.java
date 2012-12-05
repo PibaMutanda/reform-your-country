@@ -14,7 +14,7 @@ public class ArgumentRepository extends BaseRepository<Argument>{
     
     public List<Argument> findByUser(User user){
         if (user!=null){
-            return (List<Argument>) em.createQuery("select a from Argument a where a.user = :user")
+            return (List<Argument>) em.createQuery("select a from Argument a where a.createdBy = :user")
                     .setParameter("user",user)
                     .getResultList();
         }
