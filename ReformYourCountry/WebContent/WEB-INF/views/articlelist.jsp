@@ -14,7 +14,7 @@
 
 <ryc:conditionDisplay privilege="MANAGE_ARTICLE">
 <div style="display:inline-block">
-<div class="article-options">
+<div class="small-text">
 <!-- 			    <ul class="list sitemap-list"> -->
 					 <a href="/article/create">Créer un article</a>
 					 - <a href="/article/image">Images d'articles</a>

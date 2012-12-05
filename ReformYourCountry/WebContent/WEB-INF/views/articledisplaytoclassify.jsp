@@ -22,7 +22,7 @@
 	<ul style="float:left">
 		<li><a href="/article/${article.url}">Retour a l'article</a></li>
 	</ul>
-	<div class="article-options">
+	<div class="small-text">
 		<ul class="list sitemap-list">
 			<li><a href="/article/edit?id=${article.id}">Editer l'article</a></li>
 			<li><a href="/article/parentedit?id=${article.id}">Editer l'article parent</a></li>
