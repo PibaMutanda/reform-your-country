@@ -9,3 +9,5 @@ alter table users
 ALTER TABLE goodexample RENAME description TO content;
 ALTER TABLE argument DROP COLUMN user_id ;
 ALTER TABLE comment DROP COLUMN user_id  ;
+
+XXXXXXXXXXXXXXXXX->>>>>>>>>>>>>>>>>>> deployed. Use 0.1.0.sql 
