@@ -16,7 +16,7 @@
 	</div>
 	<a href="/user/${user.userName}" class="a-name">
       <div class="lien">
-		<span>${user.firstName} ${user.lastName}</span>
+		<span>${user.getFullName()}</span>
 		<c:if test="${user.certificationDate != null }">
 			<img src="images/green-check.png" />
 		</c:if>

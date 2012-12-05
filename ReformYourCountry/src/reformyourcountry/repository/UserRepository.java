@@ -61,6 +61,14 @@ public class UserRepository extends BaseRepository<User>{
     public Long findMaxIdValue(){
     	return (Long)em.createQuery("select max(u.id) from User u").getSingleResult();
     }
-    
-    
+    public List<User> FindUserOrderByContribution(int maxResult){
+    	return em.createQuery("select u from User u order by u.badgePoints")
+    			.setMaxResults(maxResult)
+    			.getResultList();
+    }
+    public List<User> FindLastUsersRegistred(int maxResult){
+    	return em.createQuery("select u from User u order by u.createdOn DESC")
+    			.setMaxResults(maxResult)
+    			.getResultList();
+    }
 }
