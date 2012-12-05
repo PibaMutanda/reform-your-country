@@ -65,7 +65,6 @@ function resetErrorMessagesInEditor(){
 
 //Finishes the activation of the editor
 function activateCkEditorAndHelpDiv(itemId) {
-	console.log(ckEditorUniqueInstance);
 	createCkEditor("contentItem");
 	showHelp('ckEditForm','help'+itemId);
 }

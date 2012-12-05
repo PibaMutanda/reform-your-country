@@ -16,22 +16,20 @@ Insert breadcrumb elements here
    var idUser = "${current.user.id}";
 </script>
 <div id="list">
-<c:forEach items="${article.goodExamples}" var="goodExample">
-<div id="${goodExample.id}">
-    <%@include file="goodexampledisplay.jsp" %>
-</div>
-</c:forEach>
+      <c:forEach items="${article.goodExamples}" var="currentItem">
+            <%@include file="itemdetail.jsp"%>
+      </c:forEach>
 </div>
 
 <hr/>
 <div style="border: 1px solid black;">
-	<div style="background-color: white; padding: 5px; color: #BBB; font-size: 0.8em;" id="argumentAddDivFakeEditor" onclick="createStart(${article.id});">
+	<div style="background-color: white; padding: 5px; color: #BBB; font-size: 0.8em;" id="createDivFakeEditor" onclick="createStart(${article.id});">
 		Cliquez ici pour composer un nouvel argument.<br />
 		<br />
 		<br />
 		<br />
 	</div>
-	<div id="argumentAddDivRealEditor" style="display: none; background-color: #e2e2e2; padding: 5px;">
+	<div id="createDivRealEditor" style="display: none; background-color: #e2e2e2; padding: 5px;">
 	</div>
 </div>
 

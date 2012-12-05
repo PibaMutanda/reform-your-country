@@ -179,16 +179,12 @@
 						   	  <a href="/goodexample/${example.title}">${example.title}</a>
 						    </div>
 						</c:forEach>
-						<%--we are waiting for Max's page --%>
-							<ryc:conditionDisplay privilege="MANAGE_ARTICLE">
-								<div class="article-liens">
-									<div style="text-align:right;">
-										<a href="/articlegoodexamplelinkedit?id=${article.id}" style="text-align:rignt;">
-											plus ...
-										</a>
-									</div>
-								</div>
-						</ryc:conditionDisplay> 
+                        <div class="article-liens">
+                                <div style="text-align: right;">
+                                    <a href="/goodexample/${article.url}" style="text-align: rignt;">plus ... </a>
+                                </div>
+                            </div>
+                        </div>
 						</div>
 						
 				</div>
@@ -211,7 +207,7 @@
 		   <div id="defaultCountdown" ></div>
 			<script type="text/javascript">
 			    $(document).ready(function () {
-						var publishDay = new Date(${publishYear}, ${publishMonth}, ${publishDay});
+						var publishDay = new Date('${publishYear}', '${publishMonth}', '${publishDay}');
 						function reload() { 
 							window.location.reload(); 
 						} 
