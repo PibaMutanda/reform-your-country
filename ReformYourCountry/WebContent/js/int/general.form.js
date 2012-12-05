@@ -1,6 +1,7 @@
 
 //Will Send the value of the new Argument form to the controller 
 function CKeditorEditSubmit(idEditedValueContainer,succesfn){
+	hideHelp('help');
 	console.log("CKeditorEditSubmit");
 	if (idUser.length=0){  // Not logged in
 		console.error("Bug: User should not see the button (and the form)");
