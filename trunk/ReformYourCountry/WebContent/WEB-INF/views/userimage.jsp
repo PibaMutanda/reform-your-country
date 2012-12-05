@@ -7,6 +7,7 @@
 <head>
 
 <script type="text/javascript">
+    // script to display the image path in the text field. 
 	function getfile() {
 		document.getElementById('hiddenfile').click();
 	}
@@ -33,21 +34,17 @@
 
 	<form method="post" action="/user/imageadd" enctype="multipart/form-data">
 	
-		<p>Vous pouvez choisir ici une image pour votre compte utilisateur</p>
+		<p>D'ici, vous pouvez nous envoyer une image qui apparaîtra à côté de votre nom.</p>
 		<ol>
 			<li><input type="button" value="séléctionner le fichier" onmouseout="showfile()" onclick="getfile()" /> 	
 			    <input type="text"  disabled="disabled"  id="selectedfile" style="width:495px;"  style="float:right;" />
 			    <input type="file" name="file" id="hiddenfile" style="display:none;" required="required"/>
 			</li>
 			<li><input type="submit" class="" value="télécharger sur le serveur"/>
-				<input type="hidden" name="id" value="${user.id}" /></li>
+				<input type="hidden" name="id" value="${user.id}" />
+			</li>
 		</ol>    
 			
-			
-			
-			
-
-		
 		<a href="/user/${user.userName}">Annuler</a><br>
 	</form>
 	
