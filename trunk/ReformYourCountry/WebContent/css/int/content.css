@@ -35,8 +35,12 @@
     width:28px;
     height:28px;
 }
-
-
+.delete{
+	color:grey;
+}
+.delete:hover{
+	color:red;
+}
 /*********** bordel à classer********/
 .commentLink{
 	width:60px;
