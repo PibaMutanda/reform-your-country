@@ -16,7 +16,9 @@ import reformyourcountry.repository.ActionRepository;
 import reformyourcountry.repository.ArgumentRepository;
 import reformyourcountry.repository.BadgeRepository;
 import reformyourcountry.repository.CommentRepository;
+import reformyourcountry.repository.GoodExampleRepository;
 import reformyourcountry.repository.VoteArgumentRepository;
+import reformyourcountry.repository.VoteGoodExampleRepository;
 import reformyourcountry.util.NotificationUtil;
 
 @Service
@@ -35,7 +37,11 @@ public class BadgeService {
     VoteArgumentRepository voteArgumentRepository;
     @Autowired
     CommentRepository commentRepository;
-
+    @Autowired
+    GoodExampleRepository goodExampleRepository;
+    @Autowired
+    VoteGoodExampleRepository voteGoodExampleRepository;
+    
     public void createBadgeIfNotAlreadyExist(BadgeType badgeType, User user) {
         if (user.isHasBadgeType(badgeType)) {
             return; // He already has that badge.
@@ -46,19 +52,15 @@ public class BadgeService {
         badge.setUser(user);
         badgeRepository.persist(badge);
         user.getBadges().add(badge);
+        String htmlMessage = "Félicitations vous avez obtenu un badge de niveau "
+                + badgeType.getBadgeTypeLevel().getName()
+                + ": "
+                + "<a href='/badge/'>"+badgeType.getName()+"</a>";
         NotificationUtil
-                .addNotificationMessage("Félicitations vous avez obtenu un badge de niveau "
-                        + badgeType.getBadgeTypeLevel().getName()
-                        + ": "
-                        + badgeType.getName());
+                .addNotificationMessage(htmlMessage);
 
         // Mail
         if (badgeType.isMailConfirm()) {
-            // TODO add link to Badges user page in message.
-            String htmlMessage = "Félicitation, vous venez de recevoir votre badge "
-                    + badgeType.getName()
-                    + " de niveau "
-                    + badgeType.getBadgeTypeLevel().getName();
             mailService.sendMail(user, "Vous avez reçu un nouveau badge!",
                     htmlMessage, MailType.GROUPABLE, MailCategory.USER);
 
@@ -168,15 +170,29 @@ public class BadgeService {
         grandBadgeForArgumentVoter(user);
     }
 
-    public void grandBadgeForComment(User user) {
-        long countComment = commentRepository.countCommentsForUser(user);
+    public void grandBadgeForComment(User author) {
+        long countComment = commentRepository.countCommentsForUser(author);
 
         if (countComment >= 10) {
-            createBadgeIfNotAlreadyExist(BadgeType.COMMENTATOR, user);
+            createBadgeIfNotAlreadyExist(BadgeType.COMMENTATOR, author);
         }
         if (countComment >= 100) {
-            createBadgeIfNotAlreadyExist(BadgeType.BLABBERMOUTH, user);
+            createBadgeIfNotAlreadyExist(BadgeType.BLABBERMOUTH, author);
         }
     }
 
+    // TODO call this method from GoodExampleController when the controller has been programmed.
+    public void grandBadgeForGoodExample(User author){
+        long countVotesOnGoodExample = voteGoodExampleRepository.countVotesForAuthor(author);
+        
+        if(goodExampleRepository.countGoodExampleForUser(author)>=1){
+            createBadgeIfNotAlreadyExist(BadgeType.EXAMPLE, author);
+        }
+        if(countVotesOnGoodExample >= 10){
+            createBadgeIfNotAlreadyExist(BadgeType.GOODEXAMPLE, author);
+        } 
+        if(countVotesOnGoodExample >= 100){
+            createBadgeIfNotAlreadyExist(BadgeType.MODEL, author);
+        }
+    }
 }

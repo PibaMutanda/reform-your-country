@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import reformyourcountry.model.Article;
 import reformyourcountry.model.GoodExample;
+import reformyourcountry.model.User;
 
 
 @Repository
@@ -49,5 +50,10 @@ public class GoodExampleRepository extends BaseRepository<GoodExample>{
 				.setParameter("articleList",articleList)
 				.setMaxResults(amount)
     			.getResultList();
+	}
+	
+	public long countGoodExampleForUser(User user){
+	    return (Long)em.createQuery("select count(goodexample) from GoodExample goodexample where goodexample.createdBy=:user")
+                .setParameter("user", user).getSingleResult();
 	}
 }
