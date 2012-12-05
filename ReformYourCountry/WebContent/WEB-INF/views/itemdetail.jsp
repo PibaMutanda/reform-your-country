@@ -21,9 +21,12 @@
 			<ryctag:user user="${currentItem.user}"/>
 			<div style="display:inline-block;font-size:0.8em;width:100%">
 				<div>
-					<span style="font-style: italic;">crée le ${currentItem.formatedCreatedOn}</span> 
-					<span class="commentLink" onclick="ItemEditStart(this,${currentItem.id});">Editer</span>
-					<span onclick="deleteItem(this,${currentItem.id})" class="divButton" style="color:red; font-size:1.3em;font-weight: bold;" title="Supprimer">×</span>
+					<div style="float:right;">
+						<span class="commentLink" onclick="ItemEditStart(this,${currentItem.id});">Editer</span>
+						<span onclick="deleteItem(this,${currentItem.id})" class="divButton" style="color:red; font-size:1.3em;font-weight: bold;" title="Supprimer">×</span>
+					</div >
+					<div style="font-style: italic;">crée le ${currentItem.formatedCreatedOn}</div>
+					
 				</div>
 				<div>
 					<c:if test="${currentItem.editable}">

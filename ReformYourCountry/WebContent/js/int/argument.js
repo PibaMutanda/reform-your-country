@@ -17,7 +17,7 @@ function hideAllCkEditorContainer(){
 		$('#argumentAddDivFakeEditor'+ispos).show();
 		$('#argumentAddDivRealEditor'+ispos).empty().hide();
 	}else{
-		sendSimpleValue(null,isNew,'item'+isNew,"/ajax/argument/refresh",""); //Refresh the div with the arg values no changes
+		sendSimpleValue(null,isNew,'item'+isNew,'item'+isNew,"/ajax/argument/refresh",""); //Refresh the div with the arg values no changes
 	}
 }
 //Display editor to edit an existing argument.
@@ -31,9 +31,12 @@ function ItemEditStart(item, newid){
 			$("#ckEditForm").html("");
 			$("#item"+newid).html(data);
 			activateCkEditorAndHelpDiv(newid);
+			$("#CkEditFormAbort").attr("onclick","return hideAllCkEditorContainer();");
 			$("#CkEditFormSubmit").attr("onclick","return argumentEditSubmit();");//return false when method succes otherwise form is submitted
 	});
 }
+
+
 
 // Display editor to create an argument
 function argumentCreateStart(isPos, idAction) {
