@@ -32,17 +32,17 @@ function editStart(item, editedItemDBId){
 
 // Display editor to create a goodexample
 function createStart(idParent) {
-	if (showMessageIfNotLogged($('#argumentAddDivFakeEditor'+suffixDivId))) {
+	if (showMessageIfNotLogged($('#createDivFakeEditor'))) {
 		return;
 	}
-	$('#createDivFakeEditor'+suffixDivId).hide();
+	$('#createDivFakeEditor').hide();
 	hideAllCkEditorContainer();
-	sendValues("/ajax/argument/edit",
+	sendValues("/ajax/goodexample/edit",
 				{ idParent : idParent },
 				function(data){
 					$("#ckEditForm").html("");
-					$('#createDivRealEditor'+suffixDivId).html(data);
-					$('#createDivRealEditor'+suffixDivId).show();
+					$('#createDivRealEditor').html(data);
+					$('#createDivRealEditor').show();
 					activateCkEditorAndHelpDiv('');
 					$("#CkEditFormSubmit").attr("onclick","return editSubmit()");
 				}

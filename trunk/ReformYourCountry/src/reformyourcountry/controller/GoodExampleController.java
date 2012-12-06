@@ -77,7 +77,7 @@ public class GoodExampleController extends BaseController<GoodExample>{
      */
     @RequestMapping("/ajax/goodexample/edit")
     public ModelAndView GoodExampleEdit(@RequestParam(value="idItem",required=false) Long goodExampleId,   
-            							@RequestParam("id") Long articleId
+            							@RequestParam("idParent") Long articleId
             ){
         ModelAndView mv = new ModelAndView("ckeditorform");
         
