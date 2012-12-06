@@ -84,47 +84,77 @@
 .line{
 	color:rgb(67, 84, 126);
 }
+
 .v-2{
-	 background-color: #005fb1;
-	 font-size:.85em;
+	 background-image:url("/images/logoaction/bigGreenPlus2.jpg");
 }
+
 .v-1{
-	 background-color: #c9e2ff;
-	 font-size:.85em;
+	 background-image:url("/images/logoaction/bigGreenPlus.jpg");
 }
+
 .v0{
-	 background-color: #ffffff;
-	 font-size:.85em;
+	 background-image:url("/images/logoaction/bigNeutral.jpg");
 }
 
 .v1{
-	 background-color: #ff9999;
-	 font-size:.85em;
+	 background-image:url("/images/logoaction/bigRedMinus.jpg");
 }
 
 .v2{
-	 background-color: #bb1100;
-	 font-size:.85em;
+	 background-image:url("/images/logoaction/bigRedMinus2.jpg");
 }
+
 .vote{
 	display: inline-block; 
-	width: 90px; 
-	height: 30px; 
+	width: 45px; 
+	height: 44px; 
 	text-align: center; 
-	border:1px solid black; 
 	cursor: pointer;
+	border-color: rgb(221, 221, 221) rgb(204, 204, 204) rgb(204, 204, 204) rgb(221, 221, 221);
+	border-image: none;
+	border-radius: 8px 8px 8px 8px;
+	border-style: solid;
+	border-width: 2px;
+	box-shadow: 2px 2px 4px rgb(221, 221, 221);
+	margin-right: 40px;
 }
 .smallvote{
 	
 	display: inline-block;
-	width: 22px;
-	height: 22px;
+	width: 18px;
+	height: 18px;
 	text-align: center; 
 	cursor: pointer;
 	background-image:url("/images/logoaction/grey.jpg");
 }
-.smallvote:hover{
+
+/* .smallvote:hover{ */
+/* 	background-image:url("/images/logoaction/greenPlus.jpg"); */
+/* } */
+
+.sv-2:hover{
+	background-image:url("/images/logoaction/greenPlus2.jpg");
+}
+
+
+.sv-1:hover{
 	background-image:url("/images/logoaction/greenPlus.jpg");
+	
+
+}
+.sv0:hover{
+	background-image:url("/images/logoaction/neutral.jpg");
+	
+
+}
+.sv1:hover{
+	background-image:url("/images/logoaction/redMinus.jpg");
+	
+
+}
+.sv2:hover{
+	background-image:url("/images/logoaction/redMinus2.jpg");
 	
 }
 .vote:hover{
@@ -133,8 +163,25 @@
 .selected{
 	border: 3px solid #000;
 }
-.selectedsmall{
+
+.selectedsmall-2{
+	background-image:url("/images/logoaction/greenPlus2.jpg");
+}
+
+.selectedsmall-1{
 	background-image:url("/images/logoaction/greenPlus.jpg");
+}
+
+.selectedsmall0{
+	background-image:url("/images/logoaction/neutral.jpg");
+}
+
+.selectedsmall1{
+	background-image:url("/images/logoaction/redMinus.jpg");
+}
+
+.selectedsmall2{
+	background-image:url("/images/logoaction/redMinus2.jpg");
 }
 .login-link{
 	/* padding-right:65px;*/
