@@ -239,10 +239,17 @@ public  class SecurityContext {
      * 				OR the user can manage GoodExamples (even if there are comments and votes)
      */
     public static boolean canCurrentUserDeleteGoodExample(GoodExample goodExample){
-    	assertUserIsLoggedIn();
-    	if(goodExample.getCreatedBy().equals(getUser())) return goodExample.getCommentList().isEmpty() && goodExample.getVoteCount()==0 ? true : false;
-    	else if (isUserHasPrivilege(Privilege.MANAGE_GOODEXAMPLE)) return true;
-    	else return false;
+    	if(! isUserLoggedIn()) {
+    	    return false;
+    	}
+    	
+    	if (isUserHasPrivilege(Privilege.MANAGE_GOODEXAMPLE)) {
+    	    return true;
+    	} else 	if(goodExample.getCreatedBy().equals(getUser())) {
+    	    return goodExample.getCommentList().isEmpty() && goodExample.getVoteCount()==0;
+    	} else {
+    	    return false;
+    	}
     }
     
     public static boolean canCurrentUserEditComment(Comment com) { 
