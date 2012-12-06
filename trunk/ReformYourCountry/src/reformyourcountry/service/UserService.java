@@ -413,7 +413,7 @@ public class UserService {
        
        return user;
    }
-    public List<User> getUserLstWithRoleAndPrivilege(){
+    public List<User> getUserLstWithRoleOrPrivilege(){
     	List<User> list1 = userRepository.getUserWithRoleNotNull();
     	List<User> list2 = userRepository.getUserWithPrivilegeNotEmpty();
     	

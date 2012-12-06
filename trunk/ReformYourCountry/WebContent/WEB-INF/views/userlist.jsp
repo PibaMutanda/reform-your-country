@@ -11,7 +11,7 @@
 <meta name="googlebot" content="noarchive"/>
 <title>Utilisateurs</title>
 <script>
-<c:set var="search" value="${search}"/>
+    <c:set var="search" value="${search}"/>
     $(function() {
         if(${!search}){
         	$("#tabs").tabs();
@@ -28,9 +28,9 @@
 			<li><a href="#tabs-1">Top contributeurs</a></li>
 			<li><a href="#tabs-2">Derniers inscrits</a></li>
 			<li><a href="#tabs-3">Recherche</a></li>
-				<ryc:conditionDisplay privilege="MANAGE_USERS">
+				<c:if test="${infoUsersHavingSpecialPrivileges != null}">
 					<li><a href="#tabs-4">Privilèges utilisateurs</a></li>
-				</ryc:conditionDisplay>
+				</c:if>
 		</ul>
 		<div id="tabs-1">
 			<ryctag:usersgrid userList="${topUserList}"></ryctag:usersgrid>
@@ -45,7 +45,8 @@
 			</form>
 			<ryctag:usersgrid userList="${usersList}"></ryctag:usersgrid>
 		</div>
-		<ryc:conditionDisplay privilege="MANAGE_USERS">
+		
+		<c:if test="${infoUsersHavingSpecialPrivileges != null}">
 		<div id="tabs-4">
 			 <table border="1">
 				<tr>
@@ -54,7 +55,7 @@
 					<th>Privileges</th>
 					<th>Editer privileges</th>
 				</tr>
-				<c:forEach items="${infoList}" var="info">
+				<c:forEach items="${infoUsersHavingSpecialPrivileges}" var="info">
 					<tr>
 						<td><a href= "/user/${info.user.userName}">${info.user.userName}</a></td>
 						<td>${info.user.role}</td>
@@ -64,7 +65,7 @@
 				</c:forEach>
 			</table>
 		</div>
-		</ryc:conditionDisplay>
+		</c:if>
 	</div>
 </body>
 </html>
