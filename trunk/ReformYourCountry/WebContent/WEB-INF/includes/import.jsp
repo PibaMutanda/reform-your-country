@@ -30,7 +30,7 @@
     <![endif]-->
     
     <script src="/js/ext/jquery-1.8.2.min.js"></script>
-
+	<!-- !!! Be careful if you want to migrate to the jquery-1.9.2 version because it would break the tabs see this page (where jQueryUI committers fight with the users) -> http://bugs.jqueryui.com/ticket/7822 -->
     <script src="/js/ext/jquery-ui-1.8.24.custom.min.js"></script> <%-- Jquery plugin who add libraries for UI but need JQuery dore --%>
 	
 	<!-- *****************************Script for notification Bar *******************************************************-->

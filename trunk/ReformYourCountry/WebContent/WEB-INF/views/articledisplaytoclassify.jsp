@@ -5,8 +5,6 @@
     <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 <html>
 <head>
-<link rel="stylesheet" href="css/ext/jquery-bubble-popup-v3.css"  type="text/css" />
-<script src="js/ext/jquery-bubble-popup-v3.min.js" type="text/javascript"></script>
 <script src="js/int/bubble-pop-up-articledisplay.js" type = "text/javascript"></script>
 <script type="text/javascript" src="js/int/untranslate.js"></script>
 </head>
