@@ -6,7 +6,7 @@
 <link rel="stylesheet" type="text/css" href="/css/int/ryc-tooltip.css" />
 <link rel="stylesheet" type="text/css" href="/css/int/template.css" />
 <link rel="stylesheet" type="text/css" href="/css/int/content.css" />
-<link rel="stylesheet" type="text/css" href="/css/ext/jquery-ui-1.8.23.custom.css" /> <%-- Customized for the colors. --%>
+<link rel="stylesheet" type="text/css" href="/css/ext/jquery-ui-1.8.24.custom.css" /> <%-- Customized for the colors. --%>
 <link rel="stylesheet" type="text/css" href="/css/ext/style.css"  /> 
 <link rel="stylesheet" type="text/css" href="/css/ext/karma-royal-blue.css" />
 <link href="/css/social.css" rel="stylesheet" type="text/css">
@@ -31,7 +31,7 @@
     
     <script src="/js/ext/jquery-1.8.0.min.js"></script>
 
-    <script src="/js/ext/jquery-ui-1.8.23.custom.min.js"></script> <%-- Jquery plugin who add libraries for UI but need JQuery dore --%>
+    <script src="/js/ext/jquery-ui-1.8.24.custom.min.js"></script> <%-- Jquery plugin who add libraries for UI but need JQuery dore --%>
 	
 	<!-- *****************************Script for notification Bar *******************************************************-->
 	<script src="/js/ext/jquery.pnotify.js" type="text/javascript"></script>
