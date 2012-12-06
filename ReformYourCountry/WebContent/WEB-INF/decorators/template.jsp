@@ -51,11 +51,7 @@
 	<%@ include file="/WEB-INF/includes/footer.jsp"%>
 </div>
 	
-<!-- ******************* BETA ************************ -->	
-<div style= "position:absolute; top:10px;right:10px;">
-	<img src= "images/beta_sign.jpg" alt= "Plate-forme en construction, pas encore destinée au grand public. Sortie prévue: janvier 2013"
-	title="Plate-forme en construction, pas encore destinée au grand public. Sortie prévue: janvier 2013" class="beta-sign"/>
-</div>
+
 </div><!--  end wrapper -->
 </body>
 </html>

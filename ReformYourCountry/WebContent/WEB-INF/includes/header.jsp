@@ -30,8 +30,13 @@ $(document).ready(function(){
 				<div class="logodiv" >
 					${p_website_logo_tag}
 				</div>
-				<!-- ***************** - END LOGO - ***************** -->	
 				
+				<!-- ***************** - END LOGO - ***************** -->	
+				<!-- ******************* BETA ************************ -->	
+					<div class="beta">
+						<img src= "images/beta_sign.png" alt= "Plate-forme en construction, pas encore destinée au grand public. Sortie prévue: janvier 2013"
+						title="Plate-forme en construction, pas encore destinée au grand public. Sortie prévue: janvier 2013"  />
+					</div>
 				
 				<div style="float:right">
 				    <!-- ***************** - REGISTER - ***************** -->
