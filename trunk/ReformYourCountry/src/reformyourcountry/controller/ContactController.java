@@ -14,6 +14,7 @@ import reformyourcountry.model.User;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.MailService;
 import reformyourcountry.util.NotificationUtil;
+import reformyourcountry.web.UrlUtil;
 
 @Controller
 public class ContactController extends BaseController<User> {
@@ -25,7 +26,6 @@ public class ContactController extends BaseController<User> {
         ModelAndView mv = new ModelAndView("contact");
         if (SecurityContext.getUser()!=null){
             mv.addObject("sender",SecurityContext.getUser().getMail());
-            
         }
         return mv;
     }
@@ -44,6 +44,14 @@ public class ContactController extends BaseController<User> {
         
         if (StringUtils.isBlank(sender)) {
             return prepareModelAndView(sender, subject, content, "Indiquez une adresse e-mail où l'on puisse vous répondre.", request);   
+        }
+        
+        User user = SecurityContext.getUser();
+        if (user != null) {  // This visitor is logged in as a user.
+        	// We add a line with a link to that user, with it's full name.
+        	content = "from : <a href='" + UrlUtil.getAbsoluteUrl("/user/" + user.getUserName()) + "'/>" 
+        				+ user.getFullName() + "</a><br/><br/>"
+        				+ content;
         }
         
         mailService.sendMail(mailService.ADMIN_MAIL, sender, subject,content, MailType.IMMEDIATE, MailCategory.CONTACT);
