@@ -89,6 +89,7 @@ public class GoodExampleController extends BaseController<GoodExample>{
             mv.addObject("titleItem",goodExample.getTitle());
             mv.addObject("contentItem",goodExample.getContent());
         } 
+       
         mv.addObject("urlAction","/ajax/goodexample/editsubmit");
         mv.addObject("idParent",articleId); 
         mv.addObject("helpContent",PropertyLoaderServletContextListener.getProprerty("p_argument_help"));  // Text in yellow div.
@@ -105,7 +106,7 @@ public class GoodExampleController extends BaseController<GoodExample>{
         if (!HTMLUtil.isHtmlSecure(title) || !HTMLUtil.isHtmlSecure(content)) {
              throw new AjaxValidationException("vous avez introduit du HTML/Javascript invalide dans le commentaire");
         }
-    	
+       
     	GoodExample goodExample;
     	Article article = null;
     	
@@ -118,7 +119,7 @@ public class GoodExampleController extends BaseController<GoodExample>{
             
             goodExample.getArticles().add(article);
             goodExampleRepository.persist(goodExample);
-
+            badgeService.grandBadgeForGoodExample(goodExample.getCreatedBy());
             article.getGoodExamples().add(goodExample);
             articleRepository.merge(article);
         } else {
@@ -146,7 +147,7 @@ public class GoodExampleController extends BaseController<GoodExample>{
         
         GoodExample goodExample = (GoodExample) getRequiredEntity(goodExampleId,GoodExample.class);
         goodExampleService.vote(goodExample);
-        
+        badgeService.grandBadgeForGoodExample(goodExample.getCreatedBy());
         return itemDetail(goodExample);
     }
    
