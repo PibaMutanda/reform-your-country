@@ -53,7 +53,7 @@ Insert breadcrumb elements here
 <hr/>
 <div style="border: 1px solid black;">
 	<div style="background-color: white; padding: 5px; color: #BBB; font-size: 0.8em;" id="createDivFakeEditor" onclick="createStart(${article.id});">
-		Cliquez ici pour composer un nouvel argument.<br />
+		Cliquez ici pour composer un nouveaux bon example.<br />
 		<br />
 		<br />
 		<br />

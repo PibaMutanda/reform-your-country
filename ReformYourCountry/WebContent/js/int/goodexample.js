@@ -54,7 +54,7 @@ function createStart(idParent) {
 function deleteItem(objectButtonDelete,editedItemDBId){
 	var answer = confirm('Etes vous sur de vouloir supprimer ce bon example ?');
 	if (answer) {
-		sendValues("/ajax/goodexample/delete", { id : editedItemDBId }, "item"+editedItemDBId, function() {$("#item"+editedItemDBId).remove();}, objectButtonDelete);
+		sendValues("/ajax/goodexample/delete", { id : editedItemDBId }, function() {$("#item"+editedItemDBId).remove();}, "item"+editedItemDBId, objectButtonDelete);
 	}
 }
 
