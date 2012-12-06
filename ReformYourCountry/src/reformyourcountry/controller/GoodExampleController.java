@@ -13,7 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.exception.AjaxValidationException;
 import reformyourcountry.exception.InvalidUrlException;
-import reformyourcountry.model.Argument;
 import reformyourcountry.model.Article;
 import reformyourcountry.model.Comment;
 import reformyourcountry.model.GoodExample;
@@ -77,8 +76,8 @@ public class GoodExampleController extends BaseController<GoodExample>{
      * send a jsp fragment who contains a form for edit a goodExample
      */
     @RequestMapping("/ajax/goodexample/edit")
-    public ModelAndView GoodExampleEdit(@RequestParam(value="idItem",required=false) Long goodExampleId,   
-            							@RequestParam("idParent") Long articleId
+    public ModelAndView GoodExampleEdit(@RequestParam(value="idItem") Long goodExampleId,   
+            							@RequestParam(value="idParent",required=false) Long articleId
             ){
         ModelAndView mv = new ModelAndView("ckeditorform");
         
@@ -105,32 +104,27 @@ public class GoodExampleController extends BaseController<GoodExample>{
              throw new AjaxValidationException("vous avez introduit du HTML/Javascript invalide dans le commentaire");
         }
     	
-    	ModelAndView mv = new ModelAndView("goodexampledisplay");
-    	
     	GoodExample goodExample;
+    	Article article = null;
     	
         if(goodExampleId == null){//if this is a new goodExample
         	goodExample = new GoodExample();
+        	article = (Article) getRequiredEntity(articleId, Article.class);
+        	
+            goodExample.getArticles().add(article);
+            goodExampleRepository.persist(goodExample);
+
+            article.getGoodExamples().add(goodExample);
+            articleRepository.merge(article);
         } else {
         	goodExample = getRequiredEntity(goodExampleId);
+        	SecurityContext.assertCurrentUserCanEditGoodExample(goodExample);
         }
         
         goodExample.setTitle(title);
         goodExample.setContent(content);
         
-        Article article = (Article) getRequiredEntity(articleId, Article.class);//check if the id of an article is good before persist goodExample
-        
-        if(goodExample.getId() == null) { //link article-goodExample only needed in case of a new goodExample
-
-        	goodExample.getArticles().add(article);
-        	goodExampleRepository.persist(goodExample);
-
-        	article.getGoodExamples().add(goodExample);
-        	articleRepository.merge(article);
-        } else {
-        	
-        	goodExampleRepository.merge(goodExample);
-        }
+        goodExampleRepository.merge(goodExample);
 
         return itemDetail(goodExample);
     }
