@@ -48,10 +48,13 @@
 	<%-- Action text --%>
 	<div style="width: 100%;">
 
-		<div style="font-size: 1.3em;">
+		<div style="font-size: 1em;">
 
 			<%-- List of articles within the action --%>
-			<div class="action-list" style="font-size: 0.8em">
+			<div class="action-list" style="font-size: 0.9em; float:right; font-color:#7D92B9;">
+			<div class="action-goodexample-title" >
+								articles liés
+							</div>
 				<a href="/specialuserslist/${action.url}"
 					title="Voir ce que les partis et associations ont voté.">Avis des partis</a>
 				<c:forEach items="${action.articles}" var="article">
@@ -82,7 +85,17 @@
 				</div>
 			</div>
 			<!-- AddThis Button END -->
-			
+			<div>
+				<a href="/action" style="font-size: 0.8em;">retour à la liste des actions</a>
+				<ryc:conditionDisplay privilege="MANAGE_ACTION">
+								- <a href="/action/edit?id=${action.id}"
+						style="font-size: 0.8em;">éditer</a>
+				</ryc:conditionDisplay>
+				<ryctag:form action="/action/edit" modelAttribute="action"
+					method="get" width="50px;">
+					<input type="hidden" value="${action.id}" name="id" id="idAction" />
+				</ryctag:form>
+			</div>
 		</div>
 	</div>
 
