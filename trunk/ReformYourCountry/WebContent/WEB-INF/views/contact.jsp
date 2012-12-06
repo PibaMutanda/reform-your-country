@@ -9,9 +9,9 @@
     
 <p>Nous sommes joignables par e-mail à l’adresse <img style= "position:relative; top:3px;" src="/images/image-mailbon.png" alt="L'adresse mail est insérée en image pour éviter qu'un robot ne puisse l'utiliser, pas pour vous empêcher de la copier. Veuillez-nous excuser de ce désagrément." title="L'adresse mail est insérée en image pour éviter qu'un robot ne puisse l'utiliser, pas pour vous empêcher de la copier. Veuillez-nous excuser de ce désagrément."/> ou bien via le formulaire ci-dessous.  
 </p>
-<center>
+
 <form  action="/sendmail" method="post">
-<table style="width:600px; text-align: right">
+<table style="width:800px;">
 	<tr>
 		<td width="192px">
 			Votre adresse mail
@@ -34,7 +34,7 @@
 			Votre message
 		</td>
 		<td>
-			<textarea name="content" rows="7" value="${content}"  style="width:100%" ></textarea>
+			<textarea name="content" rows="14" style="width:100%" >${content}</textarea>
 		</td>
 	</tr>
 	<tr>
@@ -44,7 +44,7 @@
 	</tr>
 </table>
 </form>
-</center>
+
 
 </body>
 </html>
