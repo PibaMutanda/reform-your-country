@@ -29,7 +29,7 @@
 					</div>
 					<div>
 						
-							<a href="/argument?id=${currentItem.id}">Administrer les commentaires</a> 
+							<a href="/commentlist?id=${currentItem.id}">Administrer les commentaires</a> 
 							
 							<!--<img src="\images\_global\edit.png" width="16px" onfocus="handle();" onclick="editArg(this,${arg.id},'${arg.title}','${arg.content}');">-->
 						

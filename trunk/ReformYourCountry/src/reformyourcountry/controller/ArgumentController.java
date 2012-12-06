@@ -42,19 +42,6 @@ public class ArgumentController extends BaseController<Argument>{
     @Autowired ActionService actionService;
     @Autowired BadgeService badgeService;
     
-    @RequestMapping("/argument")
-    public ModelAndView showArgument(@RequestParam("id") Long id) {
-        ModelAndView mv = new ModelAndView("commentlist");
-        Argument arg = getRequiredEntity(id);
-        SecurityContext.assertCurrentUserCanEditArgument(arg);
-        
-        mv.addObject("urlParent", ("/action/"+arg.getAction().getUrl()));
-        mv.addObject("parentContent",arg.getContent());
-        mv.addObject("commentList",arg.getCommentList());
-        mv.addObject("canNegativeVote",true);
-        return mv;
-    }
-    
     public ModelAndView returnitemDetail(Argument arg){
         //FIXME no verif if user can edit --maxime 30/11/12
         ModelAndView mv = new ModelAndView("itemdetail");

@@ -1,7 +1,10 @@
 package reformyourcountry.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import reformyourcountry.model.Article;
 import reformyourcountry.model.Comment;
@@ -28,6 +31,13 @@ public class GoodExampleService {
         VoteGoodExample vote = new VoteGoodExample();
         
         vote.setGoodExample(goodExample);
+        User user = SecurityContext.getUser();
+        
+        //check if user has already voted
+        if (voteGoodExampleRepository.getVoteGoodExampleForAnUser(user, goodExample) != null) {
+            throw new RuntimeException("user cannot vote twice for a goodExample " + user.getUserName() + " for example " + goodExample.getId());
+        }
+        
         vote.setUser(SecurityContext.getUser());
         voteGoodExampleRepository.persist(vote);
         
@@ -45,20 +55,27 @@ public class GoodExampleService {
         goodExample.setVoteCount(voteGoodExampleRepository.getVoteGoodExampleCountForAGoodExample(goodExample));
         goodExampleRepository.merge(goodExample);
     }
+    
     /**
      * delete a goodExample and delete all linked ressources
      * assuming all privileges already checked
      *
      */
+    @Transactional
 	public void deleteGoodExample(GoodExample goodExample) {
-		
 	    for( Comment com :goodExample.getCommentList()){
 	        commentRepository.remove(com);
 	    }
+	    
+	    for( VoteGoodExample vote :goodExample.getVoteGoodExample() ){
+	        voteGoodExampleRepository.remove(vote);
+	    }
+	    
 		for ( Article article : goodExample.getArticles()) {
 		    article.getGoodExamples().remove(goodExample);
 		    articleRepository.merge(article);
 		}
+		
 		goodExampleRepository.remove(goodExample);
 	}
 
