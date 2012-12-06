@@ -6,6 +6,10 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
@@ -13,7 +17,6 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.Field.Store;
-import org.apache.lucene.document.LongField;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.index.DirectoryReader;
@@ -42,9 +45,15 @@ import org.springframework.transaction.annotation.Transactional;
 import reformyourcountry.converter.BBConverter;
 import reformyourcountry.model.Action;
 import reformyourcountry.model.Article;
+import reformyourcountry.model.GoodExample;
+import reformyourcountry.model.User;
 import reformyourcountry.repository.ActionRepository;
 import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.repository.BookRepository;
+import reformyourcountry.repository.UserRepository;
+import reformyourcountry.search.Searchable;
+import reformyourcountry.security.Privilege;
+import reformyourcountry.security.SecurityContext;
 import reformyourcountry.util.CurrentEnvironment;
 import reformyourcountry.util.FileUtil;
 import reformyourcountry.util.HTMLUtil;
@@ -60,23 +69,39 @@ public class IndexManagerService {
 	
 	public static final int MAX_HITS = 1000;
 	@Autowired ArticleRepository articleRepository;
+	@Autowired UserRepository userRepository;
 	@Autowired BookRepository bookRepository;
     @Autowired ActionRepository actionRepository;
 	@Autowired CurrentEnvironment currentEnvironment;
+	
+    @PersistenceContext
+    EntityManager em;
 
+    @SuppressWarnings("unchecked")
+    Class<Searchable>[] searchables = new Class[]{Action.class, Article.class, User.class, GoodExample.class};  // Entities that are included in the index.
+    String[] searchableCriterias = new String[]{    // Addition of all the fields that should be searchable in the searchable entities.
+            "title","summary","content","shortName", "toClassify",
+            "userName","firstName","lastName","mail",
+            "shortDescription"};  
 
-	public void createIndexes() {
+    
+	@SuppressWarnings("unchecked")
+    public void createIndexes() {
 		try(SimpleFSDirectory sfsd = new SimpleFSDirectory(new File(FileUtil.getLuceneIndexDirectory(currentEnvironment)))){
 			
 			Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_40);
 			IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_40, analyzer);
 
 			try(IndexWriter writer = new IndexWriter(sfsd, iwc)){// Make an writer to create the index (with try-with-resources block)
-				//Index all Accommodation entries 
-				List<Article> articles = articleRepository.findAll();
-				for (Article article : articles) {
-					writer.addDocument(createArticleDocument(article));
-				}
+				// Index all Accommodation entries
+			    
+			    for (Class<Searchable> searchableClass : searchables) {
+			        List<Searchable> searchableList =  em.createQuery("select e from "+searchableClass.getName()+" e").getResultList();
+	                for (Searchable searchable : searchableList) {
+	                    writer.addDocument(createDocument(searchable));
+	                }
+			    }
+			
 				writer.commit();
 			}               
 		} catch (IOException e) {
@@ -84,106 +109,113 @@ public class IndexManagerService {
 		}
 	}	
 
-////WE DON'T SEARCH FOR ACTIONS YET, but we will
-//	private Document createActionDocument(Action action) {
-//		// Add a new Document to the index
-//        Document doc = new Document();
-//
-//        doc.add(new LongField("id",action.getId(),Store.YES));
-//        // This give more importance to title during the search
-//        // The user see the result from the title before the result from the text 
-//        Field titleField=new TextField("title",action.getTitle(),Store.YES);
-//        titleField.setBoost(1.5f);
-//        doc.add(titleField);
-//        
-//        doc.add(new TextField("shortDescription",action.getShortDescription(),Store.YES));
-//        doc.add(new TextField("longDescription",action.getLongDescription(),Store.YES));
-//        doc.add(new TextField("content",action.getContent(),Store.YES));
-//
-//        return doc;
-//	}
 
-	private Document createArticleDocument(Article article) {
+
+	private Document createDocument(Searchable searchable) {
 		// Add a new Document to the index
         Document doc = new Document();
+        
+        doc.add(new TextField("id",String.valueOf(searchable.getId()), Store.YES));   // TODO Test with Store.NO, I don't see any reason to make id searchable.
+        doc.add(new TextField("className",searchable.getClass().getSimpleName(),Store.YES));
+        
+        Map<String, String> criteriaMap = searchable.getCriterias();
+        
         //Remove bbcode and html
-		String summary = cleanAndTransform(article.getLastVersion().getSummary());
-		String toClassify = cleanAndTransform(article.getLastVersion().getToClassify());
-		String content = cleanAndTransform(article.getLastVersion().getContent());
-		
-        doc.add(new TextField("id",String.valueOf(article.getId()),Store.YES));//This is a TextField instead of a LongField because updateDocument has problems finding LongFields(no idea why)
+        for(String key : criteriaMap.keySet()){
+            String field = criteriaMap.get(key);
+            if(!key.equals("mail")){
+                cleanAndTransform(field);
+            } 
+        }
+        
         // This give more importance to title during the search
         // The user see the result from the title before the result from the text 
-        Field titleField=new TextField("title",article.getTitle(),Store.YES);
-        titleField.setBoost(1.5f);
-        doc.add(titleField);
+        String boostedName = searchable.getBoostedCriteriaName();
+        Field boostedField=new TextField(boostedName,criteriaMap.get(boostedName),Store.YES);
+        boostedField.setBoost(1.5f);
+        doc.add(boostedField);
         
-        doc.add(new TextField("shortName",article.getShortName(),Store.YES));
-        doc.add(new TextField("summary",summary,Store.YES));
-        doc.add(new TextField("toClassify",toClassify,Store.YES));
-        doc.add(new TextField("content",content,Store.YES));
-
+        for(String fieldname : criteriaMap.keySet()){
+            if(!fieldname.equals(boostedName)){
+              doc.add(new TextField(fieldname, criteriaMap.get(fieldname), Store.YES));
+            }
+        }
+        
+       
+     
+        
         return doc;
 	}
+	
+
 
 	private String cleanAndTransform(String textToTransform) {
 		String result = HTMLUtil.removeHmlTags(new BBConverter(bookRepository, articleRepository,actionRepository,false).transformBBCodeToHtmlCode(textToTransform));
 		return result;
 	}
 	
-	public void updateArticle(Article newArticle) {
+	public void update(Searchable searchable) {
         try(IndexWriter writer = getIndexWriter()){
         	
-            writer.updateDocument(new Term("id", String.valueOf(newArticle.getId())), createArticleDocument(newArticle));
+            writer.updateDocument(new Term("id", String.valueOf(searchable.getId())), createDocument(searchable));
             writer.commit();
         } catch ( IOException e) {
             throw new RuntimeException(e);
         }
     }
 	
-	public void deleteArticle(Article article) {
+	public void delete(Searchable searchable) {
 		 try(IndexWriter writer = getIndexWriter()){
-            writer.deleteDocuments(new Term("id", String.valueOf(article.getId())));
+            writer.deleteDocuments(new Term("id", String.valueOf(searchable.getId())));
             writer.commit();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 	
-	public void addArticle(Article article) {
+	public void add(Searchable searchable) {
 		 try(IndexWriter writer = getIndexWriter()){
-            writer.addDocument(createArticleDocument(article));
+            writer.addDocument(createDocument(searchable));
             writer.commit();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+	
 	/**
 	 * Used to search the index, using one or more keywords
-	 * @param article If searching in an article, the article in question; if searching all articles, should be null.
+	 * @param privilegeNeededToSeachAllCriteria privilege needed to search in all fields. For example Privilege.MANAGE_ARTICLE to see Article.toClassify.
 	 * @return
 	 */
-	public ScoreDoc[] search(String keyWords, Article article, boolean isEditor, boolean inAllArticles) {
+	public ScoreDoc[] search(String keyWords) {
 
         try {
         	// We  build a query using the parameters;
-            String queryString="(" + keyWords + "~)"//the "~" enable fuzzy search
-            		+ (inAllArticles || article==null ? "" : " AND id:"+article.getId());//search in one article only
+            String queryString="(" + keyWords + "~)"; //the "~" enable fuzzy search
 
             SimpleFSDirectory sfsd = new SimpleFSDirectory(new File(FileUtil.getLuceneIndexDirectory(currentEnvironment)));
             IndexReader reader = DirectoryReader.open(sfsd);
             IndexSearcher searcher = new IndexSearcher(reader);
             
-            // Create the search criteria as an array with article fields we search in
-            List<String> fields=new ArrayList<String>(Arrays.asList("title","summary","content","shortname"));
-			if (isEditor) {
-				fields.add("toClassify");
+            // Create the search criteria as an array with article fields we search in.
+            // We need all the fields for 2 reasons:
+            //   1. It seems (to verify) that lucene does not work that well if we just tell "all the fields" instead of listing all the fields.
+            //   2. It seems that Lucene has no way to say "search all the fields except the field 'toClassify'".
+            
+            List<String> fieldList = new ArrayList<String>(Arrays.asList(searchableCriterias));
+			if (!SecurityContext.isUserHasPrivilege(Privilege.MANAGE_ARTICLE)) {
+			    fieldList.remove("toClassify");
 			}
-			String[] fieldList = new String[fields.size()];
-			fields.toArray(fieldList);
+            if (!SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS)) {
+                fieldList.remove("mail");
+            }
+			//.....
+			
+			String[] fieldArray = new String[fieldList.size()];
+			fieldList.toArray(fieldArray);
 			
             // Build a Query object
-            MultiFieldQueryParser parser = new MultiFieldQueryParser(Version.LUCENE_40, fieldList, new StandardAnalyzer(Version.LUCENE_40));
+            MultiFieldQueryParser parser = new MultiFieldQueryParser(Version.LUCENE_40, fieldArray, new StandardAnalyzer(Version.LUCENE_40));
             Query query = parser.parse(queryString);
             
             query.rewrite(reader);
@@ -198,8 +230,9 @@ public class IndexManagerService {
 	
 	
 	  /**
-     * We use the lucene highlight library.
-     * @return the highlighted fragment, if there is one, null otherwise
+     * We use the lucene highlight library to highlight text. For example if we search for "banana", and it apprears once in a longtext
+     * we need a few words before and after to display the search results, like: "... sweet yellow <b>banana</b>s are ..."
+     * @return the highlighted fragment, if there is one, null otherwise. 
      */
     public String getHighlight(String keyword, String textToHighlight){
         try (SimpleFSDirectory sfsd = new SimpleFSDirectory(new File(FileUtil.getLuceneIndexDirectory(currentEnvironment)))){

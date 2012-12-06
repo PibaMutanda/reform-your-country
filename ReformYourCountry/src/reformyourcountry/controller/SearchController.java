@@ -1,5 +1,7 @@
 package reformyourcountry.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,9 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import reformyourcountry.model.BaseEntity;
 import reformyourcountry.repository.ArticleRepository;
-import reformyourcountry.search.ArticleSearchResult;
+import reformyourcountry.search.SearchResult;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.IndexManagerService;
@@ -27,23 +28,20 @@ public class SearchController{
 
 	@RequestMapping(method=RequestMethod.GET)
 	public ModelAndView search(@RequestParam("searchtext") String searchtext){
-		ModelAndView mv= new ModelAndView("search");
-		mv.addObject("searchtext",searchtext);
-		ArticleSearchResult articleSearchResult;
-		if(SecurityContext.isUserHasPrivilege(Privilege.MANAGE_ARTICLE)){
-			articleSearchResult = searchService.searchArticle(searchtext, null, true, true);
-		}else{
-			articleSearchResult = searchService.searchArticle(searchtext, null, false, true);
-		}
-		
-		mv.addObject("searchResult", articleSearchResult);
-			
-		if (articleSearchResult.getResults().isEmpty() ) {
-			mv.addObject("noResult", true);
-		}
-		return mv;
+	    ModelAndView mv= new ModelAndView("search");
+	    mv.addObject("searchtext",searchtext);
+	    List<SearchResult> searchResult;
+
+	    searchResult = searchService.search(searchtext);
+
+	    mv.addObject("searchResult", searchResult);
+
+	    if (searchResult.isEmpty() ) {
+	        mv.addObject("noResult", true);
+	    }
+	    return mv;
 	}
-	
+
 
 	
 	

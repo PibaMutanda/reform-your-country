@@ -25,6 +25,7 @@ import reformyourcountry.repository.UserRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.BadgeService;
+import reformyourcountry.service.IndexManagerService;
 import reformyourcountry.service.UserService;
 import reformyourcountry.util.DateUtil;
 import reformyourcountry.util.HTMLUtil;
@@ -38,6 +39,7 @@ public class UserEditController extends BaseController<User> {
     @Autowired UserRepository userRepository;
     @Autowired UserService userService; 
     @Autowired BadgeService badgeService;
+    @Autowired  IndexManagerService indexManagerService;
     @RequestMapping("/edit")
     public ModelAndView userEdit(@RequestParam(value="id", required=true) long userId) {
         
@@ -214,7 +216,7 @@ public class UserEditController extends BaseController<User> {
         }
         user.setAccountStatus(accountStatus);
         user = userRepository.merge(user);
-        
+        indexManagerService.update(user);
         badgeService.grantIfUserIsComplete(user);
         
         return new ModelAndView("redirect:/user/"+user.getUserName());

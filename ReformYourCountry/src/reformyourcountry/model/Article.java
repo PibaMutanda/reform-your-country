@@ -3,7 +3,9 @@ package reformyourcountry.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,11 +20,14 @@ import javax.persistence.OrderBy;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotBlank;
 
+import reformyourcountry.search.Searchable;
+
 @Entity
-public class Article extends BaseEntity {
+public class Article extends BaseEntity implements Searchable{
     
 	@NotBlank//Hibernate constraint, improves upon @NotNull
 	@Column(length = 100, unique = true, nullable=false)// need nullable= false for schemaupdate
@@ -285,4 +290,30 @@ public class Article extends BaseEntity {
 		}
 		return false;
 	}
+
+
+    @Override
+    public Map<String ,String> getCriterias() {
+        Map<String,String> criterias = new HashMap<String,String>();
+        criterias.put("shortName",StringUtils.defaultIfEmpty(shortName,""));
+        criterias.put("content",StringUtils.defaultIfEmpty(this.getLastVersion().getContent(),""));
+        criterias.put("summary",StringUtils.defaultIfEmpty(this.getLastVersion().getSummary(),""));
+        criterias.put("toClassify",StringUtils.defaultIfEmpty(this.getLastVersion().getToClassify(),""));
+        criterias.put("title",StringUtils.defaultIfEmpty(title,""));
+        criterias.put("description",  StringUtils.defaultIfEmpty(description,""));
+        return criterias;
+    }
+
+
+    @Override
+    public String getBoostedCriteriaName() {
+        return "title";
+    }
+    
+
+  
+ 
+
+
+ 
 }

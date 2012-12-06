@@ -128,9 +128,9 @@ public class ArticleService {
  	     
  	     /////6. update index
  	     if(isNewArticle){
- 	    	indexManagerService.addArticle(article);
+ 	    	indexManagerService.add(article);
  	     }else{
- 	    	indexManagerService.updateArticle(article);
+ 	    	indexManagerService.update(article);
  	     }
 	 }
 	 public void updateRendreredContentAndSummary(Article article){
@@ -153,7 +153,7 @@ public class ArticleService {
 	     for(ArticleVersion va: articleVersionRepository.findAllVersionForAnArticle(article)){
 	         articleVersionRepository.remove(va);
 	     }
-	     indexManagerService.deleteArticle(article);
+	     indexManagerService.delete(article);
 	     articleRepository.remove(article);
 	 }
 	 

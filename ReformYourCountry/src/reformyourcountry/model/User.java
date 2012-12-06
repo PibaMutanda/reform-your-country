@@ -5,8 +5,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -35,11 +37,13 @@ import org.springframework.social.linkedin.api.LinkedIn;
 import org.springframework.social.twitter.api.Twitter;
 
 import reformyourcountry.mail.MailingDelayType;
+import reformyourcountry.search.Searchable;
 import reformyourcountry.security.Privilege;
+import reformyourcountry.security.SecurityContext;
 
 @Entity
 @Table(name = "users")
-public class User extends BaseEntity implements Cloneable, Comparable<User>, Serializable {
+public class User extends BaseEntity implements Cloneable, Comparable<User>, Serializable ,Searchable{
    
     private static final long serialVersionUID = 4144665927166518905L;
 
@@ -671,5 +675,26 @@ public class User extends BaseEntity implements Cloneable, Comparable<User>, Ser
     public void addVoteArgument(VoteArgument va){
         voteArguments.add(va);
     }
+
+    @Override
+    public Map<String, String> getCriterias() {
+        Map<String, String> fields = new HashMap<String,String>();
+        fields.put("userName",StringUtils.defaultIfEmpty(userName,""));
+        fields.put("lastName",StringUtils.defaultIfEmpty(lastName,""));
+        fields.put("firstName",StringUtils.defaultIfEmpty(firstName,""));
+        fields.put("title",StringUtils.defaultIfEmpty(title,""));
+        fields.put("mail",StringUtils.defaultIfEmpty(mail,""));
+        fields.put("description", "");
+        return fields;
+    }
+
+    @Override
+    public String getBoostedCriteriaName() {
+     
+        return "userName";
+    }
+
+  
+  
     
 }
