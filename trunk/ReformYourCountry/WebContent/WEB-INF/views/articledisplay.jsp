@@ -186,13 +186,12 @@
                             </div>
                         </div>
 						</div>
-						
-				</div>
-						<%----------- Summary --%>
+				<%----------- Summary --%>
 						<div style="font-size:.85em;margin-bottom:10px;">
 							RESUME
 						</div>
-						${article.lastVersionRenderdSummary}
+						${article.lastVersionRenderdSummary}						
+				</div>
 				</div>
 			   <br/>
 			   <div style="font-size:.85em;margin-bottom:10px;">ARTICLE</div>
