@@ -16,21 +16,25 @@
 			</div>
 			<ryctag:user user="${currentItem.createdBy}"/>
 			<div style="display:inline-block;font-size:0.8em;width:100%">
-				<div>
-					<div style="float:right;">
-						<span class="commentLink" onclick="ItemEditStart(this,${currentItem.id});">Editer</span>
-						<span onclick="deleteItem(this,${currentItem.id})" class="divButton delete" style=" font-size:1.3em;font-weight: bold;" title="Supprimer">×</span>
-					</div >
-					<div style="font-style: italic;">crée le ${currentItem.formatedCreatedOn}</div>
-					
-				</div>
-				<div>
-					<c:if test="${currentItem.editable}">
-						<a href="/argument?id=${currentItem.id}">Administrer les commentaires</a> 
+				<c:if test="${currentItem.editable}">
+					<div>
+						<div style="float:right;">
+							<span class="commentLink" onclick="ItemEditStart(this,${currentItem.id});">Editer</span>
+							<c:if test="${currentItem.deletable}">
+								<span onclick="deleteItem(this,${currentItem.id})" class="divButton delete" style=" font-size:1.3em;font-weight: bold;" title="Supprimer">×</span>
+							</c:if>	
+						</div >
+						<div style="font-style: italic;">crée le ${currentItem.formatedCreatedOn}</div>
 						
-						<!--<img src="\images\_global\edit.png" width="16px" onfocus="handle();" onclick="editArg(this,${arg.id},'${arg.title}','${arg.content}');">-->
-					</c:if>
-				</div>
+					</div>
+					<div>
+						
+							<a href="/argument?id=${currentItem.id}">Administrer les commentaires</a> 
+							
+							<!--<img src="\images\_global\edit.png" width="16px" onfocus="handle();" onclick="editArg(this,${arg.id},'${arg.title}','${arg.content}');">-->
+						
+					</div>
+				</c:if>
 			</div>
 		</div>
 		<c:set var="divId" value="arg${currentItem.id}" scope="request"/>

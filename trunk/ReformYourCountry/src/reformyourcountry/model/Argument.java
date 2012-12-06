@@ -163,4 +163,7 @@ public class Argument extends BaseEntity implements IVote{
     public boolean isEditable(){  // Placed in the entity because used in JSPs (EL).
         return SecurityContext.canCurrentUserEditArgument(this);
     }
+    public boolean isDeletable(){  // Placed in the entity because used in JSPs (EL).
+        return isEditable();
+    }
 }
