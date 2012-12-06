@@ -5,9 +5,9 @@ function editSubmit(){
 	var idItem = $('#ckEditForm > input[name="idItem"]').val();
 
 	if(typeof idItem === "undefined" || idItem == ""){ //in case of a new item id is not defined
-		CKeditorEditSubmit("colArg"+suffixDivId+">.listArgument",hideAllCkEditorContainer);
+		CKeditorEditSubmit("list",hideAllCkEditorContainer);
 	}else{
-		CKeditorEditSubmit('item'+$('#ckEditForm > input[name="idItem"]').val(),hideAllCkEditorContainer);
+		CKeditorEditSubmit('item'+idItem,hideAllCkEditorContainer);
 	}
 	return false;
 }
