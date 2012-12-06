@@ -13,6 +13,8 @@ import javax.persistence.OrderBy;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotBlank;
 
+import reformyourcountry.security.SecurityContext;
+
 @Entity
 public class GoodExample extends BaseEntity implements IVote{
 
@@ -93,6 +95,8 @@ public class GoodExample extends BaseEntity implements IVote{
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
+    public boolean isEditable(){  // Placed in the entity because used in JSPs (EL).
+        return SecurityContext.canCurrentUserEditGoodExample(this);
+    }
 	
 }

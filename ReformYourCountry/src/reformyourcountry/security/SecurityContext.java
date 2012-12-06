@@ -6,6 +6,7 @@ import java.util.Set;
 import reformyourcountry.exception.UnauthorizedAccessException;
 import reformyourcountry.model.Argument;
 import reformyourcountry.model.Comment;
+import reformyourcountry.model.GoodExample;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.Role;
 import reformyourcountry.repository.UserRepository;
@@ -223,10 +224,17 @@ public  class SecurityContext {
         throw new UnauthorizedAccessException(" cannot edit that Comment: "+comment.getId());
     }
     
-    public static boolean canCurrentUserEditArgument(Argument arg) { 
+    public static boolean canCurrentUserEditArgument(Argument arg) {
+        assertUserIsLoggedIn();
         return arg.getCreatedBy().equals(getUser()) // If the user is editing himself
                 || isUserHasPrivilege(Privilege.MANAGE_ARGUMENT);     // or If this user has the privilege to edit other users
 
+    }
+    
+    public static boolean canCurrentUserEditGoodExample(GoodExample goodExample) {
+        assertUserIsLoggedIn();
+        return goodExample.getCreatedBy().equals(getUser())
+                || isUserHasPrivilege(Privilege.MANAGE_GOODEXAMPLE);
     }
     
     public static boolean canCurrentUserEditComment(Comment com) { 
@@ -253,4 +261,6 @@ public  class SecurityContext {
     	return creator.equals(getUser()) // If the user is the author of the goodExample who's commented
                 || isUserHasPrivilege(Privilege.MANAGE_GOODEXAMPLE);
     }
+
+
 }
