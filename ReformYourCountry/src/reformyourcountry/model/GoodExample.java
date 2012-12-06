@@ -98,5 +98,8 @@ public class GoodExample extends BaseEntity implements IVote{
     public boolean isEditable(){  // Placed in the entity because used in JSPs (EL).
         return SecurityContext.canCurrentUserEditGoodExample(this);
     }
+    public boolean isDeletable(){
+    	return SecurityContext.canCurrentUserDeleteGoodExample(this);
+    }
 	
 }
