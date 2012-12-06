@@ -24,6 +24,8 @@
 		</c:if>
 	</c:forEach>
 	<div  style="font-size:1.3em;">
+		<c:set var="idItem" value="${currentItem.id}" scope="request"/>
+		<c:set var="helpContent" value="${p_comment_help}" scope="request"/>
 		<%@include file="help.jsp"%>
 	</div>
 	<div id="addcomForItem${currentItem.id}">
