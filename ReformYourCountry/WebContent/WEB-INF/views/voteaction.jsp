@@ -20,28 +20,28 @@
 <div id="voteContent" style=" width: 480px; margin-left: 165px; margin-right:165px; font-size:.85em;">
 			<div id="voteButtons" >
 				<div id="-2" onclick="clicked(this);"
-						class="vote <c:if test="${vote.value eq -2}">selected
+						title="totalement pour" class="vote <c:if test="${vote.value eq -2}">selected
 					                </c:if> v-2">
 				</div>
 				<div id="-1" onclick="clicked(this);"
-						class="vote <c:if test="${vote.value eq -1}">selected
+						title="partiellement pour" class="vote <c:if test="${vote.value eq -1}">selected
 					                </c:if> v-1">
 				</div>
 				<div id="0" onclick="clicked(this);"
-						class="vote <c:if test="${vote.value eq 0}">selected
+						title="indécis" class="vote <c:if test="${vote.value eq 0}">selected
 					                </c:if> v0">
 							
 				</div>
 				<div id="1" onclick="clicked(this);"
-						class="vote <c:if test="${vote.value eq 1}">selected
+						title="partiellement contre" class="vote <c:if test="${vote.value eq 1}">selected
 					                </c:if> v1">
 				</div>
 				<div id="2" onclick="clicked(this);"
-						class="vote <c:if test="${vote.value eq 2}">selected
+						title="totalement contre" class="vote <c:if test="${vote.value eq 2}">selected
 					                </c:if> v2">
 				</div>
 			</div>
-			<div class="tooltip" data-tooltip="Tooltip: Si un vote 'complètement pour' compte deux fois plus qu'un vote 'plutôt pour', alors ${positiveWeightedPercentage}% des votes sont pour. Si on compte le nombre de votants sans pondération, alors ${positiveAbsolutePercentage}% des votants sont pour."><div style="width: 50%; height: 20px; text-align: left; float: left;">pour ${positiveWeightedPercentage}% (${positiveAbsolutePercentage}% des votants)      
+			<div class="tooltip" data-tooltip="Si un vote 'complètement pour' compte deux fois plus qu'un vote 'plutôt pour', alors ${positiveWeightedPercentage}% des votes sont pour. Si on compte le nombre de votants sans pondération, alors ${positiveAbsolutePercentage}% des votants sont pour."><div style="width: 50%; height: 20px; text-align: left; float: left;">pour ${positiveWeightedPercentage}% (${positiveAbsolutePercentage}% des votants)      
 </div><div style="width: 50%; height: 20px; float:right ; text-align: right;">(${negativeAbsolutePercentage}% des votants) ${negativeWeightedPercentage}% contre</div>
 </div></div>
 	

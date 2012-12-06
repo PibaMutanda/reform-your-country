@@ -41,15 +41,15 @@ function clicked(item){
 function displayGraph() {
 	var data = getData();
 	var percentData = getPercentData(data);
-	var colors =["#005fb1","#c9e2ff","#ffffff","#ff9999","#bb1100"];  // Blue ... Red
+	var colors =["#9cd810","#cef259","#eff0ea","#d96e66","#c5332c",];  // Blue ... Red
 	// Call the D3.JS code to create the chart
 	var rects = chart.selectAll('rect').data(data)
 				    .enter().append('rect')
 				    .attr("stroke", "black")
 				    .attr("fill", function(d, i){return colors[i];})
-				    .attr("x", function(d, i) { return 16+(97 * i); })
+				    .attr("x", function(d, i) { return 18+(92 * i); })
 				    .attr("y", function(d, i){ return 130;})
-				    .attr("width",  "90.5")
+				    .attr("width",  "48")
 				    .attr("height", function(d, i){ return 0;});
 	// Progressive bar rise
 	rects.transition()
@@ -59,7 +59,7 @@ function displayGraph() {
 	// Numbers on top of bars.
 	var texts = chart.selectAll('text').data(data)
 		.enter().append('text')
-		.attr("x", function(d, i) { return (96 * i)+63; })
+		.attr("x", function(d, i) { return (92 * i)+42; })
 		.attr("y", function(d, i){ return 130;})
 		.attr("dx", ".25em")
 		.attr("dy",-20)
