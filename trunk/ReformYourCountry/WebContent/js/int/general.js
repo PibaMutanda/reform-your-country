@@ -149,7 +149,7 @@ function maxlength_comment(textarea, itemToCommentId, max, min) {
 	}
 }
 
-function submitComment(url,objectButton,commentedItemDbID){
+function submitCommentEdit(url,objectButton,commentedItemDbID){
 	dbIdComment = $('#commentAreaForItem'+commentedItemDbID+'> input[name="idEditedComment"]').val();
 	contentComment = $('#comm'+commentedItemDbID).val();
 	
