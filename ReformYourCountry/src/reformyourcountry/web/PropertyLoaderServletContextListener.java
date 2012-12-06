@@ -17,12 +17,14 @@ public class PropertyLoaderServletContextListener implements javax.servlet.Servl
 
     public void contextInitialized(ServletContextEvent sce) {
         ServletContext sc= sce.getServletContext();
-        //Open the properties file and send it to a Properties Object
-        URL resource = getClass().getClassLoader().getResource("website_content.properties");    
+        
+        //Open the properties file attach each property value to the servlet context.
+        URL resource = getClass().getClassLoader().getResource("strings_unchanged_in_application.properties");    
         sendPropsToContext(sc, resource);
-        resource = getClass().getClassLoader().getResource("website_help.properties");    
+        resource = getClass().getClassLoader().getResource("strings_specific_to_application.properties");    
         sendPropsToContext(sc, resource);
-        //Add special properties from config.properties
+        
+        //Add special properties from config.properties that we want available with EL (expression language) in JSPs.
         sc.setAttribute("p_website_address",UrlUtil.getProdAbsoluteDomainName());  
         sc.setAttribute("p_website_name",UrlUtil.getWebSiteName());         
         sc.setAttribute("p_version",UrlUtil.getVersion());  
