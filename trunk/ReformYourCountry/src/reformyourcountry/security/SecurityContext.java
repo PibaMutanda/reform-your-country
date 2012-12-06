@@ -236,6 +236,17 @@ public  class SecurityContext {
         return goodExample.getCreatedBy().equals(getUser())
                 || isUserHasPrivilege(Privilege.MANAGE_GOODEXAMPLE);
     }
+    /**
+     * See method name
+     * @return true if the user is the creator of the GoodExample, only if there is no comments or votes yet, 
+     * 				OR the user can manage GoodExamples (even if there are comments and votes)
+     */
+    public static boolean canCurrentUserDeleteGoodExample(GoodExample goodExample){
+    	assertUserIsLoggedIn();
+    	if(goodExample.getCreatedBy().equals(getUser())) return goodExample.getCommentList().isEmpty() && goodExample.getVoteCount()==0 ? true : false;
+    	else if (isUserHasPrivilege(Privilege.MANAGE_GOODEXAMPLE)) return true;
+    	else return false;
+    }
     
     public static boolean canCurrentUserEditComment(Comment com) { 
     	////this method is used for argument and goodExample

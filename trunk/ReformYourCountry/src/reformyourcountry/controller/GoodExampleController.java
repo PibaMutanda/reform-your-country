@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.exception.AjaxValidationException;
@@ -158,6 +159,22 @@ public class GoodExampleController extends BaseController<GoodExample>{
         goodExampleService.unVote(goodExample);
         
         return itemDetail(goodExample);
+    }
+    
+    @RequestMapping("/ajax/goodexample/delete")
+    @ResponseBody
+    public String deleteGoodExample(@RequestParam("id")Long goodExampleId) throws Exception{
+        //FIXME no verif if user can edit --maxime 30/11/12
+    	GoodExample goodExample = (GoodExample) getRequiredEntity(goodExampleId,GoodExample.class);
+        if(goodExample ==null){
+            throw new Exception("this id doesn't reference any goodExample.");
+        }
+        if(!goodExample.isDeletable()){
+             throw new Exception("this person can't suppress this goodExample(hacking).");
+        }
+        goodExampleService.deleteGoodExample(goodExample);
+        return "";
+        
     }
 
     @RequestMapping("/ajax/goodexample/commenteditsubmit")
