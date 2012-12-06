@@ -2,6 +2,7 @@ package reformyourcountry.controller;
 
 
 //import org.springframework.beans.factory.annotation.Autowired;
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import reformyourcountry.model.Badge;
 import reformyourcountry.model.BadgeType;
+import reformyourcountry.model.BadgeTypeLevel;
 //import reformyourcountry.repository.BadgeRepositorty;
 import reformyourcountry.repository.BadgeRepository;
 
@@ -25,14 +27,28 @@ public class BadgeController extends BaseController<Badge> {
 	@RequestMapping("/")
 	public ModelAndView badgeDisplayAll() {
 
+	    ModelAndView mv = new ModelAndView("badge");
+	    
 		////// Builds a map with badges and count for each badge.
-		Map<BadgeType,Long> badgeCount = new EnumMap<BadgeType,Long>(BadgeType.class);	// An EnumMap keeps the natural order of the enum for the keys (countrary to an HashMap).
+		Map<BadgeType,Long> badgeCountMap = new EnumMap<BadgeType,Long>(BadgeType.class);	// An EnumMap keeps the natural order of the enum for the keys (countrary to an HashMap).
 		for(BadgeType badgeType : BadgeType.values()){
 			long count = badgeRepository.countBadges(badgeType);
-			badgeCount.put(badgeType, count);
+			badgeCountMap.put(badgeType, count);
+		}
+		mv.addObject("badgeCountMap",badgeCountMap );
+		
+        ArrayList<BadgeTypeLevel> badgeTypeLevelList=new ArrayList<>();
+        
+		for(BadgeTypeLevel badgeTypeLevel:BadgeTypeLevel.values()){
+		    
+		    badgeTypeLevelList.add(badgeTypeLevel);
 		}
 		
-		return new ModelAndView("badge", "badges", badgeCount);
+		mv.addObject("badgeTypeLevelList",badgeTypeLevelList);
+		///// Builds a list of BadgeTypeLevel to display the legend.
+		
+		
+		return mv;
 
 	}	
 }

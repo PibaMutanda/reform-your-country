@@ -15,8 +15,8 @@
 		<span style="font-size:90%; font-style:italic;">${badgeType.description}</span><br/>
 	    ${badges.size()}  
 	    <c:choose>
-		      <c:when test="${badges.size()==0 || badges.size()==1}">utilisateur a gagné ce badge.</c:when>
-		      <c:otherwise>utilisateurs ont gagné ce badge.</c:otherwise>
+		      <c:when test="${badges.size()==0 || badges.size()==1}">utilisateur a gagné ce gommette.</c:when>
+		      <c:otherwise>utilisateurs ont gagné ce gommette.</c:otherwise>
 	    </c:choose>
 	</div>
 	
