@@ -144,7 +144,7 @@ public  class SecurityContext {
     } 
 
     //method to know if the user is logged or not
-    public  boolean isUserLoggedIn() {
+    public static boolean isUserLoggedIn() {
 		return getUserId() != null;
     }
 
@@ -215,7 +215,6 @@ public  class SecurityContext {
     }
     
     public static void assertCurrentUserCanEditComment(Comment comment){
-        assertUserIsLoggedIn();
         if(comment.getCreatedBy().equals(getUser()) // If the user is editing himself
                 || isUserHasPrivilege(Privilege.MANAGE_ARGUMENT) 
                 || isUserHasPrivilege(Privilege.MANAGE_GOODEXAMPLE) ){
@@ -225,15 +224,13 @@ public  class SecurityContext {
     }
     
     public static boolean canCurrentUserEditArgument(Argument arg) {
-        assertUserIsLoggedIn();
-        return arg.getCreatedBy().equals(getUser()) // If the user is editing himself
+        return isUserLoggedIn() && arg.getCreatedBy().equals(getUser()) // If the user is editing himself
                 || isUserHasPrivilege(Privilege.MANAGE_ARGUMENT);     // or If this user has the privilege to edit other users
 
     }
     
     public static boolean canCurrentUserEditGoodExample(GoodExample goodExample) {
-        assertUserIsLoggedIn();
-        return goodExample.getCreatedBy().equals(getUser())
+        return isUserLoggedIn() && goodExample.getCreatedBy().equals(getUser())
                 || isUserHasPrivilege(Privilege.MANAGE_GOODEXAMPLE);
     }
     /**
@@ -250,7 +247,7 @@ public  class SecurityContext {
     
     public static boolean canCurrentUserEditComment(Comment com) { 
     	////this method is used for argument and goodExample
-        return com.getCreatedBy().equals(getUser()) // If the user is editing himself
+        return isUserLoggedIn() && com.getCreatedBy().equals(getUser()) // If the user is editing himself
                 || isUserHasPrivilege(Privilege.MANAGE_ARGUMENT) 
                 || isUserHasPrivilege(Privilege.MANAGE_GOODEXAMPLE);    
     }
@@ -269,8 +266,15 @@ public  class SecurityContext {
     		creator= comment.getGoodExample().getCreatedBy();
     	}
     	
-    	return creator.equals(getUser()) // If the user is the author of the goodExample who's commented
+    	return isUserLoggedIn() && creator.equals(getUser()) // If the user is the author of the goodExample who's commented
                 || isUserHasPrivilege(Privilege.MANAGE_GOODEXAMPLE);
+    }
+
+    public static void assertCurrentUserCanEditGoodExample(GoodExample goodExample) {
+        if( ! canCurrentUserEditGoodExample(goodExample) ) {
+            throw new UnauthorizedAccessException(" cannot edit that goodExample: "+goodExample.getTitle());
+        }
+        
     }
 
 
