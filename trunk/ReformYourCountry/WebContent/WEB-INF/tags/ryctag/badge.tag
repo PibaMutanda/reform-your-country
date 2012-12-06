@@ -12,7 +12,7 @@
        			<c:choose> 
           			<c:when test="${badgeType.badgeTypeLevel.name=='Or'}"><span class="badge1"></span></c:when>
           			<c:when test="${badgeType.badgeTypeLevel.name=='Argent'}"><span class="badge2"></span></c:when>
-          			<c:when test="${badgeType.badgeTypeLevel.name=='Bronze'}"><span class="badge3"></span></c:when>
+          			<c:when test="${badgeType.badgeTypeLevel.name=='Verte'}"><span class="badge3"></span></c:when>
            		</c:choose>
            	&nbsp;${badgeType.name}
           	</span>

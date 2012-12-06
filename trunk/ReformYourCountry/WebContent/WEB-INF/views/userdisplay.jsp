@@ -107,7 +107,7 @@
 <div id="tabs">
 		<ul>
 			<li><a href="#tabs-1">Signalétique</a></li>
-			<li><a href="#tabs-2">Gommette</a></li>
+			<li><a href="#tabs-2">Gommettes</a></li>
 			<li><a href="#tabs-3">Rédaction</a></li>
 		</ul>
 		
