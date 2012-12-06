@@ -8,7 +8,7 @@
 
 
 <span>
-          	<span class="badge" >
+          	<span class="badge" title="${badgeType.description}" >
        			<c:choose> 
           			<c:when test="${badgeType.badgeTypeLevel.name=='Or'}"><span class="badge1"></span></c:when>
           			<c:when test="${badgeType.badgeTypeLevel.name=='Argent'}"><span class="badge2"></span></c:when>
