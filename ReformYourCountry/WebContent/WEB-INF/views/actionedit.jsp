@@ -20,32 +20,32 @@
     </c:choose>
 	<ryctag:form action="/action/editsubmit" modelAttribute="action">
         <ryctag:input path="title" label="Titre"/>  
-        <ryctag:input path="shortName" label="identifiant de l'action"/>      
-        <ryctag:input path="url" label="Nom de la page de l'action"/>
-        <td><input type="submit" value="Générer une url" id="generate" /></td>
-        <ryctag:input path="shortDescription" label="Description brève"/>
-        <ryctag:textarea path="content" label="Description étendue"/>
+        
+        <tr><td style="padding: 6px;">Raccourci</td>
+            	<td><form:input path="shortName" id="shortName" type="input" /></td></tr>  
+               
+        <tr>
+       		<td><label for="url">Fragment d'URL</label></td>
+			<td><form:input path="url" required="required" type="input" cssStyle="width:100%;" /></td>
+			<td><input type="submit" value="Générer une url" id="generate" /></td>
+        </tr>
+    
+    	<tr>
+    		<td><label>Description courte</label></td>
+    		<td><textarea name="shortDescription" cols="60" rows="4">${action.shortDescription}</textarea></td>
+    	</tr>
+    		
+        <tr>
+        <td><label>Description étendue</label></td>
+        <td><textarea name="content" cols="60" rows="15">${action.content}</textarea></td>
+        </tr>
        
 		<input type="hidden" name="id" value="${action.id}"/> 
             
         <tr>
-        <td>
-       		
-        		<input type="submit" value="<c:choose><c:when test="${action.id != null}">Sauver</c:when><c:otherwise>Créer</c:otherwise></c:choose>" />
-
-        </td>
-        <td style="text-align: center;"> 
-        	<a href="	<c:choose>
-        					<c:when test="${action.id != null}">/action/${action.url}</c:when>
-        					<c:otherwise>/action</c:otherwise>
-        				</c:choose>"     >
-        		Annuler
-        	</a>
-        </td>
-       
-      
-        	
-
+        	<td colspan="2" align="center" style="text-align: center;">
+       	  	 <input type="submit" value="<c:choose><c:when test="${action.id != null}">Sauver</c:when><c:otherwise>Créer</c:otherwise></c:choose>" />
+       		</td>
         </tr>
     </ryctag:form>
   
