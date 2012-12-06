@@ -41,6 +41,9 @@ public class GoodExample extends BaseEntity implements IVote{
 	@OrderBy("createdOn ASC")
 	private List<Comment> commentList = new ArrayList<Comment>();
 	
+	@OneToMany(mappedBy = "goodExample")
+	private List<VoteGoodExample> voteGoodExample = new ArrayList<>();
+	
 	private int voteCount;
 
 	public String getTitle() {
@@ -84,16 +87,28 @@ public class GoodExample extends BaseEntity implements IVote{
         this.commentList = commentList;
     }
 
+    
+	public List<VoteGoodExample> getVoteGoodExample() {
+		return voteGoodExample;
+	}
+
+	public void setVoteGoodExample(List<VoteGoodExample> voteGoodExample) {
+		this.voteGoodExample = voteGoodExample;
+	}
+
 	@Override
 	public int getTotal() {
-		// TODO Auto-generated method stub
-		return 0;
+		return voteCount;
 	}
 
 	@Override
 	public int getVoteValueByUser(User user) {
-		// TODO Auto-generated method stub
-		return 0;
+		for(VoteGoodExample vote:voteGoodExample){
+            if (vote.getUser()==user){
+               return 1;//There is only one value for a GoodExample.
+            }
+        }
+        return 0;
 	}
     public boolean isEditable(){  // Placed in the entity because used in JSPs (EL).
         return SecurityContext.canCurrentUserEditGoodExample(this);

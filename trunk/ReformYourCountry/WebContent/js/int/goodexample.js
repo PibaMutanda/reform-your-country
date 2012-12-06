@@ -25,6 +25,7 @@ function ItemEditStart(item, editedItemDBId){
 					$("#item"+editedItemDBId).html(data);
 					activateCkEditorAndHelpDiv(editedItemDBId);
 					$("#CkEditFormSubmit").attr("onclick","return editSubmit();");//return false when method success to avoid form submition
+					$("#CkEditFormAbort").attr("onclick","return hideAllCkEditorContainer();");
 				},
 				"#item"+editedItemDBId
 	);
@@ -35,8 +36,8 @@ function createStart(idParent) {
 	if (showMessageIfNotLogged($('#createDivFakeEditor'))) {
 		return;
 	}
-	$('#createDivFakeEditor').hide();
 	hideAllCkEditorContainer();
+	$('#createDivFakeEditor').hide();
 	sendValues("/ajax/goodexample/edit",
 				{ idParent : idParent },
 				function(data){
@@ -45,6 +46,7 @@ function createStart(idParent) {
 					$('#createDivRealEditor').show();
 					activateCkEditorAndHelpDiv('');
 					$("#CkEditFormSubmit").attr("onclick","return editSubmit()");
+					$("#CkEditFormAbort").attr("onclick","return hideAllCkEditorContainer();");
 				}
 	);	
 }
@@ -59,10 +61,10 @@ function deleteItem(objectButtonDelete,editedItemDBId){
 function hideAllCkEditorContainer(){
 	var idItem = $('#ckEditForm > input[name="idItem"]').val();	
 	if(typeof idItem === "undefined" || idItem == ""){
-		$('#argumentAddDivFakeEditor').show();
-		$('#argumentAddDivRealEditor').empty().hide();
+		$('#createDivFakeEditor').show();
+		$('#createDivRealEditor').empty().hide();
 	}else{
-		sendValuesAndReplaceItem("/ajax/goodexample/refresh",{id : idDbComment},"item"+commentedItemDbID, objectButton);
+		sendValuesAndReplaceItem("/ajax/goodexample/refresh",{id : idItem},"item"+idItem, null);
 	}
 }
 

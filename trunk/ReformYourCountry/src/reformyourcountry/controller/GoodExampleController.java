@@ -76,12 +76,14 @@ public class GoodExampleController extends BaseController<GoodExample>{
      * send a jsp fragment who contains a form for edit a goodExample
      */
     @RequestMapping("/ajax/goodexample/edit")
-    public ModelAndView GoodExampleEdit(@RequestParam(value="idItem") Long goodExampleId,   
-            							@RequestParam(value="idParent",required=false) Long articleId
+    public ModelAndView GoodExampleEdit(@RequestParam(value="idItem",required=false) Long goodExampleId,//for create   
+            							@RequestParam(value="idParent",required=false) Long articleId //for edit
             ){
         ModelAndView mv = new ModelAndView("ckeditorform");
-        
-        if(goodExampleId != null) {// For editing existing arguments.
+        if (goodExampleId==null && articleId==null) {
+            throw new AjaxValidationException("problème de donner sur le page veuillez la recharger");
+       }
+        if ( goodExampleId != null ) {// For editing existing arguments.
             GoodExample goodExample =  getRequiredEntity(goodExampleId);
             mv.addObject("idItem",goodExampleId);
             mv.addObject("titleItem",goodExample.getTitle());
@@ -111,6 +113,9 @@ public class GoodExampleController extends BaseController<GoodExample>{
         	goodExample = new GoodExample();
         	article = (Article) getRequiredEntity(articleId, Article.class);
         	
+        	goodExample.setTitle(title);
+            goodExample.setContent(content);
+            
             goodExample.getArticles().add(article);
             goodExampleRepository.persist(goodExample);
 

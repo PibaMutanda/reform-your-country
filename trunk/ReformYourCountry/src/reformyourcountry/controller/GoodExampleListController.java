@@ -16,7 +16,7 @@ public class GoodExampleListController {
 	 @Autowired
 	 GoodExampleRepository goodExampleRepository;
 	
-	@RequestMapping("/goodexamplelist")
+	@RequestMapping("/goodexample")
 	public ModelAndView goodExampleList(){
 		
 		ModelAndView mv = new ModelAndView("goodexamplelist");
