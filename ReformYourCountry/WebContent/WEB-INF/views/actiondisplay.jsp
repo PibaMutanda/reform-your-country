@@ -31,7 +31,19 @@
 </head>
 <body>
 
-	<ryctag:pageheadertitle title="${action.title}" />
+
+<ryctag:pageheadertitle title="${action.title }">
+		<ryctag:breadcrumbelement label="actions"  link="/action"/><ryctag:breadcrumbelement label="cette action" />
+</ryctag:pageheadertitle>
+	
+<div>
+	<ryc:conditionDisplay privilege="MANAGE_ACTION">
+			<a href="/action/edit?id=${action.id}" style="font-size: 0.8em;">éditer</a>
+	</ryc:conditionDisplay>
+	<ryctag:form action="/action/edit" modelAttribute="action"	method="get" width="50px;">
+		<input type="hidden" value="${action.id}" name="id" id="idAction" />
+	</ryctag:form>
+</div>
 
 	<%-- Action text --%>
 	<div style="width: 100%;">
@@ -70,17 +82,7 @@
 				</div>
 			</div>
 			<!-- AddThis Button END -->
-			<div>
-				<a href="/action" style="font-size: 0.8em;">retour à la liste des actions</a>
-				<ryc:conditionDisplay privilege="MANAGE_ACTION">
-								- <a href="/action/edit?id=${action.id}"
-						style="font-size: 0.8em;">éditer</a>
-				</ryc:conditionDisplay>
-				<ryctag:form action="/action/edit" modelAttribute="action"
-					method="get" width="50px;">
-					<input type="hidden" value="${action.id}" name="id" id="idAction" />
-				</ryctag:form>
-			</div>
+			
 		</div>
 	</div>
 
