@@ -22,9 +22,14 @@
 <!-- 				</ul>	 -->
 </div>
 </div>
-<hr/>
+
 </ryc:conditionDisplay>
-<img class="generatepdflist" style="cursor:pointer;margin-left:15px;" src="images/pdf_button.png"></img>
+<br/>
+
+<img class="generatepdflist" style="cursor:pointer;margin-left:15px;" src="images/pdf_button.png" title="Créer un pdf avec tous les articles" align="right"></img>
+<br/>
+<br/>
+
 <div class="article_content">
 <ryc:articlesList/>
 </div>
