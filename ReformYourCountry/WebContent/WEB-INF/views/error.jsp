@@ -7,7 +7,7 @@
 <html>
 <head>
 <script src="js/ext/jquery-1.8.0.min.js"></script><%-- jquery depandencies --%>
-<script src="js/ext/jquery-ui-1.8.23.custom.min.js"></script>
+<script src="/js/ext/jquery-ui-1.8.24.custom.min.js"></script>
 <script src="js/int/redirect.js"></script>
 <script type ="text/javascript">
   var redirectUrl = "${redirectUrl}";  // Used by redirect.js

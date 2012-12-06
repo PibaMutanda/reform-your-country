@@ -28,9 +28,9 @@
 			<li><a href="#tabs-1">Top contributeurs</a></li>
 			<li><a href="#tabs-2">Derniers inscrits</a></li>
 			<li><a href="#tabs-3">Recherche</a></li>
-				<c:if test="${infoUsersHavingSpecialPrivileges != null}">
-					<li><a href="#tabs-4">Privilèges utilisateurs</a></li>
-				</c:if>
+			<c:if test="${infoUsersHavingSpecialPrivileges != null}">
+				<li><a href="#tabs-4">Privilèges utilisateurs</a></li>
+			</c:if>
 		</ul>
 		<div id="tabs-1">
 			<ryctag:usersgrid userList="${topUserList}"></ryctag:usersgrid>
