@@ -14,24 +14,20 @@
 	<c:if test="${noResult == true}">
 		Aucun résultat trouvé. 
 	</c:if>
-	<c:forEach items="${searchResult.results}" var="articleSearchUnit">
-		<c:if test="${articleSearchUnit.visible}">
+	<c:forEach items="${searchResult}" var="result">
+		
 			<div class=listToSearchTitle>
-			     <a  href="/article/${articleSearchUnit.article.url}">${articleSearchUnit.articleDocument.title}</a>
+			     <a  href="${result.url}">${result.title}</a>
 			</div>
-			<span class="datepublication"> <ryc:publishDate id="${articleSearchUnit.article.id}"/> </span>
+			<c:if test="${result.entityClassName == 'Article'}">
+			<span class="datepublication"> <ryc:publishDate id="${result.id}"/> </span>
+			</c:if>
 			<div class=listToSearch>
-			    <c:choose>
-			      <c:when test="${articleSearchUnit.articleDocument.content != null}">
-			     		${articleSearchUnit.articleDocument.content}
-			      </c:when>
-			      <c:otherwise>
-			      	 	${articleSearchUnit.article.description}
-			      </c:otherwise>
-			    </c:choose>
+			    
+			    ${result.text}
 			    <br/> <br/>
 			</div>
-		</c:if>
+		
 	</c:forEach>
 
 </body>

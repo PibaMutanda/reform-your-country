@@ -78,7 +78,7 @@ public class UserService {
     @Autowired   private LoginService loginService;
     @Autowired   private UsersConnectionRepository usersConnectionRepository;
     @Autowired   private CurrentEnvironment currentEnvironment;
-
+    @Autowired  IndexManagerService indexManagerService;
     /**
      * Register a user and sends a validation mail.
      * 
@@ -127,6 +127,12 @@ public class UserService {
             sendRegistrationValidationMail(newUser);
         }
 
+        ///// update index
+    
+           indexManagerService.add(newUser);
+      
+        
+        
         return newUser;
     }
 

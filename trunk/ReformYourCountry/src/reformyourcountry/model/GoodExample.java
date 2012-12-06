@@ -1,7 +1,9 @@
 package reformyourcountry.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,13 +12,14 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotBlank;
 
+import reformyourcountry.search.Searchable;
 import reformyourcountry.security.SecurityContext;
-
 @Entity
-public class GoodExample extends BaseEntity implements IVote{
+public class GoodExample extends BaseEntity implements IVote ,Searchable{
 
 	@NotBlank(message="entrer un titre")
 	@Column(length = 100, unique = true, nullable = false)// need nullable= false for schemaupdate
@@ -110,11 +113,28 @@ public class GoodExample extends BaseEntity implements IVote{
         }
         return 0;
 	}
+
+    @Override
+    public Map<String, String> getCriterias() {
+        Map<String,String> criterias = new HashMap<String,String>();
+        criterias.put("title",StringUtils.defaultIfEmpty(title,""));
+        criterias.put("description", StringUtils.defaultIfEmpty(content,""));
+        
+        return criterias;
+    }
+
+    @Override
+    public String getBoostedCriteriaName() {
+        
+        return "title";
+    }
+
+   
     public boolean isEditable(){  // Placed in the entity because used in JSPs (EL).
         return SecurityContext.canCurrentUserEditGoodExample(this);
     }
     public boolean isDeletable(){
-    	return SecurityContext.canCurrentUserDeleteGoodExample(this);
+        return SecurityContext.canCurrentUserDeleteGoodExample(this);
     }
 	
 }

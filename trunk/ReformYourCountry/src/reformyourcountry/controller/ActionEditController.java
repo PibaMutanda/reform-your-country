@@ -15,6 +15,7 @@ import reformyourcountry.repository.ActionRepository;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.ActionService;
+import reformyourcountry.service.IndexManagerService;
 import reformyourcountry.util.NotificationUtil;
 
 @Controller
@@ -23,6 +24,7 @@ public class ActionEditController extends BaseController<Action>{
     
     @Autowired ActionRepository actionRepository;
     @Autowired ActionService actionService;
+    @Autowired  IndexManagerService indexManagerService;
     
     @RequestMapping("/create")
     public ModelAndView actionCreate(){
@@ -48,6 +50,7 @@ public class ActionEditController extends BaseController<Action>{
         Action action = getRequiredEntity(actionId); 
         SecurityContext.assertUserHasPrivilege(Privilege.DELETE);
         actionService.delete(action);
+        indexManagerService.delete(action);
         NotificationUtil.addNotificationMessage("L'action est bien supprimée");
         return new ModelAndView("redirect:/action");
     }
@@ -63,8 +66,10 @@ public class ActionEditController extends BaseController<Action>{
        
         if (action.getId() == null){ //New action instance (not from DB)
             actionRepository.persist(action);
+            indexManagerService.add(action);
         } else { // Edited action instance.
             actionRepository.merge(action);
+            indexManagerService.update(action);
         }
             
         return new ModelAndView("redirect:/action/"+action.getUrl());

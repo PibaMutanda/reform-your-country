@@ -1,20 +1,24 @@
 package reformyourcountry.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Pattern;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotBlank;
+
+import reformyourcountry.search.Searchable;
 @Entity
-public class Action extends BaseEntity{
+public class Action extends BaseEntity implements Searchable{
 	
     
     @Column(length = 100)
@@ -159,6 +163,25 @@ public class Action extends BaseEntity{
     public void setShortName(String shortName) {
         this.shortName = shortName;
     }
+
+    @Override
+    public Map<String, String> getCriterias() {
+        Map<String ,String>criterias = new HashMap<String,String>();
+        criterias.put("title", StringUtils.defaultIfEmpty(title,""));
+        criterias.put("shortName",StringUtils.defaultIfEmpty(shortName,""));
+        criterias.put("description", StringUtils.defaultIfEmpty(shortDescription,""));
+        criterias.put("content", StringUtils.defaultIfEmpty(content,""));
+        
+        return criterias;
+    }
+
+    @Override
+    public String getBoostedCriteriaName() {
+       
+        return "title";
+    }
+
+   
 }
 	
 	

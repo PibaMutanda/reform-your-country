@@ -17,11 +17,12 @@ import javax.persistence.Transient;
 import org.apache.log4j.Logger;
 import org.hibernate.proxy.HibernateProxyHelper;
 
+import reformyourcountry.search.Searchable;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.util.DateUtil;
 
 @MappedSuperclass
-public class BaseEntity {
+public class BaseEntity  {
 
     private static final boolean ENFORCE_CONSISTENT_HASHCODE = false;
 
