@@ -12,14 +12,14 @@ function editSubmit(){
 	return false;
 }
 
-function editStart(item, editedItemDBId){
+function ItemEditStart(item, editedItemDBId){
 	if (showMessageIfNotLogged(item)) {
 		return;
 	}
 	
 	hideAllCkEditorContainer();
 	sendValues("/ajax/goodexample/edit", 
-				{ goodExampleId : editedItemDBId }, 
+				{ idItem : editedItemDBId }, 
 				function(data){
 					$("#ckEditForm").empty();
 					$("#item"+editedItemDBId).html(data);
@@ -80,7 +80,7 @@ function unVoteItem(idGoodExample){
 ///////////////////////////////// COMMENTS
 
 function submitComment(objectButton,commentedItemDbID){
-	submitComment("/ajax/goodexample/commenteditsubmit",objectButton,commentedItemDbID);
+	submitCommentEdit("/ajax/goodexample/commenteditsubmit",objectButton,commentedItemDbID);
 }
 
 function deleteComment(objectButton,idDbComment,commentedItemDbID){

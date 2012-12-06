@@ -78,7 +78,7 @@ function  unVoteItem(id){
 ///////////////////////////////// COMMENTS
 
 function submitComment(objectButton,commentedItemDbID){
-	submitComment("/ajax/argument/commenteditsubmit",objectButton,commentedItemDbID);
+	submitCommentEdit("/ajax/argument/commenteditsubmit",objectButton,commentedItemDbID);
 }
 
 function deleteComment(objectButton,idDbComment,commentedItemDbID){
