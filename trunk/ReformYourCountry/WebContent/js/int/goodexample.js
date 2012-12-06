@@ -62,7 +62,7 @@ function hideAllCkEditorContainer(){
 		$('#argumentAddDivFakeEditor').show();
 		$('#argumentAddDivRealEditor').empty().hide();
 	}else{
-		sendSimpleValue(null,idItem,'item'+idItem,"/ajax/goodexample/refresh",""); //Refresh the div with the item value
+		sendValuesAndReplaceItem("/ajax/goodexample/refresh",{id : idDbComment},"item"+commentedItemDbID, objectButton);
 	}
 }
 
