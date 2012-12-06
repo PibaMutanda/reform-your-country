@@ -72,7 +72,12 @@
 <!-- /***************** - Bottom Footer - *****************  -->
 <div id="footer_bottom">
  <div class="info" >
-   2012 ${p_website_name} - ${p_version} 
+ 
+ 	<a rel="license" href="/about/copyright.jsp" title="Cette œuvre est mise à disposition selon les termes de la Licence Creative Commons Attribution 2.0 Belgique.">
+ 		<img alt="Licence Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by/2.0/be/80x15.png" />
+ 	</a>
+<!--  	http://creativecommons.org/licenses/by/2.0/be/ -->
+<%--    2012 ${p_website_name} - ${p_version}  --%>
  </div><!-- end info -->
 </div><!-- end footer_bottom -->
 

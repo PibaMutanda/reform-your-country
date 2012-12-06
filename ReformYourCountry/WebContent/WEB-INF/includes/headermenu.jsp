@@ -26,6 +26,7 @@
 			 <li><a href="/fonctionnalites"><span>Fonctionnalités</span></a></li>
 			 <li><a href="/about/contribuer.jsp"><span>Comment contribuer?</span></a></li>
 			 <li><a href="/contact"><span>Contactez-nous</span></a></li>
+			 <li><a href="/about/copyright.jsp"><span>Droit d'auteur</span></a></li>
 			 <ryc:conditionDisplay role="ADMIN"><li><a href="/admin"><span>Page administrateur</span></a></li></ryc:conditionDisplay>
 		 </ul>
 	</li>

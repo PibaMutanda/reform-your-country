@@ -3,15 +3,44 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ page import="reformyourcountry.web.UrlUtil"%>
 <head>
+<!-- code used for "i like facebook" -->
+<meta property="og:title" content="${action.title}" />
+<meta property="og:type" content="action" />
+<meta property="og:url"	content="http://<%= UrlUtil.getProdAbsoluteDomainName()%>/action/${action.title}" />
+<meta property="og:image"	content="http://<%= UrlUtil.getProdAbsoluteDomainName()%>/images/logo/2-logo.png" />
+<meta property="og:site_name"	content="<%= UrlUtil.getProdAbsoluteDomainName()%>" />
+<meta property="fb:admins" content="${user.id}" />
+<meta property="og:description" content="${action.shortDescription}" />
+
 <script type="text/javascript" src="/js/int/CKeditorManager.js"></script>
 <script type="text/javascript" src="/js/int/general.form.js"></script>
 <script type="text/javascript" src="/js/int/goodexample.js"></script>
 <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+
+<script type="text/javascript">
+ var addthis_config = {"data_track_clickback":true};
+ </script>
+<script type="text/javascript"
+	src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-509a829c59a66215"></script>
 </head>
 <ryctag:pageheadertitle title="goodexamplelist" >
 Insert breadcrumb elements here
 </ryctag:pageheadertitle>
+
+<!-- AddThis Button BEGIN -->
+<div class="addthis_toolbox addthis_default_style"
+	style="padding-top: 30px; padding-bottom: 10px;">
+	<div style="float: left">
+		<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+		<a class="addthis_button_tweet"></a> <a
+			class="addthis_button_google_plusone" g:plusone:size="medium"></a> <a
+			class="addthis_counter addthis_pill_style"></a>
+	</div>
+</div>
+<!-- AddThis Button END -->
+
 <script type="text/javascript">
    var idUser = "${current.user.id}";
 </script>
