@@ -103,14 +103,14 @@ public class UserEditController extends BaseController<User> {
                                        @RequestParam(value="firstName",required=false) String newFirstName,
                                        @RequestParam(value="userName") String newUserName,
                                        @RequestParam(value="gender",required=false) Gender newGender,
-                                       @RequestParam(value="mail") String newMail,
+                                       @RequestParam(value="mail", required=false) String newMail,
                                        @RequestParam(value="birthDay") String day,
                                        @RequestParam(value="birthMonth") String month,
                                        @RequestParam(value="birthYear") String year,
                                        @RequestParam(value="nlSubscriber", required=false) Boolean newNlSubscriber,
                                        @RequestParam(value="title") String title,
                                        @RequestParam(value="certified", required=false) Boolean certified,
-                                       @RequestParam(value="mailingDelayType",required=false)MailingDelayType mailingDelayType,
+                                       @RequestParam(value="mailingDelayType",required=false) MailingDelayType mailingDelayType,
                                        @RequestParam(value="accountStatus",required=false) AccountStatus accountStatus,
                                        @RequestParam("id") long userId,
                                        @Valid @ModelAttribute User doNotUseThisUserInstance,  // To enable the use of errors param.
@@ -154,15 +154,19 @@ public class UserEditController extends BaseController<User> {
         }
         
         // e-mail
-        newMail = org.springframework.util.StringUtils.trimAllWhitespace(newMail).toLowerCase();   // remove blanks
-        if (! org.apache.commons.lang3.StringUtils.equalsIgnoreCase(user.getMail(), newMail)) {  // user wants to change e-mail
-            // check duplicate
-            User otherUser = userRepository.getUserByEmail(newMail);
-            if (otherUser != null) {
-                errors.rejectValue("mail", null, "Ce mail est déjà utilisé par un autre utilisateur.");
-            }
+        if(newMail != null){
+        	newMail = org.springframework.util.StringUtils.trimAllWhitespace(newMail).toLowerCase();   // remove blanks
+	        if (! org.apache.commons.lang3.StringUtils.equalsIgnoreCase(user.getMail(), newMail)) {  // user wants to change e-mail
+	        	// check duplicate
+	            User otherUser = userRepository.getUserByEmail(newMail);
+	            if (otherUser != null) {
+	                errors.rejectValue("mail", null, "Ce mail est déjà utilisé par un autre utilisateur.");
+	            }
+	        }
+        } else {  // No mail provided
+        	// It's ok, mail is not mandatory...
         }
-        
+       
         
         
         if (errors.hasErrors()) {
@@ -181,10 +185,6 @@ public class UserEditController extends BaseController<User> {
              
                 mv.addObject("birthYear", birthCalendar.get(Calendar.YEAR));
             }
-            
-            
-          
-           
             return mv;
         }
         
@@ -196,11 +196,8 @@ public class UserEditController extends BaseController<User> {
         
         // MailDelayType
         if(mailingDelayType != null){
-            
             user.setMailingDelayType(mailingDelayType);
         }
-        
-        
         
         user.setBirthDate(dateNaiss);
         user.setMail(newMail);
