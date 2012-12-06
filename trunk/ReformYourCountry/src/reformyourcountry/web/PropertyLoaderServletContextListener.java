@@ -17,9 +17,20 @@ public class PropertyLoaderServletContextListener implements javax.servlet.Servl
 
     public void contextInitialized(ServletContextEvent sce) {
         ServletContext sc= sce.getServletContext();
-        Properties props = new Properties();
         //Open the properties file and send it to a Properties Object
         URL resource = getClass().getClassLoader().getResource("website_content.properties");    
+        sendPropsToContext(sc, resource);
+        resource = getClass().getClassLoader().getResource("website_help.properties");    
+        sendPropsToContext(sc, resource);
+        //Add special properties from config.properties
+        sc.setAttribute("p_website_address",UrlUtil.getProdAbsoluteDomainName());  
+        sc.setAttribute("p_website_name",UrlUtil.getWebSiteName());         
+        sc.setAttribute("p_version",UrlUtil.getVersion());  
+    }
+
+    public void sendPropsToContext(ServletContext sc, URL resource) {
+
+        Properties props = new Properties();
         try {
             props.load(new InputStreamReader(resource.openStream(), "UTF8"));
         } catch (Exception e) {
@@ -33,10 +44,6 @@ public class PropertyLoaderServletContextListener implements javax.servlet.Servl
             String key = (String)keys.nextElement();
             sc.setAttribute("p_" + key, props.getProperty(key));
         }
-        //Add special properties from config.properties
-        sc.setAttribute("p_website_address",UrlUtil.getProdAbsoluteDomainName());  
-        sc.setAttribute("p_website_name",UrlUtil.getWebSiteName());         
-        sc.setAttribute("p_version",UrlUtil.getVersion());  
     }
 
     @Override

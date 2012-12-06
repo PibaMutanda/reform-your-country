@@ -50,6 +50,7 @@ function argumentCreateStart(isPos, idAction) {
 				$('#argumentAddDivRealEditor'+isPos).html(data);
 				$('#argumentAddDivRealEditor'+isPos).show();
 				activateCkEditorAndHelpDiv('');
+				$("#CkEditFormAbort").attr("onclick","return hideAllCkEditorContainer();");
 				$("#CkEditFormSubmit").attr("onclick","return argumentEditSubmit()");
 				return;
 	});
