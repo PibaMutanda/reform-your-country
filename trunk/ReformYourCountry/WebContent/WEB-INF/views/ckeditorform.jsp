@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-
-<c:set var="helpContent" value="${itemHelpContent}" scope="request"/>
 <%@include file="help.jsp"%>
 
 <form id='ckEditForm' action='${urlAction}'>
@@ -18,19 +16,21 @@
     <textarea id='contentItem'  name='content' >${contentItem}</textarea>
     
     <div>
-        <div style="float:right;">
-		    <c:choose>
+        <div style="float:right; display:inline-block;padding: 3px; margin: 5px;">
+    		<c:choose>
 		        <c:when test="${empty idItem}">
-		        	<input type='submit' id='CkEditFormSubmit' value='Ajouter' style='padding: 3px; margin: 5px;'/>
+		        	<input type='submit' id='CkEditFormSubmit' value='Ajouter' />
 		        </c:when>
 		         <c:otherwise>
-		         	<input type='submit' id='CkEditFormSubmit' value='Sauver' style='padding: 3px; margin: 5px;'/>
+		         	<input type='submit' id='CkEditFormSubmit' value='Sauver' />
 		         </c:otherwise>
 		    </c:choose>
+        	<div style="float:right;">
+   				<div id='CkEditFormAbort' class="divButton" style=''>
+		   			Annuler 	
+       			</div>
+        	</div>
     	</div>
-   		<div>
-		    <input type='button' id='CkEditFormAbort' value='Annuler' style='padding: 3px; margin: 5px;'/>
-        </div>
     </div>
 </form>
 
