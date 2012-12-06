@@ -33,19 +33,35 @@ public class ArticleTreeNavBarVisitor implements ArticleTreeVisitor {
 			if(!article.isPublished()) {
 				if (article.getPublishDate() != null && article.getPublishDate().after(new Date())){
 					htmlResult+="<span class=\"datepublication\">publié dans "+DateUtil.formatDuration(new Date(), article.getPublishDate() )+"</span>";
-					htmlResult+="<div class=\"descriptNotPublish\">"+article.getDescription()+"<div/>";
+					
+					if(article.getDescription()!=null)
+						htmlResult+="<div class=\"descriptNotPublish\">"+article.getDescription()+"<div/>";
+					else
+						htmlResult+="<br/><br/>";
+					
 				} else if (article.getPublishDate() != null && article.getPublishDate().before(new Date())){
 					htmlResult+="<span class=\"datepublication\">publié il y a "+DateUtil.formatDuration(new Date(), article.getPublishDate() )+"</span>";
-					htmlResult+="<div class=\"descriptPublish\">"+article.getDescription()+"<div/>";
+					
+					if(article.getDescription()!=null)
+						htmlResult+="<div class=\"descriptNotPublish\">"+article.getDescription()+"<div/>";
+					else
+						htmlResult+="<br/><br/>";
 				} else {
 					htmlResult+="<span class=\"datepublication\">non publié</span>";
-					htmlResult+="<div class=\"descriptNotPublish\">"+article.getDescription()+"<div/>";
+					
+					if(article.getDescription()!=null)
+						htmlResult+="<div class=\"descriptNotPublish\">"+article.getDescription()+"<div/>";
+					else
+						htmlResult+="<br/><br/>";
 				}
 				
 				
 			} else {
 				htmlResult+="<span class=\"datepublication\">publié</span>";
-				htmlResult+="<div class=\"descriptPublish\">"+article.getDescription()+"<div/>";
+				if(article.getDescription()!=null)
+					htmlResult+="<div class=\"descriptNotPublish\">"+article.getDescription()+"<div/>";
+				else
+					htmlResult+="<br/><br/>";
 			}
 			
 			
