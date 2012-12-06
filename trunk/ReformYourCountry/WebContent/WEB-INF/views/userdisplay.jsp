@@ -121,7 +121,7 @@
 				Genre : <c:choose><c:when test="${user.gender ne null}">${user.gender}</c:when><c:otherwise>?</c:otherwise></c:choose> <br/>
 				<c:if test="${canEdit}">
 					Né le : <c:choose><c:when test="${user.birthDate ne null}">${user.birthDate}</c:when><c:otherwise>?</c:otherwise></c:choose><br />
-					mail : ${user.mail}<br />
+					mail : <c:choose><c:when test="${user.mail ne null}">${user.mail}}</c:when><c:otherwise>?</c:otherwise></c:choose><br />
 					
 					Date d'enregistrement : ${user.createdOn} <br />
 					Rôle : ${user.role}<br/>
