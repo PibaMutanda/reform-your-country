@@ -1,5 +1,7 @@
 package reformyourcountry.repository;
 
+
+
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -29,6 +31,8 @@ public abstract class BaseRepository<E extends BaseEntity> {
         return ( E )obj;
     }
 
+
+    
     public E findByUrl(String url){
         Object obj = getSingleOrNullResult(em.createQuery("select e from "+entityClass.getName()+" e where lower(e.url) = :url").setParameter("url",url.toLowerCase()));
         if (obj == null)
