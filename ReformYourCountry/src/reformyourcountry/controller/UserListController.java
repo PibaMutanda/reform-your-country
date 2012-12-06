@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import reformyourcountry.model.User;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.security.Privilege;
+import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.UserService;
 
 @Controller
@@ -27,25 +28,32 @@ public class UserListController {
 		boolean search = false;
 		String errorMsg = null;
 		ModelAndView mv = new ModelAndView("userlist");
-		List<User> topUserList = userRepository.FindUserOrderByContribution(100);
-		List<User> lastUsersRegistered = userRepository.FindLastUsersRegistred(100);
-		mv.addObject("topUserList", topUserList);
-		mv.addObject("lastUsersRegistered", lastUsersRegistered);
-		List<User> userRoleList = userService.getUserLstWithRoleAndPrivilege();
 		
-		// Make a list of Information, which is easier to display than a list of users in the JSP.
-		List<Information> infoList = new ArrayList<Information>(); 
-		for(User u : userRoleList){
-			Information current = new Information();
-			current.setUser(u);
-			for(Privilege p : u.getPrivileges()){
-				current.privileges +=  "- " + p.getName() + "</br>";
+		// TAB with top users
+		List<User> topUserList = userRepository.FindUserOrderByContribution(100);
+		mv.addObject("topUserList", topUserList);
+		
+		// TAB with last registered users
+		List<User> lastUsersRegistered = userRepository.FindLastUsersRegistred(100);
+		mv.addObject("lastUsersRegistered", lastUsersRegistered);
+		
+		// TAB with users having special privileges
+		if (SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS)) { 
+			List<User> usersHavingSpecialPrivileges = userService.getUserLstWithRoleOrPrivilege();
+			// Make a list of Information, which is easier to display than a list of users in the JSP.
+			List<Information> infoUsersHavingSpecialPrivileges = new ArrayList<Information>(); 
+			for(User u : usersHavingSpecialPrivileges){
+				Information current = new Information();
+				current.setUser(u);
+				for(Privilege p : u.getPrivileges()){
+					current.privileges +=  "- " + p.getName() + "</br>";
+				}
+				infoUsersHavingSpecialPrivileges.add(current);
 			}
-			infoList.add(current);
+			mv.addObject("infoUsersHavingSpecialPrivileges", infoUsersHavingSpecialPrivileges);
 		}
 		
-		mv.addObject("infoList", infoList);
-		
+		// TAB Search
 		if (name==null) {  // It's not a search, it's a first time display.
 			return mv;
 		} else {  // It's a search
