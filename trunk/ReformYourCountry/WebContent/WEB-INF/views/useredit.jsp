@@ -23,8 +23,8 @@
     <tr><th></th><th style="width:300px;"></th><th style="width:300px;"></th></tr>
     <c:choose>
     	<c:when test="${canChangeUserName}"><%-- Only an admin can modify name of a certified user --%>
+    		<ryctag:input path="firstName" label="Prénom"/>
     		<ryctag:input path="lastName" label="Nom" />
-	        <ryctag:input path="firstName" label="Prénom"/>
 	        <ryctag:input path="title" label="Titre" tooltip="Indiquez en peu de mots la nature de votre fonction en rapport avec l'objet de ce site. Votre titre sera affiché sous votre nom. Exemples de titres: 'Directeur d'une PME.', ou 'Ministre de la Bière', ou 'Président du comité des gilles de Binche', ou 'Ouvrier dans l'industrie sidérurgique'."/>
     	</c:when>
     	<c:otherwise>
