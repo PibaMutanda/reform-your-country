@@ -35,7 +35,7 @@
 	<div id="commentAreaForItem${currentItem.id}" style="display: none;">
 		<div class="errors" style="color:red;"><%--Error messages inserted by JavaScript --%></div>
         <input type="hidden" name="idEditedComment" value="${comment.id}"/>
-		<textarea id="comm${currentItem.id}" style="width: 250px; height: 60px;" onfocus="maxlength_comment(this,${currentItem.id},50,10);" onkeyup="maxlength_comment(this,${currentItem.id},50,10);"></textarea>
+		<textarea id="comm${currentItem.id}" style="width: 250px; height: 60px; font-size:12px;" onfocus="maxlength_comment(this,${currentItem.id},250,10);" onkeyup="maxlength_comment(this,${currentItem.id},250,10);"></textarea>
 		<input style="float: right;" type="button" disabled="disabled" value="If you see this, something goes wrong javascript"	onclick="return submitComment(this,${currentItem.id});">
 		<div style="float: left;" id="nbrCaract${currentItem.id}"></div>
 		<div class="commentLink divButton" style="float: right;text-align:center;" id="cancel"	onclick="return cancelComment('${currentItem.id}');">Annuler</div>
