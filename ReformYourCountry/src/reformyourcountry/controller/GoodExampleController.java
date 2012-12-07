@@ -107,7 +107,7 @@ public class GoodExampleController extends BaseController<GoodExample>{
         if (goodExampleId==null && articleId==null) {
             throw new AjaxValidationException("problème de donner sur le page veuillez la recharger");
        }
-        if ( goodExampleId != null ) {// For editing existing arguments.
+       if ( goodExampleId != null ) {// For editing existing arguments.
             GoodExample goodExample =  getRequiredEntity(goodExampleId);
             mv.addObject("idItem",goodExampleId);
             mv.addObject("titleItem",goodExample.getTitle());
@@ -145,6 +145,11 @@ public class GoodExampleController extends BaseController<GoodExample>{
         	goodExample = new GoodExample();
         	article = (Article) getRequiredEntity(articleId, Article.class);
         	
+        	//check unique title constraint
+        	if ( goodExampleRepository.findByTitle(title) != null ) {
+                throw new AjaxValidationException("un autre bon exemple existe déjà avec ce titre");
+        	}
+        	
         	goodExample.setTitle(title);
             goodExample.setContent(content);
             
@@ -157,8 +162,14 @@ public class GoodExampleController extends BaseController<GoodExample>{
         } else {
         	goodExample = getRequiredEntity(goodExampleId);
         	SecurityContext.assertCurrentUserCanEditGoodExample(goodExample);
+        	//check unique title constraint
+        	if ( goodExampleRepository.findByTitle(title) != null ) {
+                throw new AjaxValidationException("un autre bon exemple existe déjà avec ce titre");
+        	}
         }
         
+
+    	
         goodExample.setTitle(title);
         goodExample.setContent(content);
         

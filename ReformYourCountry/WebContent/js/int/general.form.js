@@ -1,7 +1,6 @@
 
 //Will Send the value of the new Argument form to the controller 
 function CKeditorEditSubmit(idEditedValueContainer,succesfn){
-	hideHelp('help');
 	console.log("CKeditorEditSubmit");
 	if (idUser.length=0){  // Not logged in
 		console.error("Bug: User should not see the button (and the form)");
@@ -43,16 +42,17 @@ function CKeditorEditSubmit(idEditedValueContainer,succesfn){
 					$("#"+idEditedValueContainer).replaceWith(data);  // Here idEditedValueContainer is the edited item
 					$("#"+idEditedValueContainer).effect("highlight", {}, 3000);  
 				}
+				hideHelp('help');
 				succesfn();
 				console.log(idEditedValueContainer+"a été modifié");
 				// TODO: Add visual effect (highlight 1 second) to the div containing the argument detail just received (data).
 				return false;
 			}).error(function(jqXHR, textStatus) {
-			var exceptionVO = jQuery.parseJSON(jqXHR.responseText);
-			console.error(exceptionVO.method + " in " + exceptionVO.clazz + " throw " + exceptionVO.message);
+				var exceptionVO = jQuery.parseJSON(jqXHR.responseText);
+				console.error(exceptionVO.method + " in " + exceptionVO.clazz + " throw " + exceptionVO.message);
 			
-			addErrorMessageInEditor(exceptionVO.message);
-			return false;
+				addErrorMessageInEditor(exceptionVO.message);
+				return false;
 		});
 	return false;
 }

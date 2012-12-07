@@ -14,9 +14,10 @@ import reformyourcountry.model.User;
 
 
 @Repository
+@SuppressWarnings("unchecked")
 public class GoodExampleRepository extends BaseRepository<GoodExample>{
 
-	@SuppressWarnings("unchecked")
+	
 	public List<GoodExample> findAllByDate(){
 		
 		List<GoodExample> goodExamples = em.createQuery("select g from GoodExample g order by g.createdOn").getResultList();
@@ -24,12 +25,10 @@ public class GoodExampleRepository extends BaseRepository<GoodExample>{
 	
 	}
 	
-	@SuppressWarnings("unchecked")
 	public List<GoodExample> findGoodExampleByUpdateDate(){
 		return em.createQuery("select ge from GoodExample ge order by ge.updatedOn DESC").getResultList();
 	}
 	
-	@SuppressWarnings("unchecked")
 	public List<GoodExample> findByDate(Date publishDate, int maxAmount){
     	return em.createQuery("select ge from GoodExample ge where (ge.createdOn < :now) order by ge.createdOn DESC")
     			.setParameter("now", new Date())
@@ -37,11 +36,15 @@ public class GoodExampleRepository extends BaseRepository<GoodExample>{
     			.getResultList();
     }
 	
-	@SuppressWarnings("unchecked")
+	public GoodExample findByTitle(String title){
+    	return getSingleOrNullResult(em.createQuery("select ge from GoodExample ge where ge.title=:title")
+    			.setParameter("title", title));
+	}
+	
 	public List<GoodExample> findAll(){
         return    em.createQuery("select g from GoodExample g order by upper(g.title)").getResultList();
     }
-	@SuppressWarnings("unchecked")
+
 	public List<GoodExample> findLastGoodExample(Article article, int amount){
 		 List <Article> articleList = new ArrayList <Article>();
 		 articleList.addAll (article.getChildren());
