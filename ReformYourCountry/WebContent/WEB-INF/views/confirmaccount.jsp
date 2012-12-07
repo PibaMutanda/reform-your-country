@@ -9,7 +9,7 @@
    
     <c:choose>
       <c:when test="${socialnetworkname == 'facebook'}">
-          <p>Votre email (:${email}) sera utilisée pour l'enregistrement.</p>
+          <p>Votre email (${email}) sera utilisée pour l'enregistrement.</p>
           <form method="post" action="/confirmaccountsubmit">
   		     <input type="submit" value="Confirmer et créer un compte sur ${p_website_name}" />
 	      </form>
