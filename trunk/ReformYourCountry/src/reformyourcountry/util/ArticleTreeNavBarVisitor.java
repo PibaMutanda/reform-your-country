@@ -20,15 +20,12 @@ public class ArticleTreeNavBarVisitor implements ArticleTreeVisitor {
 		
 		htmlResult+="<li>";
 		
-	    if (ContextUtil.getHttpServletRequest().getRequestURL().toString().endsWith(article.getUrl())) {
-	    	htmlResult += "<a class=\"current_page_item\" href =\"" + UrlUtil.getAbsoluteUrl("article/")
-							+ article.getUrl() + "\"><span>";
-		}else{
-			htmlResult += "<a href =\"" + UrlUtil.getAbsoluteUrl("article/")
-							+ article.getUrl() + "\"><span>";
-		}
+		
+		htmlResult += "<a href='/article/" + article.getUrl() + "'><span>";
+
 	    htmlResult += article.getTitle();
 	    htmlResult += "</a>";
+	    
 	    if(isList) {
 			if(!article.isPublished()) {
 				if (article.getPublishDate() != null && article.getPublishDate().after(new Date())){
