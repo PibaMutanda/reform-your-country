@@ -31,7 +31,7 @@ public class VoteGoodExampleRepository extends BaseRepository<VoteGoodExample>{
 
     
    public long countVotesForAuthor(User author){
-       return (long)em.createQuery("select count(vote) from VoteGoodExample vote where vote.goodexample.createdBy=:author")
+       return (long)em.createQuery("select count(vote) from VoteGoodExample vote where vote.goodExample.createdBy=:author")
                .setParameter("author", author).getSingleResult();
    }
 }
