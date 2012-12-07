@@ -610,7 +610,7 @@ padding-top: 1px;}
 #sub_nav {list-style-type: none;width:160px;/*float:left //use of inline-block now --maxime 2/10/2012*/padding-bottom:0px;overflow:hidden;}
 #sub_nav ul a {display:block;background:url(/images/_global/separator3.gif) 0 8px repeat-x ;padding:14px 0 7px 0;height:1%;margin:0 0 0 0;}
 #sub_nav ul a:hover {background:url(/images/secondary-royal-blue/navblueback.png) 0 0 repeat-y;padding:14px 0 7px 0 ;margin-right:0;color:#ccc;text-decoration:none;}
-#sub_nav ul li a.current_page_item {background:url(/images/secondary-royal-blue/navblueback.png) 0 0 repeat-y;padding:0 0 0 ;margin-right:0;color:#ccc;text-decoration:none;}
+#sub_nav ul li a.current_page_item {background:url(/images/secondary-royal-blue/navblueback.png) 0 0 repeat-y;margin-right:0;color:#ccc;text-decoration:none;}
 #sub_nav ul ul a {background:url(/images/_global/bullet1.gif) 0 -9px no-repeat;padding:0 0 0 ;}
 #sub_nav ul ul li a:hover,
 #sub_nav ul ul a:hover {display:block;color:#ccc;position:relative;margin:0 13px 0 0;padding:0 0 0 0 ;height:1%;}
