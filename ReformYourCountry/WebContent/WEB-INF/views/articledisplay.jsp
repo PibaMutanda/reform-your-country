@@ -168,7 +168,7 @@
 						
 						<c:forEach items="${lastFiveExample}" var="example">
 							<div>
-						   	  <a href="/goodexample/${example.title}">${example.title}</a>
+						   	  <a href="/goodexample/${article.url}">${example.title}</a>
 						    </div>
 						</c:forEach>
                         <div class="article-liens">
