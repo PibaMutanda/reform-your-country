@@ -72,12 +72,8 @@ $(document).ready(function() {
 		},10000);
 		
 		
-	
-		
-		
-		
 	}
 	
-	console.log(" generatedpdf.js ready");
+	
 	
 });
