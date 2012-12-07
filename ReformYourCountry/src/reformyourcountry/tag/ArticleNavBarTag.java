@@ -30,9 +30,33 @@ public class ArticleNavBarTag extends SimpleTagSupport{
 				htmlResult = atv.getHtmlResult();
 				out.write(htmlResult);
 				setLeftNavBarCache(htmlResult);
-			} else {  // Not the left nav bar => no cache.
-				out.write(htmlResult);
+			} 
+
+			// We are going to highlight in the navBar the selected Article are looking at (if we are looking at an article).
+			String currentUrl = ContextUtil.getHttpServletRequest().getRequestURL().toString();
+			int posArtUrlDisplayed = currentUrl.indexOf("/article/");
+			if (posArtUrlDisplayed != -1) {  // We are displaying an article.
+				// But which article?  Try to get article.url from the string.
+				String artUrlDisplayed = currentUrl.substring(posArtUrlDisplayed);   // if currentUrl = "sitename.com/aricle/toto", we hope to extract "/article/toto"
+
+				// Do we have that url fragment ("/article/toto") in the left nav bar html? 
+				// example, search in the string: "... <li><a href="http://localhost:8080/article/toto"> .... 
+				int pos =  htmlResult.indexOf(artUrlDisplayed);
+				
+				if (pos >= 0) {  // found
+
+					// Find the position of the char just before href (going backward from position pos)
+					int posJustBeforeHref= htmlResult.lastIndexOf("href", pos);  // We are looking for the previous corresponding href position.
+					if (posJustBeforeHref > 0)  { // Else it's just strange to find the url with no href before...
+						StringBuffer sb1 = new StringBuffer(htmlResult);
+						sb1.insert(posJustBeforeHref," class=\'current_page_item\' ");
+						htmlResult = sb1.toString();
+					}
+
+				}
 			}
+
+			out.write(htmlResult);
 				
 			
 			
