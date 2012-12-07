@@ -43,14 +43,12 @@ public class UserImageController extends BaseController<User> {
 
 	@RequestMapping("/imageadd")
 	public ModelAndView userImageAdd(@RequestParam("id") long userid,
-			@RequestParam("file") MultipartFile multipartFile) throws Exception{    
+			@RequestParam("file") MultipartFile multipartFile) throws Exception{
+		
 		User user = getRequiredEntity(userid);
 
-		ModelAndView mv = new ModelAndView("userdisplay");
-		mv.addObject("user",user);
-		mv.addObject("canEdit", canEdit(user));
-		mv.addObject("random", System.currentTimeMillis());
-
+		SecurityContext.assertCurrentUserMayEditThisUser(user);
+		
 		///// Save original image, scale it and save the resized image.
 		try {
 			FileUtil.uploadFile(multipartFile, FileUtil.getGenFolderPath(currentEnvironment) + FileUtil.USER_SUB_FOLDER + FileUtil.USER_ORIGINAL_SUB_FOLDER, 
@@ -76,7 +74,9 @@ public class UserImageController extends BaseController<User> {
 			NotificationUtil.addNotificationMessage(e.getMessageToUser());
 		}
 
-		
+
+		ModelAndView mv = new ModelAndView("redirect:/user/" + user.getUserName());
+		mv.addObject("random", System.currentTimeMillis());
 
 		return mv;
 	}

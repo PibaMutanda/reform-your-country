@@ -38,5 +38,5 @@ public class VoteActionRepository extends BaseRepository<VoteAction> {
                 .setParameter("actions",actions).getResultList();
         
     }
-
+    	
 }

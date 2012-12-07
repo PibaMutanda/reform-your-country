@@ -136,7 +136,24 @@ Délimitation automatique des paragraphes.</p>
 	<div class="col3">
 		<div><img alt="Points d’action" class="realshadow"  src="/images/features-icons/action.jpg"></div>
 		<div class="feature_name">Points d’action</div>
-		<p class="feature_descr">Pas encore disponible</p>   
+		<p class="feature_descr"> </p>   
+		<br />
+		<br />
+	</div>
+	
+	<div style="display: inline-block;">  
+		<div class="col1">
+		<div><img alt="PDF" class="realshadow"  src="/images/features-icons/goodexample.jpg"></div>
+		<div class="feature_name">Bons Examples</div>
+		<p class="feature_descr">Bons examples de pratiques</p>   
+		<br/>
+		<br/>
+	</div>
+  
+	<div class="col2">
+	<div><img alt="Hosting" class="realshadow"  src="/images/features-icons/gomettes.jpg"></div>
+		<div class="feature_name">Gomettes</div>
+		<p class="feature_descr">Fidélité récompensée par des gomettes</p>   
 		<br />
 		<br />
 	</div>

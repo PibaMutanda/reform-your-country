@@ -25,7 +25,6 @@
 </head>   
 <body>
 
-
 <ryctag:pageheadertitle title="${user.fullName}"/>
 <div class="user-options" style="font-size:12px">
             <ryc:conditionDisplay privilege="MANAGE_USERS">
@@ -45,6 +44,7 @@
 
 <%-- IMAGE   IMAGE  IMAGE  IMAGE  IMAGE  IMAGE  IMAGE  IMAGE  IMAGE  --%>
 <div style="display:inline-block; vertical-align:top;">
+	<div class="user-options" style="font-size:12px">
 		<c:choose>
 			<c:when test="${user.picture}">
 				<img src="gen/user/resized/large/${user.id}.jpg<c:if test="${random!=null}">?${random}</c:if>"  /><%-- Random, to force the reload of the image in case it changes (but its name does not change) --%>
@@ -65,13 +65,13 @@
 		<c:if test="${canEdit}">
 			<c:choose>
 					<c:when test="${user.picture}">
-						<a href= "/user/image?id=${user.id}"  style="font-size:12px">Changer image</a>&nbsp-&nbsp
+						<a href= "/user/image?id=${user.id}">changer image</a>&nbsp;-
 					
-						<a href= "/user/imagedelete?id=${user.id}" style="font-size:12px">Supprimer image</a><br/>
+						<a href= "/user/imagedelete?id=${user.id}">supprimer image</a><br/>
 					</c:when>
 				
 					<c:otherwise>
-						<a href= "/user/image?id=${user.id}" style="font-size:12px">Ajouter image</a><br/>
+						<a href= "/user/image?id=${user.id}">ajouter image</a><br/>
 					</c:otherwise>
 			</c:choose>			
 			<c:if test="${sessionScope.providersignedin != 'LOCAL'}">	
@@ -81,6 +81,7 @@
 
 		<br />
 		<br />
+	</div>
 </div>
 
 <div style="display:inline-block; vertical-align:top;">
@@ -108,12 +109,13 @@
 <div id="tabs">
 		<ul>
 			<li><a href="#tabs-1">Signalétique</a></li>
-			<li><a href="#tabs-2">Gommettes</a></li>
+			<li><a href="#tabs-2">Badges</a></li>
 			<li><a href="#tabs-3">Rédaction</a></li>
+			
 		</ul>
 		
 		
-		<div id="tabs-1">
+		<div id="tabs-1">		<!--  **************************Signalétique********************* -->
 			<div>
 				Prénom: <c:choose><c:when test="${user.firstName ne null}">${user.firstName}</c:when><c:otherwise>?</c:otherwise></c:choose> <br/>
 				Nom de famille: <c:choose><c:when test="${user.lastName ne null}">${user.lastName}</c:when><c:otherwise>?</c:otherwise></c:choose> <br/>
@@ -122,7 +124,7 @@
 				Genre : <c:choose><c:when test="${user.gender ne null}">${user.gender}</c:when><c:otherwise>?</c:otherwise></c:choose> <br/>
 				<c:if test="${canEdit}">
 					Né le : <c:choose><c:when test="${user.birthDate ne null}">${user.birthDate}</c:when><c:otherwise>?</c:otherwise></c:choose><br />
-					mail : <c:choose><c:when test="${user.mail ne null}">${user.mail}}</c:when><c:otherwise>?</c:otherwise></c:choose><br />
+					mail : ${user.mail}<br />
 					
 					Date d'enregistrement : ${user.createdOn} <br />
 					Rôle : ${user.role}<br/>
@@ -166,7 +168,7 @@
 			  <input type="hidden" name="userid" value="${user.id}">
 			  <input type="submit" value="Recalculer">
 			</form>
-			<a href="/badge/">Gommettes disponibles</a>
+			<a href="/badge/">Badges disponibles</a>
 		</div>
 
 		<div id="tabs-3">		<!--  **************************Rédaction********************* -->
@@ -174,8 +176,9 @@
 				${argument.voteCountAgainst} ${argument.title} ${argument.content} ${argument.updatedOrCreatedOn}
 			</c:forEach>
 		</div>
-		
+									
 </div>
+	
 
 </body>
 </html>

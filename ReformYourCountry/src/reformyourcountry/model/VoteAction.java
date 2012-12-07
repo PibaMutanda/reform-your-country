@@ -16,7 +16,7 @@ public class VoteAction extends BaseEntity{
 	private Action action;
 	@ManyToOne
     @JoinColumn(nullable = false)
-	private User user;  // or group. Can be null if the vote is made by a group.
+	private User user;  
 		
 	
 	public VoteAction() {
