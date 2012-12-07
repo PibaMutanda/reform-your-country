@@ -8,7 +8,7 @@ import reformyourcountry.model.User;
 public class HTMLUtil {
 	
 
-	private static Whitelist whiteList = Whitelist.basic();
+	private static Whitelist whiteList = Whitelist.basic().addTags("span").addAttributes(":all", "style");
 	
 
     

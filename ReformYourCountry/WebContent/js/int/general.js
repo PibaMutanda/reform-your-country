@@ -91,8 +91,7 @@ function unVote(url,idItem,idItemToReplace){
 	).error(
 		function(jqXHR, textStatus) {
 			var exceptionVO = jQuery.parseJSON(jqXHR.responseText);
-			console.error(exceptionVO.method + " in " + exceptionVO.clazz + " throw " + exceptionVO.message);
-			addErrorMessage(exceptionVO.message,idEditedValueContainer);
+			addErrorMessage(isNaN(exceptionVO.message) ? exceptionVO.message : "",idEditedValueContainer);
 		}
 	);
 }

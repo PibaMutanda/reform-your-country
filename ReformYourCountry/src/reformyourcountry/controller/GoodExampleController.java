@@ -52,6 +52,13 @@ public class GoodExampleController extends BaseController<GoodExample>{
         return mv;
     }
     
+    @RequestMapping(value={"/goodexample/single/{goodExampleId}"})
+    public ModelAndView displaySingleGoodExample(@PathVariable Long goodExampleId){
+    	ModelAndView mv = new ModelAndView("singlegoodexample");
+    	GoodExample goodExample =  getRequiredEntity(goodExampleId);
+    	mv.addObject("currentItem", goodExample);
+    	return mv;
+    }
     /**
      * display goodExampleList for an article or call displayGoodExample if the pathvariable isn't an article url
      * @param articleUrl or the goodexample if can't find an article for this url
