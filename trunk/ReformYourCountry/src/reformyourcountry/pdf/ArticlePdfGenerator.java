@@ -59,9 +59,9 @@ public class ArticlePdfGenerator {
 	
 	private final String CSS = 
 			"h1 { "+
-			"font-size: 2.0em;"+
-			"font-family: Colaborate, Arial, sans-serif;"+
-			"font-weight: normal;"+
+			"font-size: 2.3em;"+
+			"font-family: Colaborate,Times New Roman,Arial;"+
+			//"font-weight: normal;"+// Colaborate does not have bold
 			"}"+
 			"h2 { "+
 			"font-size: 1.9em;"+
