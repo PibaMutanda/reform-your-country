@@ -108,7 +108,7 @@ public class ArticleContentEditController extends BaseController<Article>{
     	
                 
         articleService.saveArticle(getRequiredEntity(id), null, null, toClassify);
-        return new ModelAndView("redirect:"+getRequiredEntity(id).getUrl());
+        return new ModelAndView("redirect:/article/a_classer/"+getRequiredEntity(id).getUrl());
     }
 	
 	@RequestMapping("/ajax/article/editsubmittoclassify")
