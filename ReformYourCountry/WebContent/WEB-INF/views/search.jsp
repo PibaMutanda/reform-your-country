@@ -15,7 +15,7 @@
 		Aucun résultat trouvé. 
 	</c:if>
 	<c:forEach items="${searchResult}" var="result">
-		
+		<c:if test="${result.visible}">
 			<div class=listToSearchTitle>
 			     <a  href="${result.url}">${result.title}</a>
 			</div>
@@ -27,7 +27,7 @@
 			    ${result.text}
 			    <br/> <br/>
 			</div>
-		
+		</c:if>
 	</c:forEach>
 
 </body>

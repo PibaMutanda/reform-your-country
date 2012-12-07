@@ -12,6 +12,7 @@ import reformyourcountry.model.Article;
 import reformyourcountry.model.BaseEntity;
 import reformyourcountry.model.GoodExample;
 import reformyourcountry.model.User;
+import reformyourcountry.model.User.AccountStatus;
 import reformyourcountry.security.Privilege;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.IndexManagerService;
@@ -23,6 +24,7 @@ public  class SearchResult {
     private String text = "";  // Highlighted content if any (else, a substitution text such as Article.description)
     private String url;  // for example: "/article/my_Article" or "user/toto".
     private String entityClassName;
+    private boolean visible = false;
     
     public SearchResult(String keyWord, Document doc, 
             IndexManagerService indexManagerService,
@@ -32,12 +34,27 @@ public  class SearchResult {
         
         id = Long.valueOf(doc.get("id"));
         
+        User current = null;
+        
+        if(SecurityContext.isUserLoggedIn()){
+            
+            current = SecurityContext.getUser();
+        }
         // - this.title gets the highlighted Article.title or User.getFullName() or Action.title or GoodExample.title
         if ( entityClassName.equals(User.class.getSimpleName()) ){
+            
             User user = em.find(User.class, id);
+            
+            if(!user.getAccountStatus().equals(AccountStatus.ACTIVE) && current != null && current.hasAdminPrivileges()){
+                visible = true;
+            }
+            
             title =  user.getFullName();
             url = "user/"+user.getUserName();
         } else {  // Article, Action, GoodExample
+            //TODO setup condition for visible ????
+            visible = true;
+            
             title = indexManagerService.getHighlight(keyWord, doc.get("title"));
             if (title==null || title.isEmpty()){
                 title=doc.get("title");
@@ -113,6 +130,11 @@ public  class SearchResult {
     public String getEntityClassName(){
         
         return entityClassName;
+    }
+    
+    public boolean isVisible(){
+        
+        return visible;
     }
 
 }
