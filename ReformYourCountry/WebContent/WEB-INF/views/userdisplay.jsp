@@ -109,7 +109,7 @@
 <div id="tabs">
 		<ul>
 			<li><a href="#tabs-1">Signalétique</a></li>
-			<li><a href="#tabs-2">Badges</a></li>
+			<li><a href="#tabs-2">Gommettes</a></li>
 			<li><a href="#tabs-3">Rédaction</a></li>
 			
 		</ul>
@@ -170,7 +170,7 @@
 			  <input type="hidden" name="userid" value="${user.id}">
 			  <input type="submit" value="Recalculer">
 			</form>
-			<a href="/badge/">Badges disponibles</a>
+			<a href="/badge/">Gommettes disponibles</a>
 		</div>
 
 		<div id="tabs-3">		<!--  **************************Rédaction********************* -->
