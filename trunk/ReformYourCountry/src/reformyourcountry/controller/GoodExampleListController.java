@@ -21,7 +21,8 @@ public class GoodExampleListController {
 		
 		ModelAndView mv = new ModelAndView("goodexamplelist");
 		List<GoodExample> goodExamples = goodExampleRepository.findAllByDate();
-		mv.addObject("goodExamples",goodExamples);
+		List<GoodExample>hundredGoodExamples = goodExamples.subList(0, (goodExamples.size()>100)?100:goodExamples.size());
+		mv.addObject("goodExamples",hundredGoodExamples);
 		return mv;
 		
 	}

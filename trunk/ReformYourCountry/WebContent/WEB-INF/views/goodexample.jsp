@@ -25,8 +25,9 @@
 <script type="text/javascript"
 	src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-509a829c59a66215"></script>
 </head>
-<ryctag:pageheadertitle title="goodexamplelist" >
-Insert breadcrumb elements here
+<ryctag:pageheadertitle title="Bons examples pour l'article ${article.title}" >
+<ryctag:breadcrumbelement label="${article.title}" link="/article/${article.url}"></ryctag:breadcrumbelement>
+<ryctag:breadcrumbelement label="Bons examples"></ryctag:breadcrumbelement>
 </ryctag:pageheadertitle>
 
 <!-- AddThis Button BEGIN -->
@@ -41,9 +42,6 @@ Insert breadcrumb elements here
 </div>
 <!-- AddThis Button END -->
 
-<script type="text/javascript">
-   var idUser = "${current.user.id}";
-</script>
 <div id="list">
       <c:forEach items="${article.goodExamples}" var="currentItem">
             <%@include file="itemdetail.jsp"%>
