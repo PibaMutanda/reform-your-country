@@ -79,10 +79,8 @@ public class MailSender extends Thread {
         setName("MailSender"); // Sets the name of the thread to be visible in the prod server thread list.
         if(environment.getMailBehavior() != MailBehavior.NOT_STARTED){
         	this.start();
-        	System.out.println("Mail Server Started !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! " + environment.getMailBehavior());
         	log.error("Mail Server Started !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! " + environment.getMailBehavior());
         } else {
-        	System.out.println("Mail Server NOT Started ------------------------------------------------------------ " + environment.getMailBehavior());
         	log.error("Mail Server NOT Started ------------------------------------------------------------ " + environment.getMailBehavior());
         	log.info("DevMode on, mail thread not started");
         }
@@ -197,18 +195,25 @@ public class MailSender extends Thread {
         String emailTarget = mail.getUser() != null ? mail.getUser().getMail() : mail.getEmailTarget();
         String emailSender = mail.getReplyTo() != null ? mail.getReplyTo().getMail() : 
                 (mail.getEmailReplyTo()!=null ?mail.getEmailReplyTo():notifier);
-
+      
         // Sanity Check
         if(StringUtils.isBlank(emailSender)){
        		log.error("User with no email found : " + mail.getReplyTo().getFullName());
         	return; // Do not continue
         }
         
+        String nameOfSender = "";
+        if (emailSender.equals(notifier)) {
+            nameOfSender = aliasNotifier;
+        } else if (mail.getReplyTo() != null){
+            nameOfSender = mail.getReplyTo().getFullName(); 
+        }
+        
         sendMail(emailTarget, null, null, 
                 mail.getReplyTo() == null ? null : mail.getReplyTo().getMail(), // reply to
                         emailSender,    // From
-                        !emailSender.equals(notifier) ? mail.getReplyTo().getFullName() : aliasNotifier,  // Alias  
-                                mp.subject, mp.content, true);
+                        nameOfSender,  // Alias  
+                        mp.subject, mp.content, true);
     }
 
 
