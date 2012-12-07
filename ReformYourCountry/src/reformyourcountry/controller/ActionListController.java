@@ -57,7 +57,7 @@ public class ActionListController {
     public static class ActionItem{
         Action action;
         List<Long> resultNumbers;
-        VoteAction voteAction;
+        VoteAction voteAction;  // Maybe null if the current user did not vote on that action.
 
       
         public ActionItem(Action action,VoteAction voteAction){
