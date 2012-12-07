@@ -94,8 +94,6 @@ public class ArgumentController extends BaseController<Argument>{
         
         if ((forbiddenCHaracter = HTMLUtil.getContainedForbiddenHtmlCharacter(title)) != null) {
             throw new AjaxValidationException("vous avez introduit des charactères interdit dans le titre : "+forbiddenCHaracter);
-        } else if ((forbiddenCHaracter = HTMLUtil.getContainedForbiddenHtmlCharacter(content)) != null) {
-            throw new AjaxValidationException("vous avez introduit des charactères interdit dans le contenu : "+forbiddenCHaracter);
         }
         Argument argument;
         if (argumentId != null) {  // It's an edit (vs a create)
