@@ -10,13 +10,15 @@
 <p>Nous pouvons générer un document PDF avec les articles que vous désirez. Cela facilite parfois la vie, par exemple en permettant une lecture sans connection internet, ou bien d’imprimer un article et tous ses sous-articles en une opération.</p>
 	<form id=pdfoptionsform method="POST"
 		action="/ajax/pdfgenerationsubmit" target="_self">
+	
 		<table id="pdfoptions">
+		
 			<tr>
-				<td><input type="checkbox" name="iscover" value="true" />inclure
+				<td><input type="checkbox" name="iscover" value="true" <c:if test="${isfromgenerallist}"> checked </c:if> />inclure
 					une page de couverture</td>
 			</tr>
 			<tr>
-				<td><input type="checkbox" name="istoc" value="true" />inclure
+				<td><input type="checkbox" name="istoc" value="true" <c:if test="${isfromgenerallist}"> checked </c:if> />inclure
 					une table des matières</td>
 			</tr>
 			<ryc:conditionDisplay privilege="VIEW_UNPUBLISHED_ARTICLE">
@@ -29,20 +31,13 @@
 				<td><input type="checkbox" name="isonlysummary" value="true" />imprimer
 					uniquement le résumé</td>
 			</tr>
-			<c:choose>
-				<c:when test="${hasSubArticle == true}">
+	
+				<c:if test="${hasSubArticle == true}">
 					<tr>
 						<td><input type="checkbox" name="issubarticles" />inclure
 							les sous-articles</td>
 					</tr>
-				</c:when>
-				<c:otherwise>
-					<tr>
-						<td><input type="checkbox" name="issubarticles"
-							disabled="disabled" />inclure les sous-articles</td>
-					</tr>
-				</c:otherwise>
-			</c:choose>
+				</c:if>
 		</table>
 		<input type="hidden" name="idarticle" value="${id}">
 		
