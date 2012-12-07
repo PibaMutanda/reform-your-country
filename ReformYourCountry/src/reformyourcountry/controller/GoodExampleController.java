@@ -109,6 +109,15 @@ public class GoodExampleController extends BaseController<GoodExample>{
         //check if content or title haven't dangerous html
         if (!HTMLUtil.isHtmlSecure(title) || !HTMLUtil.isHtmlSecure(content)) {
              throw new AjaxValidationException("vous avez introduit du HTML/Javascript invalide dans le commentaire");
+        } 
+        
+        ////we check if there is some character who can make the page bug (<,>,",etc...)
+        String forbiddenCHaracter;
+        
+        if ((forbiddenCHaracter = HTMLUtil.getContainedForbiddenHtmlCharacter(title)) != null) {
+            throw new AjaxValidationException("vous avez introduit des charactères interdit dans le titre : "+forbiddenCHaracter);
+        } else if ((forbiddenCHaracter = HTMLUtil.getContainedForbiddenHtmlCharacter(content)) != null) {
+            throw new AjaxValidationException("vous avez introduit des charactères interdit dans le contenu : "+forbiddenCHaracter);
         }
        
     	GoodExample goodExample;
@@ -194,6 +203,13 @@ public class GoodExampleController extends BaseController<GoodExample>{
              throw new AjaxValidationException("vous avez introduit du HTML/Javascript invalide dans le commentaire");
         }
         
+        ////we check if there is some character who can make the page bug (<,>,",etc...)
+        String forbiddenCHaracter;
+        
+        if ((forbiddenCHaracter = HTMLUtil.getContainedForbiddenHtmlCharacter(content)) != null) {
+            throw new AjaxValidationException("vous avez introduit des charactères interdit dans le contenu : "+forbiddenCHaracter);
+        }
+        
         Comment comment = null;
         
         if (idComment == null && goodExampleId == null) {
@@ -271,7 +287,7 @@ public class GoodExampleController extends BaseController<GoodExample>{
         goodExampleRepository.merge(goodExample);
         return itemDetail(goodExample);
     }
-    
+    //FIXME useless? --maxime 7/12/12
     @RequestMapping(value="/ajax/goodexample/edit/addarticle")
     public String addArticle(@RequestParam("goodExampleId") Long goodExampleId, 
     						 @RequestParam("articleUrl") String articleUrl){
@@ -290,7 +306,7 @@ public class GoodExampleController extends BaseController<GoodExample>{
         }
         return "redirect:/goodexample/"+article.getUrl();
     }
-    
+    //FIXME useless? --maxime 7/12/12
     @RequestMapping(value="ajax/goodexample/edit/deletearticle")
     public String deleteArticle(@RequestParam("goodExampleId") Long goodExampleId, 
     							@RequestParam("articleId") Long articleId){

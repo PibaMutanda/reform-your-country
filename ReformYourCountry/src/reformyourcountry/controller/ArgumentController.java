@@ -88,6 +88,15 @@ public class ArgumentController extends BaseController<Argument>{
         if (!HTMLUtil.isHtmlSecure(title) || !HTMLUtil.isHtmlSecure(content)) {
              throw new AjaxValidationException("vous avez introduit du HTML/Javascript invalide dans le commentaire");
         }
+        
+        ////we check if there is some character who can make the page bug (<,>,",etc...)
+        String forbiddenCHaracter;
+        
+        if ((forbiddenCHaracter = HTMLUtil.getContainedForbiddenHtmlCharacter(title)) != null) {
+            throw new AjaxValidationException("vous avez introduit des charactères interdit dans le titre : "+forbiddenCHaracter);
+        } else if ((forbiddenCHaracter = HTMLUtil.getContainedForbiddenHtmlCharacter(content)) != null) {
+            throw new AjaxValidationException("vous avez introduit des charactères interdit dans le contenu : "+forbiddenCHaracter);
+        }
         Argument argument;
         if (argumentId != null) {  // It's an edit (vs a create)
             argument = getRequiredEntity(argumentId);
@@ -174,6 +183,13 @@ public class ArgumentController extends BaseController<Argument>{
         //check if content or title haven't dangerous html
         if (!HTMLUtil.isHtmlSecure(content)) {
              throw new AjaxValidationException("vous avez introduit du HTML/Javascript invalide dans le commentaire");
+        }
+        
+        ////we check if there is some character who can make the page bug (<,>,",etc...)
+        String forbiddenCHaracter;
+        
+        if ((forbiddenCHaracter = HTMLUtil.getContainedForbiddenHtmlCharacter(content)) != null) {
+            throw new AjaxValidationException("vous avez introduit des charactères interdit dans le contenu : "+forbiddenCHaracter);
         }
         
         Comment comment = null;
