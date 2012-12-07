@@ -6,6 +6,8 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,10 +32,13 @@ public class PdfGeneratorController extends BaseController<Article>{
     @Autowired BookRepository bookRepository;
 
     @RequestMapping("/ajax/pdfgeneration")
-    public ModelAndView pdfGeneration(@RequestParam("hassubarticle") boolean hasSubArticle,@RequestParam(value="id",required=false) Long id){
+    public ModelAndView pdfGeneration(@RequestParam("hassubarticle") boolean hasSubArticle,@RequestParam(value="id",required=false) Long id,@RequestParam("isfromgenerallist") boolean isfromGeneralList){
         ModelAndView mv = new ModelAndView("pdfgeneration");
         mv.addObject("hasSubArticle",hasSubArticle);
-      
+        if(isfromGeneralList){
+          
+            mv.addObject("isfromgenerallist", isfromGeneralList);
+        }
         if(id != null){
          mv.addObject("id", id);
         }
@@ -70,7 +75,6 @@ public class PdfGeneratorController extends BaseController<Article>{
         ArticlePdfGenerator cPdf = null;
         try {
             
-            
             cPdf = new ArticlePdfGenerator(article,articleRepository,actionRepository,bookRepository,cover,toc,onlysummary,subarticles,includeNotPublished,true);
           
             ByteArrayOutputStream baos = null;
@@ -85,7 +89,8 @@ public class PdfGeneratorController extends BaseController<Article>{
             if (baos != null){
                 response.getOutputStream().write(baos.toByteArray());
             }
-
+            
+            
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

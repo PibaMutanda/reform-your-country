@@ -7,8 +7,15 @@ $(document).ready(function() {
 	   
 		var hasSubArticle = false;
 		var isfromGeneralList = false;
+		var titlebox ;
+		if(typeof $('meta[name=title]').attr("content") == 'undefined'){
+			titlebox = "Generation PDF - Tout les articles";
+		}
+		else{
+			titlebox = "Generation PDF - "+$('meta[name=title]').attr("content");
+		}
 		$('#pdfdialog').dialog({
-			title :   "Generation PDF - "+$('meta[name=title]').attr("content"),
+			title :   titlebox,
 			autoOpen: false,
 			width: 450, 
 			buttons: {
@@ -28,16 +35,27 @@ $(document).ready(function() {
 		}
 	
 		if(!$(this).hasClass('generatepdflist')){
-			var id = $('input[name="articleId"]').attr("value");		
+			var id = $('input[name="articleId"]').attr("value");	
+			
 		}
+		if($(this).hasClass('generatepdflist')){
+			isfromGeneralList = true;
+			
+		}
+		
+		
 		
 		console.log(hasSubArticle);
 		
 		// 2. ills the dialog with content from the server (PdfGeneratorController) whent the user clicks the link
 		
-		$('#pdfdialog').load("ajax/pdfgeneration",{hassubarticle:hasSubArticle,id:id}, function(){
+		$('#pdfdialog').load("ajax/pdfgeneration",{hassubarticle:hasSubArticle,id:id,isfromgenerallist:isfromGeneralList}, function(){
 			
 			$('#pdfdialog').dialog('open');
+			
+			
+		
+			
 		});
 	
 	
@@ -45,9 +63,16 @@ $(document).ready(function() {
 	});
 	
 	function generatePdf(){
-		
+		console.log("generatepdf");
 		$("#pdfoptionsform").submit();
-		$('#pdfdialog').dialog('close');
+			
+		$('#pdfdialog').html("<p>Votre pdf est en cours de préparation. Ensuite débutera le téléchargement, veuillez regarder dans votre bar de telechargement</p>");
+		setTimeout(function(){
+			$('#pdfdialog').dialog('close');  
+		},10000);
+		
+		
+	
 		
 		
 		
