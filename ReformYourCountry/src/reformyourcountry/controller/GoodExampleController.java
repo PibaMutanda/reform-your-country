@@ -51,7 +51,10 @@ public class GoodExampleController extends BaseController<GoodExample>{
         mv.addObject("currentItem",example);
         return mv;
     }
-    
+    /**
+     * display goodExampleList for an article or call displayGoodExample if the pathvariable isn't an article url
+     * @param articleUrl or the goodexample if can't find an article for this url
+     */
     @RequestMapping(value={"/goodexample/single/{goodExampleId}"})
     public ModelAndView displaySingleGoodExample(@PathVariable Long goodExampleId){
     	ModelAndView mv = new ModelAndView("singlegoodexample");
@@ -59,18 +62,18 @@ public class GoodExampleController extends BaseController<GoodExample>{
     	mv.addObject("currentItem", goodExample);
     	return mv;
     }
-    /**
-     * display goodExampleList for an article or call displayGoodExample if the pathvariable isn't an article url
-     * @param articleUrl or the goodexample if can't find an article for this url
-     */
+
     
-    @RequestMapping("/goodexample")
+	@RequestMapping("/goodexample")
 	public ModelAndView goodExampleList(){
+		
 		ModelAndView mv = new ModelAndView("goodexamplelist");
 		List<GoodExample> goodExamples = goodExampleRepository.findAllByDate();
 		List<GoodExample>hundredGoodExamples = goodExamples.subList(0, (goodExamples.size()>100)?100:goodExamples.size());
 		mv.addObject("goodExamples",hundredGoodExamples);
+        mv.addObject("canNegativeVote",false);
 		return mv;
+		
 	}
     
     @RequestMapping(value={"/goodexample/{articleUrl}"})
