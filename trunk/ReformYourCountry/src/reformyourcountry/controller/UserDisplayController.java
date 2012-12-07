@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import reformyourcountry.exception.InvalidUrlException;
 import reformyourcountry.model.Argument;
 import reformyourcountry.model.User;
 import reformyourcountry.model.User.AccountConnectedType;
@@ -39,12 +40,16 @@ public class UserDisplayController extends BaseController<User> {
     @Autowired ArgumentRepository argumentRepository;
     
     @RequestMapping("/{userName}")
-    public ModelAndView userDisplayByUrl(@PathVariable("userName") String userName, @RequestParam(value="random",required=false) Integer random) {
+    public ModelAndView userDisplayByUrl(@PathVariable("userName") String userName, @RequestParam(value="random",required=false) Long random) {
        
         User user = userRepository.getUserByUserName(userName);
-        List<Argument> arguments = argumentRepository.findByUser(user);
+        if (user == null) {
+        	throw new InvalidUrlException("L'utilisateur ayant le pseudonyme (userName) '"+userName+"' est introuvable.");
+        }
         
         ModelAndView mv = new ModelAndView("userdisplay", "user", user);
+
+        List<Argument> arguments = argumentRepository.findByUser(user);
         mv.addObject("arguments", arguments);
         
         if (random != null) {
