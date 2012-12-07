@@ -17,6 +17,7 @@
     
     <div>
         <div style="float:right; display:inline-block;padding: 3px; margin: 5px;">
+        	<div style="float:right;">
     		<c:choose>
 		        <c:when test="${empty idItem}">
 		        	<input type='submit' id='CkEditFormSubmit' value='Ajouter' />
@@ -25,7 +26,8 @@
 		         	<input type='submit' id='CkEditFormSubmit' value='Sauver' />
 		         </c:otherwise>
 		    </c:choose>
-        	<div style="float:right;">
+		    </div>
+        	<div style="float:right; padding: 6px;">
    				<div id='CkEditFormAbort' class="divButton" style=''>
 		   			Annuler 	
        			</div>

@@ -25,18 +25,19 @@
 </head>   
 <body>
 
+
 <ryctag:pageheadertitle title="${user.firstName} ${user.lastName}"/>
 <div class="user-options" style="font-size:12px">
             <ryc:conditionDisplay privilege="MANAGE_USERS">
 				 <a href="user/privilegeedit?id=${user.id}">Privilèges</a>&nbsp-&nbsp
-				 <a href="user/usertypeedit?id=${user.id}">Editer le type d'un user</a>&nbsp-&nbsp
-				 <c:if test="${current.user != user}">
-				  	<a href="user/delete?id=${user.id}">Supprimer le compte</a>&nbsp-&nbsp
+				 <a href="user/usertypeedit?id=${user.id}">Editer le type d'un user</a>		
+				 <c:if test="${not(current.user  eq user)}">
+				  	&nbsp-&nbsp<a href="user/delete?id=${user.id}">Supprimer le compte</a>
 				 </c:if>
 			</ryc:conditionDisplay>
 			 <c:if test="${canEdit}">
-				<a href="user/edit?id=${user.id}">Editer le Profil</a>&nbsp-&nbsp
-				<a href="user/changepassword?id=${user.id}">Modifier le mot de passe</a>&nbsp-&nbsp
+				&nbsp-&nbsp<a href="user/edit?id=${user.id}">Editer le Profil</a>
+				&nbsp-&nbsp<a href="user/changepassword?id=${user.id}">Modifier le mot de passe</a>
 			 </c:if>
 </div>
 
