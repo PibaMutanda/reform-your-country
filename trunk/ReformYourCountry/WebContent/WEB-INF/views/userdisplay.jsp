@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+﻿﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c' %>
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
@@ -29,7 +29,7 @@
 <div class="user-options" style="font-size:12px">
             <ryc:conditionDisplay privilege="MANAGE_USERS">
 				 <a href="user/privilegeedit?id=${user.id}">Privilèges</a>&nbsp-&nbsp
-				 <a href="user/usertypeedit?id=${user.id}">Editer le type d'un user</a>		
+				 <a href="user/usertypeedit?id=${user.id}">Editer le type d'un user</a>	
 				 <c:if test="${not(current.user  eq user)}">
 				  	&nbsp-&nbsp<a href="user/delete?id=${user.id}">Supprimer le compte</a>
 				 </c:if>
