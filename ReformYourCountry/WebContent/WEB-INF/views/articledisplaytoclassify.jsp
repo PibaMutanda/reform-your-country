@@ -21,9 +21,7 @@
 <div style="font-size:12px">
  <ryc:conditionDisplay privilege="MANAGE_ARTICLE" >
 
-	<a href="/article/edit?id=${article.id}">éditer l'article</a>&nbsp-&nbsp
-	<a href="/article/parentedit?id=${article.id}">éditer l'article parent</a>&nbsp-&nbsp
-	<a href="/article/contentedit?id=${article.id}">éditer le contenu de l'article</a>
+	 <%@include file="articlelinkmenu.jsp" %>	
  </ryc:conditionDisplay>	
 </div>	
 <br/>			
