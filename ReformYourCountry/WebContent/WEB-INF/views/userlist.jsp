@@ -9,6 +9,7 @@
 <meta name="Keywords" content="utilisateur, informations" />
 <meta name="robots" content="index, follow" />
 <meta name="googlebot" content="noarchive"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9" >
 <title>Utilisateurs</title>
 <script>
     <c:set var="search" value="${search}"/>
