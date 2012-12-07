@@ -22,6 +22,7 @@ import reformyourcountry.repository.GoodExampleRepository;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.BadgeService;
 import reformyourcountry.service.GoodExampleService;
+import reformyourcountry.service.IndexManagerService;
 import reformyourcountry.util.HTMLUtil;
 import reformyourcountry.util.Logger;
 import reformyourcountry.web.PropertyLoaderServletContextListener;
@@ -39,6 +40,9 @@ public class GoodExampleController extends BaseController<GoodExample>{
     CommentRepository commentRepository;
     @Autowired
     BadgeService badgeService;
+    
+    @Autowired 
+    IndexManagerService indexManagerService;
 
     public ModelAndView itemDetail(GoodExample example){
         //FIXME no verif if user can edit --maxime 30/11/12
@@ -119,6 +123,7 @@ public class GoodExampleController extends BaseController<GoodExample>{
             
             goodExample.getArticles().add(article);
             goodExampleRepository.persist(goodExample);
+            indexManagerService.add(goodExample);
             badgeService.grandBadgeForGoodExample(goodExample.getCreatedBy());
             article.getGoodExamples().add(goodExample);
             articleRepository.merge(article);
@@ -131,7 +136,7 @@ public class GoodExampleController extends BaseController<GoodExample>{
         goodExample.setContent(content);
         
         goodExampleRepository.merge(goodExample);
-
+        indexManagerService.update(goodExample);
         return itemDetail(goodExample);
     }
         
@@ -173,6 +178,7 @@ public class GoodExampleController extends BaseController<GoodExample>{
              throw new Exception("this person can't suppress this goodExample(hacking).");
         }
         goodExampleService.deleteGoodExample(goodExample);
+        indexManagerService.delete(goodExample);
         return "";
         
     }
