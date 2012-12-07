@@ -43,7 +43,7 @@ alors nous transformerons cette citation comme suit:
 
 <p>Bien entendu, si vous regrettez vos propos, nous les retirerons et ne les paraphraserons pas.</p>
 
-<p>Il va de soit que le texte des auteurs de nous citons n'est pas généralement pas couvert par la licence "creative commons" contrairement au texte que nous avons créé nous même pour ce site.</p>
+<p>Il va de soit que le texte des auteurs de nous citons n'est généralement pas couvert par la licence "creative commons" contrairement au texte que nous avons créé nous même pour ce site.</p>
 
 </body>
 </html>
