@@ -62,15 +62,7 @@
 	<div style="display:inline-block"><!-- DO NOT REMOVE OTHERWISE TITLE AND MENU ARE UPSIDE DOWN	 -->
 		<div class="small-text">
 	    <ryc:conditionDisplay privilege="MANAGE_ARTICLE" >
-			 <a href="/article/contentedit?id=${article.id}" >éditer contenu</a>
-			 - <a href="/article/summaryedit?id=${article.id}" >éditer résumé</a>
-			 - <a href="/article/toclassifyedit?id=${article.id}" >éditer à classer</a>
-			 - <a href="/article/edit?id=${article.id}" >éditer champs</a>
-			 - <a href="/article/parentedit?id=${article.id}" >changer parent</a>
-			 - <a href="/article/a_classer/${article.url}" >afficher à classer</a>
-			 - <a href="/article/version/${article.url}" >historique des versions</a>
-			 - <a href="/video/manager?id=${article.id}" >vidéo</a>
-			 - <a href="/article/delete?id=${article.id}" >Supprimer l'article</a>
+			 <%@include file="articlelinkmenu.jsp" %>	
 		</ryc:conditionDisplay>
 		</div>
 		<br/>
