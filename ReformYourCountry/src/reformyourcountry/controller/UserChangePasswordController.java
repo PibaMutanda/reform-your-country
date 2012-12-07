@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import reformyourcountry.model.User;
 import reformyourcountry.repository.UserRepository;
 import reformyourcountry.security.SecurityContext;
+import reformyourcountry.util.NotificationUtil;
 import reformyourcountry.util.SecurityUtils;
 
 @Controller
@@ -41,7 +42,7 @@ public class UserChangePasswordController {
 		String errorNoOld=null;
 		String errorEmpty=null;
 		String errorDiff=null;
-
+		String htmlMessage="Votre nouveau mot de passe est bien enregistré";
 		if (result.hasErrors()) {
 			return new ModelAndView("redirect:user","id",user.getId());
 		}
@@ -53,7 +54,7 @@ public class UserChangePasswordController {
 				}else if (newPassword.equals("") || confirmPassword.equals("")) {
 					errorEmpty= "Veuillez encoder un nouveau mot de passe et/ou la confirmation de ce mot de passe";
 				}else if (!confirmPassword.equals(newPassword)) {
-					errorDiff= "La confirmation du password et le nouveau password ne correspondent pas";
+					errorDiff= "La confirmation du mot de passe et le nouveau mot de passe ne correspondent pas";
 				}
 				mv.addObject("user",user);
 				mv.addObject("errorNoOld",errorNoOld);
@@ -64,10 +65,12 @@ public class UserChangePasswordController {
 			user.setPassword(SecurityUtils.md5Encode(confirmPassword));
 			user.setPasswordKnownByTheUser(true);
 			userRepository.merge(user);
+			NotificationUtil.addNotificationMessage(htmlMessage);
 			return new ModelAndView("redirect:/user/"+user.getUserName());	
 
 		}
-
+		
+    
 	}
 
 
