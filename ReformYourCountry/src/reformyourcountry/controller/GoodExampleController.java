@@ -56,6 +56,16 @@ public class GoodExampleController extends BaseController<GoodExample>{
      * display goodExampleList for an article or call displayGoodExample if the pathvariable isn't an article url
      * @param articleUrl or the goodexample if can't find an article for this url
      */
+    
+    @RequestMapping("/goodexample")
+	public ModelAndView goodExampleList(){
+		ModelAndView mv = new ModelAndView("goodexamplelist");
+		List<GoodExample> goodExamples = goodExampleRepository.findAllByDate();
+		List<GoodExample>hundredGoodExamples = goodExamples.subList(0, (goodExamples.size()>100)?100:goodExamples.size());
+		mv.addObject("goodExamples",hundredGoodExamples);
+		return mv;
+	}
+    
     @RequestMapping(value={"/goodexample/{articleUrl}"})
     public ModelAndView displayGoodExampleListForAnArticle(@PathVariable String articleUrl){
         log.debug("displayGoodExampleListForAnArticle i'm call");
