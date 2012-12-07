@@ -26,7 +26,7 @@
 <body>
 
 
-<ryctag:pageheadertitle title="${user.firstName} ${user.lastName}"/>
+<ryctag:pageheadertitle title="${user.fullName}"/>
 <div class="user-options" style="font-size:12px">
             <ryc:conditionDisplay privilege="MANAGE_USERS">
 				 <a href="user/privilegeedit?id=${user.id}">Privilèges</a>&nbsp-&nbsp
