@@ -85,11 +85,13 @@
         
         <ryctag:input path="mail" label="Mail"/>
         <ryctag:checkbox path="nlSubscriber" label="Newsletters"/>
-        <tr title="Le site vous envoie un e-mail de notification, par exemple lorsqu'un utilisateur commente un de vos arguments, ou lorsque vous recevez un badge. Ces mails peuvent-être groupés en un mail quotidien ou hebdomadaire.">
+        <tr title="Le site vous envoie un e-mail de notification, par exemple lorsqu'un utilisateur commente un de vos arguments, ou lorsque vous recevez une gommette. Ces mails peuvent-être groupés en un mail quotidien ou hebdomadaire.">
             <td><form:label path ="mailingDelayType" >Intervalle de reception des email :</form:label></td>
-            <td><form:radiobutton  path="mailingDelayType" value="DAILY"/>Quotidien<br/>
-                <form:radiobutton  path="mailingDelayType" value="WEEKLY"/>Hebdomadaire<br/>
-                <form:radiobutton  path="mailingDelayType" value="IMMEDIATELY"/>Immédiat</td>
+            <td>
+                <form:radiobutton  path="mailingDelayType" value="IMMEDIATELY"/>Immédiat<br/>
+                <form:radiobutton  path="mailingDelayType" value="DAILY"/>Quotidien<br/>
+                <form:radiobutton  path="mailingDelayType" value="WEEKLY"/>Hebdomadaire
+                </td>
             <td></td>
          </tr>
          <c:choose>
