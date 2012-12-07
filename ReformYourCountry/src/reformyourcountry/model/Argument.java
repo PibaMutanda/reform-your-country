@@ -130,6 +130,10 @@ public class Argument extends BaseEntity implements IVote{
     public void setPositiveArg(boolean positiveArg) {
         this.positiveArg = positiveArg;
     }
+    public boolean getPositiveArg() {
+        return this.positiveArg;
+    }
+    
     
     @Override
 	public String toString() {

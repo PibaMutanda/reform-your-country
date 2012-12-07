@@ -23,6 +23,9 @@
 							<c:if test="${currentItem.deletable}">
 								<span onclick="deleteItem(this,${currentItem.id})" class="divButton delete" style=" font-size:1.3em;font-weight: bold;" title="Supprimer">×</span>
 							</c:if>	
+							<c:if test="${isArgument}">
+								<span onclick="window.location.href='/argument/switch?argumentId=${currentItem.id}';" title="Changer le type de l'argument"><img src="/images/_global/exchange.png" width="16px"height="16px" /></span>
+							</c:if>
 						</div >
 						<div style="font-style: italic;">crée le ${currentItem.formatedCreatedOn}</div>
 						
