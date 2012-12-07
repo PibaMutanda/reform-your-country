@@ -14,7 +14,7 @@
 	             </c:if>
 	         </td>
 
-	         <td>${userAndVotes.user.userName}</td>
+	         <td>${userAndVotes.user.firstName}</td>
 
 	         <c:if test="${!isVoteResultPage}">
 	           <td style="width:170px; text-align:right; cursor:default;">  <!--  text-align: right to put the inline div at the extreme right. -->
