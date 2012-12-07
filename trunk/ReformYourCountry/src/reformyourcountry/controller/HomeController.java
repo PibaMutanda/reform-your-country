@@ -64,8 +64,15 @@ public class HomeController {
 //		
 		if(!actionListByDate.isEmpty()){
 		    List<VoteAction> votesActions = voteActionRepository.findVotesActionForUser(SecurityContext.getUser(), actionListByDate);
-		    for(VoteAction va:votesActions){
-		        ActionItem actionItem = new ActionItem(va.getAction(), va);
+		    for(Action action : actionListByDate) {
+		        VoteAction correspondingVoteForThisAction = null;  // we search for it.
+		        for(VoteAction va:votesActions){
+		            if (va.getAction().equals(action)) {  // That's the vote action for the current action.
+		                correspondingVoteForThisAction = va;
+		                break;
+		            }
+		        }
+		        ActionItem actionItem = new ActionItem(action, correspondingVoteForThisAction);
 		        actionItems.add(actionItem);        
 		    }
 		}
