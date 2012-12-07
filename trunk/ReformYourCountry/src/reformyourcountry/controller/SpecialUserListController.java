@@ -50,6 +50,7 @@ public class SpecialUserListController extends BaseController<User> {
         ModelAndView mv =  new ModelAndView("specialuserslist","userMapGroupByType",userMapGroupByType);
         mv.addObject("values", User.SpecialType.getValuesExceptPrivate());
         mv.addObject("isVoteResultPage",actionUrl != null ? false : true);
+        mv.addObject("action",action);
         return mv;
     }
 
