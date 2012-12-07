@@ -84,6 +84,7 @@ public class Article extends BaseEntity implements Searchable{
 	private List<Action> actions = new ArrayList<Action>();
 
 	@ManyToMany
+	@OrderBy("voteCount DESC, updatedOn DESC")
 	private List<GoodExample> goodExamples = new ArrayList<GoodExample>();
 	
 	@ManyToOne

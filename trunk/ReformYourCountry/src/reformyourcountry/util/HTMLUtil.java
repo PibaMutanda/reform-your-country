@@ -1,7 +1,5 @@
 package reformyourcountry.util;
 
-import java.util.ArrayList;
-
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 
@@ -25,7 +23,6 @@ public class HTMLUtil {
  
 
 	public static boolean isHtmlSecure(String htmlToCheck) {
-    	ArrayList<?> error = null;
     	//sometimes controller send null parameter or empty so it isn't unsecure...
     	if ( htmlToCheck == null || htmlToCheck.isEmpty() ) {
     		return true;
@@ -33,6 +30,23 @@ public class HTMLUtil {
     	return Jsoup.isValid(htmlToCheck, whiteList);
     	
     }
+	
+	/**
+	 * check if the entry contains character who can cause buggy html (< , > , " ,  ')
+	 * @return a String containing forbidden char or null
+	 */
+	public static String getContainedForbiddenHtmlCharacter(String htmlToCheck) {
+        String result = new String();
+        String[] forbiddenChar = { "<" , ">" , "\"" ,  "'" };
+        
+        for( String ch : forbiddenChar ) {
+            if( htmlToCheck.contains(ch) ) {
+                result += ch;
+            }
+        }
+	    
+	    return result.isEmpty()?null:result;
+	}
 
 
 	
