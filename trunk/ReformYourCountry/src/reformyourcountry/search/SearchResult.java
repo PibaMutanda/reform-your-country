@@ -45,7 +45,7 @@ public  class SearchResult {
             
             User user = em.find(User.class, id);
             
-            if(!user.getAccountStatus().equals(AccountStatus.ACTIVE) && current != null && current.hasAdminPrivileges()){
+            if((!user.getAccountStatus().equals(AccountStatus.ACTIVE) && current != null && current.hasAdminPrivileges()) || user.getAccountStatus().equals(AccountStatus.ACTIVE)){
                 visible = true;
             }
             
