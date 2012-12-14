@@ -334,9 +334,10 @@ public class BBConverter {
 
 		String outUrl = tag.getAttributeValue("out");  
 		if (outUrl != null) {
-			if (!UrlUtil.isUrlValid(outUrl)) {  
-				addErrorMessage("Invalid url '" + outUrl+"'", tag);
-			}
+// Commented out because it makes the articles too breakable (depending of external sites shutdonw). To be replaced by a system that detects broken URLs on all articles.
+//			if (!UrlUtil.isUrlValid(outUrl)) {  
+//				addErrorMessage("Invalid url '" + outUrl+"'", tag);
+//			}
 			if (author == null) {
 				addErrorMessage("You may not speficy an 'out' attribute in a quote, when you have no author. Please remove the out attribut or add an author attribute.", tag);
 			}

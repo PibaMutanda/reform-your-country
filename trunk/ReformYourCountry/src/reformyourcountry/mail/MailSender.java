@@ -79,9 +79,8 @@ public class MailSender extends Thread {
         setName("MailSender"); // Sets the name of the thread to be visible in the prod server thread list.
         if(environment.getMailBehavior() != MailBehavior.NOT_STARTED){
         	this.start();
-        	log.error("Mail Server Started !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! " + environment.getMailBehavior());
+        	log.info("Mail Server Started !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! " + environment.getMailBehavior());
         } else {
-        	log.error("Mail Server NOT Started ------------------------------------------------------------ " + environment.getMailBehavior());
         	log.info("DevMode on, mail thread not started");
         }
 

@@ -111,9 +111,11 @@ public class UrlUtil {
             huc = ( HttpURLConnection )  u.openConnection();
             huc.setRequestMethod("GET"); 
             huc.connect () ;         
-            if(HttpURLConnection.HTTP_OK != huc.getResponseCode()) return false;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            if(HttpURLConnection.HTTP_OK != huc.getResponseCode()) {
+            	return false;
+            }
+        } catch (Exception e) {
+            return false;
         }
         return true;
     }
