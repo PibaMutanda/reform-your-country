@@ -67,6 +67,8 @@ $(document).ready(function() {
 		$("#pdfoptionsform").submit();
 			
 		$('#pdfdialog').html("<p>Votre pdf est en cours de préparation. Ensuite débutera le téléchargement, veuillez regarder dans votre bar de telechargement</p>");
+		// reinit buttons with new values
+		$('#pdfdialog').dialog( "option", "buttons", [{text : "Fermer",click:function(){$('#pdfdialog').dialog('close');}}]);
 		setTimeout(function(){
 			$('#pdfdialog').dialog('close');  
 		},10000);
