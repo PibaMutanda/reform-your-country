@@ -26,13 +26,14 @@ public class ActionService {
 	@Autowired IndexManagerService indexManagerService;
 	
 	public void putGraphNumbersInModelAndView(ModelAndView mv, Action action){
-		List<Long> resultNumbers = getResultNumbersForAction(action);
+		List<Long> resultNumbers = getResultNumbersForAction(action.getId());
         mv.addObject("resultNumbers", resultNumbers);
         mv.addObject("positiveWeightedPercentage",getWeightedPercentage(resultNumbers, true));
         mv.addObject("positiveAbsolutePercentage",getAbsolutePercentage(resultNumbers, true));
         mv.addObject("negativeAbsolutePercentage",getAbsolutePercentage(resultNumbers, false));
         mv.addObject("negativeWeightedPercentage",getWeightedPercentage(resultNumbers, false));
 	}
+	
 	public ModelAndView getActionModelAndView(Action action,String jsp) {
         ModelAndView mv = new ModelAndView(jsp); 
         mv.addObject("action",action);
@@ -106,58 +107,42 @@ public class ActionService {
                 listNegArgs.add(args);
             }
         }
-        mv.addObject("listPosArgs",listPosArgs);
-        mv.addObject("listNegArgs",listNegArgs);
+        mv.addObject("listPosArgs", listPosArgs);
+        mv.addObject("listNegArgs", listNegArgs);
     }
-	 public List<Long> getResultNumbersForAction( Action action){
-	        
-	        
-	        List<Long> resultNumbers = new ArrayList<Long>();
-	        for(int i=-2;i<=2;i++){
-	            resultNumbers.add(voteActionRepository.getNumberOfVotesByValue(action.getId(), i));
-	        }
-	
-	        return resultNumbers;
-	  
-	    }
-	 
-	   public List<Long> getResultNumbersForAction( Long Idaction){
-           
-           
-           List<Long> resultNumbers = new ArrayList<Long>();
-           for(int i=-2;i<=2;i++){
-               resultNumbers.add(voteActionRepository.getNumberOfVotesByValue(Idaction, i));
-           }
-           
-           return resultNumbers;
-       }
-	   
-	   public VoteAction userVoteForAction(User user,Long idAction,int vote){
-	        	        	        
-	        VoteAction va = voteActionRepository.findVoteActionForUser(SecurityContext.getUser(), idAction);
-	        if (va==null){
-	            va = new VoteAction(vote, actionRepository.find(idAction), SecurityContext.getUser());
-	            voteActionRepository.persist(va);
-	        }else{
-	            va.setValue(vote);
-	            voteActionRepository.merge(va);
-	        }
-	        
-	        return va;
-	        
-	    }
-	   
-	   
-	   
-	   public void delete(Action action){
-           indexManagerService.deleteAction(action);
-	       for(VoteAction vote : action.getVoteActions()){
-	           voteActionRepository.remove(vote);
-	       }
-	       for(Argument arg:action.getArguments()){
-	           argumentService.deleteArgument(arg);
-	       }
-	       actionRepository.remove(action);
-	   }
+
+	public List<Long> getResultNumbersForAction( Long Idaction){
+		List<Long> resultNumbers = new ArrayList<Long>();
+		for (int i=2; i>=-2; i--){
+			resultNumbers.add(voteActionRepository.getNumberOfVotesByValue(Idaction, i));
+		}
+
+		return resultNumbers;
+	}
+
+	public VoteAction userVoteForAction(User user,Long idAction,int vote){
+		VoteAction va = voteActionRepository.findVoteActionForUser(SecurityContext.getUser(), idAction);
+		if (va==null) {
+			va = new VoteAction(vote, actionRepository.find(idAction), SecurityContext.getUser());
+			voteActionRepository.persist(va);
+		} else {
+			va.setValue(vote);
+			voteActionRepository.merge(va);
+		}
+
+		return va;
+	}
+
+
+	public void delete(Action action){
+		indexManagerService.deleteAction(action);
+		for(VoteAction vote : action.getVoteActions()){
+			voteActionRepository.remove(vote);
+		}
+		for(Argument arg:action.getArguments()){
+			argumentService.deleteArgument(arg);
+		}
+		actionRepository.remove(action);
+	}
 
 }
