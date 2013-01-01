@@ -33,20 +33,21 @@ public class ActionDisplayController extends BaseController<Action> {
     public ModelAndView displayAction(@PathVariable("actionUrl") String actionUrl) {
         Action action = getRequiredEntityByUrl(actionUrl);
         ModelAndView mv = actionService.getActionModelAndView(action,"actiondisplay");
-        
       
         actionService.putGraphNumbersInModelAndView(mv,action);
         
         return  mv;
     }
+    
+    
     @RequestMapping("ajax/vote")
     public ModelAndView vote(@RequestParam("actionId") long actionId, @RequestParam("vote") int vote){
         SecurityContext.assertUserIsLoggedIn();  
         VoteAction va = voteActionRepository.findVoteActionForUser(SecurityContext.getUser(), actionId);
-        if (va==null){
+        if (va==null) {
             va = new VoteAction(vote, actionRepository.find(actionId), SecurityContext.getUser());
             voteActionRepository.persist(va);
-        }else{
+        } else {
             va.setValue(vote);
             voteActionRepository.merge(va);
         }

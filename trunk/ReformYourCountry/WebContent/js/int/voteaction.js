@@ -1,5 +1,5 @@
 // Voting on an action.
-function clicked(item){
+function clickVoteButton(item){
 	
 	if(idUser.length>0) {  // A user is logged in
 		$("#voted").text($(item).text());
@@ -41,7 +41,7 @@ function clicked(item){
 function displayGraph() {
 	var data = getData();
 	var percentData = getPercentData(data);
-	var colors =["#9cd810","#cef259","#eff0ea","#d96e66","#c5332c",];  // Blue ... Red
+	var colors =["#6585b3","#6585b3","#3a567e","#111c32","#111c32",];  // Blue ... Black
 	// Call the D3.JS code to create the chart
 	var rects = chart.selectAll('rect').data(data)
 				    .enter().append('rect')

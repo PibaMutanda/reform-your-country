@@ -16,6 +16,7 @@
 
 <meta name="description" lang="fr" content="${action.shortDescription}" />
 <meta name="robots" content="index, follow" />
+
 <script type="text/javascript" src="/js/int/voteaction.js"></script>
 <script type="text/javascript" src="/js/ext/d3.v2.min.js"></script>
 <script type="text/javascript" src="/js/int/argument.js"></script>
@@ -24,13 +25,14 @@
 <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
 
 <script type="text/javascript">
- var addthis_config = {"data_track_clickback":true};
- </script>
+  var addthis_config = {"data_track_clickback":true};
+</script>
 <script type="text/javascript"
-	src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-509a829c59a66215"></script>
+	src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-509a829c59a66215">
+</script>
 </head>
-<body>
 
+<body>
 
 <ryctag:pageheadertitle title="${action.title }">
 		<ryctag:breadcrumbelement label="actions"  link="/action"/><ryctag:breadcrumbelement label="cette action" />
@@ -45,19 +47,17 @@
 	</ryctag:form>
 </div>
 
-	<%-- Action text --%>
-	<div style="width: 100%;">
+<%-- Action text --%>
+<div style="width: 100%;">
 
-		<div style="font-size: 1em;">
+	<div style="font-size: 1em;">
 
-			<%-- List of articles within the action --%>
-			<div class="action-list" style="font-size: 0.9em; float:right; font-color:#7D92B9;">
-			<div class="action-goodexample-title" >
-								articles liés
-							</div>
-				<a href="/specialuserslist/${action.url}"
+		<%-- List of articles within the action --%>
+		<div class="action-list" style="font-size: 0.9em; float:right; font-color:#7D92B9;">
+			<div class="action-goodexample-title" >articles liés</div>
+			<a href="/specialuserslist/${action.url}"
 					title="Voir ce que les partis et associations ont voté.">Avis des partis</a>
-				<c:forEach items="${action.articles}" var="article">
+			<c:forEach items="${action.articles}" var="article">
 					<div>
 						<a href="/article/${article.url}"> <c:choose>
 								<c:when test="${article.description != null}">
@@ -69,11 +69,13 @@
 							</c:choose>
 						</a>
 					</div>
-				</c:forEach>
-			</div>
-			${action.content}
+			</c:forEach>
 		</div>
-		<div>
+		
+	    ${action.content}
+   </div>
+
+   <div>
 			<!-- AddThis Button BEGIN -->
 			<div class="addthis_toolbox addthis_default_style"
 				style="padding-top: 30px; padding-bottom: 10px;">
@@ -96,23 +98,23 @@
 					<input type="hidden" value="${action.id}" name="id" id="idAction" />
 				</ryctag:form>
 			</div>
-		</div>
-	</div>
+   </div>
+</div>
 
-	<%-- Chart --%>
-	<div id="voteGraph"
-		style="width: 500px; margin-left: 150px; background: url(/images/_global/separator3.gif) 0 0 repeat-x; padding-top: 10px;">
-	</div>
-	<div id="voteContainer">
-		<%-- Will be re-filled through Ajax too--%>
-		<%@include file="voteaction.jsp"%>
-	</div>
+<%-- Chart --%>
+<div id="voteGraph"
+	style="width: 500px; margin-left: 150px; background: url(/images/_global/separator3.gif) 0 0 repeat-x; padding-top: 10px;">
+</div>
+<div id="voteContainer">
+	<%-- Will be re-filled through Ajax too--%>
+	<%@include file="voteaction.jsp"%>
+</div>
 
-	<%-- Arguments --%>
-	<div id="argContainer">
-		<%-- Will be re-filled through Ajax--%>
-		<%@include file="argument.jsp"%>
-	</div>
-	<%-- <%@include file="argumentcomment.jsp"%> --%>
+<%-- Arguments --%>
+<div id="argContainer">
+	<%-- Will be re-filled through Ajax--%>
+	<%@include file="argument.jsp"%>
+</div>
+<%-- <%@include file="argumentcomment.jsp"%> --%>
 </body>
 </html>

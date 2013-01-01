@@ -34,7 +34,7 @@ $(document).ready(function(){
 				<!-- ***************** - END LOGO - ***************** -->	
 				<!-- ******************* BETA ************************ -->	
 					<div class="beta">
-						<img src= "images/beta_sign.png" alt= "Plate-forme en construction, pas encore destinée au grand public. Sortie prévue: janvier 2013"
+						<img src= "images/beta.png" alt= "Plate-forme en construction, pas encore destinée au grand public. Sortie prévue: janvier 2013"
 						title="Plate-forme en construction, pas encore destinée au grand public. Sortie prévue: janvier 2013"  />
 					</div>
 				
@@ -88,13 +88,11 @@ $(document).ready(function(){
 						
 						<!-- Search -->
 						<div style="float:right;padding-top: 30px;">
-						  <form method="get" id="searchform" action="search" class="search-form"> <%-- TODO: implement seach page. --%>
-								<fieldset>
-								<span class="text">
-								 <input type="submit" class="submit" value="search" id="searchsubmit" />
-								 <input type="text" name="searchtext" id="s" value="Rechercher" onfocus="this.value=(this.value=='Rechercher') ? '' : this.value;" onblur="this.value=(this.value=='') ? 'Rechercher' : this.value;" />
-								</span>
-								</fieldset>
+						  <form method="get" id="searchform" action="search" class="search-form">
+							 <fieldset>
+								   <input type="submit" class="submit" value="search" id="searchsubmit" />
+								   <input type="text" name="searchtext" id="s" value="Rechercher" onfocus="this.value=(this.value=='Rechercher') ? '' : this.value;" onblur="this.value=(this.value=='') ? 'Rechercher' : this.value;" />
+							 </fieldset>
 						  </form>
 						</div>
 						</div>
