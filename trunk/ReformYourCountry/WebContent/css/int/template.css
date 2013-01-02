@@ -6,10 +6,17 @@
 .container-template{
 	position:relative;
 }
-/*cf style.css use of inline-blokc instead of floating*/
+/* 
 #sub_nav, #content{
-    float: left;
+    display:inline-block;
+    vertical-align:top;
 }
+ */
+#content{
+	width:804px;
+	margin-left:10px;
+}
+
 #sub_nav{
     margin-right: 0px;
 }
