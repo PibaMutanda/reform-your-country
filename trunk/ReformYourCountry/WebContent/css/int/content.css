@@ -118,7 +118,7 @@
 	border-style: solid;
 	border-width: 2px;
 	box-shadow: 2px 2px 4px rgb(221, 221, 221);
- */	margin-right: 40px;
+ */	margin-right: 37px;
 }
 
 .smallvote{
@@ -364,25 +364,24 @@ color: #444;
 	width:100%;
 }
 
-.action-list{
+.action-list-item{
 	background-color:white;
 	font-size:0.9em;
-	padding:5px;
-	margin-bottom:10px;
-	margin-left:10px;
-	width:150px;
-	border-style:solid;
-	border-width:1px;
-	font-family:"helvetica neue", Helvetica, Arial, Verdana, sans serif;  
+	padding:5px 37px 5px 18px;
+	margin:10px;
+	width:245px;  /* To adapt bg image size (and padding)*/
+	height: 52px; /* To adapt bg image size (and padding)*/
+	background-image:url("/images/tape1item.png");
+    font-family:"helvetica neue", Helvetica, Arial, Verdana, sans serif;  
 }
 
 .goodexample-list{
 	font-size:0.9em;
-	padding:5px;
+	padding:5px 37px 5px 18px;
 	margin:10px;
-	width:150px;
-	border-style:solid;
-	border-width:1px;
+	width:245px;  /* To adapt bg image size (and padding)*/
+	height: 122px; /* To adapt bg image size (and padding)*/
+	background-image:url("/images/tape5items.png");
 	font-family:"helvetica neue", Helvetica, Arial, Verdana, sans serif;  
 }
 
