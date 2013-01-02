@@ -123,7 +123,7 @@
 				<div class="article_summary">
 				
 				        <%---------- List of actions --%>
-					<div style="float:right;">
+					<div style="float:right; margin-right:-45px">  <%-- Negative right margin to make part of the background images overflow on the right --%>
 					
 						<div>
 							<%-- <div class="action-goodexample-title" >
@@ -136,12 +136,8 @@
  						    
 							<ryc:conditionDisplay privilege="MANAGE_ARTICLE">
 								<div class="article-liens" >
-									<div style="text-align:right;">
-										<a href="/articleactionlinkedit?id=${article.id}">
-											
-												éditer actions
-											
-										</a>
+									<div style="text-align:right;  margin-right:50px;">
+										<a href="/articleactionlinkedit?id=${article.id}">éditer actions</a>
 									</div>
 								</div>
 								<c:if test="${!article.children.isEmpty()}">
