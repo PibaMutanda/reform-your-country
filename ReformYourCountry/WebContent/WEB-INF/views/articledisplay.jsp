@@ -41,14 +41,11 @@
  src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-509a829c59a66215"></script>
  
  
- 	 
-
-     
- 
 </head>
+
+
+
 <body>
-
-
 
 
  <ryctag:pageheadertitle title="${article.title}">
@@ -128,10 +125,10 @@
 				        <%---------- List of actions --%>
 					<div style="float:right;">
 					
-						<div class="action-list">
-							<div class="action-goodexample-title" >
+						<div>
+							<%-- <div class="action-goodexample-title" >
 								actions
-							</div>
+							</div> --%>
 							
 						
 							<c:set var="actionItems" value="${actionItemsParent}" scope="request"/>
