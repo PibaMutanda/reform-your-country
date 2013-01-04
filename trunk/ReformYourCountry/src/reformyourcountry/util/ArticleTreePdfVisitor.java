@@ -10,8 +10,13 @@ public class ArticleTreePdfVisitor implements ArticleTreeVisitor {
 	List<Article> listResult = new LinkedList<Article>();
 
 	@Override
-	public void processArticle(Article article) {
+	public void startArticle(Article article) {
 		listResult.add(article);
+	}
+
+	@Override
+	public void endArticle(Article article) {
+		// This method left intentionally blank
 	}
 
 	@Override

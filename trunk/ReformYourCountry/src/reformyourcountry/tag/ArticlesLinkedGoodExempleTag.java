@@ -46,7 +46,7 @@ public class ArticlesLinkedGoodExempleTag extends SimpleTagSupport{
 		}
 		
 		@Override
-		public void processArticle(Article article) {
+		public void startArticle(Article article) {
 			htmlResult+="<li>";
 
 			/// Is the check box already checkes (goodexample already bound to the article) ? 
@@ -58,9 +58,14 @@ public class ArticlesLinkedGoodExempleTag extends SimpleTagSupport{
 					(check ? " checked='checked'" : "") + "/>";
 
 			htmlResult += article.getTitle();
+		}
+
+		@Override
+		public void endArticle(Article article) {
 			htmlResult+="</li>";
 		}
 
+		
 		@Override
 		public void beforeChildren(int recurtionLevel) {
 			htmlResult += "<ul class=\"articletreelevel"+recurtionLevel+"\">";

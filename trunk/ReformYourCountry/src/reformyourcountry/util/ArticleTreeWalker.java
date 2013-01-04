@@ -37,9 +37,10 @@ public class ArticleTreeWalker {
 
 
 	private void processArticle(Article article) throws  IOException { 
-		atv.processArticle(article);
+		atv.startArticle(article);
 		recurtionLevel++;
 		processArticleList(article.getChildren());
 		recurtionLevel--;
+		atv.endArticle(article);
 	}
 }
