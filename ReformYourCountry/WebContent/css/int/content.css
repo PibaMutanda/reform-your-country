@@ -7,6 +7,11 @@
 	padding-left:10px;
 }
 
+.hoverImage:hover{
+	opacity:0.65;
+	cursor: pointer;
+}
+
 .icon-32{  /* Because i'm to lazy to go in GIMP and change every icons we have to 32px... */
     width:32px;
     height: 32px;
@@ -21,8 +26,8 @@
 }
 .center-align { /* use this class instead of <center>*/
     text-align: center;
-   
 }
+
 /**upload form**/
 .uploadBtn{
     border: none;
@@ -352,16 +357,8 @@ color: #444;
 
 /***Display***/
 .article_summary{
-	margin:0-.5em;
-	background-color:white;
-	border-top-style:solid;
-	border-bottom-style:solid;
-	padding-left: .5em;
-	padding-right: .5em;
-	border-right-style: solid;
-	border-right-width: 1px;
-	display:inline-block;
-	width:100%;
+	padding:20px;  /*Space with bg color additionnally to the margin-top*/
+	background-color:#f8f8f8;
 }
 
 .action-list-item{
@@ -462,9 +459,15 @@ color: #444;
 	
 }
 
+.page-menu-links {
+	font-size:12px;
+	margin-top: -10px;  /* to get closer to the breadcrumb */
+	margin-bottom: 15px;
+}
+
+
 .small-text{
 	font-size:12px;
-	
 }
 
 .article-liens{
@@ -661,3 +664,28 @@ color: #444;
 	border-style:solid;
     border-width:1px;
 }
+
+/************************************************ Footer ****************/
+
+.footer-column {
+	width:221px;
+	display: inline-block;
+	vertical-align: top;
+	margin-right:20px;
+}
+
+
+.footer-title {
+	background-image:url("/images/separatorfooter.png");
+	background-repeat: no-repeat;
+	background-position: left bottom;
+	text-transform:uppercase;
+	color:#fff;
+	display:block;
+	font-size:13px;
+	letter-spacing: 0.5px;
+	padding-bottom: 12px;
+	margin-bottom: 12px;
+/* 	font-weight: bold;
+ */}
+

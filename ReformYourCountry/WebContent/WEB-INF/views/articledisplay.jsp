@@ -47,140 +47,149 @@
 
 <body>
 
+<div style="
+	background-image: url('/images/inkspot.png');
+	background-repeat: no-repeat;
+	background-position: 615px 100px;
+">
 
- <ryctag:pageheadertitle title="${article.title}">
- 	<c:forEach items="${parentsPath}" var="subarticle">
+ <ryctag:breadcrumb>
+	<c:forEach items="${parentsPath}" var="subarticle">
 		<ryctag:breadcrumbelement label="${subarticle.title}" link="/article/${subarticle.url}" />
 	</c:forEach>
 	<ryctag:breadcrumbelement label="${article.title}" />
- </ryctag:pageheadertitle>
+</ryctag:breadcrumb>
+
+<ryc:conditionDisplay privilege="MANAGE_ARTICLE" >
+    <%@include file="articlelinkmenu.jsp" %>	
+</ryc:conditionDisplay>
+
+<%@include file="articlesocialandpdf.jsp" %>
+
+<ryctag:pageheadertitle title="${article.title}" />
+  
 
 
-	<div style="display:inline-block"><!-- DO NOT REMOVE OTHERWISE TITLE AND MENU ARE UPSIDE DOWN	 -->
-		<div class="small-text">
-	    <ryc:conditionDisplay privilege="MANAGE_ARTICLE" >
-			 <%@include file="articlelinkmenu.jsp" %>	
-		</ryc:conditionDisplay>
-		</div>
-		<br/>
-		<div class="article-title" >
-		  <div class="article-shortname" >
-			<ryc:conditionDisplay privilege="MANAGE_ARTICLE">
-		    	<span class="tooltip" data-tooltip='identifiant de cet article pour utilisation dans la balise [link article="${article.shortName}"]'>${article.shortName}</span>   <!--  Tooltip avec "identifiant de cet article pour utilisation dans la balise [link article="identifiant"]" -->
-			</ryc:conditionDisplay>	
-		   </div>
-		    <c:if test="${!article.publicView}">
-				<p>Cet article n'est pas disponible au public.
-		     	<c:choose>
-		  	       <c:when test="${displayDate != null}"> 
-	  	         	 Il sera publié le ${displayDate}.  
-				   </c:when> 
-				   <c:otherwise>
-				      Sa date de publication est indéterminée.
-				   </c:otherwise>
-				 </c:choose>
-				 </p>
-		   </c:if>
-		</div>
+<div style="display:inline-block"><!-- DO NOT REMOVE OTHERWISE TITLE AND MENU ARE UPSIDE DOWN	 -->
+	<br/>
+	<div class="article-title" >
+	    <c:if test="${!article.publicView}">
+			<p>Cet article n'est pas disponible au public.
+	     	<c:choose>
+	  	       <c:when test="${displayDate != null}"> 
+  	         	 Il sera publié le ${displayDate}.  
+			   </c:when> 
+			   <c:otherwise>
+			      Sa date de publication est indéterminée.
+			   </c:otherwise>
+			 </c:choose>
+			 </p>
+			 <hr/>
+	   </c:if>
 	</div>
+</div>
+
 <!-- ARTICLE CONTENT -->
-    <c:choose>
+<c:choose>
   	  <c:when test="${showContent}">
 		<div class="article_content">
-		  	  <ryc:conditionDisplay privilege="MANAGE_ARTICLE">
-		 		 <hr/>
-			  </ryc:conditionDisplay>
 				
-				<div id="carouselh">
+				<div id="carouselh" style="padding-bottom:40px;">
 					<c:forEach items="${videoList}" var="video">
 						<div class="inline-block">
 							<iframe width="250" height="141" src="https://www.youtube-nocookie.com/embed/${video.idOnHost}?rel=0&hd=1" frameborder="0" allowfullscreen seamless></iframe>
 						</div>
 					</c:forEach>
 				</div>
-				<!-- AddThis Button BEGIN -->
-				<div class="addthis_toolbox addthis_default_style" style="padding-top:30px; padding-bottom:10px;">
-				 <div style="float:left">
-   					<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-					<a class="addthis_button_tweet"></a>
-					<a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
-					<a class="addthis_counter addthis_pill_style"></a>
-				 </div>
-				 <div style="float:right;vertical-align:bottom">
-				    <%-- These images launch a JavaScript function. --%>	
-					<c:if test="${empty article.children}">
-					  <img class="generatepdfarticle" style="cursor:pointer;text-align:right;" src="images/pdf_button.png" title="Générez un PDF pour lire/imprimer cet article"></img>
-			    	</c:if>
-				    <c:if test="${!empty article.children}">
-					  <img class="generatepdfgroup" style="cursor:pointer;text-align:right;" src="images/pdf_button.png" title="Générez un PDF pour lire/imprimer cet article (et ses sous-articles)"></img>
-				    </c:if>
-				 </div>	
-					
-					
-				</div>
-			    <!-- AddThis Button END -->
-			  
-				<div class="article_summary">
-				
-				        <%---------- List of actions --%>
-					<div style="float:right; margin-right:-45px">  <%-- Negative right margin to make part of the background images overflow on the right --%>
-					
-						<div>
-							<%-- <div class="action-goodexample-title" >
-								actions
-							</div> --%>
+	            
+	            			  
+			    <table style="border-spacing:0px;">   <%-- Table with 3 cells: left (border image), center (text), right (border image) --%>
+				 <tr> <%-- First row = top background image --%>
+				    <td style="background-image:url(/images/summaryheader.png); background-repeat: repeat-x; 
+			                width:790px; height:30px;  <%-- must be the same width as the bg image. --%> 
+			                padding:0; " colspan="3"></td>
+				 </tr> 
+			     <tr>
+			       <td style="background-image:url(/images/summaryleft.png); background-repeat: repeat-y; width:5px; padding:0"></td>
+			       <td style="width:780px; padding:0; background-color: #F8F8F8;">
+							<div class="article_summary" >
 							
-						
-							<c:set var="actionItems" value="${actionItemsParent}" scope="request"/>
- 						    <%@include file="actionsummary.jsp"%>
- 						    
-							<ryc:conditionDisplay privilege="MANAGE_ARTICLE">
-								<div class="article-liens" >
-									<div style="text-align:right;  margin-right:50px;">
-										<a href="/articleactionlinkedit?id=${article.id}">éditer actions</a>
+							    <%---------- List of actions --%>
+								<div style="float:right; margin-right:-70px">  <%-- Negative right margin to make part of the background images overflow on the right --%>
+								
+									<div>
+										<%-- <div class="action-goodexample-title" >
+											actions
+										</div> --%>
+										
+									
+										<c:set var="actionItems" value="${actionItemsParent}" scope="request"/>
+			 						    <%@include file="actionsummary.jsp"%>
+			 						    
+										<ryc:conditionDisplay privilege="MANAGE_ARTICLE">
+											<div class="article-liens" >
+												<div style="text-align:right;  margin-right:50px;">
+													<a href="/articleactionlinkedit?id=${article.id}">éditer actions</a>
+												</div>
+											</div>
+											<c:if test="${!article.children.isEmpty()}">
+												<hr/>
+											</c:if>
+										</ryc:conditionDisplay> 
+										
+										<div>
+										<c:set var="actionItems" value="${actionItemsChildren}" scope="request"/>
+										<%@include file="actionsummary.jsp"%>
+										</div>
 									</div>
+									
+									<%---------- List of arguments --%>
+									
+									<div class="goodexample-list">
+									
+									<div class="action-goodexample-title"  >
+											bons exemples
+										</div>
+									
+									<c:forEach items="${lastFiveExample}" var="example">
+										<div>
+									   	  <a href="/goodexample/${article.url}">${example.title}</a>
+									    </div>
+									</c:forEach>
+			                        <div class="article-liens">
+			                                <div style="text-align: right;">
+			                                    <a href="/goodexample/${article.url}" style="text-align: rignt;">plus ... </a>
+			                                </div>
+			                            </div>
+			                        </div>
 								</div>
-								<c:if test="${!article.children.isEmpty()}">
-									<hr/>
-								</c:if>
-							</ryc:conditionDisplay> 
-							
-							<div>
-							<c:set var="actionItems" value="${actionItemsChildren}" scope="request"/>
-							<%@include file="actionsummary.jsp"%>
-							</div>
-						</div>
-						
-						<%---------- List of arguments --%>
-						
-						<div class="goodexample-list">
-						
-						<div class="action-goodexample-title"  >
-								bons exemples
-							</div>
-						
-						<c:forEach items="${lastFiveExample}" var="example">
-							<div>
-						   	  <a href="/goodexample/${article.url}">${example.title}</a>
-						    </div>
-						</c:forEach>
-                        <div class="article-liens">
-                                <div style="text-align: right;">
-                                    <a href="/goodexample/${article.url}" style="text-align: rignt;">plus ... </a>
-                                </div>
-                            </div>
-                        </div>
-						</div>
-				<%----------- Summary --%>
-						<div style="font-size:.85em;margin-bottom:10px;">
-							RESUME
-						</div>
-						${article.lastVersionRenderdSummary}						
+								
+							    <%----------- Summary text --%>
+							    <div style="font-size:1.15em;margin-bottom:10px; color:#bc1c1c;">RESUME</div>
+								${article.lastVersionRenderdSummary}
+						   </div>  <!--  article summary -->
+			   			 </td>
+			   			 <%-- right border --%>
+			             <td style="background-image:url(/images/summaryright.png); background-repeat: repeat-y; width:5px; padding:0"></td>
+ 			     </tr>
+				 <tr> <%-- Last row = bottom background image --%>
+				    <td style="background-image:url(/images/summaryfooter.png); background-repeat: repeat-x; 
+			                width:790px; height:12px;  <%-- must be the same width as the bg image. --%> 
+			                padding:0; " colspan="3"></td>
+				 </tr> 
+				</table>						
+			   
+					   
+		    	<div style="text-align:right; margin:10px 30px 0 0;">
+					       <img src="/images/kidsdrawing2.png" /><br/>
 				</div>
-				</div>
-			   <br/>
-			   <div style="font-size:.85em;margin-bottom:10px;">ARTICLE</div>
-			   ${article.lastVersionRenderedContent}
+		
+			    <%@ include file="articlesocialandpdf.jsp" %>
+		
+				<ryctag:separator/>
+				  			   
+				<div style="font-size:.85em;margin-bottom:10px;">ARTICLE</div>
+			    ${article.lastVersionRenderedContent}
 	  	</div>
 	  </c:when>
 	
@@ -204,9 +213,12 @@
 		</c:if>
 	  </c:otherwise>
 </c:choose>
+
 <!-- Used by javascript (generatedpdf.js) -->
 <input type = "hidden" name = "articleId" value="${article.id}" >
 <input type = "hidden" name = "articleUrl" value="${article.url}" >
+
+</div> <%-- Ink inkspot bg image div --%>
 </body>
 </html>   
 

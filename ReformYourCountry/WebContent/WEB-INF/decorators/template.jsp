@@ -18,41 +18,43 @@
 	<link rel="shortcut icon" href="#"/>
 	<title><decorator:title /></title>
 </head>
+
+
 <body>
+
+<%-- IE7 not supported image --%>
+<!--[if lt IE 8]><div style='background-color:orange;'>Vous utilisez une version préhistorique d'Internet Explorer (qui n'est plus utilisée que par une très infime fraction de la population). Ce site ne s'affichera pas correctement avec votre version. Merci de la mettre à jour vers une version plus récente, ou bien d'utiliser un navigateur moderne tel que Chrome ou Firefox.</div><![endif]-->
+
 <div id="wrapper">
 	<%@ include file="/WEB-INF/includes/header.jsp"%>
+	
 	<div id="main">
 		<div class="main-area">
-			<div style="padding-left:160px; padding-top:0px; " >
-				<img src="images/_global/topline.png" width="1px"height="30px"/>
-			</div>
-			<div class="main-holder">
-				<!-- ***************** - START Left list of articles - ***************** -->
-				<div id="sub_nav">
-				  <ryc:articlesNavBar/>
-				  <img src="images/kidsdrawingbig.png"
-				      style="position:absolute; bottom:0;" />  <%-- To have it at the bottom of the div (will be cut if the main area is not long enough --%>
-				</div>
-				<!-- ***************** - END Left list of articles - ***************** -->
-				<!-- ***************** - START Content - ***************** -->
-				<div id="content">
-				         <decorator:body />
-					<br class="clear" />				
-				</div><!-- end content -->
-				<!-- ***************** - END content - ***************** -->
-			</div><!-- end main-holder -->
+				<table>   <!-- divs with display:inline-block do not work for IE7-. There are hacks but mess the code up. A Table is just simple. http://giveupandusetables.com/ -->
+				  <tr style="vertical-align:top;">
+				    <td style="padding:0">
+						<!-- ***************** - START Left list of articles - ***************** -->
+						<div id="sub_nav">
+						  <ryc:articlesNavBar/>
+						  <img src="images/kidsdrawingbig.png"
+						      style="position:absolute; bottom:0;" />  <%-- To have it at the bottom of the div (will be cut if the main area is not long enough --%>
+						</div>
+						<!-- ***************** - END Left list of articles - ***************** -->
+				    </td>
+				    <td style="padding:0">	 					<!-- ***************** - START Content - ***************** -->
+						<div id="content">
+						         <decorator:body />
+							<br class="clear" />				
+						</div><!-- end content -->
+						<!-- ***************** - END content - ***************** -->
+				    </td>
+				  <tr>
+				</table>
 		</div><!-- main-area -->
-	<div class="mainbottom">
-		<div class="main-ar">
-
-			<div style="padding-left:160px; bottom:0px" >
-				<img src="images/_global/bottomline.png" width="1px"height="48px"/>
-			</div>
-			</div>
-	</div>
-	<%@ include file="/WEB-INF/includes/footer.jsp"%>
-</div>
+    </div>
 	
+
+	<%@ include file="/WEB-INF/includes/footer.jsp"%>
 
 </div><!--  end wrapper -->
 </body>

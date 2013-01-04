@@ -121,7 +121,8 @@
 /*---------------------------------------------------------------*/
 /* TYPOGRAPHY
 /*---------------------------------------------------------------*/
-#footer h3 {border-bottom: 1px solid #516D8A !important;}
-#footer, #footer_bottom {color: #DDD !important;}
+/* #footer h3 {border-bottom: 1px solid #516D8A !important;}
+ */
+ #footer, #footer_bottom {color: #DDD !important;}
 #footer .footer_post h4, #footer .footer_post h4 a {font-weight: bold !important;}
 #mc_signup_form label {color:#DDD !important;}

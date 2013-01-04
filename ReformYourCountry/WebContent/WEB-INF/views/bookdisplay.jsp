@@ -14,7 +14,7 @@
         <div class="imgbook">
             <img
                 src="gen<%=FileUtil.BOOK_SUB_FOLDER%><%=FileUtil.BOOK_RESIZED_SUB_FOLDER%>/${book.id}.jpg"
-                alt="${book.title}" class="realshadow" />
+                alt="${book.title}" class="image-frame" />
         </div>
         </c:if>
         <p class="bookContent">${book.description}</p>

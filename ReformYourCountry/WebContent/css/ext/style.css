@@ -123,13 +123,9 @@ body {margin:0;background:#f4f4f2;font-size:1em;font-family:"helvetica neue",Hel
 #header .header-area:after {clear:both;display:block;content:"";}
 #main {background:url(/images/_global/bg-main.png)  repeat-x;position:relative;width:100%;
 padding-top: 1px;}
-#main .main-area {background:url(/images/_global/redline.png) -8px repeat-y;width:980px;margin:1px auto;padding:0 0 5px 0;}
-#main .top-line{background:url(/images/_global/topline.png) -8px repeat-y;width:980px;margin:0 auto;padding: 0px  0 0 0; }
+#main .main-area {width:980px;margin:1px auto;padding:20px 0 20px 0;}
 .tools .place {position:relative;}
-.main-holder {height:1%;padding-top:10px;}
 .carousel-holder {width:315px !important;}
-.mainbottom{background:url(/images/_global/bg-main-bottom.jpg) repeat-x;position:relative;width:100%;min-height:48px;}
-.main-ar {background:url(/images/_global/redline.png) -8px repeat-y;width:980px;margin: -2px auto -5px auto;}
 
 
 
@@ -662,10 +658,10 @@ padding-top: 1px;}
 /*---------------------------------------------------------------*/
 /* 4. BREADCRUMBS
 /*---------------------------------------------------------------*/
-.tools .breadcrumb {margin:0;padding:4px 0 19px 0;float:right;font-size:.9em;}
-.tools .breadcrumb a {padding:0 15px 0 7px;background:url(/images/_global/arrow-right.png) 100% 50% no-repeat;margin:0 0 0 6px;color:#FFF;outline: none;text-decoration:none;}
-.tools .breadcrumb a:hover {color:#CCC;}
-.tools .breadcrumb .current_crumb {background:url(/images/_global/arrow-up.png) 50% 100% no-repeat;padding:0 5px 23px 7px;font-weight: bold;}
+.breadcrumb {margin:0;float:right;font-size:.8em;}
+.breadcrumb a {padding:0 15px 0 7px;background:url(/images/_global/arrow-right.png) 100% 50% no-repeat;margin:0 0 0 6px;color:#FFF;outline: none;text-decoration:none;}
+.breadcrumb a:hover {color:#CCC;}
+.breadcrumb .current_crumb {font-weight: bold; color:#bc1c1c;}
 
 
 
@@ -907,9 +903,13 @@ a:hover { text-decoration:none;}
 /* 1. GENERAL TYPOGRAPHY
 /*---------------------------------------------------------------*/
 #main .frame h1 {padding-bottom: 15px !important;font-size:24px /*!important*/;float:left;margin:3px 0 0 0 /*!important*/;color: #FFF;}
-#main h1, #main h2, #main h3, #main h4, #main h5, #main h6  {/*padding-bottom: 10px;*/font-weight: normal;/*margin:0;*/}
-#main h1 {font-size:2.1em;}
-#main h2 {font-size:1.9em;}
+#main h1, #main h2, #main h3, #main h4, #main h5, #main h6  {
+  /*padding-bottom: 10px;*/
+  font-weight: normal;
+  font-family:'ColaborateLightRegular', Arial, sans-serif;
+}
+#main h1 {font-size:2.1em; color:#BC1C1C;}
+#main h2 {font-size:1.9em; color:#BC1C1C;}
 #main h3 {font-size:1.7em;}
 #main h4 {font-size:1.5em;}
 #main h5 {font-size:1.3em;}
@@ -975,7 +975,6 @@ p strong {color: #555;}
     font-style: normal;
 
 }
-#main .blog_wrap h1, #main .single_blog_wrap h1, #main .comment-title, .four_o_four, .callout-wrap span, .video-sub h2, .two-d-sub h2, .three-d-sub h2, .main-holder h1, .main-holder h2, .main-holder h3, .main-holder h4, .main-holder h5,.main-holder h6, .search-title, .home-banner-main h2, #main .portfolio_full_width h3, #main .frame h1, #main .month, .home-bnr-jquery-content h2, .callout2, #main .contact_iphone h4, .comment-author-about {font-family:'ColaborateLightRegular', Arial, sans-serif;}
 
 
 
@@ -1011,7 +1010,6 @@ p strong {color: #555;}
 /*---------------------------------------------------------------*/
 #footer p, #footer_bottom p {margin:0;}
 #footer, #footer_bottom {color: #575C60;}
-#footer h3 {text-transform:uppercase;color:#fff;display:block;font-size:13px;letter-spacing: 0.5px;border-bottom: 1px solid #3E4055;padding-bottom: 7px;margin-bottom: 16px;font-weight: bold;}
 #footer .footer_post h4, #footer .footer_post h4 a{text-transform:uppercase;color:#fff;display:block;font-size:11px;letter-spacing: 0.5px;}
 #footer .footer_post h4{padding-bottom: 3px;}
 
@@ -1810,13 +1808,16 @@ border-radius: 5px;
 /*---------------------------------------------------------------*/
 /* Added By cedric and Delphine
 /*---------------------------------------------------------------*/
-.realshadow{
-   border : solid 10px; /*needed to draw border (in some browsers)*/
-   -moz-border-image: url(/images/_global/cadre.png) 8  stretch;/* for before firefox15*/
-   -webkit-border-image: url(/images/_global/cadre.png) 8  stretch; /*for safari ,mobile browser and chrome before 16*/
-   -o-border-image: url(/images/_global/cadre.png) 8    stretch; /* for opera*/
-   border-image: url(/images/_global/cadre.png) 8    stretch; /*correct declaration*/
-	
+.image-frame{
+   padding:4px;
+   border:1px solid #CCC;
+   background-color:#fff;
+   
+/*    -moz-border-image: url(/images/_global/cadre.png) 8  stretch;for before firefox15
+   -webkit-border-image: url(/images/_global/cadre.png) 8  stretch; for safari ,mobile browser and chrome before 16
+   -o-border-image: url(/images/_global/cadre.png) 8    stretch; for opera
+   border-image: url(/images/_global/cadre.png) 8    stretch; correct declaration
+	 */
 /* padding: 10px; */
 /* -moz-border-radius: 5px; */
 /* -webkit-border-radius: 5px; */
