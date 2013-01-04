@@ -16,7 +16,7 @@ public class ArticleTreeNavBarVisitor implements ArticleTreeVisitor {
 		this.isList = isList;
 	}
 	@Override
-	public void processArticle(Article article) {
+	public void startArticle(Article article) {
 		
 		htmlResult+="<li>";
 		
@@ -43,6 +43,7 @@ public class ArticleTreeNavBarVisitor implements ArticleTreeVisitor {
 						htmlResult+="<div class=\"descriptNotPublish\">"+article.getDescription()+"<div/>";
 					else
 						htmlResult+="<br/><br/>";
+					
 				} else {
 					htmlResult+="<span class=\"datepublication\">non publié</span>";
 					
@@ -63,9 +64,14 @@ public class ArticleTreeNavBarVisitor implements ArticleTreeVisitor {
 			
 			
 		}
-	    htmlResult+="</li>";
 	}
 
+	@Override
+	public void endArticle(Article article) {
+	    htmlResult+="</li>";
+	}
+	    
+	
 	@Override
 	public void beforeChildren(int recurtionLevel){
 		htmlResult += "<ul class=\"articletreelevel"+recurtionLevel+"\">";

@@ -520,14 +520,9 @@ color: #444;
 	font-size: 0.85em;
 	color: #444;
 }
-.articletreelevel0 {
-	list-style: none;
-}
-.articletreelevel1 {
-	padding-top: 11px;
-	list-style: none;
-	padding-bottom:12px;
-}
+
+
+
 .datepublication {
 	float: right;
 	font-size: 10px;

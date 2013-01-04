@@ -13,8 +13,9 @@ public class ArticleTreeRadioVisitor implements ArticleTreeVisitor {
 	public ArticleTreeRadioVisitor(Article articleFromRequest){
 		this.articleFromRequest=articleFromRequest;
 	}
+
 	@Override
-	public void processArticle(Article article) {
+	public void startArticle(Article article) {
 		
 		htmlResult+="<li>";
 		
@@ -29,9 +30,13 @@ public class ArticleTreeRadioVisitor implements ArticleTreeVisitor {
 					(check ? " checked='checked'" : "") + "/>";
 		}
 		htmlResult += article.getTitle();
-		htmlResult+="</li>";
 	}
 
+	@Override
+	public void endArticle(Article article) {
+		htmlResult+="</li>";
+	}
+	
 	@Override
 	public void beforeChildren(int recurtionLevel) {
 		htmlResult += "<ul class=\"articletreelevel"+recurtionLevel+"\">";

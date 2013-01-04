@@ -601,12 +601,51 @@ padding-top: 1px;}
 /*---------------------------------------------------------------*/
 /* 2. VERTICAL SUB NAVIGATION
 /*---------------------------------------------------------------*/
-#sub_nav ul a:hover,
+#sub_nav ul, #sub_nav ul a:hover, #sub_nav {
+	list-style-type: none;
+	padding-left:0;
+}
 
-#sub_nav {list-style-type: none;width:160px;/*float:left //use of inline-block now --maxime 2/10/2012*/padding-bottom:0px;overflow:hidden;}
-#sub_nav ul a {display:block;background:url(/images/_global/separator3.gif) 0 8px repeat-x ;padding:14px 0 7px 0;height:1%;margin:0 0 0 0;}
-#sub_nav ul a:hover {background:url(/images/secondary-royal-blue/navblueback.png) 0 0 repeat-y;padding:14px 0 7px 0 ;margin-right:0;color:#ccc;text-decoration:none;}
-#sub_nav ul li a.current_page_item {background:url(/images/secondary-royal-blue/navblueback.png) 0 0 repeat-y;margin-right:0;color:#ccc;text-decoration:none;}
+#sub_nav ul a:hover, #sub_nav ul li a.current_page_item {
+	font-weight:bold;
+}
+
+ul.articletreelevel0 > li {
+	padding-top: 20px;
+}
+
+ul.articletreelevel0 > li > a > span {
+	font-size:23px;
+	font-family:'ColaborateLightRegular', Arial, sans-serif;
+    color:#BC1C1C;
+}
+
+
+.articletreelevel1 {
+	padding-top: 11px;
+	padding-bottom:12px;
+	font-size:15px;
+}
+
+
+ul.articletreelevel1 > li {
+	padding-top: 8px;
+}
+
+.articletreelevel2 {
+	padding-top: 3px;
+	padding-bottom:2px;
+	padding-left: 10px !important;
+	font-size:12px;
+}
+
+
+/* #sub_nav ul a:hover, #sub_nav {
+	list-style-type: none; width:160px; padding-bottom:0px;overflow:hidden;
+}
+#sub_nav ul a, #sub_nav ul a:hover {display:block;background:url(/images/_global/separator3.gif) 0 8px repeat-x ;padding:14px 0 7px 0;height:1%;margin:0 0 0 0;}
+#sub_nav ul a:hover, #sub_nav ul li a.current_page_item {font-weight:bold;}
+ 
 #sub_nav ul ul a {background:url(/images/_global/bullet1.gif) 0 -9px no-repeat;padding:0 0 0 ;}
 #sub_nav ul ul li a:hover,
 #sub_nav ul ul a:hover {display:block;color:#ccc;position:relative;margin:0 13px 0 0;padding:0 0 0 0 ;height:1%;}
@@ -615,6 +654,7 @@ padding-top: 1px;}
 #sub_nav ul ul {margin:0;padding:0 0 0 0;font-size:11px;}
 #sub_nav ul ul ul {padding:0 0 0 10px ;}
 #sub_nav ul a.current_page_item  {background:url(/images/secondary-royal-blue/navblueback.png) 0 0 repeat-y; color:#ccc;}
+
 .nav_right_sub_nav ul li.current_page_item ul li a,
 .nav_right_sub_nav ul li.current_page_item ul li a:hover,
 .nav_right_sub_nav ul li.current-menu-parent ul li.current_page_item a,
@@ -627,7 +667,7 @@ padding-top: 1px;}
 .nav_right_sub_nav {float: right !important;background:url(/images/_global/bg-sidebar.gif) 12px 0 repeat-y !important;}
 .nav_right_sub_nav ul a {margin:0 0 0 13px !important;}
 .nav_right_sub_nav ul li.current_page_item a, .nav_right_sub_nav ul a:hover {margin-left:0 !important;padding-left: 33px !important;}
-#sub_nav ul li ul li.current_page_item ul li a {font-weight: normal !important;}
+#sub_nav ul li ul li.current_page_item ul li a {font-weight: normal !important;} */
 
 
 
