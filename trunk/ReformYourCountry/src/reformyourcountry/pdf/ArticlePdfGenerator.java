@@ -169,6 +169,7 @@ public class ArticlePdfGenerator {
 		    "#main .blog_wrap h1, #main .single_blog_wrap h1, #main .comment-title, .four_o_four, .callout-wrap span, .video-sub h2, .two-d-sub h2, .three-d-sub h2, .main-holder h1, .main-holder h2, .main-holder h3, .main-holder h4, .main-holder h5, .main-holder h6, .search-title, .home-banner-main h2, #main .portfolio_full_width h3, #main .frame h1, #main .month, .home-bnr-jquery-content h2, .callout2, #main .contact_iphone h4, .comment-author-about {"+
 			"font-family: Colaborate, Arial, sans-serif;"+
 			 "}"+
+			
 			".article_summary {"+        
              "margin-top: 0px;"+
              "margin-right: -0.5em;"+
@@ -186,14 +187,17 @@ public class ArticlePdfGenerator {
              "border-bottom-width: 2px;"+
              "border-color:black;"+
              "}"+
+             
              "img{"+
-             "display:block;"+
-             "text-align:center;"+ //FIXME center image 
-             "}"+
-             ".realshadow {"+
-              "border: solid 10px;"+
-              "border-image: url("+UrlUtil.getAbsoluteUrl("")+"images/_global/cadre.png) 8 stretch;"+
-              "  }";
+             "  display:block;"+
+             "  text-align:center;"+ //FIXME center image 
+             "}" +
+             ".image-frame{"+
+            	"   padding:4px;"+
+            	"   border:1px solid #CCC;"+
+            	"   background-color:#fff;"+
+             "}"
+             ;
 
 	/** @Param article article to print. If null, we print all articles. 
 	 * Articles that the user may not see are skipped. */

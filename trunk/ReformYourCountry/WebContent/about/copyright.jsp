@@ -16,12 +16,9 @@
 <img src="images/creative_commons.jpg"/>
 </div>
 <p>
-<i>Les licences de droits d’auteur et les outils Creative Commons apportent un équilibre à l’intérieur du cadre traditionnel “tous droits réservés” créé par les lois sur le droit d’auteur.
- Ces outils donnent à tout le monde, du créateur individuel aux grandes entreprises et aux institutions publiques, des moyens simples standardisés d’accorder des permissions de droits d’auteur supplémentaires à leurs œuvres.
- La combinaison de ces outils et des utilisateurs est un fonds commun numérique vaste et en expansion, un espace commun de contenus pouvant être copiés, distribués, modifiés, remixés, et adaptés, le tout dans le cadre des lois sur le droit d’auteur.</i>
- <br/>
- Source: <a href="http://creativecommons.org/licenses">Creative Commons</a>
- </p>
+<i>Cette licence vous permet de distribuer, remixer, ajuster et développer notre travail, même commercialement, tant qu'ils nous crédite pour la création originale. C'est la plus accommodante des licences offertes.</i> <br/>
+Source: <a href="http://creativecommons.org/licenses">Creative Commons</a>
+</p>
 <p>Cela veut dire que les textes peuvent être repris dans une revue, par la presse et sur un blog, partiellement et même modifiés, tant que la source est indiquée.</p>
 
 <h2>Contributions des internautes</h2>

@@ -59,20 +59,6 @@
 	<!-- ***************************** End CU3ER 3D **************************** -->   	
 	
 	
-	<!-- ***************************** Shadow For pics script **************************** -->   
-		<script type="text/javascript" src="/js/ext/realshadow.js"></script>
-		<script type="text/javascript">
-		$(function(){
-			$('.realshadow').realshadow({
-				// followMouse: false
-			});
-	
-			$('.inset').realshadow({
-				inset: true
-			});
-		});
-		</script>
-	<!-- ***************************** End Shadow For pics script **************************** -->   
-<script type="text/javascript" src="js/int/generatepdf.js"></script>
+    <script type="text/javascript" src="js/int/generatepdf.js"></script>
 
 <!-- ***************************** END JAVASCRIPT **************************** -->   

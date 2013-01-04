@@ -9,22 +9,44 @@
 
 
 <!-- ***************** - Footer Content Starts Here - *****************  -->
-<div class="one_fourth">
-	 <h3>Utilisateurs</h3>
-	 <div class="footer_post">
+<div class="footer-column">
+	<div class="footer-title">Follow Us</div>
+	<a href="${p_webSite_youtubeaddress}" target="_blank" ></a><img src="/images/youtube.png"/ class="hoverImage"></a>
+	<br/> <br/> <br/> <br/>
+	
+	<a rel="license" href="/about/copyright.jsp" target="_blank" title="Le contenu de ce site est mis à disposition selon les termes de la Licence Creative Commons Attribution 3.0 Belgique.">
+	<img src="/images/creativecommons.png" class="hoverImage" style="vertical-align:middle;"></a> <span style="font-size:10px;"></style>&nbsp;&nbsp;&nbsp; <%=new java.util.Date().getYear() + 1900 %> - ${p_version}</span>
+	
+	
+<%-- <!-- 		<li><a href="#" onclick="window.open(this.href);return false;" class="rss">rss</a></li> -->
+<!-- 		<li><a href="http://www.twitter.com/truethemes" class="twitter" onclick="window.open(this.href);return false;">Twitter</a></li> -->
+<!-- 		<li><a href="#" class="facebook" onclick="window.open(this.href);return false;">Facebook</a></li> -->
+<!-- 		<li><a href="#" class="flickr" onclick="window.open(this.href);return false;">Flickr</a></li> -->
+		<li><a href="${p_webSite_youtubeaddress}" class="youtube" target="_blank">YouTube</a></li> 
+<!-- 		<li><a href="#" class="linkedin" onclick="window.open(this.href);return false;">LinkedIn</a></li> -->
+<!-- 		<li><a href="#" class="foursquare" onclick="window.open(this.href);return false;">FourSquare</a></li> -->
+<!-- 		<li><a href="#" class="delicious" onclick="window.open(this.href);return false;">Delicious</a></li> -->
+<!-- 		<li><a href="#" class="digg" onclick="window.open(this.href);return false;">Digg</a></li> -->
+	</ul>
+ --%>
+ </div><!-- end fourth one_fourth_column -->
+
+
+<div class="footer-column">
+	<div class="footer-title">Utilisateurs</div>
+    <div class="footer_post">
 		 <ul class="list sitemap-list">
 		 <li><a href="grouplist"><span>Groupes</span></a></li>
 			<c:if test="${current.user!=null}"><li><a href="user/${current.user.userName}"><span>Mon profil</span></a></li></c:if>
 			<li><a href="user"><span>Autres utilisateurs</span></a></li>
 			<li><a href="/specialuserslist"><span>Partis politiques et Associations</span></a></li>
 			<li><a href="/badge/"><span>Gommettes</span></a>
-		 
 		 </ul>
 	</div><!-- end footer_post -->
 </div><!-- end first one_fourth_column -->
 
-<div class="one_fourth">
-	<h3>Contenu</h3>
+<div class="footer-column">
+	<div class="footer-title">Contenu</div>
 	<div class="footer_post">
 	     <ul class="list sitemap-list">
 	     <li><a href="/article">Articles</a></li>
@@ -34,8 +56,8 @@
 	</div>
  </div><!-- end second one_fourth_column -->
 
-<div class="one_fourth">
-	<h3>A propos</h3>
+<div class="footer-column">
+	<div class="footer-title">A propos</div>
 	<div class="footer_post">
 		<ul class="list sitemap-list">
 			 <li><a href="/about/about-us.jsp">Qui sommes nous?</a></li>
@@ -47,20 +69,6 @@
 	</div><!-- end footer_post -->
 </div><!-- end third one_fourth_column -->
 
-<div class="one_fourth_last">
-	<h3>Follow Us</h3>
-	<ul class="social_icons">
-<!-- 		<li><a href="#" onclick="window.open(this.href);return false;" class="rss">rss</a></li> -->
-<!-- 		<li><a href="http://www.twitter.com/truethemes" class="twitter" onclick="window.open(this.href);return false;">Twitter</a></li> -->
-<!-- 		<li><a href="#" class="facebook" onclick="window.open(this.href);return false;">Facebook</a></li> -->
-<!-- 		<li><a href="#" class="flickr" onclick="window.open(this.href);return false;">Flickr</a></li> -->
-		<li><a href="${p_webSite_youtubeaddress}" class="youtube" onclick="window.open(this.href);return false;">YouTube</a></li> 
-<!-- 		<li><a href="#" class="linkedin" onclick="window.open(this.href);return false;">LinkedIn</a></li> -->
-<!-- 		<li><a href="#" class="foursquare" onclick="window.open(this.href);return false;">FourSquare</a></li> -->
-<!-- 		<li><a href="#" class="delicious" onclick="window.open(this.href);return false;">Delicious</a></li> -->
-<!-- 		<li><a href="#" class="digg" onclick="window.open(this.href);return false;">Digg</a></li> -->
-	</ul>
-</div><!-- end fourth one_fourth_column -->
 
 
 <!-- ***************** - END Footer Content - *****************  -->
@@ -69,7 +77,7 @@
 </div><!-- end footer-area -->
 
 
-<!-- /***************** - Bottom Footer - *****************  -->
+<%-- <!-- /***************** - Bottom Footer - *****************  -->
 <div id="footer_bottom">
  <div class="info" >
  
@@ -77,10 +85,10 @@
  		<img alt="Licence Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by/2.0/be/80x15.png" />
  	</a> - ${p_version} 
  	
-<%--     ${p_website_name} - ${p_version}  --%>
+    ${p_website_name} - ${p_version} 
  </div><!-- end info -->
 </div><!-- end footer_bottom -->
-
+ --%>
 
 <!-- /***************** - END Bottom Footer - *****************  -->
 </div><!-- end footer -->

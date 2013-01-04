@@ -176,7 +176,7 @@ public class BBConverter {
 			}else{
 				imgHtml +=" style=\"display: block; margin-left: auto; margin-right: auto;\""; // if no styling, center the image
 			}
-			imgHtml += " class=\"realshadow\"/>";//add the frame
+			imgHtml += " class=\"image-frame\"/>";//add the frame
 			bufferTextForP(imgHtml);
 		}
 		else{

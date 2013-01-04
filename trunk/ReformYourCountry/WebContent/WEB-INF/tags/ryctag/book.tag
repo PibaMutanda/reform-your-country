@@ -10,7 +10,7 @@
      ${book.subtitle}<br/>
     <p class="bookInfo">${book.author} - ${book.pubYear}</p>
     <c:if test="${book.hasImage}">
-       <img src="gen<%=FileUtil.BOOK_SUB_FOLDER%><%=FileUtil.BOOK_RESIZED_SUB_FOLDER%>/${book.id}.jpg" title="${book.title}" alt="${book.title}" class="realshadow" />
+       <img src="gen<%=FileUtil.BOOK_SUB_FOLDER%><%=FileUtil.BOOK_RESIZED_SUB_FOLDER%>/${book.id}.jpg" title="${book.title}" alt="${book.title}" class="image-frame" />
     </c:if>
     <p>${book.description}</p>
     <div class="center-align">
