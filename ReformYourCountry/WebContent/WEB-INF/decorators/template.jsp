@@ -30,14 +30,13 @@
 	
 	<div id="main">
 		<div class="main-area">
-				<table>   <!-- divs with display:inline-block do not work for IE7-. There are hacks but mess the code up. A Table is just simple. http://giveupandusetables.com/ -->
+		        <!-- divs with display:inline-block do not work for IE7-. There are hacks but mess the code up. A Table is just simple. http://giveupandusetables.com/ -->
+				<table  style="background-image:url(/images/kidsdrawingbig.png);	background-repeat:no-repeat;   background-position:left bottom;">   
 				  <tr style="vertical-align:top;">
-				    <td style="padding:0">
+				    <td style="padding:0;">
 						<!-- ***************** - START Left list of articles - ***************** -->
 						<div id="sub_nav">
 						  <ryc:articlesNavBar/>
-						  <img src="images/kidsdrawingbig.png"
-						      style="position:absolute; bottom:0;" />  <%-- To have it at the bottom of the div (will be cut if the main area is not long enough --%>
 						</div>
 						<!-- ***************** - END Left list of articles - ***************** -->
 				    </td>
