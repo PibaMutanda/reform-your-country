@@ -7,7 +7,6 @@
 
 
 
-
 <!-- First we had the column with the positives args -->
 <c:set var="color" value="#008B00" scope="request"/>
 <c:set var="listToShow" value="${listPosArgs}" scope="request"/>
