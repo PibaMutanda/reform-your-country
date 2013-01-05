@@ -116,14 +116,14 @@ body {margin:0;background:#f4f4f2;font-size:1em;font-family:"helvetica neue",Hel
 /*---------------------------------------------------------------*/
 #wrapper {width:100%;display:table;}
 #wrapper #header {display:table-header-group;max-height:135px;}
-.top-block .top-holder {width:980px;margin:0 auto;font-size:10px;padding:4px 0;min-height:4px;height:auto;}
+.top-block .top-holder {width:1000px;margin:0 auto;font-size:10px;padding:4px 0;min-height:4px;height:auto;}
 .top-block .top-holder:after {clear:both;display:block;content:"";}
 #header .rays {background: url(/images/_global/rays.png) 50% 0 no-repeat;height:135px;}
-#header .header-area {width:980px;margin:0 auto;padding:5px 0 0 0;}
+#header .header-area {width:1000px;margin:0 auto;padding:5px 0 0 0;}
 #header .header-area:after {clear:both;display:block;content:"";}
 #main {background:url(/images/_global/bg-main.png)  repeat-x;position:relative;width:100%;
 padding-top: 1px;}
-#main .main-area {width:980px;margin:1px auto;padding:20px 0 20px 0;}
+#main .main-area {width:1000px;margin:1px auto;padding:20px 0 20px 0;}
 .tools .place {position:relative;}
 .carousel-holder {width:315px !important;}
 
@@ -136,7 +136,7 @@ padding-top: 1px;}
 .content_left_sidebar {float: right !important;}
 .content_right_sidebar {width: 510px !important;}
 .content_full_width {width: 800px !important;padding: 0 20px 0 20px;float:left;margin-left: 0 !important;}
-.portfolio_full_width {margin-left: 0 !important;width:980px !important;}
+.portfolio_full_width {margin-left: 0 !important;width:1000px !important;}
 .content-separator{
 	border-left-color: red;
 	border-left-width: 2px;
@@ -207,8 +207,8 @@ padding-top: 1px;}
 /* 4. FOOTER
 /*---------------------------------------------------------------*/
 #footer {width:100%;position:relative;bottom: 0px;/*padding-top: 40px;*/}
-#footer .footer-area {width:980px;margin:0 auto;position:relative;}
-#footer .footer-wrapper {width:980px;overflow:hidden;}
+#footer .footer-area {width:1000px;margin:0 auto;position:relative;}
+#footer .footer-wrapper {width:1000px;overflow:hidden;}
 #footer .footer-holder {width:100%;overflow:hidden;padding:45px 0 25px 6px;}
 #footer .box {width:333px;float:left;}
 #footer_bottom {width: 100%;min-height:14px;height:auto;}
@@ -601,6 +601,7 @@ padding-top: 1px;}
 /*---------------------------------------------------------------*/
 /* 2. VERTICAL SUB NAVIGATION
 /*---------------------------------------------------------------*/
+
 #sub_nav ul, #sub_nav ul a:hover, #sub_nav {
 	list-style-type: none;
 	padding-left:0;
@@ -608,6 +609,7 @@ padding-top: 1px;}
 
 #sub_nav ul a:hover, #sub_nav ul li a.current_page_item {
 	font-weight:bold;
+	color: black;  /* Instead of grey */
 }
 
 ul.articletreelevel0 > li {
@@ -615,21 +617,21 @@ ul.articletreelevel0 > li {
 }
 
 ul.articletreelevel0 > li > a > span {
-	font-size:23px;
+	font-size:21px;
 	font-family:'ColaborateLightRegular', Arial, sans-serif;
     color:#BC1C1C;
 }
 
 
 .articletreelevel1 {
-	padding-top: 11px;
+	padding-top: 4px;
 	padding-bottom:12px;
 	font-size:15px;
 }
 
 
 ul.articletreelevel1 > li {
-	padding-top: 8px;
+	padding-top: 6px;
 }
 
 .articletreelevel2 {
