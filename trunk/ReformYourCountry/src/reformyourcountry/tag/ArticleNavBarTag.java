@@ -41,7 +41,7 @@ public class ArticleNavBarTag extends SimpleTagSupport{
 
 				// Do we have that url fragment ("/article/toto") in the left nav bar html? 
 				// example, search in the string: "... <li><a href="http://localhost:8080/article/toto"> .... 
-				int pos =  htmlResult.indexOf(artUrlDisplayed);
+				int pos =  htmlResult.indexOf(artUrlDisplayed+"'");  // We add "'" to prevent catching another article  having its name starting with our article name (if we look for "/article/toto", we don't want to stop on "/article/tototo"). 
 				
 				if (pos >= 0) {  // found
 

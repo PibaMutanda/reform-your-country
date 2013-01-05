@@ -47,7 +47,7 @@ function displayGraph() {
 				    .enter().append('rect')
 				    .attr("stroke", "black")
 				    .attr("fill", function(d, i){return colors[i];})
-				    .attr("x", function(d, i) { return 18+(92 * i); })
+				    .attr("x", function(d, i) { return 18+(106 * i); })
 				    .attr("y", function(d, i){ return 130;})
 				    .attr("width",  "48")
 				    .attr("height", function(d, i){ return 0;});
@@ -59,7 +59,7 @@ function displayGraph() {
 	// Numbers on top of bars.
 	var texts = chart.selectAll('text').data(data)
 		.enter().append('text')
-		.attr("x", function(d, i) { return (92 * i)+42; })
+		.attr("x", function(d, i) { return (106 * i)+42; })
 		.attr("y", function(d, i){ return 130;})
 		.attr("dx", ".25em")
 		.attr("dy",-20)
