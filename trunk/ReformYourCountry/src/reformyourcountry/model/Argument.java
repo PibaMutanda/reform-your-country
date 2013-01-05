@@ -28,17 +28,22 @@ public class Argument extends BaseEntity implements IVote{
      */
     @Type(type="org.hibernate.type.StringClobType")
 	private String content;
+    
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Action action;
+	
 	@OneToMany(mappedBy = "argument")
 	private List<VoteArgument> voteArguments = new ArrayList<VoteArgument>();
+	
 	@OneToMany(mappedBy = "argument")
 	@OrderBy("createdOn ASC")
 	private List<Comment> commentList = new ArrayList<Comment>();
+	
 	private int voteCountPro;
-	//use it as +1 not as -1
+	
 	private int voteCountAgainst;
+	
 	private boolean positiveArg;
 	
     public Argument (){
