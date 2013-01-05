@@ -117,13 +117,7 @@
 	height: 50px; 
 	text-align: center; 
 	cursor: pointer;
-/* 	border-color: rgb(221, 221, 221) rgb(204, 204, 204) rgb(204, 204, 204) rgb(221, 221, 221);
-	border-image: none;
-	border-radius: 8px 8px 8px 8px;
-	border-style: solid;
-	border-width: 2px;
-	box-shadow: 2px 2px 4px rgb(221, 221, 221);
- */	margin-right: 37px;
+	margin-right: 53px;
 }
 
 .smallvote{
@@ -499,7 +493,10 @@ color: #444;
 
 .quote-block{
 	margin: 0;
-	margin-left: 40px;
+	padding-left: 40px;
+	background-image:url(/images/quoteicon.png);
+	background-position: 0px 5px;
+	background-repeat: no-repeat;
 }
 
 .todo{

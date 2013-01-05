@@ -6,8 +6,8 @@
 
 
 <div id="colArg${ispos}" style="
-        <c:if test='${ispos}'> width:390px; float:right;</c:if>  <%-- Right column --%>
-        <c:if test='${!ispos}'>width:385px; float:left;background: url(images/_global/bg-sidebar.gif) 100% 0 repeat-y; padding-right:15px;</c:if> <%-- Left column + vertical separator line --%>
+        <c:if test='${!ispos}'> width:395px; float:right;</c:if>  <%-- Right column --%>
+        <c:if test='${ispos}'>width:390px; float:left;background: url(images/_global/bg-sidebar.gif) 100% 0 repeat-y; padding-right:15px;</c:if> <%-- Left column + vertical separator line --%>
         ">
     <div style="text-align:center; width:100%; margin-bottom:-20px;"><h3>${colTitle}</h3></div>
 	<c:set var="canNegativeVote" value="true" scope="request"/>
