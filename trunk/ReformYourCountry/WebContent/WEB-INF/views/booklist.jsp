@@ -24,6 +24,7 @@ width:50%;
 
 <body>
 <ryctag:pageheadertitle title="Bibliographie"/>
+
 <div style="display:inline-block;">
 
 	<div class="small-text">

@@ -9,13 +9,14 @@
 <script type="text/javascript" src="js/int/untranslate.js"></script>
 </head>
 <body>
- <ryctag:pageheadertitle title="${article.title} - A classer">
- <c:forEach items="${parentsPath}" var="subarticle">
-		<ryctag:breadcrumbelement label="${subarticle.title}" link="/article/${subarticle.url}" />
- </c:forEach>
- <ryctag:breadcrumbelement label="${article.title}" link="/article/${article.url}" />
- <ryctag:breadcrumbelement label="A classer"></ryctag:breadcrumbelement>
- </ryctag:pageheadertitle>
+ <ryctag:breadcrumb>
+	 <c:forEach items="${parentsPath}" var="subarticle">
+			<ryctag:breadcrumbelement label="${subarticle.title}" link="/article/${subarticle.url}" />
+	 </c:forEach>
+	 <ryctag:breadcrumbelement label="${article.title}" link="/article/${article.url}" />
+	 <ryctag:breadcrumbelement label="A classer"></ryctag:breadcrumbelement>
+ </ryctag:breadcrumb>
+ <ryctag:pageheadertitle title="${article.title} - A classer"/>
  
 
 <div style="font-size:12px">
@@ -28,7 +29,7 @@
 			
 	
 <div class="article-title" >
-	<span class="tooltip" data-tooltip='identifiant de cet article pour utilisation dans la balise [link article="${article.shortName}"]'>${article.shortName}</span>   <!--  Tooltip avec "identifiant de cet article pour utilisation dans la balise [link article="identifiant"]" -->
+	<span title='identifiant de cet article pour utilisation dans la balise [link article="${article.shortName}"]'>${article.shortName}</span>   <!--  Tooltip avec "identifiant de cet article pour utilisation dans la balise [link article="identifiant"]" -->
 </div>
 
 <br/>

@@ -25,10 +25,15 @@
 <script type="text/javascript"
 	src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-509a829c59a66215"></script>
 </head>
-<ryctag:pageheadertitle title="Bons examples pour l'article ${article.title}" >
-<ryctag:breadcrumbelement label="${article.title}" link="/article/${article.url}"></ryctag:breadcrumbelement>
-<ryctag:breadcrumbelement label="Bons examples"></ryctag:breadcrumbelement>
-</ryctag:pageheadertitle>
+
+<body>
+
+<ryctag:breadcrumb>
+	<ryctag:breadcrumbelement label="${article.title}" link="/article/${article.url}"/>
+	<ryctag:breadcrumbelement label="Bons examples"/>
+</ryctag:breadcrumb>
+<ryctag:pageheadertitle title="Bons examples pour l'article ${article.title}" />
+
 
 <!-- AddThis Button BEGIN -->
 <div class="addthis_toolbox addthis_default_style"
@@ -60,3 +65,4 @@
 	</div>
 </div>
 
+</body>

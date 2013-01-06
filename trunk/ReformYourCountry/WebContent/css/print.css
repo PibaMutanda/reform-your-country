@@ -1,4 +1,4 @@
-#header,#header *,#sub_nav,.tooltip,#footer,.mainbottom,.breadcrumb{
+#header,#header *,#sub_nav,#footer,.mainbottom,.breadcrumb{
     display: none;
 }
 #wrapper{

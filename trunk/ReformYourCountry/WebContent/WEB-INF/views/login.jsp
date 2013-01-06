@@ -40,11 +40,8 @@ $(document).ready(function() {
 </head>
 
 <body>
-<ryctag:pageheadertitle title="Connexion"></ryctag:pageheadertitle> 
 
-
-
-
+<ryctag:pageheadertitle title="Connexion"/> 
 
 Pour participer (voter, argumenter, etc.), vous devez vous connecter avec votre utilisateur.
 
@@ -121,5 +118,5 @@ Pour participer (voter, argumenter, etc.), vous devez vous connecter avec votre 
 <input type="checkbox" name="keepLoggedIn" />
 </c:otherwise>
 </c:choose>
-<label for="keepLoggedIn"><span class="tooltip" data-tooltip="Si vous cochez cette case, lors de votre prochaine visite vous serez connectés automatiquement">Je souhaite rester connecté</span></label>
+<label for="keepLoggedIn"><span title="Si vous cochez cette case, lors de votre prochaine visite vous serez connectés automatiquement">Je souhaite rester connecté</span></label>
 </body>

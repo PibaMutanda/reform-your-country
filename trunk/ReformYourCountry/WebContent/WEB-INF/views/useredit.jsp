@@ -6,17 +6,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 <html>
-<head>
-<title>Editer un utilisateur</title>
-</head>
+
 <body>
 <script src="/js/int/birthday_picker.js" type = "text/javascript"></script> 
 
-
-<ryctag:pageheadertitle title="${user.firstName} ${user.lastName}">
+<ryctab:breadcrumb>
 	<ryctag:breadcrumbelement label="${user.firstName} ${user.lastName}" link="/user/${user.userName}" />
 	<ryctag:breadcrumbelement label="Edition" />
-</ryctag:pageheadertitle>
+</ryctab:breadcrumb>
+<ryctag:pageheadertitle title="${user.firstName} ${user.lastName}"/>
 
 <div style="float:left; padding-left:30px; width: 810px;">
     <ryctag:form action="user/editsubmit" modelAttribute="user">
@@ -25,7 +23,7 @@
     	<c:when test="${canChangeUserName}"><%-- Only an admin can modify name of a certified user --%>
     		<ryctag:input path="firstName" label="Prénom"/>
     		<ryctag:input path="lastName" label="Nom" />
-	        <ryctag:input path="title" label="Titre" tooltip="Indiquez en peu de mots la nature de votre fonction en rapport avec l'objet de ce site. Votre titre sera affiché sous votre nom. Exemples de titres: 'Directeur d'une PME.', ou 'Ministre de la Bière', ou 'Président du comité des gilles de Binche', ou 'Ouvrier dans l'industrie sidérurgique'."/>
+	        <ryctag:input path="title" label="Titre" title="Indiquez en peu de mots la nature de votre fonction en rapport avec l'objet de ce site. Votre titre sera affiché sous votre nom. Exemples de titres: 'Directeur d'une PME.', ou 'Ministre de la Bière', ou 'Président du comité des gilles de Binche', ou 'Ouvrier dans l'industrie sidérurgique'."/>
     	</c:when>
     	<c:otherwise>
 			<tr>

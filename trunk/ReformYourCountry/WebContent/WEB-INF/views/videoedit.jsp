@@ -3,22 +3,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 
 <html>
-<head>
 
-</head>
 <body>
+   <ryctag:breadcrumb>
+                <ryctag:breadcrumbelement label="${article.title}" link="/article/${article.url}" />
+                <ryctag:breadcrumbelement label="vidéos de ${article.title}" link="/video/manager?id=${article.id}" />
+   </ryctag:breadcrumb>                
 	<c:choose>
 		<c:when test="${video.id == null}">
-			<ryctag:pageheadertitle title="Ajouter une vidéo" >
-                <ryctag:breadcrumbelement label="${article.title}" link="/article/${article.url}" />
-                <ryctag:breadcrumbelement label="vidéos de ${article.title}" link="/video/manager?id=${article.id}" />
-            </ryctag:pageheadertitle>
+			<ryctag:pageheadertitle title="Ajouter une vidéo" />
 		</c:when>
 		<c:otherwise>
-			<ryctag:pageheadertitle title="Editer une vidéo" >
-                <ryctag:breadcrumbelement label="${article.title}" link="/article/${article.url}" />
-                <ryctag:breadcrumbelement label="vidéos de ${article.title}" link="/video/manager?id=${article.id}" />
-            </ryctag:pageheadertitle>
+			<ryctag:pageheadertitle title="Editer une vidéo" />
 		</c:otherwise>
 	</c:choose>
         

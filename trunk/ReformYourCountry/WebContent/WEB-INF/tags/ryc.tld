@@ -79,4 +79,20 @@
 		</attribute>
 	</tag>
 
+	<tag>
+		<name>datedisplay</name>
+		<tag-class>reformyourcountry.tag.DateDisplayTag</tag-class>
+		<body-content>scriptless</body-content>
+		<attribute>
+			<name>date</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>duration</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
 </taglib>

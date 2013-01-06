@@ -3,17 +3,13 @@
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
 
 <html>
-<head>
-
-<title>Mes groupes</title>
-</head>
 <body> 
 
-<ryctag:pageheadertitle title="liste de mes groupes">
-	
+<ryctag:breadcrumb>
 	<ryctag:breadcrumbelement label="${user.userName}" link="/user/${user.userName}"/>
 	<ryctag:breadcrumbelement label="groupes"/>
-</ryctag:pageheadertitle>
+</ryctag:breadcrumb>
+<ryctag:pageheadertitle title="Liste des groupes de ${user.fullName}"/>
 
 <p>Pour un usage statistique (les enseignants ont voté que..., les élèves votent plutôt que...), pouvez-vous indiquer à quelle(s) catégorie(s) vous appartenez?</p>
 	<form action="usergrouplistsubmit" method="post">

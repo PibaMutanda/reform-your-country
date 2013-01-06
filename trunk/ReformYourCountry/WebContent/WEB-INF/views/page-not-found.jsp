@@ -9,12 +9,11 @@
 <title>Page not found</title>
 </head>
 <body>
-
 	<center>
-	<font face="Arial">
-		<p>Cette page n'existe pas</p>
-		<img src="/images/error.jpg"/><br/>
-		<a href="/">retour à l'accueil</a>
+	    <font face="Arial">
+			<p>Cette page n'existe pas</p>
+			<img src="/images/error.jpg"/><br/>
+			<a href="/">retour à l'accueil</a>
 		</font>
 	</center>
 </body>

@@ -23,6 +23,7 @@
 <link rel="canonical" href="${p_website_address}/user/${user.userName}"/>
 <meta name="description" content="${user.firstName} ${user.lastName}">
 </head>   
+
 <body>
 
 <ryctag:pageheadertitle title="${user.fullName}"/>
@@ -127,14 +128,14 @@
 					Né le : <c:choose><c:when test="${user.birthDate ne null}">${user.birthDate}</c:when><c:otherwise>?</c:otherwise></c:choose><br />
 					mail : <c:choose><c:when test="${user.mail ne null}">${user.mail}</c:when><c:otherwise>?</c:otherwise></c:choose><br />
 					
-					Date d'enregistrement : ${user.createdOn} <br />
+					Date d'enregistrement : <ryc:datedisplay date="${user.createdOn}" /><br />
 					Rôle : ${user.role}<br/>
 					
 					<c:if test="${user.specialType!='PRIVATE'}">
 					  Type : ${user.specialType.name}<br/>
 					</c:if>
 					
-					Dernier accès : ${user.lastAccess} <br/>
+					Dernier accès : <ryc:datedisplay date="${user.lastAccess}" duration="true"/> <br/>
 					Depuis l'adresse ${user.lastLoginIp}<br/>
 					Status du compte : ${user.accountStatus}<br/>
 					<c:if test="${user.lockReason}!= ACTIVE ">
@@ -174,8 +175,13 @@
 		</div>
 
 		<div id="tabs-3">		<!--  **************************Rédaction********************* -->
+		    <h2>Arguments rédigés</h2>
 			<c:forEach items="${arguments}" var="argument">
-				${argument.voteCountAgainst} ${argument.title} ${argument.content} ${argument.updatedOrCreatedOn}
+				<div>
+				  <h4><a href="/action/${argument.action.url}">${argument.title}</a> / ${argument.voteCountAgainst}</h4>
+				  ${argument.content}
+				  <ryc:datedisplay date="${argument.updatedOrCreatedOn}" duration="true" />
+				</div>
 			</c:forEach>
 		</div>
 									

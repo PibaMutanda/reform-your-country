@@ -8,10 +8,11 @@
 </head>
 <body>
 
-<ryctag:pageheadertitle title="${group.name}">
+<ryctag:breadcrumb>
 	<ryctag:breadcrumbelement label="groupes" link="/grouplist" />
 	<ryctag:breadcrumbelement label="${group.name}" />
-</ryctag:pageheadertitle>
+</ryctag:breadcrumb>
+<ryctag:pageheadertitle title="${group.name}"/>
 
 <div style="font-size:12px">
 	<ryc:conditionDisplay privilege="MANAGE_GROUP">

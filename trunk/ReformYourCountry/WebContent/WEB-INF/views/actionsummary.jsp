@@ -8,7 +8,7 @@
 		<a href="/action/${actionItem.action.url}">
 			 <c:choose>
 			     <c:when test="${actionItem.action.shortDescription != null}">
-					<span class="tooltip" data-tooltip="${actionItem.action.shortDescription}">${actionItem.action.title}</span>
+					<span title="${actionItem.action.shortDescription}">${actionItem.action.title}</span>
 			 	 </c:when>
 			 	 <c:otherwise>
 			 		${actionItem.action.title}

@@ -5,5 +5,5 @@
 <ryctag:breadcrumbelement label="${currentItem.titre}"></ryctag:breadcrumbelement>
 </ryctag:pageheadertitle>
 
-            <%@include file="itemdetail.jsp"%>
+ <%@include file="itemdetail.jsp"%>
 

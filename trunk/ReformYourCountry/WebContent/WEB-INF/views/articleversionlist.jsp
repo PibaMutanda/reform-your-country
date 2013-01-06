@@ -9,16 +9,17 @@
 
 <c:choose>
 	<c:when test="${parentsPath == null}">
-		<ryctag:pageheadertitle title="Liste des derniers articles"></ryctag:pageheadertitle>
+		<ryctag:pageheadertitle title="Liste des derniers articles"/>
 	</c:when>
 	<c:otherwise>
-		<ryctag:pageheadertitle title="${versionList[0].article.title}">
+		<ryctag:breadcrumb>
 			<c:forEach items="${parentsPath}" var="subarticle">
 				<ryctag:breadcrumbelement label="${subarticle.title}"
 					link="/article/${subarticle.url}" />
 			</c:forEach>
 			<ryctag:breadcrumbelement label="versions" />
-		</ryctag:pageheadertitle>
+		</ryctag:breadcrumb>
+		<ryctag:pageheadertitle title="${versionList[0].article.title}"/>
 	</c:otherwise>
 </c:choose>
 <table>

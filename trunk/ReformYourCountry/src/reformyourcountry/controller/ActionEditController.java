@@ -76,7 +76,7 @@ public class ActionEditController extends BaseController<Action>{
     }
         
     @ModelAttribute
-    public Action findAction(@RequestParam("id") Long id){
+    public Action findAction(@RequestParam(value="id", required=false) Long id){
         if (id == null){ //create
             return new Action();
         } else { //edit

@@ -10,7 +10,7 @@
 <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
 </head>
 <body>
-	<ryctag:pageheadertitle title="100 dernier bon exemples"></ryctag:pageheadertitle>
+	<ryctag:pageheadertitle title="100 dernier bon exemples"/>
 	
 	<c:forEach items="${goodExamples}" var="currentItem">
     		<%@include file="itemdetail.jsp" %>

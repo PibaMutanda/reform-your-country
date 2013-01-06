@@ -10,9 +10,12 @@
 
 <c:choose>
 	<c:when test="${book.id != null}">
-		 <ryctag:pageheadertitle title="${book.title }">
-			<ryctag:breadcrumbelement label="bibliographie"  link="/book"/><ryctag:breadcrumbelement label="ce livre" link="book/${book.url}" /><ryctag:breadcrumbelement label="edit" />
-		 </ryctag:pageheadertitle>
+		 <ryctag:breadcrumb>
+		    <ryctag:breadcrumbelement label="bibliographie"  link="/book"/>
+		    <ryctag:breadcrumbelement label="ce livre" link="book/${book.url}" />
+		    <ryctag:breadcrumbelement label="edit" />
+		 </ryctag:breadcrumb>
+		 <ryctag:pageheadertitle title="${book.title }"/>
 	</c:when>
 	<c:otherwise> 
 		<ryctag:pageheadertitle title="Créer un livre"/>
@@ -27,7 +30,7 @@
 		<ryctag:input path="title" label="Titre du livre:"/>
 		<ryctag:input path="subtitle" label="Sous-titre du livre"/>
 		<tr></tr>
-		<tr class="tooltip" data-tooltip="identifiant pour le livre dans les URLs">
+		<tr title="identifiant pour le livre dans les URLs">
 			<td><label for="url">Fragment d'URL</label></td>
 			<td><form:input path="url" required="required" type="input" cssStyle="width:400px;"  /></td>
 			<td><input type="submit" value="Générer une url" id="generate" /></td>

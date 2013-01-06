@@ -12,12 +12,15 @@ list-style-type:none;
 
 </head>
 <body>
-	<ryctag:pageheadertitle title="${article.title}">
-		<c:forEach items="${parentsPath}" var="subarticle">
+	<ryctag:breadcrumb>
+			<c:forEach items="${parentsPath}" var="subarticle">
 			<ryctag:breadcrumbelement label="${subarticle.title}" link="/article/${subarticle.url}" />
 		</c:forEach>
 		<ryctag:breadcrumbelement label="Edition du parent" />
-	</ryctag:pageheadertitle>
+	</ryctag:breadcrumb>
+
+	<ryctag:pageheadertitle title="${article.title}"/>
+
 	Parent:
 	<ryctag:form action="/article/parenteditsubmit" modelAttribute="article">
 		<tr>

@@ -8,8 +8,6 @@
 <html>
 <head>
 
-<title>Insert title here</title>
-
 <style type="text/css">
 
 /* Overrides the page template to enable this specific page to take the whole window width */
@@ -43,12 +41,13 @@
 
 </head>
 <body>
-   	<ryctag:pageheadertitle title="${article.title}">
+	<ryctag:breadcrumb>
 		<c:forEach items="${parentsPath}" var="subarticle">
 			<ryctag:breadcrumbelement label="${subarticle.title}" link="/article/${subarticle.url}" />
 		</c:forEach>
 		<ryctag:breadcrumbelement label="comparaison de versions" />
-	</ryctag:pageheadertitle>
+	</ryctag:breadcrumb>
+   	<ryctag:pageheadertitle title="${article.title}"/>
 
 	<div class="versionCompareSegment" >
 		 <% int i=1; %>

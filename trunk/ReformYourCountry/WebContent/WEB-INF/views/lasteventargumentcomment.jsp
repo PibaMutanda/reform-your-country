@@ -11,8 +11,7 @@
 </head>
 <body>
 
-<ryctag:pageheadertitle title="Dernières modifications">
-	</ryctag:pageheadertitle>
+<ryctag:pageheadertitle title="Dernières modifications"/>
  
   <div style="background:url(images/_global/separator3.gif) 0 0 repeat-x;"> 
   <table>
