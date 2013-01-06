@@ -16,7 +16,7 @@ public class Cookies {
 
 	static public void createCookie(String name, String value) {
         Cookie cookie = new Cookie(name, value);
-        cookie.setMaxAge(15552000);
+        cookie.setMaxAge(60 * 60 * 24 * 180);
         cookie.setPath("/");
         ContextUtil.getHttpServletResponse().addCookie(cookie);
     }

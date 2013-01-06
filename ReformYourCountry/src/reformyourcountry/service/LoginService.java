@@ -124,7 +124,7 @@ public class LoginService {
         if (keepLoggedIn) {
             Cookies.setLoginCookies(user);
         } else {//in the case the user check off the stay connected checkbox , destroy the cookies
-            Cookies.clearLoginCookies();
+            // Cookies.clearLoginCookies();  --> NO because we also come here in case of auto-login.
         }
         
         user.setAccountConnectedType(accountConnectedType);
