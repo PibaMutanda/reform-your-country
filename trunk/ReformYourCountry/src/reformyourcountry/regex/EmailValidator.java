@@ -11,7 +11,7 @@ public class EmailValidator{
     private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
     public EmailValidator(){
-	pattern = Pattern.compile(EMAIL_PATTERN);
+    	pattern = Pattern.compile(EMAIL_PATTERN);
     }
 
     /**
@@ -20,9 +20,7 @@ public class EmailValidator{
      * @return true valid hex, false invalid hex
      */
     public boolean validate(final String hex){
-
-	matcher = pattern.matcher(hex);
-	return matcher.matches();
-
+    	matcher = pattern.matcher(hex);
+    	return matcher.matches();
     }
 }
