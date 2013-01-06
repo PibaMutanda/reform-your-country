@@ -9,7 +9,7 @@
 <title>Liste des groupes</title>
 </head>
 <body>
-	<ryctag:pageheadertitle title="Liste des groupes"></ryctag:pageheadertitle>
+	<ryctag:pageheadertitle title="Liste des groupes"/>
 	
 	<ryc:conditionDisplay privilege="MANAGE_GROUP">
 		<a href="/groupcreate?id=" style="font-size:12px">créer</a><br/>

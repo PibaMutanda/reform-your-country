@@ -7,16 +7,14 @@
 
 
 <html>
-<head>
-	<title>Changer de mot de passe</title>
-</head>
 <body>
 <!-- <h1>Formulaire de changement de password</h1> -->
-<ryctag:pageheadertitle title="changement de mot de passe">
+
+<ryctag:breadcrumb>
 	<ryctag:breadcrumbelement label="${user.firstName} ${user.lastName}" link="/user/${user.userName}" />
 	<ryctag:breadcrumbelement label="changement de mot de passe" />
-</ryctag:pageheadertitle>
-
+</ryctag:breadcrumb>
+<ryctag:pageheadertitle title="changement de mot de passe"/>
 	<form:form modelAttribute="user" action="/user/changepasswordsubmit">
 	<table>
 			<c:if test="${verifyOldPassword}">

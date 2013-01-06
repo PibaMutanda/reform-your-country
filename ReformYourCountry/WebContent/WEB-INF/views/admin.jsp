@@ -8,8 +8,7 @@
 
 </head>
 <body>
-<ryctag:pageheadertitle title="Administrateur">
-	</ryctag:pageheadertitle>
+<ryctag:pageheadertitle title="Administrateur"/>
 	
 <form action="/admin/createIndex" method="post">
 <input type="submit" value="Générer un index"/>

@@ -13,9 +13,7 @@ Associé à l'email : ${user.mail}
 <tr><th>Comptes</th><th>Nom affiché</th><th>Action</th></tr>
 <c:forEach items ="${connections}" var = "connection">
 
-
   <tr><td>${connection.getKey().getProviderId()}</td><td>${connection.getDisplayName()}</td><td><a href ="socialaccountdissociate?id=${user.id}&providerUserId=${connection.getKey().getProviderUserId()}&providerId=${connection.getKey().getProviderId()}">Désasocier le compte</a></td></tr>
-  
 
 </c:forEach>
 

@@ -3,7 +3,8 @@
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 <%@ taglib tagdir="/WEB-INF/tags/ryctag" prefix="ryctag"%>
 
-<ryctag:pageheadertitle title="Librairie d'images pour les articles"></ryctag:pageheadertitle>
+<ryctag:pageheadertitle title="Librairie d'images pour les articles"/>
+
 	<ryc:conditionDisplay privilege="MANAGE_ARTICLE">
         <ryctag:imageupload action="/article/imageadd" rename="true"/>
 	</ryc:conditionDisplay>

@@ -4,8 +4,7 @@
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
 
 <body>
-<ryctag:pageheadertitle title="Contactez-nous"> 
-</ryctag:pageheadertitle>
+<ryctag:pageheadertitle title="Contactez-nous"/>
     
 <p>Nous sommes joignables par e-mail à l’adresse <img style= "position:relative; top:3px;" src="/images/image-mailbon.png" alt="L'adresse mail est insérée en image pour éviter qu'un robot ne puisse l'utiliser, pas pour vous empêcher de la copier. Veuillez-nous excuser de ce désagrément." title="L'adresse mail est insérée en image pour éviter qu'un robot ne puisse l'utiliser, pas pour vous empêcher de la copier. Veuillez-nous excuser de ce désagrément."/> ou bien via le formulaire ci-dessous.  
 </p>

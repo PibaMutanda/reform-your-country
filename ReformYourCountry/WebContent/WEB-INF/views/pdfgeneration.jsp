@@ -3,9 +3,7 @@
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 
 <html>
-<head>
 
-</head>
 <body>
 <p>Nous pouvons générer un document PDF avec les articles que vous désirez. Cela facilite parfois la vie, par exemple en permettant une lecture sans connection internet, ou bien d’imprimer un article et tous ses sous-articles en une opération.</p>
 	<form id=pdfoptionsform method="POST"

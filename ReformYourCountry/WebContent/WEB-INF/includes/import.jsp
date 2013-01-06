@@ -3,7 +3,6 @@
 <!-- ***************************** CSS **************************** -->     
 
 <link href="/css/ext/jquery-bubble-popup-v3.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" type="text/css" href="/css/int/ryc-tooltip.css" />
 <link rel="stylesheet" type="text/css" href="/css/int/template.css" />
 <link rel="stylesheet" type="text/css" href="/css/int/content.css" />
 <link rel="stylesheet" type="text/css" href="/css/ext/jquery-ui-1.8.24.custom.css" /> <%-- Customized for the colors. --%>

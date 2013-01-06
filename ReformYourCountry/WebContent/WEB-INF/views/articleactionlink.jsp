@@ -2,13 +2,14 @@
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <html>
-<head>
 
-</head>
 <body>
-<ryctag:pageheadertitle title="Ajouter une action pour l'article ${article.title}" >
-    <ryctag:breadcrumbelement label="${action.title}" link="/article/${action.url}" />
-</ryctag:pageheadertitle>
+
+<ryctag:breadcrumb>
+   <ryctag:breadcrumbelement label="${action.title}" link="/article/${action.url}" />
+</ryctag:breadcrumb>
+
+<ryctag:pageheadertitle title="Ajouter une action pour l'article ${article.title}"/>
 
 Liste des actions 
 <form action="articleactionlinkeditsubmit" method="post">

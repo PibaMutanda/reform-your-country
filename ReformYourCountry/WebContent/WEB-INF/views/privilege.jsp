@@ -4,15 +4,14 @@
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
 <%@page import="reformyourcountry.model.User" %>
 <html>
-<head>
-<title>Privilege</title>
-</head>
+
 <body>
 
-<ryctag:pageheadertitle title="Privileges de ${user.userName }">
+<ryctag:breadcrumb>
 	<ryctag:breadcrumbelement label="${user.firstName} ${user.lastName}" link="user/${user.userName}" />
 	<ryctag:breadcrumbelement label="Permission" />
-</ryctag:pageheadertitle>
+</ryctag:breadcrumb>
+<ryctag:pageheadertitle title="Privileges de ${user.userName }"/>
 
 <h2>Roles :</h2><br>
 

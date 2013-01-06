@@ -11,6 +11,6 @@
 	- <a href="/article/version/${article.url}" >historique des versions</a>
 	- <a href="/video/manager?id=${article.id}" >vidéo</a>
 	- <a href="/article/delete?id=${article.id}" >Supprimer l'article</a>
-    - <span class="tooltip" title='identifiant de cet article pour utilisation dans la balise [link article="${article.shortName}"]'>${article.shortName}</span>   <!--  Tooltip avec "identifiant de cet article pour utilisation dans la balise [link article="identifiant"]" -->
+    - <span title='identifiant de cet article pour utilisation dans la balise [link article="${article.shortName}"]'>${article.shortName}</span>   <!--  Tooltip avec "identifiant de cet article pour utilisation dans la balise [link article="identifiant"]" -->
 </div>
              

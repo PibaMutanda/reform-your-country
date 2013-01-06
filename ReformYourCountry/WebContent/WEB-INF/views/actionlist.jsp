@@ -9,14 +9,16 @@
 <meta name="robots" content="index, follow"/>	
 <meta name="googlebot" content="noarchive" />
 </head>
+
+
 <body>	
+
 <ryctag:pageheadertitle title="Liste des actions"/>
 	
 	<ryc:conditionDisplay privilege="MANAGE_ACTION">
-		<form action="/action/create" method="post" >
-			<input type="hidden" name="id" value="">
-			<input type="submit"  value="Créer action" />
-		</form>
+	    <div class="page-menu-links">
+	       <a href="/action/create">Créer une action</a>
+	    </div>
 	</ryc:conditionDisplay>
 
 	<div class="actionList">

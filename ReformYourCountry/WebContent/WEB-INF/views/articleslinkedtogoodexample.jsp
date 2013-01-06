@@ -6,8 +6,8 @@
 <head>
 </head>
 <body>
-	<ryctag:pageheadertitle
-		title="Liste des articles relatifs à ${goodExample.title}"></ryctag:pageheadertitle>
+	<ryctag:pageheadertitle	title="Liste des articles relatifs à ${goodExample.title}"/>
+	
 	<c:set var="articleList" value="${articleList}" scope="request" />
 	<form action="/articlelinkedgoodexamplesubmit" method="post">
 		<ryc:articlesListMultiSelect />

@@ -1,4 +1,4 @@
-﻿<%@ tag body-content="scriptless" isELIgnored="false" %>
+<%@ tag body-content="scriptless" isELIgnored="false" %>
 <%@taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
 <%@taglib uri="http://www.springframework.org/tags/form"  prefix="form"%>
 <%@ attribute name="path" required="true"%>
@@ -10,8 +10,8 @@ see http://stackoverflow.com/questions/439861/spring-mvc-tag-interaction-with-cu
  --%>
 
  <c:choose>
- 	<c:when test="${tooltip!=null}">
- <tr class="tooltip" data-tooltip="${tooltip}">
+ 	<c:when test="${title!=null}">
+ <tr class="title" title="${title}">
  	</c:when>
  	<c:otherwise>
  <tr>

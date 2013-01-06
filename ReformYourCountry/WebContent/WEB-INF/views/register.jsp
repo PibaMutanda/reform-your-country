@@ -3,10 +3,9 @@
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <head>
-<title>Inscription</title>
 </head>
 <body>
-    <ryctag:pageheadertitle title="Inscription"/>
+   <ryctag:pageheadertitle title="Inscription"/>
     
    <p>Créer un nouvel utilisateur vous permettra de faire certaines actions telles que voter ou argumenter.
    Vous devez choisir un pseudonyme et un mot de passe qui vous permettront de vous reconnecter dans le futur.</p>  

@@ -11,12 +11,14 @@
 <script type="application/javascript" src="js/int/autosave.js"></script>
 </head>
 <body>
-   	<ryctag:pageheadertitle title="${article.title}">
+	<ryctag:breadcrumb>
 		<c:forEach items="${article.path}" var="subarticle">
 			<ryctag:breadcrumbelement label="${subarticle.title}" link="/article/${subarticle.url}" />
 		</c:forEach>
 		<ryctag:breadcrumbelement label="${pageName}" />
-	</ryctag:pageheadertitle>
+    </ryctag:breadcrumb>
+    
+   	<ryctag:pageheadertitle title="${article.title}"/>
     <%-- Help handle --%>
     <div id="helphandle"><span>?</span><div><%--contains the helptext--%></div></div>
 		

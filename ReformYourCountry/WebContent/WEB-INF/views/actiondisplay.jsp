@@ -34,9 +34,13 @@
 
 <body>
 
-<ryctag:pageheadertitle title="${action.title }">
-		<ryctag:breadcrumbelement label="actions"  link="/action"/><ryctag:breadcrumbelement label="cette action" />
-</ryctag:pageheadertitle>
+<ryctag:breadcrumb>
+		<ryctag:breadcrumbelement label="actions"  link="/action"/>
+		<ryctag:breadcrumbelement label="cette action" />
+</ryctag:breadcrumb>		
+
+<ryctag:pageheadertitle title="${action.title}" />
+
 	
 <div>
 	<ryc:conditionDisplay privilege="MANAGE_ACTION">
@@ -61,7 +65,7 @@
 					<div>
 						<a href="/article/${article.url}"> <c:choose>
 								<c:when test="${article.description != null}">
-									<span class="tooltip" data-tooltip="${article.description}">${article.title}</span>
+									<span title="${article.description}">${article.title}</span>
 								</c:when>
 								<c:otherwise>
 									${article.title}

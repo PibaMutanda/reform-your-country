@@ -4,10 +4,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-<title>List All User Badges</title>
 <link rel="stylesheet" href="css/int/content.css"  type="text/css" />
 </head>
+
 <body>
+
+<ryctag:pageheadertitle title="Gomettes"/>
 
 <div id="sidebar">
  <div id="module">
@@ -39,7 +41,8 @@
     <c:forEach items="${badgeCountMap}" var="badgeMapEntry">	
      <tr>
        <td>
-           <c:if test="${current.user.isHasBadgeType(badgeMapEntry.key)}"><img  class="badge-earned-check"   alt="badge earned" src="/images/badge_earned.png" />
+           <c:if test="${current.user.isHasBadgeType(badgeMapEntry.key)}">
+               <img  class="badge-earned-check"   alt="badge earned" src="/images/badge_earned.png" />
            </c:if>  
        </td>
        <td class="badge-cell">

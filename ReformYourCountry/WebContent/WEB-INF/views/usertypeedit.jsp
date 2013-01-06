@@ -5,14 +5,9 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <html>
-<head>
-
-<title>Change the type of an user</title>
-
-</head>
 <body>
 
-<ryctag:pageheadertitle title="Modifier le type de ${user.userName}"></ryctag:pageheadertitle>
+<ryctag:pageheadertitle title="Modifier le type de ${user.userName}"/>
 
 Cette page permet de marquer un utilisateur comme étant un parti politique, un syndicat ou une association.<br/>
 Il sera alors repris dans la liste des partis et associations.<br/><br/>

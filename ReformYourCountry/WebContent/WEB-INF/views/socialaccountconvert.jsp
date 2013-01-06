@@ -4,10 +4,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form"  prefix="form"%>
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag"%>
 <html>
-<head>
 
-
-</head>
 <body>
 <ryctag:pageheadertitle title="Creation de votre compte ${p_website_name}"/>
 

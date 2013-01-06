@@ -5,11 +5,8 @@
 <%@ taglib uri='/WEB-INF/tags/ryc.tld' prefix='ryc'%>
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag" %>
 <html>
-<head>
-</head>
 <body>
-	<ryctag:pageheadertitle title="Résultats de la recherche pour '${searchtext}'">
-	</ryctag:pageheadertitle>
+	<ryctag:pageheadertitle title="Résultats de la recherche pour '${searchtext}'"/>
 
 	<c:if test="${noResult == true}">
 		Aucun résultat trouvé. 
