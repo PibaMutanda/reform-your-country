@@ -8,19 +8,19 @@
 <meta name="description" lang="${p_lang}" content="${p_booklist_description}"/>
 <meta name="robots" content="index, follow"/>	
 <meta name="googlebot" content="noarchive" />
+
 <style type="text/css">
-
-table
-{
-width:100%;
+table {
+  width:100%;
 }
-td{
-width:50%;
-
+td {
+  width:50%;
 }
-
 </style>
+
 </head>
+
+
 
 <body>
 <ryctag:pageheadertitle title="Bibliographie"/>
@@ -39,12 +39,12 @@ width:50%;
 	</p>
 </div>
 
-<div style="width:100%;background: url(/images/_global/separator3.gif) 0 0 repeat-x; min-height: 10px;"></div>
+<ryctag:separator/>
 <c:set var="bookList" value="${bookListTop}" scope ="request"/>
 <c:set var="tablename" value="Favoris" scope ="request"/>
  <%@include file="booktable.jsp" %>	
  
-<div style="width:100%;background: url(/images/_global/separator3.gif) 0 0 repeat-x; min-height: 10px;"></div>
+<ryctag:separator/>
 <c:set var="bookList" value="${bookListOther}" scope ="request"/> 
 <c:set var="tablename" value="Autres ouvrages" scope ="request"/>
  <%@include file="booktable.jsp" %>	

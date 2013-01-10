@@ -25,6 +25,8 @@
 		<c:forEach items="${actionItems}" var="actionItem">
 			<div class="actionRow">
 			 
+				<ryctag:separator/>
+				
 				<div class="actionTitle"><a href="/action/${actionItem.action.url}">${actionItem.action.title}</a></div>
 						
 				<div style="float:right;">

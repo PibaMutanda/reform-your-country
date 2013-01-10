@@ -18,15 +18,15 @@
 			<div style="display:inline-block;font-size:0.8em;width:100%">
 				<c:if test="${currentItem.editable}">
 					<div>
-						<div style="float:right;">
-							<span class="commentLink" onclick="ItemEditStart(this,${currentItem.id});">Editer</span>
+						<div style="float:right; small-text">
+							<span class="commentLink" onclick="ItemEditStart(this,${currentItem.id});">éditer</span>
 							<c:if test="${currentItem.deletable}">
-								<span onclick="deleteItem(this,${currentItem.id})" class="divButton delete" style=" font-size:1.3em;font-weight: bold;" title="Supprimer">×</span>
+								- <span onclick="deleteItem(this,${currentItem.id})" class="commentLink" title="Supprimer">suppr.</span>
 							</c:if>	
 							<c:if test="${isArgument}">
-								<span onclick="window.location.href='/argument/switch?argumentId=${currentItem.id}';"
+								- <span onclick="window.location.href='/argument/switch?argumentId=${currentItem.id}';" class="commentLink"
 								      title="Déplacer cet argument dans l'autre colonne, avec les arguments <c:choose><c:when test='${currentItem.positiveArg}'>négatifs</c:when><c:otherwise>positifs</c:otherwise></c:choose>">
-								         <img src="/images/_global/exchange.png" width="16px"height="16px" />
+								       dépl.
 								</span>
 							</c:if>
 						</div >
