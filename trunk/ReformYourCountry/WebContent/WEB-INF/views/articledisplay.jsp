@@ -53,7 +53,7 @@
 	background-position: 615px 100px;
 ">
 
- <ryctag:breadcrumb>
+<ryctag:breadcrumb>
 	<c:forEach items="${parentsPath}" var="subarticle">
 		<ryctag:breadcrumbelement label="${subarticle.title}" link="/article/${subarticle.url}" />
 	</c:forEach>
@@ -106,23 +106,17 @@
 			    <table style="border-spacing:0px;">   <%-- Table with 3 cells: left (border image), center (text), right (border image) --%>
 				 <tr> <%-- First row = top background image --%>
 				    <td style="background-image:url(/images/summaryheader.png); background-repeat: repeat-x; 
-			                width:790px; height:30px;  <%-- must be the same width as the bg image. --%> 
+			                width:786px; height:30px;  <%-- must be the same width as the bg image. --%> 
 			                padding:0; " colspan="3"></td>
 				 </tr> 
 			     <tr>
 			       <td style="background-image:url(/images/summaryleft.png); background-repeat: repeat-y; width:5px; padding:0"></td>
-			       <td style="width:780px; padding:0; background-color: #F8F8F8;">
+			       <td style="width:776px; padding:0; background-color: #F8F8F8;">
 							<div class="article_summary" >
 							
 							    <%---------- List of actions --%>
 								<div style="float:right; margin-right:-70px">  <%-- Negative right margin to make part of the background images overflow on the right --%>
-								
 									<div>
-										<%-- <div class="action-goodexample-title" >
-											actions
-										</div> --%>
-										
-									
 										<c:set var="actionItems" value="${actionItemsParent}" scope="request"/>
 			 						    <%@include file="actionsummary.jsp"%>
 			 						    
@@ -174,7 +168,7 @@
  			     </tr>
 				 <tr> <%-- Last row = bottom background image --%>
 				    <td style="background-image:url(/images/summaryfooter.png); background-repeat: repeat-x; 
-			                width:790px; height:12px;  <%-- must be the same width as the bg image. --%> 
+			                height:12px;  <%-- must be the same width as the bg image. --%> 
 			                padding:0; " colspan="3"></td>
 				 </tr> 
 				</table>						

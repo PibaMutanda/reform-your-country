@@ -1,5 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<%-- Big voting elements for the action page. --%>
+
 <script type="text/javascript">
    var idUser = "${current.user.id}";
 </script>
@@ -14,7 +16,7 @@
 </div>
 		
 <%-- vote buttons and % --%>		
-<div id="voteContent" style=" width: 480px; margin-left: 165px; margin-right:165px; font-size:.85em;">
+<div style=" width: 480px; margin-left: 165px; margin-right:165px; font-size:.85em;">
 			<div id="voteButtons" >
 				<div id="2" onclick="clickVoteButton(this);"
 						title="totalement pour" class="vote <c:if test="${vote.value eq 2}">selected</c:if> v2">

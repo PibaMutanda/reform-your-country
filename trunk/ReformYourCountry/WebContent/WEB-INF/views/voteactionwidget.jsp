@@ -1,8 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-
+<%-- Small voting elements that enables the user to vote from various pages --%>
 	
-<div id="voteContent" style="vertical-align:text-bottom;">
+<div style="vertical-align:text-bottom;">
 			<div id="2" onclick="clicked(this);"
 					class="smallvote <c:if test="${vote.value eq 2}"> selectedsmall2
 				                </c:if> sv2" title="totalement pour">

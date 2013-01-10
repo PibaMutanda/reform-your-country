@@ -1,5 +1,7 @@
 function clicked(item) {  // A user is voting.
-	 showMessageIfNotLogged(item);
+	 if (showMessageIfNotLogged(item)) {
+		 return;
+	 };
 	 
 	 // A user is logged in
 		var voteValue =$(item).attr('id');
@@ -17,8 +19,5 @@ function clicked(item) {  // A user is voting.
 			// Reload the widget
 			$(item).parent().parent().html(data);
 		});
-	
-	
-	
 	
 }
