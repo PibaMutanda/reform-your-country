@@ -181,9 +181,6 @@
 	background-image:url("/images/logoaction/plus2.png");
 }
 
-/* #voteContent { */
-/* 	width:106px */
-/* } */
 
 .login-link{
 	/* padding-right:65px;*/
@@ -362,7 +359,7 @@ color: #444;
 	width:245px;  /* To adapt bg image size (and padding)*/
 	height: 52px; /* To adapt bg image size (and padding)*/
 	background-image:url("/images/tape1item.png");
-    font-family:"helvetica neue", Helvetica, Arial, Verdana, sans serif;  
+    font-family: Vivaldi, Comic Sans MS, Cursive;  
 }
 
 .goodexample-list{

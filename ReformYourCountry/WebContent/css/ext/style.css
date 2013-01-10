@@ -98,7 +98,7 @@ Stylesheet Guide
 
 /** {font-size: 100.01%;}*/ /*why all font must have equals height? and * lack of perf --maxime 2/10/2012*/
 html {margin:0;padding:0;font-size:100%;}
-body {margin:0;background:#f4f4f2;font-size:1em;font-family:"helvetica neue",Helvetica,Arial,Verdana,sans-serif;color:#666;min-width:1003px;}
+body {margin:0;background:##FAFAFA;font-size:1em;font-family:"helvetica neue",Helvetica,Arial,Verdana,sans-serif;color:#666;min-width:1003px;}
 
 
 

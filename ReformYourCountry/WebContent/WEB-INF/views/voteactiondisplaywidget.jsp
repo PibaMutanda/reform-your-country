@@ -1,7 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<%-- Small voting element for view only (not for vote). With a small arrow. --%>	
 	
-<div id="voteContent" style="vertical-align:text-bottom;" >
+<div style="vertical-align:text-bottom;" >
 	<div id="-2" onclick="clicked(this);" style="cursor:default;"
 			class="smallvote <c:if test="${voteActionForWidget eq -2}">selectedsmall-2
 		                </c:if> v-2" title="totalement pour">
