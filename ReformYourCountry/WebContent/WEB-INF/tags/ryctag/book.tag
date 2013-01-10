@@ -13,14 +13,12 @@
        <img src="gen<%=FileUtil.BOOK_SUB_FOLDER%><%=FileUtil.BOOK_RESIZED_SUB_FOLDER%>/${book.id}.jpg" title="${book.title}" alt="${book.title}" class="image-frame" />
     </c:if>
     <p>${book.description}</p>
-    <div class="center-align">
+    <div class="small-text">
         <a href="${book.externalUrl}" target="_blank"> 
-            <img alt="Lien externe" title="Lien externe" src="/images/_global/links.png" class="icon-32" />
+            <span title="Lien externe vers cet ouvrage">source</span>
         </a>
-    <ryc:conditionDisplay privilege="MANAGE_BOOK">
-        <a href="book/${book.url}"> 
-            <img alt="Editer" title="Editer" src="/images/_global/edit.png" class="icon-32" />
-        </a>
-    </ryc:conditionDisplay>
+        <ryc:conditionDisplay privilege="MANAGE_BOOK">
+          - <a href="book/${book.url}">éditer</a> 
+        </ryc:conditionDisplay>
     </div>
 </div>
