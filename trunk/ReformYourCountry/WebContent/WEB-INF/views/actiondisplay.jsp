@@ -91,6 +91,7 @@
 				</div>
 			</div>
 			<!-- AddThis Button END -->
+			
 			<div>
 				<a href="/action" style="font-size: 0.8em;">retour à la liste des actions</a>
 				<ryc:conditionDisplay privilege="MANAGE_ACTION">
