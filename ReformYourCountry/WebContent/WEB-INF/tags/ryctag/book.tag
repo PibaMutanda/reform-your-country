@@ -20,5 +20,8 @@
         <ryc:conditionDisplay privilege="MANAGE_BOOK">
           - <a href="book/${book.url}">éditer</a> 
         </ryc:conditionDisplay>
+        <ryc:conditionDisplay privilege="MANAGE_ARTICLE">
+          - ${book.abrev}
+        </ryc:conditionDisplay>
     </div>
 </div>
