@@ -186,6 +186,7 @@
 				<%-- ARTICLE MAIN TEXT --%> 			   
 				<div style="font-size:.85em;margin-bottom:10px;">ARTICLE</div>
 			    ${article.lastVersionRenderedContent}
+			    <br/>
 			    <%@ include file="articlesocialandpdf.jsp" %>
 
 			    
@@ -196,7 +197,7 @@
 					</div>
 					<ryctag:separator/>
 				    <div style="font-size:.85em;margin-bottom:10px;">TEXTE A CLASSER DANS L'ARTICLE</div>
-			        Y ${article.lastVersionRenderedToClassify} X
+			        ${article.lastVersionRenderedToClassify}
 			    </ryc:conditionDisplay>
 			    
 	  	</div>
