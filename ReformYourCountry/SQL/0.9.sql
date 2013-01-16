@@ -11,4 +11,4 @@ alter table article
 
     update video set videotype = 'YOUTUBE';
     
------    
+-----  executed on server so far. John 2013-01-16  
