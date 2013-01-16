@@ -108,8 +108,6 @@ public class ArticleDisplayController extends BaseController<Article> {
 		}
 
 		mv.addObject("showContent", (article.isPublished() || SecurityContext.isUserHasPrivilege(Privilege.MANAGE_ARTICLE)));
-		mv.addObject("articleContent",article.getLastVersionRenderedContent());
-		mv.addObject("articleSummary",article.getLastVersionRenderdSummary());
 
 		mv.addObject("videoList",videoRepository.findAllVideoForAnArticle(article));
 		return mv;

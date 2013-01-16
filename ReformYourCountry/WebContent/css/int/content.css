@@ -427,11 +427,18 @@ color: #444;
 	position:relative;
 	top:1px;
 }
+
 .article_content {
 	font-family: Georgia, "DejaVu Serif", Norasi, serif;
 	color:#444;
-    display:block; /*DO NOT REMOVE OR THE MENU IS IN THE CONTENT!!!!!*/
 }
+
+
+.article_content li {
+    margin-top: 8px;
+}
+
+
 
 .article_content p{
     line-height: 1.4em;

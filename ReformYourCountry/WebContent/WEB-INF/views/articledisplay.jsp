@@ -94,6 +94,7 @@
   	  <c:when test="${showContent}">
 		<div class="article_content">
 				
+				<%-- VIDEOS --%>
 				<div id="carouselh" style="padding-bottom:40px;">
 					<c:forEach items="${videoList}" var="video">
 						<div class="inline-block">
@@ -102,7 +103,7 @@
 					</c:forEach>
 				</div>
 	            
-	            			  
+	            <%-- SUMMARY --%>  
 			    <table style="border-spacing:0px;">   <%-- Table with 3 cells: left (border image), center (text), right (border image) --%>
 				 <tr> <%-- First row = top background image --%>
 				    <td style="background-image:url(/images/summaryheader.png); background-repeat: repeat-x; 
@@ -181,9 +182,23 @@
 			    <%@ include file="articlesocialandpdf.jsp" %>
 		
 				<ryctag:separator/>
-				  			   
+				 
+				<%-- ARTICLE MAIN TEXT --%> 			   
 				<div style="font-size:.85em;margin-bottom:10px;">ARTICLE</div>
 			    ${article.lastVersionRenderedContent}
+			    <%@ include file="articlesocialandpdf.jsp" %>
+
+			    
+				<%-- TO CLASSIFY TEXT --%> 		
+				<ryc:conditionDisplay privilege="MANAGE_ARTICLE" >	   
+			    	<div style="text-align:right; margin:10px 30px 0 0;">
+						       <img src="/images/kidsdrawing2.png" /><br/>
+					</div>
+					<ryctag:separator/>
+				    <div style="font-size:.85em;margin-bottom:10px;">TEXTE A CLASSER DANS L'ARTICLE</div>
+			        Y ${article.lastVersionRenderedToClassify} X
+			    </ryc:conditionDisplay>
+			    
 	  	</div>
 	  </c:when>
 	
