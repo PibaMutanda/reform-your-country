@@ -191,103 +191,102 @@ public class BBDomParser {
 
         int pos = tagName.length() + 1;
         char c;
-        if (pos != part.length() - 1) {
-            while ((c = part.charAt(pos)) != ']') {
-                pos++;
-                switch (state) {
-                case Name:
-                    if (c == '=') {
-                        // Attribute name ended.
-                        state = ReadAttributeState.Quote;
-                        if (buf.length() > 0) {
-                            name = buf.toString();
-                            buf.setLength(0);
-                        } else {
-                            name = null;
-                        }
-                    } else if (Character.isSpaceChar(c)|| part.charAt(pos + 1) == ']') {
-                        buf.append(c);
-                        if (part.charAt(pos + 1) == ']') {
-                            buf.append(part.charAt(pos));
-                            pos++;
-                        }
-                        int i = pos;
-                        char testChar = part.charAt(i);
-                        while (i < part.length()
-                                && Character.isSpaceChar(testChar)) {
-                            i = i + 1;
-                            testChar = part.charAt(i);
-                        }
-                        // Attribute name ended - no value
-                        state = ReadAttributeState.Null;
-                        addAttribute(tag, buf.toString(), "");
-                        buf.setLength(0);
-                        pos++;
-                    } else {
-                        buf.append(Character.toLowerCase(c));
-                    }
-                    break;
-                case Quote:
-                    if (c == '"' || c == '\'') {
-                        openQuote = c;
-                        state = ReadAttributeState.Value;
-                    } else if (!Character.isSpaceChar(c)) {
-                        openQuote = null;
-                        buf.setLength(0);
-                        buf.append(c);
-                        state = ReadAttributeState.Value;
-                    } else {
-                        state = ReadAttributeState.Null;
-                        if(!tag.attributes().contains(buf.toString())){
-                            addAttribute(tag, name, "");
-                        }
-                    }
-                    break;
-                case Value:
-                    if (/*Character.isSpaceChar(c) ||  */openQuote != null && openQuote == c) {
-                        // Verify that the tag doesn't already have the same attribute.
-                        if (tag.getAttributeValue(name)==null) {
-                            // Attribute value ended.
-                            state = ReadAttributeState.Null;
-                            addAttribute(tag, name, buf.toString());
-                            buf.setLength(0);
-                        }else{
-                            tag.setErrorText("Tag contains the same attribute more than once");
-                        }
-                    } else {
-                        buf.append(c);
-                    }
-                    break;
-                default:
-                    if (Character.isLetter(c)) {
-                        state = ReadAttributeState.Name;
-                        buf.setLength(0);
-                        buf.append(Character.toLowerCase(c));
-                    } else if (c == '=') {
-                        // Default attribute
-                        state = ReadAttributeState.Quote;
-                        buf.setLength(0);
-                        name = null;
-                    }
-                    break;
-                }
-            }
-
-            // Make last step according state
-            switch (state) {
-            case Name:
-                addAttribute(tag, buf.toString(), "");
-                break;
-            case Value:
-                if (tag.getAttributeValue(name)==null) {
-                    addAttribute(tag, name, buf.toString());
-                }
-                break;
-            case Quote:
-                addAttribute(tag, name, "");
-                break;
-            }
+        while (pos < part.length() && ((c = part.charAt(pos)) != ']')) {
+        	pos++;
+        	switch (state) {
+        	case Name:
+        		if (c == '=') {
+        			// Attribute name ended.
+        			state = ReadAttributeState.Quote;
+        			if (buf.length() > 0) {
+        				name = buf.toString();
+        				buf.setLength(0);
+        			} else {
+        				name = null;
+        			}
+        		} else if (Character.isSpaceChar(c)|| part.charAt(pos + 1) == ']') {
+        			buf.append(c);
+        			if (part.charAt(pos + 1) == ']') {
+        				buf.append(part.charAt(pos));
+        				pos++;
+        			}
+        			int i = pos;
+        			char testChar = part.charAt(i);
+        			while (i < part.length()
+        					&& Character.isSpaceChar(testChar)) {
+        				i = i + 1;
+        				testChar = part.charAt(i);
+        			}
+        			// Attribute name ended - no value
+        			state = ReadAttributeState.Null;
+        			addAttribute(tag, buf.toString(), "");
+        			buf.setLength(0);
+        			pos++;
+        		} else {
+        			buf.append(Character.toLowerCase(c));
+        		}
+        		break;
+        	case Quote:
+        		if (c == '"' || c == '\'') {
+        			openQuote = c;
+        			state = ReadAttributeState.Value;
+        		} else if (!Character.isSpaceChar(c)) {
+        			openQuote = null;
+        			buf.setLength(0);
+        			buf.append(c);
+        			state = ReadAttributeState.Value;
+        		} else {
+        			state = ReadAttributeState.Null;
+        			if(!tag.attributes().contains(buf.toString())){
+        				addAttribute(tag, name, "");
+        			}
+        		}
+        		break;
+        	case Value:
+        		if (/*Character.isSpaceChar(c) ||  */openQuote != null && openQuote == c) {
+        			// Verify that the tag doesn't already have the same attribute.
+        			if (tag.getAttributeValue(name)==null) {
+        				// Attribute value ended.
+        				state = ReadAttributeState.Null;
+        				addAttribute(tag, name, buf.toString());
+        				buf.setLength(0);
+        			}else{
+        				tag.setErrorText("Tag contains the same attribute more than once");
+        			}
+        		} else {
+        			buf.append(c);
+        		}
+        		break;
+        	default:
+        		if (Character.isLetter(c)) {
+        			state = ReadAttributeState.Name;
+        			buf.setLength(0);
+        			buf.append(Character.toLowerCase(c));
+        		} else if (c == '=') {
+        			// Default attribute
+        			state = ReadAttributeState.Quote;
+        			buf.setLength(0);
+        			name = null;
+        		}
+        		break;
+        	}
         }
+
+        // Make last step according state
+        switch (state) {
+        case Name:
+        	addAttribute(tag, buf.toString(), "");
+        	break;
+        case Value:
+        	if (tag.getAttributeValue(name)==null) {
+        		addAttribute(tag, name, buf.toString());
+        	}
+        	break;
+        case Quote:
+        	addAttribute(tag, name, "");
+        	break;
+        }
+
 
         return tag;
     }
@@ -296,7 +295,7 @@ public class BBDomParser {
      * @param tag in the [...] form.
      */
     public void addIgnoredTag(String tag){
-        ignoredTags.add(tag);
+    	ignoredTags.add(tag);
     }
 
 

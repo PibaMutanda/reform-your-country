@@ -35,8 +35,8 @@ $(document).ready(function(){
 				<!-- ******************* BETA ************************ -->	
 					<div class="beta">
 						<img src= "images/beta.png" style="margin-left:13px;"
-						  alt="Plate-forme en construction, pas encore destinée au grand public. Sortie prévue: janvier 2013"
-						title="Plate-forme en construction, pas encore destinée au grand public. Sortie prévue: janvier 2013"  />
+						  alt="Plate-forme en construction, pas encore destinée au grand public. Sortie prévue: 1er trimestre 2013"
+						title="Plate-forme en construction, pas encore destinée au grand public. Sortie prévue: 1er trimestre 2013"  />
 					</div>
 				
 				<div style="float:right">

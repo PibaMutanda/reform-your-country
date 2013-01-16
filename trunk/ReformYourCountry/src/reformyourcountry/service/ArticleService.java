@@ -136,6 +136,7 @@ public class ArticleService {
 	 public void updateRendreredContentAndSummary(Article article){
 		 article.setLastVersionRenderedContent(new BBConverter(bookRepository, articleRepository,actionRepository,false).transformBBCodeToHtmlCode(article.getLastVersion().getContent()));
 	     article.setLastVersionRenderdSummary(new BBConverter(bookRepository, articleRepository,actionRepository,false).transformBBCodeToHtmlCode(article.getLastVersion().getSummary()));
+	     article.setLastVersionRenderdToClassify(new BBConverter(bookRepository, articleRepository,actionRepository,false).transformBBCodeToHtmlCode(article.getLastVersion().getToClassify()));
 	 }
 
 	 
