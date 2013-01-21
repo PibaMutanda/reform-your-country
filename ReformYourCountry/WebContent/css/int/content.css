@@ -92,22 +92,36 @@
 .v-2{
 	 background-image:url("/images/logoaction/minus2big.png");
 }
-
 .v-1{
 	 background-image:url("/images/logoaction/minusbig.png");
 }
-
 .v0{
 	 background-image:url("/images/logoaction/neutralbig.png");
 }
-
 .v1{
 	 background-image:url("/images/logoaction/plusbig.png");
 }
-
 .v2{
 	 background-image:url("/images/logoaction/plus2big.png");
 }
+
+
+.v-2.selected, .v-2:hover {
+	 background-image:url("/images/logoaction/minus2bigplain.png");
+}
+.v-1.selected, .v-1:hover {
+	 background-image:url("/images/logoaction/minusbigplain.png");
+}
+.v0.selected, .v0:hover {
+	 background-image:url("/images/logoaction/neutralbigplain.png");
+}
+.v1.selected, .v1:hover {
+	 background-image:url("/images/logoaction/plusbigplain.png");
+}
+.v2.selected, .v2:hover {
+	 background-image:url("/images/logoaction/plus2bigplain.png");
+}
+
 
 .vote{
 	display: inline-block; 
@@ -124,59 +138,69 @@
 	height: 18px;
 	text-align: center; 
 	cursor: pointer;
-	background-image:url("/images/logoaction/grey.jpg");
+	/* background-image:url("/images/logoaction/grey.jpg"); */
+}
+
+.sv-2{
+	background-image:url("/images/logoaction/minusempty.png");
+}
+.sv-1{
+	background-image:url("/images/logoaction/minusempty.png");
+}
+.sv0{
+	background-image:url("/images/logoaction/neutral.png");
+}
+.sv1{
+	background-image:url("/images/logoaction/plusempty.png");
+}
+.sv2{
+	background-image:url("/images/logoaction/plusempty.png");
 }
 
 
 .sv-2:hover{
 	background-image:url("/images/logoaction/minus2.png");
 }
-
-
 .sv-1:hover{
 	background-image:url("/images/logoaction/minus.png");
-	
-
 }
 .sv0:hover{
 	background-image:url("/images/logoaction/neutral.png");
-	
-
 }
 .sv1:hover{
 	background-image:url("/images/logoaction/plus.png");
-	
-
 }
 .sv2:hover{
 	background-image:url("/images/logoaction/plus2.png");
-	
 }
+
+
+
 .vote:hover{
 	font-weight : bold;
 }
 .selected{
-	border: 3px solid #000;
+/* 	border: 3px solid #000; */
 }
 
 .selectedsmall-2{
-	background-image:url("/images/logoaction/minus2.png");
+	background-image:url("/images/logoaction/minus2plain.png");
 }
 
 .selectedsmall-1{
-	background-image:url("/images/logoaction/minus.png");
+	background-image:url("/images/logoaction/minusplain.png");
 }
 
 .selectedsmall0{
-	background-image:url("/images/logoaction/neutral.png");
+	background-image:url("/images/logoaction/neutralplain.png");
 }
 
 .selectedsmall1{
-	background-image:url("/images/logoaction/plus.png");
+	background-image:url("/images/logoaction/plusplain.png");
 }
 
 .selectedsmall2{
-	background-image:url("/images/logoaction/plus2.png");
+	background-image:url("/images/logoaction/plus2plain.png");
 }
 
 
