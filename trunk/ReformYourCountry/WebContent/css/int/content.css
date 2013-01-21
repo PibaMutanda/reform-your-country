@@ -90,36 +90,36 @@
 }
 
 .v-2{
-	 background-image:url("/images/logoaction/minus2big.png");
+	 background-image:url("/images/vote/minus2big.png");
 }
 .v-1{
-	 background-image:url("/images/logoaction/minusbig.png");
+	 background-image:url("/images/vote/minusbig.png");
 }
 .v0{
-	 background-image:url("/images/logoaction/neutralbig.png");
+	 background-image:url("/images/vote/neutralbig.png");
 }
 .v1{
-	 background-image:url("/images/logoaction/plusbig.png");
+	 background-image:url("/images/vote/plusbig.png");
 }
 .v2{
-	 background-image:url("/images/logoaction/plus2big.png");
+	 background-image:url("/images/vote/plus2big.png");
 }
 
 
 .v-2.selected, .v-2:hover {
-	 background-image:url("/images/logoaction/minus2bigplain.png");
+	 background-image:url("/images/vote/minus2bigplain.png");
 }
 .v-1.selected, .v-1:hover {
-	 background-image:url("/images/logoaction/minusbigplain.png");
+	 background-image:url("/images/vote/minusbigplain.png");
 }
 .v0.selected, .v0:hover {
-	 background-image:url("/images/logoaction/neutralbigplain.png");
+	 background-image:url("/images/vote/neutralbigplain.png");
 }
 .v1.selected, .v1:hover {
-	 background-image:url("/images/logoaction/plusbigplain.png");
+	 background-image:url("/images/vote/plusbigplain.png");
 }
 .v2.selected, .v2:hover {
-	 background-image:url("/images/logoaction/plus2bigplain.png");
+	 background-image:url("/images/vote/plus2bigplain.png");
 }
 
 
@@ -138,70 +138,104 @@
 	height: 18px;
 	text-align: center; 
 	cursor: pointer;
-	/* background-image:url("/images/logoaction/grey.jpg"); */
+	/* background-image:url("/images/vote/grey.jpg"); */
 }
 
 .sv-2{
-	background-image:url("/images/logoaction/minusempty.png");
+	background-image:url("/images/vote/minusempty.png");
 }
 .sv-1{
-	background-image:url("/images/logoaction/minusempty.png");
+	background-image:url("/images/vote/minusempty.png");
 }
 .sv0{
-	background-image:url("/images/logoaction/neutral.png");
+	background-image:url("/images/vote/neutral.png");
 }
 .sv1{
-	background-image:url("/images/logoaction/plusempty.png");
+	background-image:url("/images/vote/plusempty.png");
 }
 .sv2{
-	background-image:url("/images/logoaction/plusempty.png");
+	background-image:url("/images/vote/plusempty.png");
 }
 
 
 .sv-2:hover{
-	background-image:url("/images/logoaction/minus2.png");
+	background-image:url("/images/vote/minus2.png");
 }
 .sv-1:hover{
-	background-image:url("/images/logoaction/minus.png");
+	background-image:url("/images/vote/minus.png");
 }
 .sv0:hover{
-	background-image:url("/images/logoaction/neutral.png");
+	background-image:url("/images/vote/neutral.png");
 }
 .sv1:hover{
-	background-image:url("/images/logoaction/plus.png");
+	background-image:url("/images/vote/plus.png");
 }
 .sv2:hover{
-	background-image:url("/images/logoaction/plus2.png");
+	background-image:url("/images/vote/plus2.png");
 }
-
-
 
 .vote:hover{
 	font-weight : bold;
 }
+
 .selected{
 /* 	border: 3px solid #000; */
 }
 
 .selectedsmall-2{
-	background-image:url("/images/logoaction/minus2plain.png");
+	background-image:url("/images/vote/minus2plain.png");
 }
 
 .selectedsmall-1{
-	background-image:url("/images/logoaction/minusplain.png");
+	background-image:url("/images/vote/minusplain.png");
 }
 
 .selectedsmall0{
-	background-image:url("/images/logoaction/neutralplain.png");
+	background-image:url("/images/vote/neutralplain.png");
 }
 
 .selectedsmall1{
-	background-image:url("/images/logoaction/plusplain.png");
+	background-image:url("/images/vote/plusplain.png");
 }
 
 .selectedsmall2{
-	background-image:url("/images/logoaction/plus2plain.png");
+	background-image:url("/images/vote/plus2plain.png");
 }
+
+
+.upvote {
+	width:100%; height:16px;
+	margin-top:16px;
+	background-image:url("/images/vote/arrowuplight.png");
+    background-position:center;
+	background-repeat:no-repeat;
+}
+
+.upvote.selected {
+	 background-image:url("/images/vote/arrowupplain.png");
+}
+
+.upvote:hover {
+	 background-image:url("/images/vote/arrowup.png");
+}
+
+
+.downvote {
+	width:100%; height:16px;
+	margin-bottom:16px;
+	background-image:url("/images/vote/arrowdownlight.png");
+    background-position:center;
+	background-repeat:no-repeat;
+}
+
+.downvote.selected {
+	 background-image:url("/images/vote/arrowdownplain.png");
+}
+
+.downvote:hover {
+	 background-image:url("/images/vote/arrowdown.png");
+}
+
 
 
 .login-link{
