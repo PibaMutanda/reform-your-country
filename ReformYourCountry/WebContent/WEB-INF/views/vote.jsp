@@ -4,21 +4,27 @@
     <c:if test="${canNegativeVote}">title="${currentItem.voteCountPro} / -${currentItem.voteCountAgainst}" </c:if> >
 	<c:choose>
 		<c:when test="${currentItem.getVoteValueByUser(current.user)>0}">
-			<img class="div-align-center" align="middle" src="/images/_global/up_selected.png"  onclick="unVoteItem(${currentItem.id});"/>		
+			<div class="upvote selected"  onclick="unVoteItem(${currentItem.id});"></div>		
 		</c:when>
 		<c:otherwise>
-			<img class="div-align-center" align="middle" src="/images/_global/up.png" onclick="voteOnItem(this,${currentItem.id},1);"/>
+			<div class="upvote"           onclick="voteOnItem(this,${currentItem.id},1);"></div>
 		</c:otherwise>
 	</c:choose>
 
-    <div style="padding-top:5px; margin-bottom:-8px;">${currentItem.getTotal()}</div>
+    <div style="font-family:cursive; 
+                 <c:choose>
+                    <c:when test="${currentItem.getVoteValueByUser(current.user)==0}">color:rgb(196, 196, 196);</c:when>
+                    <c:otherwise>color:#111c32;</c:otherwise>
+                 </c:choose>
+               ">${currentItem.getTotal()}</div>
+    
 	<c:if test="${canNegativeVote}">
 	<c:choose>
 		<c:when test="${currentItem.getVoteValueByUser(current.user)<0}">
-			<img class="div-align-center" align="middle" src="/images/_global/down_selected.png"  onclick="unVoteItem(${currentItem.id});"/>		
+			<div class="downvote selected" onclick="unVoteItem(${currentItem.id});"/>		
 		</c:when>
 		<c:otherwise>
-			<img class="div-align-center" align="middle" src="/images/_global/down.png" onclick="voteOnItem(this,${currentItem.id},-1);"/>
+			<div class="downvote"          onclick="voteOnItem(this,${currentItem.id},-1);"></div>
 		</c:otherwise>
 	</c:choose>
 	</c:if>
