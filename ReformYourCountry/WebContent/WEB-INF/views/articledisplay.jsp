@@ -20,25 +20,17 @@
 <script src="js/ext/jquery-bubble-popup-v3.min.js" type="text/javascript"></script>
 <script src="js/int/bubble-pop-up-articledisplay.js" type = "text/javascript"></script>
 <link rel="stylesheet" href="css/ext/jquery.countdown.css" type="text/css"/>
-<link href="css/ext/jsCarousel-2.0.0.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="js/ext/jquery.countdown.js"></script>
 <script type="text/javascript" src="js/ext/jquery.countdown-fr.js"></script>
 <script type="text/javascript" src="js/int/untranslate.js"></script>
-<script src="js/ext/jsCarousel-2.0.0.js" type="text/javascript"></script>
+
 <meta name="robots" content="index, follow"/>
 <meta name="description" content="${article.description}"/>
 <meta name="title" content ="${article.title}"/>
-<c:if test="${fn:length(videoList) gt 3}">
-    <script type="application/javascript">
-        $(document).ready(function() {
-            $('#carouselh').jsCarousel({ autoscroll: true, circular: true, masked: false, itemstodisplay: 3, orientation: 'h' });
-        });       
-    </script>
-</c:if>
- <script type="text/javascript">
+
+<script type="text/javascript">
  var addthis_config = {"data_track_clickback":true};
- </script> <script type="text/javascript"
- src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-509a829c59a66215"></script>
+</script> <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-509a829c59a66215"></script>
  
  
 </head>
@@ -94,25 +86,10 @@
   	  <c:when test="${showContent}">
 		<div class="article_content">
 				
-				<%-- VIDEOS --%>
-				<div id="carouselh" style="padding-bottom:40px;">
-					<c:forEach items="${videoList}" var="video">
-						<div class="inline-block">
-							<iframe width="250" height="141" src="https://www.youtube-nocookie.com/embed/${video.idOnHost}?rel=0&hd=1" frameborder="0" allowfullscreen seamless></iframe>
-						</div>
-					</c:forEach>
-				</div>
-	            
+                <%@include file="videocarrousel.jsp"%>
+
 	            <%-- SUMMARY --%>  
-			    <table style="border-spacing:0px;">   <%-- Table with 3 cells: left (border image), center (text), right (border image) --%>
-				 <tr> <%-- First row = top background image --%>
-				    <td style="background-image:url(/images/summaryheader.png); background-repeat: repeat-x; 
-			                width:786px; height:30px;  <%-- must be the same width as the bg image. --%> 
-			                padding:0; " colspan="3"></td>
-				 </tr> 
-			     <tr>
-			       <td style="background-image:url(/images/summaryleft.png); background-repeat: repeat-y; width:5px; padding:0"></td>
-			       <td style="width:776px; padding:0; background-color: #F8F8F8;">
+				<ryctag:framelarge>
 							<div class="article_summary" >
 							
 							    <%---------- List of actions --%>
@@ -163,18 +140,7 @@
 							    <div style="font-size:1.15em;margin-bottom:10px; color:#bc1c1c;">RESUME</div>
 								${article.lastVersionRenderdSummary}
 						   </div>  <!--  article summary -->
-			   			 </td>
-			   			 <%-- right border --%>
-			             <td style="background-image:url(/images/summaryright.png); background-repeat: repeat-y; width:5px; padding:0"></td>
- 			     </tr>
-				 <tr> <%-- Last row = bottom background image --%>
-				    <td style="background-image:url(/images/summaryfooter.png); background-repeat: repeat-x; 
-			                height:12px;  <%-- must be the same width as the bg image. --%> 
-			                padding:0; " colspan="3"></td>
-				 </tr> 
-				</table>						
-			   
-					   
+					</ryctag:framelarge>					   
 		    	<div style="text-align:right; margin:10px 30px 0 0;">
 					       <img src="/images/kidsdrawing2.png" /><br/>
 				</div>

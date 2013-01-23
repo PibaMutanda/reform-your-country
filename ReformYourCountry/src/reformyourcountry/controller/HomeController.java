@@ -17,11 +17,12 @@ import reformyourcountry.model.Action;
 import reformyourcountry.model.Article;
 import reformyourcountry.model.GoodExample;
 import reformyourcountry.model.User;
-import reformyourcountry.model.VoteAction;
 import reformyourcountry.model.User.AccountConnectedType;
+import reformyourcountry.model.VoteAction;
 import reformyourcountry.repository.ActionRepository;
 import reformyourcountry.repository.ArticleRepository;
 import reformyourcountry.repository.GoodExampleRepository;
+import reformyourcountry.repository.VideoRepository;
 import reformyourcountry.repository.VoteActionRepository;
 import reformyourcountry.security.SecurityContext;
 import reformyourcountry.service.ActionService;
@@ -38,6 +39,7 @@ public class HomeController {
 	@Autowired GoodExampleRepository goodExampleRepository;
     @Autowired VoteActionRepository voteActionRepository;
     @Autowired ActionService actionService;
+    @Autowired VideoRepository videoRepository;
 	
 	@RequestMapping(value={"/home","/"})
 	public ModelAndView home( NativeWebRequest request){
@@ -85,6 +87,7 @@ public class HomeController {
 		mv.addObject("articleListByDate", listart);
 		mv.addObject("actionListByDate",actionItems);
 		mv.addObject("goodExampleListByDate", listgoodexample);
+		mv.addObject("videoList", videoRepository.findAllVideoByDate());
 		
 		//detect if the user is connected with a social account
 		User user = SecurityContext.getUser();
@@ -92,13 +95,11 @@ public class HomeController {
 		    
 		   AccountConnectedType providerSignedIn = (AccountConnectedType) request.getAttribute(LoginController.PROVIDERSIGNEDIN_KEY, RequestAttributes.SCOPE_SESSION);
 		 
-		    if(providerSignedIn != null)
-		    {
+		    if(providerSignedIn != null) {
 		        mv.addObject("accountConnectedType",providerSignedIn);
-		    }
-		    else
+		    } else {
 		        mv.addObject("accountConnectedType",AccountConnectedType.LOCAL);
-		    
+		    }
 		    //request.removeAttribute(LoginController.PROVIDERSIGNEDIN, RequestAttributes.SCOPE_SESSION);
 		    
 		}

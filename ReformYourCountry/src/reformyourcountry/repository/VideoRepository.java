@@ -23,6 +23,12 @@ public class VideoRepository extends BaseRepository<Video> {
                 .getResultList();
     }
 
+
+	public List<Video>  findAllVideoByDate() {
+        return em.createQuery("select v from Video v order by v.createdOn DESC")
+                .getResultList();
+	}
+
 	
 	
 }
