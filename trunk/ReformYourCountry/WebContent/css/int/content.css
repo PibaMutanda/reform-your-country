@@ -20,10 +20,10 @@
     width:11px;
     height: 11px;
 }
- #CU3ER-container{
-	width:100%;
-	display:inline-block;
+
+#CU3ER-container{
 }
+
 .center-align { /* use this class instead of <center>*/
     text-align: center;
 }
@@ -740,3 +740,31 @@ color: #444;
 /* 	font-weight: bold;
  */}
 
+
+/******************************************************************/
+
+.jscarousal-horizontal-back {
+	background-image:url("/images/videoarrowleftgrey.png") !important;
+	height:123px !important;
+}
+
+.jscarousal-horizontal-forward {
+	background-image:url("/images/videoarrowrightgrey.png") !important;
+	height:123px !important;
+}
+
+.jscarousal-horizontal-back:hover {
+	background-image:url("/images/videoarrowleft.png") !important;
+}
+
+.jscarousal-horizontal-forward:hover {
+	background-image:url("/images/videoarrowright.png") !important;
+}
+
+.frametitle {
+	font-family:'ColaborateLightRegular', Arial, sans-serif;
+	font-size:20px;
+	font-weight:bold;
+	color:#BC1C1C;
+	margin-bottom:15px;
+}

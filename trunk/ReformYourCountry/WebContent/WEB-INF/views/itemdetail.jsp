@@ -3,7 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib tagdir="/WEB-INF/tags/ryctag/" prefix="ryctag"%>
 
-<div id="item${currentItem.id}" style="width:100%; display: inline-block;background:url(/images/_global/separator3.gif) 0 0 repeat-x ;">
+<div id="item${currentItem.id}"
+     style="width:100%; display: inline-block; padding: 15px 0 15px 0;
+            background:url(/images/separatorarguments.png) 0 0 no-repeat ;">
 
 	<div style="width:340px; margin-bottom:5px;float:right;">
 		<div style="width:100%;background:url(/images/_global/separator3.gif) 0 100% repeat-x ;padding-top:10px;">

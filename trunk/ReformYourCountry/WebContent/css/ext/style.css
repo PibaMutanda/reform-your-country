@@ -98,7 +98,7 @@ Stylesheet Guide
 
 /** {font-size: 100.01%;}*/ /*why all font must have equals height? and * lack of perf --maxime 2/10/2012*/
 html {margin:0;padding:0;font-size:100%;}
-body {margin:0;background:##FAFAFA;font-size:1em;font-family:"helvetica neue",Helvetica,Arial,Verdana,sans-serif;color:#666;min-width:1003px;}
+body {margin:0;background-color:#FAFAFA;font-size:1em;font-family:"helvetica neue",Helvetica,Arial,Verdana,sans-serif;color:#666;min-width:1003px;}
 
 
 
@@ -1900,21 +1900,23 @@ background: url("/images/_global/bg-buttons-sprite.png") no-repeat scroll 100% -
 .text-big{
 	font-size: 15px;
 }
-.listarticle{
+.list-title{
 	font-size: 1em;
-	display:inline-block;
-	padding-bottom:10px; 
+	padding-bottom:15px; 
 	width:100%;
 }
-.listarticle div span {
+.list-date {
 	font-size: 0.7em;
 }
 
-.listarticle div  {
+.list-description {
+	font-size: 0.9em;
+}
+
+/* .listarticle div  {
 	font-size: 0.9em;
 }
 .listaction{
-	
 	font-size: 1em;
 	display:inline-block;
 	padding-bottom:10px; 
@@ -1941,7 +1943,7 @@ background: url("/images/_global/bg-buttons-sprite.png") no-repeat scroll 100% -
 .listgoodexample div{
 	font-size: 0.9em;
 }
-
+ */
 .h7 {font-size:0.8em; margin-bottom: 15px !important; border-bottom-style: solid;border-bottom-width: 1px;}
 
 .listToSearchTitle{

@@ -49,6 +49,7 @@ public class ArgumentController extends BaseController<Argument>{
         mv.addObject("currentItem",arg);
         return mv;
     }
+    
     @RequestMapping("argument/switch")
     public ModelAndView argumentSwitch(@RequestParam(value="argumentId",required=false) Long argumentId) throws Exception{
     	 SecurityContext.assertUserIsLoggedIn();
@@ -56,13 +57,14 @@ public class ArgumentController extends BaseController<Argument>{
              Argument argument =  getRequiredEntity(argumentId);
              SecurityContext.assertCurrentUserCanEditArgument(argument);
              argument.setPositiveArg(!argument.getPositiveArg());
-             ModelAndView mv = actionService.getActionModelAndView(argument.getAction(),"actiondisplay");
-             actionService.putGraphNumbersInModelAndView(mv,argument.getAction());
+//             ModelAndView mv = actionService.getActionModelAndView(argument.getAction(),"actiondisplay");
+//             actionService.putGraphNumbersInModelAndView(mv,argument.getAction());
              
-             return  mv;
+             return  new ModelAndView("redirect:/action/"+argument.getAction().getUrl());
     	 }
     	 throw new Exception("No argument to switch");
     }
+    
     @RequestMapping("ajax/argument/edit")
     public ModelAndView argumentEdit(@RequestParam(value="argumentId",required=false) Long argumentId,   // For editing existing arguments.
             @RequestParam(value="idAction",required=false)Long actionId,@RequestParam(value="isPos",required=false)Boolean positiveArg      // For creating a new argument.
@@ -262,8 +264,8 @@ public class ArgumentController extends BaseController<Argument>{
     
     @RequestMapping("/ajax/argument/commentdelete")
     public ModelAndView deleteComment(@RequestParam("id")Long idComment) throws Exception{
-        //FIXME no verif if user can edit --maxime 30/11/12
         Comment com = commentRepository.find(idComment);
+    	SecurityContext.assertCurrentUserCanEditComment(com);
         
         if(com ==null){
             throw new Exception("this id doesn't reference any comment.");

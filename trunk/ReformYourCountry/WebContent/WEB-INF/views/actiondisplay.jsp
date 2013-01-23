@@ -39,31 +39,39 @@
 		<ryctag:breadcrumbelement label="cette action" />
 </ryctag:breadcrumb>		
 
+<ryc:conditionDisplay privilege="MANAGE_ACTION">
+	   <div class="page-menu-links">
+			<a href="/action/edit?id=${action.id}">éditer</a>
+	   </div>
+</ryc:conditionDisplay>
+
+<%-- Form apparently needed for ajax actions --%>
+<ryctag:form action="/action/edit" modelAttribute="action"	method="get" width="50px;">
+		<input type="hidden" value="${action.id}" name="id" id="idAction" />
+</ryctag:form> 
+
+
+<div style="float:right;">
+  <a href="/specialuserslist/${action.url}" title="voir ce que les partis et associations ont voté"><img src="/images/partis.png"/></a>
+</div>  
+
 <ryctag:pageheadertitle title="${action.title}" />
 
 	
-<div>
-	<ryc:conditionDisplay privilege="MANAGE_ACTION">
-			<a href="/action/edit?id=${action.id}" style="font-size: 0.8em;">éditer</a>
-	</ryc:conditionDisplay>
-	<ryctag:form action="/action/edit" modelAttribute="action"	method="get" width="50px;">
-		<input type="hidden" value="${action.id}" name="id" id="idAction" />
-	</ryctag:form>
-</div>
 
 <%-- Action text --%>
 <div style="width: 100%;">
 
 	<div style="font-size: 1em;">
 
-		<%-- List of articles within the action --%>
-		<div class="action-list" style="font-size: 0.9em; float:right; font-color:#7D92B9;">
-			<div class="action-goodexample-title" >articles liés</div>
-			<a href="/specialuserslist/${action.url}"
-					title="Voir ce que les partis et associations ont voté.">Avis des partis</a>
+	  <%-- List of articles within the action --%>
+	  <div class="action-list" style="font-size: 0.9em; float:right; color:#7D92B9; margin: -16px 0 15px 15px;">
+	    <ryctag:frame1tape>
+			<div class="action-goodexample-title" style="margin-top:-30px;" >articles liés</div>
 			<c:forEach items="${action.articles}" var="article">
-					<div>
-						<a href="/article/${article.url}"> <c:choose>
+					<div style="margin-bottom:10px;">
+						<a href="/article/${article.url}" class="list-title">
+						    <c:choose>
 								<c:when test="${article.description != null}">
 									<span title="${article.description}">${article.title}</span>
 								</c:when>
@@ -74,7 +82,8 @@
 						</a>
 					</div>
 			</c:forEach>
-		</div>
+	     </ryctag:frame1tape>
+ 	   </div>
 		
 	    ${action.content}
    </div>
@@ -92,23 +101,14 @@
 			</div>
 			<!-- AddThis Button END -->
 			
-			<div>
-				<a href="/action" style="font-size: 0.8em;">retour à la liste des actions</a>
-				<ryc:conditionDisplay privilege="MANAGE_ACTION">
-								- <a href="/action/edit?id=${action.id}"
-						style="font-size: 0.8em;">éditer</a>
-				</ryc:conditionDisplay>
-				<ryctag:form action="/action/edit" modelAttribute="action"
-					method="get" width="50px;">
-					<input type="hidden" value="${action.id}" name="id" id="idAction" />
-				</ryctag:form>
-			</div>
    </div>
 </div>
 
+<ryctag:separator/>
+
 <%-- Chart --%>
 <div id="voteGraph"
-	style="width: 500px; margin-left: 150px; background: url(/images/_global/separator3.gif) 0 0 repeat-x; padding-top: 10px;">
+	style="width: 500px; margin-left: 150px; padding-top: 10px;">
 </div>
 <div id="voteContainer">
 	<%-- Will be re-filled through Ajax too--%>
