@@ -21,7 +21,7 @@
 	<c:if test="${canNegativeVote}">
 	<c:choose>
 		<c:when test="${currentItem.getVoteValueByUser(current.user)<0}">
-			<div class="downvote selected" onclick="unVoteItem(${currentItem.id});"/>		
+			<div class="downvote selected" onclick="unVoteItem(${currentItem.id});"></div>		
 		</c:when>
 		<c:otherwise>
 			<div class="downvote"          onclick="voteOnItem(this,${currentItem.id},-1);"></div>
