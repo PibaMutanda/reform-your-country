@@ -12,15 +12,28 @@ public class ArticleTreeWalker {
 	ArticleRepository articleRepository;
 	ArticleTreeVisitor atv;
 	int recurtionLevel;  // root = 0
+	private Article parentArticle;  // if not null, we start from the root. Else, we only show the childs of this parent.
+
 	
 	public ArticleTreeWalker(ArticleTreeVisitor atv,ArticleRepository articleRepository){
-		this.atv=atv;
-		this.articleRepository=articleRepository;
+		this(atv, articleRepository, null);
 	}
 	
 
-	public void walk() throws IOException { 
-		List<Article> articles = articleRepository.findAllWithoutParent();
+	public ArticleTreeWalker(ArticleTreeVisitor atv, ArticleRepository articleRepository, Article parentArticle) {
+		this.atv=atv;
+		this.articleRepository=articleRepository;
+		this.parentArticle = parentArticle;
+	}
+
+
+	public void walk() throws IOException {
+		List<Article> articles;
+		if (parentArticle == null) {
+		    articles = articleRepository.findAllWithoutParent();
+		} else {
+			articles = parentArticle.getChildren();
+		}
 		recurtionLevel = 0;
 		processArticleList(articles);
 	}

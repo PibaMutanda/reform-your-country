@@ -44,6 +44,12 @@
 		<name>articlesList</name>
 		<tag-class>reformyourcountry.tag.ArticleListTag</tag-class>
 		<body-content>empty</body-content>
+		<attribute>
+			<name>parentArticle</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<elexprvalue>true</elexprvalue>
+		</attribute>
 	</tag>
 		
 	<tag>
