@@ -153,16 +153,26 @@
 				<div style="font-size:.85em;margin-bottom:10px;">ARTICLE</div>
 			    ${article.lastVersionRenderedContent}
 			    <br/>
+		    	<div style="text-align:right; margin:10px 30px 0 0;">
+					       <img src="/images/kidsdrawing2.png" /><br/>
+				</div>
+			    
+			    
+
+				<%-- Sub articles --%>
+				<c:if test="${! empty article.children}">
+			       <%-- <ryctag:separator/> --%>
+     			   <div style="font-size:1.15em;margin-bottom:10px; color:#bc1c1c;">SOUS-ARTICLES</div>
+			       <ryc:articlesList parentArticle="${article}"/>
+                </c:if>
+
 			    <%@ include file="articlesocialandpdf.jsp" %>
 
 			    
 				<%-- TO CLASSIFY TEXT --%> 		
 				<ryc:conditionDisplay privilege="MANAGE_ARTICLE" >	   
-			    	<div style="text-align:right; margin:10px 30px 0 0;">
-						       <img src="/images/kidsdrawing2.png" /><br/>
-					</div>
 					<ryctag:separator/>
-				    <div style="font-size:.85em;margin-bottom:10px;">TEXTE A CLASSER DANS L'ARTICLE</div>
+     			    <div style="font-size:1.15em;margin-bottom:10px; color:#bc1c1c;">TEXTE A CLASSER DANS L'ARTICLE</div>
 			        ${article.lastVersionRenderedToClassify}
 			    </ryc:conditionDisplay>
 			    
