@@ -5,7 +5,7 @@
 
 <c:if test="${fn:length(videoList) gt 0}"> 
 
-    <br/><br/>
+    <br/>
     <ryctag:separator/>
     <br/><%-- If we show at least a video, add some space before --%>
 
@@ -24,10 +24,13 @@
 	<div id="carouselh" >
 		<c:forEach items="${videoList}" var="video">
 			<div class="inline-block" style="margin-left:10px;">
-				<iframe width="240" height="135" src="https://www.youtube-nocookie.com/embed/${video.idOnHost}?rel=0&hd=1" frameborder="0" allowfullscreen seamless></iframe>
+				<iframe width="240" height="155" src="https://www.youtube-nocookie.com/embed/${video.idOnHost}?rel=0&hd=1" frameborder="0" allowfullscreen seamless></iframe>
 			</div>
 		</c:forEach>
 	</div>
          
-
+    <br/>
+    <ryctag:separator/>
+    <br/>
+    
 </c:if>   

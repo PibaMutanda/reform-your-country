@@ -62,24 +62,22 @@
   
 
 
-<div style="display:inline-block"><!-- DO NOT REMOVE OTHERWISE TITLE AND MENU ARE UPSIDE DOWN	 -->
+<c:if test="${!article.publicView}">
+  <div>
 	<br/>
-	<div class="article-title" >
-	    <c:if test="${!article.publicView}">
-			<p>Cet article n'est pas disponible au public.
-	     	<c:choose>
-	  	       <c:when test="${displayDate != null}"> 
+		<p>Cet article n'est pas disponible au public.
+	   	  <c:choose>
+		       <c:when test="${displayDate != null}"> 
   	         	 Il sera publié le ${displayDate}.  
 			   </c:when> 
 			   <c:otherwise>
 			      Sa date de publication est indéterminée.
 			   </c:otherwise>
-			 </c:choose>
-			 </p>
-			 <hr/>
-	   </c:if>
-	</div>
-</div>
+		   </c:choose>
+		 </p>
+		 <hr/>
+   </div>
+</c:if>
 
 <!-- ARTICLE CONTENT -->
 <c:choose>
