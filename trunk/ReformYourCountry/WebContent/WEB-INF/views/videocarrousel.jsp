@@ -29,8 +29,6 @@
 		</c:forEach>
 	</div>
          
-    <br/>
-    <ryctag:separator/>
-    <br/>
+
     
 </c:if>   
