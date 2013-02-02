@@ -83,10 +83,13 @@
 <c:choose>
   	  <c:when test="${showContent}">
 		<div class="article_content">
-				
-                <%@include file="videocarrousel.jsp"%>
 
-	            <%-- SUMMARY --%>  
+				<%@include file="videocarrousel.jsp"%>
+				<br />
+				<ryctag:separator />
+				<br />
+				
+				<%-- SUMMARY --%>  
 				<ryctag:framelarge>
 							<div class="article_summary" >
 							
