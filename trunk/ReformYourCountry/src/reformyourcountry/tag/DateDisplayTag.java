@@ -38,6 +38,9 @@ public class DateDisplayTag extends SimpleTagSupport{
 
 	@Override
 	public void doTag() throws JspException {
+		if (date == null) {
+			return;
+		}
 		
 		String result;
 		
