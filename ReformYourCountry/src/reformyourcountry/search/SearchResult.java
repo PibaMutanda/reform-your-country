@@ -79,7 +79,7 @@ public  class SearchResult {
         for (IndexableField field : doc.getFields()) {
             
             if(!"id".equals(field.name()) && !"className".equals(field.name()) && (("mail".equals(field.name())  && SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS)) ||
-               ("toClassify".equals(field.name())  && SecurityContext.isUserHasPrivilege(Privilege.MANAGE_ARTICLE)))){
+               ("toClassify".equals(field.name())  && SecurityContext.isUserHasPrivilege(Privilege.VIEW_UNPUBLISHED_ARTICLE)))){
                 
                 @SuppressWarnings("unused")
                 

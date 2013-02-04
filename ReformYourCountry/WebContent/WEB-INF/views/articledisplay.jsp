@@ -173,7 +173,7 @@
 
 			    
 				<%-- TO CLASSIFY TEXT --%> 		
-				<ryc:conditionDisplay privilege="MANAGE_ARTICLE" >	   
+				<ryc:conditionDisplay privilege="VIEW_UNPUBLISHED_ARTICLE" >	   
 					<ryctag:separator/>
      			    <div style="font-size:1.15em;margin-bottom:10px; color:#bc1c1c;">TEXTE A CLASSER DANS L'ARTICLE</div>
 			        ${article.lastVersionRenderedToClassify}
