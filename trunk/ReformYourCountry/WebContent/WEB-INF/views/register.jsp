@@ -31,7 +31,7 @@
      	</tr> 
     </ryctag:form>
     
-    <p>vous pouvez également vous <a href="/signin" >connecter</a> sur ${p_website_name} en utilisant votre compte Facebook,Twitter,Linked In ou Google.
+    <p>vous pouvez également vous <a href="/signin" >connecter</a> sur ${p_website_name} en utilisant votre compte Facebook,Twitter ou Google.
 
 <!-- FACEBOOK SIGNIN -->
 	<div style="vertical-align:top; width:100%; text-align:center;">
