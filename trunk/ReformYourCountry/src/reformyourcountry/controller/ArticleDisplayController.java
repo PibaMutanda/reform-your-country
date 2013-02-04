@@ -107,7 +107,7 @@ public class ArticleDisplayController extends BaseController<Article> {
 			mv.addObject("displayDate", DateUtil.formatyyyyMMdd(article.getPublishDate()));
 		}
 
-		mv.addObject("showContent", (article.isPublished() || SecurityContext.isUserHasPrivilege(Privilege.MANAGE_ARTICLE)));
+		mv.addObject("showContent", (article.isPublished() || SecurityContext.isUserHasPrivilege(Privilege.VIEW_UNPUBLISHED_ARTICLE)));
 
 		mv.addObject("videoList",videoRepository.findAllVideoForAnArticle(article));
 		return mv;
@@ -116,7 +116,7 @@ public class ArticleDisplayController extends BaseController<Article> {
 
 	@RequestMapping(value={"/a_classer/{articleUrl}"})
 	public ModelAndView toClassifyDisplay( @PathVariable("articleUrl") String articleUrl){
-		SecurityContext.assertUserHasPrivilege(Privilege.MANAGE_ARTICLE);
+		SecurityContext.assertUserHasPrivilege(Privilege.VIEW_UNPUBLISHED_ARTICLE);
 		ModelAndView mv = new ModelAndView("articledisplaytoclassify");
 
 		Article article = getRequiredEntityByUrl(articleUrl);
@@ -125,7 +125,7 @@ public class ArticleDisplayController extends BaseController<Article> {
 		// For the breadcrumb
 		mv.addObject("parentsPath", article.getParentPath());
 
-		mv.addObject("showContent", (article.isPublished() || SecurityContext.isUserHasPrivilege(Privilege.MANAGE_ARTICLE)));
+		mv.addObject("showContent", (article.isPublished() || SecurityContext.isUserHasPrivilege(Privilege.VIEW_UNPUBLISHED_ARTICLE)));
 		BBConverter bbc = new BBConverter(bookRepository, articleRepository,actionRepository,false);
 		mv.addObject("articleToClassify", bbc.transformBBCodeToHtmlCode(article.getLastVersion().getToClassify()));
 		return mv;

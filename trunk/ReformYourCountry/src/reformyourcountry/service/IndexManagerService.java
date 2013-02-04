@@ -184,7 +184,7 @@ public class IndexManagerService {
 	
 	/**
 	 * Used to search the index, using one or more keywords
-	 * @param privilegeNeededToSeachAllCriteria privilege needed to search in all fields. For example Privilege.MANAGE_ARTICLE to see Article.toClassify.
+	 * @param privilegeNeededToSeachAllCriteria privilege needed to search in all fields. For example Privilege.VIEW_UNPUBLISHED_ARTICLE to see Article.toClassify.
 	 * @return
 	 */
 	public ScoreDoc[] search(String keyWords) {
@@ -203,7 +203,7 @@ public class IndexManagerService {
             //   2. It seems that Lucene has no way to say "search all the fields except the field 'toClassify'".
             
             List<String> fieldList = new ArrayList<String>(Arrays.asList(searchableCriterias));
-			if (!SecurityContext.isUserHasPrivilege(Privilege.MANAGE_ARTICLE)) {
+			if (!SecurityContext.isUserHasPrivilege(Privilege.VIEW_UNPUBLISHED_ARTICLE)) {
 			    fieldList.remove("toClassify");
 			}
             if (!SecurityContext.isUserHasPrivilege(Privilege.MANAGE_USERS)) {

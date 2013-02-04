@@ -85,9 +85,11 @@
 		<div class="article_content">
 
 				<%@include file="videocarrousel.jsp"%>
-				<br />
-				<ryctag:separator />
-				<br />
+				<c:if test="${fn:length(videoList) gt 0}"> 
+					<br />
+					<ryctag:separator />
+					<br />
+				</c:if>
 				
 				<%-- SUMMARY --%>  
 				<ryctag:framelarge>
