@@ -64,6 +64,8 @@
 			 <li><a href="/about/pourquoi.jsp">Pourquoi ce site?</a></li>
 			 <li><a href="/fonctionnalites">Fonctionnalités</a></li>
 			 <li><a href="/about/contribuer.jsp#">Comment contribuer?</a></li>
+			 <li><a href="https://groups.google.com/forum/#!forum/enseignement2-contributeurs" target="_blank" title="forum google où les contributeurs peuvent partager et débattre des idées sur la confection et l'amélioration des articles">
+			     Forum des contributeurs</a></li>
 			 <li><a href="/contact">Contactez-nous</a></li>
 		</ul>	
 	</div><!-- end footer_post -->
