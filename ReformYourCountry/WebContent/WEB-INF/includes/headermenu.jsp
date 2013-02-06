@@ -31,5 +31,5 @@
 		 </ul>
 	</li>
 	
-	<li></li>  <%-- Empty LI to have a vertical separator between the last menu item and the search tool --%> 
+<%--	<li></li>  -- Empty LI to have a vertical separator between the last menu item and the search tool --%> 
 </ul>

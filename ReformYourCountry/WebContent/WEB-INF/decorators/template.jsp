@@ -13,9 +13,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" /><%-- force IE to doesn't use is compataibility mode--%>
     
 	<meta name="viewport" content="width=device-width"/><%--Define the base-width as the screen width --%>
+	
 	<%@ include file="/WEB-INF/includes/import.jsp"%>
+	
 	<decorator:head />
+	
 	<link rel="shortcut icon" href="#"/>
+	
 	<title><decorator:title /></title>
 </head>
 
@@ -25,17 +29,22 @@
 <%-- IE7 not supported image --%>
 <!--[if lt IE 8]><div style='background-color:orange;'>Vous utilisez une version préhistorique d'Internet Explorer (qui n'est plus utilisée que par une très infime fraction de la population). Ce site ne s'affichera pas correctement avec votre version. Merci de la mettre à jour vers une version plus récente, ou bien d'utiliser un navigateur moderne tel que Chrome ou Firefox.</div><![endif]-->
 
-<div id="wrapper">
+<div id="wrapper">  <%-- for the top bg image --%>
+<div id="wrapper2"> <%-- for the bottom bg image --%>
+
+  <div class="wrapper-center-tight" style="padding-bottom:30px;">
 	<%@ include file="/WEB-INF/includes/header.jsp"%>
-	
-	<div id="main">
-		<div class="main-area">
+  </div>
+  	
+  <div id="main-wrapper">  <%-- Wider than wrapper-center-tight, to include the background page borders repeated. --%>
+  <div id="main-wrapper2">
+		<div id="main">
 		        <!-- divs with display:inline-block do not work for IE7-. There are hacks but mess the code up. A Table is just simple. http://giveupandusetables.com/ -->
-				<table  style="background-image:url(/images/kidsdrawingbig.png);	background-repeat:no-repeat;   background-position:left bottom;">   
+				<table  >   
 				  <tr style="vertical-align:top;">
 				    <td style="padding:0;">
 						<!-- ***************** - START Left list of articles - ***************** -->
-						<div id="sub_nav">
+						<div id="sub_nav" style="margin-top:-34px;">
 						  <ryc:articlesNavBar/>
 						</div>
 						<!-- ***************** - END Left list of articles - ***************** -->
@@ -50,11 +59,15 @@
 				  <tr>
 				</table>
 		</div><!-- main-area -->
-    </div>
+   </div> <%-- main wrapper 2 --%>
+   </div> <%-- main wrapper --%>
 	
 
+  <div class="wrapper-center-tight">
 	<%@ include file="/WEB-INF/includes/footer.jsp"%>
-
+  </div>
+  
+</div><%-- wrapper 2 --%>
 </div><!--  end wrapper -->
 </body>
 </html>
