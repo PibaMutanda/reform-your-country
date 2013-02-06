@@ -32,7 +32,7 @@
 <div id="wrapper">  <%-- for the top bg image --%>
 <div id="wrapper2"> <%-- for the bottom bg image --%>
 
-  <div class="wrapper-center-tight" style="padding-bottom:30px;">
+  <div class="wrapper-center-tight" style="padding-bottom:28px;">
 	<%@ include file="/WEB-INF/includes/header.jsp"%>
   </div>
   	
