@@ -2,7 +2,7 @@
 <%@page import="reformyourcountry.web.Current" %>
 
 <!-- ***************** - Top Footer - ***************** --> 
-<div id="footer">
+<div id="footer" style="position:relative;">  <%-- need relative to position inner div "monter" --%>
 <div class="footer-area">
 <div class="footer-wrapper">
 <div class="footer-holder">
@@ -71,6 +71,11 @@
 	</div><!-- end footer_post -->
 </div><!-- end third one_fourth_column -->
 
+
+
+<%-- Link to go up (image is included in the background)--%>
+  <div style="width:90px; height:70px; cursor:pointer; position:absolute; right:-56px; top:0px;"
+       onclick="$('html, body').animate({scrollTop:0}, 'slow');"></div>  <%-- Empty div to have a clickable area on top of the bg image --%>
 
 
 <!-- ***************** - END Footer Content - *****************  -->

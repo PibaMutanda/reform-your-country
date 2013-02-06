@@ -114,16 +114,15 @@ body {margin:0;background-color:#FAFAFA;font-size:1em;font-family:"helvetica neu
 /*---------------------------------------------------------------*/
 /* 1. GENERAL LAYOUT
 /*---------------------------------------------------------------*/
-#wrapper {width:100%;display:table;}
+/* #wrapper {width:100%;display:table;}
 #wrapper #header {display:table-header-group;max-height:135px;}
 .top-block .top-holder {width:1000px;margin:0 auto;font-size:10px;padding:4px 0;min-height:4px;height:auto;}
 .top-block .top-holder:after {clear:both;display:block;content:"";}
 #header .rays {background: url(/images/_global/rays.png) 50% 0 no-repeat;height:135px;}
 #header .header-area {width:1000px;margin:0 auto;padding:5px 0 0 0;}
 #header .header-area:after {clear:both;display:block;content:"";}
-#main {background:url(/images/_global/bg-main.png)  repeat-x;position:relative;width:100%;
-padding-top: 1px;}
 #main .main-area {width:1000px;margin:1px auto;padding:20px 0 20px 0;}
+ */
 .tools .place {position:relative;}
 .carousel-holder {width:315px !important;}
 
@@ -206,12 +205,13 @@ padding-top: 1px;}
 /*---------------------------------------------------------------*/
 /* 4. FOOTER
 /*---------------------------------------------------------------*/
-#footer {width:100%;position:relative;bottom: 0px;/*padding-top: 40px;*/}
+/* #footer {width:100%;position:relative;bottom: 0px;padding-top: 40px;}
 #footer .footer-area {width:1000px;margin:0 auto;position:relative;}
 #footer .footer-wrapper {width:1000px;overflow:hidden;}
 #footer .footer-holder {width:100%;overflow:hidden;padding:45px 0 25px 6px;}
 #footer .box {width:333px;float:left;}
-#footer_bottom {width: 100%;min-height:14px;height:auto;}
+ */
+ #footer_bottom {width: 100%;min-height:14px;height:auto;}
 #foot_left {float: left;width:440px;}
 #foot_left .textwidget {margin-top:-18px;}
 #foot_right {float: right;width:520px;text-align: right;}
@@ -553,7 +553,7 @@ padding-top: 1px;}
 /*---------------------------------------------------------------*/
 #menu-main-nav {list-style:none;margin:0;padding-top: 25px;list-style:none;float:left;}
 #menu-main-nav a {outline: none;}
-#menu-main-nav li {float:left;padding:5px 13px 12px 13px;position:relative;vertical-align:top;height:1%;margin-right: 2px;min-height:30px;}
+#menu-main-nav li {float:left;padding:5px 30px 12px 30px;position:relative;vertical-align:top;height:1%;margin-right: 2px;min-height:30px; text-align:left;}
 #menu-main-nav ul li {background: none !important;}
 #menu-main-nav li.parent:hover {position:relative;}
 #menu-main-nav li.parent li.parent:hover {background:none !important;}
