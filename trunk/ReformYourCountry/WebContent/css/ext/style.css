@@ -1881,12 +1881,12 @@ border-radius: 5px;
 
 
 .logodiv {cursor:pointer; float:left;  padding-top: 28px;}
-.logodiv div a{color:#7D92B9}
+.logodiv div a {color:#5b7aa6}
 .button{
 	margin: 0;
-padding: 16px 0 17px 21px;
-line-height: 10px;
-background: transparent url(images/_global/bg-buttons-sprite.png) 0 0 no-repeat scroll;
+    padding: 16px 0 17px 21px;
+    line-height: 10px;
+    background: transparent url(images/_global/bg-buttons-sprite.png) 0 0 no-repeat scroll;
 }
 .spanbutton{
 	background-image: url(images/_global/bg-buttons-sprite-royalblue.png) !important;

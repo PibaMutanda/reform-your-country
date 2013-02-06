@@ -28,7 +28,7 @@ $(document).ready(function(){
 	    <div style="height:20px;">  <%-- WHITE LINE ABOVE THE RIBBON --%>
 				<div style="float:right">
 				    <!-- ***************** - REGISTER - ***************** -->
-					<div style="width:100%; ">
+					<div style="width:100%; font-size:15px;">
 						<c:choose>
 							<c:when test="${current.user!=null}">
 							<div class="login-link" title ="Connecté en tant que ${current.user.userName} avec ${sessionScope.providersignedin}">
