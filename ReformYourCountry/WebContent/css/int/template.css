@@ -26,7 +26,7 @@ body {
 
 
 #main-wrapper {
-	width:1087px;
+	width:1123px;
 	margin:0px auto;
     background:url(/images/template/bg_content.png) repeat-y;
 }
@@ -35,7 +35,7 @@ body {
 	width:100%;
 	background-image:url(/images/kidsdrawingbig.png);
 	background-repeat:no-repeat;
-	background-position:22px bottom;"
+	background-position:40px bottom;"
 }
 
 #main {
