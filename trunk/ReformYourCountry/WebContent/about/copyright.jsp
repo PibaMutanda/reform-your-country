@@ -16,7 +16,7 @@
 <img src="images/creative_commons.jpg"/>
 </div>
 <p>
-<i>Cette licence vous permet de distribuer, remixer, ajuster et développer notre travail, même commercialement, tant qu'ils nous crédite pour la création originale. C'est la plus accommodante des licences offertes.</i> <br/>
+<i>Cette licence vous permet de distribuer, remixer, ajuster et développer notre travail, même commercialement, tant que vous nous créditez pour la création originale. C'est la plus accommodante des licences offertes.</i> <br/>
 Source: <a href="http://creativecommons.org/licenses">Creative Commons</a>
 </p>
 <p>Cela veut dire que les textes peuvent être repris dans une revue, par la presse et sur un blog, partiellement et même modifiés, tant que la source est indiquée.</p>
