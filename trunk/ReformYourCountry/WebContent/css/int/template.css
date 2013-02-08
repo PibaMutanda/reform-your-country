@@ -26,9 +26,8 @@ body {
 
 
 #main-wrapper {
-	width:1123px;
-	margin:0px auto;
-    background:url(/images/template/bg_content.png) repeat-y;
+	width:100%;
+    background:url(/images/template/bg_content.png) center repeat-y;
 }
 
 #main-wrapper2 {

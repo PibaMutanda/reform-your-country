@@ -68,7 +68,9 @@ public class BaseController<E extends BaseEntity> {
     protected E getRequiredEntityByUrl(String url){
     	Object obj;
 		try {
-			obj = em.createQuery("select e from "+entityClass.getName()+" e where e.url = :url").setParameter("url",url).getSingleResult();
+			obj = em.createQuery("select e from "+entityClass.getName()+" e where lower(e.url) = :url")
+					.setParameter("url",url.toLowerCase())
+					.getSingleResult();
 		} catch (Exception e) {
 			throw new InvalidUrlException(entityClass.getName() + " ayant l'url '"+url+"' est introuvable.", e);
 		}
