@@ -24,7 +24,7 @@
 /*---------------------------------------------------------------*/
 /* NAVIGATION
 /*---------------------------------------------------------------*/
-#menu-main-nav li strong {color:#5b7aa6 !important;}
+#menu-main-nav li strong {color:rgb(162, 183, 214) !important;}
 #menu-main-nav a span {color:#7D92B9 !important;} /* link color parent level  */
 #menu-main-nav a:hover span,
 #menu-main-nav li.current_page_item a span,
@@ -84,7 +84,7 @@
 #menu-main-nav .drop ul .drop ul a span,
 #menu-main-nav .drop ul .drop ul .drop ul a,
 #menu-main-nav .drop ul .drop ul .drop ul a span,
-#menu-main-nav li .sub-menu li .sub-menu li .sub-menu li a span {background:none !important;color: #5b7aa6 !important;} /* C. dropdown link color */
+#menu-main-nav li .sub-menu li .sub-menu li .sub-menu li a span {background:none !important;color: rgb(162, 183, 214) !important;} /* C. dropdown link color */
 .search-header #menu-main-nav .sub-menu a span, .search-header #menu-main-nav .current_page_parent  .sub-menu a span, .error-header #menu-main-nav .sub-menu a span, .error-header #menu-main-nav .current_page_parent  .sub-menu a span {color: #FFF !important;}
 #menu-main-nav .drop ul li.current-menu-item ul li a,
 #menu-main-nav .drop ul li.current-menu-item ul li a span {color:#FFF !important;} /* D. dropdown link color (match C) */
