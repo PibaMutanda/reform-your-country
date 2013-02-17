@@ -32,15 +32,15 @@ body {
 
 #main-wrapper2 {
 	width:100%;
-	background-image:url(/images/kidsdrawingbig.png);
-	background-repeat:no-repeat;
-	background-position:40px bottom;"
 }
 
 #main {
 	width:1000px;
 	margin:0px auto 60px auto;
     padding-top: 41px;
+    background-image:url(/images/kidsdrawingbig.png);
+	background-repeat:no-repeat;
+	background-position:40px bottom;"
     
 }
 
