@@ -65,7 +65,7 @@
 <c:if test="${!article.publicView}">
   <div>
 	<br/>
-		<p>Cet article n'est pas disponible au public.
+		<p>Cet article n'est pas encore publié.
 	   	  <c:choose>
 		       <c:when test="${displayDate != null}"> 
   	         	 Il sera publié le ${displayDate}.  
@@ -75,7 +75,7 @@
 			   </c:otherwise>
 		   </c:choose>
 		 </p>
-		 <hr/>
+		 
    </div>
 </c:if>
 
@@ -108,7 +108,7 @@
 												</div>
 											</div>
 											<c:if test="${!article.children.isEmpty()}">
-												<hr/>
+												
 											</c:if>
 										</ryc:conditionDisplay> 
 										
