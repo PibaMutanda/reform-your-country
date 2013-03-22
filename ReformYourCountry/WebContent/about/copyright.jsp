@@ -30,7 +30,7 @@ Cela ne concerne pas les citations.
 <h2>Citations</h2>
 
 <p>Nous citons beaucoup de sites et <a href="book">de livres</a>, parfois le même livre dans plusieurs articles.
-Ce <a href="http://fr.wikipedia.org/wiki/Droit_de_courte_citation">droit de citation</a> est défini par le convention de Bernes et est admis par le droit européen et <a href=" http://www.droit-technologie.org/actuality-1001/l-exception-de-citation-ecartee-en-cas-de-reproduction-integrale-d-une.html">belge</a>.
+Ce <a href="http://fr.wikipedia.org/wiki/Droit_de_courte_citation">droit de citation</a> est défini par le convention de Berne et est admis par le droit européen et <a href=" http://www.droit-technologie.org/actuality-1001/l-exception-de-citation-ecartee-en-cas-de-reproduction-integrale-d-une.html">belge</a>.
 Nous espérons que ces citations piqueront la curiosité de certains lecteurs, les incitant à visiter les sites que nous citons et à acquérir l'un ou l'autre livre que nous référençons.
 </p>
 <p>Si toutefois, en tant qu'auteur, vous désirez que nous supprimions l'un ou l'autre passage de votre oeuvre, n'hésitez pas à <a href="/contact">nous contacter</a>, et nous adapterons les articles avec des citations d'autres auteurs (nous avons une grande réserve), ou bien nous vous paraphraserons. C'est à dire que si nous vous citions comme suit:
@@ -40,7 +40,7 @@ alors nous transformerons cette citation comme suit:
 
 <p>Bien entendu, si vous regrettez vos propos, nous les retirerons et ne les paraphraserons pas.</p>
 
-<p>Il va de soit que le texte des auteurs de nous citons n'est généralement pas couvert par la licence "creative commons" contrairement au texte que nous avons créé nous même pour ce site.</p>
+<p>Il va de soit que le texte des auteurs de nous citons n'est généralement pas couvert par la licence "creative commons" contrairement au texte que nous avons créé nous mêmes pour ce site.</p>
 
 </body>
 </html>
