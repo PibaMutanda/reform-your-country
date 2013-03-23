@@ -11,7 +11,7 @@
 <!-- ***************** - Footer Content Starts Here - *****************  -->
 <div class="footer-column">
 	<div class="footer-title">Follow Us</div>
-	<a href="${p_webSite_youtubeaddress}" target="_blank" ></a><img src="/images/youtube.png"/ class="hoverImage"></a>
+	<a href="${p_website_youtubeaddress}" target="_blank" ></a><img src="/images/youtube.png"/ class="hoverImage"></a>
 	<br/> <br/> <br/> <br/>
 	
 	<a rel="license" href="/about/copyright.jsp" target="_blank" title="Le contenu de ce site est mis à disposition selon les termes de la Licence Creative Commons Attribution 3.0 Belgique.">
