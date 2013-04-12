@@ -19,10 +19,10 @@ $(document).ready(function() {
 			autoOpen: false,
 			width: 450, 
 			buttons: {
-				"Generer le pdf": function() {  // Called on button click;
+				"Générer le pdf": function() {  // Called on button click;
 					generatePdf();
 				},
-				"Anuler": function() {
+				"Annuler": function() {
 					$('#pdfdialog').dialog("close");
 				}
 			},
