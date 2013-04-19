@@ -7,7 +7,7 @@
 <head>
 </head>
 <body>
-<ryctag:pageheadertitle title="Droit d'auteur"></ryctag:pageheadertitle>
+<ryctag:pageheadertitle title="Droits d'auteur"></ryctag:pageheadertitle>
 
 <h2>Texte des articles et actions</h2>
 
@@ -30,12 +30,12 @@ Cela ne concerne pas les citations.
 <h2>Citations</h2>
 
 <p>Nous citons beaucoup de sites et <a href="book">de livres</a>, parfois le même livre dans plusieurs articles.
-Ce <a href="http://fr.wikipedia.org/wiki/Droit_de_courte_citation">droit de citation</a> est défini par le convention de Berne et est admis par le droit européen et <a href=" http://www.droit-technologie.org/actuality-1001/l-exception-de-citation-ecartee-en-cas-de-reproduction-integrale-d-une.html">belge</a>.
+Ce <a href="http://fr.wikipedia.org/wiki/Droit_de_courte_citation">droit de citation</a> est défini par la convention de Berne et est admis par le droit européen et <a href=" http://www.droit-technologie.org/actuality-1001/l-exception-de-citation-ecartee-en-cas-de-reproduction-integrale-d-une.html">belge</a>.
 Nous espérons que ces citations piqueront la curiosité de certains lecteurs, les incitant à visiter les sites que nous citons et à acquérir l'un ou l'autre livre que nous référençons.
 </p>
-<p>Si toutefois, en tant qu'auteur, vous désirez que nous supprimions l'un ou l'autre passage de votre oeuvre, n'hésitez pas à <a href="/contact">nous contacter</a>, et nous adapterons les articles avec des citations d'autres auteurs (nous avons une grande réserve), ou bien nous vous paraphraserons. C'est à dire que si nous vous citions comme suit:
+<p>Si toutefois, en tant qu'auteur, vous désirez que nous supprimions l'un ou l'autre passage de votre oeuvre, n'hésitez pas à <a href="/contact">nous contacter</a> et nous adapterons les articles avec des citations d'autres auteurs (nous avons une grande réserve) ou bien nous vous paraphraserons. C'est-à-dire que si nous vous citions comme suit:
 <i>"Les collègues de mon école sont tous merveilleux"</i>
-alors nous transformerons cette citation comme suit:
+alors nous transformerons cette citation comme cela:
 "L'auteur indique que les collègues de son école sont tous merveilleux".
 
 <p>Bien entendu, si vous regrettez vos propos, nous les retirerons et ne les paraphraserons pas.</p>
