@@ -30,9 +30,9 @@
 
 <ryctag:breadcrumb>
 	<ryctag:breadcrumbelement label="${article.title}" link="/article/${article.url}"/>
-	<ryctag:breadcrumbelement label="Bons examples"/>
+	<ryctag:breadcrumbelement label="Bons exemples"/>
 </ryctag:breadcrumb>
-<ryctag:pageheadertitle title="Bons examples pour l'article ${article.title}" />
+<ryctag:pageheadertitle title="Bons exemples pour l'article ${article.title}" />
 
 
 <!-- AddThis Button BEGIN -->
