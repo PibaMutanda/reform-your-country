@@ -1,0 +1,18 @@
+# Introduction #
+
+Add your content here.
+
+
+# Details #
+
+It's really easy. You just have to overwrite (create a file with the same name in your src/ folder) the config.properties and secret.properties files. You put the values you need there.
+
+Then you create a build.xml in your project at the root folder of the project and inside you write
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project>
+<project basedir=".">
+	<import file="../ReformYourCountry/buildTwoProjects.xml"/>
+</project>
+```
+You also have to create your own build.properties file at the root
